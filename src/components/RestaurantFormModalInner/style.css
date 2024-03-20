@@ -1,6 +1,4 @@
 restaurant-form-inner {
-  display: block;
-  height: 730px;
   drop-box,
   custom-input {
     display: block;
@@ -24,6 +22,11 @@ restaurant-form-inner {
     height: 90px;
   }
 }
+.restaurant-form-container drop-box {
+  width: 358px;
+  height: 44px;
+}
+
 .restaurant-form-modal-title {
   margin-bottom: 36px;
   font-weight: var(--lunch-title-font-weight);
@@ -56,4 +59,8 @@ restaurant-form-inner {
   color: var(--lunch-grey-scale-3-color);
   font-size: var(--label-font-size);
   line-height: 20px;
+}
+
+restaurant-form-inner button:disabled {
+  background-color: var(--lunch-grey-scale-2-color);
 }

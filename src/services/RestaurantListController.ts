@@ -1,33 +1,42 @@
+import AllRestaurantList from '../components/AllRestaurantList';
+import RestaurantListTemplate from '../components/RestaurantListTemplate';
 import { STORAGE_KEY } from '../constants';
-import { INITIAL_RESTAURANT_DATA } from '../data/restaurantData';
-import { RestaurantInfo } from '../types';
+import { RestaurantList } from '../domains';
+import { RestaurantInfo } from '../types/index';
 
 const RestaurantListController = {
-  updateLocalStorage() {
+  /**
+   * 사이트 초기에 실행 시, 서버 역할인 localStorage에 데이터를 채워 넣기
+   */
+  saveInitialDataToLocalStorage() {
     const data = localStorage.getItem(STORAGE_KEY.restaurants);
 
     if (!data) {
-      localStorage.setItem(
-        STORAGE_KEY.restaurants,
-        JSON.stringify(INITIAL_RESTAURANT_DATA),
-      );
+      new RestaurantList().saveListToLocalStore();
     }
   },
+  /**
+   * AllRestaurantList 인스턴스를 생성해 모든 음식점 리스트를 만드는 함수
+   */
+  injectAllRestaurantList(restaurantList: RestaurantInfo[] | undefined) {
+    const $listContainer = document.querySelector('.restaurant-list-container');
 
-  injectRestaurantListHTML(restaurantList?: RestaurantInfo[]) {
-    const listEl = document.querySelector('.restaurant-list');
+    new AllRestaurantList({
+      $parent: $listContainer,
+      restaurantList,
+    });
+  },
+  /**
+   * 즐겨찾기 관련 props를 이용한 RestaurantListTemplate 인스턴스를 생성해 자주 가는 음식점 리스트를 만드는 함수
+   */
+  injectFavoriteRestaurantList() {
+    const $listContainer = document.querySelector('.restaurant-list-container');
 
-    const restaurantListText = restaurantList
-      ?.map(
-        (info: RestaurantInfo) =>
-          `<restaurant-box name="${info.name}"></restaurant-box>`,
-      )
-      .join('');
-
-    const noneRestaurant = /* html */ `<p id="none-restaurant-category">해당 카테고리의 음식점이 존재하지 않습니다.</p>`;
-    if (listEl) {
-      listEl.innerHTML = restaurantListText || noneRestaurant;
-    }
+    new RestaurantListTemplate({
+      $parent: $listContainer,
+      restaurantList: new RestaurantList().filterFavorites(),
+      classList: ['favorite-restaurant-list'],
+    });
   },
 };
 

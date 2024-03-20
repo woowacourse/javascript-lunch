@@ -1,10 +1,7 @@
-import { RESTAURANT_INFO_FOR_VALIDATE_TEST } from '../../data/restaurantData';
-import { Restaurant } from '../../domains';
-import { RestaurantInfoKey, RestaurantInfo } from '../../types';
+import { RestaurantValidator } from '../../domains';
+import { RestaurantTextInfoKey } from '../../types';
 
 class FormTextField extends HTMLElement {
-  $customTextField: HTMLElement | undefined;
-
   constructor() {
     super();
   }
@@ -27,21 +24,21 @@ class FormTextField extends HTMLElement {
       }
     `;
     // label
-    const labelText = this.getAttribute('labelText');
-    const labelForId = this.getAttribute('labelForId');
-    const labelEl = document.createElement('label');
+    const labelText = this.getAttribute('label-text');
+    const labelForId = this.getAttribute('label-for-id');
+    const $label = document.createElement('label');
 
-    if (labelForId) labelEl.setAttribute('for', labelForId);
-    labelEl.textContent = labelText;
-    // customTextContainerEl
-    const customTextContainerEl = document.createElement('div');
-    customTextContainerEl.className = 'custom-text-container';
+    if (labelForId) $label.setAttribute('for', labelForId);
+    $label.textContent = labelText;
+    // $customTextContainer
+    const $customTextContainer = document.createElement('div');
+    $customTextContainer.className = 'custom-text-container';
     // errorMessage
     const errorMessageBoxEl = document.createElement('error-message-box');
 
     this.appendChild(style);
-    this.appendChild(labelEl);
-    this.appendChild(customTextContainerEl);
+    this.appendChild($label);
+    this.appendChild($customTextContainer);
     this.appendChild(errorMessageBoxEl);
   }
 
@@ -53,56 +50,49 @@ class FormTextField extends HTMLElement {
     }
   }
 
-  #isRestaurantInfoKey(key: string | null): key is RestaurantInfoKey {
-    const restaurantInfoKeys: RestaurantInfoKey[] = [
-      'category',
-      'description',
-      'distance',
-      'distance',
-      'like',
-      'link',
-      'name',
-    ];
-
-    return key ? ([...restaurantInfoKeys] as string[]).includes(key) : false;
+  #isRestaurantInfoKey(key: string | null): key is RestaurantTextInfoKey {
+    const restaurantInfoKeys = ['description', 'link', 'name'];
+    return key ? restaurantInfoKeys.includes(key) : false;
   }
 
-  #addEventToChange(key: RestaurantInfoKey) {
-    const customTextContainerEl = this.querySelector('.custom-text-container');
-    const inputOrTextareaEl =
-      customTextContainerEl?.firstElementChild?.firstChild;
+  #addEventToChange(key: RestaurantTextInfoKey) {
+    const $customTextContainer = this.querySelector('.custom-text-container');
+    const $inputOrTextarea =
+      $customTextContainer?.firstElementChild?.firstChild;
 
     if (
-      inputOrTextareaEl instanceof HTMLInputElement ||
-      inputOrTextareaEl instanceof HTMLTextAreaElement
+      $inputOrTextarea instanceof HTMLInputElement ||
+      $inputOrTextarea instanceof HTMLTextAreaElement
     ) {
-      inputOrTextareaEl.addEventListener('change', (event) =>
+      $inputOrTextarea.addEventListener('change', (event) =>
         this.#handleChangeToValidateValue(event, key),
       );
     }
   }
 
-  #handleChangeToValidateValue(event: Event, key: RestaurantInfoKey) {
+  #handleChangeToValidateValue(event: Event, key: RestaurantTextInfoKey) {
     const { value } = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const newInfo: RestaurantInfo = { ...RESTAURANT_INFO_FOR_VALIDATE_TEST };
-    (newInfo[key] as string) = value;
 
     try {
-      // eslint[no-new] rule :off
-      // eslint-disable-next-line
-      new Restaurant(newInfo);
-
+      this.#checkInfoValidate(key, value);
       this.#handleErrorMessage('');
     } catch (error) {
       this.#handleErrorMessage(error);
     }
   }
 
-  #handleErrorMessage(error: unknown) {
-    const errorMessageBoxEl = this.querySelector('error-message-box');
+  /**
+   * 글자로 입력하는 정보(이름,설명,링크)에 대한 유효성 검사
+   */
+  #checkInfoValidate(key: RestaurantTextInfoKey, value: string) {
+    RestaurantValidator.validateTextAboutInfo(key, value);
+  }
 
-    if (errorMessageBoxEl instanceof HTMLElement) {
-      errorMessageBoxEl.textContent =
+  #handleErrorMessage(error: unknown) {
+    const $errorMessageBox = this.querySelector('error-message-box');
+
+    if ($errorMessageBox instanceof HTMLElement) {
+      $errorMessageBox.textContent =
         error instanceof Error ? error.message : null;
     }
   }

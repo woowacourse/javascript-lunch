@@ -1,0 +1,9 @@
+none-restaurant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--lunch-grey-scale-3-color);
+  text-align: center;
+}

@@ -1,0 +1,37 @@
+favorite-icon {
+  position: absolute;
+  img {
+    display: none;
+  }
+}
+
+favorite-icon.favorite-true {
+  .favorite-true-img {
+    display: block;
+  }
+}
+
+favorite-icon.favorite-false {
+  .favorite-false-img {
+    display: block;
+  }
+}
+
+favorite-icon button {
+  box-sizing: border-box;
+  border: none;
+  background-color: initial;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+}
+
+favorite-icon img {
+  width: inherit;
+  height: inherit;
+}
+
+.restaurant favorite-icon {
+  top: 14px;
+  right: 16px;
+}

@@ -1,9 +1,10 @@
 import './style.css';
 
 import { DROP_BOX_MAP } from '../../constants';
-import { Restaurant, RestaurantList } from '../../domains';
-import FilteringController from '../../services/FilteringController';
+import { RestaurantList, RestaurantValidator } from '../../domains';
+import { RestaurantListController } from '../../services';
 import { DropBoxName, RestaurantInfo, Category, Distance } from '../../types';
+import { closeModal } from '../../utils';
 
 class RestaurantFormModalInner extends HTMLElement {
   #newInfo: RestaurantInfo | undefined;
@@ -25,13 +26,13 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
           <form-input
-            labelText="이름"
-            labelForId="restaurant-name"
+            label-text="이름"
+            label-for-id="restaurant-name"
             key="name"
             type="text"
             required="true",
             placeholder="이름을 입력해주세요(10자 이내)"
-            maxlength="10"
+            max-length="10"
           > 
           </form-input>
         </div>
@@ -50,7 +51,7 @@ class RestaurantFormModalInner extends HTMLElement {
             cols="30"
             rows="5"
             placeholder="메뉴 등 추가 정보를 입력해 주세요.(150자 이내)"
-            maxlength="150"
+            max-length="150"
           >
           </custom-textarea>
         </div>
@@ -58,12 +59,12 @@ class RestaurantFormModalInner extends HTMLElement {
         <!-- 링크 -->
         <div class="form-item">
         <form-input
-          labelText="참고 링크"
-          labelForId="restaurant-link"
+          label-text="참고 링크"
+          label-for-id="restaurant-link"
           key="link"
           type="text"
           placeholder="음식점 링크 (http/https 포함, 예시: https://example.com)"
-          maxlength="2000"
+          max-length="2000"
         > 
         </form-input>
         </div>
@@ -76,18 +77,18 @@ class RestaurantFormModalInner extends HTMLElement {
     `;
 
     // 이벤트
-    const formEl = this.querySelector('form');
+    const $restaurantForm = this.querySelector('form');
 
-    if (formEl instanceof HTMLFormElement) {
-      formEl.addEventListener('reset', this.#handleResetForm.bind(this));
-      formEl.addEventListener('submit', (event) =>
-        this.#handleSubmitFormToAddStore(event),
-      );
-      formEl.addEventListener(
-        'focusout',
-        this.#handleFocusOutToActiveSubmitBtn.bind(this),
-      );
-    }
+    if (!$restaurantForm) return;
+
+    $restaurantForm.addEventListener('reset', this.#handleResetForm.bind(this));
+    $restaurantForm.addEventListener('submit', (event) =>
+      this.#handleSubmitFormToAddStore(event),
+    );
+    $restaurantForm.addEventListener(
+      'focusout',
+      this.#handleFocusOutToActiveSubmitBtn.bind(this),
+    );
   }
 
   // 이벤트 함수 정의
@@ -121,12 +122,15 @@ class RestaurantFormModalInner extends HTMLElement {
   }
 
   #getTextFieldValue(elementId: string, textFiledTagName: string) {
-    const el = document
+    const $textField = document
       .getElementById(elementId)
       ?.querySelector(textFiledTagName);
 
-    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
-      return el.value;
+    if (
+      $textField instanceof HTMLInputElement ||
+      $textField instanceof HTMLTextAreaElement
+    ) {
+      return $textField.value;
     }
 
     return undefined;
@@ -151,8 +155,6 @@ class RestaurantFormModalInner extends HTMLElement {
       link: this.#getTextFieldValue('restaurant-link', 'input'),
     };
 
-    // consistent-return : off
-    // eslint-disable-next-line
     return info;
   }
 
@@ -174,26 +176,17 @@ class RestaurantFormModalInner extends HTMLElement {
     if (!info) return;
 
     try {
-      this.#newInfo = new Restaurant(info).info;
+      RestaurantValidator.validateInfo(info);
+
+      this.#newInfo = info;
       this.#handleSubmitBtnDisabled(false);
     } catch (error) {
       this.#handleSubmitBtnDisabled(true);
     }
   }
 
-  #closeModal() {
-    const modalEl = document
-      .querySelector('custom-modal')
-      ?.shadowRoot?.querySelector('.modal');
-
-    modalEl?.classList.toggle('open');
-
-    const bodyEl = document.querySelector('body');
-    if (bodyEl) bodyEl.style.overflowY = 'scroll';
-  }
-
   #handleResetForm() {
-    this.#closeModal();
+    closeModal();
   }
 
   #handleSubmitFormToAddStore(event: Event) {
@@ -203,8 +196,16 @@ class RestaurantFormModalInner extends HTMLElement {
     if (this.#newInfo) {
       this.#addToRestaurantList(this.#newInfo);
       this.querySelector('form')?.reset();
-      FilteringController.showFilteredSortedList();
+      this.#showChangedAllRestaurantList();
+      closeModal();
     }
+  }
+
+  #showChangedAllRestaurantList() {
+    const $allRestaurantList = document.querySelector('.all-restaurant-list');
+    if (!$allRestaurantList) return;
+
+    RestaurantListController.injectAllRestaurantList(new RestaurantList().list);
   }
 }
 

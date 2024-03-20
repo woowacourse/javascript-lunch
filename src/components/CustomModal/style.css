@@ -1,5 +1,8 @@
 custom-modal {
   display: block;
-  width: inherit;
-  height: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
+/* 모달 오픈 시,   width: inherit;
+  height: inherit; 넣어주기*/

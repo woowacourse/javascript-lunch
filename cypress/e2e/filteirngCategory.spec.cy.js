@@ -43,10 +43,9 @@ describe('template spec', () => {
 
       $filteringCategory.select(category);
 
-      const $filteredList = cy.get('.restaurant-list');
-
       // all
       if (category === 'all') {
+        const $filteredList = cy.get('.restaurant-list');
         const numberOfFilteredList = $filteredList.childElementCount;
 
         expect(numberOfRestaurant).to.equal(numberOfFilteredList);
@@ -55,7 +54,7 @@ describe('template spec', () => {
       }
       // 기타
       if (category === 'asian') {
-        cy.get('#none-restaurant-category').should('be.visible');
+        cy.get('none-restaurant').should('be.visible');
       } else {
         cy.get('category-icon').each(($el) => {
           expect($el.attr('category')).to.equal(category);

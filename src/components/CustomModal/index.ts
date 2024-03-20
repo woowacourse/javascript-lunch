@@ -14,16 +14,15 @@ class CustomModal extends HTMLElement {
       
       .modal.open {
         display:block;
-        position: absolute;
-        top: 0;
-        left: 0;
         z-index: 3;
         width: inherit;
-        height: 880px;
+        height: inherit
       }
 
       .modal-backdrop {
-        position:fixed;
+        position:absolute;
+        top:0;
+        left:0;
         height: inherit;
         width: inherit;
         background:rgba(0, 0, 0, 0.35);
@@ -32,7 +31,7 @@ class CustomModal extends HTMLElement {
       .modal-container {
         width: inherit;
         max-height: 85%;
-        position: fixed;
+        position: absolute;
         bottom: 0;
         border-radius: 8px 8px 0px 0px;
         background: var(--lunch-grey-scale-1-color);

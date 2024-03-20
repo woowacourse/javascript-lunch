@@ -10,10 +10,10 @@ class FromInput extends FormTextField {
   connectedCallback() {
     const attributes: Attributes = {
       type: this.getAttribute('type'),
-      id: this.getAttribute('labelForId'),
-      name: this.getAttribute('labelForId'),
+      id: this.getAttribute('label-for-id'),
+      name: this.getAttribute('label-for-id'),
       required: this.getAttribute('required'),
-      maxlength: this.getAttribute('maxlength'),
+      maxLength: this.getAttribute('max-length'),
       placeholder: this.getAttribute('placeholder'),
     };
 
@@ -23,13 +23,13 @@ class FromInput extends FormTextField {
   }
 
   #setCustomInput(attributes: Attributes) {
-    const customInputEl = setObjectAttribute(
+    const $customInput = setObjectAttribute(
       attributes,
       document.createElement('custom-input'),
     );
-    const customTextContainerEl = this.querySelector('.custom-text-container');
+    const $customTextContainer = this.querySelector('.custom-text-container');
 
-    customTextContainerEl?.appendChild(customInputEl);
+    $customTextContainer?.appendChild($customInput);
   }
 }
 

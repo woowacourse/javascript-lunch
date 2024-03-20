@@ -1,0 +1,17 @@
+navigation-bar nav {
+  display: flex;
+  padding-top: 31px;
+  button {
+    border: none;
+    background-color: inherit;
+    width: 100%;
+  }
+}
+
+navigation-bar nav-bar-btn-container {
+  width: 50%;
+  height: 35px;
+  button {
+    padding: 0;
+  }
+}

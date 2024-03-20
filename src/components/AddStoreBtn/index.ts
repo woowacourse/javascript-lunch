@@ -1,4 +1,5 @@
 import AddButtonIcon from '../../assets/svg/add-button.svg';
+import { openModal } from '../../utils';
 import './style.css';
 
 class AddStoreBtn extends HTMLElement {
@@ -7,11 +8,13 @@ class AddStoreBtn extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = /* html */ `
-    <button>
-      <img src=${AddButtonIcon} alt="음식점 추가 버튼"/>
-    </button>
-    `;
+    const $btn = document.createElement('button');
+    const $img = document.createElement('img');
+    $img.src = AddButtonIcon;
+    $img.alt = '음식점 추가 버튼';
+
+    $btn.appendChild($img);
+    this.appendChild($btn);
 
     this.addEventListener('click', (event) =>
       this.#handleClickToAddStore(event),
@@ -21,18 +24,7 @@ class AddStoreBtn extends HTMLElement {
   #handleClickToAddStore(event: MouseEvent) {
     event.stopPropagation();
 
-    const modalEl = document
-      .querySelector('custom-modal')
-      ?.shadowRoot?.querySelector('.modal');
-    const bodyEl = document.querySelector('body');
-
-    if (modalEl) {
-      modalEl.classList.add('open');
-    }
-
-    if (bodyEl) {
-      bodyEl.style.overflowY = 'hidden';
-    }
+    openModal('<restaurant-form-inner></<restaurant-form-inner>');
   }
 }
 

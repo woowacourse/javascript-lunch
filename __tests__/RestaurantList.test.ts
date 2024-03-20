@@ -142,4 +142,57 @@ describe('RestaurantList 테스트', () => {
       },
     );
   });
+
+  describe('음식점 즐겨찾기 변경', () => {
+    test('즐겨찾기 여부가 false 또는 undefined인 음식점에 대한 즐겨찾기 추가를 시도하면, 해당 음식점에 대한 즐겨찾기 값이 true로 변경된다.', () => {
+      const restaurantList = new RestaurantList();
+      const targetRestaurantIndex = restaurantList.list.findIndex(
+        (info) => !info.favorite,
+      );
+
+      const targetRestaurant = restaurantList.list[targetRestaurantIndex];
+
+      if (targetRestaurant) {
+        expect(targetRestaurant?.favorite).toBeFalsy();
+
+        restaurantList.changeFavorite(targetRestaurant?.name);
+
+        expect(
+          restaurantList.list[targetRestaurantIndex].favorite,
+        ).toBeTruthy();
+      }
+    });
+
+    test('즐겨찾기 여부가 true인 음식점에 대한 즐겨찾기 추가를 시도하면, 해당 음식점에 대한 즐겨찾기 값이 false로 변경된다.', () => {
+      const restaurantList = new RestaurantList();
+      const targetRestaurantIndex = restaurantList.list.findIndex(
+        (info) => info.favorite,
+      );
+
+      const targetRestaurant = restaurantList.list[targetRestaurantIndex];
+
+      if (targetRestaurant) {
+        expect(targetRestaurant?.favorite).toBeTruthy();
+
+        restaurantList.changeFavorite(targetRestaurant?.name);
+
+        expect(restaurantList.list[targetRestaurantIndex].favorite).toBeFalsy();
+      }
+    });
+  });
+
+  describe('음식점 삭제', () => {
+    test('음식점을 삭제하면, 음식점 목록에서 삭제 대상인 음식점이 사라진다.', () => {
+      const DELETE_TARGET_INDEX = 0;
+
+      const restaurantList = new RestaurantList();
+      const targetRestaurant = restaurantList.list[DELETE_TARGET_INDEX];
+
+      restaurantList.deleteStore(targetRestaurant.name);
+
+      expect(
+        restaurantList.list.find((info) => info.name === targetRestaurant.name),
+      ).toBeUndefined();
+    });
+  });
 });

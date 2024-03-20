@@ -14,10 +14,15 @@ export interface RestaurantInfo {
   distance: Distance;
   description?: string;
   link?: string;
-  like?: boolean;
+  favorite?: boolean;
 }
 
 export type RestaurantInfoKey = keyof RestaurantInfo;
+
+export type RestaurantTextInfoKey = Exclude<
+  RestaurantInfoKey,
+  'category' | 'favorite' | 'distance'
+>;
 
 // dropbox
 export type DropBoxName =
@@ -45,6 +50,7 @@ export interface DropBoxMapValue {
   options: OptionProps[];
 }
 
+export type SortingOption = 'distance' | 'name';
 // attributes
 export interface Attributes {
   [key: string]: string | null;

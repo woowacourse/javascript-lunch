@@ -19,7 +19,9 @@
     "no-shadow": "off",
     "no-new": "off",
     "@typescript-eslint/no-useless-constructor": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "no-useless-return": "off",
+    "consistent-return": "off"
   },
   "env": {
     "browser": true,

@@ -1,0 +1,17 @@
+@import '../../assets/css/style-constants.css';
+
+.restaurant {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--lunch-grey-scale-2-color);
+  padding: 14px 8px 19px 7px;
+  width: 100%;
+  height: fit-content;
+  max-height: 137px;
+  line-height: 24px;
+}
+
+.restaurant__info {
+  margin-left: 16px;
+}

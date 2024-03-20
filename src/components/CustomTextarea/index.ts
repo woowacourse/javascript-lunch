@@ -17,17 +17,17 @@ class CustomTextarea extends HTMLElement {
       cols: this.getAttribute('clos'),
       rows: this.getAttribute('rows'),
       placeholder: this.getAttribute('placeholder'),
-      maxlength: this.getAttribute('maxlength'),
+      maxLength: this.getAttribute('max-length'),
     };
 
-    const textareaEl = setObjectAttribute(
+    const $textarea = setObjectAttribute(
       attributes,
       document.createElement('textarea'),
     );
 
-    this.appendChild(textareaEl);
+    this.appendChild($textarea);
 
-    textareaEl.addEventListener('change', (event) => this.#handleChange(event));
+    $textarea.addEventListener('change', (event) => this.#handleChange(event));
   }
 
   #handleChange(event: Event) {
