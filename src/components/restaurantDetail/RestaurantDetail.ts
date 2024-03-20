@@ -9,9 +9,10 @@ import storage from '../../storage';
 import LOCAL_STORAGE_KEY from '../../constants/LocalStorageKey';
 import DOM from '../../utils/DOM';
 import Restaurant from '../restaurant/Restaurant';
+import TabPane from '../TabPane';
 
 const { $ } = DOM;
-const { FAVORITE_DATA } = LOCAL_STORAGE_KEY;
+const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 
 export interface RestaurantDeleteEvent extends CustomEvent {
   detail: {
@@ -35,7 +36,6 @@ class RestaurantDetail extends HTMLDivElement {
     this.favoriteIcon = favoriteIcon;
     this.appendChild(this.favoriteIcon);
     this.listenRerender();
-    this.listenDeleteButonClick();
   }
 
   createLayout({ category, name, distance, introduction, link }: RestaurantType) {
@@ -104,6 +104,7 @@ class RestaurantDetail extends HTMLDivElement {
       classnames: ['button', 'text-caption'],
       varient: 'secondary',
       children: '삭제하기',
+      onClick: this.deleteRestaurant.bind(this),
     };
 
     const cancelButton: ButtonProps = {
@@ -123,24 +124,6 @@ class RestaurantDetail extends HTMLDivElement {
     buttonContainer.appendChild(buttons.cancelButton);
     this.appendChild(buttonContainer);
     return buttons;
-  }
-
-  listenDeleteButonClick() {
-    this.deleteButton.addEventListener('click', () => {
-      if (window.confirm('정말 삭제하시겠습니까?')) {
-        this.modal.toggleModal.bind(this.modal);
-        this.dispatchRestaurantDeleteEvent();
-      }
-    });
-  }
-
-  private dispatchRestaurantDeleteEvent() {
-    const restaurantDeleteEvent = new CustomEvent('deleteRestaurant', {
-      detail: {
-        targetId: this.id,
-      },
-    });
-    document.dispatchEvent(restaurantDeleteEvent);
   }
 
   getChangeState(id: string) {
@@ -171,6 +154,16 @@ class RestaurantDetail extends HTMLDivElement {
       const oldElement = target.querySelector('.favorite-icon-origin') as Node;
       $<Restaurant>(`#restaurant-list${targetId}`).replaceChild(newElement, oldElement);
     });
+  }
+
+  deleteRestaurant() {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      this.modal.toggleModal.bind(this.modal);
+      App.matzip.delete(this.id);
+      storage.modifyData<RestaurantType>(MATZIP_DATA, App.matzip.getRestaurants());
+      const tabPane = $<TabPane>('.tabpane');
+      tabPane.showListDelete(this.id);
+    }
   }
 }
 

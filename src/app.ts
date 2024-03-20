@@ -3,7 +3,7 @@ import storage from './storage';
 import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
 
 const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
-import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
+import { CategoryType, SortType } from './types';
 
 import FilterContainer, { FilterChangeEvent } from './components/FilterContainer';
 import TabPane from './components/TabPane';
@@ -11,7 +11,6 @@ import Header from './components/header/Header';
 import Tab from './components/tab/Tab';
 import Restaurant from './components/restaurant/Restaurant';
 import ListContainer from './components/listContainer/ListContainer';
-import { RestaurantDeleteEvent } from './components/restaurantDetail/RestaurantDetail';
 import { TabChangeEvent } from './components/tab/TabElement';
 
 class App extends HTMLElement {
@@ -28,7 +27,7 @@ class App extends HTMLElement {
     this.createTab();
     this.tabPane = this.createTabpane();
     this.listenTabChange();
-    this.setEvent();
+    this.setEventWholeMode();
   }
 
   listenTabChange() {
@@ -38,11 +37,6 @@ class App extends HTMLElement {
 
       activeTabIndex === 0 ? this.setEventWholeMode() : this.setMyFavoriteMode();
     });
-  }
-
-  setEvent() {
-    this.setEventWholeMode();
-    this.listenRestaurantDelete();
   }
 
   setEventWholeMode() {
@@ -106,17 +100,6 @@ class App extends HTMLElement {
 
       const listContainer = new ListContainer(restaurantElements);
       this.tabPane.showListChange(listContainer);
-    });
-  }
-
-  listenRestaurantDelete() {
-    document.addEventListener('deleteRestaurant', (event: Event) => {
-      const restaurantDeleteEvent = event as RestaurantDeleteEvent;
-      const targetId = restaurantDeleteEvent.detail.targetId;
-
-      App.matzip.delete(targetId);
-      storage.modifyData<RestaurantType>(MATZIP_DATA, App.matzip.getRestaurants());
-      this.tabPane.showListDelete(targetId);
     });
   }
 }
