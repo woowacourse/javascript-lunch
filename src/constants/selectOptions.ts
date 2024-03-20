@@ -13,6 +13,12 @@ export const CATEGORY_WITH_ENTIRE: CategoryWithEntire[] = ["전체", ...CATEGORY
 
 export const DISTANCE: Distance[] = [5, 10, 15, 20, 30];
 
+export const CATEGORY_FILTER_NAME = "category";
+export const SORT_STANDARD_FILTER_NAME = "sorting";
+
+export const CATEGORY_FILTER_DEFAULT__VALUE = CATEGORY_WITH_ENTIRE[0];
+export const SORT_STANDARD_FILTER_DEFAULT_VALUE = SORT_STANDARD[0];
+
 export const DEFAULT_UNSELECTED_OPTION = "선택해주세요";
 
 export const isCategory = (value: string): value is Category => {

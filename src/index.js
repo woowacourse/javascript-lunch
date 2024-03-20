@@ -1,8 +1,18 @@
 import "../templates/style.css";
 import "./image/add-button.png";
 
-import AllRestaurantList, { postRestaurant } from "./domain/AllRestaurantList";
-import { CATEGORY_WITH_ENTIRE, SORT_STANDARD } from "./constants/selectOptions";
+import AllRestaurantList, {
+  ALL_RESTAURANTS_LOCAL_STORAGE_KEY,
+  postRestaurant,
+} from "./domain/AllRestaurantList";
+import {
+  CATEGORY_FILTER_DEFAULT__VALUE,
+  CATEGORY_FILTER_NAME,
+  CATEGORY_WITH_ENTIRE,
+  SORT_STANDARD,
+  SORT_STANDARD_FILTER_DEFAULT_VALUE,
+  SORT_STANDARD_FILTER_NAME,
+} from "./constants/selectOptions";
 
 import AddingRestaurantModal from "./view/components/Modal/AddingRestaurantModal";
 import RestaurantList from "./domain/RestaurantList";
@@ -13,7 +23,10 @@ import getLocalStorageItem from "./utils/getLocalStorageItem";
 import { restaurantData } from "./data/restaurantData";
 
 // 음식점 스텁 데이터로 AllRestaurantList 설정
-const restaurants = getLocalStorageItem("allRestaurants", restaurantData);
+const restaurants = getLocalStorageItem(
+  ALL_RESTAURANTS_LOCAL_STORAGE_KEY,
+  restaurantData
+);
 
 AllRestaurantList.init(restaurants ?? []);
 
@@ -36,11 +49,11 @@ tabContainer.appendChild(tab);
 const filterContainer = document.getElementById("filter-container");
 const categorySelectBox = generateSelectBox({
   options: CATEGORY_WITH_ENTIRE,
-  name: "category",
+  name: CATEGORY_FILTER_NAME,
 });
 const sortStandardSelectBox = generateSelectBox({
   options: SORT_STANDARD,
-  name: "sorting",
+  name: SORT_STANDARD_FILTER_NAME,
 });
 
 filterContainer.append(categorySelectBox, sortStandardSelectBox);
@@ -51,8 +64,8 @@ const restaurantAllListContainer = document.getElementById(
 );
 const restaurantList = generateRestaurantList({
   restaurantList: AllRestaurantList,
-  category: CATEGORY_WITH_ENTIRE[0],
-  sortStandard: SORT_STANDARD[0],
+  category: CATEGORY_FILTER_DEFAULT__VALUE,
+  sortStandard: SORT_STANDARD_FILTER_DEFAULT_VALUE,
 });
 
 restaurantAllListContainer.append(restaurantList);
@@ -74,8 +87,8 @@ tab.addEventListener("click", () => {
     if (restaurantFavoriteListContainer) {
       const ul = generateRestaurantList({
         restaurantList: new RestaurantList(AllRestaurantList.withFavorites()),
-        category: CATEGORY_WITH_ENTIRE[0],
-        sortStandard: SORT_STANDARD[0],
+        category: CATEGORY_FILTER_DEFAULT__VALUE,
+        sortStandard: SORT_STANDARD_FILTER_DEFAULT_VALUE,
       });
 
       restaurantFavoriteListContainer.replaceChildren(ul);
