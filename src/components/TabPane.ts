@@ -64,11 +64,12 @@ class TabPane extends HTMLElement {
   createWholeRestaurant() {
     const filterContainer = new FilterContainer();
     const { category, sort } = filterContainer.getFilterValues();
+
     const restaurantElements: Restaurant[] = App.matzip
       .filterAndSort(category as CategoryType, sort as SortType)
       .map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
-    const listContainer = new ListContainer(restaurantElements);
 
+    const listContainer = new ListContainer(restaurantElements);
     this.showContent({ filterContainer, listContainer });
   }
 
@@ -76,6 +77,7 @@ class TabPane extends HTMLElement {
     const favoriteRestaurants: Restaurant[] = App.matzip
       .getMyFavoriteRestaurants()
       .map((restaurant) => new Restaurant(restaurant, true));
+
     const listContainer = new ListContainer(favoriteRestaurants);
     this.showContent({ listContainer });
   }
