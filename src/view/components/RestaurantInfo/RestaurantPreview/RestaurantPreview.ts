@@ -25,6 +25,12 @@ class RestaurantPreview {
 
     this.element.append(this.#categoryDiv, this.#InfoDiv);
 
+    Object.entries(restaurant).forEach((entry) => {
+      const [key, value] = entry;
+      if (!value) return;
+      this.element.setAttribute(`data-${key}`, value);
+    });
+
     eventListenerArgs.forEach((args) => {
       this.element.addEventListener(...args);
     });
