@@ -5,7 +5,7 @@ import LOCAL_STORAGE_KEY from './constants/LocalStorageKey';
 const { MATZIP_DATA, FAVORITE_DATA } = LOCAL_STORAGE_KEY;
 import { CategoryType, SortType } from './types';
 
-import FilterContainer, { FilterChangeEvent } from './components/FilterContainer';
+import FilterContainer from './components/FilterContainer';
 import TabPane from './components/TabPane';
 import Header from './components/header/Header';
 import Tab from './components/tab/Tab';
@@ -27,7 +27,7 @@ class App extends HTMLElement {
     this.createTab();
     this.tabPane = this.createTabpane();
     this.listenTabChange();
-    this.setEventWholeMode();
+    this.createWholeRestaurant();
   }
 
   listenTabChange() {
@@ -35,17 +35,8 @@ class App extends HTMLElement {
       const tabChangeEvent = event as TabChangeEvent;
       const activeTabIndex = tabChangeEvent.detail.activeTabIndex;
 
-      activeTabIndex === 0 ? this.setEventWholeMode() : this.setMyFavoriteMode();
+      activeTabIndex === 0 ? this.createWholeRestaurant() : this.createMyFavoriteList();
     });
-  }
-
-  setEventWholeMode() {
-    this.createWholeRestaurant();
-    this.changeFilter();
-  }
-
-  setMyFavoriteMode() {
-    this.createMyFavoriteList();
   }
 
   createHeader(main: HTMLElement) {
@@ -87,20 +78,6 @@ class App extends HTMLElement {
       .map((restaurant) => new Restaurant(restaurant, true));
     const listContainer = new ListContainer(favoriteRestaurants);
     this.tabPane.showContent({ listContainer });
-  }
-
-  changeFilter() {
-    document.addEventListener('filterChange', (event: Event) => {
-      const customEvent = event as FilterChangeEvent;
-      const selectedCategory = customEvent.detail.selectedCategory;
-      const selectedSort = customEvent.detail.selectedSort;
-      const restaurantElements: Restaurant[] = App.matzip
-        .filterAndSort(selectedCategory as CategoryType, selectedSort as SortType)
-        .map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
-
-      const listContainer = new ListContainer(restaurantElements);
-      this.tabPane.showListChange(listContainer);
-    });
   }
 }
 

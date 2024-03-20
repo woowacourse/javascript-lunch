@@ -1,12 +1,13 @@
+import App from '../app';
+import { CategoryType, SortType } from '../types';
+import TabPane from './TabPane';
+import ListContainer from './listContainer/ListContainer';
+import Restaurant from './restaurant/Restaurant';
 import { OptionProps } from './tag/option';
 import { Select, SelectProps } from './tag/select';
+import DOM from '../utils/DOM';
 
-export interface FilterChangeEvent extends CustomEvent {
-  detail: {
-    selectedCategory: string;
-    selectedSort: string;
-  };
-}
+const { $ } = DOM;
 
 class FilterContainer extends HTMLDivElement {
   private category: Select;
@@ -17,12 +18,6 @@ class FilterContainer extends HTMLDivElement {
     this.className = 'restaurant-filter-container';
     this.category = this.createCategorySelect();
     this.sort = this.createSortSelect();
-    this.setEvent();
-  }
-
-  setEvent() {
-    this.categoryChange();
-    this.sortChange();
   }
 
   createCategorySelect() {
@@ -41,6 +36,7 @@ class FilterContainer extends HTMLDivElement {
       classname: 'restaurant-filter',
       required: true,
       options: options,
+      onChange: this.changeListByFilter.bind(this),
     };
     const select = new Select(selectBox);
     this.appendChild(select);
@@ -58,6 +54,7 @@ class FilterContainer extends HTMLDivElement {
       classname: 'restaurant-filter',
       required: true,
       options: sortOptions,
+      onChange: this.changeListByFilter.bind(this),
     };
     const select = new Select(sortBox);
     this.appendChild(select);
@@ -72,28 +69,17 @@ class FilterContainer extends HTMLDivElement {
     return filterValues;
   }
 
-  categoryChange() {
-    this.category.addEventListener('change', () => {
-      const filterChangeEvent = new CustomEvent('filterChange', {
-        detail: {
-          selectedCategory: this.category.getValue(),
-          selectedSort: this.sort.getValue(),
-        },
-      });
-      document.dispatchEvent(filterChangeEvent);
-    });
-  }
+  changeListByFilter() {
+    const selectedCategory = this.category.getValue();
+    const selectedSort = this.sort.getValue();
 
-  sortChange() {
-    this.sort.addEventListener('change', () => {
-      const filterChangeEvent = new CustomEvent('filterChange', {
-        detail: {
-          selectedCategory: this.category.getValue(),
-          selectedSort: this.sort.getValue(),
-        },
-      });
-      document.dispatchEvent(filterChangeEvent);
-    });
+    const restaurantElements: Restaurant[] = App.matzip
+      .filterAndSort(selectedCategory as CategoryType, selectedSort as SortType)
+      .map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
+
+    const listContainer = new ListContainer(restaurantElements);
+    const tabPane = $<TabPane>('.tabpane');
+    tabPane.showListChange(listContainer);
   }
 }
 
