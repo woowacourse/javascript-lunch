@@ -1,8 +1,8 @@
-import createHeader from './components/Header/Header';
+import Header from './components/Header/Header';
 import AddingRestaurantModal from './components/AddRestaurantModal/AddRestaurantModal';
-import createNavbar from './components/Navbar/Navbar';
-import createFilterDropdown from './components/FilterDropdown/FilterDropdown';
-import createRestaurantItem from './components/Restaurant/RestaurantItem';
+import Navbar from './components/Navbar/Navbar';
+import FilterDropdown from './components/FilterDropdown/FilterDropdown';
+import RestaurantItem from './components/Restaurant/RestaurantItem';
 import DetailRestaurantModal from './components/Restaurant/DetailRestaurantModal';
 import { FORM_INPUT_QUERY, LOCALSTORAGE_KEY } from './constant/constants';
 import RestaurantService from './domain/RestaurantService';
@@ -47,7 +47,7 @@ class App {
   }
 
   renderHeader() {
-    const header = createHeader({
+    const header = Header({
       title: '점심 뭐 먹지',
       imageSource: './add-button.png',
       onClick: () => {
@@ -60,7 +60,7 @@ class App {
   }
 
   renderNavbar() {
-    const navbar = createNavbar({
+    const navbar = Navbar({
       firstTitle: '모든 음식점',
       secondTitle: '자주 가는 음식점',
       onClick: isAllSelected => {
@@ -73,7 +73,7 @@ class App {
   }
 
   renderFilterDropdown() {
-    const filterDropdown = createFilterDropdown({
+    const filterDropdown = FilterDropdown({
       onChangeFilter: category => {
         this.#category = category;
         this.updateRestaurantList();
@@ -107,7 +107,7 @@ class App {
     listFragment.classList.add('restaurant-list');
 
     const restaurantItems = processedList.map(restaurantItem =>
-      createRestaurantItem({
+      RestaurantItem({
         restaurant: restaurantItem,
         onItemClick: () => {
           this.#detailRestaurantModal.restaurant = restaurantItem;
@@ -131,7 +131,7 @@ class App {
 
     formAddRestaurant.addEventListener('submit', e => {
       e.preventDefault();
-      const newRestaurant = this.createRestaurant();
+      const newRestaurant = this.Restaurant();
       const isAdded = this.#restaurantService.addRestaurant(newRestaurant, this.#restaurantList);
       const isAddedText = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
       alert(isAddedText);

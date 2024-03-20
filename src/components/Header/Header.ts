@@ -4,7 +4,7 @@ interface Props {
   onClick: () => void;
 }
 
-const createHeader = ({ title, imageSource, onClick }: Props) => {
+const Header = ({ title, imageSource, onClick }: Props) => {
   const header = document.createElement('header');
   const headerTitle = document.createElement('h1');
   const addButton = document.createElement('button');
@@ -28,4 +28,4 @@ const createHeader = ({ title, imageSource, onClick }: Props) => {
   return header;
 };
 
-export default createHeader;
+export default Header;

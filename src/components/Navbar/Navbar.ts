@@ -4,7 +4,7 @@ interface Props {
   onClick?: (value: boolean) => void;
 }
 
-const createNavbar = ({ firstTitle, secondTitle, onClick }: Props) => {
+const Navbar = ({ firstTitle, secondTitle, onClick }: Props) => {
   const container = document.createElement('div');
   const allRestaurantNav = document.createElement('div');
   const favoriteRestaurantNav = document.createElement('div');
@@ -34,4 +34,4 @@ const createNavbar = ({ firstTitle, secondTitle, onClick }: Props) => {
   return container;
 };
 
-export default createNavbar;
+export default Navbar;

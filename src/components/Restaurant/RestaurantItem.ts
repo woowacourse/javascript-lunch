@@ -8,7 +8,7 @@ interface Props {
   onFavoriteButtonClick?: (event: MouseEvent) => void; // 변경된 부분
 }
 
-const createRestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Props) => {
+const RestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Props) => {
   const restaurantItem = document.createElement('li');
   restaurantItem.classList.add('restaurant');
 
@@ -65,4 +65,4 @@ const createRestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }
   return restaurantItem;
 };
 
-export default createRestaurantItem;
+export default RestaurantItem;

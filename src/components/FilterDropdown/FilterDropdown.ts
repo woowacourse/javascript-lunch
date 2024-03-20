@@ -6,7 +6,7 @@ interface Props {
   onChangeSort?: (value: string) => void;
 }
 
-const createFilterDropdown = ({ onChangeFilter, onChangeSort }: Props) => {
+const FilterDropdown = ({ onChangeFilter, onChangeSort }: Props) => {
   const filterContainer = document.createElement('div');
   filterContainer.classList.add('restaurant-filter-container');
 
@@ -33,4 +33,4 @@ const createFilterDropdown = ({ onChangeFilter, onChangeSort }: Props) => {
   return filterContainer;
 };
 
-export default createFilterDropdown;
+export default FilterDropdown;
