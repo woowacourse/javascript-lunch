@@ -27,6 +27,12 @@ class RestaurantDetail extends HTMLDivElement {
 
     this.favoriteIcon = favoriteIcon;
     this.appendChild(this.favoriteIcon);
+
+    this.setEvent();
+  }
+
+  setEvent() {
+    this.listenBackdropClick();
     this.listenRerender();
   }
 
@@ -156,6 +162,10 @@ class RestaurantDetail extends HTMLDivElement {
       const tabPane = $<TabPane>('.tabpane');
       tabPane.showListDelete(this.id);
     }
+  }
+
+  listenBackdropClick() {
+    this.modal.listenBackdropClick();
   }
 }
 
