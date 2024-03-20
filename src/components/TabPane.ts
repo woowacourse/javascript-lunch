@@ -2,6 +2,8 @@ import FilterContainer from './FilterContainer';
 import ListContainer from './listContainer/ListContainer';
 import DOM from '../utils/DOM';
 import Restaurant from './restaurant/Restaurant';
+import App from '../app';
+import { CategoryType, SortType } from '../types';
 
 const { $ } = DOM;
 
@@ -57,6 +59,25 @@ class TabPane extends HTMLElement {
 
   showListDelete(targetId: string) {
     this.listContainer?.deleteRestaurant(targetId);
+  }
+
+  createWholeRestaurant() {
+    const filterContainer = new FilterContainer();
+    const { category, sort } = filterContainer.getFilterValues();
+    const restaurantElements: Restaurant[] = App.matzip
+      .filterAndSort(category as CategoryType, sort as SortType)
+      .map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
+    const listContainer = new ListContainer(restaurantElements);
+
+    this.showContent({ filterContainer, listContainer });
+  }
+
+  createMyFavoriteList() {
+    const favoriteRestaurants: Restaurant[] = App.matzip
+      .getMyFavoriteRestaurants()
+      .map((restaurant) => new Restaurant(restaurant, true));
+    const listContainer = new ListContainer(favoriteRestaurants);
+    this.showContent({ listContainer });
   }
 }
 

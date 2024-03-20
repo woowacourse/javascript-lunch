@@ -1,12 +1,6 @@
 import './TabElement.css';
 import TabElementProps from './TabElementProps';
 
-export interface TabChangeEvent extends CustomEvent {
-  detail: {
-    activeTabIndex: number;
-  };
-}
-
 class TabElement extends HTMLButtonElement {
   private active: boolean;
   private index: number;
@@ -43,22 +37,12 @@ class TabElement extends HTMLButtonElement {
     this.indicator.classList.remove('indicator-active');
   }
 
-  private initTab() {
-    this.active ? this.setActive() : this.setInactive();
+  get getIndex() {
+    return this.index;
   }
 
-  tabClick(clearActivate: () => void, setActiveTab: (index: number) => void) {
-    this.addEventListener('click', () => {
-      clearActivate();
-      this.setActive();
-      setActiveTab(this.index);
-      const tabChangeEvent = new CustomEvent('tabChangeEvent', {
-        detail: {
-          activeTabIndex: this.index,
-        },
-      });
-      document.dispatchEvent(tabChangeEvent);
-    });
+  private initTab() {
+    this.active ? this.setActive() : this.setInactive();
   }
 }
 
