@@ -28,7 +28,7 @@ class FavoriteIcon extends HTMLImageElement {
   constructor({ active, isChild, changeState }: FavoriteIconProps) {
     super();
     this.active = active;
-    this.src = this.showStarIcon();
+    this.src = this.getStarIconSource();
     this.alt = 'favorite-icon';
     this.className = 'favorite-icon';
     isChild
@@ -38,7 +38,7 @@ class FavoriteIcon extends HTMLImageElement {
     this.listenChangeState(changeState);
   }
 
-  showStarIcon() {
+  getStarIconSource() {
     return this.active ? Filled : Lined;
   }
 
@@ -47,7 +47,7 @@ class FavoriteIcon extends HTMLImageElement {
       event.stopPropagation();
       this.active ? deleteFavorite() : addFavorite();
       this.active = !this.active;
-      this.src = this.showStarIcon();
+      this.src = this.getStarIconSource();
       const iconStateChangeEvent = new CustomEvent('iconStateChange', {
         detail: {
           targetId,
