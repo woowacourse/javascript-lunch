@@ -6,6 +6,7 @@ import {
 import FavoriteToggler from "../view/components/FavoriteToggler/FavoriteToggler";
 import RestaurantListController from "./RestaurantListController";
 import RestaurantPreview from "../view/components/RestaurantInfo/RestaurantPreview/RestaurantPreview";
+import RestaurantPreviewWithToggler from "../view/components/RestaurantInfo/RestaurantPreviewWithToggler";
 import SelectBox from "../view/components/SelectBox/SelectBox";
 import StatusController from "./StatusController";
 import TabBar from "../view/components/TabBar/TabBar";
@@ -113,27 +114,24 @@ class RenderController {
   }
 
   static #getRestaurantPreviewWithToggler(restaurant: Restaurant) {
-    const restaurantPreview = new RestaurantPreview({ restaurant });
-    const favoriteToggler = new FavoriteToggler({
-      isOn: RestaurantListController.hasRestaurantInFavoriteRestaurant(
+    const isTogglerOn =
+      RestaurantListController.hasRestaurantInFavoriteRestaurant(
         restaurant.name
-      ),
-      toggleAction: function () {
-        const restaurantPreview = findAncestorHasClass(
-          favoriteToggler.element,
-          "restaurant"
-        ) as HTMLElement;
+      );
+    const toggleOnFunc = () =>
+      RestaurantListController.addInFavoriteRestaurantList(restaurant.name);
+    const toggleOffFunc = () =>
+      RestaurantListController.deleteInFavoriteRestaurantList(restaurant.name);
 
-        const name = StatusController.getRestaurantName(restaurantPreview);
-
-        if (favoriteToggler.isOn())
-          RestaurantListController.addInFavoriteRestaurantList(name);
-        else RestaurantListController.deleteInFavoriteRestaurantList(name);
-        RenderController.renderAllUl();
-      },
+    const restaurantPreviewWithToggler = new RestaurantPreviewWithToggler({
+      restaurant,
+      isTogglerOn,
+      toggleOnFunc,
+      toggleOffFunc,
+      afterToggleFunc: RenderController.renderAllUl,
     });
-    restaurantPreview.element.append(favoriteToggler.element);
-    return restaurantPreview;
+
+    return restaurantPreviewWithToggler;
   }
 }
 
