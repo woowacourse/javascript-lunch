@@ -9,7 +9,7 @@ type Props = {
   };
 };
 
-export const createInput = ({ input }: Props): HTMLElement => {
+export const Input = ({ input }: Props): HTMLElement => {
   const $input = document.createElement('input');
   setAttributes($input, input);
 

@@ -1,4 +1,4 @@
-export const createRestListSection = (): HTMLElement => {
+export const RestListSection = (): HTMLElement => {
   /* section */
   const $section = document.createElement('section');
   $section.classList.add('rest-list-section');

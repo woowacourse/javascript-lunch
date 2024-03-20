@@ -10,7 +10,7 @@ interface Props {
   };
 }
 
-export const createTextarea = ({ textarea }: Props): HTMLElement => {
+export const Textarea = ({ textarea }: Props): HTMLElement => {
   const $textarea = document.createElement('textarea');
   setAttributes($textarea, textarea);
 

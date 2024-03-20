@@ -8,7 +8,7 @@ type Props = {
   text?: string;
 };
 
-export const createLabel = ({ label, text }: Props): HTMLElement => {
+export const Label = ({ label, text }: Props): HTMLElement => {
   const $label = document.createElement('label');
   $label.textContent = text ?? '';
   setAttributes($label, label);

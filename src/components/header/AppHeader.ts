@@ -8,7 +8,7 @@ const openAddRestDialog = () => {
   Global.addRestDialogController?.openDialog();
 };
 
-export const createAppHeader = (): HTMLElement => {
+export const AppHeader = (): HTMLElement => {
   /* header */
   const $header = document.createElement('header');
   $header.classList.add('app-header');

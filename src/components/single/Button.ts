@@ -9,7 +9,7 @@ interface Props {
   text?: string;
 }
 
-export const createButton = ({ button, text }: Props): HTMLElement => {
+export const Button = ({ button, text }: Props): HTMLElement => {
   const $button = document.createElement('button');
   $button.textContent = text ?? '';
   setAttributes($button, button);

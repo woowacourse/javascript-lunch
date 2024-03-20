@@ -7,7 +7,7 @@ interface Props {
   text: string;
 }
 
-export const createH2 = ({ h2, text }: Props): HTMLElement => {
+export const H2 = ({ h2, text }: Props): HTMLElement => {
   const $h2 = document.createElement('h2');
   $h2.textContent = text;
   setAttributes($h2, h2);

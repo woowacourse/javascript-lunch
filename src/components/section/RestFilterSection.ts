@@ -1,18 +1,18 @@
 import { FILTER_OPTIONS } from '../../constants/filter';
-import { createSelect } from '../single/Select';
+import { Select } from '../single/Select';
 
-export const createRestFilterSection = (): HTMLElement => {
+export const RestFilterSection = (): HTMLElement => {
   /* section */
   const $section = document.createElement('section');
   $section.classList.add('rest-filter-section');
 
   /* 카테고리 필터 */
-  const $categoryFilter = createSelect({
+  const $categoryFilter = Select({
     optionData: FILTER_OPTIONS.categoryKey
   });
 
   /* 정렬 필터 */
-  const $sortingFilter = createSelect({ optionData: FILTER_OPTIONS.sortingKey });
+  const $sortingFilter = Select({ optionData: FILTER_OPTIONS.sortingKey });
 
   /* 컴포넌트 조립 */
   $section.appendChild($categoryFilter);

@@ -10,7 +10,7 @@ interface Props {
   optionData: Record<string, string>;
 }
 
-export const createSelect = ({ select, optionData }: Props): HTMLElement => {
+export const Select = ({ select, optionData }: Props): HTMLElement => {
   /* select */
   const $select = document.createElement('select');
   setAttributes($select, select);

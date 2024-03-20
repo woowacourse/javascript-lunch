@@ -2,16 +2,16 @@ import './resources.ts';
 import './';
 
 import { $ } from './utils/dom';
-import { createAppHeader } from './components/header/AppHeader';
-import { createRestListMain } from './components/main/RestListMain';
-import { createAddRestDialog } from './components/dialog/addRestDialog';
+import { AppHeader } from './components/header/AppHeader';
+import { RestListMain } from './components/main/RestListMain';
+import { AddRestDialog } from './components/dialog/AddRestDialog';
 
 export let addRestDialogController;
 
 const $app = $('#app');
-const $appHeader = createAppHeader();
-const $restListMain = createRestListMain();
-const $addRestDialog = createAddRestDialog();
+const $appHeader = AppHeader();
+const $restListMain = RestListMain();
+const $addRestDialog = AddRestDialog();
 
 $app.appendChild($appHeader);
 $app.appendChild($restListMain);
