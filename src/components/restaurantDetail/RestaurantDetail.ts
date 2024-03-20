@@ -24,7 +24,7 @@ class RestaurantDetail extends HTMLDivElement {
     this.className = 'detail__container';
     this.modal = modal;
     this.createLayout(restaurant);
-    this.createButtons();
+
     this.favoriteIcon = favoriteIcon;
     this.appendChild(this.favoriteIcon);
     this.listenRerender();
@@ -36,6 +36,7 @@ class RestaurantDetail extends HTMLDivElement {
     this.createDistance(distance);
     this.createIntroduction(introduction);
     this.createLink(link);
+    this.createButtons();
   }
 
   createCategoryImage(category: CategoryType) {
