@@ -11,12 +11,17 @@
     <header-bar class="gnb"></header-bar>
 
     <main>
+      <tab-menu class="tab-menu"></tab-menu>
       <!-- 카테고리/정렬 필터 -->
       <filter-container class="restaurant-filter-container"></filter-container>
       <restaurant-list class="restaurant-list-container"></restaurant-list>
 
       <!-- 음식점 추가 모달 -->
-      <new-restaurantmodal class="modal"></new-restaurantmodal>
+      <new-restaurantmodal class="modal" id="add-modal"></new-restaurantmodal>
+      <!--음식점 디테일 모달-->
+      <detail-modal class="modal" id="detail-modal"> </detail-modal>
+      <!--경고 모달-->
+      <alert-modal class="hidden" id="alert-modal"></alert-modal>
     </main>
   </body>
 </html>

@@ -1,11 +1,13 @@
-import { Category, IRestaurant, Distance } from '../../types/Restaurant';
+import type { Category, IRestaurant, Distance } from '../../types/Restaurant';
 
 class Restaurant implements IRestaurant {
   name: string;
   distance: Distance;
   category: Category;
+  isFavorite: boolean;
   description?: string;
   link?: string;
+  id: number;
 
   constructor(restaurantArgs: IRestaurant) {
     this.name = restaurantArgs.name;
@@ -13,6 +15,8 @@ class Restaurant implements IRestaurant {
     this.category = restaurantArgs.category;
     this.description = restaurantArgs.description;
     this.link = restaurantArgs.link;
+    this.isFavorite = restaurantArgs.isFavorite;
+    this.id = restaurantArgs.id;
   }
 
   get() {
@@ -20,6 +24,8 @@ class Restaurant implements IRestaurant {
       name: this.name,
       distance: this.distance,
       category: this.category,
+      isFavorite: this.isFavorite,
+      id: this.id,
     };
     if (this.description) {
       result.description = this.description;
@@ -28,6 +34,10 @@ class Restaurant implements IRestaurant {
       result.link = this.link;
     }
     return result;
+  }
+
+  toggleChangeIsFavorite() {
+    this.isFavorite = !this.isFavorite;
   }
 }
 export default Restaurant;

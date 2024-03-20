@@ -1,22 +1,30 @@
 import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@/assets/add-button.png';
-import BasicModal from '../BasicModal/BasicModal';
+import { openModal } from '@/utils/view';
+import { $ } from '@/utils/DOM';
 
 class Header extends BaseComponent {
   render() {
     this.#makeTitle();
     this.#makeAddButton();
-    document.querySelector('.gnb__button')?.addEventListener('click', () => {
-      document.querySelector('.modal')?.classList.add('modal--open');
-      BasicModal.blockModalBodyScroll();
+    const $gnbButton = $<HTMLButtonElement>('.gnb__button');
+    $gnbButton.addEventListener('click', () => {
+      openModal('add');
+    });
+  }
+
+  setEvent() {
+    $('.gnb__title').addEventListener('click', () => {
+      const baseUrl = window.location.href.split('?')[0];
+      window.location.href = baseUrl;
     });
   }
 
   #makeTitle() {
-    const $h1Element = document.createElement('h1');
-    $h1Element.classList.add('gnb__title', 'text-title');
-    $h1Element.textContent = '점심 뭐 먹지';
-    this.append($h1Element);
+    const $title = document.createElement('h1');
+    $title.classList.add('gnb__title', 'text-title');
+    $title.textContent = '점심 뭐 먹지';
+    this.append($title);
   }
 
   #makeAddButton() {

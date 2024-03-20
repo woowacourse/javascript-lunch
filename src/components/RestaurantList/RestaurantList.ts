@@ -2,6 +2,10 @@ import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import BaseComponent from '../BaseComponent';
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
+import { removeAllChildren } from '@/utils/view';
+import EmptyView from '../EmptyView/EmptyView';
+import { getUrlParams } from '@/utils/url';
+import FilterContainer from '../FilterContainer/FilterContainer';
 
 class RestaurantList extends BaseComponent {
   #restaurantList;
@@ -10,25 +14,38 @@ class RestaurantList extends BaseComponent {
   constructor() {
     super();
     this.#restaurantDBService = new RestaurantDBService();
-    this.#restaurantList = JSON.parse(this.#restaurantDBService.get() || '');
+    this.#restaurantList = this.#restaurantDBService.get();
   }
 
   render() {
+    this.#showEmptyView();
     const restaurantList = this.#makeRestaurantList(this.#restaurantList);
     this.append(restaurantList);
   }
 
   rerender(restaurantList: IRestaurant[]) {
-    this.#removeChildren();
+    removeAllChildren(this);
     this.#restaurantList = restaurantList;
+    this.#showEmptyView();
     const restaurantListAll = this.#makeRestaurantList(this.#restaurantList);
     this.append(restaurantListAll);
   }
 
-  #removeChildren() {
-    while (this.firstChild) {
-      this.removeChild(this.firstChild);
+  #showEmptyView() {
+    if (getUrlParams('tab') === 'favorite') {
+      if (!this.#restaurantList.length || !this.#restaurantList) {
+        return this.append(new EmptyView('favorite'));
+      }
+    } else {
+      if (!this.#restaurantList.length || !this.#restaurantList) {
+        return this.append(new EmptyView('all', this.#setMockDataAndRender.bind(this)));
+      }
     }
+  }
+
+  #setMockDataAndRender() {
+    this.#restaurantDBService.setMockData();
+    FilterContainer.rerenderByFilter();
   }
 
   #makeRestaurantList(data: IRestaurant[]) {

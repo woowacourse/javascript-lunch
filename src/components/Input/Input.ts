@@ -4,7 +4,7 @@ type InputProps = {
   inputType?: 'text';
   inputId: string;
   inputName: string;
-  inputMax?: string;
+  inputMax?: number;
 };
 
 class Input extends BaseComponent {
@@ -26,9 +26,9 @@ class Input extends BaseComponent {
     $input.setAttribute('type', this.#inputType);
     $input.id = this.#inputId;
     $input.name = this.#inputName;
-    if (this.#inputMax) $input.setAttribute('max', this.#inputMax);
+    if (this.#inputMax) $input.setAttribute('maxlength', String(this.#inputMax));
 
-    this.outerHTML = $input.outerHTML;
+    this.replaceWith($input);
   }
 }
 

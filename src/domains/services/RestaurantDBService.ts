@@ -1,50 +1,27 @@
-import { CONDITIONS } from '@/constants/Condition';
-import { Category, IRestaurant } from '../../types/Restaurant';
-import RestaurantCollection from '../entities/RestaurantCollection';
 import restaurantListMock from '@/mock/restaurantList.mock';
+import RestaurantCollection from '../entities/RestaurantCollection';
+import { RESTAURANTS_DB_KEY } from '@/constants/Condition';
 
 class RestaurantDBService {
-  #RESTAURANTS_DB_KEY = 'restaurants';
-  #restaurantCollection = new RestaurantCollection([]);
-
-  constructor() {
-    this.#restaurantCollection;
-    this.update();
-    this.setMockData();
-  }
-
-  getFromRestaurantList(category: Category, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
-    this.update();
-    const restaurants = this.#restaurantCollection.filterByCategory(category);
-    return new RestaurantCollection(restaurants).sort(sortCriteria);
-  }
-
   update() {
-    const existingRestaurants = JSON.parse(this.get() || '[]');
-    this.#restaurantCollection = new RestaurantCollection(existingRestaurants);
+    const existingRestaurants = this.get();
+    const restaurantCollection = new RestaurantCollection(existingRestaurants);
+    restaurantCollection.filterDefault();
+    return restaurantCollection;
   }
 
   get() {
-    return localStorage.getItem(this.#RESTAURANTS_DB_KEY);
+    return JSON.parse(localStorage.getItem(RESTAURANTS_DB_KEY) || '[]');
   }
 
-  set(data: IRestaurant[]) {
-    localStorage.setItem(this.#RESTAURANTS_DB_KEY, JSON.stringify(data));
+  set(collection: RestaurantCollection) {
+    collection.filterDefault();
+    localStorage.setItem(RESTAURANTS_DB_KEY, JSON.stringify(collection.get()));
   }
 
   setMockData() {
-    if (!this.get()) {
-      this.set(restaurantListMock);
-    }
-  }
-
-  add(restaurant: IRestaurant) {
-    this.update();
-    this.#restaurantCollection.addRestaurant(restaurant);
-    localStorage.setItem(
-      this.#RESTAURANTS_DB_KEY,
-      JSON.stringify(this.#restaurantCollection.get()),
-    );
+    const mockRestaurantCollection = new RestaurantCollection(restaurantListMock);
+    this.set(mockRestaurantCollection);
   }
 }
 

@@ -4,13 +4,17 @@ import SelectBox from '../SelectBox/SelectBox';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import { Category, SortCriteria } from '@/types/Restaurant';
 import RestaurantList from '../RestaurantList/RestaurantList';
+import { $ } from '@/utils/DOM';
+import { getUrlParams } from '@/utils/url';
 
 class FilterContainer extends BaseComponent {
   #restaurantList;
+  #restaurantDBService;
 
   constructor() {
     super();
-    this.#restaurantList = document.querySelector('.restaurant-list-container') as RestaurantList;
+    this.#restaurantList = $<RestaurantList>('.restaurant-list-container');
+    this.#restaurantDBService = new RestaurantDBService();
   }
 
   render() {
@@ -21,6 +25,7 @@ class FilterContainer extends BaseComponent {
   #makeSelectCategoryBox() {
     return new SelectBox({
       optionValues: CATEGORIES_WITH_ALL_KEYS,
+      optionTexts: CATEGORIES_WITH_ALL_KEYS,
       name: 'category',
       classList: ['restaurant-filter'],
       id: 'category-filter',
@@ -30,6 +35,7 @@ class FilterContainer extends BaseComponent {
   #makeSelectSortBox() {
     return new SelectBox({
       optionValues: SORT_CRITERION_KEYS,
+      optionTexts: SORT_CRITERION_KEYS,
       name: 'sorting',
       classList: ['restaurant-filter'],
       id: 'sorting-filter',
@@ -38,19 +44,32 @@ class FilterContainer extends BaseComponent {
 
   setEvent() {
     this.addEventListener('change', () => {
-      const restaurantDBService = new RestaurantDBService();
+      const $selectedCategory = $<HTMLSelectElement>('#category-filter');
+      const $selectedSortCriteria = $<HTMLSelectElement>('#sorting-filter');
 
-      const selectedCategory = this.querySelector('#category-filter') as HTMLSelectElement;
-      const selectedSortCriteria = this.querySelector('#sorting-filter') as HTMLSelectElement;
+      const restaurantCollection = this.#restaurantDBService.update();
 
-      const newRestaurantList = restaurantDBService.getFromRestaurantList(
-        selectedCategory.value as Category,
-        selectedSortCriteria.value as SortCriteria,
+      getUrlParams('tab') === 'favorite' && restaurantCollection.filterFavorites();
+
+      const newRestaurantList = restaurantCollection.filterByCategoryAndSort(
+        $selectedCategory.value as Category,
+        $selectedSortCriteria.value as SortCriteria,
       );
 
       this.#restaurantList.rerender(newRestaurantList);
+      return newRestaurantList;
     });
   }
+
+  static rerenderByFilter() {
+    const event = new Event('change', {
+      bubbles: true,
+      cancelable: true,
+    });
+    $('.restaurant-filter-container').dispatchEvent(event);
+  }
 }
+
+export default FilterContainer;
 
 customElements.define('filter-container', FilterContainer);

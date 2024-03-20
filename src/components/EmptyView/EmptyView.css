@@ -1,0 +1,29 @@
+.no-data-box {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.no-data-box button {
+  width: 150px;
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-box button {
+  width: 150px;
+}
