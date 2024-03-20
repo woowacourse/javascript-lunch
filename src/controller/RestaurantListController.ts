@@ -17,7 +17,8 @@ class RestaurantListController {
     const favoriteRestaurants =
       getLocalStorageItem(this.#FAVORITE_RESTAURANTS_KEY) ?? [];
 
-    setLocalStorage(this.#ENTIRE_RESTAURANTS_KEY, entireRestaurants);
+    if (!getLocalStorageItem(this.#ENTIRE_RESTAURANTS_KEY))
+      setLocalStorage(this.#ENTIRE_RESTAURANTS_KEY, entireRestaurants);
 
     this.#entireRestaurantList.init(entireRestaurants);
     this.#favoriteRestaurantList.init(favoriteRestaurants);
