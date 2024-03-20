@@ -1,5 +1,17 @@
 import { FILTER_OPTIONS } from '../../constants/filter';
-import { Select } from '../single/Select';
+import { Global } from '../../controllers/Global';
+import { KeyOfCategoryKey, KeyOfSortingKey } from '../../types/filter';
+import { Select } from '../element/Select';
+
+const updateRestCardList = ({
+  categoryKey,
+  sortingKey
+}: {
+  categoryKey?: KeyOfCategoryKey;
+  sortingKey?: KeyOfSortingKey;
+}) => {
+  Global.restListController.render({ categoryKey, sortingKey });
+};
 
 export const RestFilterSection = (): HTMLElement => {
   /* section */
@@ -17,6 +29,12 @@ export const RestFilterSection = (): HTMLElement => {
   /* 컴포넌트 조립 */
   $section.appendChild($categoryFilter);
   $section.appendChild($sortingFilter);
+
+  $section.onchange = () =>
+    updateRestCardList({
+      categoryKey: $categoryFilter.value as KeyOfCategoryKey,
+      sortingKey: $sortingFilter.value as KeyOfSortingKey
+    });
 
   return $section;
 };

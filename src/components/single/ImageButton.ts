@@ -13,7 +13,7 @@ interface Props {
   };
 }
 
-export const createImageButton = ({ button, image }: Props): HTMLElement => {
+export const ImageButton = ({ button, image }: Props): HTMLElement => {
   /* 버튼 */
   const $button = document.createElement('button');
   setAttributes($button, button);

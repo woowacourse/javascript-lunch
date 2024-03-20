@@ -1,11 +1,11 @@
 import { IMAGE_MAP } from '../../constants/imageMap';
 import { Global } from '../../controllers/Global';
-import { createImageButton } from '../unit/ImageButton';
+import { ImageButton } from '../single/ImageButton';
 
 const TITLE = '점심 뭐 먹지';
 
 const openAddRestDialog = () => {
-  Global.addRestDialogController?.openDialog();
+  Global.addRestDialogController.openDialog();
 };
 
 export const AppHeader = (): HTMLElement => {
@@ -19,8 +19,13 @@ export const AppHeader = (): HTMLElement => {
   $title.textContent = TITLE;
 
   /* 버튼 */
-  const $imageButton = createImageButton({
-    button: { 'aria-label': '음식점 추가', class: 'app-header__button', type: 'button', onclick: openAddRestDialog },
+  const $imageButton = ImageButton({
+    button: {
+      'aria-label': '음식점 추가',
+      class: 'app-header__button',
+      type: 'button',
+      onclick: openAddRestDialog
+    },
     image: { src: IMAGE_MAP.addButton, alt: '음식점 추가' }
   });
 

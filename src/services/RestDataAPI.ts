@@ -11,7 +11,7 @@ class RestDataAPI {
   }
 
   public static load(
-    category: KeyOfCategoryKey = DEFAULT_KEY.category,
+    category: KeyOfCategoryKey = DEFAULT_KEY.categoryKey,
     sortingKey: KeyOfSortingKey = DEFAULT_KEY.sortingKey
   ): Restaurant[] {
     const restaurants = this.getRestaurantsList();

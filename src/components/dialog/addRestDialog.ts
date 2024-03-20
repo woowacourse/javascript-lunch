@@ -3,12 +3,12 @@ import { Global } from '../../controllers/Global';
 import RestDataAPI from '../../services/RestDataAPI';
 import { KeyOfCategory, KeyOfDistance } from '../../types/restaurant';
 import { $ } from '../../utils/dom';
-import { Button } from '../single/Button';
-import { H2 } from '../single/H2';
-import { Input } from '../single/Input';
-import { Select } from '../single/Select';
-import { Textarea } from '../single/Textarea';
-import { createFormItem } from '../unit/FormItem';
+import { Button } from '../element/Button';
+import { H2 } from '../element/H2';
+import { Input } from '../element/Input';
+import { Select } from '../element/Select';
+import { Textarea } from '../element/Textarea';
+import { FormItem } from '../single/FormItem';
 
 export const AddRestDialog = (): HTMLDialogElement => {
   const $dialog = document.createElement('dialog');
@@ -27,35 +27,35 @@ export const AddRestDialog = (): HTMLDialogElement => {
   const $form = document.createElement('form');
 
   /* 카테고리 */
-  const $category = createFormItem({
+  const $category = FormItem({
     label: { text: '카테고리', for: 'category', class: 'text-caption' },
     element: Select({ select: { id: 'category' }, optionData: FORM_OPTIONS.category }),
     required: true
   });
 
   /* 이름 */
-  const $name = createFormItem({
+  const $name = FormItem({
     label: { text: '이름', for: 'name', class: 'text-caption' },
     element: Input({ input: { id: 'name', type: 'text' } }),
     required: true
   });
 
   /* 거리 */
-  const $distance = createFormItem({
+  const $distance = FormItem({
     label: { text: '거리(도보 이동 시간)', for: 'distance', class: 'text-caption' },
     element: Select({ select: { id: 'distance' }, optionData: FORM_OPTIONS.distance }),
     required: true
   });
 
   /* 설명 */
-  const $description = createFormItem({
+  const $description = FormItem({
     label: { text: '설명', for: 'description', class: 'text-caption' },
     element: Textarea({ textarea: { id: 'description', cols: '30', rows: '5' } }),
     description: '메뉴 등 추가 정보를 입력해 주세요.'
   });
 
   /* 참고 링크 */
-  const $link = createFormItem({
+  const $link = FormItem({
     label: { text: '참고 링크', for: 'link', class: 'text-caption' },
     element: Input({ input: { id: 'link', type: 'text' } }),
     description: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.'

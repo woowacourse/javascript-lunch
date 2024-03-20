@@ -12,10 +12,10 @@ export const FILTER_OPTIONS = {
 } as const;
 
 interface I_DEFAULT_KEY {
-  category: KeyOfCategoryKey;
+  categoryKey: KeyOfCategoryKey;
   sortingKey: KeyOfSortingKey;
 }
 export const DEFAULT_KEY: I_DEFAULT_KEY = {
-  category: 'all',
+  categoryKey: 'all',
   sortingKey: 'name'
 } as const;

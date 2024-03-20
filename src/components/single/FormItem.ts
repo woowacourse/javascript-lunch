@@ -1,5 +1,5 @@
 import setAttributes from '../../utils/setAttributes';
-import { Label } from '../single/Label';
+import { Label } from '../element/Label';
 
 interface Props {
   label?: {
@@ -12,7 +12,7 @@ interface Props {
   required?: boolean;
 }
 
-export const createFormItem = ({ label, element, description, required = false }: Props): HTMLElement => {
+export const FormItem = ({ label, element, description, required = false }: Props): HTMLElement => {
   const $formItem = document.createElement('div');
   $formItem.classList.add('form-item');
 
