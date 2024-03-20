@@ -12,22 +12,22 @@ export default class RestaurantDetail extends ModalWrapper {
   constructor(element, { restaurants, restaurant, restaurantList }) {
     super(element);
     this.insertTemplate(restaurant);
+    this.#insertFavoriteButton(restaurant);
     this.#restaurantList = restaurantList;
     this.#restaurants = restaurants;
     this.#restaurant = restaurant;
     this.#addEvent();
   }
 
-  insertTemplate({ category, name, walkingTimeFromCampus, description = '', link = '', favorite }) {
+  insertTemplate({ category, name, walkingTimeFromCampus, description = '', link = '' }) {
     $('modal-container').insertAdjacentHTML(
       'afterbegin',
       `
       <div class="restaurant-detail-container">
-        <section class="restaurant-detail-header">
+        <section id="restaurant-detail-header" class="restaurant-detail-header">
           <div class="restaurant__category">
             <img src="${ICON[category]}" alt="${category}" class="category-icon">
           </div>
-          ${FavoriteButton('detail-favorite-buttton', favorite ? FAVORITE_ICON.add : FAVORITE_ICON.remove)}
         </section>
         <section class="restaurant-detail-main">
           <div class="restaurant-detail-title">
@@ -52,22 +52,27 @@ export default class RestaurantDetail extends ModalWrapper {
     );
   }
 
+  #insertFavoriteButton({ favorite }) {
+    $('restaurant-detail-header').insertAdjacentElement(
+      'beforeend',
+      FavoriteButton('detail-favorite-button', favorite ? FAVORITE_ICON.add : FAVORITE_ICON.remove),
+    );
+  }
+
   #addEvent() {
     $('close-detail-button').addEventListener('click', this._handleClose.bind(this));
     $('delete-restaurant-button').addEventListener('click', () =>
       this.#handleDeleteRestaurantButton(),
     );
-    $('detail-favorite-buttton').addEventListener('click', (event) =>
+    $('detail-favorite-button').addEventListener('click', (event) =>
       this.#handleClickFavoriteButton(event),
     );
   }
 
   #handleDeleteRestaurantButton() {
     if (confirm('정말 삭제하시겠습니까?')) {
-      const close = this._handleClose.bind(this);
-
       this.#restaurants.deleteRestaurant(this.#restaurant.name);
-      close();
+      this._handleClose();
       this.#restaurantList.render();
     }
   }
@@ -77,17 +82,6 @@ export default class RestaurantDetail extends ModalWrapper {
     if (!favoriteIcon) return;
 
     this.#restaurants.toggleFavoriteState(this.#restaurant.name);
-    this.#toggleIconImg(favoriteIcon);
     this.#restaurantList.render();
-  }
-
-  #toggleIconImg(iconImg) {
-    iconImg.src === ICON[FAVORITE_ICON.add]
-      ? (iconImg.src = ICON[FAVORITE_ICON.remove])
-      : (iconImg.src = ICON[FAVORITE_ICON.add]);
-
-    iconImg.alt === FAVORITE_ICON.add
-      ? (iconImg.alt = FAVORITE_ICON.remove)
-      : (iconImg.alt = FAVORITE_ICON.add);
   }
 }

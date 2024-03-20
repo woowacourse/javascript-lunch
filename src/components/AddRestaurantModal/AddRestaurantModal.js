@@ -119,7 +119,7 @@ export default class AddRestaurantModal extends ModalWrapper {
   }
 
   #insertRestaurantList(inputData) {
-    $('restaurant-list').insertAdjacentHTML('afterbegin', Restaurant(inputData));
+    $('restaurant-list').insertAdjacentElement('afterbegin', Restaurant(inputData));
     $('restaurant-input-form').reset();
   }
 

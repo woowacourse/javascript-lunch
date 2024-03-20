@@ -22,13 +22,11 @@ export default class RestaurantList {
       ? this.#restaurants.standardList
       : this.#restaurants.favoriteList;
 
-    this.#element.innerHTML = `
-      ${restaurantList.reduce(
-        (prevRestaurantData, currentRestaurantData) =>
-          prevRestaurantData + Restaurant(currentRestaurantData),
-        '',
-      )}
-    `;
+    this.#element.innerHTML = '';
+
+    restaurantList.forEach((restaurant) => {
+      this.#element.appendChild(Restaurant(restaurant));
+    });
   }
 
   #addEvents() {
@@ -47,7 +45,7 @@ export default class RestaurantList {
 
   #handleClickFavoriteButton(favoriteIcon, restaurantName) {
     this.#restaurants.toggleFavoriteState(restaurantName);
-    this.#toggleIconImg(favoriteIcon);
+    // this.#toggleIconImg(favoriteIcon);
   }
 
   #openRestaurantDetail(restaurant) {
