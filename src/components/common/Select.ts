@@ -29,7 +29,10 @@ export default class Select extends EventComponent {
       required ? "required" : ""
     }>
         ${options
-          .map(({ value, label }) => `<option value=${value}>${label}</option>`)
+          .map(
+            ({ value, label }) =>
+              `<option value=${value || ""}>${label}</option>`
+          )
           .join("")}
       </select>
     `;
