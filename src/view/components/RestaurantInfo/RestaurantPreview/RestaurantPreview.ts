@@ -9,6 +9,8 @@ class RestaurantPreview {
     classes: ["restaurant"],
   });
 
+  restaurant: Restaurant;
+
   #categoryDiv: HTMLElement;
 
   #InfoDiv: HTMLElement;
@@ -22,6 +24,8 @@ class RestaurantPreview {
   }) {
     this.#categoryDiv = this.#createCategoryDiv(restaurant.category);
     this.#InfoDiv = this.#createInfoDiv(restaurant);
+
+    this.restaurant = restaurant;
 
     this.element.append(this.#categoryDiv, this.#InfoDiv);
 
