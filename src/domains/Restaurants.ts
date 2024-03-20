@@ -1,8 +1,18 @@
-import { DEFAULT_DATA, ERROR_MESSAGES } from "../constants/menu";
-import { Category, RestaurantItem } from "../types/menu";
+import {
+  CATEGORIES,
+  DEFAULT_DATA,
+  ERROR_MESSAGES,
+  SORT_TYPE,
+} from "../constants/menu";
+import {
+  CategoryString,
+  RestaurantAddItem,
+  RestaurantItem,
+  SortOptionString,
+} from "../types/menu";
+import { trimAllSpace } from "../utils/format-text";
 import restaurantValidator from "../validators/restaurantValidator";
 
-type SortType = "이름순" | "거리순";
 const RESTAURANT_KEY = "restaurants";
 
 const getRestaurantFromStorage = () => {
@@ -20,16 +30,34 @@ const isAlreadyExist = (newRestaurantName: string) => {
   );
 };
 
-export const validateRestaurantData = (restaurantInfo: RestaurantItem) => {
+const sortByName = (restaurants: RestaurantItem[]) => {
+  return [...restaurants.sort((a, b) => (a.name < b.name ? -1 : 1))];
+};
+
+const sortByDistance = (restaurants: RestaurantItem[]) => {
+  return [...restaurants.sort((a, b) => a.distance - b.distance)];
+};
+
+export const initRestaurantStorage = () => {
+  if (getRestaurantFromStorage().length > 0) {
+    return;
+  }
+
+  DEFAULT_DATA.forEach((data: RestaurantItem) => {
+    add(data);
+  });
+};
+
+export const validateRestaurantData = (restaurantInfo: RestaurantAddItem) => {
   const { name, category, distance, description, link } = restaurantInfo;
 
-  if (!restaurantValidator.isSelected(category)) {
+  if (!restaurantValidator.isValidCategory(category)) {
     throw new Error(ERROR_MESSAGES.invalidCategory);
   }
   if (!restaurantValidator.isInRange(name, 0, 10)) {
     throw new Error(ERROR_MESSAGES.invalidRestaurantName);
   }
-  if (!restaurantValidator.isSelected(distance)) {
+  if (!restaurantValidator.isValidDistance(distance)) {
     throw new Error(ERROR_MESSAGES.invalidDistance);
   }
   if (description && !restaurantValidator.isInRange(description, 0, 300)) {
@@ -43,52 +71,78 @@ export const validateRestaurantData = (restaurantInfo: RestaurantItem) => {
   }
 };
 
-const sortByName = (restaurants: RestaurantItem[]) => {
-  return [...restaurants.sort((a, b) => (a.name < b.name ? -1 : 1))];
+export const findRestaurantByName = (
+  restaurantName: string
+): RestaurantItem | null => {
+  const storedRestaurants = getRestaurantFromStorage();
+  const foundRestaurant = storedRestaurants.find(
+    ({ name }) => name === restaurantName
+  );
+
+  return foundRestaurant ? foundRestaurant : null;
 };
 
-const sortByDistance = (restaurants: RestaurantItem[]) => {
-  return [...restaurants.sort((a, b) => a.distance - b.distance)];
-};
-
-const trimAllSpace = (str: string): string => {
-  return str.replaceAll(" ", "");
-};
-
-export const initRestaurantStorage = () => {
-  if (getRestaurantFromStorage().length > 0) {
-    return;
-  }
-
-  DEFAULT_DATA.forEach((data: RestaurantItem) => {
-    add(data);
+export const toggleFavoriteStateByName = (targetName: string) => {
+  const storedRestaurants = getRestaurantFromStorage();
+  const updatedRestaurants = storedRestaurants.map((restaurant) => {
+    return restaurant.name !== targetName
+      ? {
+          ...restaurant,
+        }
+      : {
+          ...restaurant,
+          isFavorite: restaurant.isFavorite ? false : true,
+        };
   });
+
+  localStorage.setItem(RESTAURANT_KEY, JSON.stringify(updatedRestaurants));
 };
 
-export const add = (restaurantInfo: RestaurantItem) => {
+export const deleteRestaurantByName = (restaurantName: string): void => {
+  const storedRestaurants = getRestaurantFromStorage();
+  const filteredRestaurants = storedRestaurants.filter(
+    ({ name }) => restaurantName !== name
+  );
+
+  localStorage.setItem(RESTAURANT_KEY, JSON.stringify(filteredRestaurants));
+};
+
+export const getFavoriteRestaurants = (): RestaurantItem[] | [] => {
+  const storedRestaurants = getRestaurantFromStorage();
+
+  return storedRestaurants.filter(({ isFavorite }) => isFavorite);
+};
+
+export const add = (restaurantInfo: RestaurantAddItem) => {
   const storedRestaurants = getRestaurantFromStorage();
   validateRestaurantData(restaurantInfo);
 
   localStorage.setItem(
     RESTAURANT_KEY,
-    JSON.stringify([...storedRestaurants, restaurantInfo])
+    JSON.stringify([
+      ...storedRestaurants,
+      { ...restaurantInfo, isFavorite: false },
+    ])
   );
 
   return true;
 };
 
-export const filterByCategory = (category: Category) => {
+export const filterByCategory = (category: CategoryString) => {
   const restaurants: RestaurantItem[] = getRestaurantFromStorage();
 
-  if (category === "전체") return restaurants;
+  if (category === CATEGORIES.all) return restaurants;
 
   return restaurants.filter((item) => item.category === category);
 };
 
-export const sortByType = (category: Category, type: SortType) => {
+export const sortByType = (
+  category: CategoryString,
+  type: SortOptionString
+) => {
   const filteredRestaurants = filterByCategory(category);
 
-  return type === "이름순"
+  return type === SORT_TYPE.name
     ? sortByName(filteredRestaurants)
     : sortByDistance(filteredRestaurants);
 };

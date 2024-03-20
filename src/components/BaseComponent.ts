@@ -1,20 +1,22 @@
+import { TotalMenuAppEvent } from "../types/event";
+
 export default class BaseComponent extends HTMLElement {
   constructor() {
     super();
   }
 
-  connectedCallback() {
+  protected connectedCallback() {
     this.render();
     this.setEvent();
   }
 
-  disconnectedCallback() {}
+  protected disconnectedCallback() {}
 
-  render() {}
+  protected render() {}
 
-  setEvent() {}
+  protected setEvent() {}
 
-  emitEvent(event, data) {
+  protected emitEvent<T>(event: TotalMenuAppEvent, data?: T) {
     this.dispatchEvent(
       new CustomEvent(event, {
         bubbles: true,

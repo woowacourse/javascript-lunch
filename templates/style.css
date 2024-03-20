@@ -34,7 +34,6 @@ select {
 }
 
 /* Typography *************************************/
-
 .text-title {
   font-size: 20px;
   line-height: 24px;
@@ -97,11 +96,7 @@ select {
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
-  display: flex;
-  justify-content: space-between;
-
   padding: 0 16px;
-  margin-top: 24px;
 }
 
 .restaurant-filter-select {
@@ -121,15 +116,7 @@ select {
   background-size: 0.75rem auto;
 }
 
-.arrow-down-grey {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23667085%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-}
-
-.arrow-down-black {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-}
-
-/* 음식점 목록 */
+/* 음식점 목록, 음식점 상세 정보 */
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
@@ -139,14 +126,18 @@ select {
 }
 
 .restaurant {
+  min-height: 7rem;
   display: flex;
   align-items: flex-start;
 
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+}
 
-  min-height: 7rem;
+.restaurant-detail {
+  display: flex;
+  flex-direction: column;
 }
 
 .restaurant__category {
@@ -164,12 +155,40 @@ select {
   background: var(--lighten-color);
 }
 
+.detail-link {
+  color: var(--grey-500);
+}
+
+.font-orange {
+  color: var(--primary-color);
+}
+
+.font-gray {
+  color: var(--grey-300);
+}
+
 .category-icon {
   width: 36px;
   height: 36px;
 }
 
+.restaurant__info__layout {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant__info__layout > favorite-icon {
+  height: 32px;
+}
+
 .restaurant__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.restaurant__detail__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -193,6 +212,21 @@ select {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: break-all;
+}
+
+.tab-container {
+  padding: 32px 16px;
+  width: 100%;
+}
+
+.restaurant-tab {
+  display: flex;
+  width: 100%;
+}
+
+.tab-border-bottom {
+  width: 100%;
+  margin-top: 9px;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -224,11 +258,6 @@ select {
   overflow-y: scroll;
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
-}
-
-.stop-scroll {
-  height: 100%;
-  overflow: hidden;
 }
 
 .modal-title {
@@ -291,6 +320,7 @@ input[name="link"] {
 }
 
 .button-container {
+  margin-top: 32px;
   display: flex;
 }
 
@@ -324,10 +354,61 @@ input[name="link"] {
   color: var(--grey-100);
 }
 
-.hidden {
-  visibility: hidden;
-}
+/* 공통 CSS 속성 *****************************************/
 
 .error-message {
   color: var(--error-color);
+}
+
+.stop-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.hidden {
+  display: none;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.border-orange {
+  border: 2px solid var(--primary-color);
+}
+
+.border-gray {
+  border: 2px solid var(--grey-300);
+}
+
+.arrow-down-grey {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23667085%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+}
+
+.arrow-down-black {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
