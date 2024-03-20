@@ -1,4 +1,4 @@
-import { RestCard } from '../components/single/RestCard';
+import { RestCard } from '../components/unit/RestCard';
 import { DEFAULT_KEY } from '../constants/filter';
 import RestDataAPI from '../services/RestDataAPI';
 import { KeyOfCategoryKey, KeyOfSortingKey } from '../types/filter';

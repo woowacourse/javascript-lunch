@@ -1,7 +1,7 @@
 import { FILTER_OPTIONS } from '../../constants/filter';
 import { Global } from '../../controllers/Global';
 import { KeyOfCategoryKey, KeyOfSortingKey } from '../../types/filter';
-import { Select } from '../element/Select';
+import { Select } from '../singleElement/Select';
 
 const updateRestCardList = ({
   categoryKey,

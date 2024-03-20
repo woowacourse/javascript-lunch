@@ -1,10 +1,10 @@
 import { IMAGE_MAP } from '../../constants/imageMap';
 import { CATEGORY, DISTANCE } from '../../constants/restaurant';
 import { Restaurant } from '../../types/restaurant';
-import { H3 } from '../element/H3';
-import { Img } from '../element/Img';
-import { P } from '../element/P';
-import { Span } from '../element/Span';
+import { H3 } from '../singleElement/H3';
+import { Img } from '../singleElement/Img';
+import { P } from '../singleElement/P';
+import { Span } from '../singleElement/Span';
 
 export const RestCard = ({ category, name, distance, description, link }: Restaurant): HTMLLIElement => {
   /* li */

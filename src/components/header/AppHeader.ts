@@ -1,6 +1,6 @@
 import { IMAGE_MAP } from '../../constants/imageMap';
 import { Global } from '../../controllers/Global';
-import { ImageButton } from '../single/ImageButton';
+import { ImageButton } from '../unit/ImageButton';
 
 const TITLE = '점심 뭐 먹지';
 

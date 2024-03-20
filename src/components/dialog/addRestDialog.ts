@@ -3,12 +3,12 @@ import { Global } from '../../controllers/Global';
 import RestDataAPI from '../../services/RestDataAPI';
 import { KeyOfCategory, KeyOfDistance } from '../../types/restaurant';
 import { $ } from '../../utils/dom';
-import { Button } from '../element/Button';
-import { H2 } from '../element/H2';
-import { Input } from '../element/Input';
-import { Select } from '../element/Select';
-import { Textarea } from '../element/Textarea';
-import { FormItem } from '../single/FormItem';
+import { Button } from '../singleElement/Button';
+import { H2 } from '../singleElement/H2';
+import { Input } from '../singleElement/Input';
+import { Select } from '../singleElement/Select';
+import { Textarea } from '../singleElement/Textarea';
+import { FormItem } from '../unit/FormItem';
 
 export const AddRestDialog = (): HTMLDialogElement => {
   const $dialog = document.createElement('dialog');

@@ -1,5 +1,5 @@
 import setAttributes from '../../utils/setAttributes';
-import { OptionArray } from '../single/OptionArray';
+import { OptionArray } from '../unit/OptionArray';
 
 interface Props {
   select?: {

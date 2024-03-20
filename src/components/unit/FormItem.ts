@@ -1,5 +1,5 @@
 import setAttributes from '../../utils/setAttributes';
-import { Label } from '../element/Label';
+import { Label } from '../singleElement/Label';
 
 interface Props {
   label?: {
