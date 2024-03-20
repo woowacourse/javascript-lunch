@@ -1,0 +1,15 @@
+.rest-filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 8px 24px;
+}
+
+.rest-filter-container select {
+  border: 1px solid #d0d5dd;
+  min-width: 125px;
+  height: 44px;
+  background: transparent;
+  font-size: 16px;
+  border-radius: 8px;
+}
