@@ -13,7 +13,7 @@ class App {
 
   #restaurantService;
 
-  #isAllSelected;
+  #isAllRestaurantsSelected;
 
   #category;
 
@@ -29,7 +29,7 @@ class App {
     this.#addingRestaurantModal = new AddingRestaurantModal();
     this.#detailRestaurantModal = new DetailRestaurantModal();
 
-    this.#isAllSelected = true;
+    this.#isAllRestaurantsSelected = true;
     this.#category = '전체';
     this.#property = 'name';
   }
@@ -64,7 +64,7 @@ class App {
       firstTitle: '모든 음식점',
       secondTitle: '자주 가는 음식점',
       onClick: isAllSelected => {
-        this.#isAllSelected = isAllSelected;
+        this.#isAllRestaurantsSelected = isAllSelected;
         this.updateRestaurantList();
       },
     });
@@ -90,7 +90,7 @@ class App {
   updateRestaurantList() {
     const restaurantListContainer = $('.restaurant-list-container');
 
-    const currentRestaurantList = this.#isAllSelected
+    const currentRestaurantList = this.#isAllRestaurantsSelected
       ? this.#restaurantList
       : this.#restaurantService.filterByFavorite(this.#restaurantList);
     const filteredList = this.#restaurantService.filterByCategory(this.#category, currentRestaurantList);
