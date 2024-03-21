@@ -25,12 +25,10 @@ class AllRestaurantApp extends HTMLDivElement {
     this.#restaurantList = dom.getElement<RestaurantList>(this, '.restaurant-list');
 
     this.#restaurantDBService = new RestaurantDBService();
-    this.paint();
+    this.render();
   }
-  connectedCallback() {
-    this.paint();
-  }
-  paint() {
+
+  render() {
     this.#restaurantList.paint(this.#getNewRestaurantList());
   }
 

@@ -23,12 +23,23 @@ class RestaurantItem extends HTMLLIElement {
     this.#link = link;
     this.#isFavorite = isFavorite ?? false;
 
-    this.template();
-    this.render();
+    this.#template();
+    this.#render();
     this.#setEvent();
   }
 
-  template() {
+  get() {
+    return {
+      category: this.#category,
+      name: this.#name,
+      distance: this.#distance,
+      description: this.#description,
+      link: this.#link,
+      isFavorite: this.#isFavorite,
+    };
+  }
+
+  #template() {
     this.classList.add(`restaurant`, `${style.restaurant}`);
     this.innerHTML = `
     <div is="restaurant-category-icon"> </div>
@@ -42,7 +53,7 @@ class RestaurantItem extends HTMLLIElement {
    `;
   }
 
-  render() {
+  #render() {
     dom
       .getElement<RestaurantCategoryIcon>(this, 'div[is="restaurant-category-icon"]')
       .setCategory(this.#category);
@@ -50,17 +61,6 @@ class RestaurantItem extends HTMLLIElement {
     dom.getElement(this, '.restaurant__distance').textContent = `캠퍼스부터 ${this.#distance}분 내`;
     dom.getElement(this, '.restaurant__description').textContent = this.#description;
     dom.getElement<FavoriteIcon>(this, 'img[is="favorite-icon"]').set(this.#isFavorite);
-  }
-
-  get() {
-    return {
-      category: this.#category,
-      name: this.#name,
-      distance: this.#distance,
-      description: this.#description,
-      link: this.#link,
-      isFavorite: this.#isFavorite,
-    };
   }
 
   #setEvent() {

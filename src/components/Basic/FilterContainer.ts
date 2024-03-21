@@ -39,7 +39,7 @@ class FilterContainer extends BaseComponent {
 
   setEvent() {
     this.addEventListener('change', () => {
-      (this.parentElement as AllRestaurantApp).paint();
+      (this.parentElement as AllRestaurantApp).render();
     });
   }
 }

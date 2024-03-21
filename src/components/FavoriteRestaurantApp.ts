@@ -26,24 +26,10 @@ class FavoriteRestaurantApp extends HTMLDivElement {
     this.#filterContainer = this.querySelector('.restaurant-filter-container')!;
     this.#restaurantList = this.querySelector('.restaurant-list')!;
     this.#restaurantDBService = new RestaurantDBService();
-    this.paint();
-    this.addEventListener('click', (event) => {
-      if (event.target instanceof FavoriteIcon) {
-        const restaurants = this.#getDBRaw();
-        const targetRestaurant = event.target.parentElement?.parentElement as RestaurantItem;
-        const newRestaurants = restaurants.filter(
-          (restaurant: IRestaurant) => !new Restaurant(restaurant).isEqual(targetRestaurant.get()),
-        );
-        newRestaurants.push(targetRestaurant.get());
-        this.#restaurantDBService.set(newRestaurants);
-        this.paint();
-      }
-    });
+    this.render();
+    this.addEventListener('click', this.#onClickFavoriteIcon.bind(this));
   }
-  connectedCallback() {
-    this.paint();
-  }
-  paint() {
+  render() {
     this.#restaurantList.paint(this.#getNewRestaurantList());
   }
 
@@ -66,8 +52,16 @@ class FavoriteRestaurantApp extends HTMLDivElement {
     return this.#restaurantDBService.getFromRestaurantList(category, sortCriteria);
   }
 
-  #getDBRaw() {
-    return this.#restaurantDBService.get();
+  #onClickFavoriteIcon(event: Event) {
+    if (!(event.target instanceof FavoriteIcon)) return;
+    const restaurants = new RestaurantDBService().get();
+    const targetRestaurant = event.target.parentElement?.parentElement as RestaurantItem;
+    const newRestaurants = restaurants.filter(
+      (restaurant: IRestaurant) => !new Restaurant(restaurant).isEqual(targetRestaurant.get()),
+    );
+    newRestaurants.push(targetRestaurant.get());
+    this.#restaurantDBService.set(newRestaurants);
+    this.render();
   }
 }
 

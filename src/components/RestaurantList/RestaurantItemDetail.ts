@@ -22,9 +22,9 @@ class RestaurantItemDetail extends HTMLLIElement {
   constructor(props: IRestaurant) {
     super();
 
-    this.template();
+    this.#template();
     if (props !== undefined) this.setState(props);
-    this.paint();
+    this.#render();
   }
 
   setState({ category, name, distance, description, link, isFavorite }: IRestaurant) {
@@ -36,7 +36,7 @@ class RestaurantItemDetail extends HTMLLIElement {
     this.#isFavorite = isFavorite ?? false;
   }
 
-  template() {
+  #template() {
     this.classList.add(`restaurant-item-detail`, `${style.restaurant}`);
     this.innerHTML = `
     <div class="restaurant-content ${style.restaurantContent}">
@@ -57,7 +57,7 @@ class RestaurantItemDetail extends HTMLLIElement {
         new RestaurantDBService().remove(this.get());
         if (!(this.parentElement!.parentElement instanceof BasicModal)) return;
         this.parentElement!.parentElement.closeModal();
-        dom.getElement<MainApp>(document.body, '#main-app').paint();
+        dom.getElement<MainApp>(document.body, '#main-app').render();
       }),
     );
     $buttonBox.append(
@@ -69,7 +69,8 @@ class RestaurantItemDetail extends HTMLLIElement {
 
     this.addEventListener('click', this.#favoriteIconDBListener.bind(this));
   }
-  paint() {
+
+  #render() {
     const categoryIcon = dom.getElement<RestaurantCategoryIcon>(
       this,
       'div[is="restaurant-category-icon"]',
@@ -104,7 +105,7 @@ class RestaurantItemDetail extends HTMLLIElement {
     const newRestaurants: IRestaurant[] = new RestaurantDBService().get();
     new RestaurantDBService().set(new RestaurantCollection(newRestaurants).update(this.get()));
 
-    dom.getElement<MainApp>(document.body, '.main-app-new').paint();
+    dom.getElement<MainApp>(document.body, '.main-app-new').render();
   }
 }
 

@@ -45,7 +45,7 @@ class RestaurantList extends HTMLUListElement {
     );
     new RestaurantDBService().set(new RestaurantCollection(restaurants).update(changed));
 
-    dom.getElement<MainApp>(document.body, '.main-app-new').paint();
+    dom.getElement<MainApp>(document.body, '.main-app-new').render();
   }
 }
 

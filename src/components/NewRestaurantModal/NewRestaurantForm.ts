@@ -80,7 +80,7 @@ class NewRestaurantForm extends HTMLFormElement {
     const $buttonBox = dom.getElement<HTMLElement>(this, '.button-container');
     $buttonBox.append(
       new BasicButton('secondary', '취소하기', 'reset', () => {
-        (this.parentElement?.parentElement?.parentElement as BasicModal).closeModal();
+        (this.parentElement?.parentElement as BasicModal).closeModal();
       }),
     );
     $buttonBox.append(new BasicButton('primary', '추가하기', 'submit', () => {}));

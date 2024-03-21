@@ -101,7 +101,7 @@ class NewRestaurantModal extends BasicModal {
   }
 
   #rerenderApp() {
-    (this.parentElement as AllRestaurantApp).paint();
+    (this.parentElement as AllRestaurantApp).render();
   }
 }
 export default NewRestaurantModal;

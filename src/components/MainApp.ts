@@ -45,28 +45,28 @@ class MainApp extends HTMLDivElement {
       this,
       'div[is="favorite-restaurant-app"]',
     );
-    this.paint();
+    this.render();
 
     this.#navTab.addEventListener('click', () => {
-      this.paint();
+      this.render();
     });
 
     this.#restaurantDetailModal = dom.getElement<BasicModal>(this, '.detail-modal');
     this.#restaurantDetailModal.appendAll([]);
   }
 
-  paint() {
+  render() {
     if (
       this.#allRestaurantApp ===
       this.querySelector(`.main-app-new > div[data-id="${this.#navTab.getSelected().dataset.id}"]`)
     ) {
       this.#favoriteRestaurantApp.classList.add('hidden');
       this.#allRestaurantApp.classList.remove('hidden');
-      this.#allRestaurantApp.paint();
+      this.#allRestaurantApp.render();
     } else {
       this.#allRestaurantApp.classList.add('hidden');
       this.#favoriteRestaurantApp.classList.remove('hidden');
-      this.#favoriteRestaurantApp.paint();
+      this.#favoriteRestaurantApp.render();
     }
   }
 
