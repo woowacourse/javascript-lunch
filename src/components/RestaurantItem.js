@@ -61,9 +61,11 @@ class RestaurantItem extends BaseComponent {
 
   setEvent() {
     this.addEventListener("click", (e) => {
-      this.emitEvent("detail-modal-open", {
-        name: this.getAttribute("name"),
-      });
+      e.target.closest(".star")
+        ? null
+        : this.emitEvent("detail-modal-open", {
+            name: this.getAttribute("name"),
+          });
     });
   }
 }
