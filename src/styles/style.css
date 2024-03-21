@@ -9,6 +9,10 @@ li {
   list-style: none;
 }
 
+select {
+  appearance: none;
+}
+
 html,
 body {
   font-family: sans-serif;
@@ -87,13 +91,39 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 모든 음식점/자주 가는 음식점 필터 */
+.matzip-nav-container {
+  display: flex;
+  width: 100%;
+  padding: 30px 16px;
+}
+
+.matzip-container--close {
+  display: none;
+}
+
+.all-matzip-tab,
+.favorite-matzip-tab {
+  width: 50%;
+  border-bottom: 3px solid #ec4a0a;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ec4a0a;
+  padding: 10px 0px;
+}
+
+.matzip-nav--close {
+  color: #667085;
+  border-bottom: 3px solid #d0d5dd;
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
 
   padding: 0 16px;
-  margin-top: 24px;
 }
 
 .restaurant-filter-container select {
@@ -108,7 +138,7 @@ body {
 }
 
 .restaurant-filter {
-  padding: 8px;
+  padding: 8px 25px 8px 10px;
 }
 
 /* 음식점 목록 */
@@ -123,6 +153,8 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
+
+  position: relative;
 
   padding: 16px 8px;
 
@@ -172,15 +204,18 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+
+  color: var(--grey-400);
+}
+
+.restaurant__favorite_img {
+  position: absolute;
+  right: 0;
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
+.restaurant-form-modal {
   display: none;
-}
-
-.modal--open {
-  display: block;
 }
 
 .modal-backdrop {
@@ -301,4 +336,63 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세 정보 모달 *****************************************/
+.detail-info-modal {
+  display: none;
+}
+
+.detail-info-container {
+  /* display: none; */
+
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  padding: 32px 16px;
+  background: var(--grey-100);
+}
+
+detail-info-container {
+  position: relative;
+}
+
+.detail-modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.detail-info-column {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.detail-info-column > * {
+  margin: 6px 0px;
+}
+
+.detail-info-column > .restaurant__description {
+  padding-top: 0px;
+}
+
+.restaurant__favorite__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.restaurant__detail__description {
+  height: 400px;
+  overflow: overlay;
+}
+
+.modal--open {
+  display: block;
 }

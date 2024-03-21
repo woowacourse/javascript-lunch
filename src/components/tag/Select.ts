@@ -1,3 +1,4 @@
+import { ArrowIcon } from '../../asset/img';
 import Option from './Option';
 import OptionProps from './props/OptionProps';
 import SelectProps from './props/SelectProps';
@@ -11,6 +12,7 @@ class Select extends HTMLSelectElement {
     this.id = id;
     if (classname !== undefined) this.classList.add(classname);
     this.required = required;
+    this.style.background = `url(${ArrowIcon}) no-repeat right 10px center`;
     this.addOptions(options);
   }
 

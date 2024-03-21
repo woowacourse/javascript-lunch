@@ -4,8 +4,14 @@ class App extends HTMLElement {
     this.innerHTML = `
     <matzip-gnb></matzip-gnb>
     <main>
-      <matzip-filter-container></matzip-filter-container>
-      <matzip-list-container></matzip-list-container>
+      <matzip-nav></matzip-nav>
+      <matzip-default-container>
+        <matzip-filter-container></matzip-filter-container>
+        <matzip-list-container></matzip-list-container>
+      </matzip-default-container>
+      <matzip-favorite-container class="matzip-container--close">
+        <matzip-list-container></matzip-list-container>
+      </matzip-favorite-container>
       <matzip-modal></matzip-modal>
     </main>
     `;

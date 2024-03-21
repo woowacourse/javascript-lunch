@@ -1,4 +1,6 @@
 import { Restaurant } from './types';
+import Matzip from './matzip';
+import matzipList from './mock/restaurants';
 
 const MATZIP_DATA = 'matzipData';
 
@@ -20,6 +22,14 @@ const storage = {
     const localStorageData = localStorage.getItem(MATZIP_DATA);
     if (localStorageData === null) return [];
     return JSON.parse(localStorageData);
+  },
+
+  updateData(matzip: Matzip) {
+    localStorage.setItem(MATZIP_DATA, JSON.stringify(matzip.getRestaurants()));
+  },
+
+  setMockData() {
+    localStorage.setItem(MATZIP_DATA, JSON.stringify(matzipList));
   },
 };
 

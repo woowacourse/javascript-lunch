@@ -1,19 +1,24 @@
 import Matzip from './matzip';
 import DOM from './utils/DOM';
 import { FilterChangeEvent } from './components/FilterContainer';
-import Restaurant from './components/Restaurant';
+import Restaurant, { FavoriteRestaurantEvent } from './components/Restaurant';
 import { CategoryType, SortType, Restaurant as RestaurantType } from './types';
 import storage from './storage';
 import { Select, Input, TextArea } from './components/tag';
+import RestaurantDetail, { RestaurantDetailEvent } from './components/RestaurantDetail';
+import { FavoriteIconLined } from './asset/img';
 
 const { $, $$ } = DOM;
 
 const root = {
   init() {
+    //storage.setMockData();
     const matzip = new Matzip(storage.getData());
     this.initList(matzip);
     this.listenCategoryChange(matzip);
     this.listenRestaurantAdd(matzip);
+    this.listenRestaurantDelete(matzip);
+    this.listenFavoriteRestaurantChange(matzip);
   },
 
   initList(matzip: Matzip) {
@@ -24,12 +29,19 @@ const root = {
       matzip.filterAndSort('전체', sortBy as SortType).forEach((restaurant) => {
         $('.restaurant-list-container')?.appendChild(new Restaurant(restaurant));
       });
+
+      matzip.getRestaurants().forEach((restaurant) => {
+        if (restaurant.favorite)
+          $('matzip-favorite-container .restaurant-list-container')?.appendChild(
+            new Restaurant(restaurant),
+          );
+      });
     });
   },
 
   listenCategoryChange(matzip: Matzip) {
     document.addEventListener('filterChange', (event: Event) => {
-      Array.from($$('.restaurant')).map((node) => node.remove());
+      Array.from($$('matzip-default-container .restaurant')).map((node) => node.remove());
 
       const customEvent = event as FilterChangeEvent;
       const selectedCategory = customEvent.detail.selectedCategory;
@@ -63,11 +75,43 @@ const root = {
       try {
         matzip.add(newRestaurant);
         storage.addData(newRestaurant);
-        $('.modal')?.classList.remove('modal--open');
+        $('.restaurant-form-modal')?.classList.remove('modal--open');
         $('.restaurant-list-container')?.appendChild(new Restaurant(newRestaurant));
       } catch (error) {
         alert(error);
       }
+    });
+  },
+
+  listenRestaurantDelete(matzip: Matzip) {
+    document.addEventListener('deleteRestuarantInfo', (event: Event) => {
+      const customEvent = event as RestaurantDetailEvent;
+      const restaurantInfo = customEvent.detail.restaurant;
+
+      matzip.delete(restaurantInfo);
+      storage.updateData(matzip);
+    });
+  },
+
+  listenFavoriteRestaurantChange(matzip: Matzip) {
+    document.addEventListener('changeRestaurantInfo', (event: Event) => {
+      const customEvent = event as FavoriteRestaurantEvent;
+      const restaurant = customEvent.detail.restaurant;
+
+      if (restaurant.favorite) {
+        $('matzip-favorite-container .restaurant-list-container')?.appendChild(
+          new Restaurant(restaurant),
+        );
+      } else {
+        $(`matzip-favorite-container #${restaurant.category}_${restaurant.name}`)?.remove();
+        $(`#${restaurant.category}_${restaurant.name} .restaurant__favorite_img img`)?.setAttribute(
+          'src',
+          FavoriteIconLined,
+        );
+      }
+
+      matzip.change(restaurant);
+      storage.updateData(matzip);
     });
   },
 };

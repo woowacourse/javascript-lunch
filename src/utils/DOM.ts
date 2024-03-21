@@ -5,10 +5,10 @@ function validateSelector(selector: string) {
 }
 
 const DOM = {
-  $: (selector: string) => {
+  $: (selector: string, target: HTMLElement | Document = document) => {
     try {
       validateSelector(selector);
-      return document.querySelector(selector);
+      return target.querySelector(selector);
     } catch (error) {
       alert(error);
       return;
@@ -26,3 +26,6 @@ const DOM = {
 };
 
 export default DOM;
+
+export const $ = (selector: string, target: HTMLElement | HTMLImageElement | Document = document) =>
+  target.querySelector(selector);
