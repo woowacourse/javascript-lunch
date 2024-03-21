@@ -6,6 +6,7 @@ type SelectProps = {
   classname?: string;
   required: boolean;
   options: OptionProps[];
+  onChange?: () => void;
 };
 
 export default SelectProps;

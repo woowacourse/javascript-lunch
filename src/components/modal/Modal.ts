@@ -1,55 +1,66 @@
-import DOM from '../../utils/DOM';
-import RestaurantForm from '../RestaurantForm';
 import './modal.css';
 
-const { $ } = DOM;
+interface ModalProps {
+  title?: string;
+}
 
-class Modal extends HTMLElement {
-  constructor() {
+class Modal extends HTMLDivElement {
+  private modalBackdrop: HTMLDivElement;
+  private modalContainer: HTMLDivElement;
+
+  constructor(props: ModalProps) {
     super();
-    this.setEvent();
+    this.className = 'modal';
+    this.modalBackdrop = this.createBackdrop();
+    this.modalContainer = this.createModalContainer(props);
+    this.listenBackdropClick();
   }
 
-  setEvent() {
-    this.createLayout();
-    this.appendForm();
-    this.closeModal();
-  }
-
-  createLayout() {
-    const modal = document.createElement('div');
-    modal.setAttribute('class', 'modal');
-    
+  createBackdrop() {
     const modalBackdrop = document.createElement('div');
     modalBackdrop.className = 'modal-backdrop';
-    modal.appendChild(modalBackdrop);
+    this.appendChild(modalBackdrop);
+    return modalBackdrop;
+  }
 
+  createModalContainer({ title }: ModalProps) {
     const modalContainer = document.createElement('div');
     modalContainer.className = 'modal-container';
-    
-    const modalTitle = document.createElement('h2');
-    modalTitle.className = 'modal-title';
-    const modalTitleClassList = ['modal-title', 'text-title'];
-    modalTitle.textContent = '새로운 음식점';
-    modalTitle.classList.add(...modalTitleClassList);
-    
-    modalContainer.appendChild(modalTitle);
-    modal.appendChild(modalContainer);
-    this.appendChild(modal);
+
+    if (typeof title !== 'undefined') {
+      const modalTitle = document.createElement('h2');
+      modalTitle.className = 'modal-title';
+      const modalTitleClassList = ['modal-title', 'text-title'];
+      modalTitle.textContent = title;
+      modalTitle.classList.add(...modalTitleClassList);
+      modalContainer.appendChild(modalTitle);
+    }
+
+    this.appendChild(modalContainer);
+    return modalContainer;
   }
 
-  appendForm() {
-    $<HTMLDivElement>('.modal-container').appendChild(new RestaurantForm());
+  appendChildNode(child: HTMLElement) {
+    this.modalContainer.appendChild(child);
   }
 
-  closeModal() {
-    $<HTMLDivElement>('.modal-backdrop').addEventListener('click', () => {
-      $<HTMLDivElement>('.modal').classList.remove('modal--open');
+  stopEventBubbling() {
+    this.modalContainer.addEventListener('click', (event) => {
+      event.stopPropagation();
     });
-    $<HTMLButtonElement>('.modal--close')?.addEventListener('click', () => {
-      $<HTMLDivElement>('.modal').classList.remove('modal--open');
+  }
+
+  listenBackdropClick() {
+    this.modalBackdrop.addEventListener('click', () => {
+      this.toggleModal();
     });
+  }
+
+  toggleModal() {
+    this.classList.toggle('modal--open');
   }
 }
 
-customElements.define('matzip-modal', Modal);
+customElements.define('matzip-modal', Modal, { extends: 'div' });
+
+export default Modal;

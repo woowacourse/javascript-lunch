@@ -7,8 +7,8 @@ class Image extends HTMLImageElement {
     const { src, alt, classnames } = props;
 
     this.src = src;
-    if (alt !== undefined) this.alt = alt;
-    if (classnames !== undefined) this.classList.add(...classnames);
+    if (typeof alt !== 'undefined') this.alt = alt;
+    if (typeof classnames !== 'undefined') this.classList.add(...classnames);
   }
 }
 

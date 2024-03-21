@@ -1,15 +1,31 @@
 import { MatzipInterface, Restaurant, SortType, CategoryType } from './types';
 import { CategoryValidator, NameValidator, DistanceValidator } from './validator/index';
+import Condition from './constants/Condition';
+
+const { CATEGORY } = Condition;
 
 class Matzip implements MatzipInterface {
   restaurants: Restaurant[] = [];
+  myFavorites: string[] = [];
 
-  constructor(restaurants: Restaurant[]) {
+  constructor(restaurants: Restaurant[], myFavorites: string[]) {
     this.restaurants = restaurants;
+    this.myFavorites = myFavorites;
   }
 
   getRestaurants() {
     return [...this.restaurants];
+  }
+
+  getMyFavorites() {
+    return [...this.myFavorites];
+  }
+
+  getMyFavoriteRestaurants() {
+    const favoriteRestaurants = this.restaurants.filter((restaurant) =>
+      this.myFavorites.includes(restaurant.id),
+    );
+    return [...favoriteRestaurants];
   }
 
   add(restaurant: Restaurant) {
@@ -17,8 +33,21 @@ class Matzip implements MatzipInterface {
     this.restaurants.push(restaurant);
   }
 
+  addFavorite(targetId: string) {
+    this.myFavorites.push(targetId);
+  }
+
+  deleteFavorite(targetId: string) {
+    const targetIndex = this.myFavorites.findIndex((id) => id === targetId);
+    this.myFavorites.splice(targetIndex, 1);
+  }
+
+  isFavorite(targetId: string) {
+    return this.myFavorites.includes(targetId);
+  }
+
   filterAndSort(category: CategoryType, sortBy: SortType) {
-    if (category === '전체') return this.sort(sortBy, this.restaurants);
+    if (category === CATEGORY.whole) return this.sort(sortBy, this.restaurants);
     const filterResult = [...this.restaurants].filter(
       (restaurant) => restaurant.category === category,
     );
@@ -35,7 +64,7 @@ class Matzip implements MatzipInterface {
   }
 
   filterByCategory(category: CategoryType) {
-    if (category === '전체') return [...this.restaurants];
+    if (category === CATEGORY.whole) return [...this.restaurants];
     return [...this.restaurants].filter((restaurant) => restaurant.category === category);
   }
 
@@ -65,6 +94,12 @@ class Matzip implements MatzipInterface {
     NameValidator.empty(restaurant.name);
     DistanceValidator.empty(restaurant.distance);
     DistanceValidator.exist(restaurant.distance);
+  }
+
+  delete(id: string) {
+    const targetIndex = this.restaurants.findIndex((restaurant) => restaurant.id === id);
+    this.restaurants.splice(targetIndex, 1);
+    this.deleteFavorite(id);
   }
 }
 

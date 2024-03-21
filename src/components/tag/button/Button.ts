@@ -4,10 +4,10 @@ import './button.css';
 class Button extends HTMLButtonElement {
   constructor(props: ButtonProps) {
     super();
-    const { type, classnames, ariaLabel, children, disabled, varient } = props;
+    const { type, classnames, ariaLabel, children, disabled, varient, onClick } = props;
 
     this.type = type;
-    if (classnames !== undefined) this.classList.add(...classnames);
+    if (typeof classnames !== 'undefined') this.classList.add(...classnames);
     this.classList.add(`${varient}__button`);
     if (ariaLabel !== undefined) this.ariaLabel = ariaLabel;
 
@@ -15,7 +15,10 @@ class Button extends HTMLButtonElement {
     if (children instanceof HTMLImageElement) {
       this.appendChild(children);
     }
-    if (disabled !== undefined) this.disabled = disabled;
+    if (typeof onClick !== 'undefined') {
+      this.addEventListener('click', onClick);
+    }
+    if (typeof disabled !== 'undefined') this.disabled = disabled;
   }
 }
 

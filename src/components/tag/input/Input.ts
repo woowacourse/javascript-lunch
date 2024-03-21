@@ -10,7 +10,7 @@ class Input extends HTMLInputElement {
     this.name = name;
     this.id = id;
     this.required = required;
-    if (pattern !== undefined) this.pattern = pattern;
+    if (typeof pattern !== 'undefined') this.pattern = pattern.toString().slice(1, -1);
   }
 
   getValue(): string {

@@ -8,13 +8,14 @@ const { insertElementsInTarget } = DOM;
 class Select extends HTMLSelectElement {
   constructor(props: SelectProps) {
     super();
-    const { name, id, classname, required, options } = props;
+    const { name, id, classname, required, options, onChange } = props;
 
     this.name = name;
     this.id = id;
-    if (classname !== undefined) this.classList.add(classname);
+    if (typeof classname !== 'undefined') this.classList.add(classname);
     this.required = required;
     this.addOptions(options);
+    if (onChange) this.addEventListener('change', onChange);
   }
 
   addOptions(options: OptionProps[]) {

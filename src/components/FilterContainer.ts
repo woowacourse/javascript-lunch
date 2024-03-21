@@ -1,28 +1,23 @@
-import DOM from '../utils/DOM';
+import App from '../app';
+import { CategoryType, SortType } from '../types';
+import TabPane from './TabPane';
+import ListContainer from './listContainer/ListContainer';
+import Restaurant from './restaurant/Restaurant';
 import { OptionProps } from './tag/option';
 import { Select, SelectProps } from './tag/select';
+import DOM from '../utils/DOM';
 
 const { $ } = DOM;
 
-export interface FilterChangeEvent extends CustomEvent {
-  detail: {
-    selectedCategory: string;
-    selectedSort: string;
-  };
-}
+class FilterContainer extends HTMLDivElement {
+  private category: Select;
+  private sort: Select;
 
-class FilterContainer extends HTMLElement {
   constructor() {
     super();
     this.className = 'restaurant-filter-container';
-    this.setEvent();
-  }
-
-  setEvent() {
-    this.createCategorySelect();
-    this.createSortSelect();
-    this.categoryChange();
-    this.sortChange();
+    this.category = this.createCategorySelect();
+    this.sort = this.createSortSelect();
   }
 
   createCategorySelect() {
@@ -41,8 +36,11 @@ class FilterContainer extends HTMLElement {
       classname: 'restaurant-filter',
       required: true,
       options: options,
+      onChange: this.changeListByFilter.bind(this),
     };
-    this.appendChild(new Select(selectBox));
+    const select = new Select(selectBox);
+    this.appendChild(select);
+    return select;
   }
 
   createSortSelect() {
@@ -56,39 +54,35 @@ class FilterContainer extends HTMLElement {
       classname: 'restaurant-filter',
       required: true,
       options: sortOptions,
+      onChange: this.changeListByFilter.bind(this),
     };
-    this.appendChild(new Select(sortBox));
+    const select = new Select(sortBox);
+    this.appendChild(select);
+    return select;
   }
 
-  categoryChange() {
-    const categorySelect = $<Select>('#category-filter');
-    const sortSelect = $<Select>('#sorting-filter');
-
-    categorySelect.addEventListener('change', () => {
-      const filterChangeEvent = new CustomEvent('filterChange', {
-        detail: {
-          selectedCategory: categorySelect.getValue(),
-          selectedSort: sortSelect.getValue(),
-        },
-      });
-      document.dispatchEvent(filterChangeEvent);
-    });
+  getFilterValues() {
+    const filterValues = {
+      category: this.category.getValue(),
+      sort: this.sort.getValue(),
+    };
+    return filterValues;
   }
 
-  sortChange() {
-    const categorySelect = $<Select>('#category-filter');
-    const sortSelect = $<Select>('#sorting-filter');
+  changeListByFilter() {
+    const selectedCategory = this.category.getValue();
+    const selectedSort = this.sort.getValue();
 
-    sortSelect.addEventListener('change', () => {
-      const filterChangeEvent = new CustomEvent('filterChange', {
-        detail: {
-          selectedCategory: categorySelect.getValue(),
-          selectedSort: sortSelect.getValue(),
-        },
-      });
-      document.dispatchEvent(filterChangeEvent);
-    });
+    const restaurantElements: Restaurant[] = App.matzip
+      .filterAndSort(selectedCategory as CategoryType, selectedSort as SortType)
+      .map((restaurant) => new Restaurant(restaurant, App.matzip.isFavorite(restaurant.id)));
+
+    const listContainer = new ListContainer(restaurantElements);
+    const tabPane = $<TabPane>('.tabpane');
+    tabPane.showListChange(listContainer);
   }
 }
 
-customElements.define('matzip-filter-container', FilterContainer);
+customElements.define('matzip-filter-container', FilterContainer, { extends: 'div' });
+
+export default FilterContainer;

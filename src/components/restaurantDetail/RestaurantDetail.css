@@ -1,23 +1,18 @@
 @import url('../../styles/style.css');
 
-.restaurant {
+.detail__container {
   display: flex;
   position: relative;
-  align-items: flex-start;
-
-  margin: 16px 8px 0 8px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e9eaed;
-}
-
-.restaurant__info {
-  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-.restaurant__name {
-  margin: 0;
+.detail__field {
+  margin-bottom: 16px;
+}
+
+.detail__title {
+  margin-top: 16px;
 }
 
 .restaurant__distance {
@@ -33,4 +28,18 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__link {
+  color: var(--grey-500);
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.button-container button {
+  flex: 1;
 }

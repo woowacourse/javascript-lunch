@@ -4,9 +4,10 @@ import './label.css';
 class Label extends HTMLLabelElement {
   constructor(props: LabelProps) {
     super();
-    const { htmlFor, text } = props;
+    const { htmlFor, text, classname } = props;
     this.htmlFor = htmlFor;
     this.textContent = text;
+    this.classList.add(classname);
   }
 }
 

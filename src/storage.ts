@@ -1,25 +1,28 @@
-import { Restaurant } from './types';
-
-const MATZIP_DATA = 'matzipData';
-
 const storage = {
-  addData(data: Restaurant) {
-    const localStorageData = localStorage.getItem(MATZIP_DATA);
+  addData<T>(key: string, data: T) {
+    const localStorageData = localStorage.getItem(key);
 
     if (localStorageData === null) {
-      localStorage.setItem(MATZIP_DATA, JSON.stringify([data]));
+      localStorage.setItem(key, JSON.stringify([data]));
       return;
     }
 
-    const existingData: Restaurant[] = JSON.parse(localStorageData);
+    const existingData: T[] = JSON.parse(localStorageData);
     const newData = [...existingData, data];
-    localStorage.setItem(MATZIP_DATA, JSON.stringify(newData));
+    localStorage.setItem(key, JSON.stringify(newData));
   },
 
-  getData(): Restaurant[] {
-    const localStorageData = localStorage.getItem(MATZIP_DATA);
+  getData<T>(key: string): T[] {
+    const localStorageData = localStorage.getItem(key);
     if (localStorageData === null) return [];
     return JSON.parse(localStorageData);
+  },
+
+  modifyData<T>(key: string, newList: T[]) {
+    const localStorageData = localStorage.getItem(key);
+    if (localStorageData !== null) {
+      localStorage.setItem(key, JSON.stringify(newList));
+    }
   },
 };
 

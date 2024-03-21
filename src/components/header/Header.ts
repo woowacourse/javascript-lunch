@@ -1,21 +1,26 @@
 import { AddButton } from '../../asset/img/index';
-import DOM from '../../utils/DOM';
+import RestaurantForm from '../RestaurantForm';
+import Modal from '../modal/Modal';
 import { Button, ButtonProps } from '../tag/button';
 import { Image, ImageProps } from '../tag/image';
 import './header.css';
 
-const { $ } = DOM;
-
 class Header extends HTMLElement {
-  constructor() {
-    super();
-    this.innerHTML = `
-    <header class="gnb">
-      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-    </header>`;
+  private modal: Modal;
 
+  constructor(main: HTMLElement) {
+    super();
+    this.className = 'gnb';
+    this.createH1();
+    this.modal = this.createModal(main);
     this.createButton();
-    this.openModal();
+  }
+
+  createH1() {
+    const h1 = document.createElement('h1');
+    h1.classList.add('gnb__title', 'text-title');
+    h1.textContent = '점심 뭐 먹지';
+    this.appendChild(h1);
   }
 
   createButton() {
@@ -28,15 +33,24 @@ class Header extends HTMLElement {
       varient: 'gnb',
       ariaLabel: '음식점 추가',
       children: new Image(image),
+      onClick: this.modal.toggleModal.bind(this.modal),
     };
-    $<HTMLElement>('.gnb')?.appendChild(new Button(button));
+
+    const buttonElement = new Button(button);
+    this.appendChild(buttonElement);
   }
 
-  openModal() {
-    $<HTMLButtonElement>('.gnb__button').addEventListener('click', () => {
-      $<HTMLElement>('.modal').classList.add('modal--open');
+  createModal(main: HTMLElement) {
+    const modal = new Modal({
+      title: '새로운 음식점',
     });
+    const restaurantForm = new RestaurantForm(modal);
+    modal.appendChildNode(restaurantForm);
+    main.appendChild(modal);
+    return modal;
   }
 }
 
-customElements.define('matzip-gnb', Header);
+customElements.define('matzip-gnb', Header, { extends: 'header' });
+
+export default Header;
