@@ -82,10 +82,10 @@ export default class RestaurantDetail extends EventComponent {
   }
 
   private showRestaurantInfo(e: Event) {
-    if (e instanceof CustomEvent) {
-      this.restaurantName = e.detail.name;
-      this.render();
-    }
+    if (!(e instanceof CustomEvent)) return;
+
+    this.restaurantName = e.detail.name;
+    this.render();
   }
 
   protected removeEvent(): void {

@@ -54,9 +54,8 @@ export default class StarButton extends EventComponent {
   }
 
   private clickStarButton(e: Event) {
-    if (e instanceof CustomEvent) {
-      if (e.detail.name !== this.restaurantName) return;
-    }
+    if (!(e instanceof CustomEvent)) return;
+    if (e.detail.name !== this.restaurantName) return;
 
     this.isFavorite = !this.isFavorite;
     this.render();

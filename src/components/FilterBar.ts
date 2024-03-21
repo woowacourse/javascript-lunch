@@ -54,19 +54,19 @@ export default class FilterBar extends EventComponent {
   }
 
   private handleShowFilter(e: Event) {
-    if (e instanceof CustomEvent) {
-      const { action } = e.detail;
+    if (!(e instanceof CustomEvent)) return;
 
-      if (action === ACTION_TYPES.open && !this.isDisplay) {
-        this.isDisplay = !this.isDisplay;
-        this.render();
-        return;
-      }
+    const { action } = e.detail;
 
-      if (action === ACTION_TYPES.close || this.isDisplay) {
-        this.isDisplay = !this.isDisplay;
-        this.render();
-      }
+    if (action === ACTION_TYPES.open && !this.isDisplay) {
+      this.isDisplay = !this.isDisplay;
+      this.render();
+      return;
+    }
+
+    if (action === ACTION_TYPES.close || this.isDisplay) {
+      this.isDisplay = !this.isDisplay;
+      this.render();
     }
   }
 

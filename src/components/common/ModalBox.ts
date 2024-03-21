@@ -47,16 +47,16 @@ export default class ModalBox extends EventComponent {
   }
 
   private handleFormModalAction(e: Event, modalId: string) {
-    if (e instanceof CustomEvent) {
-      const { action } = e.detail;
+    if (!(e instanceof CustomEvent)) return;
 
-      if (action === ACTION_TYPES.open) {
-        this.openModal(modalId);
-      }
+    const { action } = e.detail;
 
-      if (action === ACTION_TYPES.close) {
-        this.closeModal(modalId);
-      }
+    if (action === ACTION_TYPES.open) {
+      this.openModal(modalId);
+    }
+
+    if (action === ACTION_TYPES.close) {
+      this.closeModal(modalId);
     }
   }
 

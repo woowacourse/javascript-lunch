@@ -129,51 +129,51 @@ export default class RestaurantList extends EventComponent {
   }
 
   private handleFavoriteFilterChange(event: Event) {
-    if (event instanceof CustomEvent) {
-      const { action } = event?.detail;
+    if (!(event instanceof CustomEvent)) return;
 
-      if (action) this.showFavorite = true;
-      else this.showFavorite = false;
+    const { action } = event?.detail;
 
-      this.render();
-    }
+    if (action) this.showFavorite = true;
+    else this.showFavorite = false;
+
+    this.render();
   }
 
   private handleCategoryFilterChange(event: Event) {
-    if (event instanceof CustomEvent) {
-      const { value: categoryFilter } = event?.detail;
+    if (!(event instanceof CustomEvent)) return;
 
-      this.categoryFilter = categoryFilter;
+    const { value: categoryFilter } = event?.detail;
 
-      this.render();
-    }
+    this.categoryFilter = categoryFilter;
+
+    this.render();
   }
 
   private handleSortFilterChange(event: Event) {
-    if (event instanceof CustomEvent) {
-      const { value: sortFilter } = event?.detail;
+    if (!(event instanceof CustomEvent)) return;
 
-      this.sortFilter = sortFilter;
+    const { value: sortFilter } = event?.detail;
 
-      this.render();
-    }
+    this.sortFilter = sortFilter;
+
+    this.render();
   }
 
   private handleRestaurantFormSubmit(event: Event) {
-    if (event instanceof CustomEvent) {
-      const { payload, cleanUp } = event?.detail;
+    if (!(event instanceof CustomEvent)) return;
 
-      try {
-        const restaurant = new Restaurant(payload);
-        this.restaurants.add(restaurant);
-        restaurantStore.setRestaurants(this.restaurants);
-      } catch (error: any) {
-        return alert(error.message);
-      }
+    const { payload, cleanUp } = event?.detail;
 
-      cleanUp();
-      this.render();
+    try {
+      const restaurant = new Restaurant(payload);
+      this.restaurants.add(restaurant);
+      restaurantStore.setRestaurants(this.restaurants);
+    } catch (error: any) {
+      return alert(error.message);
     }
+
+    cleanUp();
+    this.render();
   }
 
   private filterByCategory(
