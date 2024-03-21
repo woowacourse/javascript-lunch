@@ -1,28 +1,5 @@
 /* eslint-disable */
-
-const exampleRestaurants = [
-  {
-    category: "일식",
-    name: "일식집1",
-    distance: 30,
-    description: "일식집 설명",
-    link: "http://naver.com",
-  },
-  {
-    category: "중식",
-    name: "중식집1",
-    distance: 10,
-    description: "중식집설명",
-    link: "http://naver.com",
-  },
-  {
-    category: "한식",
-    name: "한식집1",
-    distance: 5,
-    description: "한식집설명",
-    link: "http://naver.com",
-  },
-];
+import exampleRestaurants from "../exampleRestaurants.json";
 
 describe("점심 뭐 먹지 E2E 테스트", () => {
   beforeEach(() => {
@@ -42,8 +19,17 @@ describe("점심 뭐 먹지 E2E 테스트", () => {
   it("추가한 식당 이름와 UI의 식당 이름 일치여부 확인", () => {
     cy.get("h3.restaurant__name").each(($el, index, $list) => {
       const text = $el.text();
-      // 텍스트 내용을 비교합니다.
       expect(text).to.eq(exampleRestaurants[index].name);
     });
+  });
+
+  it("카테고리 한식으로 변경시 한식집만 렌더링되는지 확인", () => {
+    cy.get("select.category-select").select("한식");
+    cy.get("h3.restaurant__name").should("have.length", 1);
+  });
+
+  it("자주 가는 음식점 클릭 시 즐겨찾기 등록된 음식집만 렌더링되는지 확인", () => {
+    cy.get(".filter.bookmark").click();
+    cy.get("h3.restaurant__name").should("have.length", 0);
   });
 });

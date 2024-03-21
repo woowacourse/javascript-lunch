@@ -1,0 +1,23 @@
+[
+  {
+    "category": "일식",
+    "name": "일식집1",
+    "distance": 30,
+    "description": "일식집 설명",
+    "link": "http://naver.com"
+  },
+  {
+    "category": "중식",
+    "name": "중식집1",
+    "distance": 10,
+    "description": "중식집설명",
+    "link": "http://naver.com"
+  },
+  {
+    "category": "한식",
+    "name": "한식집1",
+    "distance": 5,
+    "description": "한식집설명",
+    "link": "http://naver.com"
+  }
+]

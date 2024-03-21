@@ -1,7 +1,5 @@
 import Component from "../common/Component";
-import { Category, RestaurantType } from "../types";
 import RestauranStorage from "../domain/RestaurantStorage";
-import { CATEGORIES, DISTANCES } from "../constants";
 import { isDistance, isLink, isCategory } from "../util";
 
 interface FormModalProps {

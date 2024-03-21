@@ -18,7 +18,7 @@ export default class Selects extends Component<HTMLDivElement, SelectsProps> {
               (CATEGORY) =>
                 `<option ${
                   category === CATEGORY ? "selected" : ""
-                }>${CATEGORY}</option>`
+                } value="${CATEGORY}">${CATEGORY}</option>`
             ).join("")}
         </select>
 
