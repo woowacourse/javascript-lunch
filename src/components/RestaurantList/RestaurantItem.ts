@@ -25,6 +25,7 @@ class RestaurantItem extends HTMLLIElement {
 
     this.template();
     this.render();
+    this.#setEvent();
   }
 
   template() {
@@ -49,8 +50,6 @@ class RestaurantItem extends HTMLLIElement {
     dom.getElement(this, '.restaurant__distance').textContent = `캠퍼스부터 ${this.#distance}분 내`;
     dom.getElement(this, '.restaurant__description').textContent = this.#description;
     dom.getElement<FavoriteIcon>(this, 'img[is="favorite-icon"]').set(this.#isFavorite);
-
-    this.addEventListener('click', this.#showDetailListener.bind(this));
   }
 
   get() {
@@ -64,10 +63,20 @@ class RestaurantItem extends HTMLLIElement {
     };
   }
 
+  #setEvent() {
+    this.addEventListener('click', this.#showDetailListener.bind(this));
+    this.addEventListener('click', this.#onClickFavoriteButton.bind(this));
+  }
+
   #showDetailListener(event: Event) {
     if (!(event.target instanceof HTMLElement)) return;
     if (event.target instanceof FavoriteIcon) return;
     dom.getElement<MainApp>(document.body, '.main-app-new').paintDetailModal(this.get());
+  }
+
+  #onClickFavoriteButton(event: Event) {
+    if (!(event.target instanceof FavoriteIcon)) return;
+    this.#isFavorite = event.target.getAttribute('clicked') === 'on';
   }
 }
 

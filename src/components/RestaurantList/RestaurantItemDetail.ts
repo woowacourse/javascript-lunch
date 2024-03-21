@@ -102,8 +102,7 @@ class RestaurantItemDetail extends HTMLLIElement {
 
     this.#isFavorite = event.target.getAttribute('clicked') === 'on';
     const newRestaurants: IRestaurant[] = new RestaurantDBService().get();
-    const filteredRestaurants = new RestaurantCollection(newRestaurants).remove(this.get());
-    new RestaurantDBService().set([...filteredRestaurants, this.get()]);
+    new RestaurantDBService().set(new RestaurantCollection(newRestaurants).update(this.get()));
 
     dom.getElement<MainApp>(document.body, '.main-app-new').paint();
   }
