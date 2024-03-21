@@ -1,11 +1,15 @@
 import { $ } from '../../utils/dom';
 import ICON from '../../icons';
+import AddRestaurantModal from '../AddRestaurantModal/AddRestaurantModal';
 
 export default class Header {
   #element;
+  #restaurants;
 
-  constructor(element) {
+  constructor(element, restaurants) {
     this.#element = element;
+    this.#restaurants = restaurants;
+    this.render();
     this.#addEvents();
   }
 
@@ -26,7 +30,8 @@ export default class Header {
 
   #handleButtonClick(target) {
     if (target.closest('#gnb__button')) {
-      $('add-restaurant-modal').classList.add('modal--open');
+      new AddRestaurantModal($('modal'), this.#restaurants);
+      $('modal').classList.add('modal--open');
     }
   }
 }

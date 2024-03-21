@@ -1,0 +1,28 @@
+.restaurant-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restaurant-detail-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant-detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restaurant-detail-description p {
+  line-height: 1.5rem;
+  max-height: 13.5rem;
+
+  overflow-y: scroll;
+}
+
+.restaurant-detail-link a {
+  text-decoration: underline;
+  color: var(--grey-500);
+}

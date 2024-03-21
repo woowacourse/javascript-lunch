@@ -1,8 +1,13 @@
 @import url('../components/Header/header.css');
-@import url('../components/AddRestaurantModal/add-restaurant-modal.css');
+@import url('../components/RestaurantNavigationMenu/restaurant-navigation-menu.css');
 @import url('../components/RestaurantFilter/restaurant-filter.css');
+@import url('../components/RestaurantList/restaurant-list.css');
 @import url('../components/Common/Restaurant/restaurant.css');
 @import url('../components/Common/Select/select.css');
+@import url('../components/Common/ModalWrapper/modal-wrapper.css');
+@import url('../components/AddRestaurantModal/add-restaurant-modal.css');
+@import url('../components/Common/RestaurantDetail/restaurant-detail.css');
+@import url('../components/Common/FavoriteButton/favorite-button.css');
 
 * {
   padding: 0;
@@ -19,6 +24,11 @@ html,
 body {
   font-family: sans-serif;
   font-size: 1rem;
+  overflow-x: hidden;
+}
+
+main {
+  padding: 0 16px;
 }
 
 /* Colors *****************************************/

@@ -1,0 +1,35 @@
+.restaurants-selector-container {
+  height: 64px;
+}
+
+.restaurant-list-selector {
+  display: flex;
+  height: 100%;
+}
+
+.restaurant-list-selector li {
+  cursor: pointer;
+}
+
+.restaurant-list-select-item {
+  flex: 1 1 0;
+
+  padding: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  border-bottom: 2px solid var(--grey-200);
+
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--grey-200);
+}
+
+.selected--item {
+  color: var(--primary-color);
+
+  border-color: var(--primary-color);
+}

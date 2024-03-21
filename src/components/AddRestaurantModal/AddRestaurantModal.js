@@ -5,22 +5,22 @@ import tryCatchWrapper from '../../utils/tryCatchWrapper';
 import { $ } from '../../utils/dom';
 import { RULES } from '../../constants/rules';
 import { SELECT_FORM_DATA } from '../../data/selectData';
+import ModalWrapper from '../Common/ModalWrapper/ModalWrapper';
 
-export default class AddRestaurantModal {
-  #element;
+export default class AddRestaurantModal extends ModalWrapper {
   #restaurants;
 
   constructor(element, restaurants) {
-    this.#element = element;
+    super(element);
+    this.insertTemplate();
     this.#restaurants = restaurants;
     this.#addEvents();
   }
 
-  render() {
-    this.#element.innerHTML = `
-    <!-- 음식점 추가 모달 -->
-    <div id="modal-backdrop" class="modal-backdrop"></div>
-    <div class="modal-container">
+  insertTemplate() {
+    $('modal-container').insertAdjacentHTML(
+      'afterbegin',
+      `
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form id="restaurant-input-form">
 
@@ -32,7 +32,7 @@ export default class AddRestaurantModal {
 
         <!-- 음식점 이름 -->
         <div class="form-item form-item--required">
-          <label for="name text-caption">이름</label>
+          <label for="name" class="text-caption">이름</label>
           <input placeholder="이름을 입력해주세요." type="text" name="name" id="name" required>
           <span id="name-error" class="error-message"></span>
         </div>
@@ -45,40 +45,34 @@ export default class AddRestaurantModal {
 
         <!-- 설명 -->
         <div class="form-item">
-          <label for="description text-caption">설명</label>
+          <label for="description" class="text-caption">설명</label>
           <textarea name="description" id="description" cols="30" rows="5"></textarea>
           <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
         </div>
 
         <!-- 링크 -->
         <div class="form-item">
-          <label for="link text-caption">참고 링크</label>
+          <label for="link" class="text-caption">참고 링크</label>
           <input type="text" name="link" id="link">
           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
         </div>
 
         <!-- 취소/추가 버튼 -->
         <div class="button-container">
-          <button type="button" id="cancel-button" class="button button--secondary text-caption">취소하기</button>
+          <button type="button" id="add-restaurant-cancel-button" class="button button--secondary text-caption">취소하기</button>
           <button id="add-button" class="button button--primary text-caption">추가하기</button>
         </div>
       </form>
-    </div>
-    `;
+    `,
+    );
   }
 
   #addEvents() {
-    $('add-restaurant-modal').addEventListener('click', (event) => this.#handleCancelButton(event));
-    $('add-restaurant-modal').addEventListener('focusout', (event) =>
+    $('add-restaurant-cancel-button').addEventListener('click', this._handleClose.bind(this));
+    $('restaurant-input-form').addEventListener('focusout', (event) =>
       this.#handleInputFocusout(event),
     );
-    $('add-restaurant-modal').addEventListener('submit', (event) => this.#handleAddButton(event));
-  }
-
-  #handleCancelButton(event) {
-    if (event.target.closest('#cancel-button') || event.target.closest('#modal-backdrop')) {
-      $('add-restaurant-modal').classList.remove('modal--open');
-    }
+    $('restaurant-input-form').addEventListener('submit', (event) => this.#handleAddButton(event));
   }
 
   #handleInputFocusout(event) {
@@ -103,11 +97,13 @@ export default class AddRestaurantModal {
 
   #addRestaurant(event) {
     const inputData = this.#getInputData(event.target);
+    const close = this._handleClose.bind(this);
 
     this.#validateInputData(inputData);
     this.#restaurants.addRestaurant(this.#parseWalkingTime(inputData));
     this.#insertRestaurantList(inputData);
-    $('add-restaurant-modal').classList.remove('modal--open');
+
+    close();
   }
 
   #validateInputData(inputData) {
@@ -123,7 +119,7 @@ export default class AddRestaurantModal {
   }
 
   #insertRestaurantList(inputData) {
-    $('restaurant-list').insertAdjacentHTML('afterbegin', Restaurant(inputData));
+    $('restaurant-list').insertAdjacentElement('afterbegin', Restaurant(inputData));
     $('restaurant-input-form').reset();
   }
 
@@ -132,8 +128,10 @@ export default class AddRestaurantModal {
     const name = target['name'].value;
     const walkingTimeFromCampus = Number(target['distance'].value);
     const description = target['description'].value;
+    const link = target['link'].value;
+    const favorite = false;
 
-    return { category, name, walkingTimeFromCampus, description };
+    return { category, name, walkingTimeFromCampus, description, link, favorite };
   }
 
   #parseWalkingTime(inputData) {

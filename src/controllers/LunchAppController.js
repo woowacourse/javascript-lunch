@@ -1,34 +1,33 @@
 import Restaurants from '../domains/Restaurants';
 
 import Header from '../components/Header/Header';
+import RestaurantNavigationMenu from '../components/RestaurantNavigationMenu/RestaurantNavigationMenu';
 import RestaurantFilter from '../components/RestaurantFilter/RestaurantFilter';
 import RestaurantList from '../components/RestaurantList/RestaurantList';
-import AddRestaurantModal from '../components/AddRestaurantModal/AddRestaurantModal';
 
 import { $ } from '../utils/dom';
 
 export default class LunchAppController {
   #restaurants;
   #header;
+  #restaurantNavigationMenu;
   #restaurantFilter;
   #restaurantList;
-  #addRestaurantmodal;
 
   constructor() {
     this.#restaurants = new Restaurants(localStorage);
-    this.#header = new Header($('header'));
-    this.#restaurantFilter = new RestaurantFilter(
-      $('restaurant-filter-container'),
-      this.#restaurants,
-    );
-    this.#restaurantList = new RestaurantList($('restaurant-list-container'), this.#restaurants);
-    this.#addRestaurantmodal = new AddRestaurantModal($('add-restaurant-modal'), this.#restaurants);
   }
 
   init() {
-    this.#header.render();
-    this.#restaurantFilter.render();
-    this.#restaurantList.render();
-    this.#addRestaurantmodal.render();
+    this.#header = new Header($('header'), this.#restaurants);
+    this.#restaurantNavigationMenu = new RestaurantNavigationMenu(
+      $('restaurants-selector-container'),
+      this.#restaurants,
+    );
+    this.#restaurantFilter = new RestaurantFilter($('content'), this.#restaurants);
+    this.#restaurantList = new RestaurantList($('restaurant-list'), {
+      restaurants: this.#restaurants,
+      standard: true,
+    });
   }
 }

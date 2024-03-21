@@ -1,0 +1,15 @@
+.favorite-button {
+  width: 32px;
+  height: 32px;
+
+  background-color: inherit;
+
+  border: none;
+
+  cursor: pointer;
+}
+
+.favorite-icon {
+  width: 100%;
+  height: 100%;
+}

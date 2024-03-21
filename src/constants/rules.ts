@@ -19,3 +19,8 @@ export const DEFAULT = {
   sortingFilter: 'name',
   categoryFilter: '전체',
 } as const;
+
+export const FAVORITE_ICON = {
+  add: '즐겨찾기추가',
+  remove: '즐겨찾기해제',
+} as const;

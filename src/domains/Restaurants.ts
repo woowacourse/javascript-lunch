@@ -11,6 +11,7 @@ interface Restaurant {
   walkingTimeFromCampus: Minutes;
   description?: string;
   referenceLink?: string;
+  favorite: boolean;
 }
 
 export default class Restaurants {
@@ -38,6 +39,24 @@ export default class Restaurants {
       STORAGE_KEY.restaurantData,
       JSON.stringify([restaurant, ...this.storageData]),
     );
+  }
+
+  getRestaurant(name: string): Restaurant | undefined {
+    return this.storageData.find((restaurant: Restaurant) => restaurant.name === name);
+  }
+
+  toggleFavoriteState(name: string) {
+    const data = this.storageData.map((restaurant) =>
+      restaurant.name === name ? { ...restaurant, favorite: !restaurant.favorite } : restaurant,
+    );
+
+    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(data));
+  }
+
+  deleteRestaurant(name: string) {
+    const filteredRestaurants = this.storageData.filter((restaurant) => restaurant.name !== name);
+
+    this.#storage.setItem(STORAGE_KEY.restaurantData, JSON.stringify(filteredRestaurants));
   }
 
   #orderByDistance(restaurants: Restaurant[]) {
@@ -73,6 +92,10 @@ export default class Restaurants {
       category === DEFAULT.categoryFilter ? this.storageData : this.#filterByCategory(category);
 
     return this.#sortByStandard(restaurants, sorting);
+  }
+
+  get favoriteList() {
+    return this.storageData.filter((restaurant) => restaurant.favorite === true);
   }
 
   set standard(value: { id: string; standard: string }) {

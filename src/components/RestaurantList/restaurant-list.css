@@ -1,0 +1,15 @@
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
+
+  max-height: 65vh;
+
+  overflow-y: scroll;
+
+  margin: 16px 0;
+}
+
+.restaurant-list {
+  display: flex;
+  flex-direction: column;
+}
