@@ -77,12 +77,15 @@ class NewRestaurantForm extends HTMLFormElement {
       helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
     });
 
+    this.#renderButtonBox();
+  }
+
+  #renderButtonBox() {
     const $buttonBox = dom.getElement<HTMLElement>(this, '.button-container');
-    $buttonBox.append(
-      new BasicButton('secondary', '취소하기', 'reset', () => {
-        (this.parentElement?.parentElement as BasicModal).closeModal();
-      }),
-    );
+    const closeModal = () => {
+      (this.parentElement?.parentElement as BasicModal).closeModal();
+    };
+    $buttonBox.append(new BasicButton('secondary', '취소하기', 'reset', closeModal));
     $buttonBox.append(new BasicButton('primary', '추가하기', 'submit', () => {}));
   }
 }
