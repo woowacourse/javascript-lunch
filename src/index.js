@@ -71,58 +71,46 @@ const restaurantList = generateRestaurantList({
 restaurantAllListContainer.append(restaurantList);
 
 //이벤트 리스너 등록
-openButton.addEventListener("click", () => {
-  addModal.toggle();
-});
+openButton.addEventListener("click", openAddingRestaurantModal);
 
-tab.addEventListener("click", () => {
+tab.addEventListener("click", reRenderRestaurantListByTab);
+
+filterContainer.addEventListener("change", reRenderAllRestaurantList);
+
+addingModalContainer.addEventListener("submit", addNewRestaurantAndRerender);
+
+const openAddingRestaurantModal = () => {
+  addModal.toggle();
+};
+
+const reRenderRestaurantListByTab = () => {
   if (tab.getAttribute("value") === "모든 음식점") {
-    renderFilteredContainer(restaurantAllListContainer, AllRestaurantList);
+    reRenderAllRestaurantList();
   }
   if (tab.getAttribute("value") === "자주 가는 음식점") {
-    const restaurantFavoriteListContainer = document.getElementById(
-      "restaurant-favorite-list-container"
-    );
-
-    if (restaurantFavoriteListContainer) {
-      const ul = generateRestaurantList({
-        restaurantList: new RestaurantList(AllRestaurantList.withFavorites()),
-        category: CATEGORY_FILTER_DEFAULT__VALUE,
-        sortStandard: SORT_STANDARD_FILTER_DEFAULT_VALUE,
-      });
-
-      restaurantFavoriteListContainer.replaceChildren(ul);
-    }
+    reRenderFavoriteList();
   }
-});
+};
 
-filterContainer.addEventListener("change", () => {
+const reRenderAllRestaurantList = () => {
   renderFilteredContainer(restaurantAllListContainer, AllRestaurantList);
-});
+};
 
-addingModalContainer.addEventListener("submit", (e) => {
-  e.preventDefault();
+const reRenderFavoriteList = () => {
+  const restaurantFavoriteListContainer = document.getElementById(
+    "restaurant-favorite-list-container"
+  );
 
-  const name = e.target["name"].value;
-  const category = e.target["category"].value;
-  const distance = e.target["distance"].value;
-  const description = e.target["description"].value;
-  const link = e.target["link"].value;
-  const favorites = false;
+  if (restaurantFavoriteListContainer) {
+    const ul = generateRestaurantList({
+      restaurantList: new RestaurantList(AllRestaurantList.withFavorites()),
+      category: CATEGORY_FILTER_DEFAULT__VALUE,
+      sortStandard: SORT_STANDARD_FILTER_DEFAULT_VALUE,
+    });
 
-  addModal.toggle();
-
-  postRestaurant({
-    name,
-    category,
-    distance,
-    description,
-    link,
-    favorites,
-  });
-
-  renderFilteredContainer(restaurantAllListContainer, AllRestaurantList);
-});
+    restaurantFavoriteListContainer.replaceChildren(ul);
+  }
+};
 
 export const renderFilteredContainer = (
   restaurantListContainer,
@@ -135,4 +123,27 @@ export const renderFilteredContainer = (
   });
 
   restaurantListContainer.replaceChildren(filteredList);
+};
+
+const addNewRestaurantAndRerender = (e) => {
+  e.preventDefault();
+
+  const newRestaurant = getNewRestaurant(e);
+
+  addModal.toggle();
+
+  postRestaurant(newRestaurant);
+
+  reRenderAllRestaurantList();
+};
+
+const getNewRestaurant = (e) => {
+  const name = e.target["name"].value;
+  const category = e.target["category"].value;
+  const distance = e.target["distance"].value;
+  const description = e.target["description"].value;
+  const link = e.target["link"].value;
+  const favorites = false;
+
+  return { name, category, distance, description, link, favorites };
 };
