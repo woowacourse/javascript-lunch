@@ -4,7 +4,6 @@ import BaseComponent from '../BaseComponent';
 
 import AllRestaurantApp from '../AllRestaurantApp';
 import SelectBox from './SelectBox';
-import RestaurantList from '../RestaurantList/RestaurantList';
 
 import './FilterContainer.css';
 class FilterContainer extends BaseComponent {
