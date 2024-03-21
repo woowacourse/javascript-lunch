@@ -1,19 +1,23 @@
-import './styles/reset.css';
-import './styles/index.css';
-import './styles/appHeader.css';
-import './styles/restFilterContainer.css';
-import './styles/restLIstContainer.css';
-import './styles/restCard.css';
-import './styles/customModal.css';
-import './styles/addRestForm.css';
 
-import './components/AppHeaderComponent';
-import './components/RestViewerComponent';
-import './components/RestFilterContainerComponent';
-import './components/RestFilterComponent';
-import './components/RestListContainerComponent';
-import './components/RestCardComponent';
-import './components/CustomModalComponent';
-import './components/AddRestFormComponent';
+import './resources.ts';
 
-import './controllers/AppController';
+import { $ } from './utils/dom';
+import { AppHeader } from './components/header/AppHeader';
+import { RestListMain } from './components/main/RestListMain';
+import { AddRestDialog } from './components/dialog/AddRestDialog';
+import { Global } from './controllers/Global';
+
+const $app = $('#app');
+const $appHeader = AppHeader();
+const $restListMain = RestListMain();
+const $addRestDialog = AddRestDialog();
+
+/* UI 렌더링 */
+$app.appendChild($appHeader);
+$app.appendChild($restListMain);
+$app.appendChild($addRestDialog);
+
+/* App 초기화 */
+document.addEventListener('DOMContentLoaded', () => {
+  Global.restListController.render({});
+});

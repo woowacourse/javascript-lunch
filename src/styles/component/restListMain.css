@@ -1,0 +1,22 @@
+.rest-filter-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 8px 24px;
+}
+
+.rest-filter-section select {
+  border: 1px solid #d0d5dd;
+  min-width: 125px;
+  height: 44px;
+  background: transparent;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.rest-list-section {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+  padding: 0 16px;
+}

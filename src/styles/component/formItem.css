@@ -1,0 +1,53 @@
+.form-item {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 36px;
+}
+
+.form-item label {
+  font-size: 14px;
+  color: var(--grey-400);
+}
+
+.form-item--required label::after {
+  padding-left: 4px;
+
+  color: var(--primary-color);
+  content: '*';
+}
+
+.form-item .help-text {
+  color: var(--grey-300);
+}
+
+.form-item input,
+.form-item textarea,
+.form-item select {
+  margin: 6px 0;
+  padding: 8px;
+
+  border: 1px solid var(--grey-200);
+
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.form-item textarea {
+  resize: none;
+}
+
+.form-item select {
+  padding: 8px;
+
+  border: 1px solid var(--grey-200);
+  height: 44px;
+
+  color: var(--grey-300);
+  border-radius: 8px;
+}
+
+input[name='name'],
+input[name='link'] {
+  height: 44px;
+}
