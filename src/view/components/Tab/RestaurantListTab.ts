@@ -63,9 +63,7 @@ class RestaurantListTab {
           e.target instanceof HTMLElement
         )
       ) {
-        throw new Error(
-          "[ERROR_IN_styledCurrentTab] e.currentTarget Or e.target is not HTMLElement"
-        );
+        return;
       }
 
       const currentTab = e.currentTarget.getAttribute("value")!;
@@ -89,22 +87,25 @@ class RestaurantListTab {
 
 const onClickHandle = (e: MouseEvent) => {
   if (
-    e.target instanceof HTMLElement &&
-    !(e.target.parentElement instanceof HTMLButtonElement)
+    !(e.target instanceof HTMLElement) ||
+    e.target.parentElement instanceof HTMLButtonElement
   ) {
-    const restaurantName = e.target.closest("li")?.getAttribute("name");
-    if (!restaurantName) {
-      throw new Error(
-        "[ERROR_IN_RestaurantListTab_onClickHandle()] Can't find valid restaurantName"
-      );
-    }
-    const detail = getRestaurant(restaurantName);
-    const detailModal = new RestaurantDetailModal(detail!);
-    document
-      .getElementById("restaurant-detail-modal-container")
-      ?.replaceChildren(detailModal.element);
-    detailModal.toggle();
+    return;
   }
+
+  const restaurantName = e.target.closest("li")?.getAttribute("name");
+  if (!restaurantName) {
+    throw new Error(
+      "[ERROR_IN_RestaurantListTab_onClickHandle()] Can't find valid restaurantName"
+    );
+  }
+  const detail = getRestaurant(restaurantName);
+  const detailModal = new RestaurantDetailModal(detail!);
+
+  document
+    .getElementById("restaurant-detail-modal-container")
+    ?.replaceChildren(detailModal.element);
+  detailModal.toggle();
 };
 
 export default RestaurantListTab;
