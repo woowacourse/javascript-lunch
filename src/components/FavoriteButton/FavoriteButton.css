@@ -1,0 +1,12 @@
+.favorite__button {
+  position: absolute;
+  right: 0;
+
+  height: 32px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  cursor: pointer;
+}

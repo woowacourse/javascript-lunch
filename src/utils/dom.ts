@@ -1,39 +1,46 @@
-export const $ = (selector: string) => {
-  const element = document.querySelector(selector);
+import { ERROR } from '../constants/Message';
+
+export const $ = <E extends Element>($target: Element | Document, selector: string) => {
+  const element = $target.querySelector<E>(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
-  return document.querySelector(selector);
+  return element;
 };
 
-export const $setAttribute = (selector: string, key: string, value: string) => {
-  const element = document.querySelector(selector);
+export const $$ = ($target: Element | Document, selector: string) => {
+  const element = $target.querySelectorAll(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
-  return element.setAttribute(key, value);
+  return element;
 };
 
-export const $addEvent = (selector: string, type: string, listener: EventListenerOrEventListenerObject) => {
-  const element = document.querySelector(selector);
+export const $addEvent = (
+  $target: Element | Document,
+  selector: string,
+  eventType: string,
+  eventHandler: EventListener,
+) => {
+  const element = $target.querySelector(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
-  return element.addEventListener(type, listener);
+  element.addEventListener(eventType, eventHandler);
 };
 
-export const $removeEvent = (selector: string, type: string, listener: EventListenerOrEventListenerObject) => {
-  const element = document.querySelector(selector);
+export const $setAttribute = ($target: Element | Document, selector: string, key: string, value: string) => {
+  const element = $target.querySelector(selector);
 
   if (!element) {
-    throw new Error('[ERROR]');
+    throw new Error(ERROR.NO_ELEMENT);
   }
 
-  return element.removeEventListener(type, listener);
+  element.setAttribute(key, value);
 };
