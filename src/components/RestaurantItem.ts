@@ -13,7 +13,10 @@ export default class RestaurantItem extends BaseComponent {
     const timeToReach = this.getAttribute("timeToReach");
     const description = this.getAttribute("description");
 
-    return `
+    // data-name: 레스토랑의 이름은 고유하다는 설정을 해뒀기에 PK 와 같이 고유 식별자로 사용합니다
+    // 그래서 레스토랑 이름의 값으로 데이터 전달/수신을 하고 restaurantStore 에서 레스토랑 이름으로 해당 데이터를 받아오고 있어요
+
+    return /* html */ `
       <li class="restaurant" data-name="${name}">
         <category-icon category=${category}></category-icon>
         <div class="content-wrapper">
