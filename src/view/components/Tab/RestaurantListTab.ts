@@ -1,17 +1,18 @@
-import generateTab, { TAB_ID_PREFIX } from "./generateTab";
-
 import RestaurantDetailModal from "../Modal/RestaurantDetailModal";
 import createElementByTag from "../../utils/createElementByTag";
+import generateTab from "./generateTab";
 import { getRestaurant } from "../../../domain/AllRestaurantList";
 
 class RestaurantListTab {
   tabElement;
+  currentTab;
 
   constructor() {
     this.tabElement = generateTab({
       tabMenu: this.#generateTabMenu(),
       contentsArea: document.getElementById("restaurants-container")!,
     });
+    this.currentTab = this.tabElement.firstChild as HTMLButtonElement;
     this.#styledCurrentTab();
   }
 
@@ -52,9 +53,7 @@ class RestaurantListTab {
   }
 
   #styledCurrentTab() {
-    const currentTab = this.tabElement.getAttribute("value")!;
-    const tabButton = this.tabElement.firstChild as HTMLButtonElement;
-    this.#handleCurrentTabClassName(currentTab, tabButton);
+    this.currentTab.classList.add("currentTab");
 
     this.tabElement.addEventListener("click", (e) => {
       if (
@@ -65,23 +64,10 @@ class RestaurantListTab {
       ) {
         return;
       }
-
-      const currentTab = e.currentTarget.getAttribute("value")!;
-      e.currentTarget.childNodes.forEach((tabButton) => {
-        this.#handleCurrentTabClassName(
-          currentTab,
-          tabButton as HTMLButtonElement
-        );
-      });
+      this.currentTab.classList.remove("currentTab");
+      e.target.classList.add("currentTab");
+      this.currentTab = e.target as HTMLButtonElement;
     });
-  }
-
-  #handleCurrentTabClassName(currentTab: string, tabButton: HTMLButtonElement) {
-    if (currentTab === tabButton.id.slice(TAB_ID_PREFIX.length)) {
-      tabButton.classList.add("currentTab");
-      return;
-    }
-    tabButton.classList.remove("currentTab");
   }
 }
 

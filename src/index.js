@@ -41,9 +41,10 @@ addingModalContainer.append(addModal.element);
 
 // 모든 음식점-자주 가는 음식점 탭 추가
 const tabContainer = document.getElementById("tab-container");
-const tab = new RestaurantListTab().tabElement;
+const restaurantListTab = new RestaurantListTab();
+const tabElement = restaurantListTab.tabElement;
 
-tabContainer.appendChild(tab);
+tabContainer.appendChild(tabElement);
 
 // 모든 음식점 탭 내부 filter 추가
 const filterContainer = document.getElementById("filter-container");
@@ -70,24 +71,15 @@ const restaurantList = generateRestaurantList({
 
 restaurantAllListContainer.append(restaurantList);
 
-//이벤트 리스너 등록
-openButton.addEventListener("click", openAddingRestaurantModal);
-
-tab.addEventListener("click", reRenderRestaurantListByTab);
-
-filterContainer.addEventListener("change", reRenderAllRestaurantList);
-
-addingModalContainer.addEventListener("submit", addNewRestaurantAndRerender);
-
 const openAddingRestaurantModal = () => {
   addModal.toggle();
 };
 
 const reRenderRestaurantListByTab = () => {
-  if (tab.getAttribute("value") === "모든 음식점") {
+  if (restaurantListTab.currentTab.value === "모든 음식점") {
     reRenderAllRestaurantList();
   }
-  if (tab.getAttribute("value") === "자주 가는 음식점") {
+  if (restaurantListTab.currentTab.value === "자주 가는 음식점") {
     reRenderFavoriteList();
   }
 };
@@ -147,3 +139,12 @@ const getNewRestaurant = (e) => {
 
   return { name, category, distance, description, link, favorites };
 };
+
+//이벤트 리스너 등록
+openButton.addEventListener("click", openAddingRestaurantModal);
+
+tabElement.addEventListener("click", reRenderRestaurantListByTab);
+
+filterContainer.addEventListener("change", reRenderAllRestaurantList);
+
+addingModalContainer.addEventListener("submit", addNewRestaurantAndRerender);
