@@ -33,10 +33,9 @@ class RestaurantDBService {
 
   add(restaurant: IRestaurant) {
     this.update();
-    this.#restaurantCollection.addRestaurant(restaurant);
     localStorage.setItem(
       this.#RESTAURANTS_DB_KEY,
-      JSON.stringify(this.#restaurantCollection.get()),
+      JSON.stringify(this.#restaurantCollection.add(restaurant)),
     );
   }
 

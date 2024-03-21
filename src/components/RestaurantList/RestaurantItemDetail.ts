@@ -9,6 +9,7 @@ import Restaurant from '@/domains/entities/Restaurant';
 import BasicButton from '../Basic/BasicButton';
 import BasicModal from '../Basic/BasicModal';
 import { dom } from '@/util/dom';
+import RestaurantCollection from '@/domains/entities/RestaurantCollection';
 
 class RestaurantItemDetail extends HTMLLIElement {
   #category: Category = '기타';
@@ -18,15 +19,12 @@ class RestaurantItemDetail extends HTMLLIElement {
   #link?: string;
   #isFavorite: boolean = false;
 
-  constructor(props?: IRestaurant) {
+  constructor(props: IRestaurant) {
     super();
 
     this.template();
-    if (props) {
-      this.setState(props);
-    } else {
-      this.paint();
-    }
+    if (props !== undefined) this.setState(props);
+    this.paint();
   }
 
   setState({ category, name, distance, description, link, isFavorite }: IRestaurant) {
@@ -36,7 +34,6 @@ class RestaurantItemDetail extends HTMLLIElement {
     this.#description = description ?? '';
     this.#link = link ?? '';
     this.#isFavorite = isFavorite ?? false;
-    this.paint();
   }
 
   template() {
@@ -58,13 +55,15 @@ class RestaurantItemDetail extends HTMLLIElement {
     $buttonBox.append(
       new BasicButton('secondary', '삭제하기', 'reset', () => {
         new RestaurantDBService().remove(this.get());
-        (this.parentElement!.parentElement as BasicModal).closeModal();
-        (document.querySelector('#main-app') as MainApp).paint();
+        if (!(this.parentElement!.parentElement instanceof BasicModal)) return;
+        this.parentElement!.parentElement.closeModal();
+        dom.getElement<MainApp>(document.body, '#main-app').paint();
       }),
     );
     $buttonBox.append(
       new BasicButton('primary', '닫기', 'submit', () => {
-        (this.parentElement!.parentElement as BasicModal).closeModal();
+        if (!(this.parentElement!.parentElement instanceof BasicModal)) return;
+        this.parentElement!.parentElement.closeModal();
       }),
     );
 
@@ -78,11 +77,13 @@ class RestaurantItemDetail extends HTMLLIElement {
     categoryIcon.setCategory(this.#category);
     dom.getElement(this, '.restaurant__name').textContent = `${this.#name}`;
     dom.getElement(this, '.restaurant__distance').textContent = `캠퍼스부터 ${this.#distance}분 내`;
-    dom.getElement(this, '.restaurant__description').textContent = `${this.#description ?? ''}`;
+    dom.getElement(this, '.restaurant__description').textContent = this.#description ?? '';
     dom.getElement<FavoriteIcon>(this, '.restaurant__favorite-icon').set(this.#isFavorite);
     const link = dom.getElement<HTMLAnchorElement>(this, '.restaurant__link');
-    link.setAttribute('href', this.#link!);
-    link.textContent = this.#link!;
+
+    if (this.#link === undefined) return;
+    link.setAttribute('href', this.#link);
+    link.textContent = this.#link;
   }
 
   get(): IRestaurant {
@@ -97,18 +98,14 @@ class RestaurantItemDetail extends HTMLLIElement {
   }
 
   #favoriteIconDBListener(event: Event) {
-    if ((event.target as HTMLElement).classList.contains('restaurant__favorite-icon')) {
-      this.#isFavorite =
-        dom.getElement<FavoriteIcon>(this, '.restaurant__favorite-icon').getAttribute('clicked') ===
-        'on';
-      const newRestaurants: IRestaurant[] = new RestaurantDBService().get();
-      const filteredRestaurants = newRestaurants.filter(
-        (restaurant) => !new Restaurant(this.get()).isEqual(restaurant),
-      );
-      new RestaurantDBService().set([...filteredRestaurants, this.get()]);
+    if (!(event.target instanceof FavoriteIcon)) return;
 
-      (document.querySelector('.main-app-new') as MainApp).paint();
-    }
+    this.#isFavorite = event.target.getAttribute('clicked') === 'on';
+    const newRestaurants: IRestaurant[] = new RestaurantDBService().get();
+    const filteredRestaurants = new RestaurantCollection(newRestaurants).remove(this.get());
+    new RestaurantDBService().set([...filteredRestaurants, this.get()]);
+
+    dom.getElement<MainApp>(document.body, '.main-app-new').paint();
   }
 }
 

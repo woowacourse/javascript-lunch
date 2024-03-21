@@ -1,4 +1,5 @@
 import style from './BasicButton.module.css';
+
 class BasicButton extends HTMLButtonElement {
   #isPrimary;
 

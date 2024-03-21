@@ -1,6 +1,8 @@
 import Restaurant from '@/domains/entities/Restaurant';
 import RestaurantCollection from '../../src/domains/entities/RestaurantCollection';
 import { IRestaurant } from '../../src/types/Restaurant';
+import NewRestaurantForm from '@/components/NewRestaurantModal/NewRestaurantForm';
+import { rest } from 'cypress/types/lodash';
 
 describe('레스토랑 리스트 클래스', () => {
   const restaurant1: IRestaurant = {
@@ -48,7 +50,7 @@ describe('레스토랑 리스트 클래스', () => {
     expect(restaurantList.sortByDistance()).to.deep.equal(EXPECTED_RESULT);
   });
 
-  it('새로운 음식점을 정상적으로 추가한다.', () => {
+  it('음식점 추가를 요청받았을 때, 추가한 결과를 반환한다.', () => {
     const newRestaurant: IRestaurant = {
       name: '꺼벙이 김밥',
       distance: 5,
@@ -58,9 +60,7 @@ describe('레스토랑 리스트 클래스', () => {
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
 
-    restaurantList.addRestaurant(newRestaurant);
-
-    expect(restaurantList.get()).to.deep.equal([
+    expect(restaurantList.add(newRestaurant)).to.deep.equal([
       restaurant1,
       restaurant2,
       restaurant3,
@@ -73,7 +73,7 @@ describe('레스토랑 리스트 클래스', () => {
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
 
-    expect(() => restaurantList.addRestaurant(newRstaurant)).to.throw('[ERROR]');
+    expect(() => restaurantList.add(newRstaurant)).to.throw('[ERROR]');
   });
 
   it('입력으로 받은 음식점의 존재여부를 요청받았을 때, 존재 여부를 반환한다.', () => {
@@ -84,11 +84,24 @@ describe('레스토랑 리스트 클래스', () => {
     expect(restaurantList.has(newRstaurant)).to.be.equal(true);
   });
 
-  it('입력으로 받은 음식점의 삭제를 요청받았을 때, 존재한다면 해당 음식점을 삭제한다', () => {
+  it('입력으로 받은 음식점의 삭제를 요청받았을 때, 존재한다면 해당 음식점을 삭제한후 반환한다', () => {
     const newRstaurant: IRestaurant = { ...restaurant1 };
     const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
     const restaurantList = new RestaurantCollection(RESTAURANTS);
 
     expect(restaurantList.remove(newRstaurant).length).to.be.equal(2);
+  });
+
+  it('입력으로 받은 음식점의 업데이트를 요청받았을 때, 해당 음식점만 찾아 업데이트하고 반환한다.', () => {
+    const RESTAURANTS = [restaurant1, restaurant2, restaurant3];
+    const restaurantCollection = new RestaurantCollection(RESTAURANTS);
+    const newRestaurant = { ...restaurant1 };
+    newRestaurant.isFavorite = true;
+
+    const EXPECTED_RESULT = [restaurant2, restaurant3, newRestaurant];
+
+    const newRestaurants = restaurantCollection.update(newRestaurant);
+
+    expect(newRestaurants).to.deep.equal(EXPECTED_RESULT);
   });
 });

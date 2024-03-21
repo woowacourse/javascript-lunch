@@ -13,18 +13,18 @@ class RestaurantItem extends HTMLLIElement {
   #name;
   #link;
   #isFavorite;
-  #favoriteIcon?: FavoriteIcon;
+
   constructor({ category, name, distance, description, link, isFavorite }: IRestaurant) {
     super();
     this.#category = category;
     this.#name = name;
     this.#distance = distance;
     this.#description = description ?? '';
-    this.#link = link ?? '';
+    this.#link = link;
     this.#isFavorite = isFavorite ?? false;
 
     this.template();
-    this.paint();
+    this.render();
   }
 
   template() {
@@ -41,17 +41,14 @@ class RestaurantItem extends HTMLLIElement {
    `;
   }
 
-  paint() {
-    const categoryIcon = dom.getElement<RestaurantCategoryIcon>(
-      this,
-      'div[is="restaurant-category-icon"]',
-    );
-    categoryIcon.setCategory(this.#category);
-    dom.getElement(this, '.restaurant__name').textContent = `${this.#name}`;
+  render() {
+    dom
+      .getElement<RestaurantCategoryIcon>(this, 'div[is="restaurant-category-icon"]')
+      .setCategory(this.#category);
+    dom.getElement(this, '.restaurant__name').textContent = this.#name;
     dom.getElement(this, '.restaurant__distance').textContent = `캠퍼스부터 ${this.#distance}분 내`;
-    dom.getElement(this, '.restaurant__description').textContent = `${this.#description ?? ''}`;
-    this.#favoriteIcon = dom.getElement<FavoriteIcon>(this, 'img[is="favorite-icon"]');
-    this.#favoriteIcon.set(this.#isFavorite);
+    dom.getElement(this, '.restaurant__description').textContent = this.#description;
+    dom.getElement<FavoriteIcon>(this, 'img[is="favorite-icon"]').set(this.#isFavorite);
 
     this.addEventListener('click', this.#showDetailListener.bind(this));
   }
@@ -63,14 +60,14 @@ class RestaurantItem extends HTMLLIElement {
       distance: this.#distance,
       description: this.#description,
       link: this.#link,
-      isFavorite: this.#favoriteIcon?.isFavorite(),
+      isFavorite: this.#isFavorite,
     };
   }
 
   #showDetailListener(event: Event) {
-    if (!(event.target as HTMLElement).classList.contains('favorite-icon')) {
-      (document.querySelector('.main-app-new') as MainApp).paintDetailModal(this.get());
-    }
+    if (!(event.target instanceof HTMLElement)) return;
+    if (event.target instanceof FavoriteIcon) return;
+    dom.getElement<MainApp>(document.body, '.main-app-new').paintDetailModal(this.get());
   }
 }
 

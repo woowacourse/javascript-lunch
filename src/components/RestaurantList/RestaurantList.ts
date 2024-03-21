@@ -6,6 +6,7 @@ import './RestaurantList.css';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import Restaurant from '@/domains/entities/Restaurant';
 import MainApp from '../MainApp';
+import { dom } from '@/util/dom';
 
 class RestaurantList extends HTMLUListElement {
   #restaurants: IRestaurant[];
@@ -16,35 +17,26 @@ class RestaurantList extends HTMLUListElement {
     this.#restaurants = [];
 
     this.addEventListener('click', (event) => {
-      if (event.target instanceof FavoriteIcon) {
-        const restaurants = new RestaurantDBService().get();
-        const changed = (
-          (event.target as FavoriteIcon).parentElement?.parentElement as RestaurantItem
-        ).get();
+      if (!(event.target instanceof FavoriteIcon)) return;
 
-        const newRestaurants: IRestaurant[] = restaurants.map((restaurant) =>
-          new Restaurant(changed).isEqual(restaurant) ? changed : restaurant,
-        );
-        new RestaurantDBService().set(newRestaurants);
-        (this.parentElement?.parentElement as MainApp).paint();
-      }
+      const restaurants = new RestaurantDBService().get();
+      const changed = (event.target.parentElement?.parentElement as RestaurantItem).get();
+
+      const newRestaurants = restaurants.map((restaurant) =>
+        new Restaurant(changed).isEqual(restaurant) ? changed : restaurant,
+      );
+      new RestaurantDBService().set(newRestaurants);
+
+      dom.getElement<MainApp>(document.body, '.main-app-new').paint();
     });
   }
 
   paint(restaurants: IRestaurant[]) {
     this.#restaurants = restaurants;
-    this.#removeChildren();
+    this.replaceChildren();
 
     const restaurantList = this.#restaurants.map((restaurant) => new RestaurantItem(restaurant));
-    restaurantList.forEach((restaurant) => {
-      this.append(restaurant);
-    });
-  }
-
-  #removeChildren() {
-    while (this.firstChild) {
-      this.removeChild(this.firstChild);
-    }
+    this.append(...restaurantList);
   }
 
   get() {

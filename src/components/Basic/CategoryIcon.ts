@@ -21,9 +21,7 @@ class CategoryIcon extends HTMLImageElement {
   constructor(category: Category) {
     super();
 
-    if (typeof category === null) {
-      category = this.getAttribute('category') as Category;
-    }
+    category = category ?? this.getAttribute('category');
     this.className = `category-icon ${style.categoryIcon}`;
     this.src = Icons[category];
     this.alt = category;

@@ -10,12 +10,12 @@ class BasicModal extends HTMLDivElement {
     const children = Array.from(this.querySelectorAll('.modal > *')!);
 
     this.#backdrop = this.#makeBackdrop();
-    this.append(this.#backdrop);
-
     this.#modalContainer = this.#makeModalContainer();
-    this.append(this.#modalContainer);
 
+    this.append(this.#backdrop);
+    this.append(this.#modalContainer);
     this.appendAll(children);
+
     this.#backdrop.addEventListener('click', () => {
       document.querySelector('.modal')?.classList.remove('modal--open');
     });

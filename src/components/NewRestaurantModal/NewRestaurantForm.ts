@@ -54,7 +54,7 @@ class NewRestaurantForm extends HTMLFormElement {
       isRequired: true,
     });
 
-    const DISTANCES_REQURIED = [
+    const DISTANCES_REQUIRED = [
       '선택해주세요',
       ...CONDITIONS.DISTANCES.map((num) => `${num}`),
     ] as DistanceOrPlaceholder[];
@@ -68,7 +68,7 @@ class NewRestaurantForm extends HTMLFormElement {
       '.distance-select select[is="select-box"]',
     );
 
-    distanceSelectBox.set(DISTANCES_REQURIED, DISTANCES_TEXTS, 'distance');
+    distanceSelectBox.set(DISTANCES_REQUIRED, DISTANCES_TEXTS, 'distance');
 
     const linkInputBox = dom.getElement<VerticalInputBox>(this, '.link-input-box');
     linkInputBox.setState({
@@ -80,7 +80,7 @@ class NewRestaurantForm extends HTMLFormElement {
     const $buttonBox = dom.getElement<HTMLElement>(this, '.button-container');
     $buttonBox.append(
       new BasicButton('secondary', '취소하기', 'reset', () => {
-        (this.parentElement?.parentElement as BasicModal).closeModal();
+        (this.parentElement?.parentElement?.parentElement as BasicModal).closeModal();
       }),
     );
     $buttonBox.append(new BasicButton('primary', '추가하기', 'submit', () => {}));
