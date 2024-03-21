@@ -44,7 +44,7 @@ const getFavoriteImage = (isFavorites: boolean, restaurantName: string) => {
 const handleFavorite = (e: Event) => {
   if (!(e.target instanceof HTMLElement)) {
     throw new Error(
-      "[ERROR_IN_handleFavorite()] EventTarget is not HTMLElement"
+      "[ERROR_IN_handleFavorite()] 현재 일어난 이벤트의 타겟이 HTMLElement이 아닙니다."
     );
   }
 

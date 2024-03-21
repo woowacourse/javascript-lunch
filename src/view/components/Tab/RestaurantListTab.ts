@@ -82,7 +82,7 @@ const onClickHandle = (e: MouseEvent) => {
   const restaurantName = e.target.closest("li")?.getAttribute("name");
   if (!restaurantName) {
     throw new Error(
-      "[ERROR_IN_RestaurantListTab_onClickHandle()] Can't find valid restaurantName"
+      "[ERROR_IN_RestaurantListTab_onClickHandle()] 현재 restaurantName이 존재하지 않습니다."
     );
   }
   const detail = getRestaurant(restaurantName);

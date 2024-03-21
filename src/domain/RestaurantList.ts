@@ -31,7 +31,7 @@ class RestaurantList {
   delete(name: string) {
     if (this.#restaurants.get(name) === undefined) {
       throw new Error(
-        "[ERROR_IN_RestaurantList_delete()] This is invalid restaurant name"
+        "[ERROR_IN_RestaurantList_delete()] restaurants 필드에서 restaurant name을 찾을 수 없어 삭제할 음식점을 삭제할 수 없습니다."
       );
     }
     this.#restaurants.delete(name);
@@ -40,7 +40,7 @@ class RestaurantList {
   bringRestaurantInfo(name: string) {
     if (this.#restaurants.get(name) === undefined) {
       throw new Error(
-        "[ERROR_IN_RestaurantList_bringRestaurantInfo()] This is invalid restaurant name"
+        "[ERROR_IN_RestaurantList_bringRestaurantInfo()] restaurants 필드에서  restaurant name을 찾을 수 없어 음식점 정보를 가져올 수 없습니다."
       );
     }
     return this.#restaurants.get(name);
@@ -51,7 +51,7 @@ class RestaurantList {
 
     if (!restaurantValue) {
       throw new Error(
-        "[ERROR_IN_RestaurantList_updateFavorites()] This is invalid restaurant name"
+        "[ERROR_IN_RestaurantList_updateFavorites()] restaurants 필드에서 restaurant name을 찾을 수 없어 음식점의 favorites 을 변경할 수 없습니다."
       );
     }
 

@@ -19,7 +19,7 @@ const generateButton = ({
 
   if (!(button instanceof HTMLButtonElement)) {
     throw new Error(
-      "[ERROR_IN_generateButton()] Button is not HTMLButtonElement"
+      "[ERROR_IN_generateButton()] Button이 HTMLButtonElement가 아닙니다."
     );
   }
 

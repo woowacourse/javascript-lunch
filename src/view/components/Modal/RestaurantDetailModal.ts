@@ -113,7 +113,7 @@ const onClickHandlerForCloseButton = (e: Event) => {
 const onClickHandlerForDeleteButton = (e: Event) => {
   if (!(e.target instanceof HTMLElement)) {
     throw new Error(
-      "[ERROR_IN_onClickHandlerForDeleteButton()] e.target is not HTMLElement"
+      "[ERROR_IN_onClickHandlerForDeleteButton()] 현재 일어난 이벤트의 타겟이 HTMLElement이 아닙니다."
     );
   }
 
@@ -121,7 +121,7 @@ const onClickHandlerForDeleteButton = (e: Event) => {
 
   if (!(restaurantInfoDiv instanceof HTMLElement)) {
     throw new Error(
-      "[ERROR_IN_onClickHandlerForDeleteButton()] e.target is not HTMLElement"
+      "[ERROR_IN_onClickHandlerForDeleteButton()] 현재 일어난 이벤트의 타겟이 HTMLElement이 아닙니다."
     );
   }
 
@@ -129,7 +129,7 @@ const onClickHandlerForDeleteButton = (e: Event) => {
 
   if (!name) {
     throw new Error(
-      "[ERROR_IN_onClickHandlerForDeleteButton()] Can't find valid restaurantName"
+      "[ERROR_IN_onClickHandlerForDeleteButton()] 현재 restaurantName이 존재하지 않습니다."
     );
   }
 
