@@ -3,7 +3,7 @@ import './RestaurantDetailModal.css';
 import type RestaurantList from '@/domain/RestaurantList';
 import type { IRestaurant } from '@/types/restaurant';
 
-import Button from '../../button/Button';
+import Button from '../../common/button/Button';
 import createImageButton from '../../common/ImageButton';
 import Modal from '../Modal';
 
@@ -48,23 +48,6 @@ class RestaurantDetailModal extends Modal<IDetailModalProps> {
   render() {
     const $modalContainer = dom.getElement('#detail-modal-container');
     $modalContainer.innerHTML += this.template();
-
-    const $buttonContainer = dom.getElement('#detail-button-container');
-    new Button($buttonContainer, {
-      kind: 'delete',
-      attributes: MODAL_DELETE_BUTTON_ATTRIBUTE,
-      handleCloseModal: this.toggle.bind(this),
-      handleDeleteRestaurant: (id: string) => {
-        this.props.restaurantList.deleteRestaurant(id);
-        this.dispatchSelectEvent();
-        this.toggle();
-      },
-    });
-    new Button($buttonContainer, {
-      kind: 'close',
-      attributes: MODAL_CLOSE_BUTTON_ATTRIBUTE,
-      handleCloseModal: this.toggle.bind(this),
-    });
   }
 
   dispatchSelectEvent() {
@@ -89,21 +72,30 @@ class RestaurantDetailModal extends Modal<IDetailModalProps> {
     linkTag.textContent = referenceLink ?? '';
 
     this.renderDetailImageButton(id, isFavorite, handleClickFavorite);
+
+    const $buttonContainer = dom.getElement('#detail-button-container');
+    $buttonContainer.replaceChildren();
+    new Button($buttonContainer, {
+      attributes: MODAL_DELETE_BUTTON_ATTRIBUTE,
+      onClick: () => {
+        this.props.restaurantList.deleteRestaurant(id);
+        this.dispatchSelectEvent();
+        this.toggle();
+      },
+    });
+    new Button($buttonContainer, {
+      attributes: MODAL_CLOSE_BUTTON_ATTRIBUTE,
+      onClick: this.toggle.bind(this),
+    });
   }
 
   renderDetailImageButton(id: string, isFavorite: boolean, handleClickFavorite: (id: string) => void) {
     const $detailWrapper = dom.getElement('#detail-favorite-container');
     $detailWrapper.replaceChildren();
     const imageButton = createImageButton({
-      buttonAttributes: {
-        type: 'button',
-        id,
-        ariaLabel: '자주 가는 음식점 등록',
-      },
-      imageAttributes: {
-        src: isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
-        alt: '자주 가는 음식점 등록',
-      },
+      buttonId: id,
+      imageSrc: isFavorite ? FAVORITE_STAR : NOT_FAVORITE_STAR,
+      alt: '자주 가는 음식점 등록',
       onClick: () => {
         handleClickFavorite(id);
         this.renderDetailImageButton(id, !isFavorite, handleClickFavorite);

@@ -9,7 +9,9 @@ class Modal<T> extends Component<T> {
   }
 
   toggle() {
+    document.body.style.overflow = 'unset';
     this.$target.classList.toggle('modal--open');
+    if (this.$target.classList.contains('modal--open')) document.body.style.overflow = 'hidden';
   }
 }
 

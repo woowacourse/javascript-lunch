@@ -1,29 +1,29 @@
-import type { IButtonAttributes, IImageAttributes } from '@/types/dom';
+import type { IImageAttributes } from '@/types/dom';
 
 import dom from '@/utils/dom';
 
 interface Props {
-  buttonAttributes: IButtonAttributes;
-  imageAttributes: IImageAttributes;
+  buttonId?: string;
+  classNames?: string[];
+  imageSrc: string;
+  alt: string;
   onClick?: () => void;
 }
 
-const createImageButton = ({ buttonAttributes, imageAttributes, onClick }: Props) => {
-  const imageButton = createButton(buttonAttributes);
-  const buttonImage = createImage(imageAttributes);
+const createImageButton = ({ buttonId, classNames, imageSrc, alt, onClick }: Props) => {
+  const imageButton = createButton(alt, classNames, buttonId);
+  const buttonImage = createImage({ src: imageSrc, alt });
 
   imageButton.append(buttonImage);
   if (onClick) imageButton.addEventListener('click', onClick);
   return imageButton;
 };
 
-const createButton = (buttonAttributes: IButtonAttributes) => {
-  const { id, type, classNames, ariaLabel } = buttonAttributes;
+const createButton = (alt: string, classNames?: string[], id?: string) => {
   const button = dom.createButtonTag({
     id,
-    type,
     classNames,
-    ariaLabel,
+    ariaLabel: alt,
   });
   return button;
 };

@@ -7,20 +7,20 @@ import type {
 } from '../types/dom';
 
 const dom = {
-  getElement(selector: string): HTMLElement {
-    const element = document.querySelector(selector);
+  getElement<T extends HTMLElement>(selector: string): T {
+    const element: T | null = document.querySelector(selector);
     if (element === null) {
       throw Error(`${selector} is not found`);
     }
-    return element as HTMLElement;
+    return element;
   },
 
-  getTargetElement($target: HTMLElement, selector: string): HTMLElement {
-    const element = $target.querySelector(selector);
+  getTargetElement<T extends HTMLElement>($target: HTMLElement, selector: string): T {
+    const element: T | null = $target.querySelector(selector);
     if (element === null) {
       throw Error(`${selector} is not found`);
     }
-    return element as HTMLElement;
+    return element;
   },
 
   create({ tagName, id, classNames, text, children }: IDomCreation) {
@@ -68,7 +68,15 @@ const dom = {
     return selectTag;
   },
 
-  createButtonTag({ id, classNames, name, type, text, ariaLabel }: IButtonAttributes): HTMLButtonElement {
+  createButtonTag({
+    id,
+    classNames,
+    name,
+    type = 'button',
+    text,
+    ariaLabel,
+    disabled = false,
+  }: IButtonAttributes): HTMLButtonElement {
     const buttonTag = document.createElement('button');
 
     if (id) buttonTag.id = id;
@@ -81,6 +89,7 @@ const dom = {
     if (type) buttonTag.setAttribute('type', type);
     if (text) buttonTag.textContent = text;
     if (ariaLabel) buttonTag.setAttribute('aria-label', ariaLabel);
+    buttonTag.disabled = disabled;
 
     return buttonTag;
   },

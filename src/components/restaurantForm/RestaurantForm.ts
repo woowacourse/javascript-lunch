@@ -3,9 +3,9 @@ import type RestaurantList from '@/domain/RestaurantList';
 import type { FormElements, IFormInput } from '@/types/dom';
 import type { TCategory, TDistance, TFormValidRestaurant } from '@/types/restaurant';
 
-import Button from '../button/Button';
+import Button from '../common/button/Button';
+import Dropdown from '../common/dropdown/Dropdown';
 import Component from '../core/Component';
-import Dropdown from '../dropdown/Dropdown';
 
 import { ADD_BUTTON_ATTRIBUTE, CLOSE_BUTTON_ATTRIBUTE } from '@/constants/button';
 import { FORM_CATEGORY, FORM_CATEGORY_ATTRIBUTE, FORM_DISTANCE, FORM_DISTANCE_ATTRIBUTE } from '@/constants/filter';
@@ -62,13 +62,17 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     this.$target.innerHTML += this.template();
     this.$target = dom.getTargetElement(this.$target, 'form');
     this.createModalFormSelect();
-    this.createModalFormButton(this.props.restaurantList);
+    this.createModalFormButton();
   }
 
   setEvent() {
     const restaurantInputs = this.getFormInputTag();
     this.$target.addEventListener('input', () => {
       this.handleFormInput(restaurantInputs);
+    });
+    this.$target.addEventListener('submit', (e: SubmitEvent) => {
+      this.handleAddRestaurant(e);
+      this.props.handleResetModal();
     });
   }
 
@@ -77,10 +81,10 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     this.createDistanceDropdown();
   }
 
-  createModalFormButton(restaurantList: RestaurantList) {
+  createModalFormButton() {
     const $buttonContainer = dom.getElement('.button-container');
     this.createModalCloseButton($buttonContainer);
-    this.createModalAddButton($buttonContainer, restaurantList);
+    this.createModalAddButton($buttonContainer);
   }
 
   createCategoryDropdown() {
@@ -109,30 +113,23 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
 
   createModalCloseButton($buttonContainer: HTMLElement) {
     new Button($buttonContainer, {
-      kind: 'close',
       attributes: CLOSE_BUTTON_ATTRIBUTE,
-      handleCloseModal: this.props.handleResetModal,
+      onClick: this.props.handleResetModal,
     });
   }
 
-  createModalAddButton($buttonContainer: HTMLElement, restaurantList: RestaurantList) {
+  createModalAddButton($buttonContainer: HTMLElement) {
     new Button($buttonContainer, {
-      kind: 'add',
       attributes: ADD_BUTTON_ATTRIBUTE,
-      restaurantList,
-      handleCloseModal: this.props.handleResetModal,
-      handleAddRestaurant: (e: SubmitEvent) => {
-        this.handleAddRestaurant(e);
-      },
     });
   }
 
   getFormInputTag(): IFormInput {
-    const category = dom.getElement('#category') as HTMLInputElement;
-    const name = dom.getElement('#name') as HTMLInputElement;
-    const distance = dom.getElement('#distance') as HTMLInputElement;
-    const link = dom.getElement('#link') as HTMLInputElement;
-    const $addButton = dom.getElement('#button-add') as HTMLButtonElement;
+    const category = dom.getElement<HTMLInputElement>('#category');
+    const name = dom.getElement<HTMLInputElement>('#name');
+    const distance = dom.getElement<HTMLInputElement>('#distance');
+    const link = dom.getElement<HTMLInputElement>('#link');
+    const $addButton = dom.getElement<HTMLButtonElement>('#button-add');
     return { category, name, distance, link, $addButton };
   }
 
@@ -148,8 +145,8 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
     const distance = $distance.value as unknown as TDistance;
     const referenceLink = $link.value;
 
+    $addButton.disabled = true;
     if (formValidator.isValidForm({ category, name, distance, referenceLink })) $addButton.disabled = false;
-    else $addButton.disabled = true;
   };
 
   handleAddRestaurant(e: SubmitEvent) {
@@ -161,7 +158,6 @@ class RestaurantForm extends Component<IRestaurantFormProps> {
 
     this.props.restaurantList.add(restaurantInformation);
     this.dispatchSelectEvent();
-    this.props.handleResetModal();
   }
 
   getRestaurantFormData($restaurantForm: HTMLFormElement) {

@@ -13,7 +13,7 @@ interface IAddModalProps {
 
 class RestaurantAddModal extends Modal<IAddModalProps> {
   render() {
-    const $modalContainer = dom.getTargetElement(this.$target, '.modal-container');
+    const $modalContainer = dom.getTargetElement(this.$target, '.modal-add-container');
     new RestaurantForm($modalContainer, {
       restaurantList: this.props.restaurantList,
       handleResetModal: this.handleResetModal.bind(this),
@@ -26,10 +26,10 @@ class RestaurantAddModal extends Modal<IAddModalProps> {
   }
 
   handleResetModal() {
-    this.toggle();
     dom.getElement('#error-link').classList.add('hidden');
-    const $form = dom.getElement('form') as HTMLFormElement;
+    const $form = dom.getElement<HTMLFormElement>('form');
     $form.reset();
+    this.toggle();
   }
 }
 
