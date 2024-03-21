@@ -3,7 +3,7 @@ describe("음식점 상세 정보를 확인할 수 있다.", () => {
     cy.visit("/");
   });
 
-  it("음식점 상세 모달에서 카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다.", () => {
+  it("사용자가 음식점 목록에서 해당 음식점을 누르면, 음식점 상세 모달이 뜬다. 상세 모달 내부에서 카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다.", () => {
     cy.get("li[name=홍콩반점").click();
 
     const detailModal = cy.get("div.restaurant__detail[name=홍콩반점]");
@@ -23,7 +23,7 @@ describe("음식점 상세 정보를 확인할 수 있다.", () => {
       .should("have.attr", "href", "https://www.woowacourse.io/");
   });
 
-  it("음식점을 삭제할 수 있다.", () => {
+  it("사용자는 음식점 상세 모달 내부에 있는 삭제 버튼을 눌러 음식점을 삭제할 수 있다.", () => {
     cy.get("ul.restaurant-list>li").should("have.length", 6);
 
     cy.get("li[name=맛있는콩나무").click();

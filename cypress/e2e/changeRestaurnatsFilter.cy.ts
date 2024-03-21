@@ -3,7 +3,7 @@ describe("음식점 목록을 확인할 수 있다.", () => {
     cy.visit("/");
   });
 
-  it("카테고리별로 필터링해서 확인할 수 있다.", () => {
+  it("사용자가 selectBox에서 카테고리를 고르면, 음식점 목록이 해당 카테고리별로 필터링해서 보인다.", () => {
     cy.get(".restaurant-filter-container>.restaurant-filter[name=category]")
       .select("한식")
       .should("have.value", "한식");
@@ -15,7 +15,7 @@ describe("음식점 목록을 확인할 수 있다.", () => {
       .should("have.attr", "alt", "한식");
   });
 
-  it("이름순으로 정렬해서 확인할 수 있다.", () => {
+  it("사용자가 selectBox 에서 정렬 기준으로 이름순을 고르면, 음식점 목록이 이름순으로 보인다.", () => {
     cy.get(
       ".restaurant-filter-container>.restaurant-filter[name=sorting]"
     ).should("have.value", "이름순");
@@ -31,7 +31,7 @@ describe("음식점 목록을 확인할 수 있다.", () => {
     });
   });
 
-  it("거리순으로 정렬해서 확인할 수 있다.", () => {
+  it("사용자가 selectBox 에서 정렬 기준으로 거리순을 고르면, 음식점 목록이 거리순 보인다.", () => {
     cy.get(".restaurant-filter-container>.restaurant-filter[name=sorting]")
       .select("거리순")
       .should("have.value", "거리순");

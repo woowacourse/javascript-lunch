@@ -25,7 +25,7 @@ describe("자주 가는 음식점을 추가하고 목록으로 확인할 수 있
     );
   };
 
-  it("음식점 목록에서 자주 가는 음식점을 추가할 수 있다.", () => {
+  it("사용자는 음식점 목록에서 즐겨찾기 버튼을 눌러 자주 가는 음식점을 추가할 수 있다.", () => {
     const favoriteButton = cy.get(
       "li[name=도쿄라면]>button.button--favorites>img"
     );
@@ -33,7 +33,7 @@ describe("자주 가는 음식점을 추가하고 목록으로 확인할 수 있
     clickFavoriteButton(favoriteButton, false);
   });
 
-  it("음식점 목록에서 자주 가는 음식점을 취소할 수 있다.", () => {
+  it("사용자는 음식점 목록에서 활성화된 즐겨찾기 버튼을 눌러 자주 가는 음식점을 취소(비활성화)할 수 있다.", () => {
     const favoriteButton = cy.get(
       "li[name=스페인타파스]>button.button--favorites>img"
     );
@@ -42,7 +42,7 @@ describe("자주 가는 음식점을 추가하고 목록으로 확인할 수 있
     clickFavoriteButton(favoriteButton, true);
   });
 
-  it("음식점 상세 모달에서 자주 가는 음식점으로 추가할 수 있다.", () => {
+  it("사용자는 음식점 상세 모달에서 즐겨찾기 버튼을 눌러 자주 가는 음식점으로 추가할 수 있다.", () => {
     cy.get("li[name=프렌치빌").click();
 
     const favoriteButton = cy.get(
@@ -52,7 +52,7 @@ describe("자주 가는 음식점을 추가하고 목록으로 확인할 수 있
     clickFavoriteButton(favoriteButton, false);
   });
 
-  it("음식점 상세 모달에서 자주 가는 음식점을 취소할 수 있다.", () => {
+  it("사용자는 음식점 상세 모달에서 활성화된 즐겨찾기 버튼을 눌러 자주 가는 음식점을 취소(비활성화)할 수 있다.", () => {
     cy.get("li[name=방콕맛집").click();
 
     const favoriteButton = cy.get(
@@ -63,7 +63,7 @@ describe("자주 가는 음식점을 추가하고 목록으로 확인할 수 있
     clickFavoriteButton(favoriteButton, true);
   });
 
-  it("자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다.", () => {
+  it("사용자는 자주 가는 음식점 탭을 눌러 자신이 즐겨찾기 추가한 음식점 목록을 확인할 수 있다.", () => {
     const favoriteButton = cy.get(
       "li[name=도쿄라면]>button.button--favorites>img"
     );
