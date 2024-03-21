@@ -1,4 +1,9 @@
-import { CategoryOrPlaceholder, DistanceOrPlaceholder } from '@/types/Restaurant';
+import {
+  CategoryOrPlaceholder,
+  DistanceNumeric,
+  DistanceOrPlaceholder,
+  NumberToString,
+} from '@/types/Restaurant';
 import SelectBox from '../Basic/SelectBox';
 import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
 import VerticalInputBox from '../Basic/VerticalInputBox';
@@ -10,7 +15,17 @@ class NewRestaurantForm extends HTMLFormElement {
   constructor() {
     super();
 
-    this.innerHTML = `
+    this.innerHTML = this.#template();
+
+    this.#renderCategoryInput();
+    this.#renderNameInput();
+    this.#renderSelectBox();
+    this.#renderLinkInputBox();
+    this.#renderButtonBox();
+  }
+
+  #template() {
+    return `
     <div class="form-item form-item--required category-select">
       <label for="category text-caption">카테고리</label>
       <select is="select-box"></select>
@@ -35,17 +50,21 @@ class NewRestaurantForm extends HTMLFormElement {
 
     <div class="button-container"></div>
     `;
+  }
 
-    const categorySelectBox = this.querySelector(
+  #renderCategoryInput() {
+    const categorySelectBox = dom.getElement<SelectBox<CategoryOrPlaceholder>>(
+      this,
       '.category-select select[is="select-box"]',
-    ) as SelectBox<CategoryOrPlaceholder>;
-
+    );
     categorySelectBox.set(
       ['선택해주세요', ...CATEGORIES_KEYS],
       ['선택해주세요', ...CATEGORIES_KEYS],
       'category',
     );
+  }
 
+  #renderNameInput() {
     dom.getElement<VerticalInputBox>(this, 'div[is="vertical-input-box"]').setState({
       name: '이름',
       idName: 'name',
@@ -53,31 +72,32 @@ class NewRestaurantForm extends HTMLFormElement {
       hasVerification: true,
       isRequired: true,
     });
+  }
 
-    const DISTANCES_REQUIRED = [
+  #renderSelectBox() {
+    const DISTANCES_REQUIRED: DistanceOrPlaceholder[] = [
       '선택해주세요',
-      ...CONDITIONS.DISTANCES.map((num) => `${num}`),
-    ] as DistanceOrPlaceholder[];
+      ...(CONDITIONS.DISTANCES.map((num) => `${num}`) as NumberToString<DistanceNumeric>[]),
+    ];
     const DISTANCES_TEXTS = [
       '선택해주세요',
       ...CONDITIONS.DISTANCES.map((num) => `${String(num)}분 내`),
     ];
-
     const distanceSelectBox = dom.getElement<SelectBox<DistanceOrPlaceholder>>(
       this,
       '.distance-select select[is="select-box"]',
     );
 
     distanceSelectBox.set(DISTANCES_REQUIRED, DISTANCES_TEXTS, 'distance');
+  }
 
+  #renderLinkInputBox() {
     const linkInputBox = dom.getElement<VerticalInputBox>(this, '.link-input-box');
     linkInputBox.setState({
       name: '링크',
       idName: 'link',
       helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
     });
-
-    this.#renderButtonBox();
   }
 
   #renderButtonBox() {
