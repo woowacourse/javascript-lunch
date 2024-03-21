@@ -53,23 +53,23 @@ class LunchItems extends HTMLElement {
         new LunchFallbackScreen({
           text: '등록된 음식점이 없어요!',
           buttonText: '음식점 등록하기',
-          onClick: this.toggleRestaurantRegisterModal.bind(this),
+          onClick: this.dispatchToggleRegisterModalEvent.bind(this),
         }),
       );
     }
   }
 
-  toggleRestaurantRegisterModal() {
+  dispatchToggleRegisterModalEvent() {
     const toggleRegisterModal = new CustomEvent('toggleRegisterModal', {
       bubbles: true,
     });
     this.dispatchEvent(toggleRegisterModal);
   }
 
-  resetTab() {
-    const resetFavoriteTab = new CustomEvent('resetFavoriteTab', { bubbles: true });
-    this.dispatchEvent(resetFavoriteTab);
-  }
+  // resetTab() {
+  //   const resetFavoriteTab = new CustomEvent('resetFavoriteTab', { bubbles: true });
+  //   this.dispatchEvent(resetFavoriteTab);
+  // }
 
   getRestaurants(props: FilterProps): Restaurants {
     return RestaurantDataProvider.getAllRestaurantsByOption(props);

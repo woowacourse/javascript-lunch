@@ -23,11 +23,15 @@ class LunchHeader extends HTMLElement {
   setEventListener() {
     const button = this.querySelector('.gnb__button');
     button?.addEventListener('click', () => {
-      const toggleRegisterModal = new CustomEvent('toggleRegisterModal', {
-        bubbles: true,
-      });
-      this.dispatchEvent(toggleRegisterModal);
+      this.dispatchToggleRegisterModalEvent();
     });
+  }
+
+  dispatchToggleRegisterModalEvent() {
+    const toggleRegisterModal = new CustomEvent('toggleRegisterModal', {
+      bubbles: true,
+    });
+    this.dispatchEvent(toggleRegisterModal);
   }
 }
 

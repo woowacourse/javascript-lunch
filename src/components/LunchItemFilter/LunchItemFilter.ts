@@ -35,8 +35,8 @@ class LunchItemFilter extends HTMLElement {
   }
 
   setEventListener() {
-    this.addEventListener('changeDropdown', () => {
-      this.handleRender();
+    this.addEventListener('change', () => {
+      this.dispatchRerenderEvent();
     });
   }
 
@@ -44,9 +44,9 @@ class LunchItemFilter extends HTMLElement {
     this.appendChild(new LunchDropdown(props));
   }
 
-  handleRender() {
-    const renderEvent = new CustomEvent('render', { bubbles: true });
-    this.dispatchEvent(renderEvent);
+  dispatchRerenderEvent() {
+    const rerenderEvent = new CustomEvent('rerender', { bubbles: true });
+    this.dispatchEvent(rerenderEvent);
   }
 
   resetDropdowns() {

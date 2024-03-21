@@ -19,11 +19,11 @@ class TabButton extends HTMLButtonElement {
 
   setEventListener() {
     this.addEventListener('click', () => {
-      this.handleClickEvent();
+      this.dispatchTabClickEvent();
     });
   }
 
-  handleClickEvent() {
+  dispatchTabClickEvent() {
     const tabClickEvent = new CustomEvent('tabClick', {
       detail: { name: this.name },
       bubbles: true,

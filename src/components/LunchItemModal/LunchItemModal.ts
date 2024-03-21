@@ -67,18 +67,18 @@ class LunchItemModal extends HTMLElement {
         color: 'primary',
         type: 'button',
         text: '닫기',
-        onClick: this.handleToggleModal.bind(this),
+        onClick: this.dispatchToggleItemDetailModalEvent.bind(this),
       }),
     );
   }
 
   handleDeleteItem() {
     RestaurantRegistry.deleteOneRestaurant(this.#restaurant);
-    this.handleRender();
-    this.handleToggleModal();
+    this.dispatchRerenderEvent();
+    this.dispatchToggleItemDetailModalEvent();
   }
 
-  handleToggleModal() {
+  dispatchToggleItemDetailModalEvent() {
     const toggleItemDetailModal = new CustomEvent('toggleItemDetailModal', {
       detail: { info: this.#restaurant },
       bubbles: true,
@@ -86,9 +86,9 @@ class LunchItemModal extends HTMLElement {
     this.dispatchEvent(toggleItemDetailModal);
   }
 
-  handleRender() {
-    const renderEvent = new CustomEvent('render', { bubbles: true });
-    this.dispatchEvent(renderEvent);
+  dispatchRerenderEvent() {
+    const rerenderEvent = new CustomEvent('rerender', { bubbles: true });
+    this.dispatchEvent(rerenderEvent);
   }
 }
 

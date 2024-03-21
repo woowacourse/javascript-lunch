@@ -3,9 +3,6 @@ import './style.css';
 import { LIKE, UNLIKE } from '../../imgs';
 import { Restaurant } from '../../types';
 import FavoriteRestaurantsRegistry from '../../domain/FavoriteRestaurantsRegistry';
-import LunchItems from '../LunchItems/LunchItems';
-import LunchTab from '../LunchTab/LunchTab';
-import LunchItemFilter from '../LunchItemFilter/LunchItemFilter';
 
 class LunchFavoriteIcon extends HTMLImageElement {
   constructor(restaurant: Restaurant) {
@@ -19,13 +16,13 @@ class LunchFavoriteIcon extends HTMLImageElement {
   setEventListener(restaurant: Restaurant) {
     this.addEventListener('click', () => {
       this.handleFavorite(restaurant);
-      this.handleRender();
+      this.dispatchRerenderEvent();
     });
   }
 
-  handleRender() {
-    const renderEvent = new CustomEvent('render', { bubbles: true });
-    this.dispatchEvent(renderEvent);
+  dispatchRerenderEvent() {
+    const rerenderEvent = new CustomEvent('rerender', { bubbles: true });
+    this.dispatchEvent(rerenderEvent);
   }
 
   handleFavorite(restaurant: Restaurant) {

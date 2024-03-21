@@ -39,8 +39,8 @@ class LunchTab extends HTMLElement {
       if (this.nowSelected !== event.detail.name) {
         this.handleNowSelected(event);
         this.handleChangeTabDesign();
-        this.handleResetFilter();
-        this.handleRenderItems();
+        this.dispatchResetFilterDropdownEvent();
+        this.dispatchRerenderEvent();
       }
     });
   }
@@ -65,12 +65,12 @@ class LunchTab extends HTMLElement {
     filter.classList.toggle('restaurant-filter-container__hidden');
   }
 
-  handleRenderItems() {
-    const renderEvent = new CustomEvent('render', { bubbles: true });
-    this.dispatchEvent(renderEvent);
+  dispatchRerenderEvent() {
+    const rerenderEvent = new CustomEvent('rerender', { bubbles: true });
+    this.dispatchEvent(rerenderEvent);
   }
 
-  handleResetFilter() {
+  dispatchResetFilterDropdownEvent() {
     const resetFilterDropdowns = new CustomEvent('resetFilterDropdowns', { bubbles: true });
     this.dispatchEvent(resetFilterDropdowns);
   }

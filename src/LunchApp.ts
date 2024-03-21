@@ -30,7 +30,7 @@ class LunchApp extends HTMLElement {
     super();
 
     this.render();
-    this.setRenderEventListener();
+    this.setRerenderEventListener();
     this.setToggleRegisterModalEventListener();
     this.setToggleItemDetailModalEventListener();
     this.setResetFilterDropdownsEventListener();
@@ -65,14 +65,14 @@ class LunchApp extends HTMLElement {
     this.innerHTML = LUNCH_APP;
   }
 
-  setRenderEventListener() {
-    this.addEventListener('render', () => {
-      this.handleRender();
+  setRerenderEventListener() {
+    this.addEventListener('rerender', () => {
+      this.handleRerender();
     });
   }
 
   // eslint-disable-next-line max-lines-per-function
-  handleRender() {
+  handleRerender() {
     const items = this.querySelector('lunch-items') as LunchItems;
     const tab = (this.querySelector('.lunch-tab') as LunchTab).nowSelected;
     const filter = this.querySelector('lunch-item-filter') as LunchItemFilter;
@@ -135,7 +135,7 @@ class LunchApp extends HTMLElement {
     if (!(tab instanceof LunchTab)) return;
     tab.handleResetTab();
     this.handleResetFilterDropdowns();
-    this.handleRender();
+    this.handleRerender();
   }
 }
 

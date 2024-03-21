@@ -80,7 +80,7 @@ class LunchRegisterModal extends HTMLElement {
     RestaurantRegistry.registerOneRestaurant(newRestaurant);
     this.handleToggleModal();
     this.querySelector('form')?.reset();
-    this.resetTab();
+    this.dispatchResetFavoriteTabEvent();
   }
 
   getNewRestaurant() {
@@ -94,7 +94,7 @@ class LunchRegisterModal extends HTMLElement {
     return newRestaurant;
   }
 
-  resetTab() {
+  dispatchResetFavoriteTabEvent() {
     const resetFavoriteTab = new CustomEvent('resetFavoriteTab', { bubbles: true });
     this.dispatchEvent(resetFavoriteTab);
   }
