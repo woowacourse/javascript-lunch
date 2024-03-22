@@ -1,5 +1,5 @@
 describe('자주 가는 식당 테스트', () => {
-  it('농민백암순대 본점을 자주 가는 식당에 추가한다.', () => {
+  it('농민백암순대 본점의 즐겨찾기 버튼(별 이미지)를 누르면 해당 식당을 자주 가는 식당에 추가한다.', () => {
     cy.customVisit();
 
     cy.get('.restaurant-container').each((restaurant) => {
@@ -20,7 +20,7 @@ describe('자주 가는 식당 테스트', () => {
     });
   });
 
-  it('도스타코스 선릉점을 자주 가는 식당에서 제외한다.', () => {
+  it('자주 가는 식당인 도스타코스 선릉점의 즐겨찾기 버튼을 누르면 해당 식당으 자주 가는 식당에서 제외한다.', () => {
     cy.customVisit();
 
     cy.get('.restaurant-container').each((restaurant) => {
