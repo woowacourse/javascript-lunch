@@ -172,11 +172,10 @@ class AppController {
     if (restaurantInfoModal instanceof RestaurantInfoModal) {
       const customEvent = new CustomEvent('restaurantDataUpdated', { detail: data });
       restaurantInfoModal.dispatchEvent(customEvent);
-
-      const dialogElement = restaurantInfoModal?.querySelector('dialog');
-      if (dialogElement instanceof HTMLDialogElement) {
-        dialogElement.showModal();
-      }
+    }
+    const addModal = document.querySelector('#restaurant-info-modal');
+    if (addModal instanceof HTMLDialogElement) {
+      addModal.showModal();
     }
   }
 }
