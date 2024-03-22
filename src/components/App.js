@@ -1,15 +1,14 @@
-// styles
 import './App.css';
 
-// events
+import RestaurantManager from '../domain/RestaurantManager';
+
 import { RESTAURANT_FORM_EVENTS } from './RestaurantForm/RestaurantForm';
 import { RESTAURANT_FILTERS_EVENTS } from './RestaurantFilters/RestaurantFilters';
-
-// domain
-import RestaurantManager from '../domain/RestaurantManager';
 import { BOOKMARK_TAB_EVENTS } from './BookmarkTab/BookmarkTab';
 import { RESTAURANT_ITEM_EVENTS } from './RestaurantItem/RestaurantItem';
 import { RESTAURANT_DETAIL_EVENTS } from './RestaurantDetail/RestaurantDetail';
+
+import { loadFromLocalStorage, updateToLocalStorage } from '../utils/localStorage';
 
 export default class App {
   #restaurantFilters;
@@ -39,11 +38,11 @@ export default class App {
   }
 
   #loadDataFromLocalStorage() {
-    this.#restaurantManger.restaurants = JSON.parse(window.localStorage.getItem('restaurants'));
+    this.#restaurantManger.restaurants = loadFromLocalStorage('restaurants');
   }
 
   #updateDataToLocalStorage() {
-    window.localStorage.setItem('restaurants', JSON.stringify(this.#restaurantManger.restaurants));
+    updateToLocalStorage('restaurants', this.#restaurantManger.restaurants);
   }
 
   #updateRestaurantList({ category, sort }, isBookmark) {
