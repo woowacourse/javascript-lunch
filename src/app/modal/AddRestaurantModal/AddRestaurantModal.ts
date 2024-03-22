@@ -64,7 +64,7 @@ class AddRestaurantModal extends HTMLElement {
       <!-- 카테고리 -->
       <div class="form-item form-item--required">
         <label for="restaurant-category text-caption">카테고리</label>
-        <select name="category" id="restaurant-category" required>
+        <select name="category" id="restaurant-category" >
           ${this.getDefaultSelection()}
           ${this.getEachCategory()}
         </select>
@@ -86,7 +86,7 @@ class AddRestaurantModal extends HTMLElement {
       <!-- 거리 -->
       <div class="form-item form-item--required">
         <label for="restaurant-minuteswalk text-caption">거리(도보 이동 시간) </label>
-        <select name="minutesWalk" id="restaurant-minuteswalk" required>
+        <select name="minutesWalk" id="restaurant-minuteswalk" >
         ${this.getDefaultSelection()}
         ${this.getEachMinutesWalk()};
         </select>
@@ -106,7 +106,7 @@ class AddRestaurantModal extends HTMLElement {
             <div class="form-item form-item--required">
               <label for="restaurant-name text-caption">이름</label>
               
-              <input type="text" name="name" id="restaurant-name" minlength="1" maxlength="20" required />
+              <input type="text" name="name" id="restaurant-name" minlength="1" maxlength="20"/>
               <span class="help-text text-caption">1~20글자 사이로 입력해주세요. 공백만 입력할 수 없습니다.</span>
             </div>
 

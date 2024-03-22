@@ -1,5 +1,5 @@
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
-import { ILocation } from '../../../interface/interface';
+import { ILocation } from '../../../interface/Interface';
 
 class RestaurantList extends HTMLElement {
   private restaurants: ILocation[];

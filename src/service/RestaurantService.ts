@@ -2,7 +2,7 @@ import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
 import { CompareFunction } from '../constants/typings';
 import { Category, MinutesWalk, Sort } from '../constants/enums';
-import { ILocation } from '../interface/interface';
+import { ILocation } from '../interface/Interface';
 import RestaurantValidator from '../validator/RestaurantValidator';
 import { $ } from '../utils/domSelector';
 class RestaurantService {

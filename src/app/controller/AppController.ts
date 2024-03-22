@@ -1,6 +1,6 @@
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
-import { ILocation } from '../../interface/interface';
+import { ILocation } from '../../interface/Interface';
 import { Category, Sort } from '../../constants/enums';
 import { $, $$ } from '../../utils/domSelector';
 import RestaurantInfoModal from '../modal/RestaurantInfoModal/RestaurantInfoModal';
