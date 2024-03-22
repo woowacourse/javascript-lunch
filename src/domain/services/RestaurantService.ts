@@ -7,7 +7,7 @@ const RestaurantService: Restaurants = {
   createRestaurant() {
     const category = $('#category').value;
     const name = $('#name').value;
-    const distance = $('#distance').value;
+    const distance = parseInt($('#distance').value, 10);
     const description = $('#description').value;
     const link = $('#link').value;
 

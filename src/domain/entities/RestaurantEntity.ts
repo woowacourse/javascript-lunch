@@ -1,4 +1,4 @@
-import { Category, Distance, Restaurant } from '../../interface/RestaurantInterfaces';
+import { Category, Restaurant } from '../../interface/RestaurantInterfaces';
 
 interface Props {
   restaurant: Restaurant;
@@ -7,7 +7,7 @@ interface Props {
 class RestaurantEntity implements Restaurant {
   id: string;
   name: string;
-  distance: Distance;
+  distance: number;
   category: Category;
   description?: string;
   link?: string;

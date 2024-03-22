@@ -2,15 +2,13 @@ type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기�
 
 type FilteringCategory = '전체' | Category;
 
-type Distance = 5 | 10 | 15 | 20 | 30;
-
 type SortingProperty = 'name' | 'distance';
 
 interface Restaurant {
   id: string;
   category: Category;
   name: string;
-  distance: Distance;
+  distance: number;
   description?: string;
   link?: string;
   isFavorite: boolean;
@@ -25,4 +23,4 @@ interface Restaurants {
   filterFavorite: (restaurantList: Restaurant[]) => Restaurant[];
 }
 
-export { Category, FilteringCategory, Distance, SortingProperty, Restaurant, Restaurants };
+export { Category, FilteringCategory, SortingProperty, Restaurant, Restaurants };
