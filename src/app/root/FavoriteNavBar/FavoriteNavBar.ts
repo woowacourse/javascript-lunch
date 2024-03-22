@@ -1,4 +1,3 @@
-import { IMAGE } from '../../../assets/assets';
 import { $ } from '../../../utils/domSelector';
 
 class FavoriteNavBar extends HTMLElement {
