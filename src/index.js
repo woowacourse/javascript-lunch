@@ -1,7 +1,5 @@
-// styles
 import './components/global.css';
 
-// components
 import App from './components/App';
 import GNB from './components/GNB/GNB';
 import Modal from './components/Modal/Modal';

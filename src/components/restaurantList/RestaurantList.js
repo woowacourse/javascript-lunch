@@ -3,7 +3,7 @@ import './RestaurantList.css';
 import RestaurantItem from '../RestaurantItem/RestaurantItem';
 
 export default class RestaurantList extends HTMLUListElement {
-  #restaurants;
+  #restaurants = [];
 
   constructor() {
     super();
@@ -23,7 +23,7 @@ export default class RestaurantList extends HTMLUListElement {
     this.innerHTML = '';
 
     const fragment = document.createDocumentFragment();
-    this.restaurants?.forEach((restaurant) => {
+    this.restaurants.forEach((restaurant) => {
       const restaurantItem = new RestaurantItem(restaurant);
       fragment.appendChild(restaurantItem);
     });

@@ -1,6 +1,6 @@
 export const loadFromLocalStorage = (key: string) => {
-  const item = window.localStorage.getItem(key) ?? '';
-  return JSON.parse(item);
+  const item = window.localStorage.getItem(key);
+  if (item) return JSON.parse(item);
 };
 
 export const updateToLocalStorage = (key: string, value: string | object | number) => {
