@@ -38,6 +38,7 @@ export default function RestaurantDetailContainer(restaurantData: RestaurantData
     restaurantReference.textContent = referenceUrl;
     restaurantReference.href = referenceUrl;
     restaurantReference.title = name;
+    restaurantReference.rel = 'noopener noreferrer';
     return restaurantReference;
   };
 
