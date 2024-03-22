@@ -1,4 +1,4 @@
-import { DEFAULT_UNSELECTED_OPTION } from "../../constants/selectOptions";
+import { DEFAULT_UNSELECTED_OPTION } from "../../../constants/selectOptions";
 
 const generateSelectBoxOption = (options: string[]) => {
   return options.map((option) => {
@@ -11,12 +11,20 @@ const generateSelectBoxOption = (options: string[]) => {
   });
 };
 
-const generateSelectBox = (
-  options: string[],
-  hasDefaultOption: boolean = true
-) => {
+interface selectBoxProps {
+  options: string[];
+  hasDefaultOption?: boolean;
+  name?: string;
+}
+
+const generateSelectBox = ({
+  options,
+  hasDefaultOption = true,
+  name = "",
+}: selectBoxProps) => {
   const selectElement = document.createElement("select");
   selectElement.classList.add("select-box", "restaurant-filter");
+  selectElement.name = name;
 
   const optionElements = generateSelectBoxOption(options);
   if (!hasDefaultOption) {

@@ -1,4 +1,4 @@
-import createElementByTag from "./utils/createElementByTag";
+import createElementByTag from "../../utils/createElementByTag";
 
 const generateModal = (contents: HTMLElement[]) => {
   const modalDiv = createElementByTag({
@@ -18,7 +18,7 @@ const generateModal = (contents: HTMLElement[]) => {
   modalDiv.append(backDrop, container);
 
   backDrop.addEventListener("click", () => {
-    modalDiv.classList.remove("modal--open");
+    modalDiv.classList.toggle("modal--open");
   });
 
   return modalDiv;

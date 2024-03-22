@@ -35,3 +35,53 @@
 //     }
 //   }
 // }
+interface AddRestaurantProps {
+  nameValue: string;
+  categoryValue: string;
+  distanceValue: string;
+  descriptionValue?: string;
+  linkValue?: string;
+}
+declare namespace Cypress {
+  interface Chainable {
+    addRestaurant({
+      nameValue,
+      categoryValue,
+      distanceValue,
+      descriptionValue,
+      linkValue,
+    }: AddRestaurantProps): Chainable<JQuery<HTMLElement>>;
+  }
+}
+
+Cypress.Commands.add(
+  "addRestaurant",
+  ({
+    nameValue,
+    categoryValue,
+    distanceValue,
+    descriptionValue = "",
+    linkValue = "",
+  }) => {
+    const form = cy.get(
+      "#adding-restaurant-modal-container>div.modal>div.modal-container>form"
+    );
+
+    const category = form.get("div.form-item>select[name=category]");
+    category.select(categoryValue, { force: true });
+
+    const name = form.get("div.form-item>input[name=name]");
+    name.type(nameValue);
+
+    const distance = form.get("div.form-item>select[name=distance]");
+    distance.select(distanceValue);
+
+    const description = form.get("div.form-item>textarea[name=description]");
+    descriptionValue && description.type(descriptionValue);
+
+    const link = form.get("div.form-item>input[name=link]");
+    linkValue && link.type(linkValue);
+
+    form.get("div.button-container>button.button--primary").click();
+  }
+);
