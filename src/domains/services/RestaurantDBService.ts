@@ -9,18 +9,17 @@ class RestaurantDBService {
 
   constructor() {
     this.#restaurantCollection;
-    this.update();
+    this.#update();
   }
 
   getAfterFiltering(category: CategoryOrAll, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
-    this.update();
+    this.#update();
     const restaurants = this.#restaurantCollection.filterByCategory(category);
     return new RestaurantCollection(restaurants).sort(sortCriteria);
   }
 
-  update() {
-    const existingRestaurants = this.get();
-    this.#restaurantCollection = new RestaurantCollection(existingRestaurants);
+  #update() {
+    this.#restaurantCollection = new RestaurantCollection(this.get());
   }
 
   get(): IRestaurant[] {
@@ -32,7 +31,7 @@ class RestaurantDBService {
   }
 
   add(restaurant: IRestaurant) {
-    this.update();
+    this.#update();
     localStorage.setItem(
       this.#RESTAURANTS_DB_KEY,
       JSON.stringify(this.#restaurantCollection.add(restaurant)),
@@ -40,11 +39,16 @@ class RestaurantDBService {
   }
 
   remove(restaurant: IRestaurant) {
-    this.update();
+    this.#update();
     localStorage.setItem(
       this.#RESTAURANTS_DB_KEY,
       JSON.stringify(this.#restaurantCollection.remove(restaurant)),
     );
+  }
+
+  isEmpty() {
+    this.#update();
+    return this.#restaurantCollection.get().length === 0;
   }
 }
 

@@ -7,10 +7,11 @@ import restaurantListMock from '@/mock/restaurantList.mock';
 import FavoriteIcon from './Basic/FavoriteIcon';
 import RestaurantItem from './RestaurantList/RestaurantItem';
 import Restaurant from '@/domains/entities/Restaurant';
+import RestaurantCollection from '@/domains/entities/RestaurantCollection';
 
 class FavoriteRestaurantApp extends HTMLDivElement {
-  #filterContainer: FilterContainer;
-  #restaurantList: RestaurantList;
+  $filterContainer: FilterContainer;
+  $restaurantList: RestaurantList;
   #restaurantDBService: RestaurantDBService;
 
   observedAttributes = [];
@@ -23,18 +24,17 @@ class FavoriteRestaurantApp extends HTMLDivElement {
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
     `;
 
-    this.#filterContainer = this.querySelector('.restaurant-filter-container')!;
-    this.#restaurantList = this.querySelector('.restaurant-list')!;
+    this.$filterContainer = this.querySelector('.restaurant-filter-container')!;
+    this.$restaurantList = this.querySelector('.restaurant-list')!;
     this.#restaurantDBService = new RestaurantDBService();
     this.render();
-    this.addEventListener('click', this.#onClickFavoriteIcon.bind(this));
   }
   render() {
-    this.#restaurantList.paint(this.#getNewRestaurantList());
+    this.$restaurantList.paint(this.#getNewRestaurantList());
   }
 
   #getNewRestaurantList() {
-    const { category, sortCriteria } = this.#filterContainer.get();
+    const { category, sortCriteria } = this.$filterContainer.get();
 
     let newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
     if (newRestaurantList.length === 0) {
@@ -50,18 +50,6 @@ class FavoriteRestaurantApp extends HTMLDivElement {
 
   #getDB(category: Category, sortCriteria: SortCriteria) {
     return this.#restaurantDBService.getAfterFiltering(category, sortCriteria);
-  }
-
-  #onClickFavoriteIcon(event: Event) {
-    if (!(event.target instanceof FavoriteIcon)) return;
-    const restaurants = new RestaurantDBService().get();
-    const targetRestaurant = event.target.parentElement?.parentElement as RestaurantItem;
-    const newRestaurants = restaurants.filter(
-      (restaurant: IRestaurant) => !new Restaurant(restaurant).isEqual(targetRestaurant.get()),
-    );
-    newRestaurants.push(targetRestaurant.get());
-    this.#restaurantDBService.set(newRestaurants);
-    this.render();
   }
 }
 

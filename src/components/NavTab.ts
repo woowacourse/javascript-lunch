@@ -1,10 +1,10 @@
 import { dom } from '@/util/dom';
 import OnOffButton from './OnOffButton';
-import './Tab.css';
+import './NavTab.css';
 
 const ELEMENT_NAME = 'my-tab';
 
-class Tab extends HTMLDivElement {
+class NavTab extends HTMLDivElement {
   #children: NodeListOf<OnOffButton>;
   #selected: HTMLElement;
 
@@ -29,5 +29,5 @@ class Tab extends HTMLDivElement {
   }
 }
 
-customElements.define(ELEMENT_NAME, Tab, { extends: 'div' });
-export default Tab;
+customElements.define(ELEMENT_NAME, NavTab, { extends: 'div' });
+export default NavTab;

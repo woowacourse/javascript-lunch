@@ -16,8 +16,6 @@ class RestaurantList extends HTMLUListElement {
     super();
     this.classList.add('restaurant-list');
     this.#restaurants = [];
-
-    this.addEventListener('click', this.#onClickFavoriteIcon.bind(this));
   }
 
   paint(restaurants: IRestaurant[]) {
@@ -30,17 +28,6 @@ class RestaurantList extends HTMLUListElement {
 
   get() {
     return this.#restaurants;
-  }
-
-  #onClickFavoriteIcon(event: Event) {
-    if (!(event.target instanceof FavoriteIcon)) return;
-
-    const restaurants = new RestaurantDBService().get();
-    const changed = (event.target.parentElement?.parentElement as RestaurantItem).get();
-
-    new RestaurantDBService().set(new RestaurantCollection(restaurants).update(changed));
-
-    dom.getElement<MainApp>(document.body, '.main-app-new').render();
   }
 }
 

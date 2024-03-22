@@ -14,7 +14,7 @@ import './components/RestaurantList/RestaurantItemDetail';
 import './components/NewRestaurantModal/NewRestaurantForm';
 import './components/NewRestaurantModal/NewRestaurantModal';
 import './components/OnOffButton';
-import './components/Tab';
+import './components/NavTab';
 import './components/AllRestaurantApp';
 import './components/FavoriteRestaurantApp';
 import './components/MainApp';

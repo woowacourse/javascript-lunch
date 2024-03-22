@@ -1,7 +1,7 @@
 import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
-import Tab from './Tab';
+import NavTab from './NavTab';
 import RestaurantItemDetail from './RestaurantList/RestaurantItemDetail';
 import BasicModal from './Basic/BasicModal';
 import '@/css/index.css';
@@ -10,11 +10,11 @@ import { dom } from '@/util/dom';
 import { IRestaurant } from '@/types/Restaurant';
 
 class MainApp extends HTMLDivElement {
-  #navTab: Tab;
-  #allRestaurantApp: AllRestaurantApp;
-  #favoriteRestaurantApp: FavoriteRestaurantApp;
-  #newRestaurantModal: NewRestaurantModal;
-  #restaurantDetailModal: BasicModal;
+  $navTab: NavTab;
+  $allRestaurantApp: AllRestaurantApp;
+  $favoriteRestaurantApp: FavoriteRestaurantApp;
+  $newRestaurantModal: NewRestaurantModal;
+  $restaurantDetailModal: BasicModal;
 
   observedAttributes = [];
 
@@ -38,41 +38,41 @@ class MainApp extends HTMLDivElement {
     </div>
     `;
 
-    this.#navTab = dom.getElement<Tab>(this, 'div[is="my-tab"]');
-    this.#newRestaurantModal = dom.getElement<NewRestaurantModal>(this, '.new-restaurant-modal');
-    this.#allRestaurantApp = dom.getElement<AllRestaurantApp>(this, 'div[is="all-restaurant-app"]');
-    this.#favoriteRestaurantApp = dom.getElement<FavoriteRestaurantApp>(
+    this.$navTab = dom.getElement<NavTab>(this, 'div[is="my-tab"]');
+    this.$newRestaurantModal = dom.getElement<NewRestaurantModal>(this, '.new-restaurant-modal');
+    this.$allRestaurantApp = dom.getElement<AllRestaurantApp>(this, 'div[is="all-restaurant-app"]');
+    this.$favoriteRestaurantApp = dom.getElement<FavoriteRestaurantApp>(
       this,
       'div[is="favorite-restaurant-app"]',
     );
     this.render();
 
-    this.#navTab.addEventListener('click', () => {
+    this.$navTab.addEventListener('click', () => {
       this.render();
     });
 
-    this.#restaurantDetailModal = dom.getElement<BasicModal>(this, '.detail-modal');
-    this.#restaurantDetailModal.appendAll([]);
+    this.$restaurantDetailModal = dom.getElement<BasicModal>(this, '.detail-modal');
+    this.$restaurantDetailModal.appendAll([]);
   }
 
   render() {
     if (
-      this.#allRestaurantApp ===
-      this.querySelector(`.main-app-new > div[data-id="${this.#navTab.getSelected().dataset.id}"]`)
+      this.$allRestaurantApp ===
+      this.querySelector(`.main-app-new > div[data-id="${this.$navTab.getSelected().dataset.id}"]`)
     ) {
-      this.#favoriteRestaurantApp.classList.add('hidden');
-      this.#allRestaurantApp.classList.remove('hidden');
-      this.#allRestaurantApp.render();
+      this.$favoriteRestaurantApp.classList.add('hidden');
+      this.$allRestaurantApp.classList.remove('hidden');
+      this.$allRestaurantApp.render();
     } else {
-      this.#allRestaurantApp.classList.add('hidden');
-      this.#favoriteRestaurantApp.classList.remove('hidden');
-      this.#favoriteRestaurantApp.render();
+      this.$allRestaurantApp.classList.add('hidden');
+      this.$favoriteRestaurantApp.classList.remove('hidden');
+      this.$favoriteRestaurantApp.render();
     }
   }
 
   paintDetailModal(restaurant: IRestaurant) {
-    this.#restaurantDetailModal.openModal();
-    this.#restaurantDetailModal.replaceChildNodes([new RestaurantItemDetail(restaurant)]);
+    this.$restaurantDetailModal.openModal();
+    this.$restaurantDetailModal.replaceChildNodes([new RestaurantItemDetail(restaurant)]);
   }
 }
 

@@ -5,6 +5,8 @@ import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
 import { dom } from '@/util/dom';
+import RestaurantDBService from '@/domains/services/RestaurantDBService';
+import RestaurantCollection from '@/domains/entities/RestaurantCollection';
 
 class RestaurantItem extends HTMLLIElement {
   #category;
@@ -66,6 +68,7 @@ class RestaurantItem extends HTMLLIElement {
   #setEvent() {
     this.addEventListener('click', this.#showDetailListener.bind(this));
     this.addEventListener('click', this.#onClickFavoriteButton.bind(this));
+    this.addEventListener('click', this.#onClickFavoriteIcon.bind(this));
   }
 
   #showDetailListener(event: Event) {
@@ -77,6 +80,15 @@ class RestaurantItem extends HTMLLIElement {
   #onClickFavoriteButton(event: Event) {
     if (!(event.target instanceof FavoriteIcon)) return;
     this.#isFavorite = event.target.getAttribute('clicked') === 'on';
+  }
+
+  #onClickFavoriteIcon(event: Event) {
+    if (!(event.target instanceof FavoriteIcon)) return;
+
+    const restaurants = new RestaurantDBService().get();
+    new RestaurantDBService().set(new RestaurantCollection(restaurants).update(this.get()));
+
+    dom.getElement<MainApp>(document.body, '.main-app-new').render();
   }
 }
 

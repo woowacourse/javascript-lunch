@@ -33,12 +33,10 @@ class AllRestaurantApp extends HTMLDivElement {
   }
 
   #getNewRestaurantList() {
-    const { category, sortCriteria } = this.#filterContainer.get();
-
-    const newRestaurantList = this.#getDB(category, sortCriteria);
-    if (!newRestaurantList) {
+    if (this.#restaurantDBService.isEmpty()) {
       this.#setMock();
     }
+    const { category, sortCriteria } = this.#filterContainer.get();
     return this.#getDB(category, sortCriteria);
   }
 
