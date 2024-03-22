@@ -17,7 +17,6 @@ function createStarButton(buttonProps) {
   return starButton;
 }
 
-// 별 버튼의 이                                                           지를 채움, 안채움 두 가지에서 토글하는 기능
 function toggleStarButton(starButtonId) {
   const starButtonList = $$(`.star__button__${starButtonId}`);
 
@@ -35,16 +34,9 @@ function toggleStarButton(starButtonId) {
 function renderStarButton({ id, initialState }) {
   const starButton = document.createElement('button');
 
-  starButton.style.width = '32px';
-  starButton.style.height = '32px';
-
   starButton.style.backgroundImage = initialState
     ? `url(${STAR_ICONS.fill})`
     : `url(${STAR_ICONS.noFill})`;
-  starButton.style.backgroundSize = 'cover';
-  starButton.style.backgroundColor = 'transparent';
-
-  starButton.style.border = 'none';
 
   starButton.classList.add(`star__button__${id}`);
   if (initialState) starButton.classList.add('star__filled');

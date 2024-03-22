@@ -211,3 +211,11 @@ body {
   height: 60vh;
   overflow-y: scroll;
 }
+
+[class^='star__button__'] {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+}
