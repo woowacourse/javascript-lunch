@@ -8,6 +8,13 @@ interface Option {
 }
 
 export default class SelectBox extends EventComponent {
+  private handleSelectChangeBind: (e: Event, eventName: string) => void;
+
+  constructor() {
+    super();
+    this.handleSelectChangeBind = this.handleSelectChange.bind(this);
+  }
+
   protected getTemplate(): string {
     const rawOptions = this.getAttribute("options");
     const selectId = this.getAttribute("select-id") ?? "";
@@ -45,7 +52,7 @@ export default class SelectBox extends EventComponent {
     const selectId = this.getAttribute("select-id") ?? "";
 
     $(`#${selectId}`)?.addEventListener("change", (e) =>
-      this.handleSelectChange(e, eventName)
+      this.handleSelectChangeBind(e, eventName)
     );
   }
 
@@ -58,5 +65,14 @@ export default class SelectBox extends EventComponent {
       "name",
       "required",
     ];
+  }
+
+  protected removeEvent(): void {
+    const eventName = this.getAttribute("event-name") ?? "";
+    const selectId = this.getAttribute("select-id") ?? "";
+
+    $(`#${selectId}`)?.addEventListener("change", (e) =>
+      this.handleSelectChangeBind(e, eventName)
+    );
   }
 }

@@ -1,0 +1,23 @@
+.header-nav {
+  width: 100%;
+}
+
+.header-nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 16px;
+}
+
+.header-nav li {
+  width: 100%;
+  text-align: center;
+  color: var(--grey-300);
+  border-bottom: 2px solid var(--grey-200);
+  padding: 30px 0px 20px;
+}
+
+.header-nav .active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}

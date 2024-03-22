@@ -1,4 +1,4 @@
-import "../templates/style.css";
+import "../src/style";
 
 import LunchApp from "./LunchApp";
 

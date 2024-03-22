@@ -3,7 +3,7 @@ import FormItem from "./common/FormItem";
 
 import {
   MODAL_EVENT,
-  MODAL_EVENT_ACTION,
+  ACTION_TYPES,
   RESTAURANT_EVENT,
 } from "../constants/event";
 import { $ } from "../utils/selector";
@@ -13,6 +13,15 @@ import { distanceOptions } from "../constants/selectOptions";
 customElements.define("form-item", FormItem);
 
 export default class RestaurantForm extends EventComponent {
+  private handleSubmitBind: (e: Event) => void;
+  private handleCloseButtonClickBind: () => void;
+
+  constructor() {
+    super();
+    this.handleSubmitBind = this.handleSubmit;
+    this.handleCloseButtonClickBind = this.handleCloseButtonClick.bind(this);
+  }
+
   getTemplate(): string {
     return `
     <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -58,16 +67,19 @@ export default class RestaurantForm extends EventComponent {
   }
 
   protected setEvent() {
-    this.addEventListener("submit", this.handleSubmit);
+    this.addEventListener("submit", this.handleSubmitBind);
 
-    $("#close-button")?.addEventListener("click", this.handleCloseButtonClick);
+    $("#close-button")?.addEventListener(
+      "click",
+      this.handleCloseButtonClickBind
+    );
   }
 
   private handleCloseButtonClick() {
     this.dispatchEvent(
       new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
         bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.close },
+        detail: { action: ACTION_TYPES.close },
       })
     );
   }
@@ -94,7 +106,7 @@ export default class RestaurantForm extends EventComponent {
       this.dispatchEvent(
         new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
           bubbles: true,
-          detail: { action: MODAL_EVENT_ACTION.close },
+          detail: { action: ACTION_TYPES.close },
         })
       );
     };
@@ -116,5 +128,14 @@ export default class RestaurantForm extends EventComponent {
 
   private getDistanceOptions() {
     return JSON.stringify(distanceOptions);
+  }
+
+  protected removeEvent(): void {
+    this.removeEventListener("submit", this.handleSubmitBind);
+
+    $("#close-button")?.removeEventListener(
+      "click",
+      this.handleCloseButtonClickBind
+    );
   }
 }

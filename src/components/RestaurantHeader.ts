@@ -1,9 +1,16 @@
 import EventComponent from "../abstract/EventComponent";
 
 import { $ } from "../utils/selector";
-import { MODAL_EVENT, MODAL_EVENT_ACTION } from "../constants/event";
+import { MODAL_EVENT, ACTION_TYPES } from "../constants/event";
 
 export default class RestaurantHeader extends EventComponent {
+  private handleAddButtonClickBind;
+
+  constructor() {
+    super();
+    this.handleAddButtonClickBind = this.handleAddButtonClick.bind(this);
+  }
+
   protected getTemplate() {
     return `
     <header class="gnb">
@@ -16,15 +23,22 @@ export default class RestaurantHeader extends EventComponent {
   }
 
   setEvent() {
-    $("#add-button")?.addEventListener("click", this.handleAddButtonClick);
+    $("#add-button")?.addEventListener("click", this.handleAddButtonClickBind);
   }
 
   private handleAddButtonClick() {
     this.dispatchEvent(
       new CustomEvent(MODAL_EVENT.restaurantFormModalAction, {
         bubbles: true,
-        detail: { action: MODAL_EVENT_ACTION.open },
+        detail: { action: ACTION_TYPES.open },
       })
+    );
+  }
+
+  protected removeEvent(): void {
+    $("#add-button")?.removeEventListener(
+      "click",
+      this.handleAddButtonClickBind
     );
   }
 }
