@@ -1,7 +1,7 @@
 import NewRestaurantModal from './NewRestaurantModal/NewRestaurantModal';
 import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
-import NavTab from './NavTab';
+import NavTab from './Basic/NavTab';
 import RestaurantItemDetail from './RestaurantList/RestaurantItemDetail';
 import BasicModal from './Basic/BasicModal';
 import '@/css/index.css';

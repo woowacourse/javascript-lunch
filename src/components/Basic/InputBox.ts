@@ -1,5 +1,6 @@
 import { dom } from '@/util/dom';
 import './InputBox.css';
+
 interface InputBoxProps {
   styleVariant: 'vertical' | 'horizontal';
   name: string;
