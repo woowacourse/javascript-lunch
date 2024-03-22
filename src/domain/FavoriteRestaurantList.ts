@@ -1,3 +1,5 @@
+import { StorageInterface } from './interface/Storage';
+
 interface FavoriteRestaurantList {
   addRestaurant(restaurantId: number): void;
   hasRestaurant(restaurantId: number): boolean;
@@ -8,9 +10,11 @@ interface FavoriteRestaurantList {
 
 class FavoriteRestaurantList implements FavoriteRestaurantList {
   private favoriteRestaurantList: Set<number>;
+  private storage;
 
-  constructor(idList: string[]) {
+  constructor(idList: string[], storage: StorageInterface) {
     this.favoriteRestaurantList = new Set([...idList.map(Number)]);
+    this.storage = storage;
   }
 
   addRestaurant(restaurantId: number) {
@@ -19,10 +23,9 @@ class FavoriteRestaurantList implements FavoriteRestaurantList {
 
     this.favoriteRestaurantList.add(restaurantId);
 
-    localStorage.setItem(
-      'favoriteRestaurantList',
-      JSON.stringify([...this.favoriteRestaurantList])
-    );
+    this.storage.set('favoriteRestaurantList', [
+      ...this.favoriteRestaurantList,
+    ]);
   }
 
   hasRestaurant = (restaurantId: number): boolean => {
@@ -35,10 +38,9 @@ class FavoriteRestaurantList implements FavoriteRestaurantList {
 
     this.favoriteRestaurantList.delete(restaurantId);
 
-    localStorage.setItem(
-      'favoriteRestaurantList',
-      JSON.stringify([...this.favoriteRestaurantList])
-    );
+    this.storage.set('favoriteRestaurantList', [
+      ...this.favoriteRestaurantList,
+    ]);
   }
 
   getIdList(): number[] {

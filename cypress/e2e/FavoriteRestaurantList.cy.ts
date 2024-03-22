@@ -1,6 +1,7 @@
 import FavoriteRestaurantList from '../../src/domain/FavoriteRestaurantList';
+import Storage from '../../src/domain/Storage';
 
-const favoriteRestaurantList = new FavoriteRestaurantList([]);
+const favoriteRestaurantList = new FavoriteRestaurantList([], new Storage());
 const newRestaurantId = 324;
 
 describe('즐겨찾는 음식점 목록 테스트', () => {

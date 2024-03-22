@@ -1,7 +1,10 @@
 import { Restaurant, Category } from '../../src/domain/interface/Restaurant';
 import { RestaurantManager } from '../../src/domain/RestaurantManager';
+import Storage from '../../src/domain/Storage';
 
 describe('음식점 목록 테스트', () => {
+  const storage = new Storage();
+
   it('음식점을 추가하면 정상적으로 추가되었는지 확인한다.', () => {
     // given
     const newRestaurant: Restaurant = {
@@ -11,7 +14,10 @@ describe('음식점 목록 테스트', () => {
       walkingTime: 5,
     };
 
-    const restaurantManager: RestaurantManager = new RestaurantManager([]);
+    const restaurantManager: RestaurantManager = new RestaurantManager(
+      [],
+      storage
+    );
 
     // when
     restaurantManager.add(newRestaurant);
@@ -49,7 +55,8 @@ describe('음식점 목록 테스트', () => {
       },
     ];
     const restaurantManager: RestaurantManager = new RestaurantManager(
-      localStorageRestaurants
+      localStorageRestaurants,
+      storage
     );
     const sortedByAscendingName: Restaurant[] = [
       {
@@ -120,7 +127,8 @@ describe('음식점 목록 테스트', () => {
       },
     ];
     const restaurantManager: RestaurantManager = new RestaurantManager(
-      localStorageRestaurants
+      localStorageRestaurants,
+      storage
     );
     const sortedByAscendingWalkingTime: Restaurant[] = [
       {
@@ -169,7 +177,10 @@ describe('음식점 목록 테스트', () => {
       walkingTime: 5,
     };
 
-    const restaurantManager: RestaurantManager = new RestaurantManager([]);
+    const restaurantManager: RestaurantManager = new RestaurantManager(
+      [],
+      storage
+    );
 
     // when
     restaurantManager.add(newRestaurant);
@@ -252,7 +263,8 @@ describe('음식점 목록 테스트', () => {
     it(`${category}(으)로 정렬한 결과를 받아온다.`, () => {
       // given
       const restaurantManager: RestaurantManager = new RestaurantManager(
-        totalRestaurants
+        totalRestaurants,
+        storage
       );
 
       restaurantManager.setCurrentCategory(category);

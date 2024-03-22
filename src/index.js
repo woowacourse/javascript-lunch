@@ -15,5 +15,6 @@ import './images/favorite-icon-filled.png';
 import './images/favorite-icon-lined.png';
 
 import { set } from './controller/control';
+import Storage from './domain/Storage.ts';
 
-set.start();
+set.start(new Storage());

@@ -1,5 +1,6 @@
 import { Restaurant, Category } from '../domain/interface/Restaurant';
 import IdGenerator from './IdGenerator';
+import { StorageInterface } from './interface/Storage';
 
 export interface RestaurantManager {
   add(newRestaurant: Restaurant): void;
@@ -15,12 +16,14 @@ export class RestaurantManager implements RestaurantManager {
   private currentCategory;
   private currentSortBy;
   private idGenerator;
+  private storage;
 
-  constructor(restaurantList: Restaurant[] = []) {
+  constructor(restaurantList: Restaurant[] = [], storage: StorageInterface) {
     this.restaurantList = [...restaurantList];
     this.currentCategory = '전체';
     this.currentSortBy = '이름순';
     this.idGenerator = new IdGenerator(restaurantList);
+    this.storage = storage;
   }
 
   private validate(restaurant: Restaurant): void {
@@ -34,7 +37,7 @@ export class RestaurantManager implements RestaurantManager {
   }
 
   postRestaurantList() {
-    localStorage.setItem('restaurantList', JSON.stringify(this.restaurantList));
+    this.storage.set('restaurantList', this.restaurantList);
   }
 
   add(newRestaurant: Restaurant): void {
