@@ -1,69 +1,147 @@
 import '../style.css';
-import '../modal/AddRestaurantModal/AddRestaurantModal';
-import '../root/NavigationBar/NavigationBar';
-import '../root/RestaurantListFilter/RestaurantListFilter';
-import '../root/RestaurantItem/RestaurantItem';
+import '../component/Modal/RestaurantAddModal/RestaurantAddModal';
+import '../component/NavigationBar/NavigationBar';
+import '../component/RestaurantListTab/RestaurantListTab';
+import '../component/RestaurantItem/RestaurantItem';
 
-import RestaurantService from '../../service/RestaurantService';
-import RestaurantList from '../root/RestaurantList/RestaurantList';
-import { Category, SortOrder } from '../../enum/enums';
-import { RestaurantDataType } from '../../type/restaurantDataType';
-import { $ } from '../../util/domSelector';
+import RestaurantService from '../service/RestaurantService';
+import RestaurantListFilter from '../component/RestaurantListFilter/RestaurantListFilter';
+import RestaurantList from '../component/RestaurantList/RestaurantList';
+import RestaurantAddModal from '../component/Modal/RestaurantAddModal/RestaurantAddModal';
+import RestaurantDetailModal from '../component/Modal/RestaurantDetailModal/RestaurantDetailModal';
+import { Category, SortOrder, Tab } from '../enum/enums';
+import { RestaurantDataType, RestaurantType } from '../type/restaurantTypes';
+import { $ } from '../util/domSelector';
 
 export default class AppController {
   private sortOrder: SortOrder;
   private category: Category | '';
+  private tab: Tab;
   private restaurantService: RestaurantService;
+  private restaurantListFilter: RestaurantListFilter;
   private restaurantList: RestaurantList;
+  private restaurantAddModal: RestaurantAddModal;
+  private restaurantDetailModal: RestaurantDetailModal;
 
   constructor() {
     this.sortOrder = SortOrder.이름순;
     this.category = '';
+    this.tab = Tab.all;
     this.restaurantService = new RestaurantService();
-    this.restaurantList = new RestaurantList(this.restaurantService.getRestaurants(this.sortOrder));
+    this.restaurantListFilter = new RestaurantListFilter();
+    this.restaurantList = new RestaurantList({
+      restaurants: this.restaurantService.getRestaurants(this.sortOrder),
+      onRestaurantClick: this.showRestaurantDetailModal.bind(this),
+      onRestaurantFavorite: this.updateRestaurantFavorite.bind(this),
+    });
+    this.restaurantAddModal = new RestaurantAddModal({
+      title: '음식점 추가하기',
+      id: 'add-restaurant-modal',
+      onSubmit: this.addRestaurant.bind(this),
+    });
+    this.restaurantDetailModal = new RestaurantDetailModal({
+      id: 'restaurant-detail-modal',
+      onDelete: this.deleteRestaurant.bind(this),
+      onFavorite: this.updateRestaurantFavorite.bind(this),
+    });
   }
 
   initializeApp() {
-    this.addEvent();
-    this.showRestaurantList();
+    this.initiateNavBar();
+    this.initiateRestaurantListTab();
+    this.initiateRestaurantListFilter();
+    this.initiateRestaurantAddModal();
+    this.initiateRestaurantDetailModal();
+    this.initiateRestaurantList();
   }
 
-  private addEvent() {
-    $('nav-bar').addEventListener('showAddRestaurantModal', this.showAddRestaurantModal.bind(this));
-    $('restaurant-list-filter').addEventListener('changeCategory', this.changeCategory.bind(this));
-    $('restaurant-list-filter').addEventListener('changeSortOrder', this.changeSortOrder.bind(this));
-    $('add-restaurant-modal').addEventListener('submitAddingRestaurant', this.addRestaurant.bind(this));
+  private changeTab(event: Event) {
+    if (event instanceof CustomEvent) {
+      const changedTab: Tab = event.detail;
+      this.tab = changedTab;
+    }
+    this.updateRestaurantList();
   }
 
   private changeCategory(event: Event) {
-    const category: Category = (event as CustomEvent).detail;
-    this.category = category;
-    this.updateRestaurantList();
+    if (event instanceof CustomEvent) {
+      const category: Category = event.detail;
+      this.category = category;
+      this.updateRestaurantList();
+    }
   }
 
   private changeSortOrder(event: Event) {
-    const sortOrder: SortOrder = (event as CustomEvent).detail;
-    this.sortOrder = sortOrder;
-    this.updateRestaurantList();
+    if (event instanceof CustomEvent) {
+      const sortOrder: SortOrder = event.detail;
+      this.sortOrder = sortOrder;
+      this.updateRestaurantList();
+    }
   }
 
-  private addRestaurant(event: Event) {
-    const detail: RestaurantDataType = (event as CustomEvent).detail;
-    this.restaurantService.addRestaurant(detail);
-    this.updateRestaurantList();
+  private updateRestaurantFavorite(id: string, isFavorited: boolean) {
+    this.restaurantService.updateRestaurantFavorite(id, isFavorited);
   }
 
-  private showRestaurantList() {
-    $('#app').appendChild(this.restaurantList);
+  private initiateNavBar() {
+    $('nav-bar').addEventListener('showRestaurantAddModal', this.showRestaurantAddModal.bind(this));
+  }
+
+  private initiateRestaurantListTab() {
+    $('restaurant-list-tab').addEventListener('changeTab', this.changeTab.bind(this));
+  }
+
+  private initiateRestaurantListFilter() {
+    this.restaurantListFilter.addEventListener('changeCategory', this.changeCategory.bind(this));
+    this.restaurantListFilter.addEventListener('changeSortOrder', this.changeSortOrder.bind(this));
+    $('#restaurant-list').appendChild(this.restaurantListFilter);
+  }
+
+  private initiateRestaurantList() {
+    $('#restaurant-list').appendChild(this.restaurantList);
+  }
+
+  private initiateRestaurantAddModal() {
+    document.body.appendChild(this.restaurantAddModal.render());
+  }
+
+  private initiateRestaurantDetailModal() {
+    document.body.appendChild(this.restaurantDetailModal.render());
   }
 
   private updateRestaurantList() {
     const category = this.category === '' ? undefined : this.category;
-    const newRestaurantList = this.restaurantService.getRestaurants(this.sortOrder, category);
-    this.restaurantList.updateRestaurantList(newRestaurantList);
+    const isFavoriteList = this.tab === Tab.favorite;
+    const restaurantList = isFavoriteList
+      ? this.restaurantService.getFavoriteRestaurants()
+      : this.restaurantService.getRestaurants(this.sortOrder, category);
+    this.toggleRestaurantListFilter();
+    this.restaurantList.updateRestaurantList(restaurantList);
   }
 
-  private showAddRestaurantModal() {
-    $<HTMLDialogElement>('#add-restaurant-modal').showModal();
+  private toggleRestaurantListFilter() {
+    if (this.tab === Tab.favorite) {
+      this.restaurantListFilter.hide();
+      return;
+    }
+    this.restaurantListFilter.show();
+  }
+
+  private showRestaurantAddModal() {
+    this.restaurantAddModal.showModal();
+  }
+
+  private showRestaurantDetailModal(restaurant: RestaurantType) {
+    this.restaurantDetailModal.showRestaurantDetail(restaurant);
+  }
+
+  private addRestaurant(restaurantData: RestaurantDataType) {
+    this.restaurantService.addRestaurant(restaurantData);
+    this.updateRestaurantList();
+  }
+
+  private deleteRestaurant(restaurantName: string) {
+    this.restaurantService.deleteRestaurant(restaurantName);
+    this.updateRestaurantList();
   }
 }

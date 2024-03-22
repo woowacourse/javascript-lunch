@@ -5,6 +5,8 @@ import japaneseIcon from './image/category-japanese.png';
 import westernIcon from './image/category-western.png';
 import asianIcon from './image/category-asian.png';
 import etcIcon from './image/category-etc.png';
+import favoritedIcon from './image/favorite-icon-filled.png';
+import notFavoritedIcon from './image/favorite-icon-lined.png';
 
 export const Asset = {
   imageUrl: {
@@ -15,5 +17,7 @@ export const Asset = {
     양식: westernIcon,
     아시안: asianIcon,
     기타: etcIcon,
+    favorited: favoritedIcon,
+    notFavorited: notFavoritedIcon,
   },
 };

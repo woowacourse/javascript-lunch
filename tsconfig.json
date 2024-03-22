@@ -14,8 +14,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node", "cypress"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "cypress", "dist"]
+  "include": ["src", "**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,0 +1,33 @@
+.restaurant-tab-container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 16px;
+  margin-top: 31px;
+}
+
+.tab-button {
+  width: 50%;
+  height: 35px;
+
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--grey-200);
+  background: transparent;
+
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+  color: var(--grey-300);
+}
+
+.tab-button:hover {
+  cursor: pointer;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
