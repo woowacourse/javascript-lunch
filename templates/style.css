@@ -13,7 +13,24 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+
+  -ms-overflow-style: none;
+  /* 인터넷 익스플로러 */
+  scrollbar-width: none;
+  /* 파이어폭스 */
 }
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+html:-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+
+
 
 /* Colors *****************************************/
 :root {
@@ -87,13 +104,49 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* Tab */
+.tab {
+  width: 95vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 auto;
+  padding-top: 40px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--grey-300);
+}
+
+.tab-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 50%;
+
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--grey-200);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-item:hover {
+  color: var(--primary-color);
+}
+
+.active-tab {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
 
-  padding: 0 16px;
-  margin-top: 24px;
+  width: 95vw;
+  padding: 16px 0;
+  margin: 0 auto;
 }
 
 .restaurant-filter-container select {
@@ -172,6 +225,24 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__info__wrapper {
+  width: inherit;
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 92%;
+}
+
+.favorite {
+  color: var(--primary-color);
+  font-size: 30px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.favorite:hover {
+  color: var(--lighten-color);
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -267,7 +338,7 @@ input:invalid:required {
   border: 2px dashed red;
 }
 
-select:invalid:required { 
+select:invalid:required {
   border: 2px dashed red;
 }
 

@@ -1,30 +1,38 @@
 import type {
   IButtonAttributes,
-  ISelectAttributes,
+  IDropdownAttributes,
   IOptionAttributes,
   IImageAttributes,
   IDomCreation,
 } from '../types/dom';
 
 const dom = {
-  getElement(selector: string): HTMLElement {
-    const element = document.querySelector(selector);
+  getElement<T extends HTMLElement>(selector: string): T {
+    const element: T | null = document.querySelector(selector);
     if (element === null) {
       throw Error(`${selector} is not found`);
     }
-    return element as HTMLElement;
+    return element;
+  },
+
+  getTargetElement<T extends HTMLElement>($target: HTMLElement, selector: string): T {
+    const element: T | null = $target.querySelector(selector);
+    if (element === null) {
+      throw Error(`${selector} is not found`);
+    }
+    return element;
   },
 
   create({ tagName, id, classNames, text, children }: IDomCreation) {
     const tag = document.createElement(tagName);
-    tag.id = id ?? '';
-    tag.textContent = text ?? '';
-    if (classNames != null) {
+    if (id) tag.id = id;
+    if (text) tag.textContent = text;
+    if (classNames) {
       classNames.forEach(className => {
         tag.classList.add(className);
       });
     }
-    if (children != null) {
+    if (children) {
       children.forEach(child => {
         tag.appendChild(child);
       });
@@ -32,11 +40,12 @@ const dom = {
     return tag;
   },
 
-  createImageTag({ classNames, src, alt }: IImageAttributes): HTMLImageElement {
+  createImageTag({ src, alt, classNames }: IImageAttributes): HTMLImageElement {
     const imageTag = document.createElement('img');
-    imageTag.src = src ?? '';
-    imageTag.alt = alt ?? '';
-    if (classNames != null) {
+
+    imageTag.setAttribute('src', src);
+    if (alt) imageTag.setAttribute('alt', alt);
+    if (classNames) {
       classNames.forEach(className => {
         imageTag.classList.add(className);
       });
@@ -44,37 +53,50 @@ const dom = {
     return imageTag;
   },
 
-  createSelectTag({ id, classNames, name, required }: ISelectAttributes): HTMLSelectElement {
+  createSelectTag({ id, classNames, name, required }: IDropdownAttributes): HTMLSelectElement {
     const selectTag = document.createElement('select');
-    selectTag.name = name ?? '';
-    selectTag.id = id ?? '';
+
+    if (id) selectTag.id = id;
     if (classNames != null) {
       classNames.forEach(className => {
         selectTag.classList.add(className);
       });
     }
-    selectTag.name = name ?? '';
-    selectTag.required = required ?? false;
+    if (name) selectTag.name = name;
+    if (required) selectTag.required = required;
+
     return selectTag;
   },
 
-  createButtonTag({ id, classNames, name, type, text }: IButtonAttributes): HTMLButtonElement {
+  createButtonTag({
+    id,
+    classNames,
+    name,
+    type = 'button',
+    text,
+    ariaLabel,
+    disabled = false,
+  }: IButtonAttributes): HTMLButtonElement {
     const buttonTag = document.createElement('button');
-    buttonTag.name = name ?? '';
-    buttonTag.id = id ?? '';
-    if (classNames != null) {
+
+    if (id) buttonTag.id = id;
+    if (classNames) {
       classNames.forEach(className => {
         buttonTag.classList.add(className);
       });
     }
-    buttonTag.type = type ?? 'submit';
-    buttonTag.textContent = text ?? '';
+    if (name) buttonTag.name = name;
+    if (type) buttonTag.setAttribute('type', type);
+    if (text) buttonTag.textContent = text;
+    if (ariaLabel) buttonTag.setAttribute('aria-label', ariaLabel);
+    buttonTag.disabled = disabled;
+
     return buttonTag;
   },
 
   createOptionTag({ value, text }: IOptionAttributes): HTMLOptionElement {
     const optionTag = document.createElement('option');
-    optionTag.value = value;
+    optionTag.setAttribute('value', value);
     optionTag.textContent = text;
     return optionTag;
   },

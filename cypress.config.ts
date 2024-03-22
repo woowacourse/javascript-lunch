@@ -5,6 +5,7 @@ const webpackPreprocessor = require('@cypress/webpack-preprocessor');
 
 export default defineConfig({
   e2e: {
+    baseUrl: 'http://localhost:8080',
     setupNodeEvents(on, config) {
       // implement node event listeners here
       on(

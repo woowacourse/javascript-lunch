@@ -1,0 +1,40 @@
+.modal {
+    display: none;
+
+    &.open {
+        display: block;
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.modal-add-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 75vh;
+
+    padding: 32px 16px;
+
+    border-radius: 8px 8px 0px 0px;
+    background: var(--grey-100);
+    overflow: scroll;
+
+    /* 인터넷 익스플로러 */
+    -ms-overflow-style: none;
+    /* 파이어폭스 */
+    scrollbar-width: none;
+}
+
+.modal-add-container:-webkit-scrollbar {
+    display: none;
+}
+
+.modal-title {
+    margin-bottom: 36px;
+}

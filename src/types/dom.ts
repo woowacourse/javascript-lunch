@@ -4,7 +4,7 @@ interface IDomAttributes {
   text?: string;
 }
 
-interface ISelectAttributes extends IDomAttributes {
+interface IDropdownAttributes extends IDomAttributes {
   name?: string;
   required?: boolean;
 }
@@ -12,11 +12,13 @@ interface ISelectAttributes extends IDomAttributes {
 interface IButtonAttributes extends IDomAttributes {
   name?: string;
   type?: 'submit' | 'reset' | 'button';
+  ariaLabel?: string;
+  disabled?: boolean;
 }
 
 interface IImageAttributes extends IDomAttributes {
   src: string;
-  alt: string;
+  alt?: string;
 }
 
 interface IOptionAttributes {
@@ -29,14 +31,6 @@ interface IDomCreation extends IDomAttributes {
   children?: HTMLElement[];
 }
 
-interface FormElements extends HTMLFormControlsCollection {
-  category: HTMLInputElement;
-  name: HTMLInputElement;
-  distance: HTMLInputElement;
-  description: HTMLInputElement;
-  link: HTMLInputElement;
-}
-
 interface IFormInput {
   category: HTMLInputElement;
   name: HTMLInputElement;
@@ -45,13 +39,17 @@ interface IFormInput {
   $addButton: HTMLButtonElement;
 }
 
+interface FormElements extends HTMLFormControlsCollection, Omit<IFormInput, '$addButton'> {
+  description: HTMLInputElement;
+}
+
 export type {
   IDomAttributes,
-  ISelectAttributes,
+  IDropdownAttributes,
   IButtonAttributes,
   IImageAttributes,
   IOptionAttributes,
   IDomCreation,
-  FormElements,
   IFormInput,
+  FormElements,
 };
