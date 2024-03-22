@@ -103,7 +103,7 @@ class RestaurantDetailModal extends Modal {
     this.setEvents(reRender, onUpdate, onDelete);
   }
 
-  setEvents(reRender: Function, onUpdate: Function, onDelete: Function) {
+  setEvents(reRender: () => void, onUpdate: () => void, onDelete: (id: string) => void) {
     const favorite = $('#detail-favorite');
     const deleteButton = $('#delete');
     const closeButton = $('#close');
@@ -117,7 +117,7 @@ class RestaurantDetailModal extends Modal {
     });
 
     deleteButton.addEventListener('click', () => {
-      onDelete(this.#restaurant?.id);
+      onDelete(this.#restaurant!.id);
     });
 
     closeButton.addEventListener('click', () => {

@@ -11,15 +11,11 @@ import RestaurantService from './domain/services/RestaurantService';
 
 class App {
   #restaurantList = new RestaurantList();
-
   #addRestaurantModal = new AddRestaurantModal();
-
   #restaurantDetailModal = new RestaurantDetailModal();
 
   #activeTab;
-
   #filterCategory = DEFAULT_FILTERING_CATEGORY;
-
   #sortProperty = DEFAULT_SORTING_PROPERTY;
 
   initApp() {
@@ -37,7 +33,6 @@ class App {
     });
 
     this.setAddRestaurantModalEvents();
-    this.setRestaurantDetailModalEvents();
     this.setTabEvents();
 
     this.renderRestaurantList();
@@ -65,8 +60,6 @@ class App {
       this.#addRestaurantModal.toggle();
     });
   }
-
-  setRestaurantDetailModalEvents() {}
 
   setTabEvents() {
     const tabButtons = Array.from($$('.button--tabmenu'));
@@ -105,7 +98,7 @@ class App {
     const restaurantUl = document.createElement('ul');
     restaurantUl.classList.add('restaurant-list');
 
-    renderingList.map(restaurantItem => {
+    renderingList.forEach(restaurantItem => {
       restaurantUl.append(
         new createRestaurantItem({
           restaurant: restaurantItem,
