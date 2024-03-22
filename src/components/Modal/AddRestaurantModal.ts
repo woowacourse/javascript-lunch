@@ -4,6 +4,8 @@ import {
   ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS,
   CANCEL_BUTTON_PROPS,
 } from '../../constant/options';
+import RestaurantEntity from '../../domain/entities/RestaurantEntity';
+import { $ } from '../../utils/querySelector';
 import createButton from '../Common/Button';
 import Dropdown from '../Common/Dropdown';
 import Modal from './Modal';
@@ -47,7 +49,30 @@ addRestaurantLayout.innerHTML = /*html*/ `
 class AddRestaurantModal extends Modal {
   constructor() {
     super({ child: addRestaurantLayout });
+    this.setEvents();
   }
+
+  createRestaurant() {
+    const category = $('#category').value;
+    const name = $('#name').value;
+    const distance = parseInt($('#distance').value, 10);
+    const description = $('#description').value;
+    const link = $('#link').value;
+
+    return new RestaurantEntity({
+      restaurant: {
+        id: category + name,
+        category: category,
+        name: name,
+        distance: distance,
+        description: description,
+        link: link,
+        isFavorite: false,
+      },
+    });
+  }
+
+  setEvents() {}
 }
 
 export default AddRestaurantModal;
