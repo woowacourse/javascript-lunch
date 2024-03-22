@@ -109,7 +109,7 @@ class RestaurantDetailModal extends Modal {
     const closeButton = $('#close');
 
     favorite.addEventListener('click', () => {
-      this.#restaurant?.favoriteToggle();
+      this.#restaurant?.toggleFavorite();
       restaurantDetailLayout.replaceChildren();
       if (this.#restaurant) render(this.#restaurant);
       onUpdate();

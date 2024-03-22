@@ -88,7 +88,7 @@ class createRestaurantItem {
       this.#starredIcon.classList.add('hidden');
       this.#unstarredIcon.classList.remove('hidden');
     }
-    restaurant.favoriteToggle();
+    restaurant.toggleFavorite();
   }
 }
 

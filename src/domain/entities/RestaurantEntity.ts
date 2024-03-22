@@ -36,7 +36,7 @@ class RestaurantEntity implements Restaurant {
     };
   }
 
-  favoriteToggle() {
+  toggleFavorite() {
     this.isFavorite = !this.isFavorite;
   }
 }
