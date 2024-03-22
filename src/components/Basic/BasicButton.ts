@@ -8,6 +8,7 @@ class BasicButton extends HTMLButtonElement {
     innerText: string,
     type: 'submit' | 'reset' | 'button',
     clickEvent: () => void,
+    classNames?: string[],
   ) {
     super();
     styleVariant = styleVariant ?? this.getAttribute('style-variant');
@@ -16,6 +17,7 @@ class BasicButton extends HTMLButtonElement {
     this.#isPrimary = styleVariant;
     this.innerText = innerText;
     this.setAttribute('type', type);
+    this.classList.add(...(classNames ?? ''));
 
     const buttonStyleClass =
       this.#isPrimary === 'primary'

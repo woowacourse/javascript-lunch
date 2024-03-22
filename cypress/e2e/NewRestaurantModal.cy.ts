@@ -31,17 +31,14 @@ describe('새 레스토랑 추가 모달 테스트', () => {
     });
   });
 
-  //   it('음식점을 추가하였을 때, 새 음식점이 추가된다.', () => {
-  //     const REQUIRED_INPUTS = [
-  //       { name: '카테고리', boxSelector: '.new-restaurant-modal .category-select ' },
-  //       { name: '이름', boxSelector: '.new-restaurant-modal .name-input-box' },
-  //       { name: '거리', boxSelector: '.new-restaurant-modal .distance-select', content: 'aaaa' },
-  //     ];
+  it('음식점을 추가하였을 때, 새 음식점이 추가된다.', () => {
+    cy.get('.gnb > button').click();
 
-  //     cy.visit('/');
-  //     cy.get('body > div.gnb > button').click();
-  //     REQUIRED_INPUTS.forEach(({ boxSelector }) => {
-  //         cy.get(`${boxSelector}`)
-  //     });
-  //   });
+    cy.get('.new-restaurant-modal .category-input').select('중식');
+    cy.get('.new-restaurant-form__name-input').type('테스트용 맛있는 음식점');
+    cy.get('.new-restaurant-modal .distance-input').select('5');
+    cy.get('.new-restaurant-form__submit-button').click();
+
+    cy.get('.restaurant__name').contains('테스트용 맛있는 음식점');
+  });
 });

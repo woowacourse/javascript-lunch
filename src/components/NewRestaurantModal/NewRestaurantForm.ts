@@ -8,7 +8,7 @@ import {
 } from '@/types/Restaurant';
 import SelectBox from '../Basic/SelectBox';
 import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
-import VerticalInputBox from '../Basic/VerticalInputBox';
+import InputBox from '../Basic/VerticalInputBox';
 import BasicButton from '../Basic/BasicButton';
 import BasicModal from '../Basic/BasicModal';
 import { dom } from '@/util/dom';
@@ -23,32 +23,32 @@ class NewRestaurantForm extends HTMLFormElement {
     this.#renderNameInput();
     this.#renderSelectBox();
     this.#renderLinkInputBox();
-    this.#renderButtonBox();
+    this.#renderButtonBox(); //
   }
 
   #template() {
     return `
     <div class="form-item form-item--required category-select">
       <label for="category text-caption">카테고리</label>
-      <select is="select-box"></select>
+      <select is="select-box" class="category-input"></select>
       <div class="error invisible">카테고리는 필수 입력입니다.</div>
     </div>
     
-    <div is="vertical-input-box"></div>
+    <div is="input-box" class="name-input-box"></div>
 
     <div class="form-item form-item--required distance-select">
       <label for="distance text-caption">거리(도보 이동 시간)</label>
-      <select is="select-box"></select>
+      <select is="select-box" class="distance-input"></select>
       <div class="error invisible">거리 값은 필수 입력입니다.</div>
     </div>
 
     <div class="form-item">
       <label for="description text-caption">설명</label>
-      <textarea name="description" id="description" cols="30" rows="5"></textarea>
+      <textarea name="description" id="description" cols="30" rows="5" class="description-input"></textarea>
       <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
     </div>
 
-    <div is="vertical-input-box" class="link-input-box"></div>
+    <div is="input-box" class="link-input-box"></div>
 
     <div class="button-container"></div>
     `;
@@ -67,12 +67,13 @@ class NewRestaurantForm extends HTMLFormElement {
   }
 
   #renderNameInput() {
-    dom.getElement<VerticalInputBox>(this, 'div[is="vertical-input-box"]').setState({
+    dom.getElement<InputBox>(this, 'div[is="input-box"]').setState({
+      styleVariant: 'vertical',
       name: '이름',
       idName: 'name',
-      classList: ['name-input-box'],
       hasVerification: true,
       isRequired: true,
+      classNames: ['new-restaurant-form__name-input'],
     });
   }
 
@@ -94,8 +95,9 @@ class NewRestaurantForm extends HTMLFormElement {
   }
 
   #renderLinkInputBox() {
-    const linkInputBox = dom.getElement<VerticalInputBox>(this, '.link-input-box');
+    const linkInputBox = dom.getElement<InputBox>(this, '.link-input-box');
     linkInputBox.setState({
+      styleVariant: 'vertical',
       name: '링크',
       idName: 'link',
       helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
@@ -107,8 +109,16 @@ class NewRestaurantForm extends HTMLFormElement {
     const closeModal = () => {
       (this.parentElement?.parentElement as BasicModal).closeModal();
     };
-    $buttonBox.append(new BasicButton('secondary', '취소하기', 'reset', closeModal));
-    $buttonBox.append(new BasicButton('primary', '추가하기', 'submit', () => {}));
+    $buttonBox.append(
+      new BasicButton('secondary', '취소하기', 'reset', closeModal, [
+        'new-restaurant-form__cancel-button',
+      ]),
+    );
+    $buttonBox.append(
+      new BasicButton('primary', '추가하기', 'submit', () => {}, [
+        'new-restaurant-form__submit-button',
+      ]),
+    );
   }
 
   invisibleErrorMessage() {

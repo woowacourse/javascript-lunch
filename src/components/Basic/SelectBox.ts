@@ -28,7 +28,7 @@ class SelectBox<T extends string> extends HTMLSelectElement {
     };
   }
   render() {
-    this.className = 'restaurant-filter';
+    this.classList.add('restaurant-filter');
     this.name = this.#name;
     this.id = `${this.#name}-filter`;
     this.#makeOptionTags();
