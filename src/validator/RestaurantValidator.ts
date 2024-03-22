@@ -1,11 +1,11 @@
-import { Category, MinutesWalk } from '../constants/enums';
+import { RestaurantCategory, MinutesWalk } from '../constants/enums';
 import { ILocation } from '../interface/LocationInterface';
 import Restaurant from '../domain/Restaurant';
 
 const RestaurantValidator = {
   validateUserInput(userInput: ILocation) {
     this.validateRestaurantName(userInput.name);
-    this.validateRestaurantCategory(userInput.category);
+    this.validateRestaurantRestaurantCategory(userInput.category);
     this.validateRestaurantMinutesWalk(userInput.minutesWalk);
   },
 
@@ -21,7 +21,7 @@ const RestaurantValidator = {
     }
   },
 
-  validateRestaurantCategory(inputData: Category) {
+  validateRestaurantRestaurantCategory(inputData: RestaurantCategory) {
     if (!inputData) {
       throw new Error('카테고리를 선택해주세요.');
     }

@@ -1,13 +1,13 @@
 import RestaurantService from '../../service/RestaurantService';
 import RestaurantList from '../root/RestaurantList/RestaurantList';
 import { ILocation } from '../../interface/LocationInterface';
-import { Category, Sort } from '../../constants/enums';
+import { RestaurantCategory, Sort } from '../../constants/enums';
 import { $, $$ } from '../../utils/domSelector';
 import RestaurantInfoModal from '../modal/RestaurantInfoModal/RestaurantInfoModal';
 
 class AppController {
   sort: Sort;
-  category: Category | '전체';
+  category: RestaurantCategory | '전체';
   favorite: boolean;
   restaurantService: RestaurantService;
 
@@ -50,7 +50,7 @@ class AppController {
 
     const selectBoxSection = $('select-box-section');
     if (selectBoxSection) {
-      selectBoxSection.addEventListener('changeCategory', this.changeCategory.bind(this));
+      selectBoxSection.addEventListener('changeRestaurantCategory', this.changeRestaurantCategory.bind(this));
       selectBoxSection.addEventListener('changeSort', this.changeSort.bind(this));
     }
 
@@ -97,8 +97,8 @@ class AppController {
     this.refreshRestaurantList();
   }
 
-  changeCategory(event: Event) {
-    const category: Category = (event as CustomEvent).detail;
+  changeRestaurantCategory(event: Event) {
+    const category: RestaurantCategory = (event as CustomEvent).detail;
     this.category = category;
     this.refreshRestaurantList();
   }

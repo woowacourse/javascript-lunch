@@ -1,7 +1,7 @@
 import Restaurant from '../domain/Restaurant';
 import defaultRestaurant from '../data/defaultRestaurants.json';
 import { CompareFunction } from '../constants/typings';
-import { Category, MinutesWalk, Sort } from '../constants/enums';
+import { RestaurantCategory, MinutesWalk, Sort } from '../constants/enums';
 import { ILocation } from '../interface/LocationInterface';
 import RestaurantValidator from '../validator/RestaurantValidator';
 import { $ } from '../utils/domSelector';
@@ -13,9 +13,11 @@ class RestaurantService {
     this.saveRestaurants(this.restaurants);
   }
 
-  getRestaurants(sort: Sort, favorite: boolean, category?: Category) {
+  getRestaurants(sort: Sort, favorite: boolean, category?: RestaurantCategory) {
     const restaurants = favorite ? this.getFavoriteRestaurants() : this.restaurants;
-    const categorizedRestaurants = category ? this.getRestaurantsByCategory(restaurants, category) : restaurants;
+    const categorizedRestaurants = category
+      ? this.getRestaurantsByRestaurantCategory(restaurants, category)
+      : restaurants;
     const compareFunction = this.getCompareFunction(sort);
     const sortedRestaurants = this.getSortedRestaurants(categorizedRestaurants, compareFunction);
     return sortedRestaurants.map((restaurant) => restaurant.getData());
@@ -44,8 +46,8 @@ class RestaurantService {
     location.reload();
   }
 
-  private getRestaurantsByCategory(restaurants: Restaurant[], category: Category) {
-    return restaurants.filter((restaurant) => restaurant.isMatchedCategory(category));
+  private getRestaurantsByRestaurantCategory(restaurants: Restaurant[], category: RestaurantCategory) {
+    return restaurants.filter((restaurant) => restaurant.isMatchedRestaurantCategory(category));
   }
 
   private getCompareFunction(sort: Sort): CompareFunction {
@@ -102,7 +104,7 @@ class RestaurantService {
     return defaultRestaurant.map((restaurant) => {
       const restaurantObject: ILocation = {
         name: restaurant.name,
-        category: restaurant.category as Category,
+        category: restaurant.category as RestaurantCategory,
         minutesWalk: restaurant.minutesWalk as MinutesWalk,
         description: restaurant.description,
         referenceUrl: restaurant.referenceUrl,

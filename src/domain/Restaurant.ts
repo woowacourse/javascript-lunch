@@ -1,9 +1,9 @@
-import { Category, MinutesWalk } from '../constants/enums';
+import { RestaurantCategory, MinutesWalk } from '../constants/enums';
 import { ILocation } from '../interface/LocationInterface';
 
 class Restaurant {
   private name: string;
-  private category: Category;
+  private category: RestaurantCategory;
   private minutesWalk: MinutesWalk;
   private description?: string;
   private referenceUrl?: string;
@@ -22,7 +22,7 @@ class Restaurant {
     return this.name;
   }
 
-  getCategory(): Category {
+  getRestaurantCategory(): RestaurantCategory {
     return this.category;
   }
 
@@ -57,7 +57,7 @@ class Restaurant {
     };
   }
 
-  isMatchedCategory(category: Category): boolean {
+  isMatchedRestaurantCategory(category: RestaurantCategory): boolean {
     return category === this.category;
   }
 }

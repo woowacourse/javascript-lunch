@@ -1,5 +1,5 @@
 import { $, $$ } from '../../../utils/domSelector';
-import { Category, MinutesWalk } from '../../../constants/enums';
+import { RestaurantCategory, MinutesWalk } from '../../../constants/enums';
 
 class AddRestaurantModal extends HTMLElement {
   connectedCallback() {
@@ -51,22 +51,22 @@ class AddRestaurantModal extends HTMLElement {
       <option value="">선택해 주세요</option>
     `;
   }
-  private getEachCategory() {
-    return Object.values(Category)
+  private getEachRestaurantCategory() {
+    return Object.values(RestaurantCategory)
       .map((category) => {
         return `<option value="${category}">${category}</option>`;
       })
       .join('');
   }
 
-  private showCategorySelectbox() {
+  private showRestaurantCategorySelectbox() {
     return `
       <!-- 카테고리 -->
       <div class="form-item form-item--required">
         <label for="restaurant-category text-caption">카테고리</label>
         <select name="category" id="restaurant-category" >
           ${this.getDefaultSelection()}
-          ${this.getEachCategory()}
+          ${this.getEachRestaurantCategory()}
         </select>
       </div>
       `;
@@ -110,7 +110,7 @@ class AddRestaurantModal extends HTMLElement {
               <span class="help-text text-caption">1~20글자 사이로 입력해주세요. 공백만 입력할 수 없습니다.</span>
             </div>
 
-            ${this.showCategorySelectbox()}
+            ${this.showRestaurantCategorySelectbox()}
             
             ${this.showMinutesWalkSelectbox()}
             

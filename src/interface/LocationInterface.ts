@@ -1,8 +1,8 @@
-import { Category, MinutesWalk } from '../constants/enums';
+import { RestaurantCategory, MinutesWalk } from '../constants/enums';
 
 interface ILocation {
   name: string;
-  category: Category;
+  category: RestaurantCategory;
   minutesWalk: MinutesWalk;
   description?: string;
   referenceUrl?: string;

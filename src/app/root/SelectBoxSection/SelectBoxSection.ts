@@ -1,4 +1,4 @@
-import { Category, Sort } from '../../../constants/enums';
+import { RestaurantCategory, Sort } from '../../../constants/enums';
 import { $ } from '../../../utils/domSelector';
 
 class SelectBoxSection extends HTMLElement {
@@ -12,7 +12,7 @@ class SelectBoxSection extends HTMLElement {
     if (categoryFilter) {
       categoryFilter.addEventListener('change', (event: Event) => {
         this.dispatchEvent(
-          new CustomEvent('changeCategory', {
+          new CustomEvent('changeRestaurantCategory', {
             detail: (event.target as HTMLSelectElement).value,
           }),
         );
@@ -31,8 +31,8 @@ class SelectBoxSection extends HTMLElement {
     }
   }
 
-  private getCategoryName() {
-    return Object.values(Category).map((category) => {
+  private getRestaurantCategoryName() {
+    return Object.values(RestaurantCategory).map((category) => {
       return `<option value="${category}">${category}</option>`;
     });
   }
@@ -48,7 +48,7 @@ class SelectBoxSection extends HTMLElement {
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
           <option value="전체">전체</option>
-          ${this.getCategoryName()}
+          ${this.getRestaurantCategoryName()}
         </select>
 
         <!-- 정렬 셀렉트 박스 -->

@@ -1,4 +1,4 @@
-enum Category {
+enum RestaurantCategory {
   한식 = '한식',
   중식 = '중식',
   일식 = '일식',
@@ -20,4 +20,4 @@ enum Sort {
   거리순 = '거리순',
 }
 
-export { Category, MinutesWalk, Sort };
+export { RestaurantCategory, MinutesWalk, Sort };
