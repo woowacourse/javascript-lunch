@@ -1,4 +1,4 @@
-import { FAVORITE, STORAGE_KEY } from '../constants/config';
+import { FAVORITE } from '../constants/config';
 import { CATEGORY_IMG_SRC, FAVORITE_IMG_SRC } from '../constants/filter';
 import RestaurantsStorage from '../domain/RestaurantsStorage';
 import RestaurantDetail from './RestaurantDetail';
@@ -42,26 +42,21 @@ const RestaurantComponent = {
   },
 
   handleRestaurantDetail(e, information) {
-    const localStorageRestaurants = RestaurantsStorage.getRestaurants();
-
     if (!(e.target.tagName === 'IMG')) {
-      localStorageRestaurants.forEach(localStorageRestaurant => {
-        this.openRestaurantDetail(localStorageRestaurant, information);
-      });
+      const targetRestaurant = RestaurantsStorage.getMatchedRestaurant(information.name);
+      this.openRestaurantDetail(targetRestaurant);
     }
   },
 
-  openRestaurantDetail(localStorageRestaurant, information) {
-    if (localStorageRestaurant.information.name === information.name) {
-      const $modalContainer = document.getElementById('modal-container');
-      const restaurantDetailModal = new RestaurantDetailModal(
-        new RestaurantDetail(localStorageRestaurant),
-        this.getRestaurantList(),
-      );
+  openRestaurantDetail(targetRestaurant) {
+    const $modalContainer = document.getElementById('modal-container');
+    const restaurantDetailModal = new RestaurantDetailModal(
+      new RestaurantDetail(targetRestaurant),
+      this.getRestaurantList(),
+    );
 
-      $modalContainer.appendChild(restaurantDetailModal.getElement());
-      restaurantDetailModal.toggle();
-    }
+    $modalContainer.appendChild(restaurantDetailModal.getElement());
+    restaurantDetailModal.toggle();
   },
 
   createRestaurantCategory(information) {
@@ -162,14 +157,13 @@ const RestaurantComponent = {
   },
 
   handleFavorite(e) {
-    const localStorageRestaurants = RestaurantsStorage.getRestaurants();
-    localStorageRestaurants.forEach(restaurant => {
-      if (restaurant.information.name === e.target.parentNode.parentNode.parentNode.querySelector('h3').textContent) {
-        this.changeFavorite(restaurant);
-        e.target.src = FAVORITE_IMG_SRC[restaurant.information.favorite];
-      }
-    });
-    RestaurantsStorage.setRestaurants(localStorageRestaurants);
+    const targetName = e.target.parentNode.parentNode.parentNode.querySelector('h3').textContent;
+    const targetRestaurant = RestaurantsStorage.getMatchedRestaurant(targetName);
+
+    this.changeFavorite(targetRestaurant);
+    e.target.src = FAVORITE_IMG_SRC[targetRestaurant.information.favorite];
+
+    RestaurantsStorage.setMatchedRestaurant(targetRestaurant);
   },
 
   changeFavorite(restaurant) {
