@@ -1,11 +1,15 @@
 import Modal from '../Modal';
 import RestaurantAddForm from '../../RestaurantAddForm/RestaurantAddForm';
-import { RestaurantAddModalType } from '../../../type/modalTypes';
+import { ModalType } from '../../../type/modalType';
 import { RestaurantDataType } from '../../../type/restaurantTypes';
+
+type RestaurantAddModalType = ModalType & {
+  onSubmit: (restaurantData: RestaurantDataType) => void;
+};
 
 export default class RestaurantAddModal extends Modal {
   private form: RestaurantAddForm;
-  private addNewRestaurant: Function;
+  private addNewRestaurant: (restaurantData: RestaurantDataType) => void;
 
   constructor({ title, id, onSubmit }: RestaurantAddModalType) {
     super({ title, id });

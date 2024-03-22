@@ -6,16 +6,16 @@ import RestaurantItemContainer from '../RestaurantItemContainer/RestaurantItemCo
 
 type RestaurantItemType = {
   restaurantData: RestaurantType;
-  onClick: Function;
-  onFavorite: Function;
+  onClick: (restaurant: RestaurantType) => void;
+  onFavorite: (restaurantId: string, isFavorited: boolean) => void;
 };
 
 export default class RestaurantItem extends HTMLElement {
   private restaurantData: RestaurantType;
   private restaurantInfoContainer: HTMLDivElement;
   private favoriteButton: FavoriteButton;
-  private showRestaurantDetail: Function;
-  private updateRestaurantFavorite: Function;
+  private showRestaurantDetail: RestaurantItemType['onClick'];
+  private updateRestaurantFavorite: RestaurantItemType['onFavorite'];
 
   constructor({ restaurantData, onClick, onFavorite }: RestaurantItemType) {
     super();

@@ -1,4 +1,4 @@
-import { ModalType } from '../../type/modalTypes';
+import { ModalType } from '../../type/modalType';
 import './Modal.css';
 
 export default class Modal {

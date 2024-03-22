@@ -1,19 +1,19 @@
 import Modal from '../Modal';
 import FavoriteButton from '../../FavoriteButton/FavoriteButton';
 import RestaurantDetailContainer from '../../RestaurantDetailContainer/RestaurantDetailContainer';
-import { ModalType } from '../../../type/modalTypes';
+import { ModalType } from '../../../type/modalType';
 import { RestaurantType } from '../../../type/restaurantTypes';
 import { createFormButton, createFormButtonContainer } from '../../../util/createFormElement';
 
 type RestaurantDetailModalType = ModalType & {
-  onDelete: Function;
-  onFavorite: Function;
+  onDelete: (id: string) => void;
+  onFavorite: (id: string, isFavorited: boolean) => void;
 };
 
 export default class RestaurantDetailModal extends Modal {
   private restaurant?: RestaurantType;
-  private deleteRestaurant: Function;
-  private updateRestaurantFavorite: Function;
+  private deleteRestaurant: RestaurantDetailModalType['onDelete'];
+  private updateRestaurantFavorite: RestaurantDetailModalType['onFavorite'];
   private favoriteButton: FavoriteButton;
   private buttonContainer: HTMLDivElement;
 

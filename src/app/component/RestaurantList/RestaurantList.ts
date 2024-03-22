@@ -5,14 +5,14 @@ import './RestaurantList.css';
 
 type RestaurantListType = {
   restaurants: RestaurantType[];
-  onRestaurantClick: Function;
-  onRestaurantFavorite: Function;
+  onRestaurantClick: (restaurant: RestaurantType) => void;
+  onRestaurantFavorite: (id: string, isFavorited: boolean) => void;
 };
 
 export default class RestaurantList extends HTMLElement {
   private restaurantItems: RestaurantItem[];
-  private showRestaurantDetail: Function;
-  private updateRestaurantItemFavorite: Function;
+  private showRestaurantDetail: RestaurantListType['onRestaurantClick'];
+  private updateRestaurantItemFavorite: RestaurantListType['onRestaurantFavorite'];
 
   constructor({ restaurants, onRestaurantClick, onRestaurantFavorite }: RestaurantListType) {
     super();

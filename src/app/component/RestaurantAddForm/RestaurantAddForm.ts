@@ -23,8 +23,8 @@ type RestaurantAddFormType = {
 
 export default class RestaurantAddForm {
   private form: HTMLFormElement;
-  private cancelSubmitFormData: Function;
-  private submitFormData: Function;
+  private cancelSubmitFormData: RestaurantAddFormType['onCancel'];
+  private submitFormData: RestaurantAddFormType['onSubmit'];
   private cancelButton: HTMLButtonElement;
   private submitButton: HTMLButtonElement;
 
