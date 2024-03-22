@@ -16,6 +16,7 @@ import LunchItems from './components/LunchItems/LunchItems';
 import DUMMY from './constants/dummy';
 import LunchItemModal from './components/LunchItemModal/LunchItemModal';
 import LunchModal from './components/LunchModal/LunchModal';
+import connectedCollection from './api/Collection';
 
 const LUNCH_APP = `
   <lunch-header></lunch-header>
@@ -56,12 +57,6 @@ class LunchApp extends HTMLElement {
   }
 
   render() {
-    if (!localStorage.getItem('restaurants')) {
-      localStorage.setItem('restaurants', JSON.stringify(DUMMY));
-    }
-    if (!localStorage.getItem('liked')) {
-      localStorage.setItem('liked', JSON.stringify([]));
-    }
     this.innerHTML = LUNCH_APP;
   }
 

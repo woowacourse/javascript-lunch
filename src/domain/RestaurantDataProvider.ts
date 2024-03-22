@@ -1,4 +1,4 @@
-import { DEFAULT_COLLECTION, databaseType } from '../api/Collection';
+import connectedCollection, { DEFAULT_COLLECTION, databaseType } from '../api/Collection';
 import { SORTBY } from '../constants/sortBy';
 import { Category } from '../types/Category';
 import { Restaurant } from '../types/Restaurant';
@@ -41,8 +41,7 @@ type SortRestaurantsProps = {
  */
 const RestaurantDataProvider: RestaurantDataProviderType = {
   getAllRestaurantsByOption(props: getAllRestaurantsByOptionProps): Restaurants {
-    const restaurants = localStorage.getItem(props.database ?? DEFAULT_COLLECTION);
-    const allRestaurants = JSON.parse(restaurants ?? '[]');
+    const allRestaurants = connectedCollection.getAllItems(props.database);
 
     const filterRestaurants = props.category
       ? this.filterByCategory({ category: props.category, allRestaurants })
