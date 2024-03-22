@@ -1,6 +1,6 @@
 import { FAVORITE, STORAGE_KEY } from '../constants/config';
 import { CATEGORY_IMG_SRC, FAVORITE_IMG_SRC } from '../constants/filter';
-import LocalStorage from '../domain/LocalStorage';
+import RestaurantsStorage from '../domain/RestaurantsStorage';
 import RestaurantDetail from './RestaurantDetail';
 import RestaurantDetailModal from './RestaurantDetailModal';
 
@@ -42,8 +42,7 @@ const RestaurantComponent = {
   },
 
   handleRestaurantDetail(e, information) {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    const localStorageRestaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
+    const localStorageRestaurants = RestaurantsStorage.getRestaurants();
 
     if (!(e.target.tagName === 'IMG')) {
       localStorageRestaurants.forEach(localStorageRestaurant => {
@@ -163,15 +162,14 @@ const RestaurantComponent = {
   },
 
   handleFavorite(e) {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    const localStorageRestaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
+    const localStorageRestaurants = RestaurantsStorage.getRestaurants();
     localStorageRestaurants.forEach(restaurant => {
       if (restaurant.information.name === e.target.parentNode.parentNode.parentNode.querySelector('h3').textContent) {
         this.changeFavorite(restaurant);
         e.target.src = FAVORITE_IMG_SRC[restaurant.information.favorite];
       }
     });
-    LocalStorage.setStorageRestaurantList(localStorageRestaurants);
+    RestaurantsStorage.setRestaurants(localStorageRestaurants);
   },
 
   changeFavorite(restaurant) {

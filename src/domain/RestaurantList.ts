@@ -1,21 +1,23 @@
 import type { IRestaurantList, TRestaurantInstance, TCategory, TSorting } from '../types/restaurant';
-import { STORAGE_KEY } from '../constants/config';
 import { ALL, BY_NAME_ASC } from '../constants/filter';
-import LocalStorage from './LocalStorage';
+import RestaurantsStorage from './RestaurantsStorage';
+import { VOID } from '../constants/config';
 
 class RestaurantList {
   restaurants: IRestaurantList;
 
   constructor(restaurants: IRestaurantList) {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
-    else this.restaurants = restaurants;
-    LocalStorage.setStorageRestaurantList(this.restaurants);
+    const storage = RestaurantsStorage.getRestaurants();
+
+    if (storage === VOID) {
+      this.restaurants = restaurants;
+    } else this.restaurants = storage;
+
+    RestaurantsStorage.setRestaurants(this.restaurants);
   }
 
   setRestaurants(): void {
-    const restaurantsInStorage = localStorage.getItem(STORAGE_KEY);
-    if (restaurantsInStorage != null) this.restaurants = LocalStorage.getStorageRestaurantList(restaurantsInStorage);
+    this.restaurants = RestaurantsStorage.getRestaurants();
   }
 
   getSortedByName(): IRestaurantList {
@@ -47,7 +49,7 @@ class RestaurantList {
   add(restaurant: TRestaurantInstance): void {
     this.setRestaurants();
     this.restaurants.push(restaurant);
-    LocalStorage.setStorageRestaurantList(this.restaurants);
+    RestaurantsStorage.setRestaurants(this.restaurants);
   }
 
   remove(restaurant: TRestaurantInstance): void {
@@ -56,7 +58,7 @@ class RestaurantList {
     this.restaurants.forEach((thisRestaurant, index) => {
       if (thisRestaurant.information.name === restaurant.information.name) {
         this.restaurants.splice(index, 1);
-        LocalStorage.setStorageRestaurantList(this.restaurants);
+        RestaurantsStorage.setRestaurants(this.restaurants);
       }
     });
   }
