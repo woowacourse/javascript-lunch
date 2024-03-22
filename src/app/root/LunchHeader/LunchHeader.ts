@@ -24,7 +24,7 @@ class LunchHeader extends HTMLElement {
           <img src=${IMAGE.url.버튼_음식점추가} alt="음식점 추가" />
         </button>
       </header>
-      <header class="favorite-nb">
+      <div class="favorite-nb">
     `;
   }
 }
