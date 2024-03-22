@@ -1,6 +1,6 @@
 import restaurantDetailJson from "../fixtures/test.json";
 
-describe("e2e 기능 테스트", () => {
+describe("점심 뭐먹지 UI 동작 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8080");
     window.localStorage.setItem(
@@ -9,20 +9,20 @@ describe("e2e 기능 테스트", () => {
     );
   });
 
-  context("초기 접속 테스트", () => {
-    it("RestaurantHeader는 접속 시 렌더링이 된다", () => {
+  context("최초 접속 시 정상 동작 테스트", () => {
+    it("최초 접속 시 앱의 헤더가 보인다", () => {
       cy.get("restaurant-header").should("be.visible");
     });
-    it("HeaderTab은 접속 시 렌더링이 된다", () => {
+    it("최초 접속 시 '모든 음식점', '자주 가는 음식점'을 선택할 수 있는 탭바가 보인다", () => {
       cy.get("header-tab").should("be.visible");
     });
-    it("filterBar는 접속 시 렌더링이 된다", () => {
+    it("최초 접속 시 필터링 및 정렬 기능을 하는 박스가 보인다", () => {
       cy.get("filter-bar").should("be.visible");
     });
-    it("모달은 접속 시 렌더링이 되지 않는다", () => {
+    it("모달은 접속 시 보이지 않는다", () => {
       cy.get("modal-box").should("not.be.visible");
     });
-    it("로컬 스토리지 데이터를 잘 가져오는지 확인한다.", () => {
+    it("로컬 스토리지의 데이터를 잘 가져오는지 확인한다.", () => {
       cy.contains("한식당1").should("be.visible");
       cy.contains("한식당2").should("be.visible");
       cy.contains("중식당1").should("be.visible");
@@ -31,7 +31,7 @@ describe("e2e 기능 테스트", () => {
     });
   });
 
-  context("FilterBar 렌더링 테스트", () => {
+  context("FilterBar UI 렌더링 테스트", () => {
     it("FilterBar는 자주 가는 음식점 탭에서는 보이지 않는다", () => {
       cy.get("#selectFavoriteRestaurant").click();
       cy.get("filter-bar").should("not.be.visible");
@@ -39,7 +39,7 @@ describe("e2e 기능 테스트", () => {
   });
 
   context("새로운 레스토랑 추가하기", () => {
-    it("RestaurantHeader의 아이콘을 클릭하면 레스토랑을 추가하는 모달창이 생긴다", () => {
+    it("앱의 헤더 우측의 아이콘을 클릭하면 레스토랑을 추가하는 모달창이 생긴다", () => {
       cy.get("#add-button").click();
       cy.get("restaurant-form").should("be.visible");
     });
@@ -96,6 +96,104 @@ describe("e2e 기능 테스트", () => {
         cy.contains("중식당2").should("be.visible");
         cy.contains("일식당1").should("not.exist");
       });
+
+      it("이름순으로 정렬 시 이름의 오름차순으로 정렬이 된다.", () => {
+        cy.get("#sorting-filter").select(0);
+        cy.get("restaurant-item").then(($items) => {
+          const names = [...$items].map(
+            (item) => item.querySelector(".restaurant__name").textContent
+          );
+          const sortedNames = [...names].sort();
+
+          expect(names).to.deep.equal(sortedNames);
+        });
+      });
+    });
+
+    context("레스토랑 상세 내용 보기", () => {
+      it("레스토랑 리스트를 클릭하면 클릭된 레스토랑의 상세 내용을 확인할 수 있다.", () => {
+        cy.get("li.restaurant[data-name='중식당1']").click();
+        cy.get(".restaurant-detail").should("be.visible");
+        cy.get(".restaurant-detail").contains("중식당1");
+        cy.get(".restaurant-detail").contains("중국집");
+        cy.get(".restaurant-detail").contains("http://example.com/3");
+      });
+
+      it("레스토랑 상세 내역에서 닫기를 누르면 모달창이 닫힌다", () => {
+        cy.get("li.restaurant[data-name='중식당1']").click();
+        cy.get(".restaurant-detail").should("be.visible");
+        cy.get("#close-detail-button").click();
+        cy.get(".restaurant-detail").should("not.be.visible");
+      });
+
+      it("레스토랑 상세 내역에서 삭제하기 버튼을 누르면 모달창이 닫히고 해당 레스토랑이 사라지고 리랜더링이 된다.", () => {
+        cy.get("li.restaurant[data-name='중식당1']").click();
+        cy.get("#remove-restaurant-button").click();
+        cy.get(".restaurant-detail").should("not.be.visible");
+        cy.contains("중식당1").should("not.be.visible");
+      });
+
+      it("레스토랑 상세 내역에서 삭제하기 버튼을 누르면 로컬 스토리지에서 제거된다.", () => {
+        cy.window().then((win) => {
+          cy.get("li.restaurant[data-name='중식당1']").click();
+          cy.get("#remove-restaurant-button")
+            .click()
+            .then(() => {
+              cy.window().then((win) => {
+                const restaurants = JSON.parse(win.localStorage.restaurants);
+                expect(restaurants.length).to.equal(
+                  restaurantDetailJson.length - 1
+                );
+              });
+            });
+        });
+      });
+    });
+  });
+
+  context("즐겨찾기 추가/삭제 테스트", () => {
+    it("별 아이콘을 클릭하면 채워진 별 이미지로 변경 되지만 다시 별 아이콘을 클릭하면 빈 별 이미지로 변경 된다.", () => {
+      cy.get("restaurant-item").first().find("star-button>img").click();
+
+      cy.get("restaurant-item")
+        .first()
+        .find("star-button>img")
+        .invoke("attr", "alt")
+        .should("equal", "filled");
+
+      cy.get("restaurant-item").first().find("star-button>img").click();
+
+      cy.get("restaurant-item")
+        .first()
+        .find("star-button>img")
+        .invoke("attr", "alt")
+        .should("equal", "lined");
+    });
+
+    it("일식당1을 즐겨찾기에 추가하면 '자주 가는 음식점' 탭에서 추가한 일식당1을 찾을 수 있다.", () => {
+      cy.get("restaurant-item").first().find("star-button>img").click();
+      cy.get("header-tab").contains("자주 가는 음식점").click();
+      cy.contains("일식당").should("be.visible");
+      cy.contains("일본 음식").should("be.visible");
+
+      cy.contains("중식당1").should("not.exist");
+      cy.contains("중식당2").should("not.exist");
+    });
+
+    it("레스토랑 상세 내용 모달에서 즐겨찾기 추가하면 실시간으로 모달 밖의 즐겨찾기 버튼이 실시간으로 변경된다.", () => {
+      cy.get("restaurant-item").first().click();
+      cy.get("restaurant-detail").find("star-button>img").click();
+
+      cy.get("restaurant-detail")
+        .find("star-button>img")
+        .invoke("attr", "alt")
+        .should("equal", "filled");
+
+      cy.get("restaurant-item")
+        .first()
+        .find("star-button>img")
+        .invoke("attr", "alt")
+        .should("equal", "filled");
     });
   });
 });
