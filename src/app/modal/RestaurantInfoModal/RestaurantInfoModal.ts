@@ -28,7 +28,7 @@ class RestaurantInfoModal extends HTMLElement {
   private addEvent() {
     const closeRestaurantInfoModal = $('#close-restaurant-info-modal');
     if (closeRestaurantInfoModal) {
-      closeRestaurantInfoModal.addEventListener('click', (event: Event) => {
+      closeRestaurantInfoModal.addEventListener('click', () => {
         const restaurantInfoModal = $<HTMLDialogElement>('#restaurant-info-modal');
         if (restaurantInfoModal) restaurantInfoModal.close();
       });
