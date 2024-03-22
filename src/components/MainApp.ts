@@ -28,8 +28,8 @@ class MainApp extends HTMLDivElement {
       <div is="on-off-button" class="text-subtitle" data-id="favorite">자주 가는 음식점</div>
     </div>
 
-    <div is="all-restaurant-app" class="hidden" data-id="all"></div>
-    <div is="favorite-restaurant-app" class="" data-id="favorite"></div>
+    <div is="all-restaurant-app" class="all-restaurant-app" data-id="all"></div>
+    <div is="favorite-restaurant-app" class="hidden favorite-restaurant-app" data-id="favorite"></div>
   
     <div is="new-restaurant-modal" class="modal new-restaurant-modal"></div>
 
@@ -40,16 +40,14 @@ class MainApp extends HTMLDivElement {
 
     this.$navTab = dom.getElement<NavTab>(this, 'div[is="my-tab"]');
     this.$newRestaurantModal = dom.getElement<NewRestaurantModal>(this, '.new-restaurant-modal');
-    this.$allRestaurantApp = dom.getElement<AllRestaurantApp>(this, 'div[is="all-restaurant-app"]');
+    this.$allRestaurantApp = dom.getElement<AllRestaurantApp>(this, '.all-restaurant-app');
     this.$favoriteRestaurantApp = dom.getElement<FavoriteRestaurantApp>(
       this,
-      'div[is="favorite-restaurant-app"]',
+      '.favorite-restaurant-app',
     );
     this.render();
 
-    this.$navTab.addEventListener('click', () => {
-      this.render();
-    });
+    this.$navTab.addEventListener('click', this.render.bind(this));
 
     this.$restaurantDetailModal = dom.getElement<BasicModal>(this, '.detail-modal');
     this.$restaurantDetailModal.appendAll([]);

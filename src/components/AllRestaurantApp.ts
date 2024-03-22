@@ -15,7 +15,7 @@ class AllRestaurantApp extends HTMLDivElement {
 
   constructor() {
     super();
-    this.classList.add('all-restaurant-app');
+    this.classList.add('restaurant-app');
     this.innerHTML = `
     <filter-container class="restaurant-filter-container"></filter-container>
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>

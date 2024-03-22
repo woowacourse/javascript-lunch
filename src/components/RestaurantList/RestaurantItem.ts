@@ -1,4 +1,4 @@
-import { Category, IRestaurant } from '@/types/Restaurant';
+import { IRestaurant } from '@/types/Restaurant';
 
 import style from './RestaurantItem.module.css';
 import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';

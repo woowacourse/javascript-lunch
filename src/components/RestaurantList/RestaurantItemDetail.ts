@@ -5,7 +5,6 @@ import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import Restaurant from '@/domains/entities/Restaurant';
 import BasicButton from '../Basic/BasicButton';
 import BasicModal from '../Basic/BasicModal';
 import { dom } from '@/util/dom';

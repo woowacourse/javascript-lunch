@@ -1,13 +1,7 @@
-import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import RestaurantItem from './RestaurantItem';
 import { IRestaurant } from '@/types/Restaurant';
 
 import './RestaurantList.css';
-import FavoriteIcon from '../Basic/FavoriteIcon';
-import Restaurant from '@/domains/entities/Restaurant';
-import MainApp from '../MainApp';
-import { dom } from '@/util/dom';
-import RestaurantCollection from '@/domains/entities/RestaurantCollection';
 
 class RestaurantList extends HTMLUListElement {
   #restaurants: IRestaurant[];

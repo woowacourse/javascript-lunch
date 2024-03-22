@@ -4,7 +4,7 @@ import './components/Basic/SelectBox';
 import './components/Basic/BasicModal';
 import './components/Basic/BasicButton';
 import './components/Basic/FavoriteIcon';
-import './components/Basic/VerticalInputBox';
+import './components/Basic/InputBox';
 import './components/Basic/CategoryIcon';
 import './components/Basic/RestaurantCategoryIcon';
 

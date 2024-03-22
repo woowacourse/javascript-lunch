@@ -4,10 +4,7 @@ import { Category, IRestaurant, SortCriteria } from '@/types/Restaurant';
 import FilterContainer from './Basic/FilterContainer';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import restaurantListMock from '@/mock/restaurantList.mock';
-import FavoriteIcon from './Basic/FavoriteIcon';
-import RestaurantItem from './RestaurantList/RestaurantItem';
-import Restaurant from '@/domains/entities/Restaurant';
-import RestaurantCollection from '@/domains/entities/RestaurantCollection';
+import { dom } from '@/util/dom';
 
 class FavoriteRestaurantApp extends HTMLDivElement {
   $filterContainer: FilterContainer;
@@ -24,8 +21,8 @@ class FavoriteRestaurantApp extends HTMLDivElement {
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
     `;
 
-    this.$filterContainer = this.querySelector('.restaurant-filter-container')!;
-    this.$restaurantList = this.querySelector('.restaurant-list')!;
+    this.$filterContainer = dom.getElement(this, '.restaurant-filter-container');
+    this.$restaurantList = dom.getElement(this, '.restaurant-list');
     this.#restaurantDBService = new RestaurantDBService();
     this.render();
   }

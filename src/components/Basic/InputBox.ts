@@ -1,5 +1,5 @@
 import { dom } from '@/util/dom';
-
+import './InputBox.css';
 interface InputBoxProps {
   styleVariant: 'vertical' | 'horizontal';
   name: string;
@@ -28,8 +28,8 @@ class InputBox extends HTMLDivElement implements InputBoxProps {
     this.classList.add('input-box');
     this.innerHTML = this.#template();
 
-    this.$label = dom.getElement<HTMLLabelElement>(this, ':scope > label');
-    this.$input = dom.getElement<HTMLElement>(this, ':scope > input');
+    this.$label = dom.getElement<HTMLLabelElement>(this, ':scope label');
+    this.$input = dom.getElement<HTMLElement>(this, ':scope input');
     this.$help = dom.getElement<HTMLSpanElement>(this, ':scope > span');
     this.$error = dom.getElement<HTMLDivElement>(this, ':scope > .error');
 
@@ -41,21 +41,27 @@ class InputBox extends HTMLDivElement implements InputBoxProps {
 
   #template() {
     return `
-    <label class="text-caption"></label>
-    <input type="text" class="input" />
+    <div class="input-box__input-set">
+      <label class="text-caption"></label>
+      <input type="text" class="input" />
+    </div>
     <span class="help-text text-caption"></span>
     <div class="error invisible"></span>
     `;
   }
 
   setState(props: InputBoxProps) {
-    const { name, idName, classNames, child, hasVerification, isRequired, helpText } = props;
+    const { name, idName, classNames, styleVariant, child, hasVerification, isRequired, helpText } =
+      props;
     this.name = name;
     this.idName = idName ?? '';
     this.classList.add(...(classNames ?? []));
+    this.styleVariant = styleVariant;
     this.hasVerification = hasVerification ?? false;
     this.isRequired = isRequired ?? false;
     this.helpText = helpText ?? '';
+
+    dom.getElement(this, '.input-box__input-set').classList.add(`${styleVariant}`);
 
     if (child !== undefined) {
       this.$input = child;

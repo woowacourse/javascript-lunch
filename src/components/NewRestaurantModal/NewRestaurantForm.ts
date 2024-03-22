@@ -8,7 +8,7 @@ import {
 } from '@/types/Restaurant';
 import SelectBox from '../Basic/SelectBox';
 import { CATEGORIES_KEYS, CONDITIONS } from '@/constants/Condition';
-import InputBox from '../Basic/VerticalInputBox';
+import InputBox from '../Basic/InputBox';
 import BasicButton from '../Basic/BasicButton';
 import BasicModal from '../Basic/BasicModal';
 import { dom } from '@/util/dom';
