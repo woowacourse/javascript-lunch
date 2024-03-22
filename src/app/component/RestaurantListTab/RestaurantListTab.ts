@@ -61,4 +61,6 @@ class RestaurantListTab extends HTMLElement {
   }
 }
 
-customElements.define('restaurant-list-tab', RestaurantListTab);
+if (!customElements.get('restaurant-list-tab')) {
+  customElements.define('restaurant-list-tab', RestaurantListTab);
+}

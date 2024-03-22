@@ -80,4 +80,6 @@ export default class RestaurantItem extends HTMLElement {
   }
 }
 
-customElements.define('restaurant-item', RestaurantItem);
+if (!customElements.get('restaurant-item')) {
+  customElements.define('restaurant-item', RestaurantItem);
+}

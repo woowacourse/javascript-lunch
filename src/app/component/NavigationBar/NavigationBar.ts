@@ -45,5 +45,6 @@ export default class NavigationBar extends HTMLElement {
     this.appendChild(this.createAddRestaurantButton());
   }
 }
-
-customElements.define('nav-bar', NavigationBar);
+if (!customElements.get('nav-bar')) {
+  customElements.define('nav-bar', NavigationBar);
+}

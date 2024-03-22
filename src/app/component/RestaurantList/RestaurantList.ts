@@ -85,4 +85,6 @@ export default class RestaurantList extends HTMLElement {
   }
 }
 
-customElements.define('restaurant-list', RestaurantList);
+if (!customElements.get('restaurant-list')) {
+  customElements.define('restaurant-list', RestaurantList);
+}

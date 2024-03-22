@@ -63,4 +63,6 @@ export default class RestaurantListFilter extends HTMLElement {
   }
 }
 
-customElements.define('restaurant-list-filter', RestaurantListFilter);
+if (!customElements.get('restaurant-list-filter')) {
+  customElements.define('restaurant-list-filter', RestaurantListFilter);
+}
