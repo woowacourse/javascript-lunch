@@ -40,3 +40,8 @@ export type ButtonElementType = {
   id: string;
   textContent: string;
 };
+
+export type ButtonEventType = {
+  type: string;
+  callbackFunction: (event: Event) => void;
+};

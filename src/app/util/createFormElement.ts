@@ -6,6 +6,7 @@ import type {
   TextAreaElementType,
   CaptionElementType,
   ButtonElementType,
+  ButtonEventType,
   OptionItemType,
 } from '../type/formElementTypes';
 
@@ -66,12 +67,20 @@ export function createFormButtonContainer() {
   return buttonContainer;
 }
 
-export function createFormButton({ type, style, id, textContent }: ButtonElementType) {
+export function createButtonElement({ type, style, id, textContent }: ButtonElementType) {
   const button = document.createElement('button');
   button.type = type;
   button.id = id;
   button.classList.add('button', `button--${style}`, 'text-caption');
   button.textContent = textContent;
+  return button;
+}
+
+export function createButton(options: ButtonElementType, eventType?: ButtonEventType) {
+  const button = createButtonElement(options);
+  if (eventType) {
+    button.addEventListener(eventType.type, eventType.callbackFunction);
+  }
   return button;
 }
 
