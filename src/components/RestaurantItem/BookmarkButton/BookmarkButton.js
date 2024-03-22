@@ -1,6 +1,5 @@
 import './BookmarkButton.css';
 
-// images
 import bookmarkIconFilled from '../../../statics/imgs/favorite-icon-filled.png';
 import bookmarkIconLined from '../../../statics/imgs/favorite-icon-lined.png';
 

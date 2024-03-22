@@ -38,9 +38,7 @@ export default class RestaurantFilters extends HTMLElement {
     this.addEventListener(SELECT_EVENTS.onchange, this.#handleSelectOnChange.bind(this));
   }
 
-  // 함수 라인 10줄 에러 off
-  // eslint-disable-next-line
-  #handleSelectOnChange(e) {
+  #handleSelectOnChange() {
     this.dispatchEvent(
       new CustomEvent(RESTAURANT_FILTERS_EVENTS.filterChange, {
         bubbles: true,

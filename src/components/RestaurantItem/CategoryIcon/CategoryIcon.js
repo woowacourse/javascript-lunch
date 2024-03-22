@@ -1,6 +1,5 @@
 import './CategoryIcon.css';
 
-// icon images
 import koreanIcon from '../../../statics/imgs/category-korean.png';
 import chineseIcon from '../../../statics/imgs/category-chinese.png';
 import japaneseIcon from '../../../statics/imgs/category-japanese.png';

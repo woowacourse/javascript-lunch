@@ -28,7 +28,6 @@ export default class RestaurantForm extends HTMLFormElement {
     });
   }
 
-  // eslint-disable-next-line
   #handleSubmit(e) {
     e.preventDefault();
 
