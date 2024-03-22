@@ -73,7 +73,7 @@ class LunchItemModal extends HTMLElement {
   }
 
   handleDeleteItem() {
-    RestaurantRegistry.deleteOneRestaurant(this.#restaurant);
+    RestaurantRegistry.deleteOneRestaurant({ restaurant: this.#restaurant });
     this.dispatchRerenderEvent();
     this.dispatchToggleItemDetailModalEvent();
   }

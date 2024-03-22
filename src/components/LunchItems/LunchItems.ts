@@ -5,11 +5,12 @@ import { RestaurantDataProvider } from '../../domain/index';
 
 import { Category, Restaurants, SortBy } from '../../types/index';
 import LunchFallbackScreen from '../LunchFallbackScreen/LunchFallbackScreen';
+import { databaseType } from '../../api/Collection';
 
 export interface FilterProps {
   category?: Category;
   sortBy?: SortBy;
-  database?: string;
+  database?: databaseType;
 }
 
 const LUNCH_ITEMS = `
@@ -40,6 +41,7 @@ class LunchItems extends HTMLElement {
     });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   renderFallbackScreen(props: FilterProps) {
     this.innerHTML = '';
     if (props.database === 'liked') {

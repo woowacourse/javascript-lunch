@@ -76,8 +76,8 @@ class LunchRegisterModal extends HTMLElement {
   }
 
   handleSubmit() {
-    const newRestaurant: Restaurant = this.getNewRestaurant();
-    RestaurantRegistry.registerOneRestaurant(newRestaurant);
+    const restaurant: Restaurant = this.getNewRestaurant();
+    RestaurantRegistry.registerOneRestaurant({ restaurant });
     this.handleToggleModal();
     this.querySelector('form')?.reset();
     this.dispatchResetFavoriteTabEvent();

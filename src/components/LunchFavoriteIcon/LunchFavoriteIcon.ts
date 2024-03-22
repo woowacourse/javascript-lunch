@@ -2,12 +2,14 @@ import './style.css';
 
 import { LIKE, UNLIKE } from '../../imgs';
 import { Restaurant } from '../../types';
-import FavoriteRestaurantsRegistry from '../../domain/FavoriteRestaurantsRegistry';
+import { RestaurantRegistry } from '../../domain';
 
 class LunchFavoriteIcon extends HTMLImageElement {
   constructor(restaurant: Restaurant) {
     super();
-    this.src = FavoriteRestaurantsRegistry.isLikedRestaurant(restaurant) ? LIKE : UNLIKE;
+    this.src = RestaurantRegistry.hasOneRestaurant({ restaurant, database: 'liked' })
+      ? LIKE
+      : UNLIKE;
     this.className = 'favorite-icon';
     this.setAttribute('restaurant', `${restaurant.name}`);
     this.setEventListener(restaurant);
@@ -26,12 +28,14 @@ class LunchFavoriteIcon extends HTMLImageElement {
   }
 
   handleFavorite(restaurant: Restaurant) {
-    if (!FavoriteRestaurantsRegistry.isLikedRestaurant(restaurant)) {
-      FavoriteRestaurantsRegistry.likeOneRestaurant(restaurant);
+    if (!RestaurantRegistry.hasOneRestaurant({ restaurant, database: 'liked' })) {
+      RestaurantRegistry.registerOneRestaurant({ restaurant, database: 'liked' });
     } else {
-      FavoriteRestaurantsRegistry.unlikeOneRestaurant(restaurant);
+      RestaurantRegistry.deleteOneRestaurant({ restaurant, database: 'liked' });
     }
-    this.src = FavoriteRestaurantsRegistry.isLikedRestaurant(restaurant) ? LIKE : UNLIKE;
+    this.src = RestaurantRegistry.hasOneRestaurant({ restaurant, database: 'liked' })
+      ? LIKE
+      : UNLIKE;
   }
 }
 

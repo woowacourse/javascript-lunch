@@ -1,3 +1,4 @@
+import { DEFAULT_COLLECTION, databaseType } from '../api/Collection';
 import { SORTBY } from '../constants/sortBy';
 import { Category } from '../types/Category';
 import { Restaurant } from '../types/Restaurant';
@@ -21,7 +22,7 @@ type RestaurantDataProviderType = {
 type getAllRestaurantsByOptionProps = {
   category?: Category;
   sortBy?: SortBy;
-  database?: string;
+  database?: databaseType;
 };
 
 type FilterByCategoryProps = {
@@ -40,7 +41,7 @@ type SortRestaurantsProps = {
  */
 const RestaurantDataProvider: RestaurantDataProviderType = {
   getAllRestaurantsByOption(props: getAllRestaurantsByOptionProps): Restaurants {
-    const restaurants = localStorage.getItem(props.database ?? 'restaurants');
+    const restaurants = localStorage.getItem(props.database ?? DEFAULT_COLLECTION);
     const allRestaurants = JSON.parse(restaurants ?? '[]');
 
     const filterRestaurants = props.category

@@ -1,28 +1,42 @@
+import { DEFAULT_COLLECTION, databaseType } from '../api/Collection';
 import { Restaurant } from '../types/Restaurant';
-import FavoriteRestaurantsRegistry from './FavoriteRestaurantsRegistry';
 
-/**
- * @param {Object} 새로운 가게 등록 후 local에 저장
- */
+interface RestaurantRegistryProps {
+  restaurant: Restaurant;
+  database?: databaseType;
+}
 const RestaurantRegistry = {
-  registerOneRestaurant(newRestaurant: Restaurant) {
-    const allRestaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
-    allRestaurants.push(newRestaurant);
-    localStorage.setItem('restaurants', JSON.stringify(allRestaurants));
+  registerOneRestaurant({ restaurant, database }: RestaurantRegistryProps) {
+    const allRestaurants: Restaurant[] = JSON.parse(
+      localStorage.getItem(database ?? DEFAULT_COLLECTION) ?? '[]',
+    );
+    allRestaurants.push(restaurant);
+    localStorage.setItem(database ?? DEFAULT_COLLECTION, JSON.stringify(allRestaurants));
   },
 
-  deleteOneRestaurant(restaurant: Restaurant) {
-    if (this.hasOneRestaurant(restaurant)) {
-      const allRestaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
+  deleteOneRestaurant({ restaurant, database }: RestaurantRegistryProps) {
+    if (this.hasOneRestaurant({ restaurant, database })) {
+      const allRestaurants: Restaurant[] = JSON.parse(
+        localStorage.getItem(database ?? DEFAULT_COLLECTION) ?? '[]',
+      );
       const removedRestaurants = allRestaurants.filter((value) => value.name !== restaurant.name);
-      localStorage.setItem('restaurants', JSON.stringify(removedRestaurants));
+      localStorage.setItem(database ?? DEFAULT_COLLECTION, JSON.stringify(removedRestaurants));
     }
-
-    FavoriteRestaurantsRegistry.unlikeOneRestaurant(restaurant);
+    this.unlikeOneRestaurant({ restaurant });
   },
 
-  hasOneRestaurant(restaurant: Restaurant) {
-    const allRestaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
+  unlikeOneRestaurant({ restaurant }: RestaurantRegistryProps) {
+    if (this.hasOneRestaurant({ restaurant, database: 'liked' })) {
+      const likedRestaurants: Restaurant[] = JSON.parse(localStorage.getItem('liked') ?? '[]');
+      const removedRestaurants = likedRestaurants.filter((value) => value.name !== restaurant.name);
+      localStorage.setItem('liked', JSON.stringify(removedRestaurants));
+    }
+  },
+
+  hasOneRestaurant({ restaurant, database }: RestaurantRegistryProps) {
+    const allRestaurants: Restaurant[] = JSON.parse(
+      localStorage.getItem(database ?? DEFAULT_COLLECTION) ?? '[]',
+    );
     return allRestaurants.some((value) => value.name === restaurant.name);
   },
 };
