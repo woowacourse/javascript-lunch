@@ -1,5 +1,5 @@
 import { CONDITIONS } from '@/constants/Condition';
-import { Category, IRestaurant } from '../../types/Restaurant';
+import { Category, CategoryOrAll, IRestaurant } from '../../types/Restaurant';
 import RestaurantCollection from '../entities/RestaurantCollection';
 import restaurantListMock from '@/mock/restaurantList.mock';
 
@@ -12,7 +12,7 @@ class RestaurantDBService {
     this.update();
   }
 
-  getFromRestaurantList(category: Category, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
+  getAfterFiltering(category: CategoryOrAll, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
     this.update();
     const restaurants = this.#restaurantCollection.filterByCategory(category);
     return new RestaurantCollection(restaurants).sort(sortCriteria);

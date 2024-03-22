@@ -21,12 +21,9 @@ class SelectBox<T extends string> extends HTMLSelectElement {
   }
 
   get() {
-    return {
-      values: this.values,
-      texts: this.#texts,
-      names: this.#name,
-    };
+    return this.values[this.selectedIndex];
   }
+
   render() {
     this.classList.add('restaurant-filter');
     this.name = this.#name;

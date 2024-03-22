@@ -1,6 +1,6 @@
 import '@/css/index.css';
 import RestaurantList from './RestaurantList/RestaurantList';
-import { Category, SortCriteria } from '@/types/Restaurant';
+import { Category, CategoryOrAll, SortCriteria } from '@/types/Restaurant';
 import FilterContainer from './Basic/FilterContainer';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 import restaurantListMock from '@/mock/restaurantList.mock';
@@ -46,8 +46,8 @@ class AllRestaurantApp extends HTMLDivElement {
     this.#restaurantDBService.set(restaurantListMock);
   }
 
-  #getDB(category: Category, sortCriteria: SortCriteria) {
-    return this.#restaurantDBService.getFromRestaurantList(category, sortCriteria);
+  #getDB(category: CategoryOrAll, sortCriteria: SortCriteria) {
+    return this.#restaurantDBService.getAfterFiltering(category, sortCriteria);
   }
 }
 

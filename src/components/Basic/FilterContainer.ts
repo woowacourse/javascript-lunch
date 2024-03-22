@@ -1,5 +1,5 @@
 import { CATEGORIES_WITH_ALL_KEYS, SORT_CRITERION_KEYS } from '@/constants/Condition';
-import { Category, CategoryOrAll, SortCriteria } from '@/types/Restaurant';
+import { Category, CategoryOrAll, CategoryOrPlaceholder, SortCriteria } from '@/types/Restaurant';
 import BaseComponent from '../BaseComponent';
 
 import AllRestaurantApp from '../AllRestaurantApp';
@@ -30,10 +30,10 @@ class FilterContainer extends BaseComponent {
     this.append(this.#selectSortBox);
   }
 
-  get(): { category: Category; sortCriteria: SortCriteria } {
+  get() {
     return {
-      category: this.#selectCategoryBox.value as Category,
-      sortCriteria: this.#selectSortBox.value as SortCriteria,
+      category: this.#selectCategoryBox.get(),
+      sortCriteria: this.#selectSortBox.get(),
     };
   }
 

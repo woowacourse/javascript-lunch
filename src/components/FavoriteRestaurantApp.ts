@@ -49,7 +49,7 @@ class FavoriteRestaurantApp extends HTMLDivElement {
   }
 
   #getDB(category: Category, sortCriteria: SortCriteria) {
-    return this.#restaurantDBService.getFromRestaurantList(category, sortCriteria);
+    return this.#restaurantDBService.getAfterFiltering(category, sortCriteria);
   }
 
   #onClickFavoriteIcon(event: Event) {
