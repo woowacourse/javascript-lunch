@@ -45,8 +45,8 @@ export default class Modal {
     }
   }
 
-  protected handleEscapeKeyDown(event: Event) {
-    if (event instanceof KeyboardEvent && event.key === 'Escape') {
+  protected handleEscapeKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
       event.preventDefault();
       this.closeModal();
     }
