@@ -1,11 +1,3 @@
-interface RestaurantFormData {
-  name: string;
-  category: string;
-  distance: string;
-  description?: string;
-  link?: string;
-}
-
 Cypress.Commands.add('fillOutRestaurantForm', ({ name, category, distance, description, link }) => {
   cy.get('[data-cy=category]').find('select').select(category);
   cy.get('[data-cy=name]').find('input').type(name);
