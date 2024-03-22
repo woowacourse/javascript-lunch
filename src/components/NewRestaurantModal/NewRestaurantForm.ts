@@ -1,7 +1,9 @@
 import {
+  Category,
   CategoryOrPlaceholder,
   DistanceNumeric,
   DistanceOrPlaceholder,
+  IRestaurant,
   NumberToString,
 } from '@/types/Restaurant';
 import SelectBox from '../Basic/SelectBox';
@@ -107,6 +109,40 @@ class NewRestaurantForm extends HTMLFormElement {
     };
     $buttonBox.append(new BasicButton('secondary', '취소하기', 'reset', closeModal));
     $buttonBox.append(new BasicButton('primary', '추가하기', 'submit', () => {}));
+  }
+
+  invisibleErrorMessage() {
+    dom.getElement<HTMLElement>(this, '.category-select > .error').classList.add('invisible');
+    dom.getElement<HTMLElement>(this, '.distance-select > .error').classList.add('invisible');
+    dom.getElement<HTMLElement>(this, '.name-input-box > .error').classList.add('invisible');
+  }
+
+  validateRequiredValues(category: string, distance: number, name: string | null) {
+    const isNotValidCategory = category === '선택해주세요';
+    const isNotValidDistance = Number.isNaN(distance);
+    const isNotValidName = !name;
+    if (isNotValidCategory) {
+      dom.getElement(this, '.category-select > .error').classList.remove('invisible');
+    }
+    if (isNotValidDistance) {
+      dom.getElement(this, '.distance-select > .error').classList.remove('invisible');
+    }
+    if (isNotValidName) {
+      dom.getElement(this, '.name-input-box > .error').classList.remove('invisible');
+    }
+    return isNotValidCategory || isNotValidDistance || isNotValidName;
+  }
+
+  getValues(): IRestaurant {
+    const name: string = (this.elements.namedItem('name') as HTMLInputElement).value;
+    const distance = Number(
+      (this.elements.namedItem('distance') as HTMLSelectElement).value as DistanceOrPlaceholder,
+    ) as DistanceNumeric;
+
+    const category = (this.elements.namedItem('category') as HTMLSelectElement).value as Category;
+    const description = (this.elements.namedItem('description') as HTMLInputElement).value;
+    const link = (this.elements.namedItem('link') as HTMLInputElement).value;
+    return { name, distance, category, description, link };
   }
 }
 
