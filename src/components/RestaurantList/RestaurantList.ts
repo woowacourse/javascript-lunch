@@ -29,9 +29,7 @@ class RestaurantList extends HTMLUListElement {
   }
 
   get() {
-    return (Array.from(this.children) as RestaurantItem[]).map((restaurantItem) =>
-      restaurantItem.get(),
-    );
+    return this.#restaurants;
   }
 
   #onClickFavoriteIcon(event: Event) {
@@ -40,9 +38,6 @@ class RestaurantList extends HTMLUListElement {
     const restaurants = new RestaurantDBService().get();
     const changed = (event.target.parentElement?.parentElement as RestaurantItem).get();
 
-    const newRestaurants = restaurants.map((restaurant) =>
-      new Restaurant(changed).isEqual(restaurant) ? changed : restaurant,
-    );
     new RestaurantDBService().set(new RestaurantCollection(restaurants).update(changed));
 
     dom.getElement<MainApp>(document.body, '.main-app-new').render();

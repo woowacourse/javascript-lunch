@@ -8,10 +8,6 @@ export const dom = {
   },
 
   getElementAll<T extends HTMLElement>(element: HTMLElement, selector: string): NodeListOf<T> {
-    const result = element.querySelectorAll<T>(selector);
-    if (result === null) {
-      throw new Error(`요소 ${selector}를 선택할 수 없습니다.`);
-    }
-    return result;
+    return element.querySelectorAll<T>(selector);
   },
 };

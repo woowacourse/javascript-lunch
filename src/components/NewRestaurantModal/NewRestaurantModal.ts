@@ -15,16 +15,20 @@ class NewRestaurantModal extends BasicModal {
     super();
 
     const template = document.createElement('div');
-    template.innerHTML = `
-    <h2 class="modal-title text-title">새로운 음식점</h2>
-    <form is="new-restaurant-form" class="new-restaurant-form"></form>
-    `;
+    template.innerHTML = this.#template();
 
     this.#title = template.querySelector('.modal-title')!;
     this.#form = template.querySelector('.new-restaurant-form')!;
     this.appendAll([this.#title, this.#form]);
 
     this.#setSubmitEvent();
+  }
+
+  #template() {
+    return `
+    <h2 class="modal-title text-title">새로운 음식점</h2>
+    <form is="new-restaurant-form" class="new-restaurant-form"></form>
+    `;
   }
 
   closeModal() {
@@ -39,16 +43,7 @@ class NewRestaurantModal extends BasicModal {
       const { name, distance, category, description, link } = this.#form.getValues();
       if (this.#form.validateRequiredValues(category, distance, name)) return;
 
-      const distanceNumeric = distance as DistanceNumeric;
-      const categoryOnly = category as Category;
-      const newRestaurant: IRestaurant = {
-        name,
-        distance: distanceNumeric,
-        category: categoryOnly,
-        ...(description && { description }),
-        ...(link && { link }),
-      };
-      new RestaurantDBService().add(newRestaurant);
+      new RestaurantDBService().add({ name, distance, category, description, link });
 
       this.#rerenderApp();
       this.closeModal();

@@ -14,16 +14,28 @@ import BasicModal from '../Basic/BasicModal';
 import { dom } from '@/util/dom';
 
 class NewRestaurantForm extends HTMLFormElement {
+  $categorySelect;
+  $nameInputBox;
   constructor() {
     super();
 
     this.innerHTML = this.#template();
 
+    this.$categorySelect = dom.getElement<SelectBox<CategoryOrPlaceholder>>(
+      this,
+      '.category-select',
+    );
+    this.$nameInputBox = dom.getElement<InputBox>(this, '.name-input-box');
+    this.$distanceSelect = dom.getElement<SelectBox<DistanceOrPlaceholder>>(
+      this,
+      '.distance-select',
+    );
+
     this.#renderCategoryInput();
     this.#renderNameInput();
     this.#renderSelectBox();
     this.#renderLinkInputBox();
-    this.#renderButtonBox(); //
+    this.#renderButtonBox();
   }
 
   #template() {
@@ -107,7 +119,7 @@ class NewRestaurantForm extends HTMLFormElement {
   #renderButtonBox() {
     const $buttonBox = dom.getElement<HTMLElement>(this, '.button-container');
     const closeModal = () => {
-      (this.parentElement?.parentElement as BasicModal).closeModal();
+      dom.getElement<BasicModal>(document.body, '.new-restaurant-modal').closeModal();
     };
     $buttonBox.append(
       new BasicButton('secondary', '취소하기', 'reset', closeModal, [
@@ -124,10 +136,10 @@ class NewRestaurantForm extends HTMLFormElement {
   invisibleErrorMessage() {
     dom.getElement<HTMLElement>(this, '.category-select > .error').classList.add('invisible');
     dom.getElement<HTMLElement>(this, '.distance-select > .error').classList.add('invisible');
-    dom.getElement<HTMLElement>(this, '.name-input-box > .error').classList.add('invisible');
+    this.$nameInputBox.invisibleError();
   }
 
-  validateRequiredValues(category: string, distance: number, name: string | null) {
+  validateRequiredValues(category: string, distance: number, name: string) {
     const isNotValidCategory = category === '선택해주세요';
     const isNotValidDistance = Number.isNaN(distance);
     const isNotValidName = !name;
@@ -138,7 +150,7 @@ class NewRestaurantForm extends HTMLFormElement {
       dom.getElement(this, '.distance-select > .error').classList.remove('invisible');
     }
     if (isNotValidName) {
-      dom.getElement(this, '.name-input-box > .error').classList.remove('invisible');
+      this.$nameInputBox.visibleError();
     }
     return isNotValidCategory || isNotValidDistance || isNotValidName;
   }

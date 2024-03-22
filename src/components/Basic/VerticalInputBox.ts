@@ -3,6 +3,7 @@ import { dom } from '@/util/dom';
 interface InputBoxProps {
   styleVariant: 'vertical' | 'horizontal';
   name: string;
+  child?: HTMLElement;
   idName?: string;
   hasVerification?: boolean;
   classNames?: string[];
@@ -18,7 +19,7 @@ class InputBox extends HTMLDivElement implements InputBoxProps {
   isRequired: boolean = false;
   helpText: string = '';
   $label: HTMLLabelElement;
-  $input: HTMLInputElement;
+  $input: HTMLElement;
   $help: HTMLSpanElement;
   $error: HTMLDivElement;
 
@@ -28,7 +29,7 @@ class InputBox extends HTMLDivElement implements InputBoxProps {
     this.innerHTML = this.#template();
 
     this.$label = dom.getElement<HTMLLabelElement>(this, ':scope > label');
-    this.$input = dom.getElement<HTMLInputElement>(this, ':scope > input');
+    this.$input = dom.getElement<HTMLElement>(this, ':scope > input');
     this.$help = dom.getElement<HTMLSpanElement>(this, ':scope > span');
     this.$error = dom.getElement<HTMLDivElement>(this, ':scope > .error');
 
@@ -41,14 +42,14 @@ class InputBox extends HTMLDivElement implements InputBoxProps {
   #template() {
     return `
     <label class="text-caption"></label>
-    <input type="text" name=""  id="" />
+    <input type="text" class="input" />
     <span class="help-text text-caption"></span>
     <div class="error invisible"></span>
     `;
   }
 
   setState(props: InputBoxProps) {
-    const { name, idName, classNames, hasVerification, isRequired, helpText } = props;
+    const { name, idName, classNames, child, hasVerification, isRequired, helpText } = props;
     this.name = name;
     this.idName = idName ?? '';
     this.classList.add(...(classNames ?? []));
@@ -56,10 +57,15 @@ class InputBox extends HTMLDivElement implements InputBoxProps {
     this.isRequired = isRequired ?? false;
     this.helpText = helpText ?? '';
 
+    if (child !== undefined) {
+      this.$input = child;
+      dom.getElement(this, '.input').replaceWith(child);
+    }
     this.classList.add('form-item');
     if (this.isRequired) {
       this.classList.add('form-item--required');
     }
+
     this.print();
   }
 
@@ -67,7 +73,7 @@ class InputBox extends HTMLDivElement implements InputBoxProps {
     this.$label.htmlFor = `${this.idName} text-caption`;
     this.$label.innerText = this.name;
 
-    this.$input.name = this.idName;
+    this.$input.classList.add(`input-box__${this.idName}`);
     this.$input.id = this.idName;
 
     if (this.helpText) this.$help.innerText = this.helpText;
