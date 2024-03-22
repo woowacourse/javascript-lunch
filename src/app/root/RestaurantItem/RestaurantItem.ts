@@ -1,6 +1,6 @@
 import { $ } from '../../../utils/domSelector';
 import { IMAGE } from '../../../assets/assets';
-import { ILocation } from '../../../interface/Interface';
+import { ILocation } from '../../../interface/LocationInterface';
 
 class RestaurantItem extends HTMLElement {
   private restaurantData: ILocation;

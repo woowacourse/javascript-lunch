@@ -1,5 +1,5 @@
 import { IMAGE } from '../../../assets/assets';
-import { ILocation } from '../../../interface/Interface';
+import { ILocation } from '../../../interface/LocationInterface';
 import { $ } from '../../../utils/domSelector';
 
 class RestaurantInfoModal extends HTMLElement {

@@ -1,5 +1,5 @@
 import { Category, MinutesWalk } from '../constants/enums';
-import { ILocation } from '../interface/Interface';
+import { ILocation } from '../interface/LocationInterface';
 import Restaurant from '../domain/Restaurant';
 
 const RestaurantValidator = {

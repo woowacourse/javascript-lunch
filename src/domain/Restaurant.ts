@@ -1,5 +1,5 @@
 import { Category, MinutesWalk } from '../constants/enums';
-import { ILocation } from '../interface/Interface';
+import { ILocation } from '../interface/LocationInterface';
 
 class Restaurant {
   private name: string;
