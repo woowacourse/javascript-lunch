@@ -3,7 +3,7 @@ import FavoriteButton from '../../FavoriteButton/FavoriteButton';
 import RestaurantDetailContainer from '../../RestaurantDetailContainer/RestaurantDetailContainer';
 import { ModalType } from '../../../type/modalType';
 import { RestaurantType } from '../../../type/restaurantTypes';
-import { createFormButton, createFormButtonContainer } from '../../../util/createFormElement';
+import { createFormButtonContainer, createButton } from '../../../util/createFormElement';
 
 type RestaurantDetailModalType = ModalType & {
   onDelete: (id: string) => void;
@@ -28,21 +28,31 @@ export default class RestaurantDetailModal extends Modal {
 
   private createButtonContainer() {
     const buttonContainer = createFormButtonContainer();
-    const deleteButton = createFormButton({
-      type: 'button',
-      style: 'secondary',
-      id: 'restaurant-detail-delete-button',
-      textContent: '삭제하기',
-    });
-    const closeButton = createFormButton({
-      type: 'button',
-      style: 'primary',
-      id: 'restaurant-detail-close-button',
-      textContent: '닫기',
-    });
+    const deleteButton = createButton(
+      {
+        type: 'button',
+        style: 'secondary',
+        id: 'restaurant-detail-delete-button',
+        textContent: '삭제하기',
+      },
+      {
+        type: 'click',
+        callbackFunction: this.handleDelete.bind(this),
+      },
+    );
+    const closeButton = createButton(
+      {
+        type: 'button',
+        style: 'primary',
+        id: 'restaurant-detail-close-button',
+        textContent: '닫기',
+      },
+      {
+        type: 'click',
+        callbackFunction: this.closeModal.bind(this),
+      },
+    );
     buttonContainer.append(deleteButton, closeButton);
-    deleteButton.addEventListener('click', this.handleDelete.bind(this));
-    closeButton.addEventListener('click', this.closeModal.bind(this));
     return buttonContainer;
   }
 

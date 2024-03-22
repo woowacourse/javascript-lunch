@@ -1,6 +1,6 @@
 import {
+  createButton,
   createCaption,
-  createFormButton,
   createFormButtonContainer,
   createFormItemContainer,
   createInput,
@@ -25,35 +25,15 @@ export default class RestaurantAddForm {
   private form: HTMLFormElement;
   private cancelSubmitFormData: RestaurantAddFormType['onCancel'];
   private submitFormData: RestaurantAddFormType['onSubmit'];
-  private cancelButton: HTMLButtonElement;
-  private submitButton: HTMLButtonElement;
 
   constructor({ onCancel, onSubmit }: RestaurantAddFormType) {
-    this.cancelButton = createFormButton({
-      type: 'button',
-      style: 'secondary',
-      id: 'cancel-adding-restaurant-button',
-      textContent: '취소하기',
-    });
-    this.submitButton = createFormButton({
-      type: 'submit',
-      style: 'primary',
-      id: 'submit-adding-restaurant-button',
-      textContent: '추가하기',
-    });
     this.form = this.createAddRestaurantForm();
     this.cancelSubmitFormData = onCancel;
     this.submitFormData = onSubmit;
-    this.addEvent();
   }
 
   render() {
     return this.form;
-  }
-
-  private addEvent() {
-    this.cancelButton.addEventListener('click', this.handleCancel.bind(this));
-    this.form.addEventListener('submit', this.handleSubmit.bind(this));
   }
 
   private clearForm() {
@@ -138,7 +118,25 @@ export default class RestaurantAddForm {
 
   private createButtonContainer() {
     const buttonContainer = createFormButtonContainer();
-    buttonContainer.append(this.cancelButton, this.submitButton);
+    const cancelButton = createButton(
+      {
+        type: 'button',
+        style: 'secondary',
+        id: 'cancel-adding-restaurant-button',
+        textContent: '취소하기',
+      },
+      {
+        type: 'click',
+        callbackFunction: this.handleCancel.bind(this),
+      },
+    );
+    const submitButton = createButton({
+      type: 'submit',
+      style: 'primary',
+      id: 'submit-adding-restaurant-button',
+      textContent: '추가하기',
+    });
+    buttonContainer.append(cancelButton, submitButton);
     return buttonContainer;
   }
 
@@ -152,6 +150,7 @@ export default class RestaurantAddForm {
     form.appendChild(this.createDescriptionInput());
     form.appendChild(this.createReferenceInput());
     form.appendChild(this.createButtonContainer());
+    form.addEventListener('submit', this.handleSubmit.bind(this));
 
     return form;
   }
