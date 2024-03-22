@@ -4,8 +4,8 @@ interface ILocation {
   name: string;
   category: Category;
   minutesWalk: MinutesWalk;
-  description?: string | undefined;
-  referenceUrl?: string | undefined;
+  description?: string;
+  referenceUrl?: string;
   favorite: boolean;
 }
 
