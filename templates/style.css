@@ -411,3 +411,40 @@ button:disabled {
 a {
   color: var(--grey-500);
 }
+
+/* 토스트 메시지 *****************************************/
+
+.toast {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.toast--open {
+  opacity: 1;
+}
+
+.toast-container {
+  z-index: 100;
+  background-color: var(--primary-color);
+  color: var(--grey-100);
+  border-radius: 20px;
+
+  position: fixed;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, -50%);
+
+  width: 350px;
+  height: 80px;
+  padding: 10px 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  box-shadow: -2px 18px 20px -9px rgba(100, 74, 65, 0.48);
+  -webkit-box-shadow: -2px 18px 20px -9px rgba(100, 74, 65, 0.48);
+  -moz-box-shadow: -2px 18px 20px -9px rgba(100, 74, 65, 0.48);
+}
