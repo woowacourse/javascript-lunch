@@ -5,10 +5,10 @@ import FavoriteImage from './FavoriteImage';
 interface Props {
   restaurant: Restaurant;
   onItemClick?: () => void;
-  onFavoriteButtonClick?: (event: MouseEvent) => void; // 변경된 부분
+  onFavoriteImageClick?: (event: MouseEvent) => void; // 변경된 부분
 }
 
-const RestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Props) => {
+const RestaurantItem = ({ restaurant, onItemClick, onFavoriteImageClick }: Props) => {
   const restaurantItem = document.createElement('li');
   restaurantItem.classList.add('restaurant');
 
@@ -35,8 +35,8 @@ const RestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Prop
   restaurantSubInfoFirst.appendChild(restaurantDistance);
 
   const restaurantSubInfoSecond = document.createElement('div');
-  const favoriteButton = FavoriteImage({ favorite: restaurant.favorite });
-  restaurantSubInfoSecond.appendChild(favoriteButton);
+  const favoriteImage = FavoriteImage({ favorite: restaurant.favorite });
+  restaurantSubInfoSecond.appendChild(favoriteImage);
 
   const restaurantDescription = document.createElement('p');
   restaurantDescription.classList.add('restaurant__description', 'text-body');
@@ -53,12 +53,10 @@ const RestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Prop
     restaurantItem.addEventListener('click', onItemClick);
   }
 
-  if (onFavoriteButtonClick) {
-    favoriteButton.addEventListener('click', event => {
-      if (onFavoriteButtonClick) {
-        onFavoriteButtonClick(event);
-        event.stopPropagation();
-      }
+  if (onFavoriteImageClick) {
+    favoriteImage.addEventListener('click', event => {
+      event.stopPropagation();
+      onFavoriteImageClick(event);
     });
   }
 

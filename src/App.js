@@ -114,7 +114,7 @@ class App {
           this.#detailRestaurantModal.open();
           this.managedetailRestaurantEvents(restaurantItem);
         },
-        onFavoriteButtonClick: event => {
+        onFavoriteImageClick: event => {
           this.handleButtonChange(event, restaurantItem);
         },
       }),
