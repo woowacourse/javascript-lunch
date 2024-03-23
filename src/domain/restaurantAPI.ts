@@ -41,16 +41,23 @@ const restaurantAPI = {
 
     const updatedRestaurants = restaurants.map((restaurant) => {
       if (restaurant.name === name) {
-        return {
+        const updatedRestaurant = {
           ...restaurant,
           isFavorite: !restaurant.isFavorite
         };
+
+        let message = updatedRestaurant.isFavorite
+          ? `"${name}" 식당을\n즐겨찾기 목록에 추가했습니다.`
+          : `"${name}" 식당을\n즐겨찾기 목록에서 제거했습니다.`;
+
+        ToastMessage().render(message);
+
+        return updatedRestaurant;
       }
       return restaurant;
     });
 
     window.localStorage.setItem(KEY, JSON.stringify(updatedRestaurants));
-    ToastMessage().render(`${name} 식당의 좋아요 상태가 변경되었습니다.`);
   },
 
   delete: (name: string) => {
