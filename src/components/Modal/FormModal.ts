@@ -3,6 +3,7 @@ import restaurantStore from '../../store/RestaurantStore';
 import Button from '../Button/Button';
 import Modal from './Modal';
 import FormDropdown from '../Dropdown/FormDropdown';
+import customCreateElement from '../../utils/customCreateElement';
 
 class FormModal extends Modal {
   #formModalElement = this.element;
@@ -20,7 +21,6 @@ class FormModal extends Modal {
     formContainer?.appendChild(this.#generateTitle());
     this.#generateForm();
     formContainer?.appendChild(this.#formElement);
-    this.#addCloseEventButton();
   }
 
   #submitFormHandler() {
@@ -28,6 +28,7 @@ class FormModal extends Modal {
       event.preventDefault();
       const target = event.target as HTMLFormElement;
       const restaurantInfo = this.#makeRestaurantInfo(target);
+
       this.#formSubmitEvent(restaurantInfo);
     });
   }
@@ -35,6 +36,7 @@ class FormModal extends Modal {
   #makeRestaurantInfo(target: HTMLFormElement) {
     const name = (target.querySelector('#name') as HTMLInputElement).value;
     const { category, distance, description, link } = target;
+
     return {
       category: category.value,
       name,
@@ -48,167 +50,249 @@ class FormModal extends Modal {
   #formSubmitEvent(restaurantInfo: IRestaurantInfo) {
     try {
       restaurantStore.addNewRestaurantToStore(restaurantInfo);
-      this.#formModalElement.classList.remove('modal--open');
-      this.#formModalElement.classList.remove('modal--close');
       this.#onSubmit();
-      this.#formElement.reset();
+      this.#closeFormModal();
     } catch (error: any) {
       alert(error.message);
     }
   }
 
-  #addCloseEventButton() {
-    const modalCloseButton = document.getElementById('form-modal-close-button');
-    modalCloseButton?.addEventListener('click', () => {
-      const modal = document.getElementById('add-form-modal');
-      const form = document.getElementById('add-restaurant-form') as HTMLFormElement;
-
-      modal?.classList.remove('modal--open');
-      modal?.classList.add('modal--close');
-      form?.reset();
-    });
-  }
-
   #generateTitle() {
-    const title = document.createElement('h2');
-
-    title.classList.add('modal-title', 'text-title');
-    title.innerText = '새로운 음식점';
+    const title = customCreateElement({
+      elementType: 'h2',
+      classList: ['modal-title', 'text-title'],
+      text: '새로운 음식점',
+    });
 
     return title;
   }
 
   #generateForm() {
-    this.#formElement.appendChild(this.#generateCategoryDropdown());
-    this.#formElement.appendChild(this.#generateNameInput());
-    this.#formElement.appendChild(this.#generateDistanceDropdown());
-    this.#formElement.appendChild(this.#generateDescriptionTextArea());
-    this.#formElement.appendChild(this.#generateLinkInput());
+    this.#formElement.appendChild(this.#generateCategorySelect());
+    this.#formElement.appendChild(this.#generateNameInputContainer());
+    this.#formElement.appendChild(this.#generateDistanceSelect());
+    this.#formElement.appendChild(this.#generateDescriptionInput());
+    this.#formElement.appendChild(this.#generateLinkInputContainer());
     this.#formElement.appendChild(this.#generateButtons());
   }
 
-  #generateCategoryDropdown() {
-    const selectContainer = document.createElement('div');
-    selectContainer.classList.add('form-item', 'form-item--required');
+  #generateCategorySelect() {
+    const selectContainer = customCreateElement({
+      elementType: 'div',
+      classList: ['form-item', 'form-item--required'],
+    });
 
-    const label = document.createElement('label');
-    label.setAttribute('for', 'name text-caption');
-    label.innerText = '카테고리';
-
-    selectContainer.appendChild(label);
-
-    const categorySelect = new FormDropdown(
-      'form-category-select-container',
-      'category',
-      RESTAURANT_CATEGORY as string[],
-    );
-    categorySelect.element.required = true;
-    categorySelect.element.name = 'category';
-
-    selectContainer.appendChild(categorySelect.element);
+    selectContainer.appendChild(this.#generateCategoryLabel());
+    selectContainer.appendChild(this.#generateCategoryDropdown());
 
     return selectContainer;
+  }
+
+  #generateCategoryLabel() {
+    const label = customCreateElement({
+      elementType: 'label',
+      attribute: { for: 'name text-caption' },
+      text: '카테고리',
+    });
+
+    return label;
+  }
+
+  #generateCategoryDropdown() {
+    const categorySelect = new FormDropdown({
+      id: 'form-category-select-container',
+      attribute: { name: 'category', required: true },
+      options: RESTAURANT_CATEGORY as string[],
+    });
+
+    return categorySelect.element;
+  }
+
+  #generateNameInputContainer() {
+    const container = customCreateElement({
+      elementType: 'div',
+      classList: ['form-item', 'form-item--required'],
+    });
+
+    container.appendChild(this.#generateNameLabel());
+    container.appendChild(this.#generateNameInput());
+
+    return container;
+  }
+
+  #generateNameLabel() {
+    const label = customCreateElement({
+      elementType: 'label',
+      classList: ['text-caption'],
+      attribute: { for: 'name' },
+      text: '이름',
+    });
+
+    return label;
   }
 
   #generateNameInput() {
-    const container = document.createElement('div');
-    container.classList.add('form-item', 'form-item--required');
+    const input = customCreateElement({
+      id: 'name',
+      elementType: 'input',
+      attribute: { type: 'text', name: 'name', required: true },
+    });
 
-    container.innerHTML = `<label for="name text-caption">이름</label>
-                <input type="text" name="name" id="name" required />`;
-
-    return container;
+    return input;
   }
 
-  #generateDistanceDropdown() {
-    const selectContainer = document.createElement('div');
-    selectContainer.classList.add('form-item', 'form-item--required');
+  #generateDistanceSelect() {
+    const selectContainer = customCreateElement({
+      elementType: 'div',
+      classList: ['form-item', 'form-item--required'],
+    });
 
-    const label = document.createElement('label');
-    label.setAttribute('for', 'distance text-caption');
-    label.innerText = '거리(도보 이동 시간)';
-
-    selectContainer.appendChild(label);
-
-    const distanceSelect = new FormDropdown(
-      'form-distance-select-container',
-      'distance',
-      DISTANCE_FROM_CAMPUS.map(String),
-    );
-    distanceSelect.element.required = true;
-    distanceSelect.element.name = 'distance';
-
-    selectContainer.appendChild(distanceSelect.element);
+    selectContainer.appendChild(this.#generateDistanceLabel());
+    selectContainer.appendChild(this.#generateDistanceDropdown());
 
     return selectContainer;
   }
 
-  #generateDescriptionTextArea() {
-    const container = document.createElement('div');
-    container.classList.add('form-item');
+  #generateDistanceLabel() {
+    const label = customCreateElement({
+      elementType: 'label',
+      classList: ['text-caption'],
+      attribute: { for: 'distance' },
+      text: '거리(도보 이동 시간)',
+    });
 
-    const label = document.createElement('label');
-    label.setAttribute('for', 'description text-caption');
-    label.innerText = '설명';
-    container.appendChild(label);
+    return label;
+  }
 
-    const textArea = document.createElement('textarea');
-    textArea.name = 'description';
-    textArea.id = 'description';
-    textArea.cols = 30;
-    textArea.rows = 5;
-    container.appendChild(textArea);
+  #generateDistanceDropdown() {
+    const distanceSelect = new FormDropdown({
+      id: 'form-distance-select-container',
+      attribute: { name: 'distance', required: true },
+      options: DISTANCE_FROM_CAMPUS.map(String),
+    });
 
-    const span = document.createElement('span');
-    span.classList.add('help-text', 'text-caption');
-    span.innerText = '메뉴 등 추가 정보를 입력해 주세요.';
-    container.appendChild(span);
+    return distanceSelect.element;
+  }
+
+  #generateDescriptionInput() {
+    const container = customCreateElement({ elementType: 'div', classList: ['form-item'] });
+
+    container.appendChild(this.#generateDescriptionLabel());
+    container.appendChild(this.#generateDescriptionTextArea());
+    container.appendChild(this.#generateDescriptionSpan());
 
     return container;
+  }
+
+  #generateDescriptionLabel() {
+    const label = customCreateElement({
+      elementType: 'label',
+      attribute: { for: 'description text-caption' },
+      text: '설명',
+    });
+
+    return label;
+  }
+
+  #generateDescriptionTextArea() {
+    const textArea = customCreateElement({
+      elementType: 'textarea',
+      id: 'description',
+      attribute: { name: 'description', cols: 30, rows: 5 },
+    });
+
+    return textArea;
+  }
+
+  #generateDescriptionSpan() {
+    const span = customCreateElement({
+      elementType: 'span',
+      classList: ['help-text', 'text-caption'],
+      text: '메뉴 등 추가 정보를 입력해 주세요.',
+    });
+
+    return span;
+  }
+
+  #generateLinkInputContainer() {
+    const container = customCreateElement({ elementType: 'div', classList: ['form-item'] });
+
+    container.appendChild(this.#generateLinkLabel());
+    container.appendChild(this.#generateLinkInput());
+    container.appendChild(this.#generateLinkSpan());
+    return container;
+  }
+
+  #generateLinkLabel() {
+    const label = customCreateElement({
+      elementType: 'label',
+      attribute: { for: 'link text-caption' },
+      text: '참고 링크',
+    });
+
+    return label;
   }
 
   #generateLinkInput() {
-    const container = document.createElement('div');
-    container.classList.add('form-item');
+    const input = customCreateElement({
+      elementType: 'input',
+      id: 'link',
+      attribute: { type: 'text', name: 'link' },
+    });
 
-    const label = document.createElement('label');
-    label.setAttribute('for', 'link text-caption');
-    label.innerText = '참고 링크';
-    container.appendChild(label);
+    return input;
+  }
 
-    container.innerHTML = `<input type="text" name="link" id="link">
-            <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>`;
+  #generateLinkSpan() {
+    const span = customCreateElement({
+      elementType: 'span',
+      classList: ['help-text', 'text-caption'],
+      text: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
+    });
+
+    return span;
+  }
+
+  #generateButtons() {
+    const container = customCreateElement({ elementType: 'div', classList: ['button-container'] });
+    const cancelButton = this.#generateCloseButton();
+    const submitButton = this.#generateSubmitButton();
+
+    container.appendChild(cancelButton.element);
+    container.appendChild(submitButton.element);
 
     return container;
   }
 
-  #generateButtons() {
-    const container = document.createElement('div');
-    container.classList.add('button-container');
-
+  #generateCloseButton() {
     const cancelButton = new Button({
       content: '취소하기',
       addClassList: ['button--secondary'],
       onClick: () => {
-        this.#formModalElement.classList.remove('modal--open');
-        this.#formModalElement.classList.remove('modal--close');
+        this.#closeFormModal();
       },
     });
 
-    const addButton = new Button({
+    return cancelButton;
+  }
+
+  #generateSubmitButton() {
+    const submitButton = new Button({
       content: '추가하기',
       addClassList: ['button--primary'],
       onClick: () => {
         this.#submitFormHandler();
       },
     });
+    submitButton.element.setAttribute('type', 'submit');
 
-    addButton.element.setAttribute('type', 'submit');
+    return submitButton;
+  }
 
-    container.appendChild(cancelButton.element);
-    container.appendChild(addButton.element);
-
-    return container;
+  #closeFormModal() {
+    this.#formModalElement.classList.remove('modal--open');
+    this.#formModalElement.classList.add('modal--close');
+    this.#formElement.reset();
   }
 }
 
