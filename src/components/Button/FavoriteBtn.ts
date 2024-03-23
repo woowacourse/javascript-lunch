@@ -4,7 +4,7 @@ import Button from './Button';
 const favoriteImage = './assets/favorite-icon-filled.png';
 const linedImage = './assets/favorite-icon-lined.png';
 
-const test = (isFavorite: boolean) => {
+const conditionRender = (isFavorite: boolean) => {
   if (isFavorite) {
     return `<img src="${favoriteImage}" alt="${isFavorite}">`;
   }
@@ -12,13 +12,10 @@ const test = (isFavorite: boolean) => {
 };
 
 class FavoriteBtn extends Button {
-  #isFavorite: boolean;
-
   constructor(restaurantName: string, isFavorite: boolean) {
-    super({ content: test(isFavorite) });
+    super({ content: conditionRender(isFavorite) });
     this.element.classList.remove('button');
     this.element.classList.add('fav-button');
-    this.#isFavorite = isFavorite;
 
     this.element.addEventListener('click', () => {
       restaurantStore.updateFavoriteRestaurant(restaurantName, isFavorite);
