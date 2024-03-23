@@ -18,7 +18,7 @@ const generateTemplate = (restaurant: Restaurant) => {
   restaurantCategory.appendChild(CategoryImage(restaurant.category));
 
   const restaurantFavorite = document.createElement('div');
-  restaurantFavorite.appendChild(FavoriteImage({ favorite: restaurant.favorite }));
+  restaurantFavorite.appendChild(FavoriteImage(restaurant.favorite));
 
   detailRestaurantImage.appendChild(restaurantCategory);
   detailRestaurantImage.appendChild(restaurantFavorite);
@@ -32,7 +32,7 @@ const generateTemplate = (restaurant: Restaurant) => {
   restaurantDistance.textContent = `캠퍼스부터 ${restaurant.distance}분 내`;
 
   const restaurantDescription = document.createElement('p');
-  restaurantDescription.classList.add('restaurant__description', 'text-body');
+  restaurantDescription.classList.add('detail-restaurant__description', 'text-body');
   if (restaurant.description) restaurantDescription.textContent = restaurant.description;
 
   const restaurantLink = document.createElement('a');
@@ -62,13 +62,9 @@ const generateTemplate = (restaurant: Restaurant) => {
 class DetailRestaurantModal extends Modal {
   #restaurant?: Restaurant;
 
-  constructor() {
-    super({ child: detailRestaurantContent });
-  }
-
-  set restaurant(restaurant: Restaurant) {
-    this.#restaurant = restaurant;
+  constructor(restaurant: Restaurant) {
     detailRestaurantContent.replaceChildren(generateTemplate(restaurant));
+    super({ child: detailRestaurantContent });
   }
 }
 

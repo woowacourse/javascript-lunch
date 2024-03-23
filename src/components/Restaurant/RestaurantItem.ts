@@ -35,7 +35,7 @@ const RestaurantItem = ({ restaurant, onItemClick, onFavoriteImageClick }: Props
   restaurantSubInfoFirst.appendChild(restaurantDistance);
 
   const restaurantSubInfoSecond = document.createElement('div');
-  const favoriteImage = FavoriteImage({ favorite: restaurant.favorite });
+  const favoriteImage = FavoriteImage(restaurant.favorite);
   restaurantSubInfoSecond.appendChild(favoriteImage);
 
   const restaurantDescription = document.createElement('p');
