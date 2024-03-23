@@ -1,10 +1,10 @@
 import { AddModal, CategoryFilter, Header, SortFilter, TabBar } from '../components';
-import RestaurantList from '../domain/restaurantList';
+import RestaurantList, { restaurantList } from '../domain/restaurantList';
 
 export default class LunchAppController {
   private $appContainer: HTMLElement;
   private $filterContainer: HTMLElement;
-  private restaurantList = new RestaurantList();
+  private restaurantList = restaurantList;
 
   constructor() {
     this.$appContainer = document.querySelector('body') as HTMLElement;

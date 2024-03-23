@@ -4,22 +4,27 @@ import { RestaurantInfo, CategoryValues, SortingValues } from '../types';
 import restaurantAPI from './restaurantAPI';
 
 export default class RestaurantList {
-  #category: CategoryValues = '전체';
-  #sorting: SortingValues = '이름순';
-  #isFavorite: boolean = false;
+  #category: CategoryValues;
+  #sorting: SortingValues;
+  #isFavorite: boolean;
 
   #restaurantData = initialData;
 
-  private async initialize() {
+  async initialize() {
     const additionalData = await restaurantAPI.load();
 
     return additionalData;
   }
 
   constructor() {
+    console.log('생성자');
     restaurantAPI.initialize();
     this.updateRestaurants();
     this.render();
+
+    this.#category = '전체';
+    this.#sorting = '이름순';
+    this.#isFavorite = false;
   }
 
   setCategory(category: CategoryValues) {
@@ -45,9 +50,15 @@ export default class RestaurantList {
     return this.#restaurantData;
   }
 
-  async filterByCategory(category: CategoryValues): Promise<RestaurantInfo[]> {
-    this.#restaurantData = await this.initialize();
+  // async filterByCategory(category: CategoryValues): Promise<RestaurantInfo[]> {
+  //   this.#restaurantData = await this.initialize();
 
+  //   if (category === '전체') return this.#restaurantData;
+
+  //   return [...this.#restaurantData].filter((restaurant) => restaurant.category === category);
+  // }
+
+  filterByCategory(category: CategoryValues): RestaurantInfo[] {
     if (category === '전체') return this.#restaurantData;
 
     return [...this.#restaurantData].filter((restaurant) => restaurant.category === category);
@@ -77,16 +88,27 @@ export default class RestaurantList {
     return result;
   }
 
+  // async updateRestaurants() {
+  //   const filteredData = await this.filterByCategory(this.#category);
+  //   const sortByIsFavorite = this.sortFavorite(filteredData, this.#isFavorite);
+  //   const sortedData = this.sortByKey(sortByIsFavorite, this.#sorting);
+
+  //   this.#restaurantData = sortedData;
+  //   this.render();
+  // }
+
   async updateRestaurants() {
-    const filteredData = await this.filterByCategory(this.#category);
+    this.#restaurantData = await this.initialize();
+    const filteredData = this.filterByCategory(this.#category);
     const sortByIsFavorite = this.sortFavorite(filteredData, this.#isFavorite);
     const sortedData = this.sortByKey(sortByIsFavorite, this.#sorting);
-
+    console.log(' list 현제 페이지 상태 2,', this.#category, this.#isFavorite, this.#sorting);
     this.#restaurantData = sortedData;
-    this.render();
+    await this.render();
   }
 
-  render() {
+  async render() {
+    const { default: RestaurantCard } = await import('../components/RestaurantCard');
     const $restaurantListContainer = document.querySelector(
       '.restaurant-list-container'
     ) as HTMLElement;
@@ -100,3 +122,5 @@ export default class RestaurantList {
     });
   }
 }
+
+export const restaurantList = new RestaurantList();

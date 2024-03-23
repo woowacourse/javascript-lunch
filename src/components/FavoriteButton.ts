@@ -1,4 +1,5 @@
 import restaurantAPI from '../domain/restaurantAPI';
+import { restaurantList } from '../domain/restaurantList';
 
 type Props = {
   name: string;
@@ -23,11 +24,13 @@ const FavoriteButton = ({ name, initialIsFavorite }: Props) => {
     button.classList.add('favorite-button');
     button.appendChild(img);
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async (event) => {
+      event.preventDefault();
       isFavorite = !isFavorite;
       img.src = `./templates/${getImgName(isFavorite)}.png`;
       img.alt = isFavorite ? '즐겨찾기 해제 버튼' : '즐겨찾기 버튼';
       restaurantAPI.updateFavorite(name);
+      restaurantList.updateRestaurants();
     });
 
     return button;
