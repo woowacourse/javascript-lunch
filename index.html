@@ -8,44 +8,82 @@
   </head>
 
   <body>
+    <!-- Templates -->
+    <!-- GNB -->
     <template id="template-header">
       <header class="gnb">
         <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-        <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <button type="button" class="gnb__button" aria-label="음식점 추가" data-cy="add-button">
           <img src="./add-button.png" alt="음식점 추가" />
         </button>
       </header>
     </template>
 
+    <!-- BookmarkTab -->
+    <template id="template-bookmark-tab">
+      <section class="bookmark-tab-container">
+        <ul class="bookmark-tab text-title">
+          <li id="all" class="tab-item active">모든 음식점</li>
+          <li id="bookmark" class="tab-item">자주 가는 음식점</li>
+        </ul>
+      </section>
+    </template>
+
+    <!-- RestaurantFilters -->
+    <template id="template-restaurant-filter-container">
+      <section class="restaurant-filter-container">
+        <!-- 카테고리 셀렉트 박스 -->
+        <select
+          data-cy="category-select"
+          is="app-select"
+          name="category"
+          id="category-filter"
+          class="restaurant-filter"
+          type="categoryFilters"
+        ></select>
+
+        <!-- 정렬 셀렉트 박스 -->
+        <select
+          data-cy="sorting-select"
+          is="app-select"
+          name="sorting"
+          id="sorting-filter"
+          class="restaurant-filter"
+          type="sortingFilters"
+        ></select>
+      </section>
+    </template>
+
+    <!-- RestaurantForm -->
     <template id="template-restaurant-form">
       <div class="input-container">
         <!-- 카테고리 -->
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required" data-cy="category">
           <label for="category" class="text-caption">카테고리</label>
           <select is="app-select" name="category" id="category" type="categories" required></select>
         </div>
 
         <!-- 음식점 이름 -->
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required" data-cy="name">
           <label for="name" class="text-caption">이름</label>
           <input type="text" name="name" id="name" required />
         </div>
 
         <!-- 거리 -->
-        <div class="form-item form-item--required">
+        <div class="form-item form-item--required" data-cy="distances">
           <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
           <select is="app-select" name="distance" id="distance" type="distances" required></select>
         </div>
 
         <!-- 설명 -->
-        <div class="form-item">
+        <div class="form-item" data-cy="description">
           <label for="description" class="text-caption">설명</label>
-          <textarea name="description" id="description" cols="30" rows="5"></textarea>
+          <textarea name="description" id="description" cols="30" rows="5" maxlength="300"></textarea>
           <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
         </div>
 
         <!-- 링크 -->
-        <div class="form-item">
+        <div class="form-item" data-cy="link">
           <label for="link" class="text-caption">참고 링크</label>
           <input type="text" name="link" id="link" />
           <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
@@ -54,57 +92,14 @@
 
       <!-- 취소/추가 버튼 -->
       <div class="button-container">
-        <button type="reset" class="button button--secondary text-caption">취소하기</button>
-        <button type="submit" class="button button--primary text-caption">추가하기</button>
+        <button data-cy="reset" type="reset" class="button button--secondary text-caption">취소하기</button>
+        <button data-cy="submit" type="submit" class="button button--primary text-caption">추가하기</button>
       </div>
     </template>
 
-    <template id="template-modal">
-      <style>
-        .modal {
-          display: none;
-        }
-
-        .modal--open {
-          display: block;
-        }
-
-        .modal-backdrop {
-          position: fixed;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-
-          background: rgba(0, 0, 0, 0.35);
-        }
-
-        .modal-container {
-          position: fixed;
-          bottom: 0;
-          width: 100%;
-          height: 90%;
-
-          padding: 32px 16px;
-          box-sizing: border-box;
-
-          border-radius: 8px 8px 0px 0px;
-          background: var(--grey-100);
-        }
-      </style>
-      <div class="modal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-          <slot name="title"></slot>
-          <slot name="body"></slot>
-        </div>
-      </div>
-    </template>
-
+    <!-- RestaurantItem -->
     <template id="template-restaurant-item">
-      <div class="restaurant__category">
-        <img src="" alt="" class="category-icon" />
-      </div>
+      <div class="restaurant__category"></div>
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle"></h3>
         <span class="restaurant__distance text-body"></span>
@@ -112,38 +107,41 @@
       </div>
     </template>
 
+    <!-- RestaurantDetail -->
+    <template id="template-restaurant-detail">
+      <div class="restaurant__category"></div>
+      <div class="restaurant__info">
+        <h3 class="restaurant__name text-title"></h3>
+        <span class="restaurant__distance text-body"></span>
+      </div>
+      <div class="button-container">
+        <button data-cy="delete-button" id="delete" class="button button--secondary text-caption">삭제하기</button>
+        <button id="close" class="button button--primary text-caption">닫기</button>
+      </div>
+    </template>
+
+    <!-- Modal -->
+    <template id="template-modal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-container" data-cy="modal-container"></div>
+    </template>
+
+    <!-- App -->
     <!-- GNB -->
     <app-gnb></app-gnb>
 
-    <section class="restaurant-filter-container">
-      <!-- 카테고리 셀렉트 박스 -->
-      <select
-        is="app-select"
-        name="category"
-        id="category-filter"
-        class="restaurant-filter"
-        type="categoryFilters"
-      ></select>
+    <!-- 즐겨찾기 탭 -->
+    <app-bookmark-tab></app-bookmark-tab>
 
-      <!-- 정렬 셀렉트 박스 -->
-      <select
-        is="app-select"
-        name="sorting"
-        id="sorting-filter"
-        class="restaurant-filter"
-        type="sortingFilters"
-      ></select>
-    </section>
+    <!-- 음식점 필터 -->
+    <app-restaurant-filters></app-restaurant-filters>
 
     <!-- 음식점 목록 -->
     <section class="restaurant-list-container">
-      <ul is="app-restaurant-list" id="restaurant-list" data-restaurants=""></ul>
+      <ul data-cy="restaurant-list" is="app-restaurant-list" id="restaurant-list" data-restaurants=""></ul>
     </section>
 
-    <!-- 음식점 추가 모달 -->
-    <app-modal>
-      <h2 slot="title" class="modal-title text-title">새로운 음식점</h2>
-      <form is="app-restaurant-form" slot="body" id="restaurant-form"></form>
-    </app-modal>
+    <!-- 모달 -->
+    <app-modal></app-modal>
   </body>
 </html>

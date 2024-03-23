@@ -16,6 +16,11 @@ body {
 
   font-family: sans-serif;
   font-size: 16px;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
 }
 
 /* Colors *****************************************/
@@ -52,4 +57,11 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+
+.draggable {
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-use-select: all;
+  user-select: all;
 }

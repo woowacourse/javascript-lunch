@@ -1,55 +1,32 @@
-type Category = '한식' | '중식' | '일식' | '아시안' | '양식' | '기타' | '전체';
-type Distance = 5 | 10 | 15 | 20 | 30;
-type Option = 'name' | 'distance';
+import getUniqueID from '../utils/getUniqueID';
+import { filterByBookmark, filterByCategory, sortByOption } from './RestaurantFilters';
+import { FilterOptions, Restaurant } from './types';
 
-interface Restaurant {
-  category: Category;
-  name: string;
-  distance: Distance;
-  description?: string;
-  link?: string;
-}
-
-class RestaurantManager {
+export default class RestaurantManager {
   #restaurants: Restaurant[] = [];
 
-  get restaurants(): Restaurant[] {
-    return [...this.#restaurants];
+  constructor(restaurants: Restaurant[] = []) {
+    this.#restaurants = [...restaurants];
   }
 
-  set restaurants(restaurants: Restaurant[]) {
-    this.#restaurants = restaurants ?? [];
+  add(restaurant: Omit<Restaurant, 'id' | 'isBookmark'>): void {
+    this.#restaurants.push({ id: getUniqueID(), isBookmark: false, ...restaurant });
   }
 
-  add(restaurant: Restaurant): void {
-    this.#restaurants.push(restaurant);
+  delete(id: number): void {
+    this.#restaurants = this.#restaurants.filter((restaurant) => restaurant.id !== id);
   }
 
-  filteredAndSortedByOptions(category: Category, option: Option): Restaurant[] | void {
-    const filteredRestaurants = this.#filterByCategory(category);
-
-    if (option === 'name') return this.#sortByName(filteredRestaurants);
-
-    if (option === 'distance') return this.#sortByDistance(filteredRestaurants);
+  update(updatedRestaurant: Restaurant): void {
+    const index = this.#restaurants.findIndex((restaurant) => restaurant.id === updatedRestaurant.id);
+    if (index !== -1) {
+      this.#restaurants[index] = updatedRestaurant;
+    }
   }
 
-  #filterByCategory(category: Category): Restaurant[] {
-    if (category === '전체') return this.restaurants;
-
-    return this.restaurants.filter((restaurant) => restaurant.category === category);
-  }
-
-  #sortByName(restaurants: Restaurant[]): Restaurant[] {
-    return [...restaurants].sort((a, b) => {
-      if (a.name > b.name) return 1;
-      if (a.name < b.name) return -1;
-      return 0;
-    });
-  }
-
-  #sortByDistance(restaurants: Restaurant[]): Restaurant[] {
-    return [...restaurants].sort((a, b) => a.distance - b.distance);
+  getFilteredList(options: FilterOptions, isBookmark: boolean): Restaurant[] {
+    const restaurants = filterByBookmark(this.#restaurants, isBookmark);
+    const filteredRestaurants = filterByCategory(restaurants, options.category);
+    return sortByOption(filteredRestaurants, options.sort);
   }
 }
-
-export default RestaurantManager;

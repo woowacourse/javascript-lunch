@@ -22,15 +22,12 @@
   background: var(--lighten-color);
 }
 
-.category-icon {
-  width: 36px;
-  height: 36px;
-}
-
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  width: 100%;
 }
 
 .restaurant__name {

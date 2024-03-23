@@ -1,0 +1,28 @@
+.bookmark-tab-container {
+  width: 100%;
+  padding: 0 16px;
+  margin-top: 22px;
+}
+
+.bookmark-tab {
+  display: flex;
+  align-items: center;
+}
+
+.tab-item {
+  width: 50%;
+  min-height: 100%;
+  padding: 9px 0;
+
+  font-size: 16px;
+  text-align: center;
+  color: var(--grey-300);
+
+  border-bottom: 2px solid var(--grey-200);
+}
+
+.tab-item.active {
+  color: var(--primary-color);
+
+  border-bottom: 2px solid var(--primary-color);
+}

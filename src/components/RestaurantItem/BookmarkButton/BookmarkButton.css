@@ -1,0 +1,8 @@
+.restaurant__bookmark {
+  background: none;
+  border: none;
+}
+
+.restaurant__bookmark > img {
+  width: 32px;
+}

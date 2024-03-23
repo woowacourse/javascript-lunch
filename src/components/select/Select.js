@@ -1,4 +1,5 @@
-import SELECT_OPTIONS from '../statics/constants/selectOptions';
+import SELECT_OPTIONS from '../../statics/constants/selectOptions';
+
 import './Select.css';
 
 export const SELECT_EVENTS = {
@@ -20,7 +21,6 @@ export default class Select extends HTMLSelectElement {
     this.#createOptions();
   }
 
-  // eslint-disable-next-line
   #handleOnChange(e) {
     const { value } = e.target;
 

@@ -1,8 +1,0 @@
-app-modal > h2[slot='title'] {
-  margin-bottom: 36px;
-}
-
-app-modal > form[slot='body'] {
-  height: 100%;
-  box-sizing: border-box;
-}

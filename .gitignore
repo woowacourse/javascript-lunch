@@ -3,3 +3,6 @@ node_modules/
 *.tsbuildinfo
 .npm
 .eslintcache
+
+cypress/videos
+cypress/screenshots
