@@ -103,7 +103,7 @@ addingModalLayout.appendChild(fragment);
 class AddingRestaurantModal extends Modal {
   constructor() {
     super({ child: addingModalLayout });
-    resetButton.addEventListener('click', () => this.close());
+    form.addEventListener('reset', () => this.close());
   }
 }
 

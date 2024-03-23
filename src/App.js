@@ -112,7 +112,7 @@ class App {
         onItemClick: () => {
           this.#detailRestaurantModal.restaurant = restaurantItem;
           this.#detailRestaurantModal.open();
-          this.managedetailRestaurantEvents(restaurantItem);
+          this.manageDetailRestaurantEvents(restaurantItem);
         },
         onFavoriteImageClick: event => {
           this.handleButtonChange(event, restaurantItem);
@@ -129,18 +129,28 @@ class App {
   manageAddRestaurantFormEvents() {
     const formAddRestaurant = $('.form-add-restaurant');
 
-    formAddRestaurant.addEventListener('submit', e => {
-      e.preventDefault();
-      const newRestaurant = this.Restaurant();
-      const isAdded = this.#restaurantService.addRestaurant(newRestaurant, this.#restaurantList);
-      const isAddedText = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
-      alert(isAddedText);
+    if (this.onSubmitFormAddRestaurant) {
+      formAddRestaurant.removeEventListener('submit', this.onSubmitFormAddRestaurant);
+    }
 
-      if (!isAdded) return;
+    this.onSubmitFormAddRestaurant = event => this.handleFormSubmit(event);
+    formAddRestaurant.addEventListener('submit', this.onSubmitFormAddRestaurant);
+  }
 
-      this.updateRestaurantList();
-      this.#addingRestaurantModal.close();
-    });
+  handleFormSubmit(event) {
+    event.preventDefault();
+    const formAddRestaurant = $('.form-add-restaurant');
+
+    const newRestaurant = this.createRestaurant();
+    const isAdded = this.#restaurantService.addRestaurant(newRestaurant, this.#restaurantList);
+    const isAddedText = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
+    alert(isAddedText);
+
+    if (!isAdded) return;
+
+    formAddRestaurant.reset();
+    this.#addingRestaurantModal.close();
+    this.updateRestaurantList();
   }
 
   createRestaurant() {
@@ -154,7 +164,7 @@ class App {
     return formData;
   }
 
-  managedetailRestaurantEvents(restaurantItem) {
+  manageDetailRestaurantEvents(restaurantItem) {
     const detailRestaurant = $('.detail-restaurant');
     const favoriteButton = $('.favorite-button');
 
