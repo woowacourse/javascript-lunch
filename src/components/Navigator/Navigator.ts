@@ -1,3 +1,4 @@
+import customCreateElement from '../../utils/customCreateElement';
 import Button from '../Button/Button';
 import './Navigator.css';
 
@@ -14,60 +15,63 @@ class Navigator {
   #onClick: (state: string) => void;
 
   constructor(onClick: (state: string) => void) {
-    this.#generateButtons();
+    this.#generateNavBar();
     this.#navigatorElement.classList.add('navigator-container');
-
     this.#onClick = onClick;
   }
 
-  #generateButtons() {
-    const totalRestaurantButtonContainer = document.createElement('div');
-    const favoriteRestaurantButtonContainer = document.createElement('div');
+  #generateNavBar() {
+    const totalButtonContainer = customCreateElement({
+      elementType: 'div',
+      classList: ['nav-button-container-clicked'],
+    });
+    const favoriteButtonContainer = customCreateElement({
+      elementType: 'div',
+      classList: ['nav-button-container'],
+    });
+    totalButtonContainer.appendChild(this.#generateTotalButton(totalButtonContainer, favoriteButtonContainer));
+    favoriteButtonContainer.appendChild(this.#generateFavoriteButton(totalButtonContainer, favoriteButtonContainer));
+    this.#navigatorElement.appendChild(totalButtonContainer);
+    this.#navigatorElement.appendChild(favoriteButtonContainer);
+  }
 
-    totalRestaurantButtonContainer.classList.add('nav-button-container-clicked');
-    favoriteRestaurantButtonContainer.classList.add('nav-button-container');
-
-    const totalRestaurantButton = new Button({
+  #generateTotalButton(totalButtonContainer: HTMLElement, favoriteButtonContainer: HTMLElement) {
+    const totalButton = new Button({
       content: '모든 음식점',
       addClassList: ['nav-button-container-clicked'],
       onClick: () => {
-        totalRestaurantButtonContainer.classList.add('nav-button-container-clicked');
-        totalRestaurantButtonContainer.classList.remove('nav-button-container');
-        favoriteRestaurantButtonContainer.classList.remove('nav-button-container-clicked');
-        favoriteRestaurantButtonContainer.classList.add('nav-button-container');
-        this.changeState(NAV_TOTAL);
+        this.#toggleRestaurantList(totalButtonContainer, favoriteButtonContainer);
+        this.#changeState(NAV_TOTAL);
         this.#onClick(NAV_TOTAL);
       },
     });
 
-    const favoriteRestaurantButton = new Button({
+    return totalButton.element;
+  }
+
+  #generateFavoriteButton(totalButtonContainer: HTMLElement, favoriteButtonContainer: HTMLElement) {
+    const favoriteButton = new Button({
       content: '자주 가는 음식점',
       addClassList: ['nav-button-container'],
       onClick: () => {
-        totalRestaurantButtonContainer.classList.remove('nav-button-container-clicked');
-        totalRestaurantButtonContainer.classList.add('nav-button-container');
-        favoriteRestaurantButtonContainer.classList.add('nav-button-container-clicked');
-        favoriteRestaurantButtonContainer.classList.remove('nav-button-container');
-
-        this.changeState(NAV_FAVORITE);
+        this.#toggleRestaurantList(totalButtonContainer, favoriteButtonContainer);
+        this.#changeState(NAV_FAVORITE);
         this.#onClick(NAV_FAVORITE);
       },
     });
 
-    totalRestaurantButtonContainer.appendChild(totalRestaurantButton.element);
-    favoriteRestaurantButtonContainer.appendChild(favoriteRestaurantButton.element);
-
-    this.#navigatorElement.appendChild(totalRestaurantButtonContainer);
-    this.#navigatorElement.appendChild(favoriteRestaurantButtonContainer);
+    return favoriteButton.element;
   }
 
-  changeState(prevState: NAV_STATE) {
-    if (prevState === NAV_TOTAL) {
-      this.#navState = NAV_FAVORITE;
+  #toggleRestaurantList(totalButtonContainer: HTMLElement, favoriteButtonContainer: HTMLElement) {
+    totalButtonContainer.classList.toggle('nav-button-container-clicked');
+    totalButtonContainer.classList.toggle('nav-button-container');
+    favoriteButtonContainer.classList.toggle('nav-button-container-clicked');
+    favoriteButtonContainer.classList.toggle('nav-button-container');
+  }
 
-      return;
-    }
-    this.#navState = NAV_TOTAL;
+  #changeState(navState: NAV_STATE) {
+    this.#navState = navState;
   }
 
   get element() {
