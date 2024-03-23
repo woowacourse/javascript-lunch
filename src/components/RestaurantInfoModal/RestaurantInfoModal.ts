@@ -55,6 +55,8 @@ class RestaurantInfoModal extends BaseComponent {
   private handleDeleteRestaurantInfoButton() {
     this.handleCloseModal();
 
+    this.restaurant.updateRestaurantsDetails();
+
     const restaurantName = this.restaurantInfoItem?.getRestaurantDetail().name;
     if (restaurantName) {
       this.restaurant.deleteRestaurantByName(restaurantName);
@@ -65,6 +67,8 @@ class RestaurantInfoModal extends BaseComponent {
 
   private handleToggleFavoriteButton(event: Event) {
     const customEvent = event as CustomEvent;
+
+    this.restaurant.updateRestaurantsDetails();
 
     this.restaurant.toggleFavoriteStatus(customEvent.detail.restaurantName);
 

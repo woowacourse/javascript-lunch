@@ -71,6 +71,7 @@ class Restaurant {
 
   public deleteRestaurantByName(restaurantName: string) {
     const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
+
     if (restaurantIndex !== -1) {
       this.restaurantsDetails.splice(restaurantIndex, 1);
       this.updateRestaurant();
