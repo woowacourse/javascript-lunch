@@ -4,7 +4,7 @@ describe('음식점 즐겨찾기 테스트', () => {
   });
 
   it('즐겨찾기 버튼을 클릭하면 아이콘이 lined(빈 별)에서 filled(채워진 별)로 변경된다.', () => {
-    cy.get('#favorite-button-이태리키친').within(() => {
+    cy.get('#favorite-button').within(() => {
       cy.get('.favorite-icon').should(
         'have.attr',
         'src',
