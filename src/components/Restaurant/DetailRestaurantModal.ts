@@ -2,7 +2,7 @@ import { Restaurant } from '../../interface/RestaurantInterfaces';
 import Button from '../Common/Button';
 import Modal from '../Modal/Modal';
 import CategoryImage from './CategoryImage';
-import FavoriteButton from './FavoriteButton';
+import FavoriteImage from './FavoriteImage';
 
 const detailRestaurantContent = document.createElement('div');
 
@@ -18,7 +18,7 @@ const generateTemplate = (restaurant: Restaurant) => {
   restaurantCategory.appendChild(CategoryImage(restaurant.category));
 
   const restaurantFavorite = document.createElement('div');
-  restaurantFavorite.appendChild(FavoriteButton({ favorite: restaurant.favorite }));
+  restaurantFavorite.appendChild(FavoriteImage({ favorite: restaurant.favorite }));
 
   detailRestaurantImage.appendChild(restaurantCategory);
   detailRestaurantImage.appendChild(restaurantFavorite);

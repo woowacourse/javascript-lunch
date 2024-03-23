@@ -1,6 +1,6 @@
 import { Restaurant } from '../../interface/RestaurantInterfaces';
 import CategoryImage from './CategoryImage';
-import FavoriteButton from './FavoriteButton';
+import FavoriteImage from './FavoriteImage';
 
 interface Props {
   restaurant: Restaurant;
@@ -35,7 +35,7 @@ const RestaurantItem = ({ restaurant, onItemClick, onFavoriteButtonClick }: Prop
   restaurantSubInfoFirst.appendChild(restaurantDistance);
 
   const restaurantSubInfoSecond = document.createElement('div');
-  const favoriteButton = FavoriteButton({ favorite: restaurant.favorite });
+  const favoriteButton = FavoriteImage({ favorite: restaurant.favorite });
   restaurantSubInfoSecond.appendChild(favoriteButton);
 
   const restaurantDescription = document.createElement('p');

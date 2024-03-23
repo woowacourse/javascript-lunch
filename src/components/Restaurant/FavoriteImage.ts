@@ -2,7 +2,7 @@ interface Props {
   favorite: boolean;
 }
 
-const FavoriteButton = ({ favorite }: Props) => {
+const FavoriteImage = ({ favorite }: Props) => {
   const img = document.createElement('img');
   img.classList.add('favorite-button');
   img.src = favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
@@ -11,4 +11,4 @@ const FavoriteButton = ({ favorite }: Props) => {
   return img;
 };
 
-export default FavoriteButton;
+export default FavoriteImage;
