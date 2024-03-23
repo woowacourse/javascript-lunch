@@ -1,31 +1,30 @@
+import Modal from './Modal';
 import generateRestaurantCreationModal from './template/generateRestaurantCreationModal';
+import { generateRestaurantItem } from './template/generateRestaurantItems';
 
 import tryCatchWrapper from '../utils/tryCatchWrapper';
 import { $ } from '../utils/dom';
-import { closeModal } from '../utils/modalHandler';
-
 import { validateRequiredValue, validateRestaurantsName } from '../validators/ValidateInput';
 import { FIELD_IDS } from '../constants/rules';
 
-class RestaurantCreationModal {
-  #element;
-  #restaurants;
+class RestaurantCreationModal extends Modal {
+  #restaurantsInstance;
 
-  constructor({ targetId, restaurants }) {
-    this.#element = $(targetId);
-    this.#restaurants = restaurants;
+  constructor({ targetId, restaurantsInstance }) {
+    super({ targetId });
+    this.#restaurantsInstance = restaurantsInstance;
 
     this.#initEventListeners();
   }
 
   render() {
-    this.#element.innerHTML = generateRestaurantCreationModal();
+    super.render(generateRestaurantCreationModal());
   }
 
   #initEventListeners() {
-    this.#element.addEventListener('focusout', this.#handleRequiredInput.bind(this));
-    this.#element.addEventListener('click', this.#handleModalClose.bind(this));
-    this.#element.addEventListener('submit', this.#handleAddRestaurant.bind(this));
+    this.element.addEventListener('focusout', this.#handleRequiredInput.bind(this));
+    this.element.addEventListener('click', this.#handleModalClose.bind(this));
+    this.element.addEventListener('submit', this.#handleAddRestaurant.bind(this));
   }
 
   #handleRequiredInput(event) {
@@ -42,8 +41,8 @@ class RestaurantCreationModal {
   #handleModalClose(event) {
     const targetId = event.target.id;
 
-    if (targetId === 'cancel-button' || targetId === 'modal-backdrop') {
-      closeModal($('restaurant-creation-modal'));
+    if (targetId === 'cancel-button' || targetId === 'restaurant-creation-modal-backdrop') {
+      this.closeModal();
     }
   }
 
@@ -62,13 +61,18 @@ class RestaurantCreationModal {
     const inputData = this.#getInputData(event);
 
     this.#validateUniqueName(inputData);
-    this.#restaurants.addRestaurant(inputData);
+    this.#restaurantsInstance.addRestaurant(inputData);
+
+    $('restaurant-list').insertAdjacentHTML('afterbegin', generateRestaurantItem(inputData));
+
     $('restaurant-input-form').reset();
-    closeModal($('restaurant-creation-modal'));
+    this.closeModal();
   }
 
   #validateUniqueName(inputData) {
-    const restaurantNames = this.#restaurants.storageData.map((restaurant) => restaurant.name);
+    const restaurantNames = this.#restaurantsInstance.storageData.map(
+      (restaurant) => restaurant.name,
+    );
     validateRestaurantsName({ restaurantNames, name: inputData.name });
   }
 
@@ -84,8 +88,8 @@ class RestaurantCreationModal {
     const name = form['name'].value;
     const walkingTimeFromCampus = form['distance'].value;
     const description = form['description'].value;
-
-    return { category, name, walkingTimeFromCampus, description };
+    const link = form['link'].value;
+    return { category, name, walkingTimeFromCampus, description, link };
   }
 }
 

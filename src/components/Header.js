@@ -21,7 +21,7 @@ class Header {
 
   #openRestaurantCreationModal(event) {
     if (event.target.closest('#gnb__button')) {
-      openModal($('restaurant-creation-modal'));
+      openModal('restaurant-creation-modal');
     }
   }
 }

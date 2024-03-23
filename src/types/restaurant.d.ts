@@ -7,4 +7,5 @@ interface Restaurant {
   walkingTimeFromCampus: Minutes;
   description?: string;
   referenceLink?: string;
+  isFavorite?: boolean;
 }

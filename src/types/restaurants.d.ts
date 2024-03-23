@@ -5,4 +5,5 @@ interface RestaurantsInterface {
   orderByDistance(restaurants: Restaurant[]): Restaurant[];
   orderByName(restaurants: Restaurant[]): Restaurant[];
   sortByStandard(restaurants: Restaurant[], sorting: string): Restaurant[];
+  updateFavoriteStatus(restaurantName: string): void;
 }

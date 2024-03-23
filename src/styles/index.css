@@ -86,6 +86,35 @@ body {
 }
 
 /* 음식점 목록 *****************************************/
+/* 모든 음식점/자주 가는 음식점 탭 */
+
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+
+  height: 64px;
+}
+
+.tab-container button {
+  width: 45%;
+  height: 100%;
+  cursor: pointer;
+
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+
+  border-bottom: 2px solid var(--grey-200);
+
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--grey-200);
+}
+
+.tab-container button.active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
@@ -152,6 +181,7 @@ body {
 .restaurant__info {
   display: flex;
   flex-direction: column;
+  width: 100%;
   justify-content: flex-start;
 }
 
@@ -172,6 +202,13 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+/* 음식점 즐겨찾기 *****************************************/
+.favorite-button {
+  border: none;
+  background-color: transparent;
+  margin-left: auto;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -202,6 +239,9 @@ body {
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-title {

@@ -1,6 +1,5 @@
 import ICON from '../../icons';
 
-// TODO: createElement로 변경, createElement도 재사용할 수 있게 구현
 const generateHeader = () => {
   return `
     <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
