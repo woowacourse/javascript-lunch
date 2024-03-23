@@ -21,7 +21,7 @@ class RestaurantDropdown extends Dropdown {
   #addChangeEvent() {
     this.#dropdownElement.addEventListener('change', (event) => {
       const target = event.target as HTMLSelectElement;
-      const selectedValue = target.value as string;
+      const selectedValue = target.value;
 
       this.#onChange(selectedValue);
     });
