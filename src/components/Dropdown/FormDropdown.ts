@@ -1,31 +1,27 @@
 import Dropdown from './Dropdown';
 
+interface Props {
+  id?: string;
+  classList?: string[];
+  attribute?: object;
+  options?: string[];
+}
 class FormDropdown extends Dropdown {
   #dropdownElement = this.element;
 
-  constructor(id: string, name: string, options: string[]) {
-    super(id, name);
+  constructor({ id, classList, attribute, options }: Props) {
+    super({ id, classList, attribute, options });
 
     this.#addDefaultOption();
-    options.forEach((option) => {
-      this.#generateOptionElement(option, option);
-    });
   }
 
   #addDefaultOption() {
     const optionElement = document.createElement('option');
     optionElement.value = '';
     optionElement.textContent = '선택해 주세요';
+    optionElement.selected = true;
 
-    this.#dropdownElement.appendChild(optionElement);
-  }
-
-  #generateOptionElement(option: string, value: string) {
-    const optionElement = document.createElement('option');
-    optionElement.value = value;
-    optionElement.textContent = option;
-
-    this.#dropdownElement.appendChild(optionElement);
+    this.#dropdownElement.prepend(optionElement);
   }
 }
 

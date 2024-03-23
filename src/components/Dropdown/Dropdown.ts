@@ -1,23 +1,38 @@
+interface Props {
+  id?: string;
+  classList?: string[];
+  attribute?: object;
+  options?: string[];
+}
+
 class Dropdown {
   #dropdownElement = document.createElement('select');
 
-  constructor(id: string, name: string, options?: string[]) {
+  constructor({ id, classList, attribute, options }: Props) {
     if (id) this.#dropdownElement.id = id;
-    if (name) this.#dropdownElement.name = name;
-
+    if (classList) this.#dropdownElement.classList.add(...classList);
+    if (attribute) {
+      this.#generateAttributes(attribute);
+    }
     if (options) {
-      options.forEach((option) => {
-        this.#generateOptionElement(option, option);
-      });
+      this.#generateOptionElements(options);
     }
   }
 
-  #generateOptionElement(option: string, value: string) {
-    const optionElement = document.createElement('option');
-    optionElement.value = value;
-    optionElement.textContent = option;
+  #generateAttributes(attribute: object) {
+    Object.entries(attribute).forEach(([key, value]) => {
+      this.#dropdownElement.setAttribute(key, value);
+    });
+  }
 
-    this.#dropdownElement.appendChild(optionElement);
+  #generateOptionElements(options: string[]) {
+    options.forEach((option) => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option;
+      optionElement.textContent = option;
+
+      this.#dropdownElement.appendChild(optionElement);
+    });
   }
 
   get element() {

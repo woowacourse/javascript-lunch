@@ -54,7 +54,10 @@ class App {
     };
 
     dropdownContainer.appendChild(
-      new RestaurantDropdown('category-select', 'category', RESTAURANT_CATEGORY, onChange).element,
+      new RestaurantDropdown(
+        { id: 'category-select', attribute: { name: 'category' }, options: RESTAURANT_CATEGORY as string[] },
+        onChange,
+      ).element,
     );
   }
 
@@ -63,7 +66,12 @@ class App {
       this.#restaurantUlElement.sortFilter = sortFilter;
     };
 
-    dropdownContainer.appendChild(new RestaurantDropdown('sort-select', 'sort', SORT_CONDITION, onChange).element);
+    dropdownContainer.appendChild(
+      new RestaurantDropdown(
+        { id: 'sort-select', attribute: { name: 'sort' }, options: SORT_CONDITION as string[] },
+        onChange,
+      ).element,
+    );
   }
 
   #addFormButtonEvent() {

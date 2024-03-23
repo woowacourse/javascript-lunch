@@ -3,6 +3,12 @@ import { TSortCondition } from '../../domain/RestaurantCatalog';
 import Dropdown from './Dropdown';
 import './Dropdown.css';
 
+interface Props {
+  id?: string;
+  classList?: string[];
+  attribute?: object;
+  options?: string[];
+}
 type optionsType = readonly (TSortCondition | ICategory)[];
 
 class RestaurantDropdown extends Dropdown {
@@ -10,8 +16,8 @@ class RestaurantDropdown extends Dropdown {
 
   #onChange: (state: string) => void;
 
-  constructor(id: string, name: string, options: optionsType, onChange: (state: string) => void) {
-    super(id, name, options as string[]);
+  constructor({ id, classList, attribute, options }: Props, onChange: (state: string) => void) {
+    super({ id, classList, attribute, options });
     this.#onChange = onChange;
     this.#dropdownElement.classList.add('restaurant-filter');
 
