@@ -15,7 +15,7 @@
   "overrides": [
     {
       "files": ["./src/**"],
-      "rules": { "max-lines-per-function": ["warn", { "max": 12 }] }
+      "rules": { "max-lines-per-function": ["warn", { "max": 12, "skipBlankLines": true, "skipComments": true }] }
     }
   ],
   "env": {
