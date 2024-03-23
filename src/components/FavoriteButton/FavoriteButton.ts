@@ -16,7 +16,6 @@ class FavoriteButton extends BaseComponent {
     isFilled: false,
   };
 
-  // Custom어쩌고 지워도 둴듯
   private eventListeners: CustomEventListenerDictionary = {
     favoriteButtonClick: {
       eventName: "click",

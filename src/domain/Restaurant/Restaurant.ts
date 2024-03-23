@@ -3,7 +3,6 @@ import { CustomStorage } from "../../storages/type";
 import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
 import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
 import { ERROR_MESSAGE } from "../../constants/errorMessage";
-import { STORAGE_KEYS } from "../../storages/constant";
 
 import type { SortCategory } from "../../components/SortDropdown/SortDropdown.type";
 import type { MenuCategory, RestaurantDetail } from "./Restaurant.type";
