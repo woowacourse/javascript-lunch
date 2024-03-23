@@ -40,31 +40,18 @@ class RestaurantList {
 
   #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
     this.#restaurantUlElement.innerHTML = '';
-    if (this.#navState === NAV_FAVORITE) {
-      restaurants.forEach((restaurant: IRestaurantInfo) => {
-        if (restaurant.isFavorite) {
-          const restaurantCard = new RestaurantCard({
-            restaurant,
-            onClick: () => {
-              this.renderRestaurantList();
-            },
-          });
-          this.#restaurantUlElement.appendChild(restaurantCard.element);
-        }
-      });
-    }
+    const restaurantsToShow =
+      this.#navState === NAV_FAVORITE ? restaurants.filter((restaurant) => restaurant.isFavorite) : restaurants;
 
-    if (this.#navState === NAV_TOTAL) {
-      restaurants.forEach((restaurant: IRestaurantInfo) => {
-        const restaurantCard = new RestaurantCard({
-          restaurant,
-          onClick: () => {
-            this.renderRestaurantList();
-          },
-        });
-        this.#restaurantUlElement.appendChild(restaurantCard.element);
+    restaurantsToShow.forEach((restaurant: IRestaurantInfo) => {
+      const restaurantCard = new RestaurantCard({
+        restaurant,
+        onClick: () => {
+          this.renderRestaurantList();
+        },
       });
-    }
+      this.#restaurantUlElement.appendChild(restaurantCard.element);
+    });
   }
 
   set navState(newState: string) {
