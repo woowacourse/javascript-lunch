@@ -1,3 +1,4 @@
+import { RestaurantCard } from '../components';
 import { initialData } from '../data/restaurantData';
 import { RestaurantInfo, CategoryValues, SortingValues } from '../types';
 import restaurantAPI from './restaurantAPI';
@@ -88,7 +89,6 @@ export default class RestaurantList {
   }
 
   async render() {
-    const { default: RestaurantCard } = await import('../components/RestaurantCard');
     const $restaurantListContainer = document.querySelector(
       '.restaurant-list-container'
     ) as HTMLElement;
