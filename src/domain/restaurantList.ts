@@ -65,10 +65,10 @@ export default class RestaurantList {
   }
 
   sortFavorite(data: RestaurantInfo[], isFavorite: boolean): RestaurantInfo[] {
-    if (isFavorite === false) {
+    if (!isFavorite) {
       return data;
     }
-    return [...data].filter((restaurant) => restaurant.isFavorite === true);
+    return data.filter((restaurant) => restaurant.isFavorite);
   }
 
   sortByKey(data: RestaurantInfo[], sorting: SortingValues): RestaurantInfo[] {
