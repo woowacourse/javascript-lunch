@@ -16,7 +16,6 @@ export default class RestaurantList {
   }
 
   constructor() {
-    console.log('생성자');
     restaurantAPI.initialize();
     this.updateRestaurants();
     this.render();
@@ -84,7 +83,6 @@ export default class RestaurantList {
     const filteredData = this.filterByCategory(this.#category);
     const sortByIsFavorite = this.sortFavorite(filteredData, this.#isFavorite);
     const sortedData = this.sortByKey(sortByIsFavorite, this.#sorting);
-    console.log(' list 현제 페이지 상태 2,', this.#category, this.#isFavorite, this.#sorting);
     this.#restaurantData = sortedData;
     await this.render();
   }
