@@ -1,4 +1,3 @@
-import { RestaurantCard } from '../components';
 import { initialData } from '../data/restaurantData';
 import { RestaurantInfo, CategoryValues, SortingValues } from '../types';
 import restaurantAPI from './restaurantAPI';
@@ -50,14 +49,6 @@ export default class RestaurantList {
     return this.#restaurantData;
   }
 
-  // async filterByCategory(category: CategoryValues): Promise<RestaurantInfo[]> {
-  //   this.#restaurantData = await this.initialize();
-
-  //   if (category === '전체') return this.#restaurantData;
-
-  //   return [...this.#restaurantData].filter((restaurant) => restaurant.category === category);
-  // }
-
   filterByCategory(category: CategoryValues): RestaurantInfo[] {
     if (category === '전체') return this.#restaurantData;
 
@@ -87,15 +78,6 @@ export default class RestaurantList {
 
     return result;
   }
-
-  // async updateRestaurants() {
-  //   const filteredData = await this.filterByCategory(this.#category);
-  //   const sortByIsFavorite = this.sortFavorite(filteredData, this.#isFavorite);
-  //   const sortedData = this.sortByKey(sortByIsFavorite, this.#sorting);
-
-  //   this.#restaurantData = sortedData;
-  //   this.render();
-  // }
 
   async updateRestaurants() {
     this.#restaurantData = await this.initialize();
