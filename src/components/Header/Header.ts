@@ -1,4 +1,3 @@
-import BaseComponent from '@/components/BaseComponent';
 import AddButton from '@assets/add-button.png';
 import './Header.css';
 import { dom } from '@/util/dom';
