@@ -30,7 +30,7 @@ const ToastMessage = () => {
     }, 1000);
   };
 
-  const render = ({ message }: Props) => {
+  const render = (message: string) => {
     const toastMessage = $('.toast-container');
     if (toastMessage) {
       toastMessage.textContent = message;

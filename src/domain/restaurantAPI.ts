@@ -1,3 +1,4 @@
+import ToastMessage from '../components/common/ToastMessage';
 import { initialData } from '../data/restaurantData';
 import { RestaurantInfo } from '../types';
 
@@ -20,13 +21,13 @@ const restaurantAPI = {
     );
 
     if (isExisting) {
-      alert(`${restaurant.name} 가 이미 존재합니다.`);
+      ToastMessage().render(`${restaurant.name} 가 이미 존재합니다.`);
       return;
     }
 
     const updatedRestaurants = [...existingRestaurants, restaurant];
     window.localStorage.setItem(KEY, JSON.stringify(updatedRestaurants));
-    alert(`${restaurant.name} 가 추가되었습니다.`);
+    ToastMessage().render(`${restaurant.name} 가 추가되었습니다.`);
   },
 
   load: () => {
@@ -49,7 +50,7 @@ const restaurantAPI = {
     });
 
     window.localStorage.setItem(KEY, JSON.stringify(updatedRestaurants));
-    alert(`${name} 식당의 좋아요 상태가 변경되었습니다.`);
+    ToastMessage().render(`${name} 식당의 좋아요 상태가 변경되었습니다.`);
   },
 
   delete: (name: string) => {
@@ -59,7 +60,7 @@ const restaurantAPI = {
     const updatedRestaurants = restaurants.filter((restaurant) => restaurant.name !== name);
 
     window.localStorage.setItem(KEY, JSON.stringify(updatedRestaurants));
-    alert(`${name} 식당이 삭제되었습니다.`);
+    ToastMessage().render(`${name} 식당이 삭제되었습니다.`);
   }
 };
 

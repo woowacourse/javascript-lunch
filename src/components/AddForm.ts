@@ -211,7 +211,8 @@ const AddForm = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: Event) => {
+    event.preventDefault();
     const restaurantInfo = getValue();
     if (restaurantInfo) {
       restaurantAPI.save(restaurantInfo);

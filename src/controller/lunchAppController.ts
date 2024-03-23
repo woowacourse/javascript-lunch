@@ -1,4 +1,5 @@
 import { AddModal, CategoryFilter, Header, SortFilter, TabBar } from '../components';
+import ToastMessage from '../components/common/ToastMessage';
 import RestaurantList, { restaurantList } from '../domain/restaurantList';
 
 export default class LunchAppController {
@@ -12,6 +13,7 @@ export default class LunchAppController {
   }
 
   async init() {
+    this.renderToast();
     this.renderGNB();
     this.renderTabBar();
     this.renderModal();
@@ -47,6 +49,11 @@ export default class LunchAppController {
   private renderModal = () => {
     const addModal = AddModal().create();
     this.$appContainer.appendChild(addModal);
+  };
+
+  private renderToast = () => {
+    const toast = ToastMessage().create();
+    this.$appContainer.appendChild(toast);
   };
 }
 
