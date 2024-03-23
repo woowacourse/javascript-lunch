@@ -15,7 +15,10 @@ const restaurants = new Restaurants(localStorage);
 
 // components
 const header = new Header({ targetId: 'header' });
-const select = new FilteringSelectBox({ targetId: 'restaurant-filter-container', restaurants });
+const select = new FilteringSelectBox({
+  targetId: 'restaurant-filter-container',
+  restaurantsInstance: restaurants,
+});
 
 const restaurantCreationModal = new RestaurantCreationModal({
   targetId: 'restaurant-creation-modal',

@@ -3,14 +3,15 @@ import RestaurantList from '../layouts/RestaurantList';
 
 import { $ } from '../utils/dom';
 import { FIELD_IDS, SELECT_FIELD } from '../constants/rules';
+import { generateRestaurantItems } from './template/generateRestaurantItems';
 
 class FilteringSelectBox {
   #element;
-  #restaurants;
+  #restaurantsInstance;
 
-  constructor({ targetId, restaurants }) {
+  constructor({ targetId, restaurantsInstance }) {
     this.#element = $(targetId);
-    this.#restaurants = restaurants;
+    this.#restaurantsInstance = restaurantsInstance;
 
     this.#initEventListeners();
   }
@@ -27,19 +28,16 @@ class FilteringSelectBox {
   #handleSelectChange({ target }) {
     if (FIELD_IDS.selectIds.some((selectId) => target.id === selectId)) {
       const selectedValue = target.options[target.selectedIndex].value;
-      this.#restaurants.standard = { id: target.id, standard: selectedValue };
+      this.#restaurantsInstance.standard = { id: target.id, standard: selectedValue };
     }
 
     this.#reRenderRestaurantList();
   }
 
   #reRenderRestaurantList() {
-    $('restaurant-list').innerHTML = '';
-
-    new RestaurantList({
-      targetId: 'restaurant-list',
-      restaurantsInstance: this.#restaurants,
-    }).render();
+    $('restaurant-list').innerHTML = generateRestaurantItems(
+      this.#restaurantsInstance.standardList,
+    );
   }
 }
 
