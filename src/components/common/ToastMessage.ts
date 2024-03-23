@@ -1,9 +1,5 @@
 import { $ } from '../../util/dom';
 
-type Props = {
-  message: string;
-};
-
 const ToastMessage = () => {
   let toastTimeout: NodeJS.Timeout;
 
@@ -24,10 +20,11 @@ const ToastMessage = () => {
   };
 
   const closeToastMessage = () => {
+    clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
       const toastMessage = $('.toast');
       toastMessage?.classList.remove('toast--open');
-    }, 1000);
+    }, 2000);
   };
 
   const render = (message: string) => {
@@ -43,7 +40,6 @@ const ToastMessage = () => {
 
     showToastMessage();
     closeToastMessage();
-
     return;
   };
 
