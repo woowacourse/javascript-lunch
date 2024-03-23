@@ -7,7 +7,9 @@
     "import/extensions": "off",
     "max-len": "off",
     "object-curly-newline": "off",
-    "no-alert": "off"
+    "no-alert": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn"
   },
 
   "overrides": [
