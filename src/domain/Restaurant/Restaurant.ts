@@ -1,21 +1,17 @@
 import RestaurantStorage from "../../storages/RestaurantStorage";
-import type { CustomStorage } from "../../storages/type";
+import { CustomStorage } from "../../storages/type";
+import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
+import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
+import { ERROR_MESSAGE } from "../../constants/errorMessage";
+import { STORAGE_KEYS } from "../../storages/constant";
 
 import type { SortCategory } from "../../components/SortDropdown/SortDropdown.type";
 import type { MenuCategory, RestaurantDetail } from "./Restaurant.type";
 
-import { MENU_CATEGORIES } from "../../constants/menuCategory/menuCategory";
-import { SORT_CATEGORIES_TYPE } from "../../constants/sortCategory/sortCategory";
-import { ERROR_MESSAGE } from "../../constants/errorMessage";
-
-import { STORAGE_KEYS } from "../../storages/constant";
 class Restaurant {
   private currentCategory: MenuCategory = MENU_CATEGORIES.all;
-
   private sortType: SortCategory = SORT_CATEGORIES_TYPE.name;
-
   private storage: CustomStorage<RestaurantDetail[], RestaurantDetail>;
-
   private restaurantsDetails: RestaurantDetail[];
 
   constructor(
@@ -25,29 +21,21 @@ class Restaurant {
     > = RestaurantStorage
   ) {
     this.storage = storage;
-    this.restaurantsDetails = this.getSortedAndFilteredRestaurant(
-      this.currentCategory,
-      this.sortType
-    );
+    this.restaurantsDetails = this.getSortedAndFilteredRestaurant();
   }
 
-  private getSortedAndFilteredRestaurant(
-    category: MenuCategory,
-    sortType: SortCategory
-  ): RestaurantDetail[] {
+  private getSortedAndFilteredRestaurant(): RestaurantDetail[] {
     return this.storage
       .get()
       .filter(
-        (restaurantDetail: RestaurantDetail) =>
-          category === MENU_CATEGORIES.all ||
-          restaurantDetail.category === category
+        (restaurantDetail) =>
+          this.currentCategory === MENU_CATEGORIES.all ||
+          restaurantDetail.category === this.currentCategory
       )
-      .sort(
-        sortType === SORT_CATEGORIES_TYPE.name
-          ? (a: RestaurantDetail, b: RestaurantDetail) =>
-              a.name.localeCompare(b.name)
-          : (a: RestaurantDetail, b: RestaurantDetail) =>
-              a.distance - b.distance
+      .sort((a, b) =>
+        this.sortType === SORT_CATEGORIES_TYPE.name
+          ? a.name.localeCompare(b.name)
+          : a.distance - b.distance
       );
   }
 
@@ -57,7 +45,7 @@ class Restaurant {
     );
   }
 
-  public getRestaurantDetails() {
+  public getRestaurantDetails(): RestaurantDetail[] {
     return this.restaurantsDetails;
   }
 
@@ -70,23 +58,19 @@ class Restaurant {
   }
 
   public updateRestaurantsSortType(sortType: SortCategory) {
-    this.restaurantsDetails = this.getSortedAndFilteredRestaurant(
-      this.currentCategory,
-      sortType
-    );
+    this.sortType = sortType;
+    this.restaurantsDetails = this.getSortedAndFilteredRestaurant();
   }
 
   public addRestaurant(restaurantDetail: RestaurantDetail) {
-    this.storage.set(restaurantDetail);
+    this.findDuplicateRestaurantByName(restaurantDetail);
 
+    this.storage.set(restaurantDetail);
     this.updateRestaurantsSortType(this.sortType);
   }
 
   public deleteRestaurantByName(restaurantName: string) {
-    this.updateRestaurantsDetails();
-
     const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
-
     if (restaurantIndex !== -1) {
       this.restaurantsDetails.splice(restaurantIndex, 1);
       this.updateRestaurant();
@@ -95,7 +79,6 @@ class Restaurant {
 
   public sortRestaurants(sortType: SortCategory) {
     this.sortType = sortType;
-
     this.updateRestaurantsSortType(sortType);
   }
 
@@ -104,7 +87,6 @@ class Restaurant {
     sortType: SortCategory = SORT_CATEGORIES_TYPE.name
   ) {
     this.currentCategory = filterType;
-
     this.updateRestaurantsSortType(sortType);
   }
 
@@ -115,17 +97,13 @@ class Restaurant {
       (restaurantDetail) =>
         restaurantDetail.name === userInputRestaurantDetail.name
     );
-
     if (duplicateRestaurantDetail) {
       throw new Error(ERROR_MESSAGE.duplicateRestaurant);
     }
   }
 
   public toggleFavoriteStatus(restaurantName: string) {
-    this.updateRestaurantsDetails();
-
     const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
-
     if (restaurantIndex !== -1) {
       this.restaurantsDetails[restaurantIndex].favorite =
         !this.restaurantsDetails[restaurantIndex].favorite;
@@ -133,24 +111,20 @@ class Restaurant {
     }
   }
 
-  public updateRestaurant() {
-    const detailsString = JSON.stringify(this.restaurantsDetails);
-
-    localStorage.setItem(STORAGE_KEYS.restaurantDetail, detailsString);
+  private updateRestaurant() {
+    localStorage.setItem(
+      STORAGE_KEYS.restaurantDetail,
+      JSON.stringify(this.restaurantsDetails)
+    );
   }
 
   public updateRestaurantsDetails() {
-    const storedDetails = localStorage.getItem(STORAGE_KEYS.restaurantDetail);
-    if (storedDetails) {
-      this.restaurantsDetails = JSON.parse(storedDetails);
-    } else {
-      this.restaurantsDetails = [];
-    }
+    const detailsToUpdate = localStorage.getItem(STORAGE_KEYS.restaurantDetail);
+    this.restaurantsDetails = detailsToUpdate
+      ? JSON.parse(detailsToUpdate)
+      : [];
 
-    this.restaurantsDetails = this.getSortedAndFilteredRestaurant(
-      this.currentCategory,
-      this.sortType
-    );
+    this.restaurantsDetails = this.getSortedAndFilteredRestaurant();
   }
 }
 
