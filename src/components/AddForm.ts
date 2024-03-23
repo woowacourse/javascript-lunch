@@ -1,5 +1,6 @@
 import { VALIDATOR_CONSTANTS } from '../constants';
 import restaurantAPI from '../domain/restaurantAPI';
+import { restaurantList } from '../domain/restaurantList';
 import { CategoryValues, RestaurantInfo } from '../types';
 import restaurantInfoValidator from '../validator/restaurantInfoValidator';
 import FormItem from './FormItem';
@@ -219,6 +220,7 @@ const AddForm = () => {
     }
 
     closeModal();
+    restaurantList.updateRestaurants();
   };
 
   const closeModal = () => {
