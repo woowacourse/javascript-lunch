@@ -47,16 +47,12 @@ class TabContainer extends BaseComponent {
   }
 
   private handleClickTab(event: Event) {
-    const targetElement = event.target as Element;
+    const clickedLi = (event.target as Element).closest(".tab-item");
+    if (!clickedLi) return;
 
-    if (targetElement.parentNode instanceof Element) {
-      $$(ELEMENT_SELECTOR.tabItem).forEach((tabLi: Element) => {
-        tabLi.classList.toggle(
-          "tab-item-selected",
-          tabLi === targetElement.parentNode
-        );
-      });
-    }
+    $$(ELEMENT_SELECTOR.tabItem).forEach((tabLi: Element) => {
+      tabLi.classList.toggle("tab-item-selected", tabLi === clickedLi);
+    });
   }
 }
 
