@@ -1,4 +1,5 @@
 export interface CustomStorage<T, K> {
-  get: () => T;
+  getAll: () => T;
   set: (item: K) => void;
+  setAll: (items: T) => void;
 }

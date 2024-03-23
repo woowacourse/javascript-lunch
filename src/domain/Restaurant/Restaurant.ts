@@ -24,9 +24,13 @@ class Restaurant {
     this.restaurantsDetails = this.getSortedAndFilteredRestaurant();
   }
 
-  private getSortedAndFilteredRestaurant(): RestaurantDetail[] {
+  public getRestaurantDetails(): RestaurantDetail[] {
+    return this.restaurantsDetails;
+  }
+
+  public getSortedAndFilteredRestaurant(): RestaurantDetail[] {
     return this.storage
-      .get()
+      .getAll()
       .filter(
         (restaurantDetail) =>
           this.currentCategory === MENU_CATEGORIES.all ||
@@ -43,10 +47,6 @@ class Restaurant {
     return this.restaurantsDetails.findIndex(
       (restaurantDetail) => restaurantDetail.name === restaurantName
     );
-  }
-
-  public getRestaurantDetails(): RestaurantDetail[] {
-    return this.restaurantsDetails;
   }
 
   public getRestaurantDetailByName(
@@ -74,7 +74,7 @@ class Restaurant {
 
     if (restaurantIndex !== -1) {
       this.restaurantsDetails.splice(restaurantIndex, 1);
-      this.updateRestaurant();
+      this.updateLocalStorage();
     }
   }
 
@@ -105,26 +105,20 @@ class Restaurant {
 
   public toggleFavoriteStatus(restaurantName: string) {
     const restaurantIndex = this.findRestaurantIndexByName(restaurantName);
+
     if (restaurantIndex !== -1) {
       this.restaurantsDetails[restaurantIndex].favorite =
         !this.restaurantsDetails[restaurantIndex].favorite;
-      this.updateRestaurant();
+      this.updateLocalStorage();
     }
   }
 
-  private updateRestaurant() {
-    localStorage.setItem(
-      STORAGE_KEYS.restaurantDetail,
-      JSON.stringify(this.restaurantsDetails)
-    );
+  public updateLocalStorage() {
+    this.storage.setAll(this.restaurantsDetails);
   }
 
   public updateRestaurantsDetails() {
-    const detailsToUpdate = localStorage.getItem(STORAGE_KEYS.restaurantDetail);
-    this.restaurantsDetails = detailsToUpdate
-      ? JSON.parse(detailsToUpdate)
-      : [];
-
+    this.restaurantsDetails = this.storage.getAll();
     this.restaurantsDetails = this.getSortedAndFilteredRestaurant();
   }
 }
