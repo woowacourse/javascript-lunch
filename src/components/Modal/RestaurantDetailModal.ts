@@ -1,5 +1,6 @@
 import Restaurant, { IRestaurantInfo } from '../../domain/Restaurant';
 import restaurantStore from '../../store/RestaurantStore';
+import customCreateElement from '../../utils/customCreateElement';
 import Button from '../Button/Button';
 import './Modal.css';
 
@@ -41,27 +42,47 @@ class RestaurantDetailModal extends HTMLDivElement {
   }
 
   #generateModalContainer(restaurant: IRestaurantInfo) {
-    const modalContainer = document.createElement('div');
-    const content = document.createElement('div');
-    const buttonContainer = document.createElement('div');
+    const modalContainer = customCreateElement({ elementType: 'div', classList: ['modal-container'] });
+    const content = customCreateElement({
+      elementType: 'div',
+      content: this.#generateRestaurantDetailTemplate(restaurant),
+    });
 
-    modalContainer.classList.add('modal-container');
-    content.innerHTML = this.#generateRestaurantDetailTemplate(restaurant);
     modalContainer.appendChild(content);
+    modalContainer.appendChild(this.#generateButtonContainer());
+    this.appendChild(modalContainer);
+  }
 
-    buttonContainer.classList.add('button-container');
+  #generateButtonContainer() {
+    const buttonContainer = customCreateElement({ elementType: 'div', classList: ['button-container'] });
 
+    buttonContainer.appendChild(this.#generateDeleteButton());
+    buttonContainer.appendChild(this.#generateCloseButton());
+
+    return buttonContainer;
+  }
+
+  #generateDeleteButton() {
     const deleteButton = new Button({
       content: '삭제',
       addClassList: ['button--secondary'],
       onClick: () => {
-        restaurantStore.removeRestaurantFromStore(this.#restaurant);
-        this.toggle();
-        if (this.#onClick) {
-          this.#onClick();
-        }
+        this.#clickDeleteButton();
       },
     });
+
+    return deleteButton.element;
+  }
+
+  #clickDeleteButton() {
+    restaurantStore.removeRestaurantFromStore(this.#restaurant);
+    this.toggle();
+    if (this.#onClick) {
+      this.#onClick();
+    }
+  }
+
+  #generateCloseButton() {
     const closeButton = new Button({
       content: '닫기',
 
@@ -70,13 +91,11 @@ class RestaurantDetailModal extends HTMLDivElement {
         this.toggle();
       },
     });
-    buttonContainer.appendChild(deleteButton.element);
-    buttonContainer.appendChild(closeButton.element);
-    modalContainer.appendChild(buttonContainer);
 
-    this.appendChild(modalContainer);
+    return closeButton.element;
   }
 
+  /* eslint-disable max-lines-per-function */
   #generateRestaurantDetailTemplate(restaurant: IRestaurantInfo) {
     return /* html */ `
     <div class="restaurant-container">

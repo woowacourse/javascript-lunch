@@ -3,10 +3,10 @@ interface Props {
   id?: string;
   classList?: string[];
   attribute?: object;
-  text?: string;
+  content?: string;
 }
 
-function customCreateElement({ elementType, id, classList, attribute, text }: Props) {
+function customCreateElement({ elementType, id, classList, attribute, content }: Props) {
   const element = document.createElement(elementType);
 
   if (id) element.id = id;
@@ -16,7 +16,7 @@ function customCreateElement({ elementType, id, classList, attribute, text }: Pr
       element.setAttribute(key, value);
     });
   }
-  if (text) element.innerText = text;
+  if (content) element.innerHTML = content;
 
   return element;
 }

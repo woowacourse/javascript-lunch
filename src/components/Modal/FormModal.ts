@@ -61,7 +61,7 @@ class FormModal extends Modal {
     const title = customCreateElement({
       elementType: 'h2',
       classList: ['modal-title', 'text-title'],
-      text: '새로운 음식점',
+      content: '새로운 음식점',
     });
 
     return title;
@@ -92,7 +92,7 @@ class FormModal extends Modal {
     const label = customCreateElement({
       elementType: 'label',
       attribute: { for: 'name text-caption' },
-      text: '카테고리',
+      content: '카테고리',
     });
 
     return label;
@@ -125,7 +125,7 @@ class FormModal extends Modal {
       elementType: 'label',
       classList: ['text-caption'],
       attribute: { for: 'name' },
-      text: '이름',
+      content: '이름',
     });
 
     return label;
@@ -158,7 +158,7 @@ class FormModal extends Modal {
       elementType: 'label',
       classList: ['text-caption'],
       attribute: { for: 'distance' },
-      text: '거리(도보 이동 시간)',
+      content: '거리(도보 이동 시간)',
     });
 
     return label;
@@ -188,7 +188,7 @@ class FormModal extends Modal {
     const label = customCreateElement({
       elementType: 'label',
       attribute: { for: 'description text-caption' },
-      text: '설명',
+      content: '설명',
     });
 
     return label;
@@ -208,7 +208,7 @@ class FormModal extends Modal {
     const span = customCreateElement({
       elementType: 'span',
       classList: ['help-text', 'text-caption'],
-      text: '메뉴 등 추가 정보를 입력해 주세요.',
+      content: '메뉴 등 추가 정보를 입력해 주세요.',
     });
 
     return span;
@@ -227,7 +227,7 @@ class FormModal extends Modal {
     const label = customCreateElement({
       elementType: 'label',
       attribute: { for: 'link text-caption' },
-      text: '참고 링크',
+      content: '참고 링크',
     });
 
     return label;
@@ -247,7 +247,7 @@ class FormModal extends Modal {
     const span = customCreateElement({
       elementType: 'span',
       classList: ['help-text', 'text-caption'],
-      text: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
+      content: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
     });
 
     return span;

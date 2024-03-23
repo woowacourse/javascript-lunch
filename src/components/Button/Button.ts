@@ -1,3 +1,5 @@
+import customCreateElement from '../../utils/customCreateElement';
+
 interface Props {
   content: string;
   addClassList?: string[];
@@ -5,19 +7,19 @@ interface Props {
 }
 
 class Button {
-  #buttonElement = document.createElement('button');
+  #buttonElement;
 
   #onClick?: () => void;
 
   constructor({ content, addClassList, onClick }: Props) {
     this.#onClick = onClick;
-    this.#buttonElement.setAttribute('type', 'button');
-    this.#buttonElement.classList.add('button', 'text-caption');
-    this.#buttonElement.innerHTML = content;
-
-    if (addClassList) {
-      this.#addClasses(addClassList);
-    }
+    this.#buttonElement = customCreateElement({
+      elementType: 'button',
+      classList: ['button', 'text-caption'],
+      attribute: { type: 'button' },
+      content,
+    });
+    if (addClassList) this.#addClasses(addClassList);
     this.#addEvent();
   }
 
