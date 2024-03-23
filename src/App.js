@@ -176,7 +176,7 @@ class App {
   }
 
   handleButtonChange(event, restaurantItem) {
-    this.#restaurantService.changeFavorite(restaurantItem, this.#restaurantList);
+    this.#restaurantService.toggleFavorite(restaurantItem, this.#restaurantList);
     event.target.src = restaurantItem.favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
   }
 }

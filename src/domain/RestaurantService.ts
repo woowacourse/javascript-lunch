@@ -37,7 +37,7 @@ class RestaurantService implements Restaurants {
     return restaurantList.filter(restaurant => restaurant.favorite);
   }
 
-  changeFavorite(restaurant: Restaurant, restaurantList: Restaurant[]) {
+  toggleFavorite(restaurant: Restaurant, restaurantList: Restaurant[]) {
     restaurant.favorite = !restaurant.favorite;
     localStorage.setItem(LOCALSTORAGE_KEY.RESTAURANT_LIST, JSON.stringify(restaurantList));
   }
