@@ -7,13 +7,12 @@ import { $, $$ } from "../dom";
 import { ELEMENT_SELECTOR } from "../../constants/selector";
 
 import type { TabItem } from "./TabContainer.type";
-import { createLiElements } from "../createLiElements";
+import { createTabLiElements } from "../createTabLiElements";
 
 interface TabContainerConfig {
   name: string;
   tabItems: TabItem[];
 }
-
 class TabContainer extends BaseComponent {
   private config: TabContainerConfig;
 
@@ -33,7 +32,7 @@ class TabContainer extends BaseComponent {
     return `
       <section id=${this.config.name}-tab-container class="tab-container">
         <ul class="${this.config.name}-tab">
-          ${createLiElements(this.config.tabItems)}
+          ${createTabLiElements(this.config.tabItems)}
         </ul>
       </section>
       `;
