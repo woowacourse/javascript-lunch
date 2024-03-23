@@ -48,10 +48,10 @@ class Restaurants implements RestaurantsInterface {
     );
   }
 
-  updateFavoriteStatus(restaurantName: string, isFavorite: boolean) {
+  updateFavoriteStatus(restaurantName: string) {
     const restaurants = this.storageData.map((restaurant: Restaurant) => {
       if (restaurant.name === restaurantName) {
-        return { ...restaurant, isFavorite };
+        return { ...restaurant, isFavorite: !restaurant.isFavorite };
       }
       return restaurant;
     });

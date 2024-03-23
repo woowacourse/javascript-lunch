@@ -1,51 +1,67 @@
 import generateFavoriteButton from './template/generateFavoriteButton';
-import { $ } from '../utils/dom';
-import { convertIdToName, convertNameToId } from '../utils/nameConverter';
+import { convertNameToId } from '../utils/nameConverter';
 import ICON from '../icons';
 
 class FavoriteButton {
-  #element;
   #restaurantsInstance;
-  #isFavorite;
-  #name;
+  #restaurant;
 
-  constructor({ targetId, restaurantsInstance, name, isFavorite }) {
-    this.#element = $(targetId);
+  constructor({ restaurantsInstance, restaurant }) {
     this.#restaurantsInstance = restaurantsInstance;
-    this.#isFavorite = isFavorite;
-    this.#name = name;
+    this.#restaurant = restaurant;
 
     this.#initEventListeners();
   }
 
   render() {
-    return generateFavoriteButton(this.#name, this.#isFavorite);
+    return generateFavoriteButton(this.#restaurant);
   }
 
   #initEventListeners() {
-    this.#element.addEventListener('click', this.#handleFavoriteButtonStatusChange.bind(this));
+    document.addEventListener('click', this.#handleFavoriteIconClick.bind(this));
   }
 
-  #handleFavoriteButtonStatusChange(event) {
-    const clickedButton = event.target.closest(`#favorite-button-${convertNameToId(this.#name)}`);
-    if (clickedButton) {
-      this.#isFavorite = !this.#isFavorite;
-      this.#changeFavoriteButtonIcon();
-      this.#restaurantsInstance.updateFavoriteStatus(convertIdToName(this.#name), this.#isFavorite);
+  #handleFavoriteIconClick(event) {
+    const clickedButton = event.target.closest('#favorite-button');
+
+    if (
+      clickedButton &&
+      (event.target.closest('#restaurant-list') || event.target.closest('#restaurant-detail-modal'))
+    ) {
+      this.#handleFavoriteIconStatusChange(clickedButton);
     }
   }
 
-  #changeFavoriteButtonIcon() {
-    const iconSrc = this.#isFavorite ? ICON.즐겨찾기추가 : ICON.즐겨찾기해제;
-    const iconImages = document.querySelectorAll(
-      `#favorite-button-${convertNameToId(this.#name)} .favorite-icon`,
+  #handleFavoriteIconStatusChange(clickedButton) {
+    const clickedRestaurantName = clickedButton.dataset.name;
+    this.#restaurantsInstance.updateFavoriteStatus(clickedRestaurantName);
+
+    const restaurant = this.#restaurantsInstance.standardList.find(
+      (restaurant) => restaurant.name === clickedRestaurantName,
     );
 
-    iconImages.forEach((iconImg) => {
-      if (iconImg) {
-        iconImg.src = iconSrc;
-      }
-    });
+    this.#changeFavoriteButtonIcon(restaurant);
+  }
+
+  #changeFavoriteButtonIcon(restaurant) {
+    const iconSrc = restaurant.isFavorite ? ICON.즐겨찾기추가 : ICON.즐겨찾기해제;
+
+    this.#updateIconSrc(
+      `#restaurant-list #favorite-icon-${convertNameToId(restaurant.name)}`,
+      iconSrc,
+    );
+
+    this.#updateIconSrc(
+      `#restaurant-detail-modal #favorite-icon-${convertNameToId(restaurant.name)}`,
+      iconSrc,
+    );
+  }
+
+  #updateIconSrc(selector, src) {
+    const iconElement = document.querySelector(selector);
+    if (iconElement) {
+      iconElement.src = src;
+    }
   }
 }
 

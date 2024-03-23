@@ -1,30 +1,41 @@
-import RestaurantItem from '../components/RestaurantItem';
+import { generateRestaurantItems } from '../components/template/generateRestaurantItems';
 import { $ } from '../utils/dom';
 
 class RestaurantList {
   #element;
   #restaurantsInstance;
   #restaurants;
+  #restaurantDetailModalInstance;
 
-  constructor({ targetId, restaurantsInstance }) {
+  constructor({ targetId, restaurantsInstance, restaurantDetailModalInstance }) {
     this.#element = $(targetId);
     this.#restaurantsInstance = restaurantsInstance;
     this.#restaurants = restaurantsInstance.standardList;
+    this.#restaurantDetailModalInstance = restaurantDetailModalInstance;
+
+    this.#initEventListeners();
   }
 
   render() {
-    const restaurantListHTML = this.#restaurants.reduce((acc, restaurantData) => {
-      return (
-        acc +
-        new RestaurantItem({
-          element: this.#element,
-          restaurantsInstance: this.#restaurantsInstance,
-          restaurant: restaurantData,
-        }).getTemplate()
-      );
-    }, '');
+    this.#element.innerHTML = generateRestaurantItems(this.#restaurants);
+  }
 
-    this.#element.innerHTML = restaurantListHTML;
+  #initEventListeners() {
+    this.#element.addEventListener('click', this.#handleRestaurantItemClick.bind(this));
+  }
+
+  #handleRestaurantItemClick(event) {
+    const restaurantElement = event.target.closest('#restaurant-info');
+
+    if (restaurantElement) {
+      const restaurantName = restaurantElement.dataset.restaurantName;
+
+      const restaurant = this.#restaurantsInstance.standardList.find(
+        (restaurant) => restaurant.name === restaurantName,
+      );
+      this.#restaurantDetailModalInstance.render(restaurant);
+      this.#restaurantDetailModalInstance.openModal('restaurant-detail-modal');
+    }
   }
 
   updateRestaurantList(newRestaurantList) {

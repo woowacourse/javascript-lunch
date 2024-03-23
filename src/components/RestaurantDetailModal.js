@@ -1,17 +1,19 @@
 import Modal from './Modal';
 import generateModal from './template/generateModal';
-import generateRestaurantItem from './template/generateRestaurantItem';
 import { $ } from '../utils/dom';
-import { convertIdToName, convertNameToId } from '../utils/nameConverter';
+
+import {
+  generateRestaurantItem,
+  generateRestaurantItems,
+} from './template/generateRestaurantItems';
 
 class RestaurantDetailModal extends Modal {
-  #restaurantInstance;
+  #restaurantsInstance;
   #restaurant;
 
-  constructor({ targetId, restaurantInstance, restaurant }) {
+  constructor({ targetId, restaurantsInstance }) {
     super({ targetId });
-    this.#restaurantInstance = restaurantInstance;
-    this.#restaurant = restaurant;
+    this.#restaurantsInstance = restaurantsInstance;
 
     this.initEventListeners();
   }
@@ -23,36 +25,26 @@ class RestaurantDetailModal extends Modal {
     });
   }
 
-  render() {
+  render(restaurant) {
+    this.#restaurant = restaurant;
     const buttonContainer = this.generateButtonContainer();
-    const content =
-      generateRestaurantItem({
-        targetId: this.element.id,
-        restaurantsInstance: this.#restaurantInstance,
-        restaurant: this.#restaurant,
-      }) + buttonContainer;
+    const content = generateRestaurantItem(restaurant) + buttonContainer;
 
-    generateModal(this.element, content);
-
-    return this.element;
+    return generateModal(this.element, content);
   }
 
   generateButtonContainer() {
-    const cancelButtonId = `cancel-button-${convertNameToId(this.#restaurant.name)}`;
-    const deleteButtonId = `delete-button-${convertNameToId(this.#restaurant.name)}`;
-
     return `
       <div class="button-container">
-        <button type="button" id="${cancelButtonId}" class="button button--secondary text-caption">취소하기</button>
-        <button id="${deleteButtonId}" class="button button--primary text-caption">삭제하기</button>
+        <button type="button" id="cancel-detail-modal-button" class="button button--secondary text-caption">취소하기</button>
+        <button id="delete-restaurant-item-button" class="button button--primary text-caption">삭제하기</button>
       </div>
     `;
   }
 
   handleModalClose(event) {
-    const cancelButtonSelector = `#cancel-button-${convertNameToId(this.#restaurant.name)}`;
     const isCloseAction =
-      event.target.closest(cancelButtonSelector) ||
+      event.target.closest('#cancel-detail-modal-button') ||
       event.target.closest('#restaurant-detail-modal-backdrop');
 
     if (isCloseAction) {
@@ -61,14 +53,15 @@ class RestaurantDetailModal extends Modal {
   }
 
   handleRestaurantDelete(event) {
-    const deleteButtonSelector = `#delete-button-${convertNameToId(this.#restaurant.name)}`;
-    const isDeleteAction = event.target.closest(deleteButtonSelector);
+    const deleteRestaurantItemButton = event.target.closest('#delete-restaurant-item-button');
 
-    if (isDeleteAction) {
-      this.#restaurantInstance.deleteRestaurant(convertIdToName(this.#restaurant.name));
+    if (deleteRestaurantItemButton) {
+      this.#restaurantsInstance.deleteRestaurant(this.#restaurant.name);
       this.closeModal();
-      $('restaurant-detail-modal').innerHTML = '';
-      $(`${convertNameToId(this.#restaurant.name)}`).remove();
+
+      $('restaurant-list').innerHTML = generateRestaurantItems(
+        this.#restaurantsInstance.standardList,
+      );
     }
   }
 }
