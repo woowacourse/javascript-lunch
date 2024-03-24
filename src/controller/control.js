@@ -8,22 +8,24 @@ import { createFavoriteRestaurantList } from '../page/favoriteRestaurantList.js'
 import { $ } from '../utils/selector.js';
 
 export const set = {
-  start() {
-    const restaurantListData =
-      JSON.parse(localStorage.getItem('restaurantList')) || [];
+  start(storage) {
+    const restaurantListData = storage.get('restaurantList') || [];
     const favoriteRestaurantListData =
-      JSON.parse(localStorage.getItem('favoriteRestaurantList')) || [];
+      storage.get('favoriteRestaurantList') || [];
 
-    const restaurantManager = new RestaurantManager(restaurantListData);
+    const restaurantManager = new RestaurantManager(
+      restaurantListData,
+      storage
+    );
     const favoriteRestaurantList = new FavoriteRestaurantList(
-      favoriteRestaurantListData
+      favoriteRestaurantListData,
+      storage
     );
 
     this.initPage(restaurantManager, favoriteRestaurantList);
   },
 
   initPage(restaurantManager, favoriteRestaurantList) {
-    // 헤더
     document.body.insertAdjacentElement(
       'afterbegin',
       createHeader({
@@ -68,7 +70,6 @@ export const set = {
     });
   },
 
-  // TODO: 전역으로 이벤트 관리
   addEventList({ restaurantManager, favoriteRestaurantList, tabBarList }) {
     document.body.addEventListener('deleteRestaurantInModal', (event) => {
       const modalContainer = event.target.closest('[class*="restaurant__id"]');
