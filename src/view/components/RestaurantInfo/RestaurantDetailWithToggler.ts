@@ -23,11 +23,12 @@ class RestaurantDetailWithToggler extends RestaurantDetail {
       isOn: isTogglerOn,
       toggleAction: function () {
         const name = restaurant.name;
-        if (favoriteToggler.isOn()) toggleOnFunc(name);
+        if (favoriteToggler.isOn) toggleOnFunc(name);
         else toggleOffFunc(name);
         afterToggleFunc();
       },
     });
+    this.setDetail(restaurant);
     this.#favoriteToggler = favoriteToggler;
     this.element.append(this.#favoriteToggler.element);
   }

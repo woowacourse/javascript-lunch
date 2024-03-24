@@ -2,7 +2,7 @@ import FavoriteToggler from "../FavoriteToggler/FavoriteToggler";
 import RestaurantPreview from "./RestaurantPreview/RestaurantPreview";
 
 class RestaurantPreviewWithToggler extends RestaurantPreview {
-  #favoriteToggler: FavoriteToggler;
+  favoriteToggler: FavoriteToggler;
   constructor({
     restaurant,
     eventListenerArgs = [],
@@ -23,18 +23,18 @@ class RestaurantPreviewWithToggler extends RestaurantPreview {
       isOn: isTogglerOn,
       toggleAction: function () {
         const name = restaurant.name;
-        if (favoriteToggler.isOn()) toggleOnFunc(name);
+        if (favoriteToggler.isOn) toggleOnFunc(name);
         else toggleOffFunc(name);
         afterToggleFunc();
       },
     });
 
-    this.#favoriteToggler = favoriteToggler;
-    this.element.append(this.#favoriteToggler.element);
+    this.favoriteToggler = favoriteToggler;
+    this.element.append(this.favoriteToggler.element);
   }
 
   toggle() {
-    this.#favoriteToggler.toggle();
+    this.favoriteToggler.toggle();
   }
 }
 
