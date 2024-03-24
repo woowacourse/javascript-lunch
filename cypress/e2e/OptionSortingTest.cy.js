@@ -1,8 +1,12 @@
-describe("필터링 옵션 테스트", () => {
-  it("한식 클릭 시 한식 카테고리를 가진 음식점만 남는다.", () => {
-    cy.visit("http://localhost:8082/");
+const SORT_FILTER = "#sort-filter";
+const CATEGORY_FILTER = "#category-filter";
 
-    cy.get("#category-filter").select("한식");
+describe("필터링 옵션 테스트", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:8081/");
+  });
+  it("한식 클릭 시 한식 카테고리를 가진 음식점만 남는다.", () => {
+    cy.get(CATEGORY_FILTER).select("한식");
 
     cy.get(".restaurant-list")
       .children()
@@ -13,10 +17,11 @@ describe("필터링 옵션 테스트", () => {
 });
 
 describe("정렬 옵션 테스트", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:8081/");
+  });
   it("거리순 정렬", () => {
-    cy.visit("http://localhost:8082/");
-
-    cy.get("#sort-filter").select("거리순");
+    cy.get(SORT_FILTER).select("거리순");
 
     const distances = [];
 
@@ -31,9 +36,7 @@ describe("정렬 옵션 테스트", () => {
   });
 
   it("이름순 정렬", () => {
-    cy.visit("http://localhost:8082/");
-
-    cy.get("#sort-filter").select("이름순");
+    cy.get(SORT_FILTER).select("이름순");
 
     const names = [];
 
