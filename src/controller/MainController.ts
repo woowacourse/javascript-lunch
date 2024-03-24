@@ -1,71 +1,113 @@
-import FILLED_ICON from "../view/components/FavoriteToggler/Icons/favorite-icon-filled.png";
-import FavoriteToggler from "../view/components/FavoriteToggler/FavoriteToggler";
-import ModalController from "./ModalController";
-import RenderController from "./RenderController";
-import RestaurantListController from "./RestaurantListController";
-import StatusController from "./StatusController";
+import EntireRestaurantPreviewController from "./EntireRestaurantPreviewController";
+import FavoriteRestaurantPreviewController from "./FavoriteRestaurantPreviewController";
+import RestaurantDetailModalController from "./RestaurantDetailModalController";
+import RestaurantFormModalController from "./RestaurantFormModalController";
+import RestaurantListProxy from "../domain/RestaurantListProxy";
+import RestaurantPreviewWithToggler from "../view/components/RestaurantInfo/RestaurantPreviewWithToggler";
+import TabBar from "../view/components/TabBar/TabBar";
 
 class MainController {
-  static start() {
-    document.getElementById("main")?.append(ModalController.modal.element);
+  element = document.createElement("main");
 
-    RestaurantListController.initEntireRestaurantList();
+  #tabBar;
+  #detailModalController;
+  #formModalController;
+  #entireRestaurantPreview;
+  #favoriteRestaurantPreview;
 
-    RenderController.renderTabBar();
-    RenderController.renderFilterContainer();
-    RenderController.renderAllUl();
-    this.#setAddButton();
-    this.#setUlEvent();
-  }
+  constructor() {
+    RestaurantListProxy.init();
 
-  static #setAddButton() {
-    const addRestaurantButton = document.getElementById(
-      "add-restaurant-button"
+    this.#entireRestaurantPreview = new EntireRestaurantPreviewController(
+      this.#previewClickEvent.bind(this)
+    );
+    this.#favoriteRestaurantPreview = new FavoriteRestaurantPreviewController(
+      this.#previewClickEvent.bind(this)
     );
 
-    addRestaurantButton?.addEventListener("click", () => {
-      ModalController.changeIntoAddRestaurantForm();
-      ModalController.openModal();
+    this.#tabBar = this.#createTabBar();
+
+    this.#detailModalController = new RestaurantDetailModalController(() => {
+      this.#entireRestaurantPreview.render.bind(
+        this.#entireRestaurantPreview
+      )();
+      this.#favoriteRestaurantPreview.render.bind(
+        this.#favoriteRestaurantPreview
+      )();
     });
-  }
 
-  static #setUlEvent() {
-    const restaurantListUl = document.getElementById("restaurant-list-ul");
-    const favoriteRestaurantListUl = document.getElementById(
-      "favorite-restaurant-list-ul"
+    this.#formModalController = new RestaurantFormModalController(() =>
+      this.#tabBar.selectTabBarItem(0)
     );
-    restaurantListUl?.addEventListener("click", this.#UlClickEvent.bind(this));
-    favoriteRestaurantListUl?.addEventListener(
-      "click",
-      this.#UlClickEvent.bind(this)
+
+    this.#render();
+  }
+
+  #render() {
+    this.element.append(
+      this.#tabBar.element,
+      this.#entireRestaurantPreview.element,
+      this.#favoriteRestaurantPreview.element,
+      this.#detailModalController.modal.element,
+      this.#formModalController.modal.element
     );
   }
 
-  static #UlClickEvent(event: Event) {
-    const targetElement = event.target as HTMLElement;
-    const restaurantPreview = targetElement.closest<HTMLElement>(".restaurant");
-    if (restaurantPreview) {
-      const restaurant =
-        StatusController.getRestaurantFromPreview(restaurantPreview);
-      const originalToggler =
-        StatusController.getTogglerInPreview(restaurantPreview);
-      const connectedToggler = this.#getConnectedToggler(originalToggler);
-      ModalController.changeIntoRestaurantDetail();
-      ModalController.setRestaurantDetail(restaurant);
-      ModalController.setRestaurantDetailToggler(connectedToggler.element);
-      ModalController.openModal();
-    }
+  #previewClickEvent(previewWithToggler: RestaurantPreviewWithToggler) {
+    this.#detailModalController.setRestaurantDetailWithToggler(
+      previewWithToggler
+    );
+    this.#detailModalController.openModal();
   }
 
-  static #getConnectedToggler(toggler: HTMLButtonElement) {
-    const isOn = (toggler.children[0] as HTMLImageElement).src === FILLED_ICON;
-    const connectedToggler = new FavoriteToggler({
-      isOn,
-      toggleAction: () => {
-        toggler.click();
+  #createTabBar() {
+    return new TabBar([
+      {
+        value: "모든 음식점",
+        onFunction: () => {
+          this.#entireRestaurantPreview.render.bind(
+            this.#entireRestaurantPreview
+          )();
+          this.#entireRestaurantPreview.reveal.bind(
+            this.#entireRestaurantPreview
+          )();
+        },
+        offFunction: () => {
+          this.#entireRestaurantPreview.hide.bind(
+            this.#entireRestaurantPreview
+          )();
+        },
       },
+      {
+        value: "자주 가는 음식점",
+        onFunction: () => {
+          this.#favoriteRestaurantPreview.render.bind(
+            this.#favoriteRestaurantPreview
+          )();
+          this.#favoriteRestaurantPreview.reveal.bind(
+            this.#favoriteRestaurantPreview
+          )();
+        },
+        offFunction: () => {
+          this.#favoriteRestaurantPreview.hide.bind(
+            this.#favoriteRestaurantPreview
+          )();
+        },
+      },
+    ]);
+  }
+
+  attachEventToHeader(
+    titleElement: HTMLElement,
+    addButtonElement: HTMLButtonElement
+  ) {
+    titleElement.addEventListener("click", () => {
+      this.#tabBar.selectTabBarItem(0);
     });
-    return connectedToggler;
+
+    addButtonElement?.addEventListener("click", () => {
+      this.#formModalController.openModal();
+    });
   }
 }
 
