@@ -7,6 +7,16 @@ describe("자주가는 음식점 테스트", () => {
     cy.visit("http://localhost:8081/");
   });
 
+  afterEach(() => {
+    cy.get(".back-detail").click({ force: true });
+
+    cy.get(FAVORITE_TOGGLE).each(($el) => {
+      if ($el.attr("id") === "filled-star") {
+        cy.wrap($el).click({ force: true });
+      }
+    });
+  });
+
   it("음식점에 즐겨찾기 버튼 클릭 시 버튼 색이 채워지는지 확인", () => {
     cy.get(FAVORITE_TOGGLE).first().click();
     cy.get(FAVORITE_TOGGLE).first().should("have.attr", "id", "filled-star");
@@ -22,7 +32,7 @@ describe("자주가는 음식점 테스트", () => {
     cy.get(FAVORITE_TOGGLE).first().click();
     cy.get(".favorite-restaurants").click();
 
-    cy.get(restaurant).then((restaurants) => {
+    cy.get(RESTAURANT).then((restaurants) => {
       const initialCount = restaurants.length;
 
       cy.get(FAVORITE_TOGGLE).first().click();

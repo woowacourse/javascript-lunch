@@ -10,6 +10,20 @@ describe("음식점 추가 폼 입력 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8081/");
   });
+
+  afterEach(() => {
+    cy.get(ADD_BUTTON).click({ force: true });
+
+    cy.get(NAME_INPUT).clear();
+    cy.get("#link").clear();
+    cy.get("#description").clear();
+
+    cy.get(DISTANCE_SELECT).select("선택해주세요");
+    cy.get(CATEGORY_SELECT).select("선택해주세요");
+
+    cy.get(".back-addForm").click({ force: true });
+  });
+
   it("음식점 추가 폼에서 카테고리를 선택하지 않고 폼을 제출한 경우 그 아래에 에러메세지를 띄운다.", () => {
     cy.get(ADD_BUTTON).click();
     cy.get(NAME_INPUT).type("스타벅스");
@@ -70,6 +84,7 @@ describe("음식점 추가 폼 입력 테스트", () => {
 
   it("등록하기 버튼을 클릭할 때 해당 음식점이 음식점 목록에 추가된다.", () => {
     cy.get(ADD_BUTTON).click();
+
     cy.get(NAME_INPUT).type("스타벅스");
     cy.get(CATEGORY_SELECT).select("한식");
     cy.get(DISTANCE_SELECT).select("5분 내");
@@ -80,12 +95,14 @@ describe("음식점 추가 폼 입력 테스트", () => {
 
   it("등록 모달창 밖을 클릭할 때 모달창이 닫힌다.", () => {
     cy.get(ADD_BUTTON).click();
+
     cy.get(".back-addForm").click({ force: true });
     cy.get(MODAL).should("not.be.visible");
   });
 
   it("등록 모달창 취소하기 버튼을 클릭할 때 모달창이 닫힌다.", () => {
     cy.get(ADD_BUTTON).click();
+
     cy.get("#reset-button").click();
     cy.get(MODAL).should("not.be.visible");
   });
@@ -95,6 +112,7 @@ describe("음식점 디테일 폼 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8081/");
   });
+
   it("음식점 디테일 모달창 밖을 클릭할 때 모달창이 닫힌다.", () => {
     cy.get(RESTAURANT).first().click();
     cy.get(".back-detail").click({ force: true });
