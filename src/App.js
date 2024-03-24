@@ -4,13 +4,12 @@ import createHeader from './components/Header/Header';
 import AddRestaurantModal from './components/Modal/AddRestaurantModal';
 import RestaurantDetailModal from './components/Modal/RestaurantDetailModal';
 import createRestaurantItem from './components/Restaurant/RestaurantItem';
-import RestaurantList from './components/RestaurantList/RestaurantList';
 import createTabMenu from './components/TabMenu/TabMenu';
 import { DEFAULT_FILTERING_CATEGORY, DEFAULT_SORTING_PROPERTY, DEFAULT_TAB, TAB_MENUS } from './constant/constants';
 import RestaurantService from './domain/services/RestaurantService';
 
 class App {
-  #restaurantList = new RestaurantList();
+  #restaurantService = new RestaurantService();
   #addRestaurantModal = new AddRestaurantModal();
   #restaurantDetailModal = new RestaurantDetailModal();
 
@@ -44,13 +43,15 @@ class App {
 
     addRestaurantForm.addEventListener('submit', e => {
       e.preventDefault();
-      const newRestaurant = RestaurantService.createRestaurant();
+      const newRestaurant = this.#addRestaurantModal.createRestaurant();
 
-      const isAdded = RestaurantService.addRestaurant(newRestaurant, this.#restaurantList.list);
-      const isAddedMessage = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
-      alert(isAddedMessage);
+      if (this.#restaurantService.isExistingRestaurant(newRestaurant)) {
+        return alert('중복된 식당입니다. 다시 입력해주세요.');
+      }
 
-      if (!isAdded) return;
+      this.#restaurantService.addRestaurant(newRestaurant);
+      alert('추가되었습니다.');
+
       this.renderRestaurantList();
       addRestaurantForm.reset();
       this.#addRestaurantModal.toggle();
@@ -77,18 +78,12 @@ class App {
     });
   }
 
-  generateRenderingList() {
-    const filteredItems = RestaurantService.filterByCategory(this.#filterCategory, this.#restaurantList.list);
-    const sortedItems = RestaurantService.sortByProperty(this.#sortProperty, filteredItems);
-
-    if (this.#activeTab === 'favorite') {
-      return RestaurantService.filterFavorite(sortedItems);
-    }
-    return sortedItems;
-  }
-
   renderRestaurantList() {
-    const renderingList = this.generateRenderingList();
+    const renderingList = this.#restaurantService.generateRenderingList(
+      this.#activeTab,
+      this.#filterCategory,
+      this.#sortProperty,
+    );
 
     if (renderingList.length === 0) {
       this.renderEmptyListMessage();
@@ -100,11 +95,11 @@ class App {
 
     renderingList.forEach(restaurantItem => {
       restaurantUl.append(
-        new createRestaurantItem({
+        createRestaurantItem({
           restaurant: restaurantItem,
           onClick: () => this.restaurantItemClickHandler(restaurantItem),
-          onToggle: () => this.restaurantItemFavoriteToggleHandler(),
-        }).element,
+          onToggle: id => this.restaurantItemFavoriteToggleHandler(id),
+        }),
       );
     });
 
@@ -114,22 +109,27 @@ class App {
   }
 
   restaurantItemClickHandler(restaurantItem) {
-    this.#restaurantDetailModal.restaurant = {
+    this.#restaurantDetailModal.draw({
       restaurant: restaurantItem,
-      reRender: () => this.renderRestaurantList(),
-      onUpdate: () => this.#restaurantList.updateData(),
-      onDelete: item => {
+      onDelete: id => {
         alert('삭제되었습니다!');
-        this.#restaurantList.list = RestaurantService.deleteRestaurant(item, this.#restaurantList.list);
+        this.#restaurantService.deleteRestaurant(id);
         this.renderRestaurantList();
         this.#restaurantDetailModal.toggle();
       },
-    };
+      onToggle: id => {
+        this.#restaurantService.updateFavoriteState(id);
+      },
+      onClose: () => {
+        this.#restaurantDetailModal.toggle();
+        this.renderRestaurantList();
+      },
+    });
     this.#restaurantDetailModal.toggle();
   }
 
-  restaurantItemFavoriteToggleHandler() {
-    this.#restaurantList.updateData();
+  restaurantItemFavoriteToggleHandler(id) {
+    this.#restaurantService.updateFavoriteState(id);
     this.renderRestaurantList();
   }
 
