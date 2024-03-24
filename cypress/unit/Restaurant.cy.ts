@@ -14,7 +14,7 @@ describe('레스토랑 클래스', () => {
     const EXPECTED_RESULT: IRestaurant = RESTAURANT_ARGS;
 
     const restaurant = new Restaurant(RESTAURANT_ARGS);
-    console.log(restaurant.get());
+
     expect(restaurant.get()).to.deep.equal(EXPECTED_RESULT);
   });
 
