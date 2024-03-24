@@ -34,6 +34,10 @@ class FavoriteToggler {
     });
   }
 
+  get isOn() {
+    return this.#isOn;
+  }
+
   on() {
     this.element.replaceChildren(this.#onImage);
   }
@@ -47,10 +51,6 @@ class FavoriteToggler {
     else this.on();
     this.#isOn = !this.#isOn;
     this.#toggleAction();
-  }
-
-  isOn() {
-    return this.#isOn;
   }
 
   #createElement() {
