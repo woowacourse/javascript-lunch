@@ -66,6 +66,14 @@
   -webkit-box-orient: vertical;
 }
 
+.restaurant__description-detail {
+  display: -webkit-box;
+
+  padding-top: 8px;
+
+  overflow: scroll;
+}
+
 .restaurant__link {
   padding-top: 8px;
   text-decoration: underline;
