@@ -44,13 +44,10 @@ class MainApp extends HTMLDivElement {
     </div>
     `;
 
-    this.$navTab = dom.getElement<NavTab>(this, 'div[is="my-tab"]');
-    this.$newRestaurantModal = dom.getElement<BasicModal>(this, '.new-restaurant-modal');
-    this.$allRestaurantApp = dom.getElement<AllRestaurantApp>(this, '.all-restaurant-app');
-    this.$favoriteRestaurantApp = dom.getElement<FavoriteRestaurantApp>(
-      this,
-      '.favorite-restaurant-app',
-    );
+    this.$navTab = dom.getElement(this, 'div[is="my-tab"]');
+    this.$newRestaurantModal = dom.getElement(this, '.new-restaurant-modal');
+    this.$allRestaurantApp = dom.getElement(this, '.all-restaurant-app');
+    this.$favoriteRestaurantApp = dom.getElement(this, '.favorite-restaurant-app');
     this.render();
 
     this.$navTab.addEventListener('click', this.render.bind(this));
