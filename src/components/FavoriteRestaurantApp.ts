@@ -1,4 +1,4 @@
-import { Category, IRestaurant, SortCriteria } from '@/types/Restaurant';
+import { Category, CategoryOrAll, IRestaurant, SortCriteria } from '@/types/Restaurant';
 import { dom } from '@/util/dom';
 import restaurantListMock from '@/mock/restaurantList.mock';
 import FilterContainer from './Basic/FilterContainer';
@@ -33,21 +33,19 @@ class FavoriteRestaurantApp extends HTMLDivElement {
   }
 
   #getNewRestaurantList() {
-    const { category, sortCriteria } = this.$filterContainer.get();
-
-    let newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
-    if (newRestaurantList.length === 0) {
+    if (this.#restaurantDBService.isEmpty()) {
       this.#setMock();
-      newRestaurantList = this.#getDB(category as Category, sortCriteria as SortCriteria);
     }
-    return newRestaurantList.filter((restaurant: IRestaurant) => restaurant.isFavorite);
+    const { category, sortCriteria } = this.$filterContainer.get();
+    const restaurants = this.#getDB(category, sortCriteria);
+    return restaurants.filter((restaurant: IRestaurant) => restaurant.isFavorite);
   }
 
   #setMock() {
     this.#restaurantDBService.set(restaurantListMock);
   }
 
-  #getDB(category: Category, sortCriteria: SortCriteria) {
+  #getDB(category: CategoryOrAll, sortCriteria: SortCriteria) {
     return this.#restaurantDBService.getAfterFiltering(category, sortCriteria);
   }
 
