@@ -1,7 +1,7 @@
 import { IRestaurant } from '@/types/Restaurant';
 
 import style from './RestaurantItem.module.css';
-import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';
+import RestaurantCategoryIcon from './RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
 import { dom } from '@/util/dom';
@@ -44,7 +44,7 @@ class RestaurantItem extends HTMLLIElement {
   #template() {
     this.classList.add(`restaurant`, `${style.restaurant}`);
     this.innerHTML = `
-    <div is="restaurant-category-icon"> </div>
+    <div is="restaurant-category-icon" alt="음식점 로고"> </div>
     <div class="restaurant__info ${style.restaurant__info}">
     <h3 class="restaurant__name text-subtitle ${style.restaurant__name}"></h3>
     <span class="restaurant__distance text-body  ${style.restaurant__distance}"></span>

@@ -6,7 +6,7 @@ import AllRestaurantApp from './AllRestaurantApp';
 import FavoriteRestaurantApp from './FavoriteRestaurantApp';
 import BasicModal from './Basic/BasicModal';
 import RestaurantItemDetail from './RestaurantList/RestaurantItemDetail';
-import NewRestaurantForm from './NewRestaurantModal/NewRestaurantForm';
+import NewRestaurantForm from './RestaurantList/NewRestaurantForm';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
 
 import '@/css/index.css';

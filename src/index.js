@@ -5,15 +5,14 @@ import './components/Basic/BasicModal';
 import './components/Basic/BasicButton';
 import './components/Basic/FavoriteIcon';
 import './components/Basic/InputBox';
-import './components/Basic/CategoryIcon';
-import './components/Basic/RestaurantCategoryIcon';
 import './components/Basic/OnOffButton';
 import './components/Basic/NavTab';
 
+import './components/RestaurantList/RestaurantCategoryIcon';
 import './components/RestaurantList/RestaurantList';
 import './components/RestaurantList/RestaurantItem';
 import './components/RestaurantList/RestaurantItemDetail';
-import './components/NewRestaurantModal/NewRestaurantForm';
+import './components/RestaurantList/NewRestaurantForm';
 import './components/AllRestaurantApp';
 import './components/FavoriteRestaurantApp';
 import './components/MainApp';

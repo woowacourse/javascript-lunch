@@ -1,7 +1,7 @@
 import { Category, DistanceNumeric, IRestaurant } from '@/types/Restaurant';
 
 import style from './RestaurantItemDetail.module.css';
-import RestaurantCategoryIcon from '../Basic/RestaurantCategoryIcon';
+import RestaurantCategoryIcon from './RestaurantCategoryIcon';
 import FavoriteIcon from '../Basic/FavoriteIcon';
 import MainApp from '../MainApp';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';

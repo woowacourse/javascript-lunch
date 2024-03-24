@@ -12,3 +12,8 @@
   border-radius: 50%;
   background: var(--lighten-color);
 }
+
+.categoryIcon {
+  width: 36px;
+  height: 36px;
+}

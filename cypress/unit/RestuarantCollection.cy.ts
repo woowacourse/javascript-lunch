@@ -1,7 +1,7 @@
 import Restaurant from '@/domains/entities/Restaurant';
 import RestaurantCollection from '../../src/domains/entities/RestaurantCollection';
 import { IRestaurant } from '../../src/types/Restaurant';
-import NewRestaurantForm from '@/components/NewRestaurantModal/NewRestaurantForm';
+import NewRestaurantForm from '@/components/RestaurantList/NewRestaurantForm';
 import { rest } from 'cypress/types/lodash';
 
 describe('레스토랑 리스트 클래스', () => {
