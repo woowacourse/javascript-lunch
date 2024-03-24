@@ -5,9 +5,15 @@ import createElementByTag from "../../../utils/createElementByTag";
 class TabBarItem {
   element;
 
+  #isOn = false;
+
   #onFunction;
 
   #offFunction;
+
+  get isOn() {
+    return this.#isOn;
+  }
 
   constructor({
     value,
@@ -37,11 +43,13 @@ class TabBarItem {
   on() {
     this.element.classList.remove("tab-bar__item--off");
     this.element.classList.add("tab-bar__item--on");
+    this.#isOn = true;
     this.#onFunction();
   }
   off() {
     this.element.classList.remove("tab-bar__item--on");
     this.element.classList.add("tab-bar__item--off");
+    this.#isOn = false;
     this.#offFunction();
   }
 }
