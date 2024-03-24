@@ -16,8 +16,9 @@ class MainApp extends HTMLDivElement {
   $navTab: NavTab;
   $allRestaurantApp: AllRestaurantApp;
   $favoriteRestaurantApp: FavoriteRestaurantApp;
-  $newRestaurantModal: BasicModal;
-  $restaurantDetailModal: BasicModal;
+  $modal: BasicModal;
+  $newRestaurantModalItem: HTMLDivElement;
+  $detailRestaurantModalItem: HTMLDivElement;
 
   observedAttributes = [];
 
@@ -34,29 +35,31 @@ class MainApp extends HTMLDivElement {
     <div is="all-restaurant-app" class="all-restaurant-app" data-id="all"></div>
     <div is="favorite-restaurant-app" class="hidden favorite-restaurant-app" data-id="favorite"></div>
     
-    <div is="basic-modal" class="modal basic-modal new-restaurant-modal" class-container="new-restaurant-modal__container" >
-      <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form is="new-restaurant-form" class="new-restaurant-form"></form> 
+    <div is="basic-modal" class="modal basic-modal " class-container="new-restaurant-modal__container" >
+      <div class="modal-item new-restaurant-modal-item">  
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <form is="new-restaurant-form" class="new-restaurant-form"></form> 
+      </div>
+      <div class="modal-item detail-modal-item">  
+        <li is="restaurant-item-detail" class="restaurant-item-detail" style=""></li>
+      </div>
     </div>
 
-    <div is="basic-modal" class="modal basic-modal detail-modal" class-container="detail-modal__container" >
-      <li is="restaurant-item-detail" class="restaurant-item-detail" style=""></li>
-    </div>
     `;
 
     this.$navTab = dom.getElement(this, 'div[is="my-tab"]');
-    this.$newRestaurantModal = dom.getElement(this, '.new-restaurant-modal');
+    this.$modal = dom.getElement(this, '.basic-modal');
     this.$allRestaurantApp = dom.getElement(this, '.all-restaurant-app');
     this.$favoriteRestaurantApp = dom.getElement(this, '.favorite-restaurant-app');
     this.render();
 
     this.$navTab.addEventListener('click', this.render.bind(this));
 
-    this.$newRestaurantModal = dom.getElement(this, '.new-restaurant-modal');
-    this.#setSubmitEvent();
+    const $form: NewRestaurantForm = dom.getElement(this.$modal, '.new-restaurant-form');
+    $form.addEventListener('submit', this.#onSubmitForm.bind(this));
 
-    this.$restaurantDetailModal = dom.getElement(this, '.detail-modal');
-    this.$restaurantDetailModal.appendAll([]);
+    this.$newRestaurantModalItem = dom.getElement(this.$modal, '.new-restaurant-modal-item');
+    this.$detailRestaurantModalItem = dom.getElement(this.$modal, '.detail-modal-item');
   }
 
   render() {
@@ -74,29 +77,32 @@ class MainApp extends HTMLDivElement {
     }
   }
 
-  paintDetailModal(restaurant: IRestaurant) {
-    this.$restaurantDetailModal.openModal();
-    this.$restaurantDetailModal.replaceChildNodes([new RestaurantItemDetail(restaurant)]);
+  renderNewRestaurantModal() {
+    this.$detailRestaurantModalItem.classList.add('hidden');
+    this.$newRestaurantModalItem.classList.remove('hidden');
+    this.$modal.openModal();
   }
 
-  #setSubmitEvent() {
-    const $form: NewRestaurantForm = dom.getElement(
-      this.$newRestaurantModal,
-      '.new-restaurant-form',
-    );
+  paintDetailModal(restaurant: IRestaurant) {
+    this.$newRestaurantModalItem.classList.add('hidden');
+    this.$detailRestaurantModalItem.classList.remove('hidden');
+    this.$modal.openModal();
+    this.$detailRestaurantModalItem.replaceChildren(new RestaurantItemDetail(restaurant));
+  }
 
-    $form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      $form.invisibleErrorMessage();
-      const { name, distance, category, description, link } = $form.getValues();
-      if ($form.validateRequiredValues(category, distance, name)) return;
+  #onSubmitForm(e: Event) {
+    const $form: NewRestaurantForm = dom.getElement(this.$modal, '.new-restaurant-form');
 
-      new RestaurantDBService().add({ name, distance, category, description, link });
+    e.preventDefault();
+    $form.invisibleErrorMessage();
+    const { name, distance, category, description, link } = $form.getValues();
+    if ($form.validateRequiredValues(category, distance, name)) return;
 
-      this.render();
-      $form.invisibleErrorMessage();
-      this.$newRestaurantModal.closeModal();
-    });
+    new RestaurantDBService().add({ name, distance, category, description, link });
+
+    this.render();
+    $form.invisibleErrorMessage();
+    this.$modal.closeModal();
   }
 }
 

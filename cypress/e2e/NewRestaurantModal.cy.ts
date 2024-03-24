@@ -6,7 +6,7 @@ describe('새 레스토랑 추가 모달 테스트', () => {
 
   it('음식점 추가 버튼을 눌렀을 때, 모달이 표시된다.', () => {
     const ADD_BUTTON_SELECTOR = 'body > div.gnb > button';
-    const MODAL_SELECTOR = '.new-restaurant-modal .modal-container';
+    const MODAL_SELECTOR = '.new-restaurant-modal-item';
 
     cy.get(ADD_BUTTON_SELECTOR).click();
 
@@ -15,9 +15,9 @@ describe('새 레스토랑 추가 모달 테스트', () => {
 
   describe('필수 입력항목을 입력하지않고 제출했을때', () => {
     const REQUIRED_INPUTS = [
-      { name: '카테고리', boxSelector: '.new-restaurant-modal .category-select' },
-      { name: '이름', boxSelector: '.new-restaurant-modal .name-input-box' },
-      { name: '거리', boxSelector: '.new-restaurant-modal .distance-select' },
+      { name: '카테고리', boxSelector: '.new-restaurant-modal-item .category-select' },
+      { name: '이름', boxSelector: '.new-restaurant-modal-item .name-input-box' },
+      { name: '거리', boxSelector: '.new-restaurant-modal-item .distance-select' },
     ];
 
     REQUIRED_INPUTS.forEach(({ name, boxSelector }) => {
@@ -34,9 +34,9 @@ describe('새 레스토랑 추가 모달 테스트', () => {
   it('음식점을 추가하였을 때, 새 음식점이 추가된다.', () => {
     cy.get('.gnb > button').click();
 
-    cy.get('.new-restaurant-modal .category-input').select('중식');
+    cy.get('.new-restaurant-modal-item .category-input').select('중식');
     cy.get('.new-restaurant-form__name-input').type('테스트용 맛있는 음식점');
-    cy.get('.new-restaurant-modal .distance-input').select('5');
+    cy.get('.new-restaurant-modal-item .distance-input').select('5');
     cy.get('.new-restaurant-form__submit-button').click();
 
     cy.get('.restaurant__name').contains('테스트용 맛있는 음식점');
