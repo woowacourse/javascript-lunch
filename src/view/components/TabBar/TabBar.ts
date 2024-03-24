@@ -41,8 +41,8 @@ class TabBar {
   #renderTabBarInItemByClickEvent(event: Event) {
     const eventTarget = event.target;
     this.#items.forEach((item) => {
-      if (eventTarget === item.element) item.on();
-      else item.off();
+      if (eventTarget === item.element && !item.isOn) item.on();
+      if (eventTarget !== item.element && item.isOn) item.off();
     });
   }
 }
