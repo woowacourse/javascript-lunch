@@ -9,6 +9,13 @@ import { removeHTMLTags } from "../../utils/removeHtmlTag";
 import BaseModal from "../common/BaseModal";
 
 class RestaurantAddForm extends BaseModal {
+  #restaurantAddForm;
+
+  constructor() {
+    super();
+    this.#restaurantAddForm = $("#restaurant-add-form");
+  }
+
   render() {
     this.innerHTML = `
       <base-modal modalId="addForm">
@@ -67,16 +74,16 @@ class RestaurantAddForm extends BaseModal {
   }
 
   #getFormData() {
-    const formData = new FormData($("#restaurant-add-form"));
+    const formData = new FormData(this.#restaurantAddForm);
     return Object.fromEntries(formData.entries());
   }
 
   #resetFormData() {
-    $("#restaurant-add-form").reset();
+    this.#restaurantAddForm.reset();
   }
 
   setEvent() {
-    $("#restaurant-add-form").addEventListener("submit", (e) => {
+    this.#restaurantAddForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this.emitEvent("add-form-submit");
 

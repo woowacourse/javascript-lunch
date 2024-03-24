@@ -3,8 +3,11 @@ import restaurantValidator from "../../validators/restaurantValidator";
 import BaseComponent from "../common/BaseComponent";
 
 class RestaurantNameInput extends BaseComponent {
+  #errorMessageTab = $("#error-message");
+
   constructor() {
     super();
+    this.#errorMessageTab = $("#error-message");
   }
 
   render() {
@@ -23,14 +26,14 @@ class RestaurantNameInput extends BaseComponent {
   setEvent() {
     document.addEventListener("add-form-submit", (e) => {
       this.#isValidName($("#name").value)
-        ? $("#error-message").classList.add("hidden")
-        : $("#error-message").classList.remove("hidden");
+        ? this.#errorMessageTab.classList.add("hidden")
+        : this.#errorMessageTab.classList.remove("hidden");
     });
 
     $("#name").addEventListener("focusout", (e) => {
       this.#isValidName(e.target.value)
-        ? $("#error-message").classList.add("hidden")
-        : $("#error-message").classList.remove("hidden");
+        ? this.#errorMessageTab.classList.add("hidden")
+        : this.#errorMessageTab.classList.remove("hidden");
     });
   }
 }

@@ -17,7 +17,7 @@ class FavoriteToggle extends BaseComponent {
 
   render() {
     this.innerHTML = `
-      <button class="modal-star" id="favorite-toggle">
+      <button class="modal-star">
         ${this.#isFavorite ? FILLED_FAVORITE_TOGGLE : EMPTY_FAVORITE_TOGGLE}
       </button>
     `;

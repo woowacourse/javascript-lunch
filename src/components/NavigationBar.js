@@ -2,6 +2,14 @@ import { $ } from "../utils/dom";
 import BaseComponent from "./common/BaseComponent";
 
 class NavigationBar extends BaseComponent {
+  #allRestaurantsTab;
+  #favoriteRestaurantsTab;
+
+  constructor() {
+    this.#allRestaurantsTab = $(".all-restaurants");
+    this.#favoriteRestaurantsTab = $(".favorite-restaurants");
+  }
+
   render() {
     this.innerHTML = `
       <nav class="navigation-bar">
@@ -12,21 +20,21 @@ class NavigationBar extends BaseComponent {
   }
 
   #selectAllItem() {
-    $(".all-restaurants").classList.add("selected");
-    $(".favorite-restaurants").classList.remove("selected");
+    this.#allRestaurantsTab.classList.add("selected");
+    this.#favoriteRestaurantsTab.classList.remove("selected");
   }
   #selectFavoriteItem() {
-    $(".all-restaurants").classList.remove("selected");
-    $(".favorite-restaurants").classList.add("selected");
+    this.#allRestaurantsTab.classList.remove("selected");
+    this.#favoriteRestaurantsTab.classList.add("selected");
   }
 
   setEvent() {
-    $(".all-restaurants").addEventListener("click", (e) => {
+    this.#allRestaurantsTab.addEventListener("click", (e) => {
       this.#selectAllItem();
       this.emitEvent("all-restaurants");
     });
 
-    $(".favorite-restaurants").addEventListener("click", (e) => {
+    this.#favoriteRestaurantsTab.addEventListener("click", (e) => {
       this.#selectFavoriteItem();
       this.emitEvent("favorite-restaurants");
     });

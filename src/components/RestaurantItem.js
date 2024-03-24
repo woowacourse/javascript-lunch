@@ -60,6 +60,10 @@ class RestaurantItem extends BaseComponent {
   }
 
   setEvent() {
+    document.addEventListener("favorite-click", () => {
+      this.render();
+    });
+
     this.addEventListener("click", (e) => {
       e.target.closest(".star")
         ? null
