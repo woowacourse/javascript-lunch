@@ -1,5 +1,5 @@
 const SelectBoxComponent = {
-  render(selectBoxInformation) {
+  create(selectBoxInformation) {
     this.mounted(selectBoxInformation);
     this.setEvent(selectBoxInformation);
   },
@@ -9,16 +9,25 @@ const SelectBoxComponent = {
   },
 
   mounted(selectBoxInformation) {
-    selectBoxInformation.$target.insertAdjacentHTML(
-      'beforeend',
-      `<select name=${selectBoxInformation.attributes.name} id=${selectBoxInformation.attributes.id} class=${selectBoxInformation.attributes.class} ${selectBoxInformation.attributes.required}>
-    ${selectBoxInformation.options.map(option => this.getSelectOption(option)).join('')}
-</select>`,
-    );
+    const selectBox = document.createElement('select');
+
+    selectBox.setAttribute('name', `${selectBoxInformation.attributes.name}`);
+    selectBox.setAttribute('id', `${selectBoxInformation.attributes.id}`);
+    selectBox.setAttribute('required', `${selectBoxInformation.attributes.required}`);
+    selectBox.classList.add(`${selectBoxInformation.attributes.class}`);
+
+    selectBoxInformation.options.forEach(option => selectBox.appendChild(this.getSelectOption(option)));
+
+    selectBoxInformation.$target.appendChild(selectBox);
   },
 
-  getSelectOption(selectOption) {
-    return `<option value=${selectOption.value}>${selectOption.text}</option>`;
+  getSelectOption(option) {
+    const selectOption = document.createElement('option');
+
+    selectOption.setAttribute('value', `${option.value}`);
+    selectOption.textContent = `${option.text}`;
+
+    return selectOption;
   },
 };
 

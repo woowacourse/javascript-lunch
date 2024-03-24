@@ -4,6 +4,8 @@ import japanese from '../../templates/category-japanese.png';
 import western from '../../templates/category-western.png';
 import asian from '../../templates/category-asian.png';
 import etc from '../../templates/category-etc.png';
+import favoriteIconFilled from '../../templates/favorite-icon-filled.png';
+import favoriteIconLined from '../../templates/favorite-icon-lined.png';
 
 const ALL = '전체';
 
@@ -28,7 +30,7 @@ const SORTING = [
 ];
 
 const FORM_CATEGORY_ATTRIBUTE = { name: 'category', id: 'category', required: true };
-const FORM_CATEGORY = [{ value: '선택해 주세요', text: '선택해 주세요' }, ...FOOD_CATEGORY];
+const FORM_CATEGORY = [{ value: '', text: '선택해 주세요' }, ...FOOD_CATEGORY];
 
 const FORM_DISTANCE_ATTRIBUTE = { name: 'distance', id: 'distance', required: true };
 const FORM_DISTANCE = [
@@ -40,6 +42,16 @@ const FORM_DISTANCE = [
   { value: '30', text: '30분 내' },
 ];
 
+const FOMR_BUTTON_INFORMATION = {
+  closeButton: { id: 'button-close', type: 'button', buttonOrder: 'button--secondary', text: '취소하기' },
+  addButton: { id: 'button-add', buttonOrder: 'button--primary', text: '추가하기' },
+};
+
+const DETAIL_BUTTON_INFORMATION = {
+  removeButton: { id: 'button-remove', type: 'button', buttonOrder: 'button--secondary', text: '삭제하기' },
+  closeButton: { id: 'button-close', type: 'button', buttonOrder: 'button--primary', text: '닫기' },
+};
+
 const CATEGORY_IMG_SRC = {
   한식: korean,
   중식: chinese,
@@ -48,6 +60,18 @@ const CATEGORY_IMG_SRC = {
   아시안: asian,
   기타: etc,
 };
+
+const FAVORITE_IMG_SRC = {
+  Y: favoriteIconFilled,
+  N: favoriteIconLined,
+};
+
+const FILTER_CONDITION = {
+  category: 0,
+  sortingCondition: 1,
+};
+
+const FAVORITE_TAP_CONDITION = 0;
 
 export {
   ALL,
@@ -61,5 +85,10 @@ export {
   FORM_CATEGORY,
   FORM_DISTANCE_ATTRIBUTE,
   FORM_DISTANCE,
+  FOMR_BUTTON_INFORMATION,
+  DETAIL_BUTTON_INFORMATION,
   CATEGORY_IMG_SRC,
+  FAVORITE_IMG_SRC,
+  FILTER_CONDITION,
+  FAVORITE_TAP_CONDITION,
 };
