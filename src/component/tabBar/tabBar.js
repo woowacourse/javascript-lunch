@@ -30,14 +30,9 @@ function renderTabBar(tabInfoList) {
     return tabItem;
   });
 
-  // const selectedTabBar = document.createElement('div');
-  // selectedTabBar.classList.add('selected__tab__bar');
-
   tabItemList.forEach((tabItem) => {
     tabContainer.appendChild(tabItem);
   });
-
-  // tabContainer.appendChild(selectedTabBar);
 
   return tabContainer;
 }

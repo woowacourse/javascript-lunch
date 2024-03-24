@@ -18,7 +18,6 @@ function createAllRestaurantList({
 function createFilterContainer({ restaurantManager, favoriteRestaurantList }) {
   const filterContainer = $('.restaurant-filter-container');
 
-  // 이미 필터가 있는 경우 재렌더하지 않음
   if (filterContainer.childNodes.length > 0) return;
 
   filterContainer.appendChild(
