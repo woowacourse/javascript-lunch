@@ -1,10 +1,11 @@
-import '@/css/index.css';
-import RestaurantList from './RestaurantList/RestaurantList';
 import { Category, IRestaurant, SortCriteria } from '@/types/Restaurant';
+import { dom } from '@/util/dom';
+import restaurantListMock from '@/mock/restaurantList.mock';
 import FilterContainer from './Basic/FilterContainer';
 import RestaurantDBService from '@/domains/services/RestaurantDBService';
-import restaurantListMock from '@/mock/restaurantList.mock';
-import { dom } from '@/util/dom';
+import RestaurantList from './RestaurantList/RestaurantList';
+
+import '@/css/index.css';
 
 class FavoriteRestaurantApp extends HTMLDivElement {
   $filterContainer: FilterContainer;
@@ -17,11 +18,12 @@ class FavoriteRestaurantApp extends HTMLDivElement {
     super();
     this.classList.add('favorite-restaurant-app');
     this.innerHTML = `
-    <filter-container class="restaurant-filter-container"></filter-container>
+    <div is="filter-container" class="restaurant-filter-container"></div>
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
     `;
 
     this.$filterContainer = dom.getElement(this, '.restaurant-filter-container');
+    this.$filterContainer.addEventListener('change', this.#onChangeFilterContainer.bind(this));
     this.$restaurantList = dom.getElement(this, '.restaurant-list');
     this.#restaurantDBService = new RestaurantDBService();
     this.render();
@@ -47,6 +49,10 @@ class FavoriteRestaurantApp extends HTMLDivElement {
 
   #getDB(category: Category, sortCriteria: SortCriteria) {
     return this.#restaurantDBService.getAfterFiltering(category, sortCriteria);
+  }
+
+  #onChangeFilterContainer() {
+    this.render();
   }
 }
 

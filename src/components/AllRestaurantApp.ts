@@ -17,11 +17,12 @@ class AllRestaurantApp extends HTMLDivElement {
     super();
     this.classList.add('restaurant-app');
     this.innerHTML = `
-    <filter-container class="restaurant-filter-container"></filter-container>
+    <div is="filter-container" class="restaurant-filter-container"></div>
     <ul is="restaurant-list" class="restaurant-list-container restaurant-list"></ul>
     `;
 
     this.#filterContainer = dom.getElement<FilterContainer>(this, '.restaurant-filter-container');
+    this.#filterContainer.addEventListener('change', this.#onChangeFilterContainer.bind(this));
     this.#restaurantList = dom.getElement<RestaurantList>(this, '.restaurant-list');
 
     this.#restaurantDBService = new RestaurantDBService();
@@ -46,6 +47,10 @@ class AllRestaurantApp extends HTMLDivElement {
 
   #getDB(category: CategoryOrAll, sortCriteria: SortCriteria) {
     return this.#restaurantDBService.getAfterFiltering(category, sortCriteria);
+  }
+
+  #onChangeFilterContainer(event: Event) {
+    this.render();
   }
 }
 

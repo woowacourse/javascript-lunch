@@ -5,7 +5,7 @@ import AllRestaurantApp from '../AllRestaurantApp';
 import SelectBox from './SelectBox';
 
 import './FilterContainer.css';
-class FilterContainer extends HTMLElement {
+class FilterContainer extends HTMLDivElement {
   #selectCategoryBox: SelectBox<CategoryOrAll>;
   #selectSortBox: SelectBox<SortCriteria>;
 
@@ -22,6 +22,8 @@ class FilterContainer extends HTMLElement {
       SORT_CRITERION_KEYS,
       'sorting',
     );
+
+    this.render();
   }
 
   render() {
@@ -43,6 +45,6 @@ class FilterContainer extends HTMLElement {
   }
 }
 
-customElements.define('filter-container', FilterContainer);
+customElements.define('filter-container', FilterContainer, { extends: 'div' });
 
 export default FilterContainer;
