@@ -9,45 +9,48 @@ import RestaurantService from './domain/RestaurantService';
 import { $ } from './utils/querySelector';
 
 class App {
-  #restaurantList;
+  #restaurants;
 
   #restaurantService;
 
-  #isAllRestaurantsSelected;
+  #appOptions;
 
-  #category;
-
-  #property;
-
-  #addingRestaurantModal;
+  #addRestaurantModal;
 
   constructor() {
-    this.#restaurantList = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
+    this.#restaurants = this.initializeRestaurantList();
     this.#restaurantService = new RestaurantService();
-    this.#addingRestaurantModal = new AddingRestaurantModal();
+    this.#appOptions = {
+      isAllRestaurantsSelected: true,
+      category: '전체',
+      property: 'name',
+    };
+    this.#addRestaurantModal = new AddingRestaurantModal();
+  }
 
-    this.#isAllRestaurantsSelected = true;
-    this.#category = '전체';
-    this.#property = 'name';
+  initializeRestaurantList() {
+    return JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.RESTAURANT_LIST)) || [];
   }
 
   run() {
     const container = $('#container');
-
-    container.appendChild(this.#addingRestaurantModal.element);
-
-    this.renderHeader();
-    this.renderNavbar();
-    this.renderFilterDropdown();
-    this.updateRestaurantList();
+    container.appendChild(this.#addRestaurantModal.element);
+    this.renderComponents(container);
+    this.updateRestaurantList(container);
   }
 
-  renderHeader() {
+  renderComponents(container) {
+    this.renderHeader(container);
+    this.renderNavbar(container);
+    this.renderFilterDropdown(container);
+  }
+
+  renderHeader(container) {
     const header = Header({
       title: '점심 뭐 먹지',
       imageSource: './add-button.png',
       onClick: () => {
-        this.#addingRestaurantModal.open();
+        this.#addRestaurantModal.open();
         this.manageAddRestaurantFormEvents();
       },
     });
@@ -55,42 +58,42 @@ class App {
     container.prepend(header);
   }
 
-  renderNavbar() {
+  renderNavbar(container) {
     const navbar = Navbar({
       firstTitle: '모든 음식점',
       secondTitle: '자주 가는 음식점',
       onClick: isAllSelected => {
-        this.#isAllRestaurantsSelected = isAllSelected;
-        this.updateRestaurantList();
+        this.#appOptions.isAllRestaurantsSelected = isAllSelected;
+        this.updateRestaurantList(container);
       },
     });
 
     container.appendChild(navbar);
   }
 
-  renderFilterDropdown() {
+  renderFilterDropdown(container) {
     const filterDropdown = FilterDropdown({
       onChangeFilter: category => {
-        this.#category = category;
-        this.updateRestaurantList();
+        this.#appOptions.category = category;
+        this.updateRestaurantList(container);
       },
       onChangeSort: property => {
-        this.#property = property;
-        this.updateRestaurantList();
+        this.#appOptions.property = property;
+        this.updateRestaurantList(container);
       },
     });
 
     container.appendChild(filterDropdown);
   }
 
-  updateRestaurantList() {
+  updateRestaurantList(container) {
     const restaurantListContainer = $('.restaurant-list-container');
 
-    const currentRestaurantList = this.#isAllRestaurantsSelected
-      ? this.#restaurantList
-      : this.#restaurantService.filterByFavorite(this.#restaurantList);
-    const filteredList = this.#restaurantService.filterByCategory(this.#category, currentRestaurantList);
-    const processedList = this.#restaurantService.sortByProperty(this.#property, filteredList);
+    const currentRestaurantList = this.#appOptions.isAllRestaurantsSelected
+      ? this.#restaurants
+      : this.#restaurantService.filterByFavorite(this.#restaurants);
+    const filteredList = this.#restaurantService.filterByCategory(this.#appOptions.category, currentRestaurantList);
+    const processedList = this.#restaurantService.sortByProperty(this.#appOptions.property, filteredList);
 
     const listFragment = this.getRestaurantItemsFragment(processedList);
 
@@ -101,6 +104,8 @@ class App {
   getRestaurantItemsFragment(processedList) {
     const listFragment = document.createElement('ul');
     listFragment.classList.add('restaurant-list');
+
+    const container = $('#container');
 
     const restaurantItems = processedList.map(restaurantItem =>
       RestaurantItem({
@@ -139,15 +144,15 @@ class App {
     const formAddRestaurant = $('.form-add-restaurant');
 
     const newRestaurant = this.createRestaurant();
-    const isAdded = this.#restaurantService.addRestaurant(newRestaurant, this.#restaurantList);
+    const isAdded = this.#restaurantService.addRestaurant(newRestaurant, this.#restaurants);
     const isAddedText = isAdded ? '추가되었습니다.' : '중복된 식당입니다. 다시 입력해주세요.';
     alert(isAddedText);
 
     if (!isAdded) return;
 
     formAddRestaurant.reset();
-    this.#addingRestaurantModal.close();
-    this.updateRestaurantList();
+    this.#addRestaurantModal.close();
+    this.updateRestaurantList($('#container'));
   }
 
   createRestaurant() {
@@ -165,22 +170,22 @@ class App {
     const favoriteButton = detailRestaurant.element.querySelector('.favorite-button');
     favoriteButton.addEventListener('click', event => {
       this.handleFavoriteButtonToggle(event, restaurantItem);
-      this.updateRestaurantList();
+      this.updateRestaurantList($('#container'));
     });
 
     const buttonContainer = detailRestaurant.element.querySelector('.button-container');
     buttonContainer.addEventListener('click', event => {
       if (event.target.innerText === '삭제하기') {
-        this.#restaurantList = this.#restaurantService.removeRestaurant(restaurantItem, this.#restaurantList);
+        this.#restaurants = this.#restaurantService.removeRestaurant(restaurantItem, this.#restaurants);
         alert('삭제되었습니다.');
       }
-      this.updateRestaurantList();
+      this.updateRestaurantList($('#container'));
       detailRestaurant.close();
     });
   }
 
   handleFavoriteButtonToggle(event, restaurantItem) {
-    this.#restaurantService.toggleFavorite(restaurantItem, this.#restaurantList);
+    this.#restaurantService.toggleFavorite(restaurantItem, this.#restaurants);
     event.target.src = restaurantItem.favorite ? './favorite-icon-filled.svg' : './favorite-icon-lined.svg';
   }
 }
