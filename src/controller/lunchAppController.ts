@@ -1,14 +1,11 @@
-import { LunchHeaderComponent } from '../components/LunchHeaderComponent';
-import { ModalComponent } from '../components/ModalComponent';
-import SortFilterComponent from '../components/SortFilterComponent';
-import CategoryFilterComponent from '../components/CategoryFilterComponent';
-import { CATEGORY, SORTING } from '../constants/constants';
-import RestaurantList from '../domain/restaurantList';
+import { AddModal, CategoryFilter, Header, SortFilter, TabBar } from '../components';
+import ToastMessage from '../components/common/ToastMessage';
+import RestaurantList, { restaurantList } from '../domain/restaurantList';
 
 export default class LunchAppController {
   private $appContainer: HTMLElement;
   private $filterContainer: HTMLElement;
-  private restaurantList = new RestaurantList();
+  private restaurantList = restaurantList;
 
   constructor() {
     this.$appContainer = document.querySelector('body') as HTMLElement;
@@ -16,39 +13,49 @@ export default class LunchAppController {
   }
 
   async init() {
+    this.renderToast();
     this.renderGNB();
+    this.renderTabBar();
     this.renderModal();
     this.renderCategoryFilter();
     this.renderSortingFilter();
   }
 
   private renderGNB = () => {
-    const lunchHeader = LunchHeaderComponent();
-    this.$appContainer.prepend(lunchHeader.getTemplate());
+    const lunchHeader = Header();
+    this.$appContainer.prepend(lunchHeader.create());
+  };
+
+  private renderTabBar = () => {
+    const tabBar = TabBar(this.restaurantList).create();
+
+    const headerElement = this.$appContainer.querySelector('.gnb');
+
+    if (headerElement) {
+      headerElement.parentNode?.insertBefore(tabBar, headerElement.nextSibling);
+    }
   };
 
   private renderCategoryFilter = () => {
-    const categoryFilter = new CategoryFilterComponent();
-    const node = categoryFilter.getTemplate(CATEGORY);
-    categoryFilter.setEvent(node, this.restaurantList);
-    this.$filterContainer.appendChild(node);
+    const categoryFilter = CategoryFilter(this.restaurantList).create();
+    this.$filterContainer.appendChild(categoryFilter);
   };
 
   private renderSortingFilter = () => {
-    const sortingFilter = new SortFilterComponent();
-    const node = sortingFilter.getTemplate(SORTING);
-
-    sortingFilter.setEvent(node, this.restaurantList);
-    this.$filterContainer.appendChild(node);
+    const categoryFilter = SortFilter(this.restaurantList).create();
+    this.$filterContainer.appendChild(categoryFilter);
   };
 
   private renderModal = () => {
-    const modal = ModalComponent();
+    const addModal = AddModal().create();
+    this.$appContainer.appendChild(addModal);
+  };
 
-    this.$appContainer.appendChild(modal.getTemplate());
-    modal.setEvent();
+  private renderToast = () => {
+    const toast = ToastMessage().create();
+    this.$appContainer.appendChild(toast);
   };
 }
 
 const lunchAppController = new LunchAppController();
-await lunchAppController.init();
+lunchAppController.init();

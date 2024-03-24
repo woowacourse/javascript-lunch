@@ -1,23 +1,29 @@
-import { RestaurantCardComponent } from '../components/RestaurantCardComponent';
+import { RestaurantCard } from '../components';
 import { initialData } from '../data/restaurantData';
-import { RestaurantInfo, CategoryValues, SortingValues } from '../types/types';
+import { RestaurantInfo, CategoryValues, SortingValues } from '../types';
 import restaurantAPI from './restaurantAPI';
 
 export default class RestaurantList {
-  #category: CategoryValues = '전체';
-  #sorting: SortingValues = '이름순';
+  #category: CategoryValues;
+  #sorting: SortingValues;
+  #isFavorite: boolean;
 
   #restaurantData = initialData;
 
-  private async initialize() {
+  async initialize() {
     const additionalData = await restaurantAPI.load();
 
-    return [...initialData, ...additionalData];
+    return additionalData;
   }
 
   constructor() {
+    restaurantAPI.initialize();
     this.updateRestaurants();
     this.render();
+
+    this.#category = '전체';
+    this.#sorting = '이름순';
+    this.#isFavorite = false;
   }
 
   setCategory(category: CategoryValues) {
@@ -32,17 +38,28 @@ export default class RestaurantList {
     this.updateRestaurants();
   }
 
+  setIsFavorite(isFavorite: boolean) {
+    this.#isFavorite = isFavorite;
+
+    this.updateRestaurants();
+  }
+
   async getRestaurants(): Promise<RestaurantInfo[]> {
     this.#restaurantData = await this.initialize();
     return this.#restaurantData;
   }
 
-  async filterByCategory(category: CategoryValues): Promise<RestaurantInfo[]> {
-    this.#restaurantData = await this.initialize();
-
+  filterByCategory(category: CategoryValues): RestaurantInfo[] {
     if (category === '전체') return this.#restaurantData;
 
     return [...this.#restaurantData].filter((restaurant) => restaurant.category === category);
+  }
+
+  sortFavorite(data: RestaurantInfo[], isFavorite: boolean): RestaurantInfo[] {
+    if (!isFavorite) {
+      return data;
+    }
+    return data.filter((restaurant) => restaurant.isFavorite);
   }
 
   sortByKey(data: RestaurantInfo[], sorting: SortingValues): RestaurantInfo[] {
@@ -63,24 +80,27 @@ export default class RestaurantList {
   }
 
   async updateRestaurants() {
-    const filteredData = await this.filterByCategory(this.#category);
-    const sortedData = this.sortByKey(filteredData, this.#sorting);
-
+    this.#restaurantData = await this.initialize();
+    const filteredData = this.filterByCategory(this.#category);
+    const sortByIsFavorite = this.sortFavorite(filteredData, this.#isFavorite);
+    const sortedData = this.sortByKey(sortByIsFavorite, this.#sorting);
     this.#restaurantData = sortedData;
-    this.render();
+    await this.render();
   }
 
-  render() {
-    const restaurantCardComponent = RestaurantCardComponent();
+  async render() {
     const $restaurantListContainer = document.querySelector(
       '.restaurant-list-container'
     ) as HTMLElement;
 
     $restaurantListContainer.replaceChildren();
 
-    this.#restaurantData.forEach(({ category, name, distance, description }) => {
-      const node = restaurantCardComponent.getTemplate({ category, name, distance, description });
-      $restaurantListContainer.appendChild(node);
+    this.#restaurantData.forEach((restaurantInfo) => {
+      $restaurantListContainer.appendChild(
+        RestaurantCard({ restaurantInfo, restaurantList: this }).create()
+      );
     });
   }
 }
+
+export const restaurantList = new RestaurantList();

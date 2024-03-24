@@ -1,4 +1,4 @@
-import { CATEGORY, SORTING } from '../constants/constants';
+import { CATEGORY, SORTING } from '../constants';
 
 export type CategoryFilterType = keyof typeof CATEGORY;
 export type Category = Exclude<CategoryFilterType, 'all'>;
@@ -13,6 +13,7 @@ export type RestaurantInfo = {
   category: CategoryValues;
   name: string;
   distance: number;
+  isFavorite: boolean;
   description?: string;
   link?: string;
 };
