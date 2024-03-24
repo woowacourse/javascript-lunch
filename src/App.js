@@ -112,7 +112,7 @@ class App {
           this.manageDetailRestaurantEvents(detailRestaurant, restaurantItem);
         },
         onFavoriteImageClick: event => {
-          this.handleButtonChange(event, restaurantItem);
+          this.handleFavoriteButtonToggle(event, restaurantItem);
         },
       }),
     );

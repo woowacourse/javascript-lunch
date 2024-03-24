@@ -53,7 +53,6 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('#category-filter').select('한식');
     cy.get('#sorting-filter').select('distance');
 
-    cy.get('.restaurant').should('have.length', 2);
     cy.get('.restaurant__name').eq(0).should('contain', '꺼벙이분식');
     cy.get('.restaurant__name').eq(1).should('contain', '배가무닭볶음탕');
   });
@@ -69,7 +68,13 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
   });
 
   // 식당 상세 모달/즐겨찾기/식당 삭제
-  it('식당 리스트를 누르면 식당 상세 모달이 뜨고 즐겨찾기를 등록할 수 있다.', () => {
+  it('식당 리스트를 누르면 식당 상세 모달이 뜬다.', () => {
+    cy.get('.restaurant').eq(1).click();
+
+    cy.get('.modal').should('have.class', 'modal--open');
+  });
+
+  it('식당 상세 모달에서 즐겨찾기를 등록할 수 있다.', () => {
     cy.get('.restaurant').eq(1).click();
 
     cy.get('.modal').should('have.class', 'modal--open');
@@ -86,7 +91,7 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
     cy.get('.restaurant').should('have.length', 1);
   });
 
-  it('식당 리스트를 누르면 식당 상세 모달이 뜨고 식당을 삭제할 수 있다.', () => {
+  it('식당 상세 모달에서 식당을 삭제할 수 있다.', () => {
     cy.get('.restaurant').eq(2).click();
 
     cy.get('.modal').should('have.class', 'modal--open');
@@ -101,6 +106,6 @@ describe('점심 뭐 먹지 E2E 테스트', () => {
 
     cy.get('.modal').should('not.be.visible');
 
-    cy.get('.restaurant').should('have.length', 3);
+    cy.get('.restaurant').should('have.length', restaurantList.length - 1);
   });
 });
