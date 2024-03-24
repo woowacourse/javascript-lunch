@@ -25,12 +25,11 @@ class RestaurantDetail extends BaseModal {
           <div class="restaurant__category">
             <img src=${img} alt=${category} class="category-icon" />
           </div>
-          <button class="modal-star" aria-label="모달 즐겨찾기 추가 버튼">
-            <favorite-toggle
-              isFavorite=${isFavorite}
-              name="${name}"
-            ></favorite-toggle>
-          </button>
+
+          <favorite-toggle
+            isFavorite=${isFavorite}
+            name="${name}"
+          ></favorite-toggle>
         </div>
 
         <div>

@@ -17,7 +17,7 @@ class FavoriteToggle extends BaseComponent {
 
   render() {
     this.innerHTML = `
-      <button class="modal-star">
+    <button class="modal-star" aria-label="모달 즐겨찾기 추가 버튼">
         ${this.#isFavorite ? FILLED_FAVORITE_TOGGLE : EMPTY_FAVORITE_TOGGLE}
       </button>
     `;

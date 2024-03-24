@@ -50,11 +50,10 @@ class RestaurantItem extends BaseComponent {
           }
         </div>
 
-
-        <button class="star" aria-label="즐겨찾기 추가 버튼">
-        <favorite-toggle isFavorite=${isFavorite} name="${name}"></favorite-toggle>
-        </button>
-
+        <favorite-toggle
+          isFavorite=${isFavorite}
+          name="${name}"
+        ></favorite-toggle>
       </li>
     `;
   }
