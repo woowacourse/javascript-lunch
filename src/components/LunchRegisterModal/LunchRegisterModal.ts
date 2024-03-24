@@ -1,17 +1,16 @@
 import './style.css';
 // eslint-disable-next-line import/no-duplicates
 import '../LunchFormItem/LunchFormItem';
-import '../LunchButton/LunchButton';
+
+import LunchButton from '../LunchButton/LunchButton';
+// eslint-disable-next-line import/no-duplicates
 import LunchFormItem, { FormItemType } from '../LunchFormItem/LunchFormItem';
 import { RestaurantRegistry } from '../../domain';
-import LunchItems from '../LunchItems/LunchItems';
 import { Restaurant } from '../../types';
+import LunchModal from '../LunchModal/LunchModal';
 
 const LUNCH_REGISTER_MODAL = /* html */ `
-<div class="modal">
-  <div class="modal-backdrop"></div>
-  <div class="modal-container">
-    <h2 class="modal-title text-title">새로운 음식점</h2>
+    <h2 class="register-modal-title text-title">새로운 음식점</h2>
     <form>
       <lunch-form-item type="dropdown" name="category" label="카테고리"  required="true"></lunch-form-item>
       <lunch-form-item type="input" name="name" label="가게명"  required="true"></lunch-form-item>
@@ -19,49 +18,69 @@ const LUNCH_REGISTER_MODAL = /* html */ `
       <lunch-form-item type="textArea" name="description" label="설명" message="메뉴 등 추가 정보를 입력해 주세요." ></lunch-form-item>
       <lunch-form-item type="input" name="link" label="링크" message="매장 정보를 확인할 수 있는 링크를 입력해 주세요." ></lunch-form-item>
       <div class="button-container">
-        <lunch-button type="button" text="취소하기" color="secondary"></lunch-button>
-        <lunch-button text="추가하기" color="primary"></lunch-button>
+        
       </div>
     </form>
-</div>
 `;
 
 class LunchRegisterModal extends HTMLElement {
+  constructor() {
+    super();
+    this.appendChild(new LunchModal());
+  }
+
   connectedCallback() {
     this.render();
-    this.setEventListener();
-    this.setSubmitListener();
+    this.setSubmitEventListener();
   }
 
   render(): void {
-    this.innerHTML = LUNCH_REGISTER_MODAL;
-  }
-
-  setEventListener() {
-    const cancelButton = this.querySelector('.button--secondary');
-    cancelButton?.addEventListener('click', () => {
-      this.handleModalClose();
-    });
-  }
-
-  handleModalClose() {
-    const modal = this.querySelector('.modal');
-    if (modal?.className) {
-      modal.classList.remove('modal--open');
+    const container = this.querySelector('.modal-container');
+    if (container) {
+      container.innerHTML = LUNCH_REGISTER_MODAL;
     }
-
-    this.querySelector('form')?.reset();
+    this.createButtons();
   }
 
-  setSubmitListener() {
-    this.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const newRestaurant: Restaurant = this.getNewRestaurant();
-      RestaurantRegistry.registerOneRestaurant(newRestaurant);
-      this.handleModalClose();
-      this.handleDropDown();
+  handleToggleModal() {
+    const toggleRegisterModal = new CustomEvent('toggleRegisterModal', {
+      bubbles: true,
     });
+    this.dispatchEvent(toggleRegisterModal);
+  }
+
+  // eslint-disable-next-line max-lines-per-function
+  createButtons() {
+    const buttonContainer = this.querySelector('.button-container');
+    buttonContainer?.appendChild(
+      new LunchButton({
+        color: 'secondary',
+        type: 'button',
+        text: '취소하기',
+        onClick: this.handleToggleModal.bind(this),
+      }),
+    );
+    buttonContainer?.appendChild(
+      new LunchButton({
+        color: 'primary',
+        type: 'submit',
+        text: '추가하기',
+      }),
+    );
+  }
+
+  setSubmitEventListener() {
+    this.addEventListener('submit', () => {
+      this.handleSubmit();
+    });
+  }
+
+  handleSubmit() {
+    const restaurant: Restaurant = this.getNewRestaurant();
+    RestaurantRegistry.registerOneRestaurant({ restaurant });
+    this.handleToggleModal();
+    this.querySelector('form')?.reset();
+    this.dispatchResetFavoriteTabEvent();
   }
 
   getNewRestaurant() {
@@ -75,21 +94,12 @@ class LunchRegisterModal extends HTMLElement {
     return newRestaurant;
   }
 
-  handleDropDown() {
-    const dropdowns = document.querySelectorAll('restaurant-filter');
-    dropdowns.forEach((dropdown) => {
-      const select = dropdown.querySelector('select');
-      if (select) {
-        select.options[0].selected = true;
-      }
-    });
-    this.handleRenderItems();
-  }
-
-  handleRenderItems() {
-    const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({});
+  dispatchResetFavoriteTabEvent() {
+    const resetFavoriteTab = new CustomEvent('resetFavoriteTab', { bubbles: true });
+    this.dispatchEvent(resetFavoriteTab);
   }
 }
 
 customElements.define('lunch-register-modal', LunchRegisterModal);
+
+export default LunchRegisterModal;

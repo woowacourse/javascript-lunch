@@ -1,3 +1,4 @@
+import connectedCollection, { DEFAULT_COLLECTION, databaseType } from '../api/Collection';
 import { SORTBY } from '../constants/sortBy';
 import { Category } from '../types/Category';
 import { Restaurant } from '../types/Restaurant';
@@ -5,7 +6,11 @@ import { Restaurants } from '../types/Restaurants';
 import { SortBy } from '../types/SortBy';
 
 type RestaurantDataProviderType = {
-  getAllRestaurantsByOption: ({ category, sortBy }: getAllRestaurantsByOptionProps) => Restaurants;
+  getAllRestaurantsByOption: ({
+    category,
+    sortBy,
+    database,
+  }: getAllRestaurantsByOptionProps) => Restaurants;
   filterByCategory: ({ category, allRestaurants }: FilterByCategoryProps) => Restaurants;
   sortRestaurants: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
   sortByCreatedAt: ({ sortBy, filterRestaurants }: SortRestaurantsProps) => Restaurants;
@@ -17,6 +22,7 @@ type RestaurantDataProviderType = {
 type getAllRestaurantsByOptionProps = {
   category?: Category;
   sortBy?: SortBy;
+  database?: databaseType;
 };
 
 type FilterByCategoryProps = {
@@ -35,8 +41,7 @@ type SortRestaurantsProps = {
  */
 const RestaurantDataProvider: RestaurantDataProviderType = {
   getAllRestaurantsByOption(props: getAllRestaurantsByOptionProps): Restaurants {
-    const restaurants = localStorage.getItem('restaurants');
-    const allRestaurants = JSON.parse(restaurants || '[]');
+    const allRestaurants = connectedCollection.getAllItems(props.database);
 
     const filterRestaurants = props.category
       ? this.filterByCategory({ category: props.category, allRestaurants })

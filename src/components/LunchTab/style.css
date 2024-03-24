@@ -1,0 +1,18 @@
+.lunch-tab {
+  display: flex;
+  padding: 2rem 1rem 0
+}
+
+.tab-button {
+  width: 100%;
+  height: 48px;
+  background-color: white;
+
+  color: var(--grey-300);
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.tab-button__active {
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+}

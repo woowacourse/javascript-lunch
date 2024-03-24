@@ -1,7 +1,6 @@
 import './style.css';
 
 import LunchDropdown, { LunchDropdownProps } from '../LunchDropdown/LunchDropdown';
-import LunchItems from '../LunchItems/LunchItems';
 import { CATEGORIES } from '../../constants/categories';
 import { SORTBY } from '../../constants/sortBy';
 
@@ -36,8 +35,8 @@ class LunchItemFilter extends HTMLElement {
   }
 
   setEventListener() {
-    this.addEventListener('changeDropdown', () => {
-      this.handleRender();
+    this.addEventListener('change', () => {
+      this.dispatchRerenderEvent();
     });
   }
 
@@ -45,10 +44,15 @@ class LunchItemFilter extends HTMLElement {
     this.appendChild(new LunchDropdown(props));
   }
 
-  handleRender() {
-    const dropdowns = this.querySelectorAll('select');
-    const items = document.querySelector('lunch-items') as LunchItems;
-    items.renderItems({ category: dropdowns[0].value, sortBy: dropdowns[1].value });
+  dispatchRerenderEvent() {
+    const rerenderEvent = new CustomEvent('rerender', { bubbles: true });
+    this.dispatchEvent(rerenderEvent);
+  }
+
+  resetDropdowns() {
+    this.querySelectorAll('select').forEach((element) => {
+      element.options[0].selected = true;
+    });
   }
 }
 

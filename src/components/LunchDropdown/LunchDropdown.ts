@@ -25,7 +25,6 @@ class LunchDropdown extends HTMLSelectElement {
     this.id = id;
     this.classList.add(className);
     this.createOptions(options, defaultValue);
-    this.setEventListener();
   }
 
   createOptions(options: Record<string, string>, defaultValue?: string) {
@@ -34,15 +33,6 @@ class LunchDropdown extends HTMLSelectElement {
     }
     Object.values(options).forEach((value) => {
       this.insertAdjacentHTML('beforeend', `<option value=${value}>${value}</option>`);
-    });
-  }
-
-  setEventListener(): void {
-    this.addEventListener('change', () => {
-      const changeDropdownEvent = new CustomEvent('changeDropdown', {
-        bubbles: true,
-      });
-      this.dispatchEvent(changeDropdownEvent);
     });
   }
 }

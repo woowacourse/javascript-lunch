@@ -1,3 +1,7 @@
+lunch-items {
+  height: 100%;
+}
+
 .restaurant-list-container {
   display: flex;
   flex-direction: column;

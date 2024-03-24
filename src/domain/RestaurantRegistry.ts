@@ -1,14 +1,27 @@
+import connectedCollection, { databaseType } from '../api/Collection';
 import { Restaurant } from '../types/Restaurant';
 
-/**
- * @param {Object} 새로운 가게 등록 후 local에 저장
- */
-const RestaurantRegister = {
-  registerOneRestaurant(newRestaurant: Restaurant) {
-    const allRestaurants: Restaurant[] = JSON.parse(localStorage.getItem('restaurants') ?? '[]');
-    allRestaurants.push(newRestaurant);
-    localStorage.setItem('restaurants', JSON.stringify(allRestaurants));
+interface RestaurantRegistryProps {
+  restaurant: Restaurant;
+  database?: databaseType;
+}
+const RestaurantRegistry = {
+  registerOneRestaurant({ restaurant, database }: RestaurantRegistryProps) {
+    connectedCollection.setOneItem({ restaurant, database });
+  },
+
+  deleteOneRestaurant({ restaurant, database }: RestaurantRegistryProps) {
+    connectedCollection.deleteOneItem({ restaurant, database });
+    this.unlikeOneRestaurant({ restaurant });
+  },
+
+  unlikeOneRestaurant({ restaurant }: RestaurantRegistryProps) {
+    connectedCollection.deleteOneItem({ restaurant, database: 'liked' });
+  },
+
+  hasOneRestaurant({ restaurant, database }: RestaurantRegistryProps) {
+    return connectedCollection.hasOneItem({ restaurant, database });
   },
 };
 
-export default RestaurantRegister;
+export default RestaurantRegistry;
