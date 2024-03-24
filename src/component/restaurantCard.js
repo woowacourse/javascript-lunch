@@ -2,7 +2,7 @@ import createRestaurantCategoryIcon from './restaurantCategoryIcon/restaurantCat
 import { createStarButton } from './iconButtons/starButton.js';
 
 function createRestaurantCard({ restaurant, baseComponent, hasFavorite }) {
-  const restaurantCard = render({
+  const restaurantCard = renderRestaurantCard({
     ...restaurant,
     baseComponent,
     hasFavorite,
@@ -11,7 +11,7 @@ function createRestaurantCard({ restaurant, baseComponent, hasFavorite }) {
   return restaurantCard;
 }
 
-function render({
+function renderRestaurantCard({
   id,
   category,
   name,
@@ -62,7 +62,6 @@ function createRestaurantInfo({
 
   const restaurantWalkingTime = createRestaurantWalkingTime(walkingTime);
 
-
   const restaurantDescription = document.createElement('p');
   restaurantDescription.className = 'restaurant__description text-body';
   restaurantDescription.textContent = description;
@@ -77,7 +76,6 @@ function createRestaurantInfo({
   infoDiv.appendChild(restaurantDescription);
 
   return infoDiv;
-
 }
 
 export default createRestaurantCard;

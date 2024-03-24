@@ -2,8 +2,11 @@ import { APP_NAME } from '../constant/cons.js';
 import { $ } from '../utils/selector.js';
 import { openModal } from './modal/modal.js';
 
+function createHeader(headerProps) {
+  return renderHeader(headerProps);
+}
 
-function createHeader({
+function renderHeader({
   className,
   left,
   right,
@@ -23,12 +26,10 @@ function createHeader({
     hasFavorite,
   });
 
-
   header.append(leftElement, rightElement);
   return header;
 }
 
-// REFACTOR: 앱 이름 상수로 분리
 const item = {
   logo() {
     const h1 = document.createElement('h1');
@@ -38,7 +39,6 @@ const item = {
   },
 
   add({ addRestaurant, getRestaurantList, favoriteToggle, hasFavorite }) {
-
     const button = document.createElement('button');
 
     button.type = 'button';
@@ -58,7 +58,6 @@ const item = {
       favoriteToggle,
       hasFavorite,
     });
-
 
     return button;
   },

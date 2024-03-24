@@ -1,4 +1,8 @@
-function createLabelWrapper({
+function createLabelWrapper(labelWrapperProps) {
+  return renderLabelWrapper(labelWrapperProps);
+}
+
+function renderLabelWrapper({
   className,
   htmlFor,
   description = '',

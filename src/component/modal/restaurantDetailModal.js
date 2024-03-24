@@ -13,7 +13,7 @@ function createRestaurantDetailModal({
   hasFavorite,
   handleFavorite,
 }) {
-  const container = render({
+  const container = renderRestaurantDetailModal({
     ...restaurant,
     hasFavorite,
   });
@@ -27,7 +27,7 @@ function createRestaurantDetailModal({
   return container;
 }
 
-function render({
+function renderRestaurantDetailModal({
   id,
   name,
   walkingTime,
@@ -73,14 +73,14 @@ function render({
   else {
     restaurantUrl.href = link.startsWith('https://') ? link : `https://${link}`;
     restaurantUrl.textContent = link;
-    restaurantUrl.target = '_blank'; // 새 창에서 링크 열기
+    restaurantUrl.target = '_blank';
   }
 
   const cancelButton = createButton({
     className: 'button button--secondary text-caption',
     eventType: 'click',
     name: '삭제하기',
-    // TODO: 삭제 기능 구현
+
     callback: () => cancelButton.dispatchEvent(deleteRestaurantInModalEvent),
   });
 

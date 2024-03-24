@@ -1,5 +1,5 @@
 function createDropDown({ id, callback, options, className, required, cover }) {
-  const dropdown = render({ options, id, className, required, cover });
+  const dropdown = renderDropdown({ options, id, className, required, cover });
 
   if (!callback) return dropdown;
 
@@ -20,8 +20,7 @@ function createDropDown({ id, callback, options, className, required, cover }) {
   return dropdown;
 }
 
-// REFACTOR: createElement로 수정해야한다.
-function render({ options, id, className, required, cover }) {
+function renderDropdown({ options, id, className, required, cover }) {
   const select = document.createElement('select');
   select.id = id;
   select.className = className;

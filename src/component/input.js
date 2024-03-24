@@ -1,4 +1,8 @@
-function createInput({ name, id, type, required }) {
+function createInput(inputProps) {
+  return renderInput(inputProps);
+}
+
+function renderInput({ name, id, type, required }) {
   const input = document.createElement('input');
   input.name = name;
   input.id = id;
