@@ -12,17 +12,33 @@ interface DropdownProps {
   isRequired: boolean;
 }
 
-const Dropdown = (props: DropdownProps) => {
+const createDropdown = (props: DropdownProps) => {
   const { options, label, name, id, className, isRequired } = props;
+  const dropdownContainer = document.createElement('div');
 
-  return /*html*/ `
-  ${label ? `<label for="${name}" class="text-caption">${label}</label>` : ''}
-  <select ${name ? `name="${name}"` : ''} ${id ? `id="${id}"` : ''} ${className ? `class="${className}"` : ''} ${isRequired ? 'required' : ''}>
-    ${options.map((option: DropdownOption) => {
-      return `<option value="${option.value}">${option.content}</option>`;
-    })}
-  </select>
-  `;
+  if (label) {
+    const labelElement = document.createElement('label');
+    labelElement.setAttribute('for', name || '');
+    labelElement.textContent = label;
+    dropdownContainer.append(labelElement);
+  }
+
+  const selectElement = document.createElement('select');
+  if (name) selectElement.setAttribute('name', name);
+  if (id) selectElement.setAttribute('id', id);
+  if (className) selectElement.setAttribute('class', className);
+  if (isRequired) selectElement.setAttribute('required', 'true');
+
+  options.forEach(option => {
+    const optionElement = document.createElement('option');
+    optionElement.setAttribute('value', option.value);
+    optionElement.textContent = option.content;
+    selectElement.add(optionElement);
+  });
+
+  dropdownContainer.append(selectElement);
+
+  return Array.from(dropdownContainer.childNodes);
 };
 
-export default Dropdown;
+export default createDropdown;

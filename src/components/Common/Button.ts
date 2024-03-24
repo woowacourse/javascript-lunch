@@ -6,9 +6,13 @@ interface Props {
 }
 
 const createButton = ({ id, type, variant, content }: Props) => {
-  return /*html*/ `
-  <button id=${id} type=${type} class="button button--${variant} text-caption">${content}</button>
-  `;
+  const buttonContainer = document.createElement('button');
+  buttonContainer.setAttribute('id', id);
+  buttonContainer.setAttribute('type', type);
+  buttonContainer.classList.add('button', `button--${variant}`, 'text-caption');
+  buttonContainer.textContent = content;
+
+  return buttonContainer;
 };
 
 export default createButton;

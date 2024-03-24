@@ -4,52 +4,103 @@ import {
   ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS,
   CANCEL_BUTTON_PROPS,
 } from '../../constant/options';
-import RestaurantEntity from '../../domain/entities/RestaurantEntity';
 import { $ } from '../../utils/querySelector';
 import createButton from '../Common/Button';
-import Dropdown from '../Common/Dropdown';
+import createDropdown from '../Common/Dropdown';
 import Modal from './Modal';
 
 const addRestaurantLayout = document.createElement('div');
-addRestaurantLayout.innerHTML = /*html*/ `
-<h2 class="modal-title text-title">새로운 음식점</h2>
-<form id="add-restaurant">
-  <div class="form-item form-item--required">
-    ${Dropdown(ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS)}
-  </div>
 
-  <div class="form-item form-item--required">
-    <label for="name text-caption">이름</label>
-    <input type="text" name="name" id="name" required />
-  </div>
+const titleElement = document.createElement('h2');
+titleElement.classList.add('modal-title', 'text-title');
+titleElement.textContent = '새로운 음식점';
+addRestaurantLayout.append(titleElement);
 
-  <div class="form-item form-item--required">
-    ${Dropdown(ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS)}
-  </div>
+const formElement = document.createElement('form');
+formElement.setAttribute('id', 'add-restaurant');
 
-  <div class="form-item">
-    <label for="description text-caption">설명</label>
-    <textarea name="description" id="description" cols="30" rows="5"></textarea>
-    <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-  </div>
+const categoryDropdown = document.createElement('div');
+categoryDropdown.classList.add('form-item', 'form-item--required');
+createDropdown(ADD_RESTAURANT_CATEGORY_DROPDOWN_PROPS).forEach(node => {
+  categoryDropdown.append(node);
+});
 
-  <div class="form-item">
-    <label for="link text-caption">참고 링크</label>
-    <input type="text" name="link" id="link" />
-    <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
-  </div>
+const nameContainer = document.createElement('div');
+nameContainer.classList.add('form-item', 'form-item--required');
 
-  <div class="button-container">
-    ${createButton(CANCEL_BUTTON_PROPS)}
-    ${createButton(ADD_BUTTON_PROPS)}
-  </div>
-</form>
-`;
+const nameLabel = document.createElement('label');
+nameLabel.setAttribute('for', 'name text-caption');
+nameLabel.textContent = '이름';
+nameContainer.append(nameLabel);
+
+const nameInput = document.createElement('input');
+nameInput.setAttribute('type', 'text');
+nameInput.setAttribute('name', 'name');
+nameInput.setAttribute('id', 'name');
+nameInput.setAttribute('required', 'true');
+nameContainer.append(nameInput);
+
+const distanceDropdown = document.createElement('div');
+distanceDropdown.classList.add('form-item', 'form-item--required');
+createDropdown(ADD_RESTAURANT_DISTANCE_DROPDOWN_PROPS).forEach(node => {
+  distanceDropdown.append(node);
+});
+
+const descriptionContainer = document.createElement('div');
+descriptionContainer.classList.add('form-item');
+
+const descriptionLabel = document.createElement('label');
+descriptionLabel.setAttribute('for', 'description text-caption');
+descriptionLabel.textContent = '설명';
+descriptionContainer.append(descriptionLabel);
+
+const descriptionInput = document.createElement('textarea');
+descriptionInput.setAttribute('name', 'description');
+descriptionInput.setAttribute('id', 'description');
+descriptionInput.setAttribute('cols', '30');
+descriptionInput.setAttribute('rows', '5');
+descriptionContainer.append(descriptionInput);
+
+const descriptionCaption = document.createElement('span');
+descriptionCaption.classList.add('help-text', 'text-caption');
+descriptionCaption.textContent = '메뉴 등 추가 정보를 입력해 주세요.';
+descriptionContainer.append(descriptionCaption);
+
+const linkContainer = document.createElement('div');
+linkContainer.classList.add('form-item');
+
+const linkLabel = document.createElement('label');
+linkLabel.setAttribute('for', 'description text-caption');
+linkLabel.textContent = '설명';
+linkContainer.append(linkLabel);
+
+const linkInput = document.createElement('input');
+linkInput.setAttribute('type', 'text');
+linkInput.setAttribute('name', 'link');
+linkInput.setAttribute('id', 'link');
+linkContainer.append(linkInput);
+
+const linkCaption = document.createElement('span');
+linkCaption.classList.add('help-text', 'text-caption');
+linkCaption.textContent = '매장 정보를 확인할 수 있는 링크를 입력해 주세요.';
+linkContainer.append(linkCaption);
+
+const buttonContainer = document.createElement('div');
+buttonContainer.classList.add('button-container');
+buttonContainer.append(createButton(CANCEL_BUTTON_PROPS));
+buttonContainer.append(createButton(ADD_BUTTON_PROPS));
+
+formElement.append(categoryDropdown);
+formElement.append(nameContainer);
+formElement.append(distanceDropdown);
+formElement.append(descriptionContainer);
+formElement.append(linkContainer);
+formElement.append(buttonContainer);
+addRestaurantLayout.append(formElement);
 
 class AddRestaurantModal extends Modal {
   constructor() {
     super({ child: addRestaurantLayout });
-    this.setEvents();
   }
 
   createRestaurant() {
@@ -59,20 +110,16 @@ class AddRestaurantModal extends Modal {
     const description = $('#description').value;
     const link = $('#link').value;
 
-    return new RestaurantEntity({
-      restaurant: {
-        id: category + name,
-        category: category,
-        name: name,
-        distance: distance,
-        description: description,
-        link: link,
-        isFavorite: false,
-      },
-    });
+    return {
+      id: category + name,
+      category: category,
+      name: name,
+      distance: distance,
+      description: description,
+      link: link,
+      isFavorite: false,
+    };
   }
-
-  setEvents() {}
 }
 
 export default AddRestaurantModal;
