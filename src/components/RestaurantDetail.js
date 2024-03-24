@@ -10,15 +10,8 @@ class RestaurantDetail extends BaseModal {
 
   constructor() {
     super();
-    this.#restaurantDetail = {
-      name: "",
-      category: "",
-      distance: "",
-      description: "",
-      link: "",
-      isFavorite: false,
-    };
 
+    this.#initializeDetail();
     this.initEvent();
   }
 
@@ -67,6 +60,19 @@ class RestaurantDetail extends BaseModal {
     `;
   }
 
+  #initializeDetail(detail = {}) {
+    const defaults = {
+      name: "",
+      category: "",
+      distance: "",
+      description: "",
+      link: "",
+      isFavorite: false,
+    };
+
+    this.#restaurantDetail = { ...defaults, ...detail };
+  }
+
   initEvent() {
     this.addEventListener("click", (e) => {
       if (e.target.id === "close-modal") {
@@ -83,14 +89,7 @@ class RestaurantDetail extends BaseModal {
 
   setEvent() {
     document.addEventListener("detail-modal-open", (e) => {
-      const { name, category, distance, description, link, isFavorite } =
-        getRestaurantDetail(e.detail.name);
-      this.#restaurantDetail.name = name;
-      this.#restaurantDetail.category = category;
-      this.#restaurantDetail.distance = distance;
-      this.#restaurantDetail.description = description;
-      this.#restaurantDetail.link = link || "";
-      this.#restaurantDetail.isFavorite = isFavorite;
+      this.#initializeDetail(getRestaurantDetail(e.detail.name));
       this.render();
     });
   }
