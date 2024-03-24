@@ -1,5 +1,6 @@
 import "../style.css";
 
+import SAMPLE_RESTAURANT from "../../../../constants/sampleRestaurant";
 import categoryImgSrcMatcher from "../utils/categoryImgSrcMatcher";
 import createElementByTag from "../../../utils/createElementByTag";
 
@@ -8,6 +9,8 @@ class RestaurantDetail {
     tag: "section",
     classes: ["restaurant-detail"],
   });
+
+  restaurant: Restaurant = SAMPLE_RESTAURANT;
 
   #categoryImg = createElementByTag({
     tag: "img",
@@ -54,6 +57,7 @@ class RestaurantDetail {
   }
 
   setDetail(restaurant: Restaurant) {
+    this.restaurant = restaurant;
     this.#name.textContent = restaurant.name;
     this.#distance.textContent = `캠퍼스로부터 ${restaurant.distance}분 내`;
     this.#setCategoryDiv(restaurant.category);
