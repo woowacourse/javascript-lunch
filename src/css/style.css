@@ -15,11 +15,6 @@ body {
   font-size: 16px;
 }
 
-button {
-  border: none;
-  background: none;
-}
-
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -92,30 +87,6 @@ button {
 
 /* 음식점 목록 *****************************************/
 
-/* 즐겨찾기 필터 */
-
-.favorite-tabnb-container {
-  display: flex;
-  justify-content: space-around;
-
-  padding: 16px;
-}
-
-.favorite-filter {
-  width: 50%;
-  height: 50px;
-  border-bottom: 2px solid var(--grey-200);
-  color: var(--grey-300);
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-.sel {
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -147,19 +118,15 @@ button {
 
   padding: 0 16px;
   margin: 16px 0;
-
-  overflow-y: scroll;
-  cursor: pointer;
 }
 
 .restaurant {
   display: flex;
   align-items: flex-start;
+
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
-
-  position: relative;
 }
 
 .restaurant__category {
@@ -182,13 +149,6 @@ button {
   height: 36px;
 }
 
-.favorite-icon {
-  margin-left: auto;
-  position: absolute;
-  right: 5px;
-  cursor: pointer;
-}
-
 .restaurant__info {
   display: flex;
   flex-direction: column;
@@ -207,17 +167,11 @@ button {
   display: -webkit-box;
 
   padding-top: 8px;
-}
 
-.text-overflow {
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-}
-
-.restaurant__referenceurl {
-  text-decoration: underline;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -239,29 +193,15 @@ button {
   background: rgba(0, 0, 0, 0.35);
 }
 
-#add-restaurant-modal::backdrop {
-  background: rgba(0, 0, 0, 0.35);
-}
-
-#restaurant-info-modal::backdrop {
-  background: rgba(0, 0, 0, 0.35);
-}
-
 .modal-container {
   position: fixed;
   bottom: 0;
   width: 100%;
-  max-height: 100%;
-  overflow-y: scroll;
 
   padding: 32px 16px;
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
-}
-
-restaurant-info-modal .modal-container > * {
-  margin: 10px 10px; /* 각 요소의 아래쪽에 10px의 간격 추가 */
 }
 
 .modal-title {
