@@ -1,6 +1,6 @@
 import { ADD_RESTAURANT_FORM_BUTTON } from "../constants/Icon.js";
 import { $ } from "../utils/dom.js";
-import BaseComponent from "./BaseComponent.js";
+import BaseComponent from "./common/BaseComponent.js";
 
 class Header extends BaseComponent {
   render() {

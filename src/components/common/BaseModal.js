@@ -1,4 +1,3 @@
-import { getRestaurantDetail } from "../../domains/RestaurantDetail";
 import { $ } from "../../utils/dom";
 import BaseComponent from "./BaseComponent";
 
