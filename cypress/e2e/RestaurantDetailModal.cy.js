@@ -34,4 +34,22 @@ describe('레스토랑 상세 정보 모달과 즐겨찾기 테스트', () => {
     cy.get('#favorite').click();
     cy.get('.restaurant-list-container').find('li').should('have.length', 1);
   });
+
+  it('상세 정보 모달에서 즐겨찾기 버튼을 눌러 설정 또는 해제할 수 있다.', () => {
+    // 즐겨찾기 추가
+    cy.get('.restaurant-list-container').find('li').eq(0).click();
+
+    cy.get('#detail-favorite').click();
+    cy.get('#close').click();
+    cy.get('#favorite').click();
+    cy.get('.restaurant-list-container').find('li').should('have.length', 1);
+
+    // 즐겨찾기 해제
+    cy.get('.restaurant-list-container').find('li').eq(0).click();
+
+    cy.get('#detail-favorite').click();
+    cy.get('#close').click();
+    cy.get('#all').click();
+    cy.get('.restaurant-list-container').find('li').should('have.length', 3);
+  });
 });
