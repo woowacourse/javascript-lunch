@@ -4,6 +4,8 @@ type FilteringCategory = '전체' | Category;
 
 type SortingProperty = 'name' | 'distance';
 
+type ActiveTab = 'all' | 'favorite';
+
 interface Restaurant {
   id: string;
   category: Category;
@@ -15,12 +17,18 @@ interface Restaurant {
 }
 
 interface Restaurants {
-  createRestaurant: () => Restaurant;
-  addRestaurant: (restaurant: Restaurant, restaurantList: Restaurant[]) => boolean;
-  deleteRestaurant: (deleteID: string, restaurantList: Restaurant[]) => Restaurant[];
+  isExistingRestaurant: (restaurant: Restaurant) => boolean;
+  addRestaurant: (restaurant: Restaurant) => void;
+  deleteRestaurant: (deleteID: string) => void;
   filterByCategory: (category: Category, restaurantList: Restaurant[]) => Restaurant[];
   sortByProperty: (property: SortingProperty, restaurantList: Restaurant[]) => Restaurant[];
   filterFavorite: (restaurantList: Restaurant[]) => Restaurant[];
+  updateFavoriteState: (restaurantId: string) => void;
+  generateRenderingList: (
+    activeTab: ActiveTab,
+    filteringCategory: FilteringCategory,
+    sortingProperty: SortingProperty,
+  ) => Restaurant[];
 }
 
-export { Category, FilteringCategory, SortingProperty, Restaurant, Restaurants };
+export { Category, FilteringCategory, SortingProperty, ActiveTab, Restaurant, Restaurants };

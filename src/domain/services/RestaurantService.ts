@@ -1,61 +1,70 @@
-import { LOCAL_STORAGE_KEY } from '../../constant/constants';
-import { FilteringCategory, SortingProperty, Restaurant, Restaurants } from '../../interface/RestaurantInterfaces';
-import { $ } from '../../utils/querySelector';
-import RestaurantEntity from './../entities/RestaurantEntity';
+import {
+  ActiveTab,
+  FilteringCategory,
+  Restaurant,
+  Restaurants,
+  SortingProperty,
+} from '../../interface/RestaurantInterfaces';
+import RestaurantStore from './RestaurantStore';
 
-const RestaurantService: Restaurants = {
-  createRestaurant() {
-    const category = $('#category').value;
-    const name = $('#name').value;
-    const distance = parseInt($('#distance').value, 10);
-    const description = $('#description').value;
-    const link = $('#link').value;
+class RestaurantService implements Restaurants {
+  #restaurantList: Restaurant[];
 
-    return {
-      id: category + name,
-      category: category,
-      name: name,
-      distance: distance,
-      description: description,
-      link: link,
-      isFavorite: false,
-    };
-  },
+  constructor() {
+    this.#restaurantList = RestaurantStore.fetch();
+  }
 
-  addRestaurant(restaurant: Restaurant, restaurantList: Restaurant[]) {
-    const existingRestaurant = restaurantList.find(
-      item => item.category === restaurant.category && item.name === restaurant.name,
-    );
-    if (existingRestaurant) return false;
+  isExistingRestaurant(restaurant: Restaurant) {
+    if (this.#restaurantList.find(item => item.category === restaurant.category && item.name === restaurant.name))
+      return true;
+    return false;
+  }
 
-    restaurantList.push(new RestaurantEntity({ restaurant: restaurant }));
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurantList));
-    return true;
-  },
+  addRestaurant(restaurant: Restaurant) {
+    this.#restaurantList.push(restaurant);
+    RestaurantStore.store(this.#restaurantList);
+  }
 
-  deleteRestaurant(deleteID: string, restaurantList: Restaurant[]) {
-    const newRestaurantList = [...restaurantList].filter(restaurant => {
+  deleteRestaurant(deleteID: string) {
+    this.#restaurantList = [...this.#restaurantList].filter(restaurant => {
       return restaurant.id !== deleteID;
     });
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newRestaurantList));
-    return newRestaurantList;
-  },
+
+    RestaurantStore.store(this.#restaurantList);
+  }
 
   filterByCategory(category: FilteringCategory, restaurantList: Restaurant[]) {
     if (category === '전체') return restaurantList;
     return restaurantList.filter(restaurant => restaurant.category === category);
-  },
+  }
 
   sortByProperty(property: SortingProperty, restaurantList: Restaurant[]) {
     return restaurantList.sort((first, second) => {
       if (first[property] === second[property]) return first.id > second.id ? 1 : -1;
       else return first[property] > second[property] ? 1 : -1;
     });
-  },
+  }
 
   filterFavorite(restaurantList: Restaurant[]) {
     return restaurantList.filter(restaurant => restaurant.isFavorite);
-  },
-};
+  }
+
+  updateFavoriteState(restaurantId: string) {
+    const target = this.#restaurantList.find(restaurant => restaurant.id === restaurantId);
+    if (!target) return;
+    target.isFavorite = !target.isFavorite;
+    RestaurantStore.store(this.#restaurantList);
+  }
+
+  generateRenderingList(activeTab: ActiveTab, filteringCategory: FilteringCategory, sortingProperty: SortingProperty) {
+    const filteredItems = this.filterByCategory(filteringCategory, this.#restaurantList);
+    const sortedItems = this.sortByProperty(sortingProperty, filteredItems);
+
+    if (activeTab === 'favorite') {
+      return this.filterFavorite(sortedItems);
+    }
+    return sortedItems;
+  }
+}
 
 export default RestaurantService;
