@@ -14,7 +14,6 @@ import './components/RestaurantList/RestaurantList';
 import './components/RestaurantList/RestaurantItem';
 import './components/RestaurantList/RestaurantItemDetail';
 import './components/NewRestaurantModal/NewRestaurantForm';
-import './components/NewRestaurantModal/NewRestaurantModal';
 import './components/AllRestaurantApp';
 import './components/FavoriteRestaurantApp';
 import './components/MainApp';

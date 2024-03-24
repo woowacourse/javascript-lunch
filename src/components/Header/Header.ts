@@ -1,6 +1,7 @@
 import AddButton from '@assets/add-button.png';
 import './Header.css';
 import { dom } from '@/util/dom';
+import BasicModal from '../Basic/BasicModal';
 
 class Header extends HTMLDivElement {
   constructor() {
@@ -21,7 +22,7 @@ class Header extends HTMLDivElement {
       </button>`;
 
     dom.getElement(this, 'button').addEventListener('click', () => {
-      dom.getElement(document.body, '.modal').classList.add('modal--open');
+      dom.getElement<BasicModal>(document.body, '.new-restaurant-modal').openModal();
     });
   }
 }
