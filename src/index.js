@@ -9,6 +9,9 @@ import './images/category-japanese.png';
 import './images/category-korean.png';
 import './images/category-western.png';
 
-import RestaurantController from './controllers/RestaurantController';
+import './images/favorite-icon-filled.png';
+import './images/favorite-icon-lined.png';
 
-new RestaurantController().run();
+import App from './App';
+
+new App().initApp();

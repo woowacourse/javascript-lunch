@@ -1,9 +1,9 @@
 @import './root.css';
-@import '../components/Restaurant/RestaurantComponent.css';
+@import '../components/Restaurant/RestaurantItem.css';
 
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -21,11 +21,11 @@ body {
 /* GNB ********************************************/
 .gnb {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 64px;
+  justify-content: space-between;
 
   padding: 0 16px;
+  height: 64px;
 
   background-color: var(--primary-color);
 }
@@ -35,14 +35,13 @@ body {
 }
 
 .gnb__button {
-  height: 40px;
-
   border: none;
-  border-radius: 8px;
+  height: 40px;
   background: transparent;
 
   font-size: 24px;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .gnb__button img {
@@ -52,26 +51,35 @@ body {
   object-fit: contain;
 }
 
+/* 탭 메뉴 */
+
+.restaurant-tab-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 0 16px;
+}
+
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 24px;
 
   padding: 0 16px;
-  margin-top: 24px;
 }
 
 .restaurant-filter-container select {
-  height: 44px;
-  min-width: 125px;
-
   border: 1px solid #d0d5dd;
-  border-radius: 8px;
+  min-width: 125px;
+  height: 44px;
   background: transparent;
 
   font-size: 16px;
+  border-radius: 8px;
 }
 
 .restaurant-filter {
@@ -82,9 +90,9 @@ body {
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
+  margin: 16px 0;
 
   padding: 0 16px;
-  margin: 16px 0;
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -107,14 +115,25 @@ body {
 }
 
 .modal-container {
+  padding: 32px 16px;
   position: fixed;
   bottom: 0;
   width: 100%;
-
-  padding: 32px 16px;
+  background: var(--grey-100);
 
   border-radius: 8px 8px 0px 0px;
-  background: var(--grey-100);
+}
+
+.modal-detail-container {
+  position: relative;
+}
+
+.modal-detail-container > .restaurant__category {
+  margin-bottom: 16px;
+}
+
+.modal-detail-container > .restaurant__info > * {
+  margin-bottom: 16px;
 }
 
 -- .modal-title {
@@ -129,8 +148,8 @@ body {
 }
 
 .form-item label {
-  color: var(--grey-400);
   font-size: 14px;
+  color: var(--grey-400);
 }
 
 .form-item--required label::after {
@@ -147,13 +166,13 @@ body {
 .form-item input,
 .form-item textarea,
 .form-item select {
-  padding: 8px;
   margin: 6px 0;
+  padding: 8px;
 
   border: 1px solid var(--grey-200);
-  border-radius: 8px;
 
   font-size: 16px;
+  border-radius: 8px;
 }
 
 .form-item textarea {
@@ -161,14 +180,13 @@ body {
 }
 
 .form-item select {
-  height: 44px;
-
   padding: 8px;
 
   border: 1px solid var(--grey-200);
-  border-radius: 8px;
+  height: 44px;
 
   color: var(--grey-300);
+  border-radius: 8px;
 }
 
 input[name='name'],
@@ -181,16 +199,15 @@ input[name='link'] {
 }
 
 .button {
-  width: 100%;
-  height: 44px;
-
   margin-right: 16px;
 
   border: none;
-  border-radius: 8px;
+  width: 100%;
+  height: 44px;
 
   font-weight: 600;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .button:last-child {
@@ -208,4 +225,27 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.button--tabmenu {
+  margin: 0;
+  border-bottom: 2px solid var(--grey-200);
+  background: transparent;
+  border-radius: 0;
+  color: var(--grey-300);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.button--tabmenu.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.empty--message {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+
+  margin-top: 32px;
 }

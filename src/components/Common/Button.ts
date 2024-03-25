@@ -1,7 +1,18 @@
-const Button = (type: string, variant: 'primary' | 'secondary', content: string) => {
-  return /*html*/ `
-  <button type=${type} class="button button--${variant} text-caption">${content}</button>
-  `;
+interface Props {
+  id: string;
+  type: string;
+  variant: string;
+  content: string;
+}
+
+const createButton = ({ id, type, variant, content }: Props) => {
+  const buttonContainer = document.createElement('button');
+  buttonContainer.setAttribute('id', id);
+  buttonContainer.setAttribute('type', type);
+  buttonContainer.classList.add('button', `button--${variant}`, 'text-caption');
+  buttonContainer.textContent = content;
+
+  return buttonContainer;
 };
 
-export default Button;
+export default createButton;

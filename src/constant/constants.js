@@ -11,4 +11,21 @@ const CATEGORY_CONVERTER = {
 
 const LOCAL_STORAGE_KEY = 'restaurantList';
 
-export { FORM_INPUT_QUERY, CATEGORY_CONVERTER, LOCAL_STORAGE_KEY };
+const TAB_MENUS = [
+  { id: 'all', content: '모든 음식점' },
+  { id: 'favorite', content: '자주 가는 음식점' },
+];
+
+const DEFAULT_TAB = 'all';
+const DEFAULT_FILTERING_CATEGORY = '전체';
+const DEFAULT_SORTING_PROPERTY = 'name';
+
+export {
+  FORM_INPUT_QUERY,
+  CATEGORY_CONVERTER,
+  LOCAL_STORAGE_KEY,
+  TAB_MENUS,
+  DEFAULT_TAB,
+  DEFAULT_FILTERING_CATEGORY,
+  DEFAULT_SORTING_PROPERTY,
+};
