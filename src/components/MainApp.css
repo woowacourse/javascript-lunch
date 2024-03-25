@@ -1,0 +1,9 @@
+.modal.basic-modal .detail-modal__container {
+  min-height: 556px;
+  height: 70vh !important;
+}
+
+@import url('./Basic/BasicModal.css');
+.button-container {
+  display: flex;
+}

@@ -6,7 +6,7 @@
 
 ul,
 li {
-  list-style: none;
+  list-style: hidden;
 }
 
 html,
@@ -55,5 +55,12 @@ body {
 }
 
 .hidden {
+  display: none;
+}
+.invisible {
   visibility: hidden;
+}
+
+.clickable {
+  cursor: pointer;
 }

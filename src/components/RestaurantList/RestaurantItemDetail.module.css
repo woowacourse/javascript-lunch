@@ -1,0 +1,45 @@
+.restaurant {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 16px 8px;
+
+  border-bottom: 1px solid #e9eaed;
+
+  position: relative;
+}
+.restaurantContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.restaurant__name {
+  margin: 0;
+}
+
+.restaurant .restaurant__distance {
+  color: var(--primary-color);
+}
+
+.restaurant__description {
+  display: -webkit-box;
+
+  padding-top: 8px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+}
+
+.restaurant__buttonContainer {
+  display: flex;
+  width: 100%;
+}
+.restaurant__link {
+  text-decoration: underline;
+}

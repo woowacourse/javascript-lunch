@@ -6,6 +6,7 @@ class Restaurant implements IRestaurant {
   category: Category;
   description?: string;
   link?: string;
+  isFavorite?: boolean;
 
   constructor(restaurantArgs: IRestaurant) {
     this.name = restaurantArgs.name;
@@ -13,6 +14,8 @@ class Restaurant implements IRestaurant {
     this.category = restaurantArgs.category;
     this.description = restaurantArgs.description;
     this.link = restaurantArgs.link;
+    this.isFavorite = restaurantArgs.isFavorite;
+
     this.#validateName();
     this.#validateDescription();
   }
@@ -29,6 +32,9 @@ class Restaurant implements IRestaurant {
     if (this.link) {
       result.link = this.link;
     }
+    if (this.isFavorite !== undefined) {
+      result.isFavorite = this.isFavorite;
+    }
     return result;
   }
 
@@ -41,6 +47,14 @@ class Restaurant implements IRestaurant {
     if (this.description && this.description.length > 500) {
       throw new Error('[ERROR] 음식점 설명 길이는 500자를 초과할 수 없습니다.');
     }
+  }
+
+  isEqual(another: IRestaurant) {
+    return (
+      this.name === another.name &&
+      this.distance === another.distance &&
+      this.category === another.category
+    );
   }
 }
 export default Restaurant;

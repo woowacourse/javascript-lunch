@@ -1,0 +1,35 @@
+.custom-tab {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.custom-tab > * {
+  padding: 9px 0;
+
+  flex: 1;
+
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-tab > *[checked='on'] {
+  border-bottom: 3px solid;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+.custom-tab > * {
+  border-bottom: 3px solid;
+  border-color: var(--grey-300);
+  color: var(--grey-300);
+}

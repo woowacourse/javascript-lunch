@@ -1,4 +1,5 @@
 import style from './BasicButton.module.css';
+
 class BasicButton extends HTMLButtonElement {
   #isPrimary;
 
@@ -7,11 +8,16 @@ class BasicButton extends HTMLButtonElement {
     innerText: string,
     type: 'submit' | 'reset' | 'button',
     clickEvent: () => void,
+    classNames?: string[],
   ) {
     super();
+    styleVariant = styleVariant ?? this.getAttribute('style-variant');
+    innerText = innerText ?? this.innerText;
+    type = type ?? this.getAttribute('type');
     this.#isPrimary = styleVariant;
     this.innerText = innerText;
     this.setAttribute('type', type);
+    this.classList.add(...(classNames ?? ''));
 
     const buttonStyleClass =
       this.#isPrimary === 'primary'

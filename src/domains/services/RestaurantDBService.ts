@@ -1,5 +1,5 @@
 import { CONDITIONS } from '@/constants/Condition';
-import { Category, IRestaurant } from '../../types/Restaurant';
+import { Category, CategoryOrAll, IRestaurant } from '../../types/Restaurant';
 import RestaurantCollection from '../entities/RestaurantCollection';
 import restaurantListMock from '@/mock/restaurantList.mock';
 
@@ -9,21 +9,20 @@ class RestaurantDBService {
 
   constructor() {
     this.#restaurantCollection;
-    this.update();
+    this.#update();
   }
 
-  getFromRestaurantList(category: Category, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
-    this.update();
+  getAfterFiltering(category: CategoryOrAll, sortCriteria: keyof typeof CONDITIONS.SORT_CRITERION) {
+    this.#update();
     const restaurants = this.#restaurantCollection.filterByCategory(category);
     return new RestaurantCollection(restaurants).sort(sortCriteria);
   }
 
-  update() {
-    const existingRestaurants = this.get();
-    this.#restaurantCollection = new RestaurantCollection(existingRestaurants);
+  #update() {
+    this.#restaurantCollection = new RestaurantCollection(this.get());
   }
 
-  get() {
+  get(): IRestaurant[] {
     return JSON.parse(localStorage.getItem(this.#RESTAURANTS_DB_KEY) ?? '[]');
   }
 
@@ -32,12 +31,24 @@ class RestaurantDBService {
   }
 
   add(restaurant: IRestaurant) {
-    this.update();
-    this.#restaurantCollection.addRestaurant(restaurant);
+    this.#update();
     localStorage.setItem(
       this.#RESTAURANTS_DB_KEY,
-      JSON.stringify(this.#restaurantCollection.get()),
+      JSON.stringify(this.#restaurantCollection.add(restaurant)),
     );
+  }
+
+  remove(restaurant: IRestaurant) {
+    this.#update();
+    localStorage.setItem(
+      this.#RESTAURANTS_DB_KEY,
+      JSON.stringify(this.#restaurantCollection.remove(restaurant)),
+    );
+  }
+
+  isEmpty() {
+    this.#update();
+    return this.#restaurantCollection.get().length === 0;
   }
 }
 

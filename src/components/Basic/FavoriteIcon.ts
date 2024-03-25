@@ -6,6 +6,7 @@ class FavoriteIcon extends HTMLImageElement {
 
   constructor() {
     super();
+    this.classList.add('clickable');
     this.src = favoriteIconLined;
     this.alt = '즐겨찾기 아이콘';
     this.setAttribute('clicked', 'off');
@@ -30,6 +31,21 @@ class FavoriteIcon extends HTMLImageElement {
         this.setAttribute('clicked', 'off');
       }
     });
+  }
+
+  isFavorite() {
+    return this.getAttribute('clicked') === 'on';
+  }
+
+  set(isFavorite: boolean) {
+    this.setAttribute('clicked', isFavorite ? 'on' : 'off');
+  }
+
+  on() {
+    this.setAttribute('clicked', 'on');
+  }
+  off() {
+    this.setAttribute('clicked', 'off');
   }
 }
 

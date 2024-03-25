@@ -3,19 +3,19 @@ import { Category, CategoryOrAll, IRestaurant } from '../../types/Restaurant';
 import Restaurant from './Restaurant';
 
 class RestaurantCollection {
-  restaurantList: Restaurant[];
+  restaurants: Restaurant[];
 
   constructor(restaurants: IRestaurant[]) {
-    this.restaurantList = restaurants.map((restaurant: IRestaurant) => new Restaurant(restaurant));
+    this.restaurants = restaurants.map((restaurant: IRestaurant) => new Restaurant(restaurant));
   }
 
   get() {
-    return this.restaurantList.map((restaurant) => restaurant.get());
+    return this.restaurants.map((restaurant) => restaurant.get());
   }
 
   filterByCategory(category: CategoryOrAll) {
-    if (category === '전체') return this.restaurantList.map((restaurant) => restaurant.get());
-    return this.restaurantList
+    if (category === '전체') return this.restaurants.map((restaurant) => restaurant.get());
+    return this.restaurants
       .map((restaurant) => restaurant.get())
       .filter((restaurant) => restaurant.category === category);
   }
@@ -26,26 +26,37 @@ class RestaurantCollection {
   }
 
   sortByName() {
-    return this.restaurantList
+    return this.restaurants
       .map((restaurant) => restaurant.get())
-      .toSorted((a: IRestaurant, b: IRestaurant) => a.name.localeCompare(b.name));
+      .sort((a: IRestaurant, b: IRestaurant) => a.name.localeCompare(b.name));
   }
 
   sortByDistance() {
-    return this.restaurantList
+    return this.restaurants
       .map((restaurant) => restaurant.get())
-      .toSorted((a: IRestaurant, b: IRestaurant) => a.distance - b.distance);
+      .sort((a: IRestaurant, b: IRestaurant) => a.distance - b.distance);
   }
 
-  addRestaurant(restaurantArg: IRestaurant) {
-    const restaurants = this.restaurantList.map((restaurant) => {
-      return JSON.stringify(restaurant.get());
-    });
-    if (restaurants.includes(JSON.stringify(restaurantArg))) {
+  add(restaurant: IRestaurant) {
+    if (this.has(restaurant)) {
       throw new Error('[ERROR] 이미 존재하는 음식점입니다.');
     }
-    const restaurant = new Restaurant(restaurantArg);
-    this.restaurantList.push(restaurant);
+    this.restaurants.push(new Restaurant(restaurant));
+    return this.get();
+  }
+
+  has(newRestaurant: IRestaurant) {
+    return this.restaurants.some((restaurant) => restaurant.isEqual(newRestaurant));
+  }
+
+  remove(newRestaurant: IRestaurant) {
+    return this.restaurants
+      .filter((restaurant) => !restaurant.isEqual(newRestaurant))
+      .map((restaurant) => restaurant.get());
+  }
+
+  update(newRestaurant: IRestaurant) {
+    return new RestaurantCollection(this.remove(newRestaurant)).add(newRestaurant);
   }
 }
 
