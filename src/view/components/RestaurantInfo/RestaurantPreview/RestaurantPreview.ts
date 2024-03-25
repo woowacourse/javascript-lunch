@@ -1,27 +1,15 @@
-import "./style.css";
+import "../style.css";
 
-import ASIAN_ICON from "./icons/category-asian.png";
-import CHINESE_ICON from "./icons/category-chinese.png";
-import ECT_ICON from "./icons/category-etc.png";
-import JAPANESE_ICON from "./icons/category-japanese.png";
-import KOREAN_ICON from "./icons/category-korean.png";
-import WESTERN_ICON from "./icons/category-western.png";
-import createElementByTag from "../../utils/createElementByTag";
+import categoryImgSrcMatcher from "../utils/categoryImgSrcMatcher";
+import createElementByTag from "../../../utils/createElementByTag";
 
-const categoryImgSrcMatcher = {
-  한식: KOREAN_ICON,
-  중식: CHINESE_ICON,
-  일식: JAPANESE_ICON,
-  아시안: ASIAN_ICON,
-  양식: WESTERN_ICON,
-  기타: ECT_ICON,
-};
-
-class RestaurantItem {
+class RestaurantPreview {
   element = createElementByTag({
     tag: "li",
     classes: ["restaurant"],
   });
+
+  restaurant: Restaurant;
 
   #categoryDiv: HTMLElement;
 
@@ -37,7 +25,15 @@ class RestaurantItem {
     this.#categoryDiv = this.#createCategoryDiv(restaurant.category);
     this.#InfoDiv = this.#createInfoDiv(restaurant);
 
+    this.restaurant = restaurant;
+
     this.element.append(this.#categoryDiv, this.#InfoDiv);
+
+    Object.entries(restaurant).forEach((entry) => {
+      const [key, value] = entry;
+      if (!value) return;
+      this.element.setAttribute(`data-${key}`, value);
+    });
 
     eventListenerArgs.forEach((args) => {
       this.element.addEventListener(...args);
@@ -64,10 +60,12 @@ class RestaurantItem {
     name,
     distance,
     description = "",
+    url = "",
   }: {
     name: string;
     distance: number;
     description?: string;
+    url?: string;
   }) => {
     const div = createElementByTag({
       tag: "div",
@@ -88,11 +86,16 @@ class RestaurantItem {
       classes: ["restaurant__description", "text-body"],
       contents: description,
     });
+    const a = createElementByTag({
+      tag: "a",
+      classes: ["restaurant__link"],
+      contents: url,
+    });
 
-    div.append(h3, span, p);
+    div.append(h3, span, p, a);
 
     return div;
   };
 }
 
-export default RestaurantItem;
+export default RestaurantPreview;

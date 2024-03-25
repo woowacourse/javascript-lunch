@@ -5,6 +5,10 @@
   margin-bottom: 36px;
 }
 
+.form-item--required {
+  margin: 0px 0px 10px
+}
+
 .form-item--required label::after {
   padding-left: 4px;
 
@@ -48,4 +52,24 @@
   border-radius: 8px;
 
   color: var(--grey-300);
+}
+
+.form-item>select:user-invalid {
+  border: red 1px solid !important;
+}
+
+.form-item>input:user-invalid {
+  border: red 1px solid !important;
+}
+
+.form-item--invalid-input:user-invalid {
+  border: red 1px solid !important;
+}
+
+.form-item-error-span {
+  color: red !important;
+}
+
+.form-item-invalid-input {
+  border: red 1px solid !important;
 }

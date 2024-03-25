@@ -1,0 +1,40 @@
+.tab-bar-container {
+  height        : 40px;
+  width         : 95%;
+  margin        : 0 auto;
+  display       : flex;
+  flex-direction: row;
+}
+
+.tab-bar__item {
+  height         : 100%;
+  width          : 100%;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  border-bottom  : 2px solid;
+
+  font-family   : Roboto;
+  font-size     : 16px;
+  font-weight   : 700;
+  line-height   : 24px;
+  letter-spacing: 0.5px;
+  text-align    : center;
+}
+
+.tab-bar__item:hover {
+  color       : var(--grey-500);
+  border-color: var(--grey-500);
+}
+
+.tab-bar__item--on {
+  color       : var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  ;
+}
+
+.tab-bar__item--off {
+  color       : var(--grey-300);
+  border-color: var(--grey-300);
+  ;
+}

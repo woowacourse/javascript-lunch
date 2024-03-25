@@ -1,5 +1,6 @@
 import "./style.css";
 
+import FORM_ITEM_TEXTS from "../../../constants/formItemTexts";
 import createElementByTag from "../../utils/createElementByTag";
 
 class FormItem {
@@ -7,13 +8,17 @@ class FormItem {
     tag: "div",
     classes: ["form-item"],
   });
-  #readableElement;
+  #readableElement: HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement;
+
+  #span;
+
+  #description;
 
   constructor({
     subject,
     readableElement,
     isRequired = false,
-    description = "",
+    description = "ㅤ",
   }: {
     subject: string;
     readableElement: HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement;
@@ -21,15 +26,16 @@ class FormItem {
     description?: string;
   }) {
     if (isRequired) this.element.classList.add("form-item--required");
-    this.element = this.#createItem(isRequired);
+    this.element = this.#createElement(isRequired);
     const label = this.#createLabel(subject, readableElement.id);
 
     this.#readableElement = readableElement;
-    this.#readableElement.required = isRequired;
+    if (isRequired) this.#setReadableElementToRequire();
 
-    const span = this.#createSpan(description);
+    this.#description = description;
+    this.#span = this.#createSpan();
 
-    this.element.append(label, this.#readableElement, span);
+    this.element.append(label, this.#readableElement, this.#span);
   }
 
   getValue() {
@@ -38,9 +44,23 @@ class FormItem {
 
   reset() {
     this.#readableElement.value = "";
+    this.removeErrorPrint();
   }
 
-  #createItem(isRequired: boolean) {
+  removeErrorPrint() {
+    this.#span.classList.remove("form-item-error-span");
+    this.#span.textContent = this.#description;
+
+    this.#readableElement.classList.remove("form-item-invalid-input");
+  }
+
+  renderErrorMessage(errorMessage: string) {
+    this.#span.classList.add("form-item-error-span");
+    this.#readableElement.classList.add("form-item-invalid-input");
+    this.#span.textContent = errorMessage;
+  }
+
+  #createElement(isRequired: boolean) {
     return createElementByTag({
       tag: "div",
       classes: isRequired
@@ -57,13 +77,21 @@ class FormItem {
     return label;
   }
 
-  #createSpan(description: string) {
+  #createSpan() {
     const span = createElementByTag({
       tag: "span",
       classes: ["help-text", "text-caption"],
-      contents: description,
+      contents: this.#description,
     });
     return span;
+  }
+
+  #setReadableElementToRequire() {
+    this.#readableElement.required = true;
+    this.#readableElement.addEventListener("invalid", (event) => {
+      event.preventDefault();
+      this.renderErrorMessage(FORM_ITEM_TEXTS.requireItem);
+    });
   }
 }
 

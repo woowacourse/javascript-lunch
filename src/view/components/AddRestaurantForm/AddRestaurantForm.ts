@@ -32,21 +32,36 @@ class AddRestaurantForm {
     this.#urlFormItem = this.#createUrlFormItem();
     this.#buttonDiv = this.#createButtonDiv(cancelFunc);
 
-    this.element.addEventListener("submit", () => {
+    this.element.addEventListener("submit", (event) => {
       const newRestaurant = this.#getRestaurant();
-      submitFunc(newRestaurant);
-      this.reset.bind(this)();
+      this.removeErrorPrint();
+      try {
+        submitFunc(newRestaurant);
+        this.reset.bind(this)();
+      } catch (error) {
+        this.#nameFormItem.renderErrorMessage(FORM_ITEM_TEXTS.duplicatedName);
+        event.preventDefault();
+        event.stopPropagation();
+      }
     });
-
     this.#setElement();
   }
 
   reset() {
+    this.element.reset();
     this.#categoryFormItem.reset();
     this.#nameFormItem.reset();
     this.#distanceFormItem.reset();
     this.#descriptionFormItem.reset();
     this.#urlFormItem.reset();
+  }
+
+  removeErrorPrint() {
+    this.#categoryFormItem.removeErrorPrint();
+    this.#nameFormItem.removeErrorPrint();
+    this.#distanceFormItem.removeErrorPrint();
+    this.#descriptionFormItem.removeErrorPrint();
+    this.#urlFormItem.removeErrorPrint();
   }
 
   #setElement() {
@@ -186,14 +201,6 @@ class AddRestaurantForm {
       description: this.#descriptionFormItem.getValue(),
       url: this.#urlFormItem.getValue(),
     };
-  }
-
-  #isRequireFilled() {
-    const isFilledCategory = this.#categoryFormItem.getValue() !== "";
-    const isFilledName = this.#nameFormItem.getValue() !== "";
-    const isFilledDistance = this.#distanceFormItem.getValue() !== "";
-
-    return isFilledCategory && isFilledName && isFilledDistance;
   }
 }
 

@@ -109,7 +109,6 @@ describe("sortLetter 단위 테스트", () => {
     (a, b, expected) => {
       // when
       const result = [a, b].sort(sortLetters);
-      console.log(a, b, result);
 
       //then
       expect(result).toEqual(expected);

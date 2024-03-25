@@ -1,131 +1,113 @@
-import {
-  CATEGORY_WITH_ENTIRE,
-  SORT_STANDARD,
-} from "../constants/selectOptions";
-
-import AddRestaurantForm from "../view/components/AddRestaurantForm/AddRestaurantForm";
-import FORM_ITEM_TEXTS from "../constants/formItemTexts";
-import Modal from "../view/components/Modal/Modal";
-import RestaurantItem from "../view/components/RestaurantItem/RestaurantItem";
-import RestaurantList from "../domain/RestaurantList";
-import SelectBox from "../view/components/SelectBox/SelectBox";
-import createElementByTag from "../view/utils/createElementByTag";
-import getLocalStorageItem from "../utils/getLocalStorageItem";
-import { restaurantData } from "../data/restaurantData";
-import setLocalStorage from "../utils/setLocalStorage";
+import EntireRestaurantPreviewController from "./EntireRestaurantPreviewController";
+import FavoriteRestaurantPreviewController from "./FavoriteRestaurantPreviewController";
+import RestaurantDetailModalController from "./RestaurantDetailModalController";
+import RestaurantFormModalController from "./RestaurantFormModalController";
+import RestaurantListProxy from "../domain/RestaurantListProxy";
+import RestaurantPreviewWithToggler from "../view/components/RestaurantInfo/RestaurantPreviewWithToggler";
+import TabBar from "../view/components/TabBar/TabBar";
 
 class MainController {
-  static #RESTAURANTS_KEY = "restaurants";
+  element = document.createElement("main");
 
-  #filters = {
-    category: new SelectBox({
-      options: CATEGORY_WITH_ENTIRE,
-      eventListenerArgs: [["change", this.#renderRestaurantListUl.bind(this)]],
-    }),
-    sortStandard: new SelectBox({
-      options: SORT_STANDARD,
-      eventListenerArgs: [["change", this.#renderRestaurantListUl.bind(this)]],
-    }),
-  };
+  #tabBar;
+  #detailModalController;
+  #formModalController;
+  #entireRestaurantPreview;
+  #favoriteRestaurantPreview;
 
-  #restaurantListUl = document.getElementById("restaurant-list-ul");
+  constructor() {
+    RestaurantListProxy.init();
 
-  #modal = this.#createModal();
+    this.#entireRestaurantPreview = new EntireRestaurantPreviewController(
+      this.#previewClickEvent.bind(this)
+    );
+    this.#favoriteRestaurantPreview = new FavoriteRestaurantPreviewController(
+      this.#previewClickEvent.bind(this)
+    );
 
-  #restaurantList = new RestaurantList();
+    this.#tabBar = this.#createTabBar();
 
-  start() {
-    this.#setRestaurantList();
-    this.#renderFilterContainer();
-    this.#renderRestaurantListUl();
-    document.getElementById("main")?.append(this.#modal.element);
-    const openButton = document.getElementById("add-restaurant-button");
-
-    openButton?.addEventListener("click", () => {
-      this.#modal.open();
+    this.#detailModalController = new RestaurantDetailModalController(() => {
+      this.#entireRestaurantPreview.render.bind(
+        this.#entireRestaurantPreview
+      )();
+      this.#favoriteRestaurantPreview.render.bind(
+        this.#favoriteRestaurantPreview
+      )();
     });
+
+    this.#formModalController = new RestaurantFormModalController(() =>
+      this.#tabBar.selectTabBarItem(0)
+    );
+
+    this.#render();
   }
 
-  #createModal() {
-    const modal = new Modal({
-      eventListenerArgs: [
-        [
-          "submit",
-          (e) => {
-            e.preventDefault();
-            this.#renderRestaurantListUl.bind(this)();
-            modal.close();
-          },
-        ],
-      ],
-    });
-
-    const submitFunc = (restaurant: Restaurant) => {
-      this.#restaurantList.add(restaurant);
-
-      const restaurants = this.#restaurantList.getRestaurants();
-
-      setLocalStorage(MainController.#RESTAURANTS_KEY, restaurants);
-    };
-
-    const addRestaurantForm = new AddRestaurantForm({
-      cancelFunc: modal.close.bind(modal),
-      submitFunc: submitFunc.bind(this),
-    });
-
-    const title = createElementByTag({
-      tag: "h2",
-      classes: ["modal-title", "text-title"],
-      contents: FORM_ITEM_TEXTS.formTitle,
-    });
-
-    modal.replaceContents([title, addRestaurantForm.element]);
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") modal.close();
-    });
-
-    return modal;
-  }
-
-  #setRestaurantList() {
-    const restaurants =
-      getLocalStorageItem(MainController.#RESTAURANTS_KEY) ?? restaurantData;
-
-    setLocalStorage(MainController.#RESTAURANTS_KEY, restaurants);
-
-    this.#restaurantList.init(restaurants);
-  }
-
-  #renderFilterContainer() {
-    const filterContainer = document.getElementById("filter-container");
-    filterContainer?.append(
-      this.#filters.category.element,
-      this.#filters.sortStandard.element
+  #render() {
+    this.element.append(
+      this.#tabBar.element,
+      this.#entireRestaurantPreview.element,
+      this.#favoriteRestaurantPreview.element,
+      this.#detailModalController.modal.element,
+      this.#formModalController.modal.element
     );
   }
 
-  #renderRestaurantListUl() {
-    const filteredRestaurantItem = this.#getFilteredRestaurantItem();
-    const restaurantItemElements = filteredRestaurantItem.map((restaurant) => {
-      return new RestaurantItem({ restaurant }).element;
+  #previewClickEvent(previewWithToggler: RestaurantPreviewWithToggler) {
+    this.#detailModalController.setRestaurantDetailWithToggler(
+      previewWithToggler
+    );
+    this.#detailModalController.openModal();
+  }
+
+  #createTabBar() {
+    return new TabBar([
+      {
+        value: "모든 음식점",
+        onFunction: () => {
+          this.#entireRestaurantPreview.render.bind(
+            this.#entireRestaurantPreview
+          )();
+          this.#entireRestaurantPreview.reveal.bind(
+            this.#entireRestaurantPreview
+          )();
+        },
+        offFunction: () => {
+          this.#entireRestaurantPreview.hide.bind(
+            this.#entireRestaurantPreview
+          )();
+        },
+      },
+      {
+        value: "자주 가는 음식점",
+        onFunction: () => {
+          this.#favoriteRestaurantPreview.render.bind(
+            this.#favoriteRestaurantPreview
+          )();
+          this.#favoriteRestaurantPreview.reveal.bind(
+            this.#favoriteRestaurantPreview
+          )();
+        },
+        offFunction: () => {
+          this.#favoriteRestaurantPreview.hide.bind(
+            this.#favoriteRestaurantPreview
+          )();
+        },
+      },
+    ]);
+  }
+
+  attachEventToHeader(
+    titleElement: HTMLElement,
+    addButtonElement: HTMLButtonElement
+  ) {
+    titleElement.addEventListener("click", () => {
+      this.#tabBar.selectTabBarItem(0);
     });
 
-    this.#restaurantListUl?.replaceChildren(...restaurantItemElements);
-  }
-
-  #getFilteredRestaurantItem() {
-    const filterSelection = this.#getFilterSelection();
-    const restaurantItems =
-      this.#restaurantList.getOrderedRestaurant(filterSelection);
-    return restaurantItems;
-  }
-
-  #getFilterSelection() {
-    return {
-      category: this.#filters.category.getValue() as CategoryWithEntire,
-      sortStandard: this.#filters.sortStandard.getValue() as SortStandard,
-    };
+    addButtonElement?.addEventListener("click", () => {
+      this.#formModalController.openModal();
+    });
   }
 }
 
