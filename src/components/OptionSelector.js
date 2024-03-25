@@ -1,11 +1,12 @@
-import BaseComponent from "./BaseComponent.js";
+import BaseComponent from "./common/BaseComponent.js";
 
 class OptionSelector extends BaseComponent {
   render() {
     const optionsArray = this.getAttribute("options").split(",");
+    const type = this.getAttribute("type");
 
     this.innerHTML = `
-      <select name="category" id="category-filter" class="restaurant-filter">
+      <select name="${type}" id="${type}-filter" class="restaurant-filter">
         ${optionsArray.map((option) => {
           return `<option value=${option}>${option}</option>`;
         })}

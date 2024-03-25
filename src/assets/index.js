@@ -1,4 +1,3 @@
-export { default as addButton } from "../../templates/add-button.png";
 export { default as categoryAsian } from "../../templates/category-asian.png";
 export { default as categoryChinese } from "../../templates/category-chinese.png";
 export { default as categoryEtc } from "../../templates/category-etc.png";
