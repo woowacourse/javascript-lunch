@@ -4,6 +4,7 @@ export interface RestaurantDetail {
   category: MenuCategoryWithoutAll;
   name: string;
   distance: Distance;
+  favorite: boolean;
   description?: string;
   url?: string;
 }

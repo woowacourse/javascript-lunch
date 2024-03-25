@@ -117,7 +117,10 @@ class RestaurantAddForm extends BaseComponent {
 
       restaurant.findDuplicateRestaurantByName(userInputRestaurantDetail);
 
-      restaurant.addRestaurant(userInputRestaurantDetail);
+      restaurant.addRestaurant({
+        ...userInputRestaurantDetail,
+        favorite: false,
+      });
     }
   }
 

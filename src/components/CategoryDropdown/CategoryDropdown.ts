@@ -57,15 +57,6 @@ class CategoryDropdown extends BaseComponent {
       target: $(ELEMENT_SELECTOR.categoryFilter),
     });
   }
-
-  protected removeEvent(): void {
-    this.dropdown.removeEvent();
-
-    this.off({
-      ...this.eventListeners.categoryFilter,
-      target: $(ELEMENT_SELECTOR.categoryFilter),
-    });
-  }
 }
 
 customElements.define("category-dropdown", CategoryDropdown);

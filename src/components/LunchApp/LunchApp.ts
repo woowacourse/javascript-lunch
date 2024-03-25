@@ -8,17 +8,17 @@ class LunchApp extends BaseComponent {
       this.innerHTML = `
           <global-navigation-bar></global-navigation-bar>
           <main>
-            <section class="restaurant-filter-container"> 
-              <category-dropdown></category-dropdown>         
-              <sort-dropdown></sort-dropdown>
-            </section>
-            <restaurant-list></restaurant-list>
+            <restaurant-tab-container></restaurant-tab-container>
+            <section class="selected-list-container"></section>
           </main>
           
           <restaurant-add-modal class="modal"></restaurant-add-modal>
+          <restaurant-info-modal class="modal"></restaurant-info-modal>
         `;
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   }
 }
