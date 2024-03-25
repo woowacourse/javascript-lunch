@@ -1,44 +1,42 @@
-import { DISTANCE_FROM_CAMPUS, RESTAURANT_CATEGORY } from '../../domain/Restaurant';
-import { CATEGORY_ALL, SORT_CONDITION } from '../../domain/RestaurantCatalog';
+interface Props {
+  id?: string;
+  classList?: string[];
+  attribute?: object;
+  options?: string[];
+}
 
-type optionsType = typeof SORT_CONDITION | typeof RESTAURANT_CATEGORY | typeof DISTANCE_FROM_CAMPUS;
+class Dropdown {
+  #dropdownElement = document.createElement('select');
 
-class Dropdown extends HTMLSelectElement {
-  constructor(id: string, name: string, options: optionsType) {
-    super();
-    this.id = id;
-    this.name = name;
-    this.#addDefaultSelectOption();
-    this.#renderDropdownOptions(options);
-  }
-
-  #addDefaultSelectOption() {
-    if (this.id === 'category-select') {
-      const optionElement = this.#makeOptionElement(CATEGORY_ALL, CATEGORY_ALL);
-      this.appendChild(optionElement);
+  constructor({ id, classList, attribute, options }: Props) {
+    if (id) this.#dropdownElement.id = id;
+    if (classList) this.#dropdownElement.classList.add(...classList);
+    if (attribute) {
+      this.#generateAttributes(attribute);
     }
-
-    if (this.id === 'form-category-select-container' || this.id === 'form-distance-select-container') {
-      const optionElement = this.#makeOptionElement('선택해 주세요', '');
-      this.appendChild(optionElement);
-      this.required = true;
+    if (options) {
+      this.#generateOptionElements(options);
     }
   }
 
-  #renderDropdownOptions(options: optionsType) {
-    options.forEach((option) => {
-      const optionElement = this.#makeOptionElement(option.toString(), option.toString());
-
-      this.appendChild(optionElement);
+  #generateAttributes(attribute: object) {
+    Object.entries(attribute).forEach(([key, value]) => {
+      this.#dropdownElement.setAttribute(key, value);
     });
   }
 
-  #makeOptionElement(option: string, value: string) {
-    const optionElement = document.createElement('option');
-    optionElement.value = value;
-    optionElement.textContent = option;
+  #generateOptionElements(options: string[]) {
+    options.forEach((option) => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option;
+      optionElement.textContent = option;
 
-    return optionElement;
+      this.#dropdownElement.appendChild(optionElement);
+    });
+  }
+
+  get element() {
+    return this.#dropdownElement;
   }
 }
 

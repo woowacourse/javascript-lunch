@@ -15,6 +15,16 @@ class RestaurantStore {
     this.#updateRestaurantToLocalStorage();
   }
 
+  removeRestaurantFromStore(restaurantInfo: IRestaurantInfo) {
+    this.#restaurantCatalog.removeRestaurant(restaurantInfo);
+    this.#updateRestaurantToLocalStorage();
+  }
+
+  updateFavoriteRestaurant(restaurantName: string, isFavorite: boolean) {
+    this.#restaurantCatalog.updateRestaurant(restaurantName, isFavorite);
+    this.#updateRestaurantToLocalStorage();
+  }
+
   #initDefaultData() {
     this.#insertDefaultData();
     this.#initRestaurantCatalogFromLocalStorage();
@@ -50,6 +60,17 @@ class RestaurantStore {
 
     localStorage.setItem('restaurants', restaurants);
   }
+
+  get restaurants() {
+    const restaurants = localStorage.getItem('restaurants');
+
+    if (restaurants) {
+      return JSON.parse(restaurants);
+    }
+    return false;
+  }
 }
 
-export default RestaurantStore;
+const restaurantStore = new RestaurantStore();
+
+export default restaurantStore;

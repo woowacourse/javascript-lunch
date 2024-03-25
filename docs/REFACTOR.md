@@ -1,3 +1,7 @@
+### 2단계 피드백 반영
+
+- [x] 테스트 명세 구체적으로 작성
+
 ### 1단계 피드백 반영
 
 - [x] 실행 오류...
@@ -9,6 +13,7 @@
 
   - [x] RestaurantStore.ts - 레스토랑 데이터 저장, localStorage
   - [x] App.ts - 컴포넌트 렌더링, 이벤트
-  - [ ] modal.ts - 모달 컴포넌트 분리
+  - [x] modal.ts - 모달 컴포넌트 분리
 
-- [ ] App.ts에서 event 리팩토링
+- [x] App.ts에서 event 리팩토링
+- [x] querySelect시 null에 대한 에러 처리

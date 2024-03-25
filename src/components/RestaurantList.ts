@@ -1,71 +1,76 @@
-import { IRestaurantInfo } from '../domain/Restaurant';
-import RestaurantCatalog, { SORT_CONDITION, ICatalogCategory, CATEGORY_ALL } from '../domain/RestaurantCatalog';
+import { ICategory, IRestaurantInfo } from '../domain/Restaurant';
+import RestaurantCatalog, { SORT_CONDITION } from '../domain/RestaurantCatalog';
+import restaurantStore from '../store/RestaurantStore';
+import { NAV_FAVORITE, NAV_TOTAL } from './Navigator/Navigator';
 import RestaurantCard from './RestaurantCard';
+import './RestaurantList.css';
 
 const [SORT_BY_NAME, SORT_BY_DISTANCE] = SORT_CONDITION;
 
-class RestaurantList extends HTMLUListElement {
-  #restaurants: IRestaurantInfo[] = [];
+class RestaurantList {
+  #restaurantUlElement = document.createElement('ul');
 
-  #categoryFilter: string;
+  #navState;
 
-  #sortCondition: string;
+  #categoryFilter = '전체';
 
-  constructor() {
-    super();
-    this.classList.add('restaurant-list');
-    this.#categoryFilter = CATEGORY_ALL;
-    this.#sortCondition = SORT_BY_NAME;
+  #sortFilter = '이름순';
+
+  constructor(navState: string) {
+    this.#navState = navState;
+    this.#restaurantUlElement.id = 'restaurant-list';
+    this.#restaurantUlElement.classList.add('restaurant-list-container');
+
+    this.renderRestaurantList();
   }
 
-  renderRestaurantList(restaurants: IRestaurantInfo[]) {
-    this.#restaurants = restaurants;
-    this.#renderRestaurantList();
-  }
+  renderRestaurantList() {
+    const { restaurants } = restaurantStore;
+    const category = this.#categoryFilter as ICategory;
 
-  updateCategoryFilter(category: string) {
-    this.#categoryFilter = category;
-    this.#renderRestaurantList();
-  }
+    const filteredRestaurants = RestaurantCatalog.filterByCategory(restaurants, category);
 
-  updateSortCondition(sortCondition: string) {
-    this.#sortCondition = sortCondition;
-    this.#renderRestaurantList();
-  }
-
-  #clear() {
-    this.innerHTML = '';
-  }
-
-  #renderRestaurantList() {
-    const filteredRestaurantList = this.#filterRestaurantList();
-
-    this.#sortRestaurantList(filteredRestaurantList);
-  }
-
-  #filterRestaurantList() {
-    const category = this.#categoryFilter as ICatalogCategory;
-
-    const filteredRestaurants = RestaurantCatalog.filterByCategory(this.#restaurants, category);
-
-    return filteredRestaurants;
-  }
-
-  #sortRestaurantList(restaurants: IRestaurantInfo[]) {
-    if (this.#sortCondition === SORT_BY_NAME) {
-      this.#appendRestaurantElement(RestaurantCatalog.sortByName(restaurants));
+    if (this.#sortFilter === SORT_BY_NAME) {
+      this.#appendRestaurantElement(RestaurantCatalog.sortByName(filteredRestaurants));
     }
-    if (this.#sortCondition === SORT_BY_DISTANCE) {
-      this.#appendRestaurantElement(RestaurantCatalog.sortByDistance(restaurants));
+    if (this.#sortFilter === SORT_BY_DISTANCE) {
+      this.#appendRestaurantElement(RestaurantCatalog.sortByDistance(filteredRestaurants));
     }
   }
 
   #appendRestaurantElement(restaurants: IRestaurantInfo[]) {
-    this.#clear();
-    restaurants.forEach((restaurant: IRestaurantInfo) => {
-      const item = new RestaurantCard(restaurant);
-      this.appendChild(item);
+    this.#restaurantUlElement.innerHTML = '';
+    const restaurantsToShow =
+      this.#navState === NAV_FAVORITE ? restaurants.filter((restaurant) => restaurant.isFavorite) : restaurants;
+
+    restaurantsToShow.forEach((restaurant: IRestaurantInfo) => {
+      const restaurantCard = new RestaurantCard({
+        restaurant,
+        onClick: () => {
+          this.renderRestaurantList();
+        },
+      });
+      this.#restaurantUlElement.appendChild(restaurantCard.element);
     });
+  }
+
+  set navState(newState: string) {
+    this.#navState = newState;
+    this.renderRestaurantList();
+  }
+
+  set categoryFilter(category: string) {
+    this.#categoryFilter = category;
+    this.renderRestaurantList();
+  }
+
+  set sortFilter(sortFilter: string) {
+    this.#sortFilter = sortFilter;
+    this.renderRestaurantList();
+  }
+
+  get element() {
+    return this.#restaurantUlElement;
   }
 }
 

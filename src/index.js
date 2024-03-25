@@ -1,12 +1,7 @@
 import App from './App';
 import '../style.css';
+import RestaurantDetailModal from './components/Modal/RestaurantDetailModal';
 
-import RestaurantList from './components/RestaurantList';
-import RestaurantCard from './components/RestaurantCard';
-import Dropdown from './components/Dropdown/Dropdown';
+window.customElements.define('restaurant-detail-modal', RestaurantDetailModal, { extends: 'div' });
 
-window.customElements.define('drop-down', Dropdown, { extends: 'select' });
-window.customElements.define('restaurant-list', RestaurantList, { extends: 'ul' });
-window.customElements.define('restaurant-item', RestaurantCard, { extends: 'li' });
-
-new App().run();
+const app = new App();

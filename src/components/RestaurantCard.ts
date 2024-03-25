@@ -1,46 +1,84 @@
-import { IRestaurantInfo } from '../domain/Restaurant';
+import Restaurant, { IRestaurantInfo } from '../domain/Restaurant';
+import FavoriteBtn from './Button/FavoriteBtn';
+import RestaurantDetailModal from './Modal/RestaurantDetailModal';
+import './RestaurantCard.css';
 
-const IMG_CATEGORY = Object.freeze({
-  한식: 'korean',
-  아시안: 'asian',
-  중식: 'chinese',
-  기타: 'etc',
-  양식: 'western',
-  일식: 'japanese',
-});
+interface Props {
+  restaurant: IRestaurantInfo;
+  onClick?: () => void;
+}
 
-class RestaurantCard extends HTMLLIElement {
-  #restaurant;
+class RestaurantCard {
+  #restaurant: IRestaurantInfo;
 
-  constructor(restaurant: IRestaurantInfo) {
-    super();
+  #restaurantListElement = document.createElement('li');
+
+  #onClick?: () => void;
+
+  constructor({ restaurant, onClick }: Props) {
     this.#restaurant = restaurant;
+    this.#onClick = onClick;
+    this.#restaurantListElement.classList.add('restaurant-container');
+
+    this.#init();
   }
 
-  connectedCallback() {
-    this.#appendRestaurantElement(this.#restaurant);
+  #init() {
+    const restaurantContentElement = document.createElement('div');
+
+    restaurantContentElement.id = 'restaurant-card';
+    restaurantContentElement.classList.add('restaurant');
+    restaurantContentElement.innerHTML = this.#generateRestaurantContentTemplate();
+
+    this.#restaurantListElement.appendChild(restaurantContentElement);
+    this.#restaurantListElement.appendChild(this.#makeFavoriteBtn());
+
+    this.#addPopupModalEvent(restaurantContentElement);
   }
 
-  #appendRestaurantElement(restaurant: IRestaurantInfo) {
-    this.classList.add('restaurant-container');
-    this.innerHTML = this.#generateRestaurantElementTemplate(restaurant);
+  #addPopupModalEvent(restaurantContentElement: HTMLElement) {
+    const restaurantDetailModalSection = document.getElementById('restaurant-detail-modal-section');
+
+    restaurantContentElement.addEventListener('click', () => {
+      if (restaurantDetailModalSection) {
+        const restaurantDetailModal = new RestaurantDetailModal(this.#restaurant, this.#onClick);
+        restaurantDetailModalSection.innerHTML = '';
+        restaurantDetailModalSection.appendChild(restaurantDetailModal);
+        restaurantDetailModal.toggle();
+      }
+    });
   }
 
-  #generateRestaurantElementTemplate(restaurant: IRestaurantInfo) {
-    const categoryKey = restaurant.category as keyof typeof IMG_CATEGORY;
-    return `
-    <div class="restaurant">
+  #makeFavoriteBtn() {
+    const favoriteBtn = new FavoriteBtn(this.#restaurant.name, this.#restaurant.isFavorite);
+
+    favoriteBtn.element.addEventListener('click', () => {
+      if (this.#onClick) {
+        this.#onClick();
+      }
+    });
+
+    return favoriteBtn.element;
+  }
+
+  #generateRestaurantContentTemplate() {
+    return /* html */ `
+    <div class="restaurant__info__container">
       <div class="restaurant__category">
-        <img src="./assets/category-${IMG_CATEGORY[categoryKey]}.png" alt="${restaurant.category}" class="category-icon">
+        <img src="./assets/category-${Restaurant.generateImageSrc(this.#restaurant.category)}.png" alt="${
+      this.#restaurant.category
+    }" class="category-icon">
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distanceFromCampus}분 내</span>
-        <p class="restaurant__description text-body">${restaurant.description}</p>
+        <h3 class="restaurant__name text-subtitle">${this.#restaurant.name}</h3>
+        <span class="restaurant__distance text-body">캠퍼스부터 ${this.#restaurant.distanceFromCampus}분 내</span>
+        <p class="restaurant__description text-body">${this.#restaurant.description}</p>
       </div>
-    </div>
+    </div>`;
+  }
 
-  `;
+  get element() {
+    return this.#restaurantListElement;
   }
 }
 
