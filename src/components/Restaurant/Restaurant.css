@@ -1,3 +1,11 @@
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+}
+
 .restaurant {
   display: flex;
   align-items: flex-start;
@@ -5,6 +13,12 @@
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  cursor: pointer;
+}
+
+.restaurant:hover {
+  background-color: var(--grey-200);
 }
 
 .restaurant__category {
@@ -31,6 +45,12 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__sub-info {
+  display: flex;
+  justify-content: space-between;
 }
 
 .restaurant__name {
@@ -50,4 +70,21 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.detail-restaurant {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.detail-restaurant__image {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant__link {
+  color: var(--grey-500);
 }
