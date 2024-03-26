@@ -1,0 +1,37 @@
+.tab__item__text {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: var(--grey-300);
+}
+
+.tab__item__text--selected {
+  color: var(--primary-color);
+}
+
+.tab-bar {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(1px, 1fr)
+  ); /*n개의 요소를 동일한 width로 뿌리기*/
+
+  justify-content: space-between;
+  position: relative;
+
+  margin: 16px 16px 16px 16px;
+}
+
+.tab__item {
+  flex-grow: 1;
+  text-align: center;
+  padding: 15px;
+  border-bottom: 2px solid var(--grey-200);
+}
+
+.selected__tab {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}

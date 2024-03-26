@@ -1,4 +1,8 @@
-function createTextArea({ name, id, cols, rows }) {
+function createTextArea(textAreaProps) {
+  return renderTextArea(textAreaProps);
+}
+
+function renderTextArea({ name, id, cols, rows }) {
   const textArea = document.createElement('textarea');
   textArea.name = name;
   textArea.id = id;

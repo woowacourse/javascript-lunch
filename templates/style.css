@@ -129,30 +129,16 @@ body {
   border-bottom: 1px solid #e9eaed;
 }
 
-.restaurant__category {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  height: 64px;
-  min-width: 64px;
-  min-height: 64px;
-
-  margin-right: 16px;
-
-  border-radius: 50%;
-  background: var(--lighten-color);
-}
-
-.category-icon {
-  width: 36px;
-  height: 36px;
-}
-
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__info__main {
+  display: flex;
+  justify-content: space-between;
 }
 
 .restaurant__name {
@@ -172,95 +158,6 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-}
-
-/* 음식점 추가 모달 *****************************************/
-.modal {
-  display: none;
-}
-
-.modal--open {
-  display: block;
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  background: rgba(0, 0, 0, 0.35);
-}
-
-.modal-container {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-
-  padding: 32px 16px;
-
-  border-radius: 8px 8px 0px 0px;
-  background: var(--grey-100);
-}
-
-.modal-title {
-  margin-bottom: 36px;
-}
-
-.form-item {
-  display: flex;
-  flex-direction: column;
-
-  margin-bottom: 36px;
-}
-
-.form-item label {
-  color: var(--grey-400);
-  font-size: 14px;
-}
-
-.form-item--required label::after {
-  padding-left: 4px;
-
-  color: var(--primary-color);
-  content: '*';
-}
-
-.form-item .help-text {
-  color: var(--grey-300);
-}
-
-.form-item input,
-.form-item textarea,
-.form-item select {
-  padding: 8px;
-  margin: 6px 0;
-
-  border: 1px solid var(--grey-200);
-  border-radius: 8px;
-
-  font-size: 16px;
-}
-
-.form-item textarea {
-  resize: none;
-}
-
-.form-item select {
-  height: 44px;
-
-  padding: 8px;
-
-  border: 1px solid var(--grey-200);
-  border-radius: 8px;
-
-  color: var(--grey-300);
-}
-
-input[name='name'],
-input[name='link'] {
-  height: 44px;
 }
 
 .button-container {
@@ -295,4 +192,30 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.space__between__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.modal--open p {
+  word-wrap: break-word;
+  max-height: 220px;
+
+  overflow: auto;
+}
+
+.scroll-container--on {
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+[class^='star__button__'] {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
 }

@@ -1,5 +1,5 @@
 function createButton({ type, name, callback, className, eventType }) {
-  const button = render({ type, className, name });
+  const button = renderButton({ type, className, name });
 
   if (!callback) return button;
 
@@ -11,7 +11,7 @@ function createButton({ type, name, callback, className, eventType }) {
   return button;
 }
 
-function render({ type, className, name }) {
+function renderButton({ type, className, name }) {
   const button = document.createElement('button');
   button.type = type ? type : 'button';
   button.className = className;
@@ -19,4 +19,5 @@ function render({ type, className, name }) {
 
   return button;
 }
+
 export default createButton;
