@@ -175,7 +175,7 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
-/* .modal {
+.modal {
   display: none;
 }
 
@@ -190,10 +190,6 @@ body {
   bottom: 0;
   left: 0;
 
-  background: rgba(0, 0, 0, 0.35);
-} */
-
-#add-restaurant-modal::backdrop {
   background: rgba(0, 0, 0, 0.35);
 }
 
