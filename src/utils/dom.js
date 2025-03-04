@@ -1,4 +1,4 @@
-export function createElement(tag, props) {
+export function createElement(tag, props = {}) {
   const element = document.createElement(tag);
 
   for (const [key, value] of Object.entries(props)) {
@@ -6,6 +6,8 @@ export function createElement(tag, props) {
       Array.isArray(value)
         ? element.classList.add(...value)
         : element.classList.add(value);
+
+      continue;
     }
 
     element[key] = value;
