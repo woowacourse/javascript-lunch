@@ -4,6 +4,7 @@ const querySelector = {
   modalForm: () => document.querySelector(".modal-form"),
   addButton: () => document.querySelector("#add-button"),
   modalCancelButton: () => document.querySelector("#cancel-button"),
+  restaurantList: () => document.querySelector(".restaurant-list"),
 };
 
 export default querySelector;

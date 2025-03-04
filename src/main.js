@@ -1,8 +1,12 @@
 import querySelector from "./utils/querySelector.js";
-
-const storeList = [];
+import Store from "./components/store.js";
+import storeList from "./storeList.js";
 
 addEventListener("load", () => {
+  storeList.forEach((store) => {
+    addStore(store);
+  });
+
   querySelector.gnbButton().addEventListener("click", () => {
     querySelector.modal().classList.add("modal--open");
   });
@@ -11,6 +15,14 @@ addEventListener("load", () => {
 
   querySelector.modalCancelButton().addEventListener("click", closeModal);
 });
+
+const addStore = (storeProps) => {
+  const list = document.createElement("li");
+  list.classList.add("restaurant");
+  const store = Store(storeProps);
+  list.innerHTML = store;
+  querySelector.restaurantList().appendChild(list);
+};
 
 const updateStore = (e) => {
   e.preventDefault();
@@ -23,6 +35,7 @@ const updateStore = (e) => {
     link: e.target[4].value,
   };
   storeList.push(store);
+  addStore(store);
 
   closeModal();
 
