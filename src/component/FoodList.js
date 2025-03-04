@@ -2,6 +2,7 @@ import { FoodItem } from "./FoodItem.js";
 
 export function FoodList({ foodItems }) {
   const foodList = document.createElement("ul");
+  foodList.classList.add("restaurant-list");
   const foodFragment = document.createDocumentFragment();
 
   foodItems.forEach((foodItem) => {

@@ -1,4 +1,4 @@
-import { IconButton } from "./iconButton.js";
+import { IconButton } from "./IconButton.js";
 
 export function HeaderComponent({ title = "제목" }) {
   const header = document.createElement("header");
