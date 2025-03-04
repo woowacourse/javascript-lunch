@@ -34,6 +34,7 @@ $("#register-button").addEventListener("click", (e) => {
   e.preventDefault();
   //받은 info로 restaurant 객체를 생성하고
   const restaurant = new Restaurant(getInfo());
+  console.log(restaurant);
   // 생성된 객체를 list에 넣기
   restaurantList.push(restaurant);
   //모달창 닫기기
