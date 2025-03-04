@@ -180,7 +180,8 @@ body {
 }
 
 .modal--open {
-  display: block;
+  /* display: block; */
+  display: none;
 }
 
 .modal-backdrop {
