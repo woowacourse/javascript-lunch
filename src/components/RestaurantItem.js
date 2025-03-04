@@ -8,14 +8,7 @@ function RestaurantItem({ icon, name, distance, description }) {
       createDOMElement({
         tag: 'div',
         class: 'restaurant__category',
-        children: [
-          createDOMElement({
-            tag: 'img',
-            src: './category-korean.png',
-            alt: '한식',
-            class: 'category-icon',
-          }),
-        ],
+        children: [icon],
       }),
       createDOMElement({
         tag: 'div',
