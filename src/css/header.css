@@ -1,0 +1,14 @@
+.gnb__title {
+  color: #fcfcfd;
+}
+
+.gnb__button {
+  height: 40px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
+}
