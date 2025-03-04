@@ -32,9 +32,9 @@
 ### E2E 명세
 
 - [x] Header가 상단에 보이고, 점심 뭐먹지 라는 텍스트와 아이콘 컴포넌트가 보인다.
-- [ ] LunchInfoCard의 요소 확인
+- [x] LunchInfoCard의 요소 확인
   - 피양콩할마니, 캠퍼스로부터 10분 내, 설명
-- [ ] LunchInfoCard의 개수를 확인한다. (5개)
+- [x] LunchInfoCard의 개수를 확인한다. (6개)
 - [ ] IconButton을 누르면 새로운 음식점 모달창이 생긴다.
 - [ ] 모달창을 띄우면 여러 요소들이 보인다.
   - 새로운 음식점(title)
