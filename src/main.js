@@ -1,23 +1,93 @@
-import image from "../templates/favorite-icon-filled.png";
-
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
-
 addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+  const modalButton = document.getElementById("gnb-button");
+  const appContainer = document.getElementById("app");
+  const modal = `
+        <div class="modal modal--open">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+          <h2 class="modal-title text-title">새로운 음식점</h2>
+          <form>
+            <!-- 카테고리 -->
+            <div class="form-item form-item--required">
+              <label for="category text-caption">카테고리</label>
+              <select name="category" id="category" required>
+                <option value="">선택해 주세요</option>
+                <option value="한식">한식</option>
+                <option value="중식">중식</option>
+                <option value="일식">일식</option>
+                <option value="양식">양식</option>
+                <option value="아시안">아시안</option>
+                <option value="기타">기타</option>
+              </select>
+            </div>
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+            <!-- 음식점 이름 -->
+            <div class="form-item form-item--required">
+              <label for="name text-caption">이름</label>
+              <input type="text" name="name" id="name" required />
+            </div>
+
+            <!-- 거리 -->
+            <div class="form-item form-item--required">
+              <label for="distance text-caption">거리(도보 이동 시간) </label>
+              <select name="distance" id="distance" required>
+                <option value="">선택해 주세요</option>
+                <option value="5">5분 내</option>
+                <option value="10">10분 내</option>
+                <option value="15">15분 내</option>
+                <option value="20">20분 내</option>
+                <option value="30">30분 내</option>
+              </select>
+            </div>
+
+            <!-- 설명 -->
+            <div class="form-item">
+              <label for="description text-caption">설명</label>
+              <textarea
+                name="description"
+                id="description"
+                cols="30"
+                rows="5"
+              ></textarea>
+              <span class="help-text text-caption"
+                >메뉴 등 추가 정보를 입력해 주세요.</span
+              >
+            </div>
+
+            <!-- 링크 -->
+            <div class="form-item">
+              <label for="link text-caption">참고 링크</label>
+              <input type="text" name="link" id="link" />
+              <span class="help-text text-caption"
+                >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
+              >
+            </div>
+
+            <!-- 취소/추가 버튼 -->
+            <div class="button-container">
+              <button 
+                id ="close-modal"
+                type="button"
+                class="button button--secondary text-caption"
+              >
+                취소하기
+              </button>
+              <button class="button button--primary text-caption">
+                추가하기
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+  `;
+
+  modalButton.addEventListener("click", () => {
+    appContainer.innerHTML += modal;
+
+    const closeModalButton = document.getElementById("close-modal");
+    closeModalButton.addEventListener("click", () => {
+      const modalElement = document.querySelector(".modal");
+      modalElement.remove();
+    });
+  });
 });
