@@ -1,17 +1,15 @@
 import RestaurantHeader from "./RestaurantHeader.js";
 import { RestaurantItem } from "./RestaurantItem.js";
-import RestaurantList from "./RestaurantList.js";
+import RestaurantListContainer from "./RestaurantListContainer.js";
 
 export default function Restaurant() {
   const $body = document.querySelector("body");
   const $restaurantHeader = RestaurantHeader("점심 뭐 먹지");
-  $body.prepend($restaurantHeader);
 
-  const $restaurantListContainer = document.querySelector(
-    ".restaurant-list-container"
-  );
-  const $restaurantList = RestaurantList(dummy);
-  $restaurantListContainer.appendChild($restaurantList);
+  const $restaurantListContainer = RestaurantListContainer(dummy);
+
+  $body.appendChild($restaurantHeader);
+  $body.appendChild($restaurantListContainer);
 }
 
 const dummy = [
