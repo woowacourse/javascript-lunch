@@ -1,9 +1,9 @@
 import { DOM } from "../../utils/dom.js";
 
-const IconButton = {
+const TextButton = {
   init(onOpenButtonClick, dom) {
     dom.addEventListener("click", onOpenButtonClick);
   },
 };
 
-export default IconButton;
+export default TextButton;
