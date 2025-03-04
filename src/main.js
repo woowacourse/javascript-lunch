@@ -5,9 +5,11 @@ import { restaurants } from "./database/restaurants.js";
 
 addEventListener("load", () => {
   const app = document.querySelector("#app");
+  const main = document.querySelector("main");
+
   const $header = Header();
   const $restaurantList = RestaurantList(restaurants);
 
   app.insertAdjacentHTML("afterbegin", $header);
-  app.insertAdjacentHTML("beforeend", $restaurantList);
+  main.insertAdjacentHTML("afterbegin", $restaurantList);
 });
