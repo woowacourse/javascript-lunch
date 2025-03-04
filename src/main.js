@@ -1,23 +1,39 @@
-import image from "../templates/favorite-icon-filled.png";
+import Restaurant from "./model/Restaurant";
+import { $ } from "./utils/dom";
+import { getInfo } from "./view/input";
+import { FOOD_CATEGORY } from "./constants/foodCategory";
+import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
 
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+const mockRestaurants = [
+  new Restaurant({
+    category: FOOD_CATEGORY[0],
+    name: "피양콩할마니",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: FOOD_CATEGORY[0],
+    name: "친친",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: FOOD_CATEGORY[0],
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+];
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
-
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+const restaurantList = [...mockRestaurants];
+$("#register-button").addEventListener("click", (e) => {
+  e.preventDefault();
+  //받은 info로 restaurant 객체를 생성하고
+  const restaurant = new Restaurant(getInfo());
+  // 생성된 객체를 list에 넣기
+  restaurantList.push(restaurant);
+  console.log(restaurantList);
 });
