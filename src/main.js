@@ -1,11 +1,15 @@
-import image from "../public/images/favorite-icon-filled.png";
-
 addEventListener("load", () => {
   const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+  const $addRestaurantButton = document.querySelector(".gnb__button");
+  const $modal = document.querySelector(".modal");
+  const $modalCancelButton = document.querySelector("#modal-cancel");
+
+  $addRestaurantButton.addEventListener("click", function () {
+    $modal.classList.remove("hidden");
+  });
+
+  $modalCancelButton.addEventListener("click", function () {
+    $modal.classList.add("hidden");
+  });
 });

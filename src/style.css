@@ -296,3 +296,9 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+/* 기타 */
+
+.hidden {
+  display: none;
+}
