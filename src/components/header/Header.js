@@ -19,5 +19,10 @@ export default function Header() {
   $button.appendChild($img);
   $header.appendChild($button);
 
+  $button.addEventListener("click", () => {
+    const $modal = document.querySelector(".modal");
+    $modal.classList.add("modal--open");
+  });
+
   return $header;
 }
