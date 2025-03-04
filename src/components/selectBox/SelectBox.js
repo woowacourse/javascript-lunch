@@ -1,15 +1,17 @@
-export default function SelectBox({ label, categories }) {
+import { SELECT_BOX_LABEL } from "../../constants/constants";
+
+export default function SelectBox({ label, options }) {
   const $formItem = document.createElement("div");
   $formItem.className = "form-item form-item--required";
 
   const $label = document.createElement("label");
-  $label.setAttribute("for", "category text-caption");
-  $label.textContent = label;
+  $label.setAttribute("for", `${label} text-caption`);
+  $label.textContent = SELECT_BOX_LABEL[label];
 
   const $select = document.createElement("select");
-  $select.setAttribute("name", "category");
+  $select.setAttribute("name", label);
   $select.required = true;
-  $select.id = "category";
+  $select.id = label;
 
   const $defaultOption = document.createElement("option");
   $defaultOption.value = "";
@@ -19,10 +21,10 @@ export default function SelectBox({ label, categories }) {
   $formItem.appendChild($select);
   $select.appendChild($defaultOption);
 
-  categories.forEach((category) => {
+  options.forEach((option) => {
     const $option = document.createElement("option");
-    $option.value = category;
-    $option.textContent = category;
+    $option.value = option;
+    $option.textContent = option;
 
     $select.appendChild($option);
   });

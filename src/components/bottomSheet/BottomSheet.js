@@ -22,8 +22,8 @@ export default function BottomSheet({ title }) {
 
   // 카테고리
   const $categoryFormItem = SelectBox({
-    label: "카테고리",
-    categories: ["한식", "중식", "일식", "기타"],
+    label: "category",
+    options: ["한식", "중식", "일식", "기타"],
   });
 
   // 음식점 이름
@@ -31,8 +31,8 @@ export default function BottomSheet({ title }) {
 
   // 거리
   const $distanceFormItem = SelectBox({
-    label: "거리(도보 이동 시간)",
-    categories: ["5", "10", "15", "20", "30"],
+    label: "distance",
+    options: ["5", "10", "15", "20", "30"],
   });
 
   // 설명
