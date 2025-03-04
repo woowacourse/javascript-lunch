@@ -1,11 +1,27 @@
 import CATEGORY from '../constant/category.js';
 
+export const createRestaurantItem = (restaurant) => {
+  const restaurantItem = document.createElement('li');
+  const restaurantIcon = createRestaurantIcon(restaurant.getCategory());
+  const restaurantInfo = createRestaurantInfo(
+    restaurant.getName(),
+    restaurant.getDistance(),
+    restaurant.getDescription(),
+  );
+
+  restaurantItem.classList = 'restaurant';
+  restaurantItem.appendChild(restaurantIcon);
+  restaurantItem.appendChild(restaurantInfo);
+
+  return restaurantItem;
+};
+
 const createRestaurantIcon = (category) => {
   const iconDiv = document.createElement('div');
   const iconImage = document.createElement('img');
 
-  iconDiv.classList = 'retaurant__category';
-  iconImage.classList = 'category__icon';
+  iconDiv.classList = 'restaurant__category';
+  iconImage.classList = 'category-icon';
 
   iconImage.src = getImageSrc(category);
   iconImage.alt = category;
@@ -16,15 +32,15 @@ const createRestaurantIcon = (category) => {
 };
 
 const getImageSrc = (category) => {
-  if (category === '한식') return CATEGORY.KOREAN.SRC;
-  if (category === '중식') return CATEGORY.CHINESE.SRC;
-  if (category === '일식') return CATEGORY.JAPANESE.SRC;
-  if (category === '양식') return CATEGORY.WESTERN.SRC;
-  if (category === '아시안') return CATEGORY.ASIAN.SRC;
-  if (category === '기타') return CATEGORY.ETC.SRC;
+  if (category === CATEGORY.KOREAN.ALT) return CATEGORY.KOREAN.SRC;
+  if (category === CATEGORY.CHINESE.ALT) return CATEGORY.CHINESE.SRC;
+  if (category === CATEGORY.JAPANESE.ALT) return CATEGORY.JAPANESE.SRC;
+  if (category === CATEGORY.WESTERN.ALT) return CATEGORY.WESTERN.SRC;
+  if (category === CATEGORY.ASIAN.ALT) return CATEGORY.ASIAN.SRC;
+  if (category === CATEGORY.ETC.ALT) return CATEGORY.ETC.SRC;
 };
 
-const restaurantInfo = (title, distance, description) => {
+const createRestaurantInfo = (title, distance, description) => {
   const restaurantInfo = document.createElement('div');
   const restaurantName = document.createElement('h3');
   const restaurantDistance = document.createElement('span');
@@ -39,7 +55,8 @@ const restaurantInfo = (title, distance, description) => {
   restaurantDistance.textContent = distance;
   restaurantDescription.textContent = description;
 
-  restaurantInfo.appendChild(restaurantName, restaurantDistance, restaurantDescription);
-
+  restaurantInfo.appendChild(restaurantName);
+  restaurantInfo.appendChild(restaurantDistance);
+  restaurantInfo.appendChild(restaurantDescription);
   return restaurantInfo;
 };
