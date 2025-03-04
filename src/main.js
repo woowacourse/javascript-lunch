@@ -1,11 +1,5 @@
-import image from "../templates/favorite-icon-filled.png";
+import { $ } from "./utils/querySelectors.js";
+import IconButton from "./component/IconButton/IconButton.js";
+import AddLunchModal from "./component/AddLunchModal/AddLunchModal.js";
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
-
-  if (app) {
-    app.appendChild(buttonImage);
-  }
-});
+IconButton.init(AddLunchModal.open);
