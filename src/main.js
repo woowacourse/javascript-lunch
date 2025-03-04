@@ -1,4 +1,4 @@
-import image from "../templates/favorite-icon-filled.png";
+// import image from "../templates/favorite-icon-filled.png";
 
 console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
 console.log(
