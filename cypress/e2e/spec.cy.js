@@ -11,6 +11,10 @@ describe("Test Group", () => {
     cy.get(".gnb__button").click();
     cy.get(".modal-container").should("be.visible");
   });
+
+  it("음식점 정보 리스트를 본다.", () => {
+    cy.get(".restaurant-list").should("be.visible");
+  });
 });
 
 // describe("컴포넌트 테스트", () => {
