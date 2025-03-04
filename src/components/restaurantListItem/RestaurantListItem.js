@@ -3,6 +3,7 @@ export default function RestaurantListItem({
   name,
   distance,
   description,
+  link,
 }) {
   const $item = document.createElement("li");
   $item.className = "restaurant";

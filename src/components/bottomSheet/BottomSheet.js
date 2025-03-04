@@ -3,6 +3,7 @@ import LinkInput from "../linkInput/LinkInput.js";
 import SelectBox from "../selectBox/SelectBox.js";
 import RestaurantNameInput from "../restaurantNameInput/RestaurantNameInput.js";
 import DescriptionInput from "../descriptionInput/DescriptionInput.js";
+import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
 
 export default function BottomSheet({ title }) {
   const $modal = document.createElement("div");
@@ -78,5 +79,33 @@ export default function BottomSheet({ title }) {
     }
   });
 
+  $form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const category = document.querySelector("#category");
+    const name = document.querySelector("#name");
+    const distance = document.querySelector("#distance");
+    const description = document.querySelector("#description");
+    const link = document.querySelector("#link");
+
+    const $restaurantItem = RestaurantListItem({
+      category: category.value,
+      name: name.value,
+      distance: distance.value,
+      description: description.value,
+      link: link.value,
+    });
+
+    const $restaurantList = document.querySelector(".restaurant-list");
+    $restaurantList.appendChild($restaurantItem);
+
+    category.value = "";
+    name.value = "";
+    distance.value = "";
+    description.value = "";
+    link.value = "";
+
+    $modal.classList.remove("modal--open");
+  });
   return $modal;
 }
