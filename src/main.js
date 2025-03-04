@@ -1,5 +1,8 @@
+import Header from "./Header";
+
 addEventListener("load", () => {
-  const app = document.querySelector("#app");
+  const $app = document.querySelector("#app");
+  const header = new Header("점심 뭐 먹지", $app);
 
   const $addRestaurantButton = document.querySelector(".gnb__button");
   const $modal = document.querySelector(".modal");
