@@ -1,23 +1,28 @@
-import image from "../templates/favorite-icon-filled.png";
+import Header from './components/Header.js';
+import createDOMElement from './util/createDomElement.js';
 
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+const PlusButton = createDOMElement({
+  tag: 'button',
+  props: {
+    type: 'button',
+    class: 'gnb__button',
+    'aria-label': '음식점 추가',
+  },
+  children: [
+    createDOMElement({
+      tag: 'img',
+      props: {
+        src: './add-button.png',
+        alt: '음식점 추가',
+      },
+    }),
+  ],
+});
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+addEventListener('load', () => {
+  const body = document.querySelector('body');
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+  const header = Header({ title: '점심 뭐 먹지', right: PlusButton });
+  header.classList.add('gnb');
+  body.prepend(header);
 });
