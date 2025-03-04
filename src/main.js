@@ -1,5 +1,6 @@
-import { Header } from "./component/Header.js";
+import { HeaderComponent } from "./component/HeaderComponent.js";
 
 addEventListener("load", () => {
-  Header();
+  const body = document.querySelector("body");
+  body.appendChild(HeaderComponent({ title: "점심 뭐 먹지?" }));
 });
