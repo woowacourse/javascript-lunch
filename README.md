@@ -43,7 +43,7 @@
 
 ### 그 외
 
-- [ ] 헤더 : header
+- [x] 헤더 : header
 - [ ] 버튼 : common-button
 
 ### 가게 목록
