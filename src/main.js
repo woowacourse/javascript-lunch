@@ -1,11 +1,17 @@
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
+const addRestaurantButton = document.querySelector(".gnb__button");
+const addNewRestaurantModal = document.querySelector("dialog");
+const closeModalButton = document.getElementById("cancel-dialog-btn");
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+addRestaurantButton.addEventListener("click", () => {
+  addNewRestaurantModal.showModal();
+});
 
-  if (app) {
-    app.appendChild(buttonImage);
+addNewRestaurantModal.addEventListener("click", (event) => {
+  if (event.target === addNewRestaurantModal) {
+    addNewRestaurantModal.close();
   }
+});
+
+closeModalButton.addEventListener("click", () => {
+  addNewRestaurantModal.close();
 });
