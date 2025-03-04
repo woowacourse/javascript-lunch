@@ -1,3 +1,13 @@
+:root {
+  --primary-500: #ec4a0a;
+  --primary-300: #f6a88a;
+  --slate-50: #d0d5dd;
+  --slate-400: #667085;
+  --slate-500: #344054;
+  --white: #ffffff;
+  --black: #000000;
+}
+
 .primary-500 {
   color: #ec4a0a;
 }
@@ -24,4 +34,16 @@
 
 .black {
   color: #000000;
+}
+
+.bg-primary-500 {
+  background-color: var(--primary-500);
+}
+
+.bg-primary-300 {
+  background-color: var(--primary-300);
+}
+
+.bg-white {
+  background-color: var(--white);
 }

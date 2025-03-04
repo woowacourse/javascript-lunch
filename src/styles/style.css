@@ -1,0 +1,75 @@
+.w-full {
+  width: 100%;
+}
+
+.max-w-390 {
+  max-width: 390px;
+}
+
+.w-64 {
+  width: 64px;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-140 {
+  height: 140px;
+}
+
+.h-64 {
+  height: 64px;
+}
+
+.h-48 {
+  height: 48px;
+}
+
+.rounded-full {
+  border-radius: 999px;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.my-16 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.py-16 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.px-8 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.px-16 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.border-b {
+  border-bottom: 1px solid var(--slate-50);
+}
