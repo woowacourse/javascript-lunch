@@ -48,9 +48,12 @@
 
 ### 가게 목록
 
-- [ ] 가게 목록 아이템 :store-item
-  - [ ] 가게 이름, 거리, 설명: store-item-info
-  - [ ] 가게 아이콘: store-item-category-icon
+- [ ] 가게 목록 아이템 : restaurantItem
+  - [x] 가게 이름, 거리, 설명: restaurantInfo
+    - [x] 가게 이름 : restaurantName
+    - [x] 가게 거리 : restaurantDistance
+    - [x] 가게 설명 : restaurantDescriptions
+  - [x] 가게 아이콘: restaurantIcon
 
 ### 모달
 
