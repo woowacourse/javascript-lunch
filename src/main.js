@@ -2,7 +2,9 @@ import Header from "./Header";
 
 addEventListener("load", () => {
   const $app = document.querySelector("#app");
-  const header = new Header("점심 뭐 먹지", $app);
+  const header = new Header($app, {
+    title: "점심 뭐 먹지",
+  });
 
   const $addRestaurantButton = document.querySelector(".gnb__button");
   const $modal = document.querySelector(".modal");
