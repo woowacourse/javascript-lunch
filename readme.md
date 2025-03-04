@@ -2,20 +2,20 @@
 
 ### 공통 컴포넌트
 
-- [ ] Text
+- [x] Text
 - [ ] Textarea
 - [ ] Button
 - [ ] Select
-- [ ] Icon
-- [ ] Header
+- [x] Icon
+- [x] Header
 - [ ] BottomSheet
-- [ ] CircleIcon
-- [ ] Layout
+- [x] CircleIcon
+- [x] Layout
 
 ### feature 컴포넌트
 
-- [ ] LaunchList
-- [ ] LaunchItem
+- [x] LaunchList
+- [x] LaunchItem
 - [ ] BottomButton
 
 ### 기능 흐름
