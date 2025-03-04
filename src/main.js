@@ -1,11 +1,14 @@
 import $header from "./components/header";
+import $restaurantItem from "./components/restaurant-item.js";
+import { HEADER_INFO } from "./constants/component.js";
+import { restaurantData } from "./data/restaurant.js";
 
 addEventListener('load', () => {
   const body = document.body;
-  const HEADER_INFO = Object.freeze({
-    TITLE : '점심 뭐 먹지',        
-    BUTTON_TITLE : '음식점 추가',
-    BUTTON_IMAGE : '../images/add-button.png'
-  });
+  
   body.prepend($header(HEADER_INFO));
+  const restaurantList = document.querySelector('.restaurant-list');
+  restaurantData.forEach((data) => {
+    restaurantList.appendChild($restaurantItem(data));
+  });
 });
