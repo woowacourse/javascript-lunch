@@ -1,21 +1,22 @@
 import createDOMElement from '../util/createDomElement.js';
 
 function Header({ title, right }) {
-  const header = document.createElement('header');
-
-  // createDOMElement({
-  //   tag: 'header',
-  //   class: 'gnb__title text-title',
-  //   children: [],
-  // });
-  header.innerHTML =
-    /*html*/
-    ` <h1 class="gnb__title text-title">${title}</h1>
-      `;
-  header.appendChild(right);
-  header.classList.add('gnb');
-
-  return header;
+  return createDOMElement({
+    tag: 'header',
+    props: {
+      class: 'gnb',
+    },
+    children: [
+      createDOMElement({
+        tag: 'h1',
+        props: {
+          class: ['gnb__title', 'text-title'],
+          textContent: title,
+        },
+      }),
+      right,
+    ],
+  });
 }
 
 export default Header;

@@ -18,7 +18,7 @@ const createDOMElement = ({ tag, props = {}, children }) => {
   });
 
   if (children) {
-    children.flat().forEach((child) => {
+    children.forEach((child) => {
       element.appendChild(child);
     });
   }
