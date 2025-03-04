@@ -1,9 +1,9 @@
 export default class Component {
-  target;
+  props;
   state;
 
-  constructor(target) {
-    this.target = target;
+  constructor(props) {
+    this.props = props;
     this.initState();
     this.setEvent();
     this.setDefaultProps();
