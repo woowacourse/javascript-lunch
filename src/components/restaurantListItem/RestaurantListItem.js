@@ -1,3 +1,5 @@
+import { CATEGORY, CATEGORY_ASSETS } from "../../constants/constants.js";
+
 export default function RestaurantListItem({
   category,
   name,
@@ -13,8 +15,7 @@ export default function RestaurantListItem({
 
   const $categoryImg = document.createElement("img");
   $categoryImg.className = "category-icon";
-  // TODO: 카테고리 상수화
-  $categoryImg.src = "/assets/category-korean.png";
+  $categoryImg.src = CATEGORY_ASSETS[category];
   $categoryImg.setAttribute("alt", category);
 
   const $info = document.createElement("div");

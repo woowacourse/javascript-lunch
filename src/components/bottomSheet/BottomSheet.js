@@ -4,6 +4,7 @@ import SelectBox from "../selectBox/SelectBox.js";
 import RestaurantNameInput from "../restaurantNameInput/RestaurantNameInput.js";
 import DescriptionInput from "../descriptionInput/DescriptionInput.js";
 import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
+import { CATEGORY, DISTANCE } from "../../constants/constants.js";
 
 export default function BottomSheet({ title }) {
   const $modal = document.createElement("div");
@@ -24,7 +25,7 @@ export default function BottomSheet({ title }) {
   // 카테고리
   const $categoryFormItem = SelectBox({
     label: "category",
-    options: ["한식", "중식", "일식", "기타"],
+    options: CATEGORY,
   });
 
   // 음식점 이름
@@ -33,7 +34,7 @@ export default function BottomSheet({ title }) {
   // 거리
   const $distanceFormItem = SelectBox({
     label: "distance",
-    options: ["5", "10", "15", "20", "30"],
+    options: DISTANCE,
   });
 
   // 설명
