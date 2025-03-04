@@ -1,23 +1,39 @@
-import image from "../templates/favorite-icon-filled.png";
+import Header from "./components/header/Header.js";
+import RestaurantListItem from "./components/restaurantListItem/RestaurantListItem.js";
+import RestaurantList from "./components/restaurantList/RestaurantList.js";
+import SelectBox from "./components/selectBox/SelectBox.js";
+import ButtonSheet from "./components/bottomSheet/BottomSheet.js";
 
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+const data = [
+  {
+    category: "한식",
+    name: "피양콩할머니",
+    distance: "10",
+    description: "가게 설명~~~~~~",
+  },
+  {
+    category: "중식",
+    name: "가게2",
+    distance: "5",
+    description: "가게 설명22222~~~~~~",
+  },
+  {
+    category: "일식",
+    name: "가게3",
+    distance: "15",
+    description: "가게 설명3333~~~~~~",
+  },
+];
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+const $body = document.querySelector("body");
+$body.appendChild(Header());
+const $main = document.createElement("main");
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
-});
+$body.appendChild($main);
+const $listSection = document.createElement("section");
+$listSection.className = "restaurant-list-container";
+
+$main.appendChild($listSection);
+$listSection.appendChild(RestaurantList(data));
+
+$main.appendChild(ButtonSheet({ title: "새로운 음식점" }));
