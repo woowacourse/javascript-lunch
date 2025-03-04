@@ -8,8 +8,8 @@ describe("Test Group", () => {
   });
 
   it("음식점 목록에서 우측 상단의 추가 버튼을 누른다.", () => {
-    cy.visit("http://localhost:5173");
-    cy.get(".gnb").should("be.visible");
+    cy.get(".gnb__button").click();
+    cy.get(".modal-container").should("be.visible");
   });
 });
 
