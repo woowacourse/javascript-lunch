@@ -15,15 +15,8 @@ describe("Test Group", () => {
   it("음식점 정보 리스트를 본다.", () => {
     cy.get(".restaurant-list").should("be.visible");
   });
+
+  it("음식점 정보 아이템을 본다.", () => {
+    cy.get(".restaurant").contains("피양콩할마니");
+  });
 });
-
-// describe("컴포넌트 테스트", () => {
-//   beforeEach(() => {
-//     cy.visit("http://localhost:5173");
-//   });
-
-//   it("헤더에서 점심 뭐 먹지가 잘 렌더링되는지 확인한다.", () => {
-//     cy.get(".gnb").should("exist");
-//     cy.get(".gnb").contains("점심 뭐 먹지");
-//   });
-// });
