@@ -6,7 +6,6 @@
 - [ ] Textarea
 - [ ] Button
 - [ ] Select
-- [ ] Box
 - [ ] Icon
 - [ ] Header
 - [ ] BottomSheet
