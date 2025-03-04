@@ -1,6 +1,6 @@
 import createDOMElement from '../util/createDomElement.js';
 
-function RestaurantItem({ icon, name, distance, description }) {
+function RestaurantItem({ name, distance, description, icon }) {
   return createDOMElement({
     tag: 'li',
     class: 'restaurant',
