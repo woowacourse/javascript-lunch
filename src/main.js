@@ -1,11 +1,15 @@
 import querySelector from "./utils/querySelector.js";
 import Store from "./components/store.js";
 import storeList from "./storeList.js";
+import Button from "./components/button.js";
 
 addEventListener("load", () => {
   storeList.forEach((store) => {
     addStore(store);
   });
+
+  querySelector.buttonContainer().appendChild(Button("cancel"));
+  querySelector.buttonContainer().appendChild(Button("add"));
 
   querySelector.gnbButton().addEventListener("click", () => {
     querySelector.modal().classList.add("modal--open");
