@@ -6,7 +6,7 @@ import DescriptionInput from "../descriptionInput/DescriptionInput.js";
 
 export default function BottomSheet({ title }) {
   const $modal = document.createElement("div");
-  $modal.className = "modal modal--open";
+  $modal.className = "modal";
 
   const $backdrop = document.createElement("div");
   $backdrop.className = "modal-backdrop";
@@ -67,6 +67,16 @@ export default function BottomSheet({ title }) {
 
   $buttonContainer.appendChild($cancelButton);
   $buttonContainer.appendChild($addButton);
+
+  $cancelButton.addEventListener("click", () => {
+    $modal.classList.remove("modal--open");
+  });
+
+  $backdrop.addEventListener("click", (e) => {
+    if (!e.target.closest(".modal-container")) {
+      $modal.classList.remove("modal--open");
+    }
+  });
 
   return $modal;
 }
