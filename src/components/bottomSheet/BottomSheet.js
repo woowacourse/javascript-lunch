@@ -1,6 +1,7 @@
+import Button from "../button/Button.js";
 import SelectBox from "../selectBox/SelectBox.js";
 
-export default function BottomSheet() {
+export default function BottomSheet({ title }) {
   const $modal = document.createElement("div");
   $modal.className = "modal modal--open";
 
@@ -12,7 +13,7 @@ export default function BottomSheet() {
 
   const $title = document.createElement("h2");
   $title.className = "modal-title text-title";
-  $title.textContent = "새로운 음식점";
+  $title.textContent = title;
 
   const $form = document.createElement("form");
 
@@ -95,14 +96,12 @@ export default function BottomSheet() {
   const $buttonContainer = document.createElement("div");
   $buttonContainer.className = "button-container";
 
-  const $cancelButton = document.createElement("button");
-  $cancelButton.type = "button";
-  $cancelButton.className = "button button--secondary text-caption";
-  $cancelButton.textContent = "취소하기";
-
-  const $addButton = document.createElement("button");
-  $addButton.className = "button button--primary text-caption";
-  $addButton.textContent = "추가하기";
+  const $cancelButton = Button({ text: "취소하기", action: "cancel" });
+  const $addButton = Button({
+    type: "submit",
+    text: "추가하기",
+    action: "add",
+  });
 
   $modal.appendChild($backdrop);
   $modal.appendChild($container);
