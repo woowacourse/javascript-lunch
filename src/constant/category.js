@@ -1,4 +1,4 @@
-export default CATEGORY = Object.freeze({
+const CATEGORY = Object.freeze({
   KOREAN: {
     SRC: '../../public/assets/category-korean.png',
     ALT: '한식',
@@ -24,3 +24,5 @@ export default CATEGORY = Object.freeze({
     ALT: '기타',
   },
 });
+
+export default CATEGORY;
