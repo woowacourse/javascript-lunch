@@ -34,9 +34,9 @@ interface data: Restaurant[]
   - [x] 점심 뭐 먹지 타이틀
   - [x] 추가 아이콘
 
-- [ ] 음식점 리스트
+- [x] 음식점 리스트
 
-  - [ ] 음식점 아이템
+  - [x] 음식점 아이템
     - [ ] 카테고리 (required)
     - [ ] 이름 (required)
     - [ ] 거리(도보 이동 시간) (required)
