@@ -29,11 +29,13 @@ const mockRestaurants = [
 ];
 
 const restaurantList = [...mockRestaurants];
+
 $("#register-button").addEventListener("click", (e) => {
   e.preventDefault();
   //받은 info로 restaurant 객체를 생성하고
   const restaurant = new Restaurant(getInfo());
   // 생성된 객체를 list에 넣기
   restaurantList.push(restaurant);
-  console.log(restaurantList);
+
+  $(".modal").classList.remove("modal--open");
 });
