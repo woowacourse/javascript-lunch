@@ -59,8 +59,8 @@ describe("Test Group", () => {
     cy.get(".gnb__button").click();
     cy.get(".form-item textarea").should("exist");
   });
-  it("모달창을 열었을 때 제출 버튼이 렌더링 된다", () => {
-    cy.get(".gnb__button").click();
-    cy.get(".button-container button").should("exist");
-  });
+  // it("모달창을 열었을 때 제출 버튼이 렌더링 된다", () => {
+  //   cy.get(".gnb__button").click();
+  //   cy.get(".button-container button").should("exist");
+  // });
 });

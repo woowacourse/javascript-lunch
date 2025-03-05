@@ -1,3 +1,4 @@
+import { FoodForm } from "./component/FoodForm.js";
 import { FoodItem } from "./component/FoodItem.js";
 import { FoodList } from "./component/FoodList.js";
 import { HeaderComponent } from "./component/HeaderComponent.js";
@@ -10,6 +11,8 @@ addEventListener("load", () => {
 
   body.appendChild(FoodList({ foodItems: foodItems }));
   body.appendChild(Modal());
+
+  document.querySelector(".modal-container").appendChild(FoodForm());
 
   init();
 });
