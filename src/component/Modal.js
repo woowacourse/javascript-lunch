@@ -1,4 +1,5 @@
 import { SELECT_OPTIONS } from "../constants.js";
+import { Button } from "./Button.js";
 import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
@@ -13,8 +14,6 @@ export function Modal() {
         <form>
           <!-- 취소/추가 버튼 -->
           <div class="button-container">
-            <button type="button" class="button button--secondary text-caption">취소하기</button>
-            <button class="button button--primary text-caption">추가하기</button>
           </div>
         </form>
       </div>
@@ -41,6 +40,9 @@ export function Modal() {
       caption: "메뉴 등 추가 정보를 입력해 주세요",
     })
   );
+  document
+    .querySelector(".button-container")
+    .appendChild(Button({ cssType: "primary", innerText: "추가하기" }));
 
   return container;
 }
