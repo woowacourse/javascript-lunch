@@ -5,28 +5,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = createHeader({ title: "점심 뭐 먹지" });
   body.prepend(header);
 
-  const restaurantListContainer = document.querySelector(
-    ".restaurant-list-container"
-  );
   const restaurantList = document.querySelector(".restaurant-list");
 
-  const addRestaurantButton = header.querySelector(".gnb__button");
-  const addNewRestaurantModal = document.querySelector("dialog");
+  const addRestaurantModalButton = header.querySelector(".gnb__button");
+  const addNewRestaurantModal = document.getElementById(
+    "add-restaurant-dialog"
+  );
   const closeModalButton = document.getElementById("cancel-dialog-btn");
+  const form = addNewRestaurantModal.querySelector("form");
 
   restaurantsData.forEach((restaurantData) => {
     const restaurantItem = createRestaurantItem(restaurantData);
     restaurantList.appendChild(restaurantItem);
   });
 
-  addRestaurantButton.addEventListener("click", () => {
+  addRestaurantModalButton.addEventListener("click", () => {
     addNewRestaurantModal.showModal();
   });
 
   addNewRestaurantModal.addEventListener("click", (event) => {
-    if (event.target === addNewRestaurantModal) {
+    if (!event.target.closest(".modal-container")) {
       addNewRestaurantModal.close();
     }
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    // TODO
+    const newRestaurant = {
+      category: document.getElementById("category").value,
+      name: document.getElementById("name").value,
+      distance: document.getElementById("distance").value + "분 내",
+      description: document.getElementById("description").value,
+      link: document.getElementById("link").value,
+    };
+
+    const restaurantItem = createRestaurantItem(newRestaurant);
+    restaurantList.appendChild(restaurantItem);
+
+    form.reset();
+    addNewRestaurantModal.close();
   });
 
   closeModalButton.addEventListener("click", () => {
@@ -36,14 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const createHeader = ({ title }) => {
   const header = document.createElement("header");
-
   header.innerHTML = `
       <h1 class="gnb__title text-title">${title}</h1>
       <button type="button" class="gnb__button" aria-label="음식점 추가">
         <img src="../images/add-button.png" alt="음식점 추가" />
       </button>`;
   header.classList.add("gnb");
-
   return header;
 };
 
@@ -57,9 +74,10 @@ const createRestaurantItem = ({
   const li = document.createElement("li");
   li.classList.add("restaurant");
 
+  const defaultImgSrc = imgSrc || "../images/default-category.png";
   li.innerHTML = `
     <div class="restaurant__category">
-      <img src="${imgSrc}" alt="${category}" class="category-icon" />
+      <img src="${defaultImgSrc}" alt="${category}" class="category-icon" />
     </div>
     <div class="restaurant__info">
       <h3 class="restaurant__name text-subtitle">${name}</h3>
