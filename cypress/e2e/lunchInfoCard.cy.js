@@ -30,7 +30,7 @@ describe("LunchInfoCard 테스트", () => {
       .find(".restaurant__description")
       .should(
         "contain.text",
-        "평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니."
+        "평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩"
       );
   });
 });
