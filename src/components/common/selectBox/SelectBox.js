@@ -1,4 +1,4 @@
-import { SELECT_BOX_LABEL } from "../../constants/constants";
+import { SELECT_BOX_LABEL } from "../../../constants/constants";
 
 export default function SelectBox({ label, options }) {
   const $formItem = document.createElement("div");

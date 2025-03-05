@@ -1,25 +1,12 @@
-import Button from "../button/Button.js";
-import LinkInput from "../linkInput/LinkInput.js";
-import SelectBox from "../selectBox/SelectBox.js";
-import RestaurantNameInput from "../restaurantNameInput/RestaurantNameInput.js";
-import DescriptionInput from "../descriptionInput/DescriptionInput.js";
-import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
-import { CATEGORY, DISTANCE } from "../../constants/constants.js";
+import Button from "../../button/Button.js";
+import LinkInput from "../../linkInput/LinkInput.js";
+import SelectBox from "../../common/selectBox/SelectBox.js";
+import RestaurantNameInput from "../../restaurantNameInput/RestaurantNameInput.js";
+import DescriptionInput from "../../descriptionInput/DescriptionInput.js";
+import RestaurantListItem from "../../restaurantListItem/RestaurantListItem.js";
+import { CATEGORY, DISTANCE } from "../../../constants/constants.js";
 
-export default function BottomSheet({ title }) {
-  const $modal = document.createElement("div");
-  $modal.className = "modal";
-
-  const $backdrop = document.createElement("div");
-  $backdrop.className = "modal-backdrop";
-
-  const $container = document.createElement("div");
-  $container.className = "modal-container";
-
-  const $title = document.createElement("h2");
-  $title.className = "modal-title text-title";
-  $title.textContent = title;
-
+export default function RestaurantForm() {
   const $form = document.createElement("form");
 
   // 카테고리
@@ -54,12 +41,6 @@ export default function BottomSheet({ title }) {
     action: "add",
   });
 
-  $modal.appendChild($backdrop);
-  $modal.appendChild($container);
-
-  $container.appendChild($title);
-  $container.appendChild($form);
-
   $form.appendChild($categoryFormItem);
   $form.appendChild($restaurantFormItem);
   $form.appendChild($distanceFormItem);
@@ -71,13 +52,8 @@ export default function BottomSheet({ title }) {
   $buttonContainer.appendChild($addButton);
 
   $cancelButton.addEventListener("click", () => {
+    const $modal = document.querySelector(".modal");
     $modal.classList.remove("modal--open");
-  });
-
-  $backdrop.addEventListener("click", (e) => {
-    if (!e.target.closest(".modal-container")) {
-      $modal.classList.remove("modal--open");
-    }
   });
 
   $form.addEventListener("submit", (e) => {
@@ -106,7 +82,9 @@ export default function BottomSheet({ title }) {
     description.value = "";
     link.value = "";
 
+    const $modal = document.querySelector(".modal");
     $modal.classList.remove("modal--open");
   });
-  return $modal;
+
+  return $form;
 }

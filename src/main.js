@@ -1,8 +1,9 @@
 import Header from "./components/header/Header.js";
 import RestaurantListItem from "./components/restaurantListItem/RestaurantListItem.js";
 import RestaurantList from "./components/restaurantList/RestaurantList.js";
-import SelectBox from "./components/selectBox/SelectBox.js";
-import ButtonSheet from "./components/bottomSheet/BottomSheet.js";
+import SelectBox from "./components/common/selectBox/SelectBox.js";
+import BottomSheetBase from "./components/bottomSheet/bottomSheetBase/BottomSheetBase.js";
+import RestaurantForm from "./components/bottomSheet/restaurantForm/RestaurantForm.js";
 
 const $body = document.querySelector("body");
 $body.appendChild(Header());
@@ -15,4 +16,6 @@ $listSection.className = "restaurant-list-container";
 $main.appendChild($listSection);
 $listSection.appendChild(RestaurantList());
 
-$main.appendChild(ButtonSheet({ title: "새로운 음식점" }));
+$main.appendChild(
+  BottomSheetBase({ title: "새로운 음식점", $children: RestaurantForm() })
+);
