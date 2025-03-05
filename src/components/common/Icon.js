@@ -1,5 +1,5 @@
-import Component from "../../core/Component";
-import { styleStr } from "../../utils/styleStr";
+import Component from "../../core/Component.js";
+import { styleStr } from "../../utils/styleStr.js";
 
 export default class Icon extends Component {
   setDefaultProps() {
