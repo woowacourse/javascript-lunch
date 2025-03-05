@@ -61,7 +61,14 @@ class Modal extends Component {
     `;
   }
 
-  setEvent() {}
+  setEvent() {
+    this.$target
+      .querySelector(".button.button--secondary.text-caption")
+      .addEventListener("click", () => {
+        const modalContainer = document.querySelector(".modal");
+        modalContainer.classList.toggle("modal--open");
+      });
+  }
 }
 
 export default Modal;
