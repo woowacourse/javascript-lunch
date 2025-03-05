@@ -51,4 +51,12 @@ describe("Test Group", () => {
     cy.get(".gnb__button").click();
     cy.get(".form-item select").should("exist").contains("선택해 주세요");
   });
+  it("모달창을 열었을 때 Input 컴포넌트가 렌더링 된다.", () => {
+    cy.get(".gnb__button").click();
+    cy.get(".form-item input").should("exist");
+  });
+  it("모달창을 열었을 때 TextareaInput 컴포넌트가 렌더링 된다", () => {
+    cy.get(".gnb__button").click();
+    cy.get(".form-item textarea").should("exist");
+  });
 });
