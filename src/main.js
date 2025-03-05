@@ -2,7 +2,8 @@ import querySelector from "./utils/querySelector.js";
 import Store from "./components/store.js";
 import storeList from "./storeList.js";
 import Button from "./components/button.js";
-import optionInput from "./components/input.js";
+import optionInput from "./components/optionInput.js";
+import textInput from "./components/textInput.js";
 
 const options = {
   category: ["한식", "중식", "일식", "양식", "아시안", "기타"],
@@ -14,17 +15,34 @@ addEventListener("load", () => {
     addStore(store);
   });
 
-  querySelector.buttonContainer().appendChild(Button("cancel"));
-  querySelector.buttonContainer().appendChild(Button("add"));
-
   querySelector.gnbButton().addEventListener("click", () => {
     querySelector.modal().classList.add("modal--open");
   });
 
   querySelector.modalForm().addEventListener("submit", (e) => updateStore(e));
 
-  querySelector.modalForm().prepend(optionInput("category", options.category));
-  querySelector.modalForm().prepend(optionInput("distance", options.distance));
+  querySelector
+    .modalForm()
+    .appendChild(optionInput("category", options.category));
+  querySelector.modalForm().appendChild(textInput("name", true));
+  querySelector
+    .modalForm()
+    .appendChild(optionInput("distance", options.distance));
+  querySelector
+    .modalForm()
+    .appendChild(
+      textInput(
+        "link",
+        false,
+        "매장 정보를 확인할 수 있는 링크를 입력해 주세요."
+      )
+    );
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("button-container");
+  buttonContainer.appendChild(Button("cancel"));
+  buttonContainer.appendChild(Button("add"));
+  querySelector.modalForm().appendChild(buttonContainer);
 
   querySelector.modalCancelButton().addEventListener("click", closeModal);
 });

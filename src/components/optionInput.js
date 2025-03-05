@@ -1,7 +1,4 @@
-const title = {
-  category: "카테고리",
-  distance: "거리 (도보 이동 시간)",
-};
+import { title } from "../constants/inputTitle.js";
 
 const getOptionValue = (name, option) => {
   if (name === "distance") {
