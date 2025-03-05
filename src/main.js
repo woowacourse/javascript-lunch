@@ -1,4 +1,6 @@
-import Restaurant from "./components/Restaurant";
+import Restaurant from "./components/Restaurant.js";
+import RestaurantModal from "./components/RestaurantModal.js";
+import Modal from "./components/Modal.js";
 
 window.addEventListener("load", () => {
   const $button = document.querySelector(".gnb__button");
@@ -10,6 +12,7 @@ window.addEventListener("load", () => {
 
 function init() {
   Restaurant();
+  Modal(RestaurantModal);
 }
 
 init();
