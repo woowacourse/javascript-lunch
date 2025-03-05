@@ -1,4 +1,5 @@
-import Component from "./Component";
+import Component from "./Component.js";
+import Modal from "./Modal.js";
 class Header extends Component {
   constructor($target) {
     super($target);
@@ -13,9 +14,11 @@ class Header extends Component {
   }
 
   setEvent() {
-    this.$target
-      .querySelector(".gnb__button")
-      .addEventListener("click", () => console.log("클릭됨"));
+    this.$target.querySelector(".gnb__button").addEventListener("click", () => {
+      const modalContainer = document.querySelector(".modal");
+      new Modal(modalContainer);
+      modalContainer.classList.toggle("modal--open");
+    });
   }
 }
 
