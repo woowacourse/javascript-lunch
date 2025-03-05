@@ -1,13 +1,13 @@
 import { DOM } from './dom.js';
-import { createRestaurantItem } from './components/restaurantItem.js';
 import { RestaurantList } from './RestaurantList.js';
 import Header from './components/header.js';
+import RestaurantItem from './components/restaurantItem.js';
 
 new Header();
 
 const createRestaurantList = (restaurantList) => {
   restaurantList.forEach((restaurant) => {
-    const restaurantItem = createRestaurantItem(restaurant);
+    const restaurantItem = new RestaurantItem(restaurant);
     DOM.RESTAURANT_LIST.appendChild(restaurantItem);
   });
 };
