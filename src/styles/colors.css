@@ -44,6 +44,10 @@
   background-color: var(--primary-300);
 }
 
+.bg-slate-50 {
+  background-color: var(--slate-50);
+}
+
 .bg-white {
   background-color: var(--white);
 }
