@@ -1,11 +1,7 @@
 import createElement from '../utils/createElement.js';
 
 function createSectionContainer(className, children) {
-  const sectionContainer = createElement('section', className);
-
-  sectionContainer.appendChild(children);
-
-  return sectionContainer;
+  return createElement('section', className);
 }
 
 export default createSectionContainer;

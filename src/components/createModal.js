@@ -1,12 +1,12 @@
 import createElement from '../utils/createElement.js';
 
 function createModal(children) {
-  const modalContainer = createElement('div', 'modal');
+  const modalContainer = createElement('div', 'modal modal--open');
   const modalBackdrop = createElement('div', 'modal-backdrop');
   const modalDiv = createElement('div', 'modal-container');
 
   modalDiv.appendChild(children);
-  modalContainer.appendChild(modalBackdrop, modalDiv);
+  modalContainer.append(modalBackdrop, modalDiv);
 
   return modalContainer;
 }

@@ -12,7 +12,7 @@ function createInputBox({ label, isRequired, type, helpText = '' }) {
 
   const helpTextSpan = createElement('span', 'help-text text-caption', helpText);
 
-  inputBoxDiv.appendChild(inputLabel, input);
+  inputBoxDiv.append(inputLabel, input);
 
   if (helpText !== '') {
     inputBoxDiv.appendChild(helpTextSpan);

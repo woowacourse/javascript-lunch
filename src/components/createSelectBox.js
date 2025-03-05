@@ -10,13 +10,15 @@ function createSelectBox({ options, isRequired }) {
   });
 
   const fragment = new DocumentFragment();
+  fragment.appendChild(createElement('option', null, '선택해 주세요', { value: '' }));
+
   options.forEach((option) => {
-    const option = createElement('option', null, option, { value: option });
-    fragment.appendChild(option);
+    const optionTag = createElement('option', null, option, { value: option });
+    fragment.appendChild(optionTag);
   });
 
   selectBox.appendChild(fragment);
-  itemDiv.appendChild(categoryLabel, selectBox);
+  selectBoxDiv.append(categoryLabel, selectBox);
 
   return selectBoxDiv;
 }
