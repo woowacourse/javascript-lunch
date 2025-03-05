@@ -11,7 +11,9 @@ import { extractFormData } from "../../../utils/extract.js";
 import createRestaurantItem from "../item/item.js";
 
 export default function createRestaurantForm() {
-  const restaurantAddForm = createElement("form");
+  const restaurantAddForm = createElement("form", {
+    className: "restaurant-add-form",
+  });
 
   restaurantAddForm.append(
     createDropdownBox({
@@ -52,15 +54,19 @@ export default function createRestaurantForm() {
   buttonContainer.append(
     createButton({
       type: "button",
-      className: ["button", "button--secondary", "text-caption"],
+      className: [
+        "button",
+        "button--secondary",
+        "text-caption",
+        "cancel-button",
+      ],
       textContent: "취소하기",
-      onclick: () => console.log("취소"),
+      onclick: () => document.querySelector(".modal").close(),
     }),
     createButton({
       type: "submit",
       className: ["button", "button--primary", "text-caption"],
       textContent: "추가하기",
-      onclick: () => console.log("추가"),
     })
   );
 
