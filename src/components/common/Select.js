@@ -33,8 +33,8 @@ export default class Select extends Component {
     const { isOpen } = this.state;
 
     return `
-    <div class="w-full flex">
-      <button id="select-open" class="w-full flex">
+    <div class="relative w-full h-44 flex">
+      <button id="select-open" class="w-full flex items-center justify-between cursor-pointer border rounded-lg slate-400 bg-white text-lg">
         선택해주세요
         <svg
           width="20"
@@ -42,7 +42,9 @@ export default class Select extends Component {
           viewBox="0 0 20 21"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          style="${isOpen && "transform: rotate(90deg);"}"
+          style="transition: transform 0.2s; ${
+            isOpen ? "transform: rotate(180deg);" : ""
+          }"
         >
           <path
             d="M5 8L10 13L15 8"
@@ -53,27 +55,25 @@ export default class Select extends Component {
           />
         </svg>
       </button>
-      ${
-        this.state.isOpen &&
-        `
-        <div class="relative w-full">
-          <ul 
-            id="${id}" 
-            name="${id}"
-            class="${classList.join(" ")}
-              absolute w-full flex items-center pl-8 rounded-lg border" 
-            style="${styleStr(styles)}"
-          >
-            ${options
-              .map(
-                (option) =>
-                  `<li value="${option}" class="cursor-pointer">${option}</li>`
-              )
-              .join("")}
-        </ul>
-      </div>`
-      }
-
+    ${
+      isOpen
+        ? `
+        <ul 
+          id="${id}" 
+          class="${classList.join(
+            " "
+          )} absolute w-full bg-white border rounded-lg"
+          style="${styleStr(styles)}"
+        >
+          ${options
+            .map(
+              (option) =>
+                `<li value="${option}" class="cursor-pointer">${option}</li>`
+            )
+            .join("")}
+        </ul>`
+        : ""
+    }
     </div>
     `;
   }
