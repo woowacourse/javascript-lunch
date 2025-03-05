@@ -8,8 +8,8 @@ export function SelectInput({ isRequired = false, label, optionList = [] }) {
            <label for="category text-caption">${label}</label>
             <select name="category" id="category" required>
             <option value="">선택해 주세요</option>
-            ${optionList.forEach((optionItem) => {
-              return `<option value="${optionItem}">${optionItem}</option>`;
+            ${optionList.map((option) => {
+              return `<option value="${option.value}">${option.label}</option>`;
             })}
             </select>
     `;

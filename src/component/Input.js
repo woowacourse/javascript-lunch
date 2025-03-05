@@ -5,12 +5,18 @@ export function Input({ isRequired = false, label, caption }) {
     container.classList.add("form-item--required");
   }
 
+  function renderCaption() {
+    return caption
+      ? `<span class="help-text text-caption"
+    >${caption}</span
+  >`
+      : "";
+  }
+
   container.innerHTML = `
               <label for="link text-caption">${label}</label>
               <input type="text" name="link" id="link" />
-              <span class="help-text text-caption"
-                >${caption}</span
-              >
+             ${renderCaption()}
   `;
 
   return container;

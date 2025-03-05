@@ -10,9 +10,7 @@ addEventListener("load", () => {
   body.appendChild(HeaderComponent({ title: "점심 뭐 먹지?" }));
 
   body.appendChild(FoodList({ foodItems: foodItems }));
-  body.appendChild(Modal());
-
-  document.querySelector(".modal-container").appendChild(FoodForm());
+  Modal({ form: FoodForm() });
 
   init();
 });
