@@ -14,7 +14,7 @@ $("#register-button").addEventListener("click", (e) => {
   const restaurant = new Restaurant(getInfo());
   restaurantList.push(restaurant);
 
-  $(".modal").classList.remove("modal--open");
+  $(".modal-backdrop").classList.remove("open");
   renderRestaurants(restaurantList);
 });
 

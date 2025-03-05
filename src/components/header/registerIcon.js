@@ -6,7 +6,7 @@ const registerIcon = () => {
 
   registerIcon.innerHTML = `<img src="./add-button.png" alt="음식점 추가" />`;
   registerIcon.addEventListener("click", () => {
-    $(".modal").classList.add("modal--open");
+    $(".modal-backdrop").classList.add("open");
   });
   return registerIcon;
 };
