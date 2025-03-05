@@ -175,8 +175,18 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
+
+@keyframes open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .modal {
-  display: none;
+  animation: open 0.5s forwards;
 }
 
 .modal--open {
