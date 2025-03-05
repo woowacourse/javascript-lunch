@@ -34,20 +34,6 @@ describe("Body 테스트", () => {
   });
 });
 
-/*
-- [ ]모달이 표시될 때 **배경이 어두워지는지 확인한다**.
-- [ ]모달의 제목이 **'새로운 음식점'**으로 표시되는지 확인한다.
-- [ ]**카테고리(Category) Dropdown**을 클릭했을 때 다음 항목이 표시되는지 확인한다:
-  - 한식, 중식 ,일식 ,아시안 ,양식 ,기타
-- [ ]**이름(Name) 입력 텍스트 박스**가 표시되는지 확인한다.
-- [ ]**거리(Distance) Dropdown**을 클릭했을 때 다음 항목이 표시되는지 확인한다:
-  - 5분, 10분, 15분, 20분, 30분
-- [ ]**설명(Description) 입력 텍스트 박스**가 표시되는지 확인한다.
-- [ ]**참고 링크(Reference Link) 입력 텍스트 박스**가 표시되는지 확인한다.
-- [ ]모달 하단에 다음 버튼이 표시되는지 확인한다:
-  - **'취소하기' 버튼**
-  - **'추가하기' 버튼**
-*/
 describe("모달 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
@@ -57,7 +43,7 @@ describe("모달 테스트", () => {
     cy.get(".modal-backdrop").should(
       "have.css",
       "background-color",
-      "rgba(0, 0, 0, 0.35)",
+      "rgba(0, 0, 0, 0.35)"
     );
   });
 
@@ -81,6 +67,33 @@ describe("모달 테스트", () => {
   it("이름(Name)이 입력되는지 확인한다.", () => {
     cy.get("#gnb-button").click();
     cy.get("#name").type("tester").should("have.value", "tester");
+  });
+
+  it("거리(Distance) Dropdown**을 클릭했을 때 5분, 10분, 15분, 20분, 30분 항목이 표시되는지 확인한다: ", () => {
+    cy.get("#gnb-button").click();
+    cy.get("select#distance")
+      .find("option")
+      .should("contain", "5분 내")
+      .should("contain", "10분 내")
+      .should("contain", "15분 내")
+      .should("contain", "20분 내")
+      .should("contain", "30분 내");
+  });
+
+  it("설명(description)이 입력되는지 확인한다.", () => {
+    cy.get("#gnb-button").click();
+    cy.get("#description").type("tester").should("have.value", "tester");
+  });
+
+  it("참고 링크(link)이 입력되는지 확인한다.", () => {
+    cy.get("#gnb-button").click();
+    cy.get("#link").type("tester").should("have.value", "tester");
+  });
+
+  it("모달 하단에 '취소하기' 버튼 '추가하기' 버튼이 표시되는지 확인한다", () => {
+    cy.get("#gnb-button").click();
+    cy.get(".button--secondary").should("contain", "취소하기");
+    cy.get(".button--primary").should("contain", "추가하기");
   });
 });
 
