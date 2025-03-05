@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="./src/styles/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-
   <body>
     <!-- GNB -->
     <div id="app">
@@ -16,7 +15,6 @@
           <img src="/add-button.png" alt="음식점 추가" />
         </button>
       </header>
-
       <main>
         <!-- 카테고리/정렬 필터 -->
         <section class="restaurant-filter-container">
@@ -33,107 +31,18 @@
             <option value="아시안">아시안</option>
             <option value="기타">기타</option>
           </select>
-
           <!-- 정렬 셀렉트 박스 -->
           <select name="sorting" id="sorting-filter" class="restaurant-filter">
             <option value="name">이름순</option>
             <option value="distance">거리순</option>
           </select>
         </section>
-
         <!-- 음식점 목록 -->
         <section class="restaurant-list-container">
-          <ul class="restaurant-list">
-            <li class="restaurant">
-              <div class="restaurant__category">
-                <img
-                  src="/category-chinese.png"
-                  alt="중식"
-                  class="category-icon"
-                />
-              </div>
-              <div class="restaurant__info">
-                <h3 class="restaurant__name text-subtitle">친친</h3>
-                <span class="primary-color text-body">캠퍼스부터 5분 내</span>
-                <p class="restaurant__description text-body">
-                  Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과
-                  정성으로 정통 중식의 세계를 펼쳐갑니다
-                </p>
-              </div>
-            </li>
-
-            <li class="restaurant">
-              <div class="restaurant__category">
-                <img
-                  src="/category-japanese.png"
-                  alt="일식"
-                  class="category-icon"
-                />
-              </div>
-              <div class="restaurant__info">
-                <h3 class="restaurant__name text-subtitle">잇쇼우</h3>
-                <span class="primary-color text-body">캠퍼스부터 10분 내</span>
-                <p class="restaurant__description text-body">
-                  잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은
-                  정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는
-                  잇쇼우는 고객 한분 한분께 최선을 다하겠습니다
-                </p>
-              </div>
-            </li>
-
-            <li class="restaurant">
-              <div class="restaurant__category">
-                <img
-                  src="/category-western.png"
-                  alt="양식"
-                  class="category-icon"
-                />
-              </div>
-              <div class="restaurant__info">
-                <h3 class="restaurant__name text-subtitle">이태리키친</h3>
-                <span class="primary-color text-body">캠퍼스부터 20분 내</span>
-                <p class="restaurant__description text-body">
-                  늘 변화를 추구하는 이태리키친입니다.
-                </p>
-              </div>
-            </li>
-
-            <li class="restaurant">
-              <div class="restaurant__category">
-                <img
-                  src="/category-asian.png"
-                  alt="아시안"
-                  class="category-icon"
-                />
-              </div>
-              <div class="restaurant__info">
-                <h3 class="restaurant__name text-subtitle">호아빈 삼성점</h3>
-                <span class="primary-color text-body">캠퍼스부터 15분 내</span>
-                <p class="restaurant__description text-body">
-                  푸짐한 양에 국물이 일품인 쌀국수
-                </p>
-              </div>
-            </li>
-
-            <li class="restaurant">
-              <div class="restaurant__category">
-                <img src="/category-etc.png" alt="기타" class="category-icon" />
-              </div>
-              <div class="restaurant__info">
-                <h3 class="restaurant__name text-subtitle">
-                  도스타코스 선릉점
-                </h3>
-                <span class="primary-color text-body">캠퍼스부터 5분 내</span>
-                <p class="restaurant__description text-body">
-                  멕시칸 캐주얼 그릴
-                </p>
-              </div>
-            </li>
-          </ul>
+          <ul class="restaurant-list"></ul>
         </section>
-
         <!-- 음식점 추가 모달 -->
-        <div class="modal modal--open">
+        <div class="modal" id="restaurant-modal">
           <div class="modal-backdrop"></div>
           <div class="modal-container">
             <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -151,13 +60,11 @@
                   <option value="기타">기타</option>
                 </select>
               </div>
-
               <!-- 음식점 이름 -->
               <div class="form-item form-item--required">
                 <label for="name text-caption">이름</label>
                 <input type="text" name="name" id="name" required />
               </div>
-
               <!-- 거리 -->
               <div class="form-item form-item--required">
                 <label for="distance text-caption">거리(도보 이동 시간) </label>
@@ -170,7 +77,6 @@
                   <option value="30">30분 내</option>
                 </select>
               </div>
-
               <!-- 설명 -->
               <div class="form-item">
                 <label for="description text-caption">설명</label>
@@ -184,7 +90,6 @@
                   >메뉴 등 추가 정보를 입력해 주세요.</span
                 >
               </div>
-
               <!-- 링크 -->
               <div class="form-item">
                 <label for="link text-caption">참고 링크</label>
@@ -193,7 +98,6 @@
                   >매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span
                 >
               </div>
-
               <!-- 취소/추가 버튼 -->
               <div class="button-container">
                 <button
