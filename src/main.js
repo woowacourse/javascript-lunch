@@ -1,7 +1,7 @@
 import Header from "./components/header/Header.js";
 import RestaurantList from "./components/restaurantListSection/restaurantList/RestaurantList.js";
-import BottomSheetBase from "./components/bottomSheet/bottomSheetBase/BottomSheetBase.js";
-import RestaurantForm from "./components/bottomSheet/restaurantForm/RestaurantForm.js";
+import BottomSheetBase from "./components/common/bottomSheetBase/BottomSheetBase.js";
+import RestaurantForm from "./components/restaurantFormSection/restaurantForm/RestaurantForm.js";
 
 const $body = document.querySelector("body");
 $body.appendChild(Header());
