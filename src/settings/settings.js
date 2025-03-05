@@ -15,10 +15,10 @@ export const RESTAURANT_DISTANCE = [
   { value: "30", text: "30분 내" },
 ];
 
-const RESTAURANT_FIELD_LENGTH = {
+export const RESTAURANT_FIELD_LENGTH = {
   name: { min: 1, max: 12 },
-  description: { max: 300 },
-  link: { max: 300 },
+  description: { min: 0, max: 300 },
+  link: { min: 0, max: 300 },
 };
 
 export const ERROR_MESSAGE = {
