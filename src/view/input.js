@@ -9,8 +9,10 @@ export const getInfo = () => {
   const info = Object.fromEntries(formData.entries());
 
   validateEmptyString(info.category, ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED);
+  validateEmptyString(info.name, ERROR_MESSAGE.NAME_FIELD_REQUIRED);
   validateStringLength(info.name, { minLength: 1, maxLength: 20 });
   validateEmptyString(info.distance, ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED);
   // 설명, 링크도 맥스 걸기
+  validateStringLength(info.description, { minLength: 0, maxLength: 500 });
   return info;
 };
