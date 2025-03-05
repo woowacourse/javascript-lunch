@@ -3,7 +3,7 @@ import { title } from "../constants/inputTitle.js";
 const textInput = (name, isRequired, helpText) => {
   const formItem = document.createElement("div");
   formItem.classList.add("form-item");
-  formItem.classList.add("form-item--required");
+  if (isRequired) formItem.classList.add("form-item--required");
 
   formItem.innerHTML = `
                 <label for="${name} text-caption">${title[name]}</label>
