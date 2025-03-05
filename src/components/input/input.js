@@ -1,8 +1,8 @@
 export default function createInputBox({
   labelText,
-  required,
   type,
   id,
+  required = false,
   textCaption = "",
 }) {
   const inputBox = createElement("div", {

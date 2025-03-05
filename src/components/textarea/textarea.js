@@ -1,7 +1,7 @@
 export default function createTextAreaBox({
   id,
   labelText,
-  required,
+  required = false,
   textCaption = "",
   cols = 30,
   rows = 5,
