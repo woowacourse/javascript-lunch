@@ -24,6 +24,8 @@ body {
   --grey-300: #667085;
   --grey-400: #344054;
   --grey-500: #000000;
+
+  --header-height: 64px;
 }
 
 /* Typography *************************************/
@@ -49,6 +51,17 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+
+#app {
+  width: 400px;
+  height: 880px;
+  margin: auto;
+  border: 1px solid var(--grey-400);
+}
+
+main {
+  height: calc(100% - var(--header-height));
 }
 
 /* GNB ********************************************/
@@ -115,9 +128,15 @@ body {
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
-
+  height: 100%;
   padding: 0 16px;
   margin: 16px 0;
+}
+
+.restaurant-list {
+  height: 100%;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .restaurant {

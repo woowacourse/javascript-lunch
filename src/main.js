@@ -28,6 +28,48 @@ const mockRestaurants = [
     description: "설명입니다",
     link: "http//localhost:30000",
   }),
+  new Restaurant({
+    category: "일식",
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: "일식",
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: "일식",
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: "일식",
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: "일식",
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: "일식",
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[0],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
 ];
 
 const restaurantList = [...mockRestaurants];
