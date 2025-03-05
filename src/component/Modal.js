@@ -1,3 +1,4 @@
+import { SELECT_OPTIONS } from "../constants.js";
 import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
@@ -19,7 +20,13 @@ export function Modal() {
       </div>
 `;
 
-  container.appendChild(SelectInput({ isRequired: true }));
+  container.appendChild(
+    SelectInput({
+      isRequired: true,
+      label: "카데고리",
+      optionList: SELECT_OPTIONS.category,
+    })
+  );
   container.appendChild(
     Input({
       isRequired: false,
