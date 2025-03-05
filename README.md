@@ -26,8 +26,8 @@
 - [ ] Modal
   - 위의 컴포넌트, 백드롭
 - [ ] Header
-- [ ] IconButton
-  - 아이콘, onClick 함수
+- [x] IconButton
+  - onClick 함수, icon경로, label
 
 ### E2E 명세
 
