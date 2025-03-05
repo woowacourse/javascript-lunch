@@ -5,6 +5,7 @@ import DescriptionInput from "../descriptionInput/DescriptionInput.js";
 import RestaurantListItem from "../../restaurantListSection/restaurantListItem/RestaurantListItem.js";
 import CategorySelect from "../categorySelect/CategorySelect.js";
 import DistanceSelect from "../distanceSelect/DistanceSelect.js";
+import "./restaurantForm.css";
 
 export default function RestaurantForm() {
   const $form = document.createElement("form");

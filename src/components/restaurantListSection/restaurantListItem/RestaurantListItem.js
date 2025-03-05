@@ -1,4 +1,5 @@
 import { CATEGORY, CATEGORY_ASSETS } from "../../../constants/constants.js";
+import "./restaurantListItem.css";
 
 export default function RestaurantListItem({
   category,

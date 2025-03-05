@@ -1,3 +1,5 @@
+import "./button.css";
+
 const actionVariant = {
   add: "primary",
   cancel: "secondary",

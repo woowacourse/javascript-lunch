@@ -1,3 +1,5 @@
+import "./bottomSheetBase.css";
+
 export default function BottomSheetBase({ title, $children }) {
   const $modal = document.createElement("div");
   $modal.className = "modal";
