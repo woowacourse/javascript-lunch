@@ -29,3 +29,13 @@ describe("레스트랑 목록 컴포넌트 테스트", () => {
     cy.get(".restaurant__category").should("have.length", length);
   });
 });
+
+describe("모달 테스트", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5173/");
+  });
+  it("메뉴추가 버튼을 눌렀을 때 모달이 정상적으로 뜬다.", () => {
+    cy.get(".gnb__button").click();
+    cy.get(".modal.modal--open").should("exist");
+  });
+});
