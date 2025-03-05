@@ -4,9 +4,9 @@ export default class Component {
 
   constructor(props) {
     this.props = props;
+    this.setDefaultProps();
     this.initState();
     this.setEvent();
-    this.setDefaultProps();
   }
 
   initState() {
