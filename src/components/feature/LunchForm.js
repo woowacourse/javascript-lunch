@@ -40,12 +40,11 @@ export default class LunchForm extends Component {
     const categorySelect = new Select();
     categorySelect.setProps({
       options: ["한식", "중식", "일식", "아시안", "양식", "기타"],
-      classList: ["w-full"],
       id: "category",
     });
 
     return `
-    <div class="flex flex-col">
+    <div class="w-full flex flex-col">
       ${categoryLabel.template()}
       ${categorySelect.template()}
     </div>
@@ -89,7 +88,6 @@ export default class LunchForm extends Component {
     const location = new Select();
     location.setProps({
       options: ["5분", "10분", "15분", "20분", "30분"],
-      classList: [],
       id: "location",
     });
 
@@ -176,7 +174,7 @@ export default class LunchForm extends Component {
 
   template() {
     return `
-    <div class="w-full flex flex-col justify-start items-start gap-36 px-16 mt-32" >
+    <div class="flex flex-col justify-start items-start gap-32 mt-32" >
       ${this.renderLunchText()}
       ${this.renderCategory()}
       ${this.renderStoreName()}

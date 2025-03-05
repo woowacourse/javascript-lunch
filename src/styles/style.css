@@ -123,6 +123,10 @@
   border-color: var(--slate-400);
 }
 
+.border-none {
+  border: none;
+}
+
 .resize-none {
   resize: none;
 }

@@ -1,7 +1,7 @@
 import Component from "../../core/Component.js";
 import { styleStr } from "../../utils/styleStr.js";
 
-const primary = ["bg-primary-500", "white"];
+const primary = ["bg-primary-500", "white", "border-none"];
 const secondary = ["bg-white", "slate-400", "border", "border-slate-400"];
 export default class Button extends Component {
   setDefaultProps() {

@@ -73,7 +73,7 @@ export default class BottomSheet extends Component {
           "
         >
           <div 
-            class="bottom-sheet-content max-w-390 w-full flex flex-col bg-white overflow-y"
+            class="bottom-sheet-content max-w-390 w-full flex flex-col bg-white overflow-y px-16"
             style="
               border-top-left-radius: 16px;
               border-top-right-radius: 16px;
@@ -81,7 +81,7 @@ export default class BottomSheet extends Component {
             "
           >
             ${children.template()}
-          </d>
+          </div>
         </div>
       </div>
     `;

@@ -36,7 +36,9 @@ export default class TextArea extends Component {
         rows="${rows}"
         maxlength="${maxLength}"
         placeholder="${placeHolder}"
-        class="${classList.join(" ")} w-full border border-slate-400 px-8 py-8"
+        class="${classList.join(
+          " "
+        )} w-full border border-slate-50 px-8 py-8 box-border text-lg"
         style="${styleStr(styles)}"
       ></textarea>
     `;
