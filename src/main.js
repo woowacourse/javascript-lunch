@@ -2,6 +2,12 @@ import querySelector from "./utils/querySelector.js";
 import Store from "./components/store.js";
 import storeList from "./storeList.js";
 import Button from "./components/button.js";
+import optionInput from "./components/input.js";
+
+const options = {
+  category: ["한식", "중식", "일식", "양식", "아시안", "기타"],
+  distance: ["5", "10", "15", "20", "25", "30"],
+};
 
 addEventListener("load", () => {
   storeList.forEach((store) => {
@@ -16,6 +22,9 @@ addEventListener("load", () => {
   });
 
   querySelector.modalForm().addEventListener("submit", (e) => updateStore(e));
+
+  querySelector.modalForm().prepend(optionInput("category", options.category));
+  querySelector.modalForm().prepend(optionInput("distance", options.distance));
 
   querySelector.modalCancelButton().addEventListener("click", closeModal);
 });
