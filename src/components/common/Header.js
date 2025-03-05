@@ -37,7 +37,7 @@ export default class Header extends Component {
 
   template() {
     return `
-    <header class="w-full h-64 flex justify-between items-center bg-primary-500 white px-16">
+    <header class="w-full h-64 flex justify-between items-center bg-primary-500 white px-16 box-border">
       ${this.renderText()}
       ${this.renderIcon()}
     </header>
