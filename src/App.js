@@ -15,3 +15,5 @@ export default function App() {
     BottomSheetBase({ title: "새로운 음식점", $children: RestaurantForm() })
   );
 }
+
+App();
