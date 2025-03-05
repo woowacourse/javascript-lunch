@@ -1,5 +1,6 @@
 import { SELECT_OPTIONS } from "../constants.js";
 import { Button } from "./Button.js";
+import { ButtonContainer } from "./ButtonContainer.js";
 import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
@@ -43,6 +44,15 @@ export function FoodForm() {
       isRequired: false,
       label: "참고 링크",
       caption: "매장 정보를 확인할 수 있는 링크를 입력해 주세요",
+    })
+  );
+
+  container.appendChild(
+    ButtonContainer({
+      buttons: [
+        Button({ cssType: "secondary", innerText: "취소하기" }),
+        Button({ cssType: "primary", innerText: "추가하기" }),
+      ],
     })
   );
 
