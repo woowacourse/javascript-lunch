@@ -17,7 +17,12 @@ class App extends Component {
     this.setState({
       isModalOpen: true,
     });
-    console.log("open");
+  }
+
+  closeModal() {
+    this.setState({
+      isModalOpen: false,
+    });
   }
 
   template() {
@@ -28,10 +33,19 @@ class App extends Component {
         <div id="modal"></div>
     `;
   }
+
   componentDidUpdate() {
-    new AddRestaurantModal(document.querySelector("#modal"), {
-      isOpen: this.state.isModalOpen,
-    });
+    if (this.state.isModalOpen) {
+      new AddRestaurantModal(document.querySelector("#modal"), {
+        isOpen: this.state.isModalOpen,
+        closeModal: this.closeModal.bind(this),
+      });
+      return;
+    }
+    const $modal = document.querySelector("#modal");
+    if ($modal) {
+      $modal.replaceChildren();
+    }
   }
 
   componentDidMount() {

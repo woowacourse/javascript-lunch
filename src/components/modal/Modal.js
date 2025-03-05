@@ -5,9 +5,15 @@ class Modal extends Component {
     return "";
   }
 
+  componentDidMount() {
+    document
+      .querySelector(".modal-backdrop")
+      .addEventListener("click", this.props.closeModal);
+  }
+
   template() {
     return /* html */ `
-    <div class="modal ${this.props.isOpen ? "modal--open" : ""}">
+    <div class="modal">
       <div class="modal-backdrop"></div>
       <div id="modal-container" class="modal-container">
         ${this.contents()}

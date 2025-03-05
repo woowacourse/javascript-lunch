@@ -176,16 +176,12 @@ body {
 
 /* 음식점 추가 모달 *****************************************/
 .modal {
-  display: none;
+  display: block;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-}
-
-.modal--open {
-  display: block;
 }
 
 .modal-backdrop {
