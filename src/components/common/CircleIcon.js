@@ -8,6 +8,7 @@ export default class CircleIcon extends Component {
       iconName: "",
       classList: [],
       styles: {},
+      id: "init",
     };
   }
 
@@ -20,9 +21,9 @@ export default class CircleIcon extends Component {
   }
 
   template() {
-    const { iconName, classList, styles } = this.props;
+    const { iconName, classList, styles, id } = this.props;
     return `
-      <span class="w-64 h-64 flex justify-center items-center rounded-full bg-primary-300">
+      <span id="${id}" class="w-64 h-64 flex justify-center items-center rounded-full bg-primary-300">
         ${this.renderIcon()}
       </span>
       `;

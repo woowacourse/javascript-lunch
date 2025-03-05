@@ -7,13 +7,15 @@ export default class Icon extends Component {
       iconName: "",
       classList: [],
       styles: {},
+      id: "init",
     };
   }
 
   template() {
-    const { iconName, classList, styles } = this.props;
+    const { iconName, classList, styles, id } = this.props;
     return `
       <img
+        id="${id}"
         width="40"
         height="40"
         alt="${iconName}"
