@@ -1,33 +1,20 @@
 import Button from "../../button/Button.js";
-import LinkInput from "../../linkInput/LinkInput.js";
+import LinkInput from "../linkInput/LinkInput.js";
 import SelectBox from "../../common/selectBox/SelectBox.js";
-import RestaurantNameInput from "../../restaurantNameInput/RestaurantNameInput.js";
-import DescriptionInput from "../../descriptionInput/DescriptionInput.js";
+import RestaurantNameInput from "../restaurantNameInput/RestaurantNameInput.js";
+import DescriptionInput from "../descriptionInput/DescriptionInput.js";
 import RestaurantListItem from "../../restaurantListItem/RestaurantListItem.js";
 import { CATEGORY, DISTANCE } from "../../../constants/constants.js";
+import CategorySelect from "../categorySelect/CategorySelect.js";
+import DistanceSelect from "../distanceSelect/DistanceSelect.js";
 
 export default function RestaurantForm() {
   const $form = document.createElement("form");
 
-  // 카테고리
-  const $categoryFormItem = SelectBox({
-    label: "category",
-    options: CATEGORY,
-  });
-
-  // 음식점 이름
+  const $categoryFormItem = CategorySelect();
   const $restaurantFormItem = RestaurantNameInput();
-
-  // 거리
-  const $distanceFormItem = SelectBox({
-    label: "distance",
-    options: DISTANCE,
-  });
-
-  // 설명
+  const $distanceFormItem = DistanceSelect();
   const $descriptionFormItem = DescriptionInput();
-
-  // 링크
   const $linkFormItem = LinkInput();
 
   // 취소/추가 버튼
