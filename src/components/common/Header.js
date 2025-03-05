@@ -7,6 +7,7 @@ export default class Header extends Component {
     this.props = {
       title: "",
       iconName: "",
+      onIconClick: () => {},
     };
   }
 
@@ -20,8 +21,18 @@ export default class Header extends Component {
     const icon = new Icon();
     icon.setProps({
       iconName: this.props.iconName,
+      id: "header-icon",
     });
     return icon.template();
+  }
+
+  setEvent() {
+    document.addEventListener("click", (event) => {
+      const headerIcon = document.querySelector("#header-icon");
+      if (headerIcon && headerIcon === event.target) {
+        this.props.onIconClick();
+      }
+    });
   }
 
   template() {
