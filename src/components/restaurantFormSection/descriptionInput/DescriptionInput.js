@@ -1,10 +1,12 @@
+import { LABEL_NAMES } from "../../../constants/constants.js";
+
 export default function DescriptionInput() {
   const $descriptionFormItem = document.createElement("div");
   $descriptionFormItem.className = "form-item";
 
   const $descriptionLabel = document.createElement("label");
   $descriptionLabel.setAttribute("for", "description text-caption");
-  $descriptionLabel.textContent = "설명";
+  $descriptionLabel.textContent = LABEL_NAMES.description;
 
   const $descriptionTextarea = document.createElement("textarea");
   $descriptionTextarea.id = "description";

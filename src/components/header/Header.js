@@ -1,4 +1,4 @@
-import { EVENT_TYPES } from "../../constants/constants";
+import { EVENT_TYPES } from "../../constants/constants.js";
 import "./header.css";
 
 export default function Header() {

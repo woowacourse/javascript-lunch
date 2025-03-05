@@ -1,4 +1,4 @@
-import { EVENT_TYPES } from "../../../constants/constants";
+import { EVENT_TYPES } from "../../../constants/constants.js";
 import "./bottomSheetBase.css";
 
 export default function BottomSheetBase({ title, $children }) {

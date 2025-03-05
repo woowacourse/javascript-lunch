@@ -1,4 +1,4 @@
-import { SELECT_BOX_LABEL } from "../../../constants/constants";
+import { LABEL_NAMES } from "../../../constants/constants.js";
 
 export default function SelectBox({ label, options }) {
   const $formItem = document.createElement("div");
@@ -6,7 +6,7 @@ export default function SelectBox({ label, options }) {
 
   const $label = document.createElement("label");
   $label.setAttribute("for", `${label} text-caption`);
-  $label.textContent = SELECT_BOX_LABEL[label];
+  $label.textContent = LABEL_NAMES[label];
 
   const $select = document.createElement("select");
   $select.setAttribute("name", label);
