@@ -1,7 +1,5 @@
 import Header from "./components/header/Header.js";
-import RestaurantListItem from "./components/restaurantListItem/RestaurantListItem.js";
 import RestaurantList from "./components/restaurantList/RestaurantList.js";
-import SelectBox from "./components/common/selectBox/SelectBox.js";
 import BottomSheetBase from "./components/bottomSheet/bottomSheetBase/BottomSheetBase.js";
 import RestaurantForm from "./components/bottomSheet/restaurantForm/RestaurantForm.js";
 
