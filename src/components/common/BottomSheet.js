@@ -17,6 +17,7 @@ export default class BottomSheet extends Component {
   open() {
     const modalContainer = document.getElementById("modal");
     modalContainer.innerHTML = this.template(true);
+
     this.addModalEvents();
   }
 
@@ -46,11 +47,8 @@ export default class BottomSheet extends Component {
   }
 
   template(isOpen = this.props.isOpen) {
+    if (!isOpen) return "";
     const { children } = this.props;
-
-    if (!isOpen) {
-      return "";
-    }
 
     return `
      <div id="modal-open">
@@ -82,18 +80,8 @@ export default class BottomSheet extends Component {
               animation: slideUp 300ms ease-out forwards;
             "
           >
-          <div
-              class="w-40 bg-slate-50"
-              style="
-                height: 4px;
-                border-radius: 2px;
-                margin: 12px auto;
-              "
-            />
-            <div class="w-full h-full flex flex-col justify-start items-center mx-16">
-              ${children.map((child) => child.template()).join("")}
-            </div>
-          </div>
+            ${children.template()}
+          </d>
         </div>
       </div>
     `;
