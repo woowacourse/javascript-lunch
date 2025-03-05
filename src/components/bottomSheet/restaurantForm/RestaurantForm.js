@@ -1,4 +1,4 @@
-import Button from "../../button/Button.js";
+import Button from "../../common/button/Button.js";
 import LinkInput from "../linkInput/LinkInput.js";
 import RestaurantNameInput from "../restaurantNameInput/RestaurantNameInput.js";
 import DescriptionInput from "../descriptionInput/DescriptionInput.js";
