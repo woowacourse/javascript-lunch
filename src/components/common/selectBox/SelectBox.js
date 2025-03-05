@@ -24,7 +24,9 @@ export default function SelectBox({ label, options }) {
   options.forEach((option) => {
     const $option = document.createElement("option");
     $option.value = option;
-    $option.textContent = option;
+
+    if (label === "distance") $option.textContent = `${option}분 내`;
+    else $option.textContent = option;
 
     $select.appendChild($option);
   });
