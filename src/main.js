@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Restaurant from "./Restaurant";
+import Modal from "./Modal";
 import RestaurantList from "./RestaurantList";
 
 addEventListener("load", () => {
@@ -10,15 +11,22 @@ addEventListener("load", () => {
   const restaurantList = new RestaurantList();
   $app.appendChild(restaurantList.render());
 
-  // const $addRestaurantButton = document.querySelector(".gnb__button");
-  // const $modal = document.querySelector(".modal");
-  // const $modalCancelButton = document.querySelector("#modal-cancel");
+  const modal = new Modal({ modalTitle: "새로운 음식점" });
+  $app.appendChild(modal.render());
 
-  // $addRestaurantButton.addEventListener("click", function () {
-  //   $modal.classList.remove("hidden");
-  // });
+  // 이벤트 리스너
 
-  // $modalCancelButton.addEventListener("click", function () {
-  //   $modal.classList.add("hidden");
-  // });
+  const $addRestaurantButton = document.querySelector(".gnb__button");
+  const $modal = document.querySelector(".modal");
+  const $modalCancelButton = document.querySelector("#modal-cancel");
+
+  // $modal.classList.remove("hidden");
+
+  $addRestaurantButton.addEventListener("click", function () {
+    $modal.classList.remove("hidden");
+  });
+
+  $modalCancelButton.addEventListener("click", function () {
+    $modal.classList.add("hidden");
+  });
 });
