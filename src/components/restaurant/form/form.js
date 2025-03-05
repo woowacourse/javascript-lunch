@@ -6,6 +6,8 @@ import {
   FOOD_CATEGORY,
   RESTAURANT_DISTANCE,
 } from "../../../settings/settings.js";
+import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.js";
+import { extractFormData } from "../../../utils/extract.js";
 
 export default function createRestaurantForm() {
   const restaurantAddForm = createElement("form");
@@ -13,6 +15,7 @@ export default function createRestaurantForm() {
   restaurantAddForm.append(
     createDropdownBox({
       labelText: "카테고리",
+      id: "category",
       dropdownList: FOOD_CATEGORY,
       required: true,
     }),
@@ -24,6 +27,7 @@ export default function createRestaurantForm() {
     }),
     createDropdownBox({
       labelText: "거리(도보 이동 시간)",
+      id: "distance",
       dropdownList: RESTAURANT_DISTANCE,
       required: true,
     }),
@@ -31,11 +35,9 @@ export default function createRestaurantForm() {
       labelText: "설명",
       id: "description",
       textCaption: "메뉴 등 추가 정보를 입력해 주세요.",
-      required: true,
     }),
     createInputBox({
       labelText: "참고 링크",
-      required: true,
       type: "text",
       id: "link",
       textCaption: "메장 정보를 확인할 수 있는 링크를 입력해 주세요.",
@@ -62,6 +64,16 @@ export default function createRestaurantForm() {
   );
 
   restaurantAddForm.appendChild(buttonContainer);
+  restaurantAddForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = extractFormData(restaurantAddForm);
+      restaurantFormValidation(formData);
+    } catch (error) {
+      alert(error.message);
+    }
+  });
 
   return restaurantAddForm;
 }
