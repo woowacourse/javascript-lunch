@@ -176,8 +176,7 @@ body {
 }
 
 .modal--open {
-  /* display: block; */
-  display: none;
+  display: block;
 }
 
 .modal-backdrop {
