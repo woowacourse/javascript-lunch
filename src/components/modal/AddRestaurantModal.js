@@ -1,5 +1,8 @@
-const AddRestaurantModal = () => {
-  return /*html */ `
+import Modal from "./Modal.js";
+
+class AddRestaurantModal extends Modal {
+  contents() {
+    return /*html */ `
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form>
 
@@ -57,6 +60,7 @@ const AddRestaurantModal = () => {
           </div>
         </form>
     `;
-};
+  }
+}
 
 export default AddRestaurantModal;
