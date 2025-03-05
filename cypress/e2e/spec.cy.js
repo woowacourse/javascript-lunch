@@ -47,4 +47,8 @@ describe("Test Group", () => {
     cy.get(".modal-backdrop").click({ force: true });
     cy.get(".modal--open").should("not.exist");
   });
+  it("모달창을 열었을 때 SelectInput 컴포넌트가 렌더링 된다. ", () => {
+    cy.get(".gnb__button").click();
+    cy.get(".form-item select").should("exist").contains("선택해 주세요");
+  });
 });
