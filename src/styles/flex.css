@@ -50,6 +50,10 @@
   align-items: baseline;
 }
 
+.gap-36 {
+  gap: 36px;
+}
+
 .gap-16 {
   gap: 16px;
 }

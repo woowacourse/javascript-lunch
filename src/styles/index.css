@@ -4,12 +4,6 @@
 @import "./flex.css";
 @import "./animation.css";
 
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: none !important;
-}
 /* .form-item {
   display: flex;
   flex-direction: column;
