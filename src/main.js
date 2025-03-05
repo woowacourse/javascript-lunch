@@ -8,21 +8,21 @@ import restaurantCard from "./components/restaurantCard";
 
 const mockRestaurants = [
   new Restaurant({
-    category: FOOD_CATEGORY[0],
+    category: "한식",
     name: "피양콩할마니",
     distance: WALK_TIME_MINUTES[0],
     description: "설명입니다",
     link: "http//localhost:30000",
   }),
   new Restaurant({
-    category: FOOD_CATEGORY[0],
+    category: "중식",
     name: "친친",
     distance: WALK_TIME_MINUTES[0],
     description: "설명입니다",
     link: "http//localhost:30000",
   }),
   new Restaurant({
-    category: FOOD_CATEGORY[0],
+    category: "일식",
     name: "잇쇼우",
     distance: WALK_TIME_MINUTES[0],
     description: "설명입니다",
