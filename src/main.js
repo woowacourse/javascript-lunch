@@ -3,7 +3,7 @@ import { $ } from "./utils/dom";
 import { getInfo } from "./view/input";
 import { FOOD_CATEGORY } from "./constants/foodCategory";
 import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
-import { header } from "./components/header";
+import header from "./components/header";
 
 const mockRestaurants = [
   new Restaurant({
