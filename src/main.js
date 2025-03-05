@@ -1,9 +1,9 @@
 import { DOM } from './dom.js';
-import { createHeader } from './components/header.js';
 import { createRestaurantItem } from './components/restaurantItem.js';
-import { RestaurantList } from './restaurantList.js';
+import { RestaurantList } from './RestaurantList.js';
+import Header from './components/header.js';
 
-createHeader();
+new Header();
 
 const createRestaurantList = (restaurantList) => {
   restaurantList.forEach((restaurant) => {
