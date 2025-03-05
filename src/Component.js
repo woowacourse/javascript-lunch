@@ -2,8 +2,9 @@ class Component {
   $target;
   state;
 
-  constructor($target) {
+  constructor($target, props) {
     this.$target = $target;
+    this.props = props;
     this.setup();
     this.render();
   }
