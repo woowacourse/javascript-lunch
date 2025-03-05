@@ -4,6 +4,7 @@ import storeList from "./storeList.js";
 import Button from "./components/button.js";
 import optionInput from "./components/optionInput.js";
 import textInput from "./components/textInput.js";
+import textArea from "./components/textArea.js";
 
 const options = {
   category: ["한식", "중식", "일식", "양식", "아시안", "기타"],
@@ -28,6 +29,9 @@ addEventListener("load", () => {
   querySelector
     .modalForm()
     .appendChild(optionInput("distance", options.distance));
+  querySelector
+    .modalForm()
+    .appendChild(textArea("description", "메뉴 등 추가 정보를 입력해 주세요."));
   querySelector
     .modalForm()
     .appendChild(
