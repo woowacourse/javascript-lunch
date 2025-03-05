@@ -6,6 +6,7 @@ import RestaurantListItem from "../../restaurantListSection/restaurantListItem/R
 import CategorySelect from "../categorySelect/CategorySelect.js";
 import DistanceSelect from "../distanceSelect/DistanceSelect.js";
 import "./restaurantForm.css";
+import { EVENT_TYPES } from "../../../constants/constants.js";
 
 export default function RestaurantForm() {
   const $form = document.createElement("form");
@@ -37,12 +38,12 @@ export default function RestaurantForm() {
   $buttonContainer.appendChild($cancelButton);
   $buttonContainer.appendChild($addButton);
 
-  $cancelButton.addEventListener("click", () => {
+  $cancelButton.addEventListener(EVENT_TYPES.click, () => {
     const $modal = document.querySelector(".modal");
     $modal.classList.remove("modal--open");
   });
 
-  $form.addEventListener("submit", (e) => {
+  $form.addEventListener(EVENT_TYPES.submit, (e) => {
     e.preventDefault();
 
     const category = document.querySelector("#category");

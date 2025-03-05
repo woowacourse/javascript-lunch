@@ -14,3 +14,8 @@ export const CATEGORY_ASSETS = Object.freeze({
   아시안: "/assets/category-asian.png",
   기타: "/assets/category-etc.png",
 });
+
+export const EVENT_TYPES = Object.freeze({
+  click: "click",
+  submit: "submit",
+});

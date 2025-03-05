@@ -1,3 +1,4 @@
+import { EVENT_TYPES } from "../../../constants/constants";
 import "./bottomSheetBase.css";
 
 export default function BottomSheetBase({ title, $children }) {
@@ -24,7 +25,7 @@ export default function BottomSheetBase({ title, $children }) {
 
   $form.appendChild($children);
 
-  $backdrop.addEventListener("click", (e) => {
+  $backdrop.addEventListener(EVENT_TYPES.click, (e) => {
     if (!e.target.closest(".modal-container")) {
       $modal.classList.remove("modal--open");
     }
