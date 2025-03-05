@@ -4,6 +4,7 @@ import { getInfo } from "./view/input";
 import { FOOD_CATEGORY } from "./constants/foodCategory";
 import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
 import header from "./components/header";
+import restaurantCard from "./components/restaurantCard";
 
 const mockRestaurants = [
   new Restaurant({
@@ -47,37 +48,11 @@ $("#register-button").addEventListener("click", (e) => {
 const renderRestaurants = (restaurantList) => {
   const ulTag = $(".restaurant-list");
   restaurantList.forEach((restaurant) => {
-    ulTag.appendChild(createListHtml(restaurant));
+    ulTag.appendChild(restaurantCard(restaurant));
   });
 };
-const createListHtml = (restaurant) => {
-  const { category, name, distance, description, link } = restaurant.info;
-  const listTag = document.createElement("li");
-  listTag.classList.add("restaurant");
-  listTag.innerHTML = `     
-  <div class="restaurant__category">
-    <img
-      src="./category-korean.png"
-      alt=${category}
-      class="category-icon"
-    />
-  </div>
-  <div class="restaurant__info">
-    <h3 class="restaurant__name text-subtitle">${name}</h3>
-    <span class="restaurant__distance text-body"
-      >캠퍼스부터 ${distance}분 내</span
-    >
-    <p class="restaurant__description text-body">
-     ${description}
-    </p>
-  </div>
-         
-`;
-  return listTag;
-};
-
-renderRestaurants(restaurantList);
 
 addEventListener("load", () => {
   $("#app").prepend(header());
+  renderRestaurants(restaurantList);
 });
