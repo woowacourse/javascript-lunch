@@ -7,7 +7,7 @@ export default class Button extends Component {
   setDefaultProps() {
     this.props = {
       text: "",
-      type: "",
+      variant: "primary",
       disabled: false,
       onClick: () => {},
       styles: {},
@@ -18,24 +18,26 @@ export default class Button extends Component {
   setEvent() {
     const { onClick, id } = this.props;
     const buttonContainer = document.querySelector(`#${id}`);
-    buttonContainer.addEventListener("click", (e) => {
-      e.preventDefault();
-      onClick(e);
-    });
+    if (buttonContainer) {
+      buttonContainer.addEventListener("click", (e) => {
+        e.preventDefault();
+        onClick(e);
+      });
+    }
   }
 
   template() {
-    const { text, type, disabled, styles, id } = this.props;
+    const { text, variant, disabled, styles, id } = this.props;
     return `
       <button 
         type="submit"
         id="${id}"  
         class="${
-          type === primary ? primary.join(" ") : secondary.join(" ")
-        } w-full flex justify-center items-center text-lg" ${
+          variant === "primary" ? primary.join(" ") : secondary.join(" ")
+        } w-full h-44 flex justify-center items-center text-lg rounded-lg" ${
       disabled && "disabled"
     } 
-      style="${styleStr(styles)}">
+      style="${styleStr(styles)}  ">
       ${text}
     </button>
     `;
