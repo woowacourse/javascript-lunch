@@ -8,6 +8,7 @@ import {
 } from "../../../settings/settings.js";
 import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.js";
 import { extractFormData } from "../../../utils/extract.js";
+import createRestaurantItem from "../item/item.js";
 
 export default function createRestaurantForm() {
   const restaurantAddForm = createElement("form");
@@ -70,6 +71,13 @@ export default function createRestaurantForm() {
     try {
       const formData = extractFormData(restaurantAddForm);
       restaurantFormValidation(formData);
+      const restaurantList = document.querySelector(".restaurant-list");
+      restaurantList.appendChild(createRestaurantItem(formData));
+
+      const modal = document.querySelector(".modal");
+      modal.close();
+
+      restaurantAddForm.reset();
     } catch (error) {
       alert(error.message);
     }
