@@ -43,7 +43,7 @@ describe("모달 테스트", () => {
     cy.get(".modal-backdrop").should(
       "have.css",
       "background-color",
-      "rgba(0, 0, 0, 0.35)"
+      "rgba(0, 0, 0, 0.35)",
     );
   });
 
@@ -98,5 +98,17 @@ describe("모달 테스트", () => {
 });
 
 describe("기능 테스트", () => {
-  it("음식점 정보를 입력하고 추가하기를 누르면 음식점 리스트에 추가된다.", () => {});
+  it("음식점 정보를 입력하고 추가하기를 누르면 음식점 리스트에 추가된다.", () => {
+    cy.get("#gnb-button").click();
+    // 카테고리. 이름, 거리를 입력
+    cy.get("select#category").select("한식");
+    cy.get("#name").type("tester");
+    cy.get("select#distance").select("5분 내");
+
+    // 추가하기 버튼 클릭
+    cy.get(".button--primary").click();
+
+    // 목록에 새로운 음식점 생겼는지 체크
+    cy.get(".restaurant").should("contain", "tester");
+  });
 });
