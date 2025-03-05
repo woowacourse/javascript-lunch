@@ -7,16 +7,6 @@ import createTextAreaBox from "./components/textarea/textarea.js";
 
 const app = document.querySelector("#app");
 
-const restaurantList = document.querySelector(".restaurant-list");
-const restaurantItem = createRestaurantItem({
-  category: "한식",
-  name: "육곱식당",
-  distance: 5,
-  description: "맛있다.",
-  link: "",
-});
-restaurantList.appendChild(restaurantItem);
-
 const bottomSheetController = () => {
   let isFirstOpen = false;
 
