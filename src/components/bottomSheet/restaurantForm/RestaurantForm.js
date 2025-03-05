@@ -2,7 +2,7 @@ import Button from "../../common/button/Button.js";
 import LinkInput from "../linkInput/LinkInput.js";
 import RestaurantNameInput from "../restaurantNameInput/RestaurantNameInput.js";
 import DescriptionInput from "../descriptionInput/DescriptionInput.js";
-import RestaurantListItem from "../../restaurantListItem/RestaurantListItem.js";
+import RestaurantListItem from "../../restaurantListSection/restaurantListItem/RestaurantListItem.js";
 import CategorySelect from "../categorySelect/CategorySelect.js";
 import DistanceSelect from "../distanceSelect/DistanceSelect.js";
 

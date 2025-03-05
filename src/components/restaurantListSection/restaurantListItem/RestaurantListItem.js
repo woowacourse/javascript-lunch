@@ -1,4 +1,4 @@
-import { CATEGORY, CATEGORY_ASSETS } from "../../constants/constants.js";
+import { CATEGORY, CATEGORY_ASSETS } from "../../../constants/constants.js";
 
 export default function RestaurantListItem({
   category,

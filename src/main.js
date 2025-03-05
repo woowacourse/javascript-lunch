@@ -1,5 +1,5 @@
 import Header from "./components/header/Header.js";
-import RestaurantList from "./components/restaurantList/RestaurantList.js";
+import RestaurantList from "./components/restaurantListSection/restaurantList/RestaurantList.js";
 import BottomSheetBase from "./components/bottomSheet/bottomSheetBase/BottomSheetBase.js";
 import RestaurantForm from "./components/bottomSheet/restaurantForm/RestaurantForm.js";
 
