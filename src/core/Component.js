@@ -1,13 +1,14 @@
 class Component {
-  constructor($parent, props) {
-    this.$parent = $parent;
+  constructor(props) {
     this.props = props;
 
     this.render();
   }
 
   render() {
-    this.template();
+    const element = document.createElement("div");
+    element.innerHTML = this.template();
+    return element;
   }
 
   template() {}
