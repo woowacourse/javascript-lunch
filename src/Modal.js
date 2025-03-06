@@ -2,6 +2,7 @@ import Component from "./Component.js";
 import Dropdown from "./Dropdown.js";
 import Input from "./Input.js";
 import { categoryValue, distanceValue } from "./optionValue.js";
+import { RestaurantData } from "./RestaurantData.js";
 class Modal extends Component {
   constructor($target) {
     super($target);
@@ -11,7 +12,7 @@ class Modal extends Component {
     return `<div class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form>
+      <form id='input-form'>
 
       <div id="category" class="form-item form-item--required"></div>
 
@@ -49,6 +50,25 @@ class Modal extends Component {
       .addEventListener("click", () => {
         const modalContainer = document.querySelector(".modal");
         modalContainer.classList.toggle("modal--open");
+      });
+    this.$target
+      .querySelector(".button.button--primary.text-caption")
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        const modalContainer = document.querySelector(".modal");
+        modalContainer.classList.toggle("modal--open");
+        const formData = new FormData(document.getElementById("input-form"));
+        const submittedData = Object.fromEntries(formData);
+        const information = {
+          name: submittedData.name,
+          distance: Number(submittedData.distance),
+          description: submittedData.description,
+          imgSrc: `../templates/category-${submittedData.category}.png`,
+          imgAlt: `${categoryValue[submittedData.category]}`,
+        };
+
+        RestaurantData.push(information);
+        document.dispatchEvent(new CustomEvent("restaurantUpdated"));
       });
   }
 }
