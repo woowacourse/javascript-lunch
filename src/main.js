@@ -7,6 +7,7 @@ import { HEADER_INFO } from "./constants/component.js";
 import { restaurantData } from "./data/restaurant.js";
 import { categoryOptions,distanceOptions } from "./data/selectOptions.js";
 import $inputItem from "./components/input-item.js";
+import $form from "./components/form.js";
 
 addEventListener('load', () => {
   const body = document.body;
@@ -17,6 +18,15 @@ addEventListener('load', () => {
     restaurantList.appendChild($restaurantItem(data));
   });
 
+  const restaurantAddForm = [
+    $inputItem("categorySelect"),
+    $inputItem("nameInput"),
+    $inputItem("distanceSelect"),
+    $inputItem("descriptionTextarea"),
+    $inputItem("linkInput"),
+  ];
+
+  body.appendChild($form(restaurantAddForm));
   // body.appendChild($input('nameInput'));
   // body.appendChild($input('linkInput'));
   // body.appendChild($select(categoryOptions,'categorySelect'));
