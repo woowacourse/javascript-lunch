@@ -23,11 +23,16 @@ export default class Header {
     $button.appendChild($img);
     $header.appendChild($button);
 
-    $button.addEventListener(EVENT_TYPES.click, () => {
-      const $modal = document.querySelector(".modal");
-      $modal.classList.add("modal--open");
-    });
+    $button.addEventListener(
+      EVENT_TYPES.click,
+      this.#handleButtonClick.bind(this)
+    );
 
     return $header;
+  }
+
+  #handleButtonClick() {
+    const $modal = document.querySelector(".modal");
+    $modal.classList.add("modal--open");
   }
 }

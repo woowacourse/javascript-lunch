@@ -5,11 +5,11 @@ export default class BottomSheetBase {
   constructor({ title, $children }) {
     this.title = title;
     this.$children = $children;
+    this.$modal = document.createElement("div");
   }
 
   render() {
-    const $modal = document.createElement("div");
-    $modal.className = "modal";
+    this.$modal.className = "modal";
 
     const $backdrop = document.createElement("div");
     $backdrop.className = "modal-backdrop";
@@ -23,20 +23,25 @@ export default class BottomSheetBase {
 
     const $form = document.createElement("form");
 
-    $modal.appendChild($backdrop);
-    $modal.appendChild($container);
+    this.$modal.appendChild($backdrop);
+    this.$modal.appendChild($container);
 
     $container.appendChild($title);
     $container.appendChild($form);
 
     $form.appendChild(this.$children);
 
-    $backdrop.addEventListener(EVENT_TYPES.click, (e) => {
-      if (!e.target.closest(".modal-container")) {
-        $modal.classList.remove("modal--open");
-      }
-    });
+    $backdrop.addEventListener(
+      EVENT_TYPES.click,
+      this.#handleBackdropClick.bind(this)
+    );
 
-    return $modal;
+    return this.$modal;
+  }
+
+  #handleBackdropClick(e) {
+    if (!e.target.closest(".modal-container")) {
+      this.$modal.classList.remove("modal--open");
+    }
   }
 }

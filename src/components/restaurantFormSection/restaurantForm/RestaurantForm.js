@@ -45,41 +45,64 @@ export default class RestaurantForm {
     $buttonContainer.appendChild($cancelButton);
     $buttonContainer.appendChild($addButton);
 
-    $cancelButton.addEventListener(EVENT_TYPES.click, () => {
-      const $modal = document.querySelector(".modal");
-      $modal.classList.remove("modal--open");
-    });
+    $cancelButton.addEventListener(
+      EVENT_TYPES.click,
+      this.#handleCancelButtonClick.bind(this)
+    );
 
-    $form.addEventListener(EVENT_TYPES.submit, (e) => {
-      e.preventDefault();
-
-      const category = document.querySelector("#category");
-      const name = document.querySelector("#name");
-      const distance = document.querySelector("#distance");
-      const description = document.querySelector("#description");
-      const link = document.querySelector("#link");
-
-      const $restaurantItem = new RestaurantListItem({
-        category: category.value,
-        name: name.value,
-        distance: distance.value,
-        description: description.value,
-        link: link.value,
-      }).render();
-
-      const $restaurantList = document.querySelector(".restaurant-list");
-      $restaurantList.appendChild($restaurantItem);
-
-      category.value = "";
-      name.value = "";
-      distance.value = "";
-      description.value = "";
-      link.value = "";
-
-      const $modal = document.querySelector(".modal");
-      $modal.classList.remove("modal--open");
-    });
+    $form.addEventListener(EVENT_TYPES.submit, this.#handleSubmit.bind(this));
 
     return $form;
+  }
+
+  #handleCancelButtonClick() {
+    const $modal = document.querySelector(".modal");
+    $modal.classList.remove("modal--open");
+  }
+
+  #handleSubmit(e) {
+    e.preventDefault();
+
+    const formData = this.#getFormData();
+
+    this.#renderRestaurantItem(formData);
+    this.#resetFormData(formData);
+    this.#closeModal();
+  }
+
+  #getFormData() {
+    const category = document.querySelector("#category");
+    const name = document.querySelector("#name");
+    const distance = document.querySelector("#distance");
+    const description = document.querySelector("#description");
+    const link = document.querySelector("#link");
+
+    return { category, name, distance, description, link };
+  }
+
+  #renderRestaurantItem({ category, name, distance, description, link }) {
+    const $restaurantItem = new RestaurantListItem({
+      category: category.value,
+      name: name.value,
+      distance: distance.value,
+      description: description.value,
+      link: link.value,
+    }).render();
+
+    const $restaurantList = document.querySelector(".restaurant-list");
+    $restaurantList.appendChild($restaurantItem);
+  }
+
+  #resetFormData({ category, name, distance, description, link }) {
+    category.value = "";
+    name.value = "";
+    distance.value = "";
+    description.value = "";
+    link.value = "";
+  }
+
+  #closeModal() {
+    const $modal = document.querySelector(".modal");
+    $modal.classList.remove("modal--open");
   }
 }
