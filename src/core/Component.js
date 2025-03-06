@@ -1,9 +1,11 @@
 export default class Component {
   props;
   state;
+  children;
 
   constructor(props) {
     this.props = props;
+    this.children = [];
     this.setDefaultProps();
     this.initState();
     this.setEvent();
@@ -11,6 +13,12 @@ export default class Component {
 
   initState() {
     this.state = {};
+  }
+
+  addChild(C, ...args) {
+    const component = new C(...args);
+    this.children.push(component);
+    return component;
   }
 
   template() {
@@ -38,9 +46,9 @@ export default class Component {
     this.render();
   }
 
-  render(props) {
+  render(props, targetElement = "#app") {
     if (props) this.setProps(props);
-    const container = document.querySelector("#app");
+    const container = document.querySelector(targetElement);
     container.innerHTML = this.template(this.props);
     return container;
   }
