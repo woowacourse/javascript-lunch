@@ -1,11 +1,13 @@
 import SelectBox from "../../common/selectBox/SelectBox.js";
 import { DISTANCE } from "../../../constants/constants.js";
 
-export default function DistanceSelect() {
-  const $distanceSelect = SelectBox({
-    label: "distance",
-    options: DISTANCE,
-  });
+export default class DistanceSelect {
+  render() {
+    const $distanceSelect = new SelectBox({
+      label: "distance",
+      options: DISTANCE,
+    }).render();
 
-  return $distanceSelect;
+    return $distanceSelect;
+  }
 }

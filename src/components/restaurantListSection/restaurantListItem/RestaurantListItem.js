@@ -1,46 +1,48 @@
 import { CATEGORY, CATEGORY_ASSETS } from "../../../constants/constants.js";
 import "./restaurantListItem.css";
 
-export default function RestaurantListItem({
-  category,
-  name,
-  distance,
-  description,
-  link,
-}) {
-  const $item = document.createElement("li");
-  $item.className = "restaurant";
+export default class RestaurantListItem {
+  constructor(restaurantInfo) {
+    this.restaurantInfo = restaurantInfo;
+  }
 
-  const $category = document.createElement("div");
-  $category.className = "restaurant__category";
+  render() {
+    const { name, category, description, distance } = this.restaurantInfo;
 
-  const $categoryImg = document.createElement("img");
-  $categoryImg.className = "category-icon";
-  $categoryImg.src = CATEGORY_ASSETS[category];
-  $categoryImg.setAttribute("alt", category);
+    const $item = document.createElement("li");
+    $item.className = "restaurant";
 
-  const $info = document.createElement("div");
-  $info.className = "restaurant__info";
+    const $category = document.createElement("div");
+    $category.className = "restaurant__category";
 
-  const $name = document.createElement("h3");
-  $name.className = "restaurant__name text-subtitle";
-  $name.textContent = name;
+    const $categoryImg = document.createElement("img");
+    $categoryImg.className = "category-icon";
+    $categoryImg.src = CATEGORY_ASSETS[category];
+    $categoryImg.setAttribute("alt", category);
 
-  const $distance = document.createElement("span");
-  $distance.className = "restaurant__distance text-body";
-  $distance.textContent = `캠퍼스부터 ${distance}분 내`;
+    const $info = document.createElement("div");
+    $info.className = "restaurant__info";
 
-  const $description = document.createElement("p");
-  $description.className = "restaurant__description text-body";
-  $description.textContent = description;
+    const $name = document.createElement("h3");
+    $name.className = "restaurant__name text-subtitle";
+    $name.textContent = name;
 
-  $item.appendChild($category);
-  $item.appendChild($info);
+    const $distance = document.createElement("span");
+    $distance.className = "restaurant__distance text-body";
+    $distance.textContent = `캠퍼스부터 ${distance}분 내`;
 
-  $category.appendChild($categoryImg);
-  $info.appendChild($name);
-  $info.appendChild($distance);
-  $info.appendChild($description);
+    const $description = document.createElement("p");
+    $description.className = "restaurant__description text-body";
+    $description.textContent = description;
 
-  return $item;
+    $item.appendChild($category);
+    $item.appendChild($info);
+
+    $category.appendChild($categoryImg);
+    $info.appendChild($name);
+    $info.appendChild($distance);
+    $info.appendChild($description);
+
+    return $item;
+  }
 }

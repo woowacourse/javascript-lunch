@@ -1,35 +1,42 @@
 import { LABEL_NAMES } from "../../../constants/constants.js";
 
-export default function SelectBox({ label, options }) {
-  const $formItem = document.createElement("div");
-  $formItem.className = "form-item form-item--required";
+export default class SelectBox {
+  constructor({ label, options }) {
+    this.label = label;
+    this.options = options;
+  }
 
-  const $label = document.createElement("label");
-  $label.setAttribute("for", `${label} text-caption`);
-  $label.textContent = LABEL_NAMES[label];
+  render() {
+    const $formItem = document.createElement("div");
+    $formItem.className = "form-item form-item--required";
 
-  const $select = document.createElement("select");
-  $select.setAttribute("name", label);
-  $select.required = true;
-  $select.id = label;
+    const $label = document.createElement("label");
+    $label.setAttribute("for", `${this.label} text-caption`);
+    $label.textContent = LABEL_NAMES[this.label];
 
-  const $defaultOption = document.createElement("option");
-  $defaultOption.value = "";
-  $defaultOption.textContent = "선택해 주세요";
+    const $select = document.createElement("select");
+    $select.setAttribute("name", this.label);
+    $select.required = true;
+    $select.id = this.label;
 
-  $formItem.appendChild($label);
-  $formItem.appendChild($select);
-  $select.appendChild($defaultOption);
+    const $defaultOption = document.createElement("option");
+    $defaultOption.value = "";
+    $defaultOption.textContent = "선택해 주세요";
 
-  options.forEach((option) => {
-    const $option = document.createElement("option");
-    $option.value = option;
+    $formItem.appendChild($label);
+    $formItem.appendChild($select);
+    $select.appendChild($defaultOption);
 
-    if (label === "distance") $option.textContent = `${option}분 내`;
-    else $option.textContent = option;
+    this.options.forEach((option) => {
+      const $option = document.createElement("option");
+      $option.value = option;
 
-    $select.appendChild($option);
-  });
+      if (this.label === "distance") $option.textContent = `${option}분 내`;
+      else $option.textContent = option;
 
-  return $formItem;
+      $select.appendChild($option);
+    });
+
+    return $formItem;
+  }
 }

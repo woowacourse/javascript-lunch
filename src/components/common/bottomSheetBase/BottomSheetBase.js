@@ -1,35 +1,42 @@
 import { EVENT_TYPES } from "../../../constants/constants.js";
 import "./bottomSheetBase.css";
 
-export default function BottomSheetBase({ title, $children }) {
-  const $modal = document.createElement("div");
-  $modal.className = "modal";
+export default class BottomSheetBase {
+  constructor({ title, $children }) {
+    this.title = title;
+    this.$children = $children;
+  }
 
-  const $backdrop = document.createElement("div");
-  $backdrop.className = "modal-backdrop";
+  render() {
+    const $modal = document.createElement("div");
+    $modal.className = "modal";
 
-  const $container = document.createElement("div");
-  $container.className = "modal-container";
+    const $backdrop = document.createElement("div");
+    $backdrop.className = "modal-backdrop";
 
-  const $title = document.createElement("h2");
-  $title.className = "modal-title text-title";
-  $title.textContent = title;
+    const $container = document.createElement("div");
+    $container.className = "modal-container";
 
-  const $form = document.createElement("form");
+    const $title = document.createElement("h2");
+    $title.className = "modal-title text-title";
+    $title.textContent = this.title;
 
-  $modal.appendChild($backdrop);
-  $modal.appendChild($container);
+    const $form = document.createElement("form");
 
-  $container.appendChild($title);
-  $container.appendChild($form);
+    $modal.appendChild($backdrop);
+    $modal.appendChild($container);
 
-  $form.appendChild($children);
+    $container.appendChild($title);
+    $container.appendChild($form);
 
-  $backdrop.addEventListener(EVENT_TYPES.click, (e) => {
-    if (!e.target.closest(".modal-container")) {
-      $modal.classList.remove("modal--open");
-    }
-  });
+    $form.appendChild(this.$children);
 
-  return $modal;
+    $backdrop.addEventListener(EVENT_TYPES.click, (e) => {
+      if (!e.target.closest(".modal-container")) {
+        $modal.classList.remove("modal--open");
+      }
+    });
+
+    return $modal;
+  }
 }

@@ -1,15 +1,24 @@
+import { isConstructorTypeNode } from "typescript";
 import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
 import "./restaurantList.css";
 
-export default function RestaurantList(itemsData = []) {
-  const $listSection = document.createElement("section");
-  $listSection.className = "restaurant-list-container";
+export default class RestaurantList {
+  constructor() {
+    this.itemsData = [];
+  }
 
-  const $list = document.createElement("ul");
-  $list.className = "restaurant-list";
+  render() {
+    const $listSection = document.createElement("section");
+    $listSection.className = "restaurant-list-container";
 
-  $listSection.appendChild($list);
-  itemsData.forEach((data) => $list.appendChild(RestaurantListItem(data)));
+    const $list = document.createElement("ul");
+    $list.className = "restaurant-list";
 
-  return $listSection;
+    $listSection.appendChild($list);
+    this.itemsData.forEach((data) =>
+      $list.appendChild(new RestaurantListItem(data).render())
+    );
+
+    return $listSection;
+  }
 }

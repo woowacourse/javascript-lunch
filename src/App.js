@@ -3,17 +3,26 @@ import RestaurantList from "./components/restaurantListSection/restaurantList/Re
 import BottomSheetBase from "./components/common/bottomSheetBase/BottomSheetBase.js";
 import RestaurantForm from "./components/restaurantFormSection/restaurantForm/RestaurantForm.js";
 
-export default function App() {
-  const $body = document.querySelector("body");
-  $body.appendChild(Header());
+export default class App {
+  constructor() {
+    this.#initElement();
+  }
 
-  const $main = document.createElement("main");
-  $body.appendChild($main);
+  #initElement() {
+    const $body = document.querySelector("body");
+    $body.appendChild(new Header().render());
 
-  $main.appendChild(RestaurantList());
-  $main.appendChild(
-    BottomSheetBase({ title: "새로운 음식점", $children: RestaurantForm() })
-  );
+    const $main = document.createElement("main");
+    $body.appendChild($main);
+
+    $main.appendChild(new RestaurantList().render());
+    $main.appendChild(
+      new BottomSheetBase({
+        title: "새로운 음식점",
+        $children: new RestaurantForm().render(),
+      }).render()
+    );
+  }
 }
 
-App();
+new App();
