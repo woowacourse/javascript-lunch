@@ -6,6 +6,8 @@ import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
 import header from "./components/header";
 import restaurantCard from "./components/restaurantCard";
 import { mockRestaurants } from "./mockRestaurant";
+import InputField from "./common/inputField";
+import Select from "./common/select";
 
 const restaurantList = [...mockRestaurants];
 
@@ -28,4 +30,7 @@ const renderRestaurants = (restaurantList) => {
 addEventListener("load", () => {
   $("#app").prepend(header());
   renderRestaurants(restaurantList);
+  $("#register-form").appendChild(
+    InputField("category", Select("category", true, Object.keys(FOOD_CATEGORY)))
+  );
 });
