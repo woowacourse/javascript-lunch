@@ -7,7 +7,7 @@ addEventListener("load", () => {
   const headerContainer = document.querySelector(".gnb");
   Header(headerContainer);
   const restaurantListContainer = document.querySelector(
-    ".restaurant-list-container"
+    ".restaurant-list-container",
   );
   RestaurantList(restaurantListContainer);
 
@@ -17,7 +17,6 @@ addEventListener("load", () => {
   modalButton.addEventListener("click", () => {
     AddRestaurantModal(appContainer);
 
-    appContainer.innerHTML += modal;
     // 1. 모달창에서 입력값을 받아오고
 
     // 카테고리 아이콘 매핑

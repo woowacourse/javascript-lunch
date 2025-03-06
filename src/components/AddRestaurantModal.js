@@ -1,4 +1,22 @@
+import Dropdown from "../shared/CustomDropdown.js";
+
 export default function AddRestaurantModal(container) {
+  const categoryOptions = [
+    { value: "한식", text: "한식" },
+    { value: "중식", text: "중식" },
+    { value: "일식", text: "일식" },
+    { value: "양식", text: "양식" },
+    { value: "아시안", text: "아시안" },
+    { value: "기타", text: "기타" },
+  ];
+  const distanceOptions = [
+    { value: "5", text: "5분 내" },
+    { value: "10", text: "10분 내" },
+    { value: "15", text: "15분 내" },
+    { value: "20", text: "20분 내" },
+    { value: "30", text: "30분 내" },
+  ];
+
   container.innerHTML += `
         <div class="modal modal--open">
         <div class="modal-backdrop"></div>
@@ -6,18 +24,7 @@ export default function AddRestaurantModal(container) {
           <h2 class="modal-title text-title">새로운 음식점</h2>
           <form>
             <!-- 카테고리 -->
-            <div class="form-item form-item--required">
-              <label for="category text-caption">카테고리</label>
-              <select name="category" id="category" required>
-                <option value="">선택해 주세요</option>
-                <option value="한식">한식</option>
-                <option value="중식">중식</option>
-                <option value="일식">일식</option>
-                <option value="양식">양식</option>
-                <option value="아시안">아시안</option>
-                <option value="기타">기타</option>
-              </select>
-            </div>
+             ${Dropdown({ label: "카테고리", name: "category", id: "category", options: categoryOptions, required: true })}
 
             <!-- 음식점 이름 -->
             <div class="form-item form-item--required">
@@ -26,18 +33,7 @@ export default function AddRestaurantModal(container) {
             </div>
 
             <!-- 거리 -->
-            <div class="form-item form-item--required">
-              <label for="distance text-caption">거리(도보 이동 시간) </label>
-              <select name="distance" id="distance" required>
-                <option value="">선택해 주세요</option>
-                <option value="5">5분 내</option>
-                <option value="10">10분 내</option>
-                <option value="15">15분 내</option>
-                <option value="20">20분 내</option>
-                <option value="30">30분 내</option>
-              </select>
-            </div>
-
+              ${Dropdown({ label: "거리(도보 이동 시간)", name: "distance", id: "distance", options: distanceOptions, required: true })}
             <!-- 설명 -->
             <div class="form-item">
               <label for="description text-caption">설명</label>
