@@ -14,5 +14,3 @@ const createRestaurantList = (restaurantList) => {
 };
 
 createRestaurantList(RestaurantList);
-
-new AddRestaurantModal();
