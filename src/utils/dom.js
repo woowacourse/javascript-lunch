@@ -5,4 +5,5 @@ export const DOM = {
   $cancelButton: $("#cancel__button"),
   $addButton: $("#add__button"),
   $header: $(".gnb"),
+  $buttonContainer: $(".button-container"),
 };
