@@ -5,16 +5,6 @@ import { Modal } from "../component/Modal.js";
 import { foodItems } from "../mock/foodItems.js";
 import { modalClose, modalOpen } from "../util/modalAction.js";
 
-export function FoodListPage(foodList) {
-  const body = document.querySelector("body");
-  body.innerHTML = "";
-  body.appendChild(HeaderComponent({ title: "점심 뭐 먹지?" }));
-
-  body.appendChild(foodList);
-  Modal({ form: FoodForm() });
-  init();
-}
-
 function init() {
   document.querySelector(".gnb__button").addEventListener("click", () => {
     modalOpen();
@@ -22,4 +12,15 @@ function init() {
   document.querySelector(".modal-backdrop").addEventListener("click", () => {
     modalClose();
   });
+}
+
+export function FoodListPage(foodList) {
+  const body = document.querySelector("body");
+  body.innerHTML = "";
+  body.appendChild(HeaderComponent({ title: "점심 뭐 먹지?" }));
+
+  body.appendChild(foodList);
+  Modal({ form: FoodForm() });
+
+  init();
 }

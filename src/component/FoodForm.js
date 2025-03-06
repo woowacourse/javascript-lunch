@@ -6,11 +6,11 @@ import {
 import { foodItems } from "../mock/foodItems.js";
 import { FoodListPage } from "../pages/FoodListPage.js";
 import { alertError } from "../util/alertError.js";
+import { computeImgSrcAlt } from "../util/computeImgSrcAlt.js";
+import { getInput } from "../util/getInput.js";
 import { modalClose } from "../util/modalAction.js";
 import {
-  validateDescriptionLength,
   validateLength,
-  validateNameLength,
   validateRequiredInput,
   validateURL,
 } from "../validate/validateCondition.js";
@@ -24,33 +24,25 @@ import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
 
-function getInput(name, validateFuncs) {
-  const value = document.querySelector(`[name=${name}]`).value;
-  validateFuncs.forEach((validateFunc) => {
-    return alertError(() => validateFunc(value));
-  });
-  return value;
-}
-
-function computeImgSrcAlt(category) {
-  switch (category) {
-    case "한식":
-      return { imgAlt: "한식", imgSrc: "/category-korean.png" };
-    case "중식":
-      return { imgAlt: "중식", imgSrc: "/category-chinese.png" };
-    case "일식":
-      return { imgAlt: "일식", imgSrc: "/category-japanese.png" };
-    case "양식":
-      return { imgAlt: "양식", imgSrc: "/category-western.png" };
-    case "아시안":
-      return { imgAlt: "아시안", imgSrc: "/category-asian.png" };
-    default:
-      return { imgAlt: "기타", imgSrc: "/category-etc.png" };
+function validateFoodItem({ category, name, distance, description, link }) {
+  try {
+    validateRequiredInput(category);
+    validateRequiredInput(name);
+    validateRequiredInput(distance);
+    validateLength(name, NAME_MAX_LENGTH);
+    validateLength(description, DESCRIPTION_MAX_LENGTH);
+    validateURL(link);
+  } catch (error) {
+    alertError(error.message);
+    return null;
   }
+  return { category, name, distance, description, link };
 }
 
 function addFoodItem() {
   const foodInfo = handleSubmit();
+  if (!foodInfo) return;
+
   const prevFoodItems = foodItems;
   const foodList = FoodList({ foodItems: [...prevFoodItems, foodInfo] });
 
@@ -58,20 +50,25 @@ function addFoodItem() {
 }
 
 function handleSubmit() {
-  const category = getInput("category", [validateRequiredInput]);
-  const name = getInput("name", [validateRequiredInput, validateNameLength]);
-  const distance = getInput("distance", [validateRequiredInput]);
-  const description = getInput("description", [validateDescriptionLength]);
-  const link = getInput("link", [validateURL]);
+  const foodInfo = validateFoodItem({
+    category: getInput("category"),
+    name: getInput("name"),
+    distance: getInput("distance"),
+    description: getInput("description"),
+    link: getInput("link"),
+  });
 
-  const { imgSrc, imgAlt } = computeImgSrcAlt(category);
+  if (!foodInfo) return;
+
+  const { imgSrc, imgAlt } = computeImgSrcAlt(foodInfo.category);
 
   return {
+    name: foodInfo.name,
+    distance: foodInfo.distance,
+    description: foodInfo.description,
+    link: foodInfo.link,
     imgSrc: imgSrc,
     imgAlt: imgAlt,
-    name: name,
-    distance: distance,
-    description: description,
   };
 }
 

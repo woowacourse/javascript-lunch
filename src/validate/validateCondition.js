@@ -26,12 +26,3 @@ export function validateURL(input) {
     throw new Error(ERROR_MESSAGE.url);
   }
 }
-
-//개별적인 함수
-export function validateNameLength(value) {
-  validateLength(value, NAME_MAX_LENGTH);
-}
-
-export function validateDescriptionLength(value) {
-  validateLength(value, DESCRIPTION_MAX_LENGTH);
-}

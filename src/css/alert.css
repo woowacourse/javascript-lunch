@@ -1,12 +1,10 @@
-.alert-container {
+.alert {
   position: fixed;
   top: 8rem;
   left: 50%;
   transform: translate(-50%, -50%);
   justify-content: center;
   z-index: 1000;
-}
-.alert {
   display: inline-block;
   padding: 0.8rem 1rem;
   background-color: var(--alert);
