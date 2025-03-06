@@ -4,6 +4,7 @@ import { DOM } from "./utils/dom.js";
 import TextButton from "./component/TextButton/TextButton.js";
 import LunchInfoCard from "./component/LunchInfoCard/LunchInfoCard.js";
 import SelectForm from "./component/SelectForm/SelectForm.js";
+import TextareaForm from "./component/TextareaForm/TextareaForm.js";
 
 IconButton.render(
   {
@@ -171,6 +172,16 @@ SelectForm.render(
       },
     ],
     isRequired: true,
+  },
+  DOM.$modalForm
+);
+
+TextareaForm.render(
+  {
+    bottomDescription: "메뉴 등 추가 정보를 입력해 주세요.",
+    rows: "5",
+    label: "설명",
+    isRequired: false,
   },
   DOM.$modalForm
 );
