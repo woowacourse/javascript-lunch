@@ -1,8 +1,8 @@
-import createElement from "../util/createElement.js";
-import Select from "./util/Select.js";
+import createElement from "../../util/createElement.js";
+import Select from "../util/Select.js";
 import RestaurantModalItem from "./RestaurantModalItem.js";
-import Input from "./util/Input.js";
-import TextArea from "./util/TextArea.js";
+import Input from "../util/Input.js";
+import TextArea from "../util/TextArea.js";
 import RestaurantModalButtonContainer from "./RestaurantModalButtonContainer.js";
 
 export default function RestaurantModal() {

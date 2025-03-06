@@ -1,9 +1,12 @@
-import createElement from "../util/createElement.js";
+import createElement from "../../util/createElement.js";
 
 export default function Modal(component) {
   const $body = document.querySelector("body");
 
-  const $modal = createElement({ tag: "div", classNames: ["modal"] });
+  const $modal = createElement({
+    tag: "div",
+    classNames: ["modal", "modal--open"],
+  });
   const $modalBackdrop = createElement({
     tag: "div",
     classNames: ["modal-backdrop"],

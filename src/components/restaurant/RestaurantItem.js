@@ -1,4 +1,4 @@
-import createElement from "../util/createElement";
+import createElement from "../../util/createElement";
 
 export default function RestaurantItem({
   src,
