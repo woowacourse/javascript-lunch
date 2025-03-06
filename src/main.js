@@ -6,6 +6,7 @@ import nameInput from "./views/nameInput";
 import linkInput from "./views/linkInput";
 import distanceSelect from "./views/distanceSelect.js";
 import categorySelect from "./views/categorySelect.js";
+import description from "./views/description.js";
 
 restaurantList();
 buttonContainer();
@@ -13,6 +14,7 @@ nameInput();
 linkInput();
 distanceSelect();
 categorySelect();
+description();
 
 const $modalOpenButton = $(".gnb__button");
 const $modalContainer = $("#restaurant-modal");
@@ -26,10 +28,3 @@ const toggleModal = () => {
 $modalOpenButton.addEventListener("click", toggleModal);
 $closeButton.addEventListener("click", toggleModal);
 $modalBackdrop.addEventListener("click", toggleModal);
-// $addButton.addEventListener("click", toggleModal);
-
-// const $category = $("#category");
-// const $name = $("#name");
-// const $distance = $("#distance");
-// const $description = $("#description");
-// const $link = $("#link");
