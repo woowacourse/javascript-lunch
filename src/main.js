@@ -5,6 +5,17 @@ import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
 import { HEADER_CONTENTS, LIST_ITEM_CONTENTS } from "./contants.js";
 
+function InputForm(type, name, required = false) {
+  const inputElement = document.createElement("input");
+
+  inputElement.type = type;
+  inputElement.name = name;
+  inputElement.id = name;
+  inputElement.required = required;
+
+  return inputElement;
+}
+
 function renderContents() {
   const app = document.getElementById("app");
   const listContainerElement = app.querySelector(".restaurant-list-container");
@@ -12,7 +23,8 @@ function renderContents() {
   const listElement = List(LIST_ITEM_CONTENTS);
   app.prepend(Header(HEADER_CONTENTS));
   listContainerElement.appendChild(listElement);
-  modalFormElement.prepend(FormItem("카테고리", () => SelectForm()));
+  modalFormElement.appendChild(FormItem("카테고리", () => SelectForm()));
+  modalFormElement.appendChild(FormItem("이름", () => InputForm("text", "name", true)));
 }
 
 renderContents();
