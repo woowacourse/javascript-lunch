@@ -23,12 +23,12 @@ class Modal extends Component {
   template() {
     if (!this.state.isOpen) return "";
     return /* html */ `
-    <div class="modal" data-testid="modal">
-      <div class="modal-backdrop" data-testid="modal-backdrop"></div>
-      <div id="modal-container" class="modal-container">
-        ${this.contents()}
+      <div class="modal" data-testid="modal">
+        <div class="modal-backdrop" data-testid="modal-backdrop"></div>
+        <div id="modal-container" class="modal-container">
+          ${this.contents()}
+        </div>
       </div>
-    </div>
     `;
   }
 
