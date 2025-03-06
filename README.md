@@ -28,6 +28,8 @@
     - [ ] 안내 메세지
 - [x] input 컴포넌트 생성
     - [x] 속성(필수 여부, 최대 길이, type, name)
+- [x] textarea 컴포넌트 생성
+    - [x] 속성(name, id, cols, rows)
 - [x] select 컴포넌트 생성
     - [x] 속성(option, 필수 여부, name)
 
