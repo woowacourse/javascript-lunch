@@ -5,6 +5,7 @@ import restaurantList from "../views/mainPage/components/restaurantList";
 const buttonHandler = (event) => {
   event.preventDefault();
 
+  const $form = event.target.closest("form");
   const $category = $("#category");
   const $name = $("#name");
   const $distance = $("#distance");
@@ -29,8 +30,18 @@ const buttonHandler = (event) => {
   }
 
   restaurants.push(newRestaurant);
+
+  $category.value = "";
+  $name.value = "";
+  $distance.value = "";
+  $description.value = "";
+  $link.value = "";
+
   const $restaurantModal = $("#restaurant-modal");
   $restaurantModal.classList.remove("modal--open");
+
+  $form.reset();
+
   restaurantList();
 };
 
