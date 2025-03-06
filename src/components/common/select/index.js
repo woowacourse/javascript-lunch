@@ -1,3 +1,5 @@
+import { INPUT_HELP_TEXT } from "../../../constants/inputHelpText";
+
 const Select = (name, required, options) => {
   const select = document.createElement("select");
   select.setAttribute("name", name);
@@ -6,7 +8,7 @@ const Select = (name, required, options) => {
 
   const defaultOption = document.createElement("option");
   defaultOption.setAttribute("value", "");
-  defaultOption.textContent = "선택해 주세요";
+  defaultOption.textContent = INPUT_HELP_TEXT.SELECT_PLACEHOLDER;
   select.appendChild(defaultOption);
 
   options.forEach((option) => {

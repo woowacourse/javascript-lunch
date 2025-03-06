@@ -1,4 +1,5 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
+import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
 import Input from "../common/input";
 import InputField from "../common/inputField";
@@ -16,8 +17,10 @@ const RegisterForm = (restaurantList) => {
   registerForm.appendChild(
     InputField(Select("distance", true, Object.keys(WALK_TIME_MINUTES)))
   );
-  registerForm.appendChild(InputField(Input("description")));
-  registerForm.appendChild(InputField(Input("link")));
+  registerForm.appendChild(
+    InputField(Input("description"), INPUT_HELP_TEXT.DESCRIPTION)
+  );
+  registerForm.appendChild(InputField(Input("link"), INPUT_HELP_TEXT.LINK));
 
   registerForm.appendChild(ButtonContainer(restaurantList));
 
