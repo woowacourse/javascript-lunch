@@ -13,4 +13,9 @@ describe("modal E2E 테스트", () => {
     cy.visit("http://localhost:5500");
     cy.get(".form-item textarea").should("exist");
   });
+
+  it("button-form 태그가 있는지 확인한다.", () => {
+    cy.visit("http://localhost:5500");
+    cy.get("form button").should("exist");
+  });
 });
