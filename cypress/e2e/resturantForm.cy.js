@@ -64,6 +64,10 @@ describe("음식점 추가가 잘 되는지 확인하는 시나리오", () => {
 describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
+
+    cy.window().then((win) => {
+      cy.stub(win, "alert").as("alertStub");
+    });
   });
 
   it("모달 열기 테스트, 음식점 추가(음식점 이름을 15자를 입력하여 경고창을 발생시킨다.)", () => {
@@ -79,9 +83,10 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
 
     // 경고창 확인
     cy.get(".restaurant-add-form").submit();
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).to.equal(ERROR_MESSAGE.INVALID_RESTAURANT_NAME_LENGTH);
-    });
+    cy.get("@alertStub").should(
+      "have.been.calledOnceWith",
+      ERROR_MESSAGE.INVALID_RESTAURANT_NAME_LENGTH
+    );
 
     // 재입력(올바른 입력 테스트)
     cy.get("#name").clear();
@@ -106,11 +111,10 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
 
     // 경고창 확인
     cy.get(".restaurant-add-form").submit();
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).to.equal(
-        ERROR_MESSAGE.INVALID_RESTAURANT_DESCRIPTION_LENGTH
-      );
-    });
+    cy.get("@alertStub").should(
+      "have.been.calledOnceWith",
+      ERROR_MESSAGE.INVALID_RESTAURANT_DESCRIPTION_LENGTH
+    );
 
     // 재입력(올바른 입력 테스트)
     cy.get("#description").clear();
@@ -133,9 +137,10 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
 
     // 경고창 확인
     cy.get(".restaurant-add-form").submit();
-    cy.on("window:alert", (alertText) => {
-      expect(alertText).to.equal(ERROR_MESSAGE.INVALID_RESTAURANT_LINK_LENGTH);
-    });
+    cy.get("@alertStub").should(
+      "have.been.calledOnceWith",
+      ERROR_MESSAGE.INVALID_RESTAURANT_LINK_LENGTH
+    );
 
     // 재입력(올바른 입력 테스트)
     cy.get("#link").clear();
