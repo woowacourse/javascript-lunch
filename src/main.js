@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import RestaurantList from "./components/RestaurantList";
 
 addEventListener("load", () => {
   const headerContainer = document.querySelector(".gnb");
@@ -111,20 +112,16 @@ addEventListener("load", () => {
 
       const categoryCode = categoryMapping[categoryValue] || "etc";
 
+      const inputValue = {
+        categoryCode,
+        nameValue,
+        distanceValue,
+        descriptionValue,
+      };
+
       const restaurantList = document.querySelector(".restaurant-list");
 
-      restaurantList.innerHTML += `
-    <li class="restaurant">
-      <div class="restaurant__category">
-        <img src="./category-${categoryCode}.png" alt="${categoryValue}" class="category-icon">
-      </div>
-      <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${nameValue}</h3>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${distanceValue}</span>
-        <p class="restaurant__description text-body">${descriptionValue}</p>
-      </div>
-    </li>
-  `;
+      RestaurantList(restaurantList, inputValue);
 
       document.querySelector(".modal").remove();
     });
