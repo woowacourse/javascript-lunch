@@ -1,9 +1,14 @@
-import Header from "./components/Header";
-import RestaurantList from "./components/RestaurantList";
+import Header from "./components/Header.js";
+import RestaurantItem from "./components/RestaurantItem.js";
+import RestaurantList from "./components/RestaurantList.js";
 
 addEventListener("load", () => {
   const headerContainer = document.querySelector(".gnb");
   Header(headerContainer);
+  const restaurantListContainer = document.querySelector(
+    ".restaurant-list-container",
+  );
+  RestaurantList(restaurantListContainer);
 
   const modalButton = document.getElementById("gnb-button");
   const appContainer = document.getElementById("app");
@@ -121,7 +126,7 @@ addEventListener("load", () => {
 
       const restaurantList = document.querySelector(".restaurant-list");
 
-      RestaurantList(restaurantList, inputValue);
+      RestaurantItem(restaurantList, inputValue);
 
       document.querySelector(".modal").remove();
     });
