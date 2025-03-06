@@ -62,8 +62,8 @@ export default class LunchItem extends Component {
 
   template() {
     return `
-      <div class="flex flex-row h-140 w-full items-start gap-16 py-8 px-8 border-b">
-        <div class="">
+      <div id="lunch-item" class="flex flex-row h-140 w-full items-start gap-16 py-8 px-8 border-b">
+        <div>
           ${this.renderCircleIcon()}
         </div>
         <div class="flex flex-col overflow-hidden" style="width: 262px;">
