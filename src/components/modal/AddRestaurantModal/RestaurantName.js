@@ -1,10 +1,14 @@
+import FormFieldContainer from "./FormFieldContainer";
+
 const RestaurantName = () => {
-  return /*html*/ `
-    <div class="form-item form-item--required">
-      <label for="name text-caption">이름</label>
-      <input type="text" name="name" id="name" required maxlength="15" data-testid="restaurant-name"/>
-    </div>
+  const label = "이름";
+  const name = "name";
+  const required = true;
+  const contents = /*html*/ `
+  <input type="text" name="name" id="name" required maxlength="15" data-testid="restaurant-name"/>
   `;
+
+  return FormFieldContainer({ contents, required, label, name });
 };
 
 export default RestaurantName;

@@ -1,11 +1,15 @@
+import FormFieldContainer from "./FormFieldContainer";
+
 const Description = () => {
-  return /* html */ `
-    <div class="form-item">
-      <label for="description" class="text-caption">설명</label>
-      <textarea name="description" id="description" cols="30" rows="5" maxlength="300" data-testid="description"></textarea>
-      <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-    </div>
+  const label = "설명";
+  const name = "description";
+  const description = false;
+  const contents = /*html*/ `
+    <textarea name="description" id="description" cols="30" rows="5" maxlength="300" data-testid="description"></textarea>
+    <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
   `;
+
+  return FormFieldContainer({ contents, description, label, name });
 };
 
 export default Description;
