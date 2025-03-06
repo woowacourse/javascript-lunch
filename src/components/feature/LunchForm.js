@@ -3,6 +3,7 @@ import Text from "../common/Text.js";
 import Select from "../common/Select.js";
 import TextArea from "../common/TextArea.js";
 import Button from "../common/Button.js";
+import BottomSheet from "../common/BottomSheet.js";
 
 export default class LunchForm extends Component {
   setDefaultProps() {
@@ -22,7 +23,7 @@ export default class LunchForm extends Component {
   }
 
   renderLunchText() {
-    const lunchText = new Text();
+    const lunchText = this.addChild(Text);
     lunchText.setProps({
       content: "새로운 음식점",
       classList: ["w-full", "text-2xl"],
@@ -31,20 +32,22 @@ export default class LunchForm extends Component {
   }
 
   renderCategory() {
-    const categoryLabel = new Text();
+    const categoryLabel = this.addChild(Text);
     categoryLabel.setProps({
       content: "카테고리",
+      required: true,
       classList: ["text-lg", "slate-500"],
     });
 
-    const categorySelect = new Select();
+    const categorySelect = this.addChild(Select);
     categorySelect.setProps({
       options: ["한식", "중식", "일식", "아시안", "양식", "기타"],
       id: "category",
+      onChange: (value) => this.setState({ category: value }),
     });
 
     return `
-    <div class="w-full flex flex-col">
+    <div class="w-full h-64 flex flex-col">
       ${categoryLabel.template()}
       ${categorySelect.template()}
     </div>
@@ -52,20 +55,19 @@ export default class LunchForm extends Component {
   }
 
   renderStoreName() {
-    const storeNameLabel = new Text();
+    const storeNameLabel = this.addChild(Text);
     storeNameLabel.setProps({
       content: "이름",
+      required: true,
       classList: ["text-lg", "slate-500"],
     });
 
-    const storeName = new TextArea();
+    const storeName = this.addChild(TextArea);
     storeName.setProps({
       rows: 1,
       maxLength: 14,
-      onInput: (e) => {
-        this.setState({ storeName: e.target.value });
-      },
       placeHolder: "피양콩할마니",
+      onInput: (value) => this.setState({ storeName: value }),
       classList: ["h-44", "rounded-lg", "resize-none"],
       id: "storeName",
     });
@@ -79,20 +81,22 @@ export default class LunchForm extends Component {
   }
 
   renderLocation() {
-    const locationLabel = new Text();
+    const locationLabel = this.addChild(Text);
     locationLabel.setProps({
       content: "거리(도보 이동 시간)",
+      required: true,
       classList: ["text-lg", "slate-500"],
     });
 
-    const location = new Select();
+    const location = this.addChild(Select);
     location.setProps({
       options: ["5분", "10분", "15분", "20분", "30분"],
+      onChange: (value) => this.setState({ location: value }),
       id: "location",
     });
 
     return `
-        <div class="w-full flex flex-col">
+        <div class="w-full h-64 flex flex-col">
           ${locationLabel.template()}
           ${location.template()}
         </div>
@@ -100,17 +104,18 @@ export default class LunchForm extends Component {
   }
 
   renderDescription() {
-    const descriptionLabel = new Text();
+    const descriptionLabel = this.addChild(Text);
     descriptionLabel.setProps({
       content: "설명",
       classList: ["text-lg", "slate-500"],
     });
 
-    const description = new TextArea();
+    const description = this.addChild(TextArea);
     description.setProps({
       rows: 3,
       maxLength: 255,
       placeHolder: "설명을 입력해주세요. 설명은 최대 255글자까지 가능합니다.",
+      onInput: (value) => this.setState({ description: value }),
       classList: ["h-90", "rounded-lg", "resize-none"],
       id: "description",
     });
@@ -124,17 +129,18 @@ export default class LunchForm extends Component {
   }
 
   renderReference() {
-    const referenceLabel = new Text();
+    const referenceLabel = this.addChild(Text);
     referenceLabel.setProps({
       content: "참고 링크",
       classList: ["text-lg", "slate-500"],
     });
 
-    const reference = new TextArea();
+    const reference = this.addChild(TextArea);
     reference.setProps({
       rows: 1,
       maxLength: 100,
       placeHolder: "https://techcourse.woowahan.com/",
+      onInput: (value) => this.setState({ reference: value }),
       classList: ["h-44", "rounded-lg", "resize-none"],
       id: "reference",
     });
@@ -148,20 +154,21 @@ export default class LunchForm extends Component {
   }
 
   renderButton() {
-    const cancelBtn = new Button();
+    const cancelBtn = this.addChild(Button);
     cancelBtn.setProps({
       text: "취소하기",
       variant: "secondary",
-      id: "cancelBtn",
       classList: ["w-full"],
+      id: "cancelBtn",
     });
 
-    const submitBtn = new Button();
+    const submitBtn = this.addChild(Button);
     submitBtn.setProps({
       text: "추가하기",
       variant: "primary",
-      id: "submitBtn",
       classList: ["w-full"],
+      onClick: () => this.handleSubmit(),
+      id: "submitBtn",
     });
 
     return `
@@ -172,9 +179,22 @@ export default class LunchForm extends Component {
       `;
   }
 
+  handleSubmit() {
+    const { onAdd } = this.props;
+    this.props.onAdd({ ...this.state });
+
+    this.setState({
+      category: "",
+      storeName: "",
+      location: "",
+      description: "",
+      reference: "",
+    });
+  }
+
   template() {
     return `
-    <div class="flex flex-col justify-start items-start gap-32 mt-32" >
+    <div id="lunch-form" class="flex flex-col justify-start items-start gap-32 mt-32" >
       ${this.renderLunchText()}
       ${this.renderCategory()}
       ${this.renderStoreName()}
@@ -185,4 +205,6 @@ export default class LunchForm extends Component {
     </div>
     `;
   }
+
+  render(props) {}
 }
