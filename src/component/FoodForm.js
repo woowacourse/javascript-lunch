@@ -8,6 +8,7 @@ import {
   validateRequiredInput,
   validateURL,
 } from "../validate/validateCondition.js";
+import { Alert } from "./Alert.js";
 import { Button } from "./Button.js";
 import { ButtonContainer } from "./ButtonContainer.js";
 import { Input } from "./Input.js";
@@ -21,12 +22,12 @@ function handleSubmit() {
   const description = document.querySelector("[name=description]").value;
   const link = document.querySelector("[name=link]").value;
 
-  validateRequiredInput(categoryInput);
-  validateRequiredInput(name);
-  validateLength(name, NAME_MAX_LENGTH);
-  validateRequiredInput(distance);
-  validateLength(description, DESCRIPTION_MAX_LENGTH);
-  validateURL(link);
+  alertError(validateRequiredInput(name));
+  alertError(validateRequiredInput(categoryInput));
+  alertError(validateLength(name, NAME_MAX_LENGTH));
+  alertError(validateRequiredInput(distance));
+  alertError(validateLength(description, DESCRIPTION_MAX_LENGTH));
+  alertError(validateURL(link));
 }
 
 export function FoodForm() {

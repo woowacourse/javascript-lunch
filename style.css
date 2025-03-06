@@ -1,5 +1,6 @@
 @import "./src/css/header.css";
 @import "./src/css/iconButton.css";
+@import "./src/css/alert.css";
 
 * {
   padding: 0;
