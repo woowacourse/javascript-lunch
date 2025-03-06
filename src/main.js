@@ -37,35 +37,3 @@ addEventListener("load", () => {
     .modalCancelButton()
     .addEventListener("click", (e) => modalUtils.closeModal(e));
 });
-
-// const addStore = (storeProps) => {
-//   const list = document.createElement("li");
-//   list.classList.add("restaurant");
-//   const store = Store(storeProps);
-//   list.innerHTML = store;
-//   querySelector.restaurantList().appendChild(list);
-// };
-
-// const updateStore = (storeList, e) => {
-//   e.preventDefault();
-
-//   const newStore = createStore(e);
-//   storeList.updateList(newStore);
-//   addStore(newStore);
-
-//   modal.closeModal();
-
-//   Array.from(e.target).forEach((item) => {
-//     item.value = "";
-//   });
-// };
-
-// const createStore = (e) => {
-//   return {
-//     category: e.target[0].value,
-//     name: e.target[1].value,
-//     dist: e.target[2].value,
-//     description: e.target[3].value,
-//     link: e.target[4].value,
-//   };
-// };
