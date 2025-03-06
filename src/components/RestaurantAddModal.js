@@ -1,8 +1,13 @@
+import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../constant/selectOptions.js';
 import createDOMElement from '../util/createDomElement.js';
+import ActionButton from './ActionButton.js';
+import CTAButton from './CTAButton.js';
 import { InputBox } from './InputBox.js';
 import Modal from './Modal.js';
 
 function RestaurantAddModal() {
+  const CancelButton = ActionButton({ text: '취소하기' });
+  const AddButton = CTAButton({ text: '추가하기' });
   const content = createDOMElement({
     tag: 'div',
     class: 'modal-container',
@@ -20,15 +25,7 @@ function RestaurantAddModal() {
             input: InputBox.Select({
               name: 'category',
               id: 'category',
-              options: [
-                { value: '', option: '선택해 주세요' },
-                { value: '한식', option: '한식' },
-                { value: '중식', option: '중식' },
-                { value: '일식', option: '일식' },
-                { value: '양식', option: '양식' },
-                { value: '아시안', option: '아시안' },
-                { value: '기타', option: '기타' },
-              ],
+              options: CATEGORY_OPTIONS,
               required: true,
             }),
           }),
@@ -41,14 +38,7 @@ function RestaurantAddModal() {
             input: InputBox.Select({
               name: 'distance',
               id: 'distance',
-              options: [
-                { value: '', option: '선택해 주세요' },
-                { value: '5', option: '5분 내' },
-                { value: '10', option: '10분 내' },
-                { value: '15', option: '15분 내' },
-                { value: '20', option: '20분 내' },
-                { value: '30', option: '30분 내' },
-              ],
+              options: DISTANCE_OPTIONS,
               required: true,
             }),
           }),
@@ -75,12 +65,27 @@ function RestaurantAddModal() {
               text: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
             }),
           }),
+          createDOMElement({
+            tag: 'div',
+            class: 'button-container',
+            children: [CancelButton, AddButton],
+          }),
         ],
       }),
     ],
   });
 
-  return Modal({ content });
+  const { modal, open, close } = Modal({
+    content,
+  });
+  CancelButton.addEventListener('click', () => {
+    close();
+  });
+  AddButton.addEventListener('click', () => {
+    close();
+  });
+
+  return { modal, open, close };
 }
 
 export default RestaurantAddModal;
