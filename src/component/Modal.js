@@ -1,4 +1,4 @@
-import { SELECT_OPTIONS } from "../constants.js";
+import { SELECT_OPTIONS } from "../constants/constants.js";
 import { Button } from "./Button.js";
 import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";

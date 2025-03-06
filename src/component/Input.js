@@ -1,4 +1,4 @@
-export function Input({ isRequired = false, label, caption }) {
+export function Input({ isRequired = false, name, label, caption }) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {
@@ -15,7 +15,7 @@ export function Input({ isRequired = false, label, caption }) {
 
   container.innerHTML = `
               <label for="link text-caption">${label}</label>
-              <input type="text" name="link" id="link" />
+              <input type="text" name=${name} id=${name} />
              ${renderCaption()}
   `;
 
