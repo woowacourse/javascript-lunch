@@ -1,4 +1,4 @@
-import { RestaurantItem } from "./RestaurantItem.js";
+import RestaurantItem from "./RestaurantItem.js";
 
 import createElement from "../util/createElement.js";
 

@@ -1,5 +1,5 @@
 import RestaurantHeader from "./RestaurantHeader.js";
-import { RestaurantItem } from "./RestaurantItem.js";
+import RestaurantItem from "./RestaurantItem.js";
 import RestaurantListContainer from "./RestaurantListContainer.js";
 
 export default function Restaurant() {
