@@ -1,8 +1,8 @@
 import BackDrop from "./backdrop";
 import ModalContent from "./modalContent";
 
-const Modal = (...content) => {
-  const backDrop = BackDrop();
+const Modal = (handleCloseModal, ...content) => {
+  const backDrop = BackDrop(handleCloseModal);
   backDrop.appendChild(ModalContent(content));
 
   return backDrop;
