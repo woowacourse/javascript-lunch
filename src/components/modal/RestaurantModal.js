@@ -4,6 +4,9 @@ import RestaurantModalItem from "./RestaurantModalItem.js";
 import Input from "../util/Input.js";
 import TextArea from "../util/TextArea.js";
 import RestaurantModalButtonContainer from "./RestaurantModalButtonContainer.js";
+import restaurantDataList from "../../domain/RestaurantDataList.js";
+import reset from "../../util/reset.js";
+import { init } from "../../main.js";
 
 export default function RestaurantModal() {
   const $fragment = document.createDocumentFragment();
@@ -14,6 +17,19 @@ export default function RestaurantModal() {
   const $form = createElement({
     tag: "form",
     classNames: ["form"],
+  });
+
+  $form.addEventListener("submit", function handleClickAdd(event) {
+    try {
+      event.preventDefault();
+      const $form = document.querySelector(".form");
+      const data = Object.fromEntries(new FormData($form));
+      restaurantDataList.addData(data);
+      reset();
+      init();
+    } catch (e) {
+      alert(e.message);
+    }
   });
 
   $h2.textContent = "새로운 음식점";
@@ -29,15 +45,7 @@ export default function RestaurantModal() {
         Select({
           name: "category",
           id: "category",
-          options: [
-            "선택해 주세요",
-            "한식",
-            "중식",
-            "일식",
-            "양식",
-            "아시안",
-            "기타",
-          ],
+          options: ["한식", "중식", "일식", "양식", "아시안", "기타"],
           isRequired: true,
         }),
     })
@@ -65,14 +73,7 @@ export default function RestaurantModal() {
         Select({
           name: "distance",
           id: "distance",
-          options: [
-            "선택해 주세요",
-            "5분 내",
-            "10분 내",
-            "15분 내",
-            "20분 내",
-            "30분 내",
-          ],
+          options: ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"],
           isRequired: true,
         }),
     })
