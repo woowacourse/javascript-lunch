@@ -1,9 +1,15 @@
-export function TextareaInput({ isRequired = false, label, caption }) {
+export function TextareaInput({
+  isRequired = false,
+  label,
+  caption,
+  isError = false,
+}) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {
     container.classList.add("form-item--required");
   }
+
   container.innerHTML = `
                 <label for="description text-caption">설명</label>
               <textarea

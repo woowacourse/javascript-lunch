@@ -51,11 +51,11 @@ function addFoodItem() {
 
 function handleSubmit() {
   const foodInfo = validateFoodItem({
-    category: getInput("category"),
-    name: getInput("name"),
-    distance: getInput("distance"),
-    description: getInput("description"),
-    link: getInput("link"),
+    category: "category",
+    name: "name",
+    distance: "distance",
+    description: "description",
+    link: "link",
   });
 
   if (!foodInfo) return;

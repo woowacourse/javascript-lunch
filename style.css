@@ -301,3 +301,7 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+.error {
+  border: 1px solid var(--alert) !important;
+}

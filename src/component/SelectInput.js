@@ -3,6 +3,7 @@ export function SelectInput({
   name,
   label,
   optionList = [],
+  isError = false,
 }) {
   const container = document.createElement("div");
   container.classList.add("form-item");
