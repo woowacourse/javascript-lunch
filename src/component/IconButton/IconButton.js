@@ -1,21 +1,21 @@
 import { DOM } from "../../utils/dom.js";
 
 const IconButton = {
-  init(props, dom) {
+  render(props, dom) {
     const IconButtonElement = createIconButton(props);
     dom.append(IconButtonElement);
   },
 };
 
 function createIconButton({ src, onClick, label }) {
-  const IconButton = document.createElement("button");
-  IconButton.setAttribute("type", "button");
-  IconButton.setAttribute("class", "gnb__button");
-  IconButton.setAttribute("aria-label", label);
-  IconButton.addEventListener("click", onClick);
-  IconButton.innerHTML = `<img src=${src} alt=${label} />`;
+  const IconButtonElement = document.createElement("button");
+  IconButtonElement.setAttribute("type", "button");
+  IconButtonElement.setAttribute("class", "gnb__button");
+  IconButtonElement.setAttribute("aria-label", label);
+  IconButtonElement.addEventListener("click", onClick);
+  IconButtonElement.innerHTML = `<img src=${src} alt=${label} />`;
 
-  return IconButton;
+  return IconButtonElement;
 }
 
 export default IconButton;
