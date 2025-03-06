@@ -1,11 +1,11 @@
 const CATEGORY_OPTIONS = [
   { value: '', option: '선택해 주세요' },
-  { value: '한식', option: '한식' },
-  { value: '중식', option: '중식' },
-  { value: '일식', option: '일식' },
-  { value: '양식', option: '양식' },
-  { value: '아시안', option: '아시안' },
-  { value: '기타', option: '기타' },
+  { value: 'korean', option: '한식' },
+  { value: 'chinese', option: '중식' },
+  { value: 'japanese', option: '일식' },
+  { value: 'western', option: '양식' },
+  { value: 'asian', option: '아시안' },
+  { value: 'etc', option: '기타' },
 ];
 
 const DISTANCE_OPTIONS = [
