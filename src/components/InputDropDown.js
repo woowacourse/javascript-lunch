@@ -10,7 +10,7 @@ const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
 };
 
 const OPTION_TEMPLATE = (value, innerValue) => {
-  return `<option value="${value}">${innerValue}</option>`;
+  return `<option value="${innerValue}">${value}</option>`;
 };
 
 class InputDropDown {
