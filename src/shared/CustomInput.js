@@ -8,7 +8,7 @@ export default function CustomInput({
   return `
       <div class="form-item ${required ? "form-item--required" : ""}">
         <label for="${id}" class="text-caption">${label}</label>
-        <input type="${type}" name="${name}" id="${id}" ${
+        <input maxlength="2048" type="${type}" name="${name}" id="${id}" ${
           required ? "required" : ""
         } />
       </div>
