@@ -10,7 +10,7 @@ class AddRestaurantModal extends Modal {
   contents() {
     return /*html */ `
       <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form id='add-restaurant-form'>
+      <form id='add-restaurant-form' data-testid='add-restaurant-form'>
         ${Category()}
         ${RestaurantName()}
         ${Distance()}

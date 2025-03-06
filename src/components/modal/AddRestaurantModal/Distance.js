@@ -2,7 +2,7 @@ const Distance = () => {
   return /*html */ `
     <div class="form-item form-item--required">
       <label for="distance" class="text-caption">거리(도보 이동 시간) </label>
-      <select name="distance" id="distance" required>
+      <select name="distance" id="distance" required data-testid="distance">
         <option value="">선택해 주세요</option>
         <option value="5">5분 내</option>
         <option value="10">10분 내</option>
