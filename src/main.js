@@ -84,70 +84,8 @@ addEventListener("load", () => {
   modalButton.addEventListener("click", () => {
     appContainer.innerHTML += modal;
     // 1. 모달창에서 입력값을 받아오고
-    const category = document.getElementById("category");
-    const name = document.getElementById("name");
-    const distance = document.getElementById("distance");
-    const description = document.getElementById("description");
-    const link = document.getElementById("link");
 
-    const inputValue = {
-      categoryValue: "",
-      nameValue: "",
-      distanceValue: "",
-      distanceValue: "",
-      linkValue: "",
-    };
-
-    category.addEventListener("change", (e) => {
-      inputValue.categoryValue = e.target.value;
-    });
-
-    name.addEventListener("change", (e) => {
-      inputValue.nameValue = e.target.value;
-    });
-
-    distance.addEventListener("change", (e) => {
-      inputValue.distanceValue = e.target.value;
-    });
-
-    description.addEventListener("change", (e) => {
-      inputValue.discriptionValue = e.target.value;
-    });
-
-    link.addEventListener("change", (e) => {
-      inputValue.linkValue = e.target.value;
-    });
-
-    const closeModalButton = document.getElementById("close-modal");
-    closeModalButton.addEventListener("click", () => {
-      const modalElement = document.querySelector(".modal");
-      modalElement.re();
-    });
-
-    // 2. 입력한 값으로 목록에 가게를 추가함
-
-    // 2-1. 카테고리 아이콘 매핑
-
-    // TODO: 카테고리 아이콘 매핑 및 html 수정
-    const restaurant = `<li class="restaurant">
-            <div class="restaurant__category">
-              <img src="./category-etc.png" alt="기타" class="category-icon">
-            </div>
-            <div class="restaurant__info">
-              <h3 class="restaurant__name text-subtitle">${inputValue.nameValue}</h3>
-              <span class="restaurant__distance text-body">캠퍼스부터 ${inputValue.distanceValue}</span>
-              <p class="restaurant__description text-body">
-                ${inputValue.description}
-              </p>
-            </div>
-          </li>`;
-
-    const $addRestaurantButton = document.querySelector(".button--primary");
-    $addRestaurantButton.addEventListener("click", () => {
-      const restaurantList = document.querySelector(".restaurant-list");
-      restaurantList.appendChild(restaurant);
-    });
-
+    // 카테고리 아이콘 매핑
     const categoryMapping = {
       한식: "korean",
       중식: "chinese",
@@ -156,5 +94,34 @@ addEventListener("load", () => {
       아시안: "asian",
       기타: "etc",
     };
+
+    const $addRestaurantButton = document.querySelector(".button--primary");
+    $addRestaurantButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const categoryValue = document.getElementById("category").value || "기타";
+      const nameValue = document.getElementById("name").value;
+      const distanceValue = document.getElementById("distance").value;
+      const descriptionValue = document.getElementById("description").value;
+
+      const categoryCode = categoryMapping[categoryValue] || "etc";
+
+      const restaurantList = document.querySelector(".restaurant-list");
+
+      restaurantList.innerHTML += `
+    <li class="restaurant">
+      <div class="restaurant__category">
+        <img src="./category-${categoryCode}.png" alt="${categoryValue}" class="category-icon">
+      </div>
+      <div class="restaurant__info">
+        <h3 class="restaurant__name text-subtitle">${nameValue}</h3>
+        <span class="restaurant__distance text-body">캠퍼스부터 ${distanceValue}</span>
+        <p class="restaurant__description text-body">${descriptionValue}</p>
+      </div>
+    </li>
+  `;
+
+      document.querySelector(".modal").remove();
+    });
   });
 });
