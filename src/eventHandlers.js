@@ -1,3 +1,5 @@
+import stateStore from './stateStore.js';
+
 function openModal() {
   const gnbButton = document.querySelector('.gnb__button');
 
@@ -8,4 +10,25 @@ function openModal() {
   });
 }
 
-export default openModal;
+function readNewRestaurant() {
+  const form = document.querySelector('#new-restaurant-form');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const newRestaurantData = {
+      category: document.querySelector('#category').value,
+      name: document.querySelector('#name').value,
+      distance: document.querySelector('#distance').value,
+      description: document.querySelector('#description').value,
+      link: document.querySelector('#link').value,
+    };
+    stateStore.updateState(newRestaurantData);
+  });
+}
+
+const eventHandlers = {
+  openModal,
+  readNewRestaurant,
+};
+
+export default eventHandlers;
