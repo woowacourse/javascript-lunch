@@ -7,4 +7,5 @@ export const DOM = {
   $header: $(".gnb"),
   $buttonContainer: $(".button-container"),
   $restaurantList: $(".restaurant-list"),
+  $modalForm: $(".modal form"),
 };

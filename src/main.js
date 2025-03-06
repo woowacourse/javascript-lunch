@@ -3,6 +3,7 @@ import AddLunchModal from "./component/AddLunchModal/AddLunchModal.js";
 import { DOM } from "./utils/dom.js";
 import TextButton from "./component/TextButton/TextButton.js";
 import LunchInfoCard from "./component/LunchInfoCard/LunchInfoCard.js";
+import SelectForm from "./component/SelectForm/SelectForm.js";
 
 IconButton.render(
   {
@@ -34,7 +35,7 @@ TextButton.render(
 LunchInfoCard.render(
   {
     src: "./templates/category-korean.png",
-    name: "피양콩 할머니",
+    name: "피양콩할마니",
     distance: "캠퍼스부터 10분 내",
     description: `평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩
                 할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로, ‘피양’은
@@ -100,4 +101,76 @@ LunchInfoCard.render(
     label: "기타",
   },
   DOM.$restaurantList
+);
+
+SelectForm.render(
+  {
+    label: "카테고리",
+    dropdownList: [
+      {
+        value: "",
+        label: "선택해 주세요",
+      },
+      {
+        value: "한식",
+        label: "한식",
+      },
+      {
+        value: "중식",
+        label: "중식",
+      },
+      {
+        value: "일식",
+        label: "일식",
+      },
+      {
+        value: "양식",
+        label: "양식",
+      },
+      {
+        value: "아시안",
+        label: "아시안",
+      },
+      {
+        value: "기타",
+        label: "기타",
+      },
+    ],
+    isRequired: true,
+  },
+  DOM.$modalForm
+);
+
+SelectForm.render(
+  {
+    label: "거리(도보 이동 시간)",
+    dropdownList: [
+      {
+        value: "",
+        label: "선택해 주세요",
+      },
+      {
+        value: "5",
+        label: "5분 내",
+      },
+      {
+        value: "10",
+        label: "10분 내",
+      },
+      {
+        value: "15",
+        label: "15분 내",
+      },
+      {
+        value: "20",
+        label: "20분 내",
+      },
+      {
+        value: "30",
+        label: "30분 내",
+      },
+    ],
+    isRequired: true,
+  },
+  DOM.$modalForm
 );

@@ -17,7 +17,7 @@
 
 - [x] LunchInfoCard 컴포넌트
   - 아이콘, 점심밥 집 이름, 캠퍼스로부터 소요 시간, 설명
-- [ ] SelectForm
+- [x] SelectForm
   - 상단 라벨, 필수 표시, 선택 요소 리스트, 하단 설명
 - [ ] InputForm
   - 상단 라벨, 필수 표시, placeholder, 하단 설명, 크기
