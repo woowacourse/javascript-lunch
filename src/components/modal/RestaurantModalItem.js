@@ -1,10 +1,20 @@
 import createElement from "../../util/createElement";
 
+function createHelpText(helpText) {
+  const $span = createElement({
+    tag: "span",
+    classNames: ["help-text", "text-caption"],
+  });
+  $span.textContent = helpText;
+  return $span;
+}
+
 export default function RestaurantModalItem({
   isRequired,
   name,
   text,
   renderChild,
+  helpText,
 }) {
   const $div = createElement({
     tag: "div",
@@ -19,6 +29,11 @@ export default function RestaurantModalItem({
 
   $div.appendChild($label);
   $div.appendChild(renderChild());
+
+  if (helpText) {
+    const $helpText = createHelpText(helpText);
+    $div.appendChild($helpText);
+  }
 
   return $div;
 }

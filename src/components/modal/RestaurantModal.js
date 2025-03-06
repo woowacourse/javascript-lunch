@@ -13,6 +13,7 @@ export default function RestaurantModal() {
   });
   const $form = createElement({
     tag: "form",
+    classNames: ["form"],
   });
 
   $h2.textContent = "새로운 음식점";
@@ -28,7 +29,15 @@ export default function RestaurantModal() {
         Select({
           name: "category",
           id: "category",
-          options: ["선택해 주세요", "한식", "중식"],
+          options: [
+            "선택해 주세요",
+            "한식",
+            "중식",
+            "일식",
+            "양식",
+            "아시안",
+            "기타",
+          ],
           isRequired: true,
         }),
     })
@@ -56,7 +65,14 @@ export default function RestaurantModal() {
         Select({
           name: "distance",
           id: "distance",
-          options: ["선택해 주세요", "5분 내", "10분 내"],
+          options: [
+            "선택해 주세요",
+            "5분 내",
+            "10분 내",
+            "15분 내",
+            "20분 내",
+            "30분 내",
+          ],
           isRequired: true,
         }),
     })
@@ -73,6 +89,7 @@ export default function RestaurantModal() {
           cols: "30",
           rows: "5",
         }),
+      helpText: "메뉴 등 추가 정보를 입력해 주세요.",
     })
   );
 
@@ -88,6 +105,7 @@ export default function RestaurantModal() {
           id: "link",
           isRequired: false,
         }),
+      helpText: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
     })
   );
 
