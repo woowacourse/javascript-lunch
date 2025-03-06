@@ -13,11 +13,14 @@ export const validateNameInput = (rawInput) => {
 
 export const validateDescriptiontInput = (rawInput) => {
   const input = rawInput.trim();
-  if (input === "") {
-    throw new Error(ERRORS.EMPTY_DESCRIPTION);
-  }
 
   if (input.length > 1500) {
     throw new Error(ERRORS.MAXIMUM_DESCRIPTION);
   }
+};
+
+export const validateSelectInput = (code) => {
+  console.log(code);
+  if (code === "error_category" || code === "error_distance")
+    throw new Error(ERRORS.NON_SELECTED(code.slice(6)));
 };

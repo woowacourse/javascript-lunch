@@ -5,6 +5,7 @@ import RestaurantList from "./components/RestaurantList.js";
 import {
   validateDescriptiontInput,
   validateNameInput,
+  validateSelectInput,
 } from "./validation/validator.js";
 
 addEventListener("load", () => {
@@ -31,6 +32,7 @@ addEventListener("load", () => {
       양식: "western",
       아시안: "asian",
       기타: "etc",
+      에러: "error_category",
     };
 
     const $addRestaurantButton = document.querySelector(".button--primary");
@@ -43,27 +45,29 @@ addEventListener("load", () => {
       const $description = document.getElementById("description");
 
       try {
-        const categoryValue = $category.value || "기타";
+        const categoryValue = $category.value || "에러";
         const nameValue = $name.value.trim();
         validateNameInput(nameValue);
-        const distanceValue = $distance.value;
+        const distanceValue = $distance.value || "error_distance";
+        validateSelectInput(distanceValue);
         const descriptionValue = $description.value;
         validateDescriptiontInput(descriptionValue);
-        const categoryCode = categoryMapping[categoryValue] || "etc";
+        const categoryCode = categoryMapping[categoryValue];
+        validateSelectInput(categoryCode);
+
+        const inputValue = {
+          categoryCode,
+          nameValue,
+          distanceValue,
+          descriptionValue,
+        };
+
+        const $restaurantList = document.querySelector(".restaurant-list");
+
+        RestaurantItem($restaurantList, inputValue);
       } catch (error) {
         alert(error.message);
       }
-      const inputValue = {
-        categoryCode,
-        nameValue,
-        distanceValue,
-        descriptionValue,
-      };
-
-      const $restaurantList = document.querySelector(".restaurant-list");
-
-      RestaurantItem($restaurantList, inputValue);
-
       const $modal = document.querySelector(".modal");
       $modal.remove();
     });
