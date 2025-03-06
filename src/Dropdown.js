@@ -7,7 +7,7 @@ class Dropdown extends Component {
   template() {
     return `
           <label for="${this.$target.getAttribute("id")} text-caption">${label[this.$target.getAttribute("id")]}</label>
-    <select name="${this.$target}" class="option" required>
+    <select name="${this.$target.getAttribute("id")}" class="option" required>
                   <option value="">선택해 주세요</option>
             </select>
             `;
