@@ -1,3 +1,5 @@
+const defaultOption = { value: "", text: "선택해 주세요" };
+
 export default function createDropdownBox({
   labelText,
   id,
@@ -7,16 +9,28 @@ export default function createDropdownBox({
   const dropdownBox = createElement("div", {
     className: ["form-item", `${required && "form-item--required"}`],
   });
+  const dropdownLabel = createElement("label", {
+    htmlFor: id,
+    className: "text-caption",
+    textContent: labelText,
+  });
+  const select = createElement("select", {
+    name: id,
+    id,
+    required,
+  });
 
-  dropdownBox.innerHTML = `
-    <label for="${id} text-caption">${labelText}</label>
-    <select name="${id}" id="${id}" ${required && "required"}>
-      <option value="">선택해 주세요</option>
-      ${dropdownList.map(
-        ({ value, text }) => `<option value="${value}">${text}</option>`
-      )}
-    </select>
-  `;
+  const optionList = [defaultOption, ...dropdownList];
+  const optionElements = optionList.map(({ value, text }) =>
+    createElement("option", {
+      value,
+      textContent: text,
+    })
+  );
+
+  select.append(...optionElements);
+  const fragment = createElementsFragment([dropdownLabel, select]);
+  dropdownBox.appendChild(fragment);
 
   return dropdownBox;
 }
