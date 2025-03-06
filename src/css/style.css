@@ -87,9 +87,11 @@
 }
 
 .restaurant__description {
-  display: -webkit-box;
-
   padding-top: 8px;
+}
+
+.text-ellipsis {
+  display: -webkit-box;
 
   overflow: hidden;
   text-overflow: ellipsis;
