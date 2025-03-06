@@ -21,15 +21,11 @@ export default class BottomSheetBase {
     $title.className = "modal-title text-title";
     $title.textContent = this.title;
 
-    const $form = document.createElement("form");
-
     this.$modal.appendChild($backdrop);
     this.$modal.appendChild($container);
 
     $container.appendChild($title);
-    $container.appendChild($form);
-
-    $form.appendChild(this.$children);
+    $container.appendChild(this.$children);
 
     $backdrop.addEventListener(
       EVENT_TYPES.click,
