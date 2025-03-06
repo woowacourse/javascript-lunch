@@ -10,4 +10,5 @@ export const DOM = {
   $restaurantList: $(".restaurant-list"),
   $modalForm: $(".modal form"),
   $modal: $(".modal"),
+  $modalContainer: $(".modal-container"),
 };
