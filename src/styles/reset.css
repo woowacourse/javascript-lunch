@@ -89,3 +89,7 @@ hr {
 * {
   font-family: "Pretendard";
 }
+
+textarea:focus {
+  outline: none;
+}
