@@ -4,7 +4,7 @@ const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
   return `
     <label for=${tag} class="text-caption">${title}</label>
     <select name=${tag} id="${tag}" class="select-input" required>
-      <option value="">선택해 주세요</option>
+      <option value="">선택해주세요</option>
     </select>
   `;
 };
