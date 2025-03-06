@@ -4,7 +4,11 @@ export default function createElement({ tag, classNames = [], ...attributes }) {
   classNames.forEach((className) => $element.classList.add(className));
 
   Object.entries(attributes).forEach(([key, value]) => {
-    $element.setAttribute(key, value);
+    if (key === "required") {
+      $element.required = Boolean(value);
+    } else {
+      $element.setAttribute(key, value);
+    }
   });
 
   return $element;
