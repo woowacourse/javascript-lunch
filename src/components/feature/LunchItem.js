@@ -1,4 +1,5 @@
 import Component from "../../core/Component.js";
+import { match } from "../../utils/match.js";
 import CircleIcon from "../common/CircleIcon.js";
 import Icon from "../common/Icon.js";
 import Text from "../common/Text.js";
@@ -53,8 +54,9 @@ export default class LunchItem extends Component {
   renderCircleIcon() {
     const icon = this.addChild(CircleIcon);
     icon.setProps({
-      iconName: "category-korean",
+      iconName: match(this.props.category),
     });
+
     return icon.template();
   }
 
