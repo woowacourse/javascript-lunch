@@ -24,7 +24,7 @@ class Modal extends Component {
         isRequired: true,
       }),
       new InputBox({
-        input: `<input type="text" name="name" id="name"  />`,
+        input: `<input type="text" name="name" id="name" maxlength='20' />`,
         label: "이름",
         isRequired: true,
       }),
@@ -42,13 +42,13 @@ class Modal extends Component {
         isRequired: true,
       }),
       new InputBox({
-        input: `<textarea name="description" id="description" cols="30" rows="5"></textarea>`,
+        input: `<textarea maxlength='1000' name="description" id="description" cols="30" rows="5"></textarea>`,
         label: "설명",
         caption: "메뉴 등 추가 정보를 입력해 주세요.",
         isRequired: false,
       }),
       new InputBox({
-        input: `<input type="text" name="link" id="link" />`,
+        input: `<input type="url" name="link" id="link" />`,
         label: "참고 링크",
         caption: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
         isRequired: false,
