@@ -6,6 +6,7 @@ import RestaurantItem from '../components/RestaurantItem.js';
 import { DOM } from '../dom.js';
 import Restaurant from '../Restaurant.js';
 import { RestaurantList } from '../RestaurantList.js';
+import { validateDropDown, validateName, validateDescription, validateLink } from '../validation/validations.js';
 
 const CATEGORY_LIST = ['한식', '중식', '일식', '양식', '아시안', '기타'];
 const DISTANCE_LIST = ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'];
@@ -82,11 +83,27 @@ class AddRestaurantModal extends Modal {
     modal.remove();
   };
 
+  #validateInputs = () => {
+    const testData = Object.fromEntries(new FormData(this.#modalForm));
+    try {
+      validateDropDown('카테고리', testData.category);
+      validateName(testData.name);
+      validateDropDown('거리', testData.distance);
+      validateDescription(testData.description);
+      validateLink(testData.link);
+      return true;
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   #bindEvent = () => {
     this.#addButton.addEventListener('click', (event) => {
       event.preventDefault();
-      this.#addHandler();
-      this.#removeModal();
+      if (this.#validateInputs()) {
+        this.#addHandler();
+        this.#removeModal();
+      }
     });
 
     this.#cancelButton.addEventListener('click', () => {
