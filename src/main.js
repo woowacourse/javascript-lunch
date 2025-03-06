@@ -7,25 +7,32 @@ import createTextAreaBox from "./components/textarea/textarea.js";
 
 const app = document.querySelector("#app");
 
-const handleBottomSheetToggle = (event) => {
-  const modal = document.querySelector(".modal");
+function bottomSheetController() {
+  let isFirstRender = false;
 
-  if (event.target.closest(".restaurant-add-button")) {
-    modal.showModal();
+  function handleBottomSheetToggle(event) {
+    const modal = document.querySelector(".modal");
 
-    const restaurantAddForm = document.querySelector(".restaurant-add-form");
+    if (event.target.closest(".restaurant-add-button")) {
+      modal.showModal();
 
-    if (!restaurantAddForm) {
-      const modalContainer = document.querySelector(".modal-container");
-      const restaurantFrom = createRestaurantForm();
+      if (!isFirstRender) {
+        const modalContainer = document.querySelector(".modal-container");
+        const restaurantFrom = createRestaurantForm();
 
-      modalContainer.appendChild(restaurantFrom);
+        modalContainer.appendChild(restaurantFrom);
+        isFirstRender = true;
+      }
+    }
+
+    if (event.target.closest(".modal-backdrop")) {
+      modal.close();
     }
   }
 
-  if (event.target.closest(".modal-backdrop")) {
-    modal.close();
-  }
-};
+  return { handleBottomSheetToggle };
+}
+
+const { handleBottomSheetToggle } = bottomSheetController();
 
 document.body.addEventListener("click", handleBottomSheetToggle);
