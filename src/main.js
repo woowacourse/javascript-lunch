@@ -1,4 +1,8 @@
 import { restaurantsData } from "./restaurantsData";
+import {
+  ERROR_MESSAGE,
+  IMAGE_SRC_BY_RESTAURANTS_CATEGORY,
+} from "./constants/constants.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
@@ -34,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const nameInput = document.getElementById("name");
     if (nameInput.value.length > 20) {
-      alert("이름은 최대 20글자까지 가능합니다.");
+      alert(ERROR_MESSAGE.restaurantNameMaxLength);
       return;
     }
 
@@ -43,13 +47,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (restaurantsNameList.includes(nameInput.value)) {
-      alert("기존에 있는 식당과 중복된 이름입니다.");
+      alert(ERROR_MESSAGE.duplicateRestaurantName);
       return;
     }
 
     const descriptionInput = document.getElementById("description");
     if (descriptionInput.value.length > 500) {
-      alert("설명은 최대 500글자까지 가능합니다.");
+      alert(ERROR_MESSAGE.descriptionMaxLength);
       return;
     }
 
@@ -61,9 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
       description: descriptionInput.value,
       link: document.getElementById("link").value,
     };
-
-    // TODO 메시지를 상수로 빼두자
-    // constants 폴더에
 
     const restaurantItem = createRestaurantItem(newRestaurant);
     restaurantList.appendChild(restaurantItem);
@@ -98,17 +99,7 @@ const createRestaurantItem = ({
   const li = document.createElement("li");
   li.classList.add("restaurant");
 
-  // TODO 얘도 상수
-  const imageSrcByRestaurantsCategory = {
-    한식: "./images/category-korean.png",
-    중식: "./images/category-chinese.png",
-    일식: "./images/category-japanese.png",
-    양식: "./images/category-western.png",
-    아시안: "./images/category-asian.png",
-    기타: "./images/category-etc.png",
-  };
-
-  const mappedImage = imageSrcByRestaurantsCategory[category];
+  const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category];
 
   li.innerHTML = `
     <div class="restaurant__category">
