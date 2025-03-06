@@ -43,7 +43,7 @@ describe("모달 테스트", () => {
     cy.get(".modal-backdrop").should(
       "have.css",
       "background-color",
-      "rgba(0, 0, 0, 0.35)",
+      "rgba(0, 0, 0, 0.35)"
     );
   });
 
@@ -96,14 +96,17 @@ describe("모달 테스트", () => {
     cy.get(".button--primary").should("contain", "추가하기");
   });
 });
-
 describe("기능 테스트", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5173/");
+  });
+
   it("음식점 정보를 입력하고 추가하기를 누르면 음식점 리스트에 추가된다.", () => {
     cy.get("#gnb-button").click();
-    // 카테고리. 이름, 거리를 입력
-    cy.get("select#category").select("한식");
+
+    cy.get("select#category").select("한식", { force: true });
     cy.get("#name").type("tester");
-    cy.get("select#distance").select("5분 내");
+    cy.get("select#distance").select("5분 내", { force: true });
 
     // 추가하기 버튼 클릭
     cy.get(".button--primary").click();
