@@ -220,11 +220,11 @@ body {
   font-size: 14px;
 }
 
-.form-item--required label::after {
+.label-required::after {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +258,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 

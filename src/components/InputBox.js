@@ -4,14 +4,16 @@ function Root({ label, input, caption }) {
   return createDOMElement({
     tag: 'div',
     class: ['form-item', 'form-item--required'],
-    children: [label, input, caption],
+    children: [label, input, caption].filter(Boolean),
   });
 }
 
-function Label({ text }) {
+function Label({ text, className, ...attribute }) {
   return createDOMElement({
     tag: 'label',
-    for: 'category text-caption',
+    textContent: text,
+    class: [className, 'text-caption'].filter(Boolean),
+    ...attribute,
   });
 }
 
@@ -51,4 +53,4 @@ function Caption({ text }) {
   });
 }
 
-export const InputBox = { Root, Label, Select, Input, TextArea, Caption };
+export const InputBox = { Root, Label, Select, Input, Select, TextArea, Caption };

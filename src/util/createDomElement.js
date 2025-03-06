@@ -10,7 +10,7 @@ const createDOMElement = ({ tag, children, ...props }) => {
           element.classList.add(className);
         });
       } else {
-        element.classList.add(value);
+        element.className = value;
       }
     }
 
