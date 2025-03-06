@@ -3,7 +3,7 @@ import {
   NAME_MAX_LENGTH,
 } from "../constants/constants.js";
 import { ERROR_MESSAGE } from "../constants/errorMessage.js";
-import { removeError, setError, setState } from "../util/handleIsError.js";
+import { removeError, setError } from "../util/handleIsError.js";
 import { getInput } from "../util/getInput.js";
 
 export function validateRequiredInput(name) {

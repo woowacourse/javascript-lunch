@@ -6,14 +6,16 @@ let state = {
   link: false,
 };
 
-export function setState(name) {
-  state = { ...state, [name]: !state[name] };
-}
-
 export function setError(name) {
   document.querySelector(`[name=${name}]`).classList.add("error");
 }
 
 export function removeError(name) {
   document.querySelector(`[name=${name}]`).classList.remove("error");
+}
+
+export function resetError() {
+  Object.keys(state).forEach((key) => {
+    return removeError(key);
+  });
 }

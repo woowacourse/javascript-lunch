@@ -8,6 +8,7 @@ import { FoodListPage } from "../pages/FoodListPage.js";
 import { alertError } from "../util/alertError.js";
 import { computeImgSrcAlt } from "../util/computeImgSrcAlt.js";
 import { getInput } from "../util/getInput.js";
+import { removeError, resetError } from "../util/handleIsError.js";
 import { modalClose } from "../util/modalAction.js";
 import {
   validateLength,
@@ -25,16 +26,17 @@ import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
 
 function validateFoodItem({ category, name, distance, description, link }) {
+  resetError();
   try {
     validateRequiredInput(category);
     validateRequiredInput(name);
-    validateRequiredInput(distance);
     validateLength(name, NAME_MAX_LENGTH);
+    validateRequiredInput(distance);
     validateLength(description, DESCRIPTION_MAX_LENGTH);
     validateURL(link);
   } catch (error) {
     alertError(error.message);
-    return null;
+    return;
   }
   return { category, name, distance, description, link };
 }
