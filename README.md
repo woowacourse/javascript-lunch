@@ -4,6 +4,8 @@
 
 > 점심 식사 스팟 목록을 관리하는 앱을 만든다.
 
+[🔗 배포 주소](https://AHHYUNJU.github.io/javascript-lunch)
+
 <br>
 
 ## 🍱 새로운 음식점 추가하기
