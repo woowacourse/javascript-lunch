@@ -71,23 +71,25 @@ export default function createRestaurantForm() {
   );
 
   restaurantAddForm.appendChild(buttonContainer);
-  restaurantAddForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+
+  function handleAddRestaurantFormSubmit(event) {
+    event.preventDefault();
 
     try {
       const formData = extractFormData(restaurantAddForm);
       restaurantFormValidation(formData);
       const restaurantList = document.querySelector(".restaurant-list");
       restaurantList.appendChild(createRestaurantItem(formData));
+      restaurantAddForm.reset();
 
       const modal = document.querySelector(".modal");
       modal.close();
-
-      restaurantAddForm.reset();
     } catch (error) {
       alert(error.message);
     }
-  });
+  }
+
+  restaurantAddForm.addEventListener("submit", handleAddRestaurantFormSubmit);
 
   return restaurantAddForm;
 }
