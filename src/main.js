@@ -1,8 +1,7 @@
 import { restaurantsData } from "./restaurantsData";
-import {
-  ERROR_MESSAGE,
-  IMAGE_SRC_BY_RESTAURANTS_CATEGORY,
-} from "./constants/constants.js";
+import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "./constants/constants.js";
+import { validateRestaurant } from "./validateRestaurant.js";
+import { ERROR_MESSAGE } from "./constants/constants.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
@@ -46,21 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return restaurant.name;
     });
 
-    if (nameInput.value.length > 20) {
-      alert(ERROR_MESSAGE.restaurantNameMaxLength);
-      return;
-    }
-
-    if (restaurantsNameList.includes(nameInput.value)) {
-      alert(ERROR_MESSAGE.duplicateRestaurantName);
-      return;
-    }
-
-    if (descriptionInput.value.length > 500) {
-      alert(ERROR_MESSAGE.descriptionMaxLength);
-      return;
-    }
-
     const newRestaurant = {
       category: categoryInput.value,
       name: nameInput.value,
@@ -68,6 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
       description: descriptionInput.value,
       link: linkInput.value,
     };
+
+    const errorMessage = validateRestaurant(newRestaurant, restaurantsNameList);
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
 
     const restaurantItem = createRestaurantItem(newRestaurant);
     restaurantList.appendChild(restaurantItem);
