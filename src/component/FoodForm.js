@@ -3,8 +3,11 @@ import {
   NAME_MAX_LENGTH,
   SELECT_OPTIONS,
 } from "../constants/constants.js";
+import { alertError } from "../util/alertError.js";
 import {
+  validateDescriptionLength,
   validateLength,
+  validateNameLength,
   validateRequiredInput,
   validateURL,
 } from "../validate/validateCondition.js";
@@ -15,19 +18,20 @@ import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
 
-function handleSubmit() {
-  const categoryInput = document.querySelector("[name=category]").value;
-  const name = document.querySelector("[name=name]").value;
-  const distance = document.querySelector("[name=distance]").value;
-  const description = document.querySelector("[name=description]").value;
-  const link = document.querySelector("[name=link]").value;
+function getInput(name, validateFuncs) {
+  const value = document.querySelector(`[name=${name}]`).value;
+  validateFuncs.forEach((validateFunc) => {
+    return alertError(() => validateFunc(value));
+  });
+  return value;
+}
 
-  alertError(validateRequiredInput(name));
-  alertError(validateRequiredInput(categoryInput));
-  alertError(validateLength(name, NAME_MAX_LENGTH));
-  alertError(validateRequiredInput(distance));
-  alertError(validateLength(description, DESCRIPTION_MAX_LENGTH));
-  alertError(validateURL(link));
+function handleSubmit() {
+  const category = getInput("category", [validateRequiredInput]);
+  const name = getInput("name", [validateRequiredInput, validateNameLength]);
+  const distance = getInput("distance", [validateRequiredInput]);
+  const description = getInput("description", [validateDescriptionLength]);
+  const link = getInput("link", [validateURL]);
 }
 
 export function FoodForm() {

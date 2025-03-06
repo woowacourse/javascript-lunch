@@ -5,7 +5,6 @@ import {
 } from "../src/constants/constants.js";
 import {
   validateLength,
-  validateNameLength,
   validateRequiredInput,
   validateURL,
 } from "../src/validate/validateCondition.js";
@@ -18,7 +17,7 @@ describe("사용자 입력값에 따른 유효성 검사를 실시한다", () =>
     //when
 
     //then
-    expect(() => validateRequiredInput(input)).toThrow(ERROR_MESSAGE.requird);
+    expect(() => validateRequiredInput(input)).toThrow(ERROR_MESSAGE.required);
   });
 
   it("음식점 이름이 20자가 넘을 경우 에러를 던진다", () => {

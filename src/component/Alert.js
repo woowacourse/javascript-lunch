@@ -1,9 +1,9 @@
 export const Alert = ({ message: message }) => {
   const alert = document.createElement("div");
   alert.classList.add("alert");
-  alert.classList.add("font-body");
+  alert.classList.add("text-body");
 
-  alert.textContent = message;
+  alert.innerText = message;
 
   return alert;
 };
