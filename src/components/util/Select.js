@@ -1,11 +1,18 @@
-import createElement from "../util/createElement.js";
+import createElement from "../../util/createElement.js";
 
-export default function RestaurantSelect(options) {
+export default function Select({
+  name,
+  id,
+  classNames = [],
+  options,
+  isRequired = false,
+}) {
   const $select = createElement({
     tag: "select",
-    name: "category",
-    id: "category",
-    required: true,
+    name,
+    id,
+    classNames,
+    required: isRequired,
   });
   const $options = createOptions(options);
 
