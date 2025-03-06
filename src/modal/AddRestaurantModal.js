@@ -29,6 +29,12 @@ class AddRestaurantModal extends Modal {
   };
 
   #createAddModal = () => {
+    const modalTitle = document.createElement('h2');
+    modalTitle.classList.add('modal-title');
+    modalTitle.classList.add('text-title');
+    modalTitle.innerText = '새로운 음식점';
+    this.addElement(modalTitle);
+
     const divCategory = new InputDropDown('카테고리', CATEGORY_LIST);
     this.addElement(divCategory);
 
