@@ -7,16 +7,14 @@ const SelectForm = {
   },
 };
 
-function createSelectForm({ label, dropdownList, isRequired }) {
+function createSelectForm({ id, label, dropdownList, isRequired }) {
   const SelectFormElement = document.createElement("div");
   SelectFormElement.classList.add("form-item");
   if (isRequired) SelectFormElement.classList.add("form-item--required");
 
   SelectFormElement.innerHTML = `
             <label for="category text-caption">${label}</label>
-              <select name="category" id="category" ${
-                isRequired ? "required" : ""
-              } >
+              <select name=${id} id=${id} ${isRequired ? "required" : ""} >
               ${dropdownList
                 .map(
                   ({ label, value }) =>

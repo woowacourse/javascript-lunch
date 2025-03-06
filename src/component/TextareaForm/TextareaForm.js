@@ -7,7 +7,13 @@ const TextareaForm = {
   },
 };
 
-function createTextareaForm({ bottomDescription, rows, label, isRequired }) {
+function createTextareaForm({
+  id,
+  bottomDescription,
+  rows,
+  label,
+  isRequired,
+}) {
   const TextareaFormElement = document.createElement("div");
   TextareaFormElement.setAttribute("class", "form-item");
   if (isRequired) TextareaFormElement.classList.add("form-item--required");
@@ -15,8 +21,8 @@ function createTextareaForm({ bottomDescription, rows, label, isRequired }) {
   TextareaFormElement.innerHTML = `
               <label for="description text-caption" >${label}</label>
               <Textarea
-                name="description"
-                id="description"
+                name=${id}
+                id=${id}
                 cols="30"
                 rows=${rows}
                 ${isRequired ? "required" : ""}

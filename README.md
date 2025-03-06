@@ -21,7 +21,7 @@
   - 상단 라벨, 필수 표시, 선택 요소 리스트, 하단 설명
 - [x] TextareaForm
   - 상단 라벨, 필수 표시, 하단 설명, 크기
-- [ ] InputForm
+- [x] InputForm
   - 상단 라벨, 필수 표시, 하단 설명
 - [x] TextButton
   - 텍스트, 카테고리

@@ -5,6 +5,7 @@ import TextButton from "./component/TextButton/TextButton.js";
 import LunchInfoCard from "./component/LunchInfoCard/LunchInfoCard.js";
 import SelectForm from "./component/SelectForm/SelectForm.js";
 import TextareaForm from "./component/TextareaForm/TextareaForm.js";
+import InputForm from "./component/InputForm/InputForm.js";
 
 IconButton.render(
   {
@@ -13,24 +14,6 @@ IconButton.render(
     label: "음식점 추가",
   },
   DOM.$header
-);
-
-TextButton.render(
-  {
-    title: "취소하기",
-    onClick: () => AddLunchModal.close(),
-    id: "cancel__button",
-  },
-  DOM.$buttonContainer
-);
-
-TextButton.render(
-  {
-    title: "추가하기",
-    onClick: () => console.log("미구현"),
-    id: "add__button",
-  },
-  DOM.$buttonContainer
 );
 
 LunchInfoCard.render(
@@ -106,6 +89,7 @@ LunchInfoCard.render(
 
 SelectForm.render(
   {
+    id: "category",
     label: "카테고리",
     dropdownList: [
       {
@@ -142,8 +126,19 @@ SelectForm.render(
   DOM.$modalForm
 );
 
+InputForm.render(
+  {
+    id: "name",
+    label: "이름",
+    isRequired: true,
+    bottomDescription: "",
+  },
+  DOM.$modalForm
+);
+
 SelectForm.render(
   {
+    id: "distance",
     label: "거리(도보 이동 시간)",
     dropdownList: [
       {
@@ -178,10 +173,39 @@ SelectForm.render(
 
 TextareaForm.render(
   {
+    id: "description",
     bottomDescription: "메뉴 등 추가 정보를 입력해 주세요.",
     rows: "5",
     label: "설명",
     isRequired: false,
   },
   DOM.$modalForm
+);
+
+InputForm.render(
+  {
+    id: "link",
+    label: "참고 링크",
+    isRequired: false,
+    bottomDescription: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
+  },
+  DOM.$modalForm
+);
+
+TextButton.render(
+  {
+    id: "cancel__button",
+    title: "취소하기",
+    onClick: () => AddLunchModal.close(),
+  },
+  DOM.$buttonContainer
+);
+
+TextButton.render(
+  {
+    id: "add__button",
+    title: "추가하기",
+    onClick: () => console.log("미구현"),
+  },
+  DOM.$buttonContainer
 );
