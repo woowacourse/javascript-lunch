@@ -7,39 +7,49 @@ import RestaurantList from './components/restaurant/RestaurantList.js';
 import { $ } from './util/selector.js';
 
 addEventListener('load', () => {
+  renderHeader();
+  renderRestaurantList();
+  renderModal();
+});
+
+const renderHeader = () => {
   const body = $('body');
 
   const header = Header({ title: '점심 뭐 먹지', right: PlusButton() });
   body.prepend(header);
+};
 
+const renderRestaurantList = () => {
   const main = $('main');
 
   main.appendChild(RestaurantList());
+};
 
+const renderModal = () => {
+  const main = $('main');
   const { modal: restaurantAddModal, open, close } = RestaurantAddModal();
-
   main.appendChild(restaurantAddModal);
+  attachModalEvents(open, close);
+};
 
+const attachModalEvents = (open, close) => {
   const plusButton = $('.gnb__button');
-  plusButton.addEventListener('click', () => {
-    open();
-  });
+  plusButton.addEventListener('click', open);
 
-  $('.button--secondary').addEventListener('click', () => {
-    close();
-  });
+  const closeButton = $('.button--secondary');
+  closeButton.addEventListener('click', close);
 
-  const Form = $('form');
-  Form.addEventListener('submit', (e) => {
+  const form = $('form');
+
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-
-    const formData = new FormData(Form);
-    const data = Object.fromEntries(formData.entries()); // JSON 형태로 변환
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
     handleSubmit(data);
-    Form.reset();
+    form.reset();
     close();
   });
-});
+};
 
 const handleSubmit = ({ name, distance, description, category }) => {
   const item = RestaurantItem({
