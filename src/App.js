@@ -7,26 +7,9 @@ import Modal from "./components/modal/Modal.js";
 import Component from "./components/core/Component.js";
 
 class App extends Component {
-  setup() {
-    this.state = {
-      isModalOpen: false,
-    };
-  }
-
-  openModal() {
-    this.setState({
-      isModalOpen: true,
-    });
-  }
-
-  closeModal() {
-    this.setState({
-      isModalOpen: false,
-    });
-  }
-
   template() {
     return /*html*/ `
+        ${Header()}
         <main>
           ${RestaurantList(restaurants)}
         </main>
@@ -34,23 +17,11 @@ class App extends Component {
     `;
   }
 
-  componentDidUpdate() {
-    if (this.state.isModalOpen) {
-      new AddRestaurantModal(document.querySelector("#modal"), {
-        isOpen: this.state.isModalOpen,
-        closeModal: this.closeModal.bind(this),
-      });
-      return;
-    }
-    const $modal = document.querySelector("#modal");
-    if ($modal) {
-      $modal.replaceChildren();
-    }
-  }
-
   componentDidMount() {
-    new Header(document.querySelector("#app"), {
-      openModal: this.openModal.bind(this),
+    const $modal = new AddRestaurantModal(document.querySelector("#modal"));
+
+    document.querySelector(".gnb__button").addEventListener("click", () => {
+      $modal.open();
     });
   }
 }

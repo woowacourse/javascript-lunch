@@ -5,7 +5,6 @@ class AddRestaurantModal extends Modal {
     return /*html */ `
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form>
-
           <!-- 카테고리 -->
           <div class="form-item form-item--required">
             <label for="category text-caption">카테고리</label>
@@ -62,10 +61,15 @@ class AddRestaurantModal extends Modal {
     `;
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    const $cancelButton = document.querySelector("#cancel-add-restaurant-form");
-    $cancelButton.addEventListener("click", this.props.closeModal);
+  componentDidUpdate() {
+    super.componentDidUpdate();
+    if (this.state.isOpen) {
+      const $cancelButton = document.querySelector(
+        "#cancel-add-restaurant-form"
+      );
+
+      $cancelButton.addEventListener("click", () => this.close());
+    }
   }
 }
 

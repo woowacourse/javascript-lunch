@@ -1,17 +1,27 @@
 import Component from "../core/Component.js";
 
 class Modal extends Component {
+  setup() {
+    this.state = {
+      isOpen: false,
+    };
+  }
+
   contents() {
     return "";
   }
 
-  componentDidMount() {
-    document
-      .querySelector(".modal-backdrop")
-      .addEventListener("click", this.props.closeModal);
+  componentDidUpdate() {
+    if (this.state.isOpen) {
+      this.initialRender();
+      this.$target
+        .querySelector(".modal-backdrop")
+        .addEventListener("click", () => this.close());
+    }
   }
 
   template() {
+    if (!this.state.isOpen) return "";
     return /* html */ `
     <div class="modal">
       <div class="modal-backdrop"></div>
@@ -19,8 +29,20 @@ class Modal extends Component {
         ${this.contents()}
       </div>
     </div>
-    
     `;
+  }
+
+  open() {
+    if (!this.state.isOpen) {
+      this.setState({ isOpen: true });
+    }
+  }
+
+  close() {
+    if (this.state.isOpen) {
+      this.setState({ isOpen: false });
+      this.$target.replaceChildren();
+    }
   }
 }
 
