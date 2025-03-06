@@ -37,33 +37,36 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
 
     const nameInput = document.getElementById("name");
-    if (nameInput.value.length > 20) {
-      alert(ERROR_MESSAGE.restaurantNameMaxLength);
-      return;
-    }
+    const descriptionInput = document.getElementById("description");
+    const categoryInput = document.getElementById("category");
+    const distanceInput = document.getElementById("distance");
+    const linkInput = document.getElementById("link");
 
     const restaurantsNameList = restaurantsData.map((restaurant) => {
       return restaurant.name;
     });
+
+    if (nameInput.value.length > 20) {
+      alert(ERROR_MESSAGE.restaurantNameMaxLength);
+      return;
+    }
 
     if (restaurantsNameList.includes(nameInput.value)) {
       alert(ERROR_MESSAGE.duplicateRestaurantName);
       return;
     }
 
-    const descriptionInput = document.getElementById("description");
     if (descriptionInput.value.length > 500) {
       alert(ERROR_MESSAGE.descriptionMaxLength);
       return;
     }
 
-    // TODO
     const newRestaurant = {
-      category: document.getElementById("category").value,
+      category: categoryInput.value,
       name: nameInput.value,
-      distance: document.getElementById("distance").value + "분 내",
+      distance: `${distanceInput.value}분 내`,
       description: descriptionInput.value,
-      link: document.getElementById("link").value,
+      link: linkInput.value,
     };
 
     const restaurantItem = createRestaurantItem(newRestaurant);
