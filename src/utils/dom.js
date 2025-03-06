@@ -6,4 +6,5 @@ export const DOM = {
   $addButton: $("#add__button"),
   $header: $(".gnb"),
   $buttonContainer: $(".button-container"),
+  $restaurantList: $(".restaurant-list"),
 };
