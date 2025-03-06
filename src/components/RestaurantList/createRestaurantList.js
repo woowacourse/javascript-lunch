@@ -1,5 +1,5 @@
-import createElement from '../utils/createElement.js';
-import createRestaurantItem from './createRestaurantItem.js';
+import createElement from '../../utils/createElement.js';
+import createRestaurantItem from '../createRestaurantItem.js';
 
 function createRestaurantList(data) {
   const restaurantList = createElement('ul', 'restaurant-list');

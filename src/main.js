@@ -1,12 +1,18 @@
-import createRestaurantList from './components/createRestaurantList.js';
+import createRestaurantList from './components/RestaurantList/createRestaurantList.js';
 import createSectionContainer from './components/createSectionContainer.js';
-import { restaurantItems, categoryOptions, distanceOptions } from '../public/restaurantData.js';
+import {
+  restaurantItems,
+  categoryOptions,
+  distanceOptions,
+  categoryImages,
+} from '../public/restaurantData.js';
 import createModal from './components/createModal.js';
 import createSelectBox from './components/createSelectBox.js';
 import createInputBox from './components/createInputBox.js';
 import createTextArea from './components/createTextArea.js';
 import createButton from './components/createButton.js';
 import createElement from './utils/createElement.js';
+import updateRestaurantList from './components/RestaurantList/updateRestaurantList.js';
 
 const main = document.getElementsByTagName('main')[0];
 const filterContainer = createSectionContainer('restaurant-list-container');
@@ -81,23 +87,39 @@ const distanceSelectBox = document.querySelector('select#distance');
 const descriptionTextarea = document.querySelector('textarea#description');
 const linkInput = document.querySelector('input#link');
 
+const restaurantInput = {
+  category: '',
+  name: '',
+  distance: '',
+  description: '',
+  link: '',
+};
+
 categorySelectBox.addEventListener('change', (event) => {
-  console.log(event.target.value);
+  restaurantInput.category = event.target.value;
 });
 
 nameInput.addEventListener('change', (event) => {
-  console.log(event.target.value);
+  restaurantInput.name = event.target.value;
 });
 
-console.log(distanceSelectBox);
 distanceSelectBox.addEventListener('change', (event) => {
-  console.log(event.target.value);
+  restaurantInput.distance = event.target.value;
 });
 
 descriptionTextArea.addEventListener('change', (event) => {
-  console.log(event.target.value);
+  restaurantInput.description = event.target.value;
 });
 
 linkInput.addEventListener('change', (event) => {
-  console.log(event.target.value);
+  restaurantInput.link = event.target.value;
+});
+
+const $enrollForm = document.querySelector('form');
+
+$enrollForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  restaurantInput.categoryImgSrc = `./category-${categoryImages[restaurantInput.category]}.png`;
+  updateRestaurantList(restaurantInput);
+  modal.classList.remove('modal--open');
 });
