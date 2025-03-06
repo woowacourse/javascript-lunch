@@ -1,7 +1,7 @@
 import createElement from '../utils/createElement.js';
 
 function createModal(children) {
-  const modalContainer = createElement('div', 'modal modal--open');
+  const modalContainer = createElement('div', 'modal');
   const modalBackdrop = createElement('div', 'modal-backdrop');
   const modalDiv = createElement('div', 'modal-container');
 

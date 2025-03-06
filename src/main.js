@@ -61,3 +61,10 @@ const enrollRestaurantModal = createModal(fragment);
 
 console.log(enrollRestaurantModal);
 main.append(filterContainer, enrollRestaurantModal);
+
+const modal = document.querySelector('.modal');
+const openModalButton = document.querySelector('.gnb__button');
+
+openModalButton.addEventListener('click', () => {
+  modal.classList.add('modal--open');
+});
