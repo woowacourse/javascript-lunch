@@ -1,24 +1,15 @@
+import Title from "../../common/title";
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { $ } from "../../utils/dom";
 import Image from "./image";
+import RestaurantInfo from "./restaurantInfo";
 
 const RestaurantCard = (restaurant) => {
   const { category, name, distance, description, link } = restaurant.info;
   const restaurantCard = document.createElement("li");
   restaurantCard.classList.add("restaurant");
 
-  restaurantCard.innerHTML = `     
-  <div class="restaurant__info">
-    <h3 class="restaurant__name text-subtitle">${name}</h3>
-    <span class="restaurant__distance text-body"
-      >캠퍼스부터 ${distance}분 내</span
-    >
-    <p class="restaurant__description text-body">
-     ${description}
-    </p>
-  </div>
-`;
-
+  // 카테고리 이미지 추가
   const categoryImageContainer = document.createElement("div");
   categoryImageContainer.classList.add("restaurant__category");
   restaurantCard.prepend(categoryImageContainer);
@@ -26,6 +17,10 @@ const RestaurantCard = (restaurant) => {
   const src = `./category-${FOOD_CATEGORY[category]}.png`;
 
   categoryImageContainer.appendChild(Image(src, category, "category-icon"));
+
+  // 식당 정보 추가
+  restaurantCard.appendChild(RestaurantInfo({ name, distance, description }));
+
   return restaurantCard;
 };
 
