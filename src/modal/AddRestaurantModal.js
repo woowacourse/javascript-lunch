@@ -9,11 +9,21 @@ const DISTANCE_LIST = ['5분 내', '10분 내', '15분 내', '20분 내', '30분
 class AddRestaurantModal extends Modal {
   #cancelButton;
   #addButton;
+  #divCategory;
+  #divName;
+  #divDistance;
+  #divDescription;
+  #divLink;
 
   constructor() {
     super();
     this.#cancelButton = new Button('button--secondary', '취소하기');
     this.#addButton = new Button('button--primary', '추가하기');
+    this.#divCategory = new InputDropDown('카테고리', CATEGORY_LIST);
+    this.#divName = new InputText('이름');
+    this.#divDistance = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
+    this.#divDescription = new InputText('설명');
+    this.#divLink = new InputText('참조 링크');
     this.#bindEvent();
     return this.#createAddModal();
   }
@@ -35,25 +45,14 @@ class AddRestaurantModal extends Modal {
     modalTitle.innerText = '새로운 음식점';
     this.addElement(modalTitle);
 
-    const divCategory = new InputDropDown('카테고리', CATEGORY_LIST);
-    this.addElement(divCategory);
-
-    const divName = new InputText('이름');
-    this.addElement(divName);
-
-    const divDistance = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
-    this.addElement(divDistance);
-
-    const divDescription = new InputText('설명');
-    this.addElement(divDescription);
-
-    const divLink = new InputText('참조 링크');
-    this.addElement(divLink);
+    this.addElement(this.#divCategory);
+    this.addElement(this.#divName);
+    this.addElement(this.#divDistance);
+    this.addElement(this.#divDescription);
+    this.addElement(this.#divLink);
 
     const divButton = this.#createButton();
     this.addElement(divButton);
-
-    return document.querySelector('.modal');
   };
 
   #bindEvent = () => {
@@ -62,7 +61,8 @@ class AddRestaurantModal extends Modal {
     });
 
     this.#cancelButton.addEventListener('click', () => {
-      console.log('cancelButton click');
+      const modal = document.querySelector('.modal');
+      modal.remove();
     });
   };
 }
