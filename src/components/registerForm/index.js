@@ -1,3 +1,4 @@
+import { BUTTON_TEXT } from "../../constants/buttonText";
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
 import renderRestaurants from "../../domain/renderRestaurant";
@@ -32,7 +33,7 @@ const RegisterForm = (restaurantList) => {
   registerForm.appendChild(buttonContainer);
   buttonContainer.appendChild(
     Button({
-      text: "취소하기",
+      text: BUTTON_TEXT.CANCEL,
       style: "button--secondary",
       onClick: () => $(".modal-backdrop").classList.remove("open"),
       type: "button",
@@ -41,7 +42,7 @@ const RegisterForm = (restaurantList) => {
   );
   buttonContainer.appendChild(
     Button({
-      text: "추가하기",
+      text: BUTTON_TEXT.ADD,
       style: "button--primary",
       onClick: (e) => {
         e.preventDefault();
