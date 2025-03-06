@@ -6,13 +6,13 @@ import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
 import header from "./components/header";
 import restaurantCard from "./components/restaurantCard";
 import { mockRestaurants } from "./mockRestaurant";
-import InputField from "./common/inputField";
-import Select from "./common/select";
-import Input from "./common/input";
-import Button from "./common/button";
-import ModalContent from "./common/modal";
-import Modal from "./common/modal";
-import Title from "./common/title";
+import InputField from "./components/common/inputField";
+import Select from "./components/common/select";
+import Input from "./components/common/input";
+import Button from "./components/common/button";
+import ModalContent from "./components/common/modal";
+import Modal from "./components/common/modal";
+import Title from "./components/common/title";
 
 const restaurantList = [...mockRestaurants];
 

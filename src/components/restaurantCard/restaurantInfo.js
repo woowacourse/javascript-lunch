@@ -1,4 +1,4 @@
-import Title from "../../common/title";
+import Title from "../common/title";
 
 const RestaurantInfo = ({ name, distance, description }) => {
   const restaurantInfo = document.createElement("div");

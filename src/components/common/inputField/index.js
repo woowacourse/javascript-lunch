@@ -1,5 +1,4 @@
-import { LABEL_TEXT } from "../../constants/labelText";
-import Input from "../input";
+import { LABEL_TEXT } from "../../../constants/labelText";
 
 const InputField = (infoType, inputElement) => {
   const inputField = document.createElement("div");

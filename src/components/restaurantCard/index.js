@@ -1,4 +1,3 @@
-import Title from "../../common/title";
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { $ } from "../../utils/dom";
 import Image from "./image";

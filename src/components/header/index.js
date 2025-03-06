@@ -1,4 +1,4 @@
-import Title from "../../common/title";
+import Title from "../common/title";
 import registerIcon from "./registerIcon";
 
 const header = () => {
