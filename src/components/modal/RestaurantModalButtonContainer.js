@@ -1,7 +1,7 @@
 import createElement from "../../util/createElement";
 import Button from "../util/Button";
 import reset from "../../util/reset";
-import restaurantDataList from "../../state/RestaurantDataList";
+import restaurantDataList from "../../domain/RestaurantDataList";
 import Restaurant from "../restaurant/Restaurant";
 import { init } from "../../main";
 
@@ -37,7 +37,7 @@ export default function RestaurantModalButtonContainer() {
       variant: "primary",
       type: "submit",
       text: "추가하기",
-      onClick: handleClickAdd,
+      // onClick: handleClickAdd,
     })
   );
 

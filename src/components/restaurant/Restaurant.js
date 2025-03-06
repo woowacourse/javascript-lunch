@@ -2,7 +2,7 @@ import RestaurantHeader from "./RestaurantHeader.js";
 import RestaurantItem from "./RestaurantItem.js";
 import RestaurantListContainer from "./RestaurantListContainer.js";
 
-import restaurantDataList from "../../state/RestaurantDataList.js";
+import restaurantDataList from "../../domain/RestaurantDataList.js";
 
 export default function Restaurant() {
   const $body = document.querySelector("body");
