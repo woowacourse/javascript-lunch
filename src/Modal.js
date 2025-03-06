@@ -91,8 +91,6 @@ class Modal extends Component {
     const $modal = this.element.querySelector(".modal");
     const $modalCancelButton = this.element.querySelector("#modal-cancel");
 
-    $modal.classList.remove("hidden");
-
     $addRestaurantButton.addEventListener("click", function () {
       $modal.classList.remove("hidden");
     });
