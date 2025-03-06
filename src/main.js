@@ -17,7 +17,8 @@ renderRestaurantList();
 
 render(ModalForm.create(), DOM.$modalContainer);
 
-function renderRestaurantList() {
+export function renderRestaurantList() {
+  DOM.$restaurantList.replaceChildren();
   state.restaurantList.forEach(
     ({ src, name, distance, description, label }) => {
       render(

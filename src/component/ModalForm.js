@@ -6,10 +6,32 @@ import TextareaForm from "./TextareaForm.js";
 import TextButton from "./TextButton.js";
 import ButtonContainer from "./ButtonContainer.js";
 import render from "../utils/render.js";
+import { CATEGORY_ICON } from "../constants/constants.js";
+import { renderRestaurantList } from "../main.js";
+import state from "../state.js";
 
 const ModalForm = {
   create() {
     const ModalFormElement = document.createElement("form");
+
+    ModalFormElement.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const { category, description, distance, link, name } =
+        Object.fromEntries(formData.entries());
+
+      state.restaurantList.push({
+        src: CATEGORY_ICON[category],
+        name: name,
+        distance,
+        description,
+        label: category,
+      });
+
+      renderRestaurantList();
+      AddLunchModal.close();
+    });
+
     ModalFormElement.appendChild(
       SelectForm.create({
         id: "category",

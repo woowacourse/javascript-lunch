@@ -16,7 +16,6 @@ const ButtonContainer = {
       TextButton.create({
         id: "add__button",
         title: "추가하기",
-        onClick: () => console.log("미구현"),
       })
     );
 
