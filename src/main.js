@@ -14,10 +14,7 @@ addEventListener("load", () => {
     addStore(store);
   });
 
-  querySelector.gnbButton().addEventListener("click", () => {
-    querySelector.modal().classList.add("modal--open");
-  });
-
+  querySelector.gnbButton().addEventListener("click", modal.openModal);
   querySelector.modalForm().addEventListener("submit", (e) => updateStore(e));
 
   modal.addChild(optionInput("category", options.category));
@@ -28,11 +25,11 @@ addEventListener("load", () => {
 
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("button-container");
-  buttonContainer.appendChild(Button("cancel"));
-  buttonContainer.appendChild(Button("add"));
-  querySelector.modalForm().appendChild(buttonContainer);
+  modal.addButton(buttonContainer, "cancel");
+  modal.addButton(buttonContainer, "add");
+  modal.addChild(buttonContainer);
 
-  querySelector.modalCancelButton().addEventListener("click", closeModal);
+  querySelector.modalCancelButton().addEventListener("click", modal.closeModal);
 });
 
 const addStore = (storeProps) => {
@@ -56,13 +53,9 @@ const updateStore = (e) => {
   storeList.push(store);
   addStore(store);
 
-  closeModal();
+  modal.closeModal();
 
   Array.from(e.target).forEach((item) => {
     item.value = "";
   });
-};
-
-const closeModal = () => {
-  querySelector.modal().classList.remove("modal--open");
 };
