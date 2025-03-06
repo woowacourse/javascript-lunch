@@ -15,3 +15,5 @@ export const SELECT_OPTIONS = {
     { value: "30", label: "30분 내" },
   ],
 };
+
+export const NAME_MAX_LENGTH = 20;

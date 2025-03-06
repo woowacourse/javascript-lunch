@@ -1,5 +1,8 @@
 import { SELECT_OPTIONS } from "../constants/constants.js";
-import { validateRequiredInput } from "../validate/validateCondition.js";
+import {
+  validateNameLength,
+  validateRequiredInput,
+} from "../validate/validateCondition.js";
 import { Button } from "./Button.js";
 import { ButtonContainer } from "./ButtonContainer.js";
 import { Input } from "./Input.js";
@@ -15,6 +18,8 @@ function handleSubmit() {
 
   validateRequiredInput(categoryInput);
   validateRequiredInput(name);
+  validateNameLength(name);
+
   validateRequiredInput(distance);
 
   console.log("성공");
