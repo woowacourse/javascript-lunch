@@ -1,5 +1,5 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
-import Image from "./image";
+import Image from "../common/image";
 import RestaurantInfo from "./restaurantInfo";
 
 const RestaurantCard = (restaurant) => {
