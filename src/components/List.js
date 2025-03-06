@@ -4,7 +4,7 @@ function List(listItems) {
   const listElement = document.createElement("ul");
   listElement.classList.add("restaurant-list");
   listItems.forEach((item) => {
-    listElement.appendChild(ListItem(item));
+    listElement.appendChild(ListItem(item.information));
   });
 
   return listElement;

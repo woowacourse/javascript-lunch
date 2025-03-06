@@ -15,6 +15,7 @@ import {
   SELECT_CATEGORY,
   SELECT_DISTANCE,
 } from "./contants.js";
+import RestaurantList from "./domain/RestaurantList.js";
 
 const MODAL_FORM = [
   { label: "카테고리", formComponent: () => SelectForm("category", SELECT_CATEGORY) },
@@ -32,7 +33,10 @@ function renderContents() {
   const app = document.getElementById("app");
   const listContainerElement = app.querySelector(".restaurant-list-container");
   const modalContainer = app.querySelector(".modal-container");
-  const listElement = List(LIST_ITEM_CONTENTS);
+
+  const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS);
+
+  const listElement = List(restaurantList.resaurants);
 
   app.prepend(Header(HEADER_CONTENTS));
   listContainerElement.appendChild(listElement);
@@ -46,6 +50,7 @@ function renderContents() {
     app.querySelector(".modal").classList.remove("modal--open");
   });
 
+  // 가게 추가
   formElement.addEventListener("submit", (event) => {
     event.preventDefault();
 
