@@ -15,12 +15,12 @@ class Restaurant extends Component {
       />
     </div>
     <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${this.props.title}</h3>
+      <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
       <span class="restaurant__distance text-body"
         >${this.props.distance}</span
       >
       <p class="restaurant__description text-body">
-        ${this.props.content}
+        ${this.props.description}
       </p>
     </div>
   </li>`;

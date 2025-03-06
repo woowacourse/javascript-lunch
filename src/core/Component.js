@@ -1,21 +1,34 @@
 class Component {
   #element;
+  state;
 
-  constructor(props) {
+  constructor(props, parent) {
     this.props = props;
+    this.parent = parent;
+    this.state = {};
 
+    this.setup();
     this.render();
     this.onRender();
   }
 
-  render() {
-    this.#element = document.createElement("div");
-    this.#element.innerHTML = this.template();
+  setup() {}
 
-    return this.#element;
+  render() {
+    if (!this.#element) this.#element = document.createElement("div");
+
+    this.#element.innerHTML = this.template();
   }
 
-  template() {}
+  setState(nextState) {
+    this.state = nextState;
+
+    this.render();
+  }
+
+  template() {
+    return ``;
+  }
 
   onRender() {}
 
@@ -23,4 +36,5 @@ class Component {
     return this.#element;
   }
 }
+
 export default Component;

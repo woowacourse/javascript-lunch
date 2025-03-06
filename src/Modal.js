@@ -3,14 +3,15 @@ import Component from "./core/Component";
 import InputBox from "./InputBox";
 
 class Modal extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, parent) {
+    super(props, parent);
   }
 
   template() {
     const inputBoxList = [
       new InputBox({
-        input: ` <select name="category" id="category" required>
+        input: ` 
+          <select name="category" id="category" >
             <option value="">선택해 주세요</option>
             <option value="한식">한식</option>
             <option value="중식">중식</option>
@@ -23,12 +24,13 @@ class Modal extends Component {
         isRequired: true,
       }),
       new InputBox({
-        input: `<input type="text" name="name" id="name" required />`,
+        input: `<input type="text" name="name" id="name"  />`,
         label: "이름",
         isRequired: true,
       }),
       new InputBox({
-        input: `<select name="distance" id="distance" required>
+        input: `
+        <select name="distance" id="distance" >
           <option value="">선택해 주세요</option>
           <option value="5">5분 내</option>
           <option value="10">10분 내</option>
@@ -85,9 +87,11 @@ class Modal extends Component {
   }
 
   onRender() {
-    const $addRestaurantButton = document.querySelector(".gnb__button");
+    const $addRestaurantButton = this.parent.querySelector(".gnb__button");
     const $modal = this.element.querySelector(".modal");
     const $modalCancelButton = this.element.querySelector("#modal-cancel");
+
+    $modal.classList.remove("hidden");
 
     $addRestaurantButton.addEventListener("click", function () {
       $modal.classList.remove("hidden");
@@ -95,6 +99,36 @@ class Modal extends Component {
     $modalCancelButton.addEventListener("click", function () {
       $modal.classList.add("hidden");
     });
+
+    const form = this.element.querySelector("form");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const $categoryInput = this.element.querySelector("#category");
+      const $name = this.element.querySelector("#name");
+      const $distance = this.element.querySelector("#distance");
+      const $description = this.element.querySelector("#description");
+      const $link = this.element.querySelector("#link");
+
+      const modalInput = {
+        category: $categoryInput.value,
+        name: $name.value,
+        distance: $distance.value,
+        description: $description.value,
+        link: $link.value,
+      };
+
+      this.props.addRestaurant(modalInput);
+
+      // const catgory = $categoryInput
+      // console.log(event.target.);
+    });
+
+    // const categoryInputValue =
+    // $categoryInput.addEventListener("change", function (event) {
+    //   // console.log(form.elements);
+    // });
   }
 }
 
