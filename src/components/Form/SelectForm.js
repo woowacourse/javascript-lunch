@@ -1,6 +1,4 @@
-import { SELECT_CATEGORY } from "../../contants.js";
-
-function SelectForm() {
+function SelectForm(selectItems) {
   const selectElement = document.createElement("select");
   selectElement.id = "category";
   selectElement.name = "category";
@@ -8,7 +6,7 @@ function SelectForm() {
 
   selectElement.innerHTML = `
     <option value="">선택해 주세요</option>
-    ${SELECT_CATEGORY.map((category) => `<option value=${category}>${category}</option>`).join("")}
+    ${selectItems.map((category) => `<option value=${category}>${category}</option>`).join("")}
     `;
 
   return selectElement;

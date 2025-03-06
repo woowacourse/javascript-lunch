@@ -93,7 +93,7 @@
   - [x] (테스트 실패를 성공시키기 위해) js를 이용해 동적으로 `select-form` 태그 제작 -> 테스트 성공
   - [x] `select-form` 태그를 컴포넌트로 제작
   - [x] `select-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
-    - [x] 동적 인자 -> `select`에 들어갈 리스트들 / label에 들어갈 이름
+    - [ ] 동적 인자 -> option값 전달
 
 - [ ] `input-form` (input.name)
 
