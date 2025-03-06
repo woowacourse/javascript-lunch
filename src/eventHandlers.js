@@ -6,7 +6,7 @@ function openModal() {
   gnbButton.addEventListener('click', () => {
     const modal = document.querySelector('.modal');
 
-    modal.classList.add('modal--open');
+    modal.classList.toggle('modal--open');
   });
 }
 
@@ -16,13 +16,14 @@ function closeModal() {
   closeButton.addEventListener('click', () => {
     const modal = document.querySelector('.modal');
 
-    modal.classList.remove('modal--open');
+    resetFormAndState();
+    modal.classList.toggle('modal--open');
   });
 }
 
 function readNewRestaurant(addNewRestaurantItem) {
+  const modal = document.querySelector('.modal');
   const form = document.querySelector('#new-restaurant-form');
-
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const newRestaurantData = {
@@ -32,9 +33,26 @@ function readNewRestaurant(addNewRestaurantItem) {
       description: document.querySelector('#description').value,
       link: document.querySelector('#link').value,
     };
+
     stateStore.updateState(newRestaurantData);
     addNewRestaurantItem();
+    resetFormAndState();
+    modal.classList.toggle('modal--open');
   });
+}
+
+function resetForm() {
+  const form = document.querySelector('#new-restaurant-form');
+  form.reset();
+}
+
+function resetState() {
+  stateStore.initState();
+}
+
+function resetFormAndState() {
+  resetForm();
+  resetState();
 }
 
 const eventHandlers = {

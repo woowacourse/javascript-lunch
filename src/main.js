@@ -17,8 +17,8 @@ addEventListener('load', () => {
   ul.insertAdjacentHTML('beforeend', items);
 
   eventHandlers.openModal();
-  eventHandlers.closeModal();
   eventHandlers.readNewRestaurant(addNewRestaurantItem);
+  eventHandlers.closeModal();
 });
 
 function addNewRestaurantItem() {
