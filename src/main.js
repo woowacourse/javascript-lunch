@@ -1,4 +1,5 @@
 import Button from "./components/Button.js";
+import ButtonsForm from "./components/Form/ButtonsForm.js";
 import FormItem from "./components/Form/FormItem.js";
 import InputForm from "./components/Form/InputForm.js";
 import SelectForm from "./components/Form/SelectForm.js";
@@ -6,23 +7,13 @@ import TextareaForm from "./components/Form/TextareaForm.js";
 import Header from "./components/Header.js";
 import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
-import { HEADER_CONTENTS, LIST_ITEM_CONTENTS, SELECT_CATEGORY, SELECT_DISTANCE } from "./contants.js";
-
-function ButtonsForm(buttons) {
-  const buttonContainerElement = document.createElement("div");
-  buttonContainerElement.classList.add("button-container");
-
-  buttons.forEach((button) => {
-    buttonContainerElement.appendChild(Button(button));
-  });
-
-  return buttonContainerElement;
-}
-
-const MODAL_BUTTONS = [
-  { type: "button", stylingBased: "secondary", text: "취소하기" },
-  { type: "submit", stylingBased: "primary", text: "등록하기" },
-];
+import {
+  HEADER_CONTENTS,
+  LIST_ITEM_CONTENTS,
+  MODAL_BUTTONS_PROPERTY,
+  SELECT_CATEGORY,
+  SELECT_DISTANCE,
+} from "./contants.js";
 
 function renderContents() {
   const app = document.getElementById("app");
@@ -39,7 +30,7 @@ function renderContents() {
   modalFormElement.appendChild(
     FormItem("설명", () => TextareaForm("description"), "메뉴 등 추가 정보를 입력해 주세요."),
   );
-  modalFormElement.appendChild(ButtonsForm(MODAL_BUTTONS));
+  modalFormElement.appendChild(ButtonsForm(MODAL_BUTTONS_PROPERTY));
 }
 
 renderContents();

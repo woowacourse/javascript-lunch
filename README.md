@@ -129,7 +129,7 @@
 - [x] `button-form` (button 태그들 묶음)
 
   - [x] `button-form` 태그를 컴포넌트로 제작
-  - [ ] `button-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
+  - [x] `button-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
     - [x] 동적 인자 ->`button`에 들어갈 타입 및 들어갈 이름
 
 - [ ] `modal-container` (.modal-container) => 흰색 바탕 부분 (backdrop 제외)
