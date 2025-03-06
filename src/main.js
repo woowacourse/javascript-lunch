@@ -12,6 +12,7 @@ import Input from "./common/input";
 import Button from "./common/button";
 import ModalContent from "./common/modal";
 import Modal from "./common/modal";
+import Title from "./common/title";
 
 const restaurantList = [...mockRestaurants];
 
@@ -26,11 +27,9 @@ addEventListener("load", () => {
   $("#app").prepend(header());
   renderRestaurants(restaurantList);
 
-  const h2 = document.createElement("h2");
-  h2.classList.add("modal-title", "text-title");
-  h2.textContent = "새로운 음식점";
-
-  $("main").appendChild(Modal(h2));
+  $("main").appendChild(
+    Modal(Title("새로운 음식점", "h2", "modal-title", "text-title"))
+  );
 
   // $("#register-form").appendChild(
   //   InputField("category", Select("category", true, Object.keys(FOOD_CATEGORY)))
