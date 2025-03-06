@@ -6,7 +6,7 @@ import RestaurantListItem from "../../restaurantListSection/restaurantListItem/R
 import CategorySelect from "../categorySelect/CategorySelect.js";
 import DistanceSelect from "../distanceSelect/DistanceSelect.js";
 import "./restaurantForm.css";
-import { EVENT_TYPES } from "../../../constants/constants.js";
+import { EVENT_TYPES, BUTTON_TEXTS } from "../../../constants/constants.js";
 
 export default function RestaurantForm() {
   const $form = document.createElement("form");
@@ -21,10 +21,13 @@ export default function RestaurantForm() {
   const $buttonContainer = document.createElement("div");
   $buttonContainer.className = "button-container";
 
-  const $cancelButton = Button({ text: "취소하기", action: "cancel" });
+  const $cancelButton = Button({
+    text: BUTTON_TEXTS.cancel,
+    action: "cancel",
+  });
   const $addButton = Button({
     type: "submit",
-    text: "추가하기",
+    text: BUTTON_TEXTS.add,
     action: "add",
   });
 

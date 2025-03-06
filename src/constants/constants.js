@@ -22,3 +22,10 @@ export const EVENT_TYPES = Object.freeze({
   click: "click",
   submit: "submit",
 });
+
+export const BUTTON_TEXTS = Object.freeze({
+  add: "추가하기",
+  cancel: "취소하기",
+  delete: "삭제하기",
+  close: "닫기",
+});
