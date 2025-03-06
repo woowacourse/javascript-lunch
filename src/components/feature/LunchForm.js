@@ -4,6 +4,7 @@ import Select from "../common/Select.js";
 import TextArea from "../common/TextArea.js";
 import Button from "../common/Button.js";
 import BottomSheet from "../common/BottomSheet.js";
+import Validator from "../../utils/Validator.js";
 
 export default class LunchForm extends Component {
   setDefaultProps() {
@@ -42,8 +43,8 @@ export default class LunchForm extends Component {
     const categorySelect = this.addChild(Select);
     categorySelect.setProps({
       options: ["한식", "중식", "일식", "아시안", "양식", "기타"],
-      id: "category",
       onChange: (value) => this.setState({ category: value }),
+      id: "category",
     });
 
     return `
@@ -159,6 +160,7 @@ export default class LunchForm extends Component {
       text: "취소하기",
       variant: "secondary",
       classList: ["w-full"],
+      onClick: () => this.handleReset(),
       id: "cancelBtn",
     });
 
@@ -181,8 +183,12 @@ export default class LunchForm extends Component {
 
   handleSubmit() {
     const { onAdd } = this.props;
-    this.props.onAdd({ ...this.state });
 
+    this.props.onAdd({ ...this.state });
+    this.handleReset();
+  }
+
+  handleReset() {
     this.setState({
       category: "",
       storeName: "",
