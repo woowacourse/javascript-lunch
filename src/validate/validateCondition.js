@@ -12,3 +12,11 @@ export function validateLength(input, maxLength) {
     throw new Error(ERROR_MESSAGE.length(maxLength));
   }
 }
+
+export function validateURL(input) {
+  try {
+    const url = new URL(input);
+  } catch (error) {
+    throw new Error(ERROR_MESSAGE.url);
+  }
+}

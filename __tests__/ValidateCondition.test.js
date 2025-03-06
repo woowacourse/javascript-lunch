@@ -7,6 +7,7 @@ import {
   validateLength,
   validateNameLength,
   validateRequiredInput,
+  validateURL,
 } from "../src/validate/validateCondition.js";
 
 describe("사용자 입력값에 따른 유효성 검사를 실시한다", () => {
@@ -41,5 +42,15 @@ describe("사용자 입력값에 따른 유효성 검사를 실시한다", () =>
     expect(() => validateLength(input, DESCRIPTION_MAX_LENGTH)).toThrow(
       ERROR_MESSAGE.length(DESCRIPTION_MAX_LENGTH)
     );
+  });
+
+  it("음식점 참고 링크가 링크 형식이 아닐 경우 에러를 던진다.", () => {
+    //given
+    const input = "url";
+
+    //when
+
+    //then
+    expect(() => validateURL(input)).toThrow(ERROR_MESSAGE.url);
   });
 });

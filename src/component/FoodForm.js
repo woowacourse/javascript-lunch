@@ -6,6 +6,7 @@ import {
 import {
   validateLength,
   validateRequiredInput,
+  validateURL,
 } from "../validate/validateCondition.js";
 import { Button } from "./Button.js";
 import { ButtonContainer } from "./ButtonContainer.js";
@@ -25,6 +26,7 @@ function handleSubmit() {
   validateLength(name, NAME_MAX_LENGTH);
   validateRequiredInput(distance);
   validateLength(description, DESCRIPTION_MAX_LENGTH);
+  validateURL(link);
 }
 
 export function FoodForm() {
