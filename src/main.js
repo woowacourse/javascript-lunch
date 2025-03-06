@@ -1,3 +1,4 @@
+import Button from "./components/Button.js";
 import FormItem from "./components/Form/FormItem.js";
 import InputForm from "./components/Form/InputForm.js";
 import SelectForm from "./components/Form/SelectForm.js";
@@ -6,15 +7,6 @@ import Header from "./components/Header.js";
 import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
 import { HEADER_CONTENTS, LIST_ITEM_CONTENTS, SELECT_CATEGORY, SELECT_DISTANCE } from "./contants.js";
-
-function ButtonForm(type, stylingBased, text) {
-  const buttonElement = document.createElement("button");
-  buttonElement.type = type;
-  buttonElement.innerText = text;
-  buttonElement.className = `button button--${stylingBased} text-caption`;
-
-  return buttonElement;
-}
 
 function renderContents() {
   const app = document.getElementById("app");
@@ -30,7 +22,7 @@ function renderContents() {
   modalFormElement.appendChild(
     FormItem("설명", () => TextareaForm("description"), "메뉴 등 추가 정보를 입력해 주세요."),
   );
-  modalFormElement.appendChild(ButtonForm("button", "secondary", "취소하기"));
+  modalFormElement.appendChild(Button("button", "secondary", "취소하기"));
 }
 
 renderContents();
