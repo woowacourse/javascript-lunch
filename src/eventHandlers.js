@@ -12,8 +12,16 @@ function openModal() {
 
 function closeModal() {
   const closeButton = document.querySelector('.button--secondary');
+  const modalBackdrop = document.querySelector('.modal-backdrop');
 
   closeButton.addEventListener('click', () => {
+    const modal = document.querySelector('.modal');
+
+    resetFormAndState();
+    modal.classList.toggle('modal--open');
+  });
+
+  modalBackdrop.addEventListener('click', () => {
     const modal = document.querySelector('.modal');
 
     resetFormAndState();
