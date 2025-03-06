@@ -1,7 +1,10 @@
 import createElement from "../util/createElement";
 
 export function RestaurantItem({ src, alt, name, distance, description }) {
-  const $restaurantItem = createElement({ tag: "li", className: "restaurant" });
+  const $restaurantItem = createElement({
+    tag: "li",
+    classNames: ["restaurant"],
+  });
 
   $restaurantItem.innerHTML = `
         <div class="restaurant__category">

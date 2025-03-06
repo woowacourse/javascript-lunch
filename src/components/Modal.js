@@ -3,14 +3,14 @@ import createElement from "../util/createElement.js";
 export default function Modal(component) {
   const $body = document.querySelector("body");
 
-  const $modal = createElement({ tag: "div", className: "modal" });
+  const $modal = createElement({ tag: "div", classNames: ["modal"] });
   const $modalBackdrop = createElement({
     tag: "div",
-    className: "modal-backdrop",
+    classNames: ["modal-backdrop"],
   });
   const $modalContainer = createElement({
     tag: "div",
-    className: "modal-container",
+    classNames: ["modal-container"],
   });
 
   $body.appendChild($modal);

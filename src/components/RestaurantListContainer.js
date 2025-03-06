@@ -5,12 +5,12 @@ import createElement from "../util/createElement.js";
 export default function RestaurantListContainer(restaurantItems) {
   const $restaurantListContainer = createElement({
     tag: "section",
-    className: "restaurant-list-container",
+    classNames: ["restaurant-list-container"],
   });
 
   const $restaurantList = createElement({
     tag: "ul",
-    className: "restaurant-list",
+    classNames: ["restaurant-list"],
   });
 
   const restaurantElements = restaurantItems.map(
