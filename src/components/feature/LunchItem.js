@@ -10,11 +10,12 @@ export default class LunchItem extends Component {
       location: "",
       category: "",
       description: "",
+      reference: "",
     };
   }
 
   renderStoreName() {
-    const storeName = new Text();
+    const storeName = this.addChild(Text);
 
     storeName.setProps({
       content: this.props.storeName,
@@ -25,7 +26,7 @@ export default class LunchItem extends Component {
   }
 
   renderLocation() {
-    const location = new Text();
+    const location = this.addChild(Text);
     location.setProps({
       content: this.props.location,
       classList: ["text-lg", "primary-500"],
@@ -35,7 +36,7 @@ export default class LunchItem extends Component {
   }
 
   renderDescription() {
-    const description = new Text();
+    const description = this.addChild(Text);
     description.setProps({
       content: this.props.description,
       classList: ["text-lg", "mt-8"],
@@ -50,7 +51,7 @@ export default class LunchItem extends Component {
   }
 
   renderCircleIcon() {
-    const icon = new CircleIcon();
+    const icon = this.addChild(CircleIcon);
     icon.setProps({
       iconName: "category-korean",
     });
@@ -59,11 +60,11 @@ export default class LunchItem extends Component {
 
   template() {
     return `
-      <div class="flex flex-row h-140 w-full items-start gap-16 py-16 px-8 border-b">
+      <div class="flex flex-row h-140 w-full items-start gap-16 py-8 px-8 border-b">
         <div class="">
           ${this.renderCircleIcon()}
         </div>
-        <div class="flex flex-col overflow-hidden" style="width: 262px; -webkit-line-clamp: 2;">
+        <div class="flex flex-col overflow-hidden" style="width: 262px;">
           ${this.renderStoreName()}
           ${this.renderLocation()}
           ${this.renderDescription()}
