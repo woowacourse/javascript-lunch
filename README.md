@@ -46,5 +46,5 @@
 - [x] 레스토랑 리스트 분리
 - [x] 모달 분리
 - [x] CustomDropdown
-- [ ] CustomInput
-- [ ] CustomButton
+- [x] CustomInput
+- [x] CustomButton

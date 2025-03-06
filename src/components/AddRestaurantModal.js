@@ -1,6 +1,7 @@
 import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options.js";
 import CustomDropdown from "../shared/CustomDropdown.js";
 import CustomInput from "../shared/CustomInput.js";
+import CustomButton from "../shared/CustomButton.js";
 
 export default function AddRestaurantModal(container) {
   container.innerHTML += `
@@ -60,16 +61,8 @@ export default function AddRestaurantModal(container) {
 
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-              <button 
-                id ="close-modal"
-                type="button"
-                class="button button--secondary text-caption"
-              >
-                취소하기
-              </button>
-              <button class="button button--primary text-caption">
-                추가하기
-              </button>
+          ${CustomButton("close-modal", "button--secondary", "취소하기")}
+          ${CustomButton("", "button--primary", "추가하기")}
             </div>
           </form>
         </div>

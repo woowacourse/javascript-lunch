@@ -4,18 +4,18 @@ import RestaurantItem from "./components/RestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
 
 addEventListener("load", () => {
-  const headerContainer = document.querySelector(".gnb");
-  Header(headerContainer);
-  const restaurantListContainer = document.querySelector(
+  const $headerContainer = document.querySelector(".gnb");
+  Header($headerContainer);
+  const $restaurantListContainer = document.querySelector(
     ".restaurant-list-container",
   );
-  RestaurantList(restaurantListContainer);
+  RestaurantList($restaurantListContainer);
 
-  const modalButton = document.getElementById("gnb-button");
-  const appContainer = document.getElementById("app");
+  const $modalButton = document.getElementById("gnb-button");
+  const $appContainer = document.getElementById("app");
 
-  modalButton.addEventListener("click", () => {
-    AddRestaurantModal(appContainer);
+  $modalButton.addEventListener("click", () => {
+    AddRestaurantModal($appContainer);
 
     // 1. 모달창에서 입력값을 받아오고
 
@@ -33,10 +33,15 @@ addEventListener("load", () => {
     $addRestaurantButton.addEventListener("click", (e) => {
       e.preventDefault();
 
-      const categoryValue = document.getElementById("category").value || "기타";
-      const nameValue = document.getElementById("name").value;
-      const distanceValue = document.getElementById("distance").value;
-      const descriptionValue = document.getElementById("description").value;
+      const $category = document.getElementById("category");
+      const $name = document.getElementById("name");
+      const $distance = document.getElementById("distance");
+      const $description = document.getElementById("description");
+
+      const categoryValue = $category.value || "기타";
+      const nameValue = $name.value;
+      const distanceValue = $distance.value;
+      const descriptionValue = $description.value;
 
       const categoryCode = categoryMapping[categoryValue] || "etc";
 
@@ -47,11 +52,18 @@ addEventListener("load", () => {
         descriptionValue,
       };
 
-      const restaurantList = document.querySelector(".restaurant-list");
+      const $restaurantList = document.querySelector(".restaurant-list");
 
-      RestaurantItem(restaurantList, inputValue);
+      RestaurantItem($restaurantList, inputValue);
 
-      document.querySelector(".modal").remove();
+      const $modal = document.querySelector(".modal");
+      $modal.remove();
+    });
+
+    const $closeModalButton = document.getElementById("close-modal");
+    $closeModalButton.addEventListener("click", () => {
+      const $modal = document.querySelector(".modal");
+      $modal.remove();
     });
   });
 });
