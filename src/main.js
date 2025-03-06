@@ -1,21 +1,11 @@
 import FormItem from "./components/Form/FormItem.js";
 import InputForm from "./components/Form/InputForm.js";
 import SelectForm from "./components/Form/SelectForm.js";
+import TextareaForm from "./components/Form/TextareaForm.js";
 import Header from "./components/Header.js";
 import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
 import { HEADER_CONTENTS, LIST_ITEM_CONTENTS, SELECT_CATEGORY, SELECT_DISTANCE } from "./contants.js";
-
-function TextareaForm(name) {
-  const textareaElement = document.createElement("textarea");
-
-  textareaElement.name = name;
-  textareaElement.id = name;
-  textareaElement.cols = 30;
-  textareaElement.rows = 5;
-
-  return textareaElement;
-}
 
 function renderContents() {
   const app = document.getElementById("app");

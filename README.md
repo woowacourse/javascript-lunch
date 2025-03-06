@@ -112,9 +112,8 @@
   - [x] (프로덕트 코드) `textarea-form` 태그 삭제 -> 테스트 실패
   - [x] (테스트 실패를 성공시키기 위해) js를 이용해 동적으로 `textarea-form` 태그 제작 -> 테스트 성공
   - [x] `textarea-form` 태그를 컴포넌트로 제작
-  - [ ] `textarea-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
-    - [ ] 동적 인자 ->`textarea`에 들어갈 타입 및 placeholder / label에 들어갈 이름 / notice 내용 (옵션)
-    - [ ] `textarea-form` 테스트 코드 수정
+  - [x] `textarea-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
+    - [x] 동적 인자 ->`textarea`에 들어갈 타입
 
 - [ ] `button` (button 태그)
 
