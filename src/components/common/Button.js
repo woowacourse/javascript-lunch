@@ -11,19 +11,18 @@ export default class Button extends Component {
       disabled: false,
       onClick: () => {},
       styles: {},
-      id: "init",
+      id: "",
     };
   }
 
   setEvent() {
-    const { onClick, id } = this.props;
-    const buttonContainer = document.querySelector(`#${id}`);
-    if (buttonContainer) {
-      buttonContainer.addEventListener("click", (e) => {
-        e.preventDefault();
-        onClick(e);
-      });
-    }
+    if (!this.props) return;
+
+    document.addEventListener("input", (e) => {
+      if (e.target.closest(`#${this.props.id}`)) {
+        this.props.onClick();
+      }
+    });
   }
 
   template() {
