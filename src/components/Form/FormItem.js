@@ -1,4 +1,4 @@
-function FormItem(label, formComponent, notice = "") {
+function FormItem({ label, formComponent, notice = "" }) {
   const formItemElement = document.createElement("div");
 
   formItemElement.className = "form-item form-item--required";
