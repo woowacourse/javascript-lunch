@@ -7,4 +7,5 @@
 export {}
 declare global {
   const createElement: typeof import('@/utils/dom.js')['createElement']
+  const createElementsFragment: typeof import('@/utils/dom.js')['createElementsFragment']
 }

@@ -9,7 +9,7 @@ export default defineConfig({
 
       imports: [
         {
-          "@/utils/dom.js": ["createElement"],
+          "@/utils/dom.js": ["createElement", "createElementsFragment"],
         },
       ],
 

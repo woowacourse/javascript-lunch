@@ -15,3 +15,9 @@ export function createElement(tag, props = {}) {
 
   return element;
 }
+
+export function createElementsFragment(elements) {
+  const fragment = document.createDocumentFragment();
+  fragment.append(...elements);
+  return fragment;
+}
