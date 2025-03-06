@@ -9,16 +9,16 @@ const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
   `;
 };
 
-const OPTION_CATEGORY = (category) => {
-  return `<option value="${category}">${category}</option>`;
+const OPTION_TEMPLATE = (value, innerValue) => {
+  return `<option value="${value}">${innerValue}</option>`;
 };
 
 class InputDropDown {
-  constructor(title, categoryList) {
-    return this.#createInputDropDown(title, categoryList);
+  constructor(title, List) {
+    return this.#createInputDropDown(title, List);
   }
 
-  #createInputDropDown = (title, categoryList) => {
+  #createInputDropDown = (title, optionList) => {
     const inputDropDown = document.createElement('div');
     inputDropDown.classList.add('form-item');
     inputDropDown.classList.add('form-item--required');
@@ -27,16 +27,16 @@ class InputDropDown {
 
     const select = inputDropDown.querySelector('select');
 
-    categoryList.forEach((category) => {
-      const optionHTML = this.#addCategory(category);
+    optionList.forEach(([value, innerValue]) => {
+      const optionHTML = this.#addTemplate(value, innerValue);
       select.insertAdjacentHTML('beforeend', optionHTML);
     });
 
     return inputDropDown;
   };
 
-  #addCategory = (category) => {
-    return OPTION_CATEGORY(category);
+  #addTemplate = (value, innerValue) => {
+    return OPTION_TEMPLATE(value, innerValue);
   };
 }
 

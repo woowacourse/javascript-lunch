@@ -8,8 +8,21 @@ import Restaurant from '../Restaurant.js';
 import { RestaurantList } from '../RestaurantList.js';
 import { validateDropDown, validateName, validateDescription, validateLink } from '../validation/validations.js';
 
-const CATEGORY_LIST = ['한식', '중식', '일식', '양식', '아시안', '기타'];
-const DISTANCE_LIST = ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'];
+const CATEGORY_LIST = [
+  ['한식', '한식'],
+  ['중식', '중식'],
+  ['일식', '일식'],
+  ['양식', '양식'],
+  ['아시안', '아시안'],
+  ['기타', '기타'],
+];
+const DISTANCE_LIST = [
+  ['5', '5분 내'],
+  ['10', '10분 내'],
+  ['15', '15분 내'],
+  ['20', '20분 내'],
+  ['30', '30분 내'],
+];
 
 class AddRestaurantModal extends Modal {
   #cancelButton;
