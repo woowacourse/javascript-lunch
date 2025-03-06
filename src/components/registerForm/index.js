@@ -4,6 +4,7 @@ import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
 import Input from "../common/input";
 import InputField from "../common/inputField";
 import Select from "../common/select";
+import TextArea from "../common/textArea";
 import ButtonContainer from "./buttonContainer";
 
 const RegisterForm = (restaurantList) => {
@@ -18,7 +19,7 @@ const RegisterForm = (restaurantList) => {
     InputField(Select("distance", true, Object.keys(WALK_TIME_MINUTES)))
   );
   registerForm.appendChild(
-    InputField(Input("description"), INPUT_HELP_TEXT.DESCRIPTION)
+    InputField(TextArea("description"), INPUT_HELP_TEXT.DESCRIPTION)
   );
   registerForm.appendChild(InputField(Input("link"), INPUT_HELP_TEXT.LINK));
 
