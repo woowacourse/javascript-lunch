@@ -1,23 +1,11 @@
-import image from "../templates/favorite-icon-filled.png";
+const app = document.getElementById("app");
 
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
+app.insertAdjacentHTML(
+  "beforebegin",
+  `<header class="gnb">
+    <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+    <button type="button" class="gnb__button" aria-label="음식점 추가">
+      <img src="./public/add-button.png" alt="음식점 추가" />
+    </button>
+  </header>`,
 );
-
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
-
-  if (app) {
-    app.appendChild(buttonImage);
-  }
-});
