@@ -16,7 +16,6 @@ class App extends Component {
     RestaurantData.forEach((data) => {
       const restaurantItem = document.createElement("li");
       restaurantItem.classList.add("restaurant");
-      console.log(document.querySelector(".restaurant-list"));
       document.querySelector(".restaurant-list").appendChild(restaurantItem);
 
       new Restaurant(restaurantItem, data);
