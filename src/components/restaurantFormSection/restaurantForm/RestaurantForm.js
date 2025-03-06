@@ -6,7 +6,11 @@ import RestaurantListItem from "../../restaurantListSection/restaurantListItem/R
 import CategorySelect from "../categorySelect/CategorySelect.js";
 import DistanceSelect from "../distanceSelect/DistanceSelect.js";
 import "./restaurantForm.css";
-import { EVENT_TYPES, BUTTON_TEXTS } from "../../../constants/constants.js";
+import {
+  EVENT_TYPES,
+  BUTTON_TEXTS,
+  BUTTON_TYPES,
+} from "../../../constants/constants.js";
 
 export default class RestaurantForm {
   render() {
@@ -23,12 +27,12 @@ export default class RestaurantForm {
 
     const $cancelButton = new Button({
       text: BUTTON_TEXTS.cancel,
-      action: "cancel",
+      action: BUTTON_TYPES.cancel,
     }).render();
     const $addButton = new Button({
       type: "submit",
       text: BUTTON_TEXTS.add,
-      action: "add",
+      action: BUTTON_TYPES.add,
     }).render();
 
     $form.appendChild($categoryFormItem);

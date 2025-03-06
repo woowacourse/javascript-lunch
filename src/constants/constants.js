@@ -23,9 +23,16 @@ export const EVENT_TYPES = Object.freeze({
   submit: "submit",
 });
 
+export const BUTTON_TYPES = Object.freeze({
+  add: "add",
+  cancel: "cancel",
+  delete: "delete",
+  close: "close",
+});
+
 export const BUTTON_TEXTS = Object.freeze({
-  add: "추가하기",
-  cancel: "취소하기",
-  delete: "삭제하기",
-  close: "닫기",
+  [BUTTON_TYPES.add]: "추가하기",
+  [BUTTON_TYPES.cancel]: "취소하기",
+  [BUTTON_TYPES.delete]: "삭제하기",
+  [BUTTON_TYPES.close]: "닫기",
 });
