@@ -46,7 +46,7 @@ addEventListener("load", () => {
     Button({
       text: "취소하기",
       style: "button--secondary",
-      onClick: () => {},
+      onClick: () => $(".modal-backdrop").classList.remove("open"),
       type: "button",
       id: "cancel-button",
     })
@@ -66,7 +66,10 @@ addEventListener("load", () => {
       id: "register-button",
     })
   );
+
+  $(".modal-backdrop").addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal-backdrop")) {
+      e.target.classList.remove("open");
+    }
+  });
 });
-{
-  /* <div class="button-container"> */
-}

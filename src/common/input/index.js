@@ -4,7 +4,7 @@ const Input = (name, required) => {
   input.setAttribute("type", "text");
   input.setAttribute("name", name);
   input.setAttribute("id", name);
-  input.setAttribute("required", required);
+  input.toggleAttribute("required", required);
 
   return input;
 };

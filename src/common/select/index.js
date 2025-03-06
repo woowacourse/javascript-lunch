@@ -2,7 +2,7 @@ const Select = (name, required, options) => {
   const select = document.createElement("select");
   select.setAttribute("name", name);
   select.setAttribute("id", name);
-  select.setAttribute("required", required);
+  select.toggleAttribute("required", required);
 
   const defaultOption = document.createElement("option");
   defaultOption.setAttribute("value", "");
