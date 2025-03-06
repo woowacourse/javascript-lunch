@@ -4,12 +4,13 @@ import RestaurantName from "./RestaurantName.js";
 import Distance from "./Distance.js";
 import Description from "./Description.js";
 import Link from "./Link.js";
+import { restaurants } from "../../database/restaurants.js";
 
 class AddRestaurantModal extends Modal {
   contents() {
     return /*html */ `
       <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form>
+      <form id='add-restaurant-form'>
         ${Category()}
         ${RestaurantName()}
         ${Distance()}
@@ -33,6 +34,17 @@ class AddRestaurantModal extends Modal {
       );
 
       $cancelButton.addEventListener("click", () => this.close());
+
+      const $addForm = document.querySelector("#add-restaurant-form");
+      $addForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+
+        this.props.updateRestaurant(data);
+
+        this.close();
+      });
     }
   }
 }
