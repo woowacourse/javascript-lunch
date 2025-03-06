@@ -1,6 +1,10 @@
-import { SELECT_OPTIONS } from "../constants/constants.js";
 import {
-  validateNameLength,
+  DESCRIPTION_MAX_LENGTH,
+  NAME_MAX_LENGTH,
+  SELECT_OPTIONS,
+} from "../constants/constants.js";
+import {
+  validateLength,
   validateRequiredInput,
 } from "../validate/validateCondition.js";
 import { Button } from "./Button.js";
@@ -18,11 +22,9 @@ function handleSubmit() {
 
   validateRequiredInput(categoryInput);
   validateRequiredInput(name);
-  validateNameLength(name);
-
+  validateLength(name, NAME_MAX_LENGTH);
   validateRequiredInput(distance);
-
-  console.log("성공");
+  validateLength(description, DESCRIPTION_MAX_LENGTH);
 }
 
 export function FoodForm() {

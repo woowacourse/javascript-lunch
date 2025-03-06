@@ -1,6 +1,10 @@
 import { ERROR_MESSAGE } from "../src/constants/errorMessage.js";
-import { NAME_MAX_LENGTH } from "../src/constants/constants.js";
 import {
+  DESCRIPTION_MAX_LENGTH,
+  NAME_MAX_LENGTH,
+} from "../src/constants/constants.js";
+import {
+  validateLength,
   validateNameLength,
   validateRequiredInput,
 } from "../src/validate/validateCondition.js";
@@ -18,13 +22,24 @@ describe("사용자 입력값에 따른 유효성 검사를 실시한다", () =>
 
   it("음식점 이름이 20자가 넘을 경우 에러를 던진다", () => {
     //given
-    const input = "음식점이름이 20자가 넘을 경우 에러를 던집니다.";
+    const input = "음식점이름이 20자가 넘을 경우 에러를 던진다";
 
     //when
 
     //then
-    expect(() => validateNameLength(input)).toThrow(
+    expect(() => validateLength(input, NAME_MAX_LENGTH)).toThrow(
       ERROR_MESSAGE.length(NAME_MAX_LENGTH)
+    );
+  });
+  it("음식점 설명이 200자가 넘을 경우 에러를 던진다", () => {
+    //given
+    const input = "-".repeat(300);
+
+    //when
+
+    //then
+    expect(() => validateLength(input, DESCRIPTION_MAX_LENGTH)).toThrow(
+      ERROR_MESSAGE.length(DESCRIPTION_MAX_LENGTH)
     );
   });
 });

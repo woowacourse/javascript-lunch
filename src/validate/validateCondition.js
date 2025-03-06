@@ -7,8 +7,8 @@ export function validateRequiredInput(input) {
   }
 }
 
-export function validateNameLength(input) {
-  if (input.length > NAME_MAX_LENGTH) {
-    throw new Error(ERROR_MESSAGE.length(NAME_MAX_LENGTH));
+export function validateLength(input, maxLength) {
+  if (input.length > maxLength) {
+    throw new Error(ERROR_MESSAGE.length(maxLength));
   }
 }
