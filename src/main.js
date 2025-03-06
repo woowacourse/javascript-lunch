@@ -8,11 +8,28 @@ import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
 import { HEADER_CONTENTS, LIST_ITEM_CONTENTS, SELECT_CATEGORY, SELECT_DISTANCE } from "./contants.js";
 
+function ButtonsForm(buttons) {
+  const buttonContainerElement = document.createElement("div");
+  buttonContainerElement.classList.add("button-container");
+
+  buttons.forEach((button) => {
+    buttonContainerElement.appendChild(Button(button));
+  });
+
+  return buttonContainerElement;
+}
+
+const MODAL_BUTTONS = [
+  { type: "button", stylingBased: "secondary", text: "취소하기" },
+  { type: "submit", stylingBased: "primary", text: "등록하기" },
+];
+
 function renderContents() {
   const app = document.getElementById("app");
   const listContainerElement = app.querySelector(".restaurant-list-container");
   const modalFormElement = app.querySelector(".modal form");
   const listElement = List(LIST_ITEM_CONTENTS);
+
   app.prepend(Header(HEADER_CONTENTS));
   listContainerElement.appendChild(listElement);
 
@@ -22,7 +39,7 @@ function renderContents() {
   modalFormElement.appendChild(
     FormItem("설명", () => TextareaForm("description"), "메뉴 등 추가 정보를 입력해 주세요."),
   );
-  modalFormElement.appendChild(Button("button", "secondary", "취소하기"));
+  modalFormElement.appendChild(ButtonsForm(MODAL_BUTTONS));
 }
 
 renderContents();
