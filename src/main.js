@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   closeModalButton.addEventListener("click", () => {
+    form.reset();
     addNewRestaurantModal.close();
   });
 });
