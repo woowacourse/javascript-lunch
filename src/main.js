@@ -17,9 +17,17 @@ filterContainer.appendChild(restaurantList);
 const modalTitle = createElement('h2', 'modal-title text-title', '새로운 음식점');
 const enrollForm = createElement('form');
 
-const categoryBox = createSelectBox({ options: categoryOptions, isRequired: true });
+const categoryBox = createSelectBox({
+  options: categoryOptions,
+  isRequired: true,
+  type: 'category',
+});
 const nameInputBox = createInputBox({ label: '이름', isRequired: true, type: 'name' });
-const distanceBox = createSelectBox({ options: distanceOptions, isRequired: true });
+const distanceBox = createSelectBox({
+  options: distanceOptions,
+  isRequired: true,
+  type: 'distance',
+});
 const descriptionTextArea = createTextArea({
   label: '설명',
   type: 'description',
@@ -58,8 +66,6 @@ const fragment = new DocumentFragment();
 fragment.append(modalTitle, enrollForm);
 
 const enrollRestaurantModal = createModal(fragment);
-
-console.log(enrollRestaurantModal);
 main.append(filterContainer, enrollRestaurantModal);
 
 const modal = document.querySelector('.modal');
@@ -67,4 +73,31 @@ const openModalButton = document.querySelector('.gnb__button');
 
 openModalButton.addEventListener('click', () => {
   modal.classList.add('modal--open');
+});
+
+const categorySelectBox = document.querySelector('select#category');
+const nameInput = document.querySelector('input#name');
+const distanceSelectBox = document.querySelector('select#distance');
+const descriptionTextarea = document.querySelector('textarea#description');
+const linkInput = document.querySelector('input#link');
+
+categorySelectBox.addEventListener('change', (event) => {
+  console.log(event.target.value);
+});
+
+nameInput.addEventListener('change', (event) => {
+  console.log(event.target.value);
+});
+
+console.log(distanceSelectBox);
+distanceSelectBox.addEventListener('change', (event) => {
+  console.log(event.target.value);
+});
+
+descriptionTextArea.addEventListener('change', (event) => {
+  console.log(event.target.value);
+});
+
+linkInput.addEventListener('change', (event) => {
+  console.log(event.target.value);
 });

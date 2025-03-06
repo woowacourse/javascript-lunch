@@ -1,11 +1,16 @@
 import createElement from '../utils/createElement.js';
 
-function createSelectBox({ options, isRequired }) {
+function createSelectBox({ options, isRequired, type }) {
   const selectBoxDiv = createElement('div', `form-item ${isRequired && 'form-item--required'}`);
-  const categoryLabel = createElement('label', null, '카테고리', { for: 'category text-caption' });
+  const categoryLabel = createElement(
+    'label',
+    null,
+    type === 'category' ? '카테고리' : '거리(도보 이동 시간)',
+    { for: `${type} text-caption` }
+  );
   const selectBox = createElement('select', null, null, {
-    name: 'category',
-    id: 'category',
+    name: type,
+    id: type,
     required: true,
   });
 
