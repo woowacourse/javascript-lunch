@@ -36,7 +36,7 @@ addEventListener('load', () => {
     $inputItem("linkInput"),
     submitCancelButtons
   ];
-
+  
   document.getElementsByTagName("main")[0].appendChild($modal(restaurantAddForm));
   
   document.querySelector(".gnb__button").addEventListener("click", handleModalOpen);

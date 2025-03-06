@@ -1,4 +1,4 @@
-import { handleModalClose } from "../components/modal.js";
+import { handleModalClose, handleAddRestaurant } from "../components/modal.js";
 
 export const HEADER_INFO = Object.freeze({
   TITLE: "점심 뭐 먹지",
@@ -14,6 +14,6 @@ export const CANCEL_BUTTON = {
 
 export const ADD_BUTTON = {
     TEXT: "추가하기",
-    // EVENT: ,
+    EVENT: handleAddRestaurant,
     CLASS_NAME: ["button", "button--primary", "text-caption"]
 }
