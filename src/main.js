@@ -14,5 +14,3 @@ const createRestaurantList = (restaurantList) => {
 };
 
 createRestaurantList(RestaurantList);
-
-new AddRestaurantModal(); //모달창 테스트하기 위함.
