@@ -5,7 +5,6 @@ import RestaurantInfo from './RestaurantInfo.js';
 class RestaurantItem {
   constructor(restaurant) {
     const div = this.#createRestaurantItem(restaurant);
-    console.log(div);
     return div;
   }
 

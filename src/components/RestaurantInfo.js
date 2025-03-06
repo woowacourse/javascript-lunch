@@ -16,10 +16,7 @@ class RestaurantInfo {
   #createRestaurantInfo = (name, distance, description) => {
     const restaurantInfo = document.createElement('div');
     restaurantInfo.classList = 'restaurant__info';
-    console.log(name, distance, description, 'SSSSS');
     restaurantInfo.innerHTML = RESTAURANT_INFO_TEMPLATE(name, distance, description);
-
-    console.log(restaurantInfo, '#####');
 
     return restaurantInfo;
   };
