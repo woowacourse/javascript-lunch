@@ -6,16 +6,10 @@ import LunchInfoCard from "./component/LunchInfoCard.js";
 import SelectForm from "./component/SelectForm.js";
 import TextareaForm from "./component/TextareaForm.js";
 import InputForm from "./component/InputForm.js";
+import Header from "./component/Header.js";
 import render from "./utils/render.js";
 
-render(
-  IconButton.create({
-    src: "./templates/add-button.png",
-    onClick: () => AddLunchModal.open(),
-    label: "음식점 추가",
-  }),
-  DOM.$header
-);
+DOM.$body.prepend(Header.create());
 
 render(
   LunchInfoCard.create({
