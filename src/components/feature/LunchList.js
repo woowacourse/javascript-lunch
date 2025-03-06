@@ -2,12 +2,6 @@ import Component from "../../core/Component.js";
 import LunchItem from "./LunchItem.js";
 
 export default class LunchList extends Component {
-  setDefaultProps() {
-    this.props = {
-      lunchList: [],
-    };
-  }
-
   initState() {
     this.state = {
       items: [],
@@ -22,14 +16,16 @@ export default class LunchList extends Component {
     }
   }
 
-  // addLunchItem(lunchItemData) {
-  //   const newLunchItem = new LunchItem();
-  //   newLunchItem.setProps(lunchItemData);
+  addLunchItem(newItem) {
+    this.setState({
+      items: [...this.state.items, newItem],
+    });
 
-  //   this.setState({
-  //     items: [...this.state.items, newLunchItem],
-  //   });
-  // }
+    const restaurantList = document.getElementById("restaurant-list");
+    if (restaurantList) {
+      restaurantList.innerHTML = this.renderItems();
+    }
+  }
 
   renderItems() {
     return this.state.items
@@ -43,13 +39,11 @@ export default class LunchList extends Component {
     return `
       <section class="w-full h-full flex flex-col justify-center items-center my-16 overflow-y">
         <ul id="restaurant-list">
-        ${
-          this.state.items.length >= 1
-            ? this.renderItems()
-            : '<p class="text-xl">아직 추가된 음식점이 없습니다.</p>'
-        }
+          <p class="text-xl">아직 추가된 음식점이 없습니다.</p>
         </ul>
       </section>
     `;
   }
+
+  render(props) {}
 }
