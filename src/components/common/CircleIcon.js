@@ -6,6 +6,7 @@ export default class CircleIcon extends Component {
   setDefaultProps() {
     this.props = {
       iconName: "",
+      size: "64",
       classList: [],
       styles: {},
       id: "init",
