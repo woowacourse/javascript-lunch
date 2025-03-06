@@ -1,5 +1,6 @@
 import Button from '../components/Button.js';
-import InputDropDown from '../components/InputDropdown.js';
+import InputDropDown from '../components/InputDropDown.js';
+import InputText from '../components/InputText.js';
 import Modal from '../components/Modal.js';
 
 const CATEGORY_LIST = ['한식', '중식', '일식', '양식', '아시안', '기타'];
@@ -31,11 +32,21 @@ class AddRestaurantModal extends Modal {
     const divCategory = new InputDropDown('카테고리', CATEGORY_LIST);
     this.addElement(divCategory);
 
+    const divName = new InputText('이름');
+    this.addElement(divName);
+
     const divDistance = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
     this.addElement(divDistance);
 
+    const divDescription = new InputText('설명');
+    this.addElement(divDescription);
+
+    const divLink = new InputText('참조 링크');
+    this.addElement(divLink);
+
     const divButton = this.#createButton();
     this.addElement(divButton);
+
     return document.querySelector('.modal');
   };
 
