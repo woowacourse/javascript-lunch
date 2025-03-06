@@ -12,8 +12,6 @@ export default function Restaurant() {
     restaurantDataList.getDataList()
   );
 
-  console.log(restaurantDataList.getDataList());
-
   $body.appendChild($restaurantHeader);
   $body.appendChild($restaurantListContainer);
 }
