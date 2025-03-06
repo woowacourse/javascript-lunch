@@ -5,6 +5,7 @@ export default class Text extends Component {
   setDefaultProps() {
     this.props = {
       content: "",
+      required: false,
       classList: [],
       styles: {},
       id: "init",
@@ -12,13 +13,13 @@ export default class Text extends Component {
   }
 
   template() {
-    const { content, classList, styles, id } = this.props;
+    const { content, required, classList, styles, id } = this.props;
     return `
       <p
         id="${id}"
         class="${classList.join(" ")}" 
         style="${styleStr(styles)}">
-        ${content}
+          ${content} ${required ? `<span style="color: red;">*</span>` : ""}
       </p>`;
   }
 }
