@@ -3,6 +3,7 @@ import { FoodList } from "../component/FoodList.js";
 import { HeaderComponent } from "../component/HeaderComponent.js";
 import { Modal } from "../component/Modal.js";
 import { foodItems } from "../mock/foodItems.js";
+import { modalClose, modalOpen } from "../util/modalAction.js";
 
 export function FoodListPage(foodList) {
   const body = document.querySelector("body");
@@ -16,15 +17,9 @@ export function FoodListPage(foodList) {
 
 function init() {
   document.querySelector(".gnb__button").addEventListener("click", () => {
-    const modalOpen = document.querySelector(".modal--open");
-    const modal = document.querySelector(".modal");
-    if (modalOpen) {
-      modal.classList.remove("modal--open");
-    }
-    modal.classList.add("modal--open");
+    modalOpen();
   });
-
   document.querySelector(".modal-backdrop").addEventListener("click", () => {
-    document.querySelector(".modal").classList.remove("modal--open");
+    modalClose();
   });
 }

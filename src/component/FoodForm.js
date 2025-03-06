@@ -6,6 +6,7 @@ import {
 import { foodItems } from "../mock/foodItems.js";
 import { FoodListPage } from "../pages/FoodListPage.js";
 import { alertError } from "../util/alertError.js";
+import { modalClose } from "../util/modalAction.js";
 import {
   validateDescriptionLength,
   validateLength,
@@ -123,7 +124,11 @@ export function FoodForm() {
   container.appendChild(
     ButtonContainer({
       buttons: [
-        Button({ cssType: "secondary", innerText: "취소하기" }),
+        Button({
+          cssType: "secondary",
+          innerText: "취소하기",
+          onClick: modalClose,
+        }),
         Button({
           cssType: "primary",
           innerText: "추가하기",
