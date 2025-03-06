@@ -1,7 +1,7 @@
-function SelectForm(selectItems) {
+function SelectForm(name, selectItems) {
   const selectElement = document.createElement("select");
-  selectElement.id = "category";
-  selectElement.name = "category";
+  selectElement.id = name;
+  selectElement.name = name;
   selectElement.required = true;
 
   selectElement.innerHTML = `

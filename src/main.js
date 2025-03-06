@@ -17,9 +17,9 @@ import {
 } from "./contants.js";
 
 const MODAL_FORM = [
-  { label: "카테고리", formComponent: () => SelectForm(SELECT_CATEGORY) },
+  { label: "카테고리", formComponent: () => SelectForm("category", SELECT_CATEGORY) },
   { label: "이름", formComponent: () => InputForm("text", "name", true) },
-  { label: "거리(도보 이동 시간)", formComponent: () => SelectForm(SELECT_DISTANCE) },
+  { label: "거리(도보 이동 시간)", formComponent: () => SelectForm("distance", SELECT_DISTANCE) },
   { label: "설명", formComponent: () => TextareaForm("description"), notice: "메뉴 등 추가 정보를 입력해 주세요." },
   {
     label: "참고 링크",
@@ -37,7 +37,25 @@ function renderContents() {
   app.prepend(Header(HEADER_CONTENTS));
   listContainerElement.appendChild(listElement);
 
-  modalContainer.appendChild(Form(MODAL_FORM));
+  const formElement = Form(MODAL_FORM);
+
+  formElement.querySelector("button[type='button']").addEventListener("click", (event) => {
+    formElement.reset();
+
+    // 모달 내려주기
+    app.querySelector(".modal").classList.remove("modal--open");
+  });
+
+  formElement.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const values = Object.fromEntries(formData.entries());
+
+    console.log(values);
+  });
+
+  modalContainer.appendChild(formElement);
 }
 
 renderContents();
