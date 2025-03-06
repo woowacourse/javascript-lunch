@@ -25,22 +25,6 @@ UI
 ## 구현 목록
 
 - [x] 각 컴포넌트별로 나눈다.
-
-  - common 폴더
-    - Button: 버튼
-    - ButtonGroup: 두 개의 버튼 그룹
-    - BottomSheetBase: 바텀시트 틀
-  - layout 폴더
-    - Header: 헤더
-  - restaurantList 폴더
-    - RestaurantListItem: 가게 리스트 아이템
-    - RestaurantList: 가게 전체 리스트
-  - restaurantBottomSheet: 새로운 음식점 등록 바텀시트 폴더
-    - NameInput: 음식점 이름
-    - SelectBox: 카테고리, 거리 선택 박스
-    - DescriptionInput: 설명
-    - LinkInput: 링크
-
 - [x] 새로운 음식점을 추가할 수 있다.
   - [x] 입력값이 잘못되었을 때 화면에 에러를 출력한다.
 
@@ -58,3 +42,42 @@ UI
 ### 테스트 코드
 
 - [x] E2E 테스트 코드 작성
+
+## 컴포넌트 폴더 구조
+
+```
+components
+├── 📂 common
+│ ├── 📂 bottomSheetBase
+│ │ ├── BottomSheetBase.js
+│ │ └── bottomSheetBase.css
+│ ├── 📂 button
+│ │ ├── Button.js
+│ │ └── button.css
+│ └── 📂 selectBox
+│   └── SelectBox.js
+├── 📂 header
+│ ├── Header.js
+│ └── header.css
+├── 📂 restaurantFormSection
+│ ├── 📂 categorySelect
+│ │ └── CategorySelect.js
+│ ├── 📂 descriptionInput
+│ │ └── DescriptionInput.js
+│ ├── 📂 distanceSelect
+│ │ └── DistanceSelect.js
+│ ├── 📂 linkInput
+│ │ └── LinkInput.js
+│ ├── 📂 restaurantForm
+│ │ ├── RestaurantForm.js
+│ │ └── restaurantForm.css
+│ └── 📂 restaurantNameInput
+│   └── RestaurantNameInput.js
+└── 📂 restaurantListSection
+  ├── 📂 restaurantList
+  │ ├── RestaurantList.js
+  │ └── restaurantList.css
+  └── 📂 restaurantListItem
+    ├── RestaurantListItem.js
+    └── restaurantListItem.css
+```
