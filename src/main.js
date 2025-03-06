@@ -4,12 +4,16 @@ import Modal from "./components/util/Modal.js";
 
 window.addEventListener("load", () => {
   init();
+});
+
+export function init() {
+  Restaurant();
+  event();
+}
+
+function event() {
   const $button = document.querySelector(".gnb__button");
   $button.addEventListener("click", () => {
     Modal(RestaurantModal);
   });
-});
-
-function init() {
-  Restaurant();
 }
