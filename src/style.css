@@ -190,6 +190,7 @@ body {
 
 .modal--open {
   display: block;
+  width: 390px;
 }
 
 .modal-backdrop {
@@ -205,7 +206,7 @@ body {
 .modal-container {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 390px;
 
   padding: 32px 16px;
 
