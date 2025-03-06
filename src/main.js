@@ -30,6 +30,9 @@ function renderContents() {
   modalFormElement.appendChild(
     FormItem("설명", () => TextareaForm("description"), "메뉴 등 추가 정보를 입력해 주세요."),
   );
+  modalFormElement.appendChild(
+    FormItem("참고 링크", () => InputForm("text", "link"), "매장 정보를 확인할 수 있는 링크를 입력해 주세요."),
+  );
   modalFormElement.appendChild(ButtonsForm(MODAL_BUTTONS_PROPERTY));
 }
 
