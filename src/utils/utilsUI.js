@@ -10,6 +10,11 @@ export const modalUtils = {
   closeModal: (e) => {
     const modal = querySelector.modal();
     modal.classList.remove("modal--open");
+    const formItems = modal.querySelectorAll("input, textarea, select");
+
+    formItems.forEach((item) => {
+      item.value = "";
+    });
   },
 
   openModal: () => {
