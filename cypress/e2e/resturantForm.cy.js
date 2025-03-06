@@ -1,65 +1,65 @@
 import { ERROR_MESSAGE } from "../../src/settings/settings.js";
 
-// describe("음식점 추가가 잘 되는지 확인하는 시나리오", () => {
-//   beforeEach(() => {
-//     cy.visit("http://localhost:5173/");
-//   });
+describe("음식점 추가가 잘 되는지 확인하는 시나리오", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5173/");
+  });
 
-//   it("모달 열기 닫기 테스트, 음식점 추가(카테고리, 이름, 거리 입력)", () => {
-//     // 모달 띄우기
-//     cy.get(".gnb__button").click();
-//     cy.get(".modal").should("be.visible");
-//     cy.get(".restaurant-add-form").should("exist");
+  it("모달 열기 닫기 테스트, 음식점 추가(카테고리, 이름, 거리 입력)", () => {
+    // 모달 띄우기
+    cy.get(".gnb__button").click();
+    cy.get(".modal").should("be.visible");
+    cy.get(".restaurant-add-form").should("exist");
 
-//     // 모달 닫기
-//     cy.get(".cancel-button").click();
-//     cy.get(".modal").should("not.be.visible");
+    // 모달 닫기
+    cy.get(".cancel-button").click();
+    cy.get(".modal").should("not.be.visible");
 
-//     // 모달 띄우기
-//     cy.get(".gnb__button").click();
-//     cy.get(".modal").should("be.visible");
-//     cy.get(".restaurant-add-form").should("exist");
+    // 모달 띄우기
+    cy.get(".gnb__button").click();
+    cy.get(".modal").should("be.visible");
+    cy.get(".restaurant-add-form").should("exist");
 
-//     // 폼 데이터 입력
-//     cy.get("#category").select("중식");
-//     cy.get("#name").type("마담밍");
-//     cy.get("#distance").select("20");
+    // 폼 데이터 입력
+    cy.get("#category").select("중식");
+    cy.get("#name").type("마담밍");
+    cy.get("#distance").select("20");
 
-//     // 폼 제출
-//     cy.get(".restaurant-add-form").submit();
-//     cy.get(".restaurant").should("have.length", 1);
-//   });
+    // 폼 제출
+    cy.get(".restaurant-add-form").submit();
+    cy.get(".restaurant").should("have.length", 1);
+  });
 
-//   it("모달 열기 테스트, 음식점 추가 2개", () => {
-//     // 모달 띄우기
-//     cy.get(".gnb__button").click();
-//     cy.get(".modal").should("be.visible");
-//     cy.get(".restaurant-add-form").should("exist");
+  it("모달 열기 테스트, 음식점 추가 2개", () => {
+    // 모달 띄우기
+    cy.get(".gnb__button").click();
+    cy.get(".modal").should("be.visible");
+    cy.get(".restaurant-add-form").should("exist");
 
-//     // 폼 데이터 입력
-//     cy.get("#category").select("양식");
-//     cy.get("#name").type("타코집");
-//     cy.get("#distance").select("10");
+    // 폼 데이터 입력
+    cy.get("#category").select("양식");
+    cy.get("#name").type("타코집");
+    cy.get("#distance").select("10");
 
-//     // 폼 제출
-//     cy.get(".restaurant-add-form").submit();
-//     cy.get(".restaurant").should("have.length", 1);
+    // 폼 제출
+    cy.get(".restaurant-add-form").submit();
+    cy.get(".restaurant").should("have.length", 1);
 
-//     // 모달 띄우기
-//     cy.get(".gnb__button").click();
-//     cy.get(".modal").should("be.visible");
-//     cy.get(".restaurant-add-form").should("exist");
+    // 모달 띄우기
+    cy.get(".gnb__button").click();
+    cy.get(".modal").should("be.visible");
+    cy.get(".restaurant-add-form").should("exist");
 
-//     // 폼 데이터 입력
-//     cy.get("#category").select("일식");
-//     cy.get("#name").type("잇쇼우");
-//     cy.get("#distance").select("15");
+    // 폼 데이터 입력
+    cy.get("#category").select("일식");
+    cy.get("#name").type("잇쇼우");
+    cy.get("#distance").select("15");
 
-//     // 폼 제출
-//     cy.get(".restaurant-add-form").submit();
-//     cy.get(".restaurant").should("have.length", 2);
-//   });
-// });
+    // 폼 제출
+    cy.get(".restaurant-add-form").submit();
+    cy.get(".restaurant").should("have.length", 2);
+  });
+});
 
 describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
   beforeEach(() => {
