@@ -1,9 +1,13 @@
 import $form from "./form";
 import $inputItem from "./input-item";
 
+export const handleModalClose = () => {
+  document.querySelector(".modal").classList.remove("modal--open");
+}
+
 const $modal = (form) => {
   const wrapper = document.createElement("div");
-  wrapper.classList.add("modal", "modal--open");
+  wrapper.classList.add("modal");
 
   const background = document.createElement("div");
   background.classList.add("modal-backdrop");
@@ -18,7 +22,9 @@ const $modal = (form) => {
   container.appendChild(title);
   container.appendChild($form(form));
   wrapper.appendChild(container);
-
+  
+  document.addEventListener('keydown',(e)=> {e.key === "Escape" && handleModalClose()})
+  background.addEventListener("click", handleModalClose);
   return wrapper;
 };
 

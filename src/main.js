@@ -12,11 +12,15 @@ import $modal from "./components/modal.js";
 import $button from "./components/button.js";
 import $buttonContainer from "./components/button-container.js";
 
+const handleModalOpen = () => {
+  document.querySelector(".modal").classList.add("modal--open");
+};
+
 addEventListener('load', () => {
   const body = document.body;
   
   body.prepend($header(HEADER_INFO));
-
+  
   const restaurantList = document.querySelector('.restaurant-list');
   restaurantData.forEach((data) => {
     restaurantList.appendChild($restaurantItem(data));
@@ -35,7 +39,7 @@ addEventListener('load', () => {
 
   document.getElementsByTagName("main")[0].appendChild($modal(restaurantAddForm));
   
-
+  document.querySelector(".gnb__button").addEventListener("click", handleModalOpen);
 
   // body.append($modal());
   // body.appendChild($form(restaurantAddForm));
