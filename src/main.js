@@ -1,4 +1,10 @@
+import Header from "./components/Header.js";
+
 addEventListener("load", () => {
+  const headerContainer = document.querySelector(".gnb");
+  const header = new Header({ container: headerContainer });
+  header.renderHeader();
+
   const modalButton = document.getElementById("gnb-button");
   const appContainer = document.getElementById("app");
   const modal = `
