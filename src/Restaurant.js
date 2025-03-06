@@ -6,7 +6,7 @@ class Restaurant extends Component {
   }
 
   template() {
-    const { imgSrc, imgAlt, name, distance, description } = this.props;
+    const { name, distance, description, imgSrc, imgAlt } = this.props;
     return ` 
               <div class="restaurant__category">
                   <img
