@@ -45,11 +45,14 @@ class AddRestaurantModal extends Modal {
     modalTitle.innerText = '새로운 음식점';
     this.addElement(modalTitle);
 
-    this.addElement(this.#divCategory);
-    this.addElement(this.#divName);
-    this.addElement(this.#divDistance);
-    this.addElement(this.#divDescription);
-    this.addElement(this.#divLink);
+    const modalForm = document.createElement('form');
+    modalForm.appendChild(this.#divCategory);
+    modalForm.appendChild(this.#divName);
+    modalForm.appendChild(this.#divDistance);
+    modalForm.appendChild(this.#divDescription);
+    modalForm.appendChild(this.#divLink);
+
+    this.addElement(modalForm);
 
     const divButton = this.#createButton();
     this.addElement(divButton);
