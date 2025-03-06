@@ -1,6 +1,7 @@
 import Button from "../components/button.js";
 import querySelector from "./querySelector.js";
 import Store from "../components/store.js";
+import validate from "./validate.js";
 
 export const modalUtils = {
   addChild: (child) => {
@@ -36,13 +37,21 @@ export const storeUtils = {
   },
 
   updateStore: (storeList, e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const newStore = storeUtils.createStore(e);
-    storeList.updateList(newStore);
-    storeUtils.addStore(newStore);
+      const newStore = storeUtils.createStore(e);
+      validate.nameLength(newStore.name);
+      validate.descLength(newStore.description);
+      validate.linkForm(newStore.link);
 
-    modalUtils.closeModal(e);
+      storeList.updateList(newStore);
+      storeUtils.addStore(newStore);
+
+      modalUtils.closeModal(e);
+    } catch (error) {
+      alert(error.message);
+    }
   },
 
   createStore: (e) => {
