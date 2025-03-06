@@ -42,4 +42,71 @@
 
 ## 리뷰어에게 궁금한 사항들
 
-e2e 테스트에 음식점 추가 폼이 잘 동작하는지에 대한 여러 시나리오들이 있는데 아무래도 e2e 테스트이다 보니깐 내용 길어서 한 파일에 다 넣으면 가독성이 떨어지는 것 같은데 이런 경우에는 파일을 나누시는 편이신가요? 아니면 지금처럼 한 기능에 대해 한 파일로 관리를 하시는 편이신가요??
+### E2E 시나리오 테스트 파일 관리 질문
+
+E2E 테스트에 음식점 추가 폼이 잘 동작하는 지에 대한 여러 시나리오들이 있는데 E2E 테스트이다 보니깐 테스트 하나가 내용이 길어서 한 파일에 다 넣으면 가독성이 떨어지고 유지보수 하기 힘들 것 같다는 생각이 들었습니다.
+
+이련 경우에는 파일을 나누시는 편이신가요? 아니면 한 기능에 대한 테스트 파일은 하나에만 두시는 편이신가요??
+
+➔ 정답은 없겠지만 케빈은 어떤 방식으로 하시는 궁금합니다!
+
+### DOM 접근 비용 관련 질문
+
+기존 이벤트 핸들러 코드에서는 모달에 `음식점 추가 폼(DOM 앨리먼트)`이 없다면 새로 생성하고,
+`음식점 추가 폼`이 있다면 DOM을 추가하지 않는 방식을 사용했었습니다.
+
+하지만 이렇게 하면 이벤트가 발생할 때마다 `restaurant-add-form(음식점 추가 폼)`이 있는지 DOM에 접근해서 확인을 해줘야 해서 `isFirstRender`라는 상태를 생성해 모달이 열렸던 적이 있다면 폼을 생성하지 않는 방식으로 **DOM 요소에 접근하는 방식을 최소화하였는데 혹시 더 좋은 방안**이 있을까요??
+
+- as-is(`restaurant-add-form` DOM이 있는지 체크)
+
+```js
+function handleBottomSheetToggle(event) {
+  const modal = document.querySelector(".modal");
+
+  if (event.target.closest(".restaurant-add-button")) {
+    modal.showModal();
+
+    const restaurantAddForm = document.querySelector(".restaurant-add-form");
+
+    if (!restaurantAddForm) {
+      const modalContainer = document.querySelector(".modal-container");
+      const restaurantFrom = createRestaurantForm();
+      modalContainer.appendChild(restaurantFrom);
+    }
+  }
+
+  if (event.target.closest(".modal-backdrop")) {
+    modal.close();
+  }
+}
+```
+
+- to-be(`isFirstRender` 상태 사용)
+
+```js
+function bottomSheetController() {
+  let isFirstRender = false;
+
+  function handleBottomSheetToggle(event) {
+    const modal = document.querySelector(".modal");
+
+    if (event.target.closest(".restaurant-add-button")) {
+      modal.showModal();
+
+      if (!isFirstRender) {
+        const modalContainer = document.querySelector(".modal-container");
+        const restaurantFrom = createRestaurantForm();
+
+        modalContainer.appendChild(restaurantFrom);
+        isFirstRender = true;
+      }
+    }
+
+    if (event.target.closest(".modal-backdrop")) {
+      modal.close();
+    }
+  }
+
+  return { handleBottomSheetToggle };
+}
+```
