@@ -18,7 +18,9 @@ function renderContents() {
   modalFormElement.appendChild(FormItem("카테고리", () => SelectForm(SELECT_CATEGORY)));
   modalFormElement.appendChild(FormItem("이름", () => InputForm("text", "name", true)));
   modalFormElement.appendChild(FormItem("거리(도보 이동 시간)", () => SelectForm(SELECT_DISTANCE)));
-  modalFormElement.appendChild(FormItem("설명", () => TextareaForm("description")));
+  modalFormElement.appendChild(
+    FormItem("설명", () => TextareaForm("description"), "메뉴 등 추가 정보를 입력해 주세요."),
+  );
 }
 
 renderContents();

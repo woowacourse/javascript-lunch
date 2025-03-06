@@ -84,6 +84,7 @@
 
 - [x] `form-item` (label + Form컴포넌트 + notice(옵션)) 묶고 있는 div
 - [x] `form-item` 동적 인자 전달 / 컴포넌트 분리
+- [x] 동적 인자 전달 -> notice(옵션)
 
 - [x] `select-form` (select.category)
 
@@ -105,7 +106,7 @@
   - [x] `input-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
     - [x] 동적 인자 ->`input`에 들어갈 타입 및 placeholder / label에 들어갈 이름
 
-- [ ] `textarea-form` (textarea.name)
+- [x] `textarea-form` (textarea.name)
 
   - [x] (템플릿 코드 기반) `textarea-form` 태그를 바탕으로 테스트 작성
   - [x] (템플릿 코드 기반) `textarea` 태그가 있는지 테스트 작성
