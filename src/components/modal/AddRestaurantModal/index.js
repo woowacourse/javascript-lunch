@@ -1,10 +1,10 @@
-import Modal from "./Modal.js";
+import Modal from "../Modal.js";
 import Category from "./Category.js";
 import RestaurantName from "./RestaurantName.js";
 import Distance from "./Distance.js";
 import Description from "./Description.js";
 import Link from "./Link.js";
-import { restaurants } from "../../database/restaurants.js";
+import { restaurants } from "../../../database/restaurants.js";
 
 class AddRestaurantModal extends Modal {
   contents() {
