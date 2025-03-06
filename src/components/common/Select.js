@@ -58,7 +58,6 @@ export default class Select extends Component {
     </svg>
   `;
 
-    // 드롭다운이 열려있으면 추가
     if (this.state.isOpen) {
       container.insertAdjacentHTML("beforeend", this.renderDropDownItem());
     }
@@ -99,7 +98,7 @@ export default class Select extends Component {
           id="${id}-dropdown"
           class="${classList.join(
             " "
-          )} min-h-44 absolute w-full bg-white border rounded-lg"
+          )} min-h-44 absolute w-full bg-white border rounded-lg mt-8"
         style="top: 100%; left: 0; z-index: 100; list-style: none; overflow-y: auto;  max-height: 200px; ${styleStr(
           styles
         )}"

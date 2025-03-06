@@ -11,7 +11,7 @@ export default class Layout extends Component {
 
     return `
     <main 
-      class="max-w-390 w-full h-full flex flex-col justify-center items-center mx-16"
+      class="max-w-390 max-h-800 w-full flex flex-col justify-center items-center mx-16"
     >
     ${children.map((child) => child.template()).join("")}
     </main>`;
