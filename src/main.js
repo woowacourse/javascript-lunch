@@ -20,9 +20,10 @@ addEventListener('load', () => {
   const modal = document.createElement('div');
 
   modal.classList.add('modal');
+
   modal.innerHTML =
     /* html */
-    ` <div class="modal-backdrop"></div>
+    `<div class="modal-backdrop"></div>
   <div class="modal-container">
   <h2 class="modal-title text-title">새로운 음식점</h2>
   <form>
