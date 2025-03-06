@@ -7,6 +7,7 @@ export default class TextArea extends Component {
       rows: 1,
       maxLength: 10,
       placeHolder: "",
+      isError: false,
       onInput: () => {},
       classList: [],
       styles: {},
@@ -16,15 +17,19 @@ export default class TextArea extends Component {
 
   setEvent() {
     if (!this.props) return;
-    document.addEventListener("input", (e) => {
+
+    document.removeEventListener("input", this.handleInput);
+    this.handleInput = (e) => {
       if (e.target.id === this.props.id) {
         this.props.onInput(e.target.value);
       }
-    });
+    };
+    document.addEventListener("input", this.handleInput);
   }
 
   template() {
-    const { rows, maxLength, placeHolder, classList, styles, id } = this.props;
+    const { rows, maxLength, placeHolder, classList, styles, id, isError } =
+      this.props;
 
     return `
       <textarea 
@@ -36,7 +41,7 @@ export default class TextArea extends Component {
         placeholder="${placeHolder}"
         class="${classList.join(
           " "
-        )} w-full border border-slate-50 px-8 py-8 box-border text-lg"
+        )} w-full border px-8 py-8 box-border text-lg"
         style="${styleStr(styles)}"
       ></textarea>
     `;
