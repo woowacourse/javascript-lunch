@@ -22,6 +22,12 @@ class AddRestaurantModal extends Modal {
 
   constructor() {
     super();
+    this.#init();
+    this.#bindEvent();
+    return this.#createAddModal();
+  }
+
+  #init = () => {
     this.#cancelButton = new Button('button--secondary', '취소하기');
     this.#addButton = new Button('button--primary', '추가하기');
     this.#divCategory = new InputDropDown('카테고리', CATEGORY_LIST);
@@ -30,9 +36,7 @@ class AddRestaurantModal extends Modal {
     this.#divDescription = new InputText('설명');
     this.#divLink = new InputText('참조 링크');
     this.#modalForm = document.createElement('form');
-    this.#bindEvent();
-    return this.#createAddModal();
-  }
+  };
 
   #createButton = () => {
     const divButton = document.createElement('div');
@@ -44,6 +48,14 @@ class AddRestaurantModal extends Modal {
     return divButton;
   };
 
+  #appendChildToModalForm = () => {
+    this.#modalForm.appendChild(this.#divCategory);
+    this.#modalForm.appendChild(this.#divName);
+    this.#modalForm.appendChild(this.#divDistance);
+    this.#modalForm.appendChild(this.#divDescription);
+    this.#modalForm.appendChild(this.#divLink);
+  };
+
   #createAddModal = () => {
     const modalTitle = document.createElement('h2');
     modalTitle.classList.add('modal-title');
@@ -51,42 +63,34 @@ class AddRestaurantModal extends Modal {
     modalTitle.innerText = '새로운 음식점';
     this.addElement(modalTitle);
 
-    this.#modalForm.appendChild(this.#divCategory);
-    this.#modalForm.appendChild(this.#divName);
-    this.#modalForm.appendChild(this.#divDistance);
-    this.#modalForm.appendChild(this.#divDescription);
-    this.#modalForm.appendChild(this.#divLink);
-
+    this.#appendChildToModalForm();
     this.addElement(this.#modalForm);
 
     const divButton = this.#createButton();
     this.addElement(divButton);
   };
 
-  #submitHandler = () => {
-    this.#modalForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const formData = new FormData();
-      const inputPurchasePrice = Number(formData.get('purchase-input'));
-      purchasePrice = inputPurchasePrice;
-    });
+  #addHandler = () => {
+    const testData = Object.fromEntries(new FormData(this.#modalForm));
+    const newRestaurant = new Restaurant(testData.name, testData.distance, testData.description, testData.category);
+    const newRestaurantItem = new RestaurantItem(newRestaurant);
+    DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
+  };
+
+  #removeModal = () => {
+    const modal = document.querySelector('.modal');
+    modal.remove();
   };
 
   #bindEvent = () => {
     this.#addButton.addEventListener('click', (event) => {
       event.preventDefault();
-      const testData = Object.fromEntries(new FormData(this.#modalForm));
-
-      const newRestaurant = new Restaurant(testData.name, testData.distance, testData.description, testData.category);
-      const newRestaurantItem = new RestaurantItem(newRestaurant);
-      DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
-      const modal = document.querySelector('.modal');
-      modal.remove();
+      this.#addHandler();
+      this.#removeModal();
     });
 
     this.#cancelButton.addEventListener('click', () => {
-      const modal = document.querySelector('.modal');
-      modal.remove();
+      this.#removeModal();
     });
   };
 }
