@@ -2,7 +2,7 @@ import { DOM } from './dom.js';
 import { RestaurantList } from './RestaurantList.js';
 import Header from './components/Header.js';
 import RestaurantItem from './components/RestaurantItem.js';
-import Modal from './components/Modal.js';
+import AddRestaurantModal from './modal/AddRestaurantModal.js';
 
 new Header();
 
@@ -15,5 +15,4 @@ const createRestaurantList = (restaurantList) => {
 
 createRestaurantList(RestaurantList);
 
-const modal = new Modal();
-DOM.APP.appendChild(modal);
+new AddRestaurantModal();
