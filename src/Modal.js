@@ -1,4 +1,6 @@
 import Component from "./Component.js";
+import Dropdown from "./Dropdown.js";
+import { categoryValue } from "./optionValue.js";
 class Modal extends Component {
   constructor($target) {
     super($target);
@@ -10,17 +12,7 @@ class Modal extends Component {
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form>
 
-        <div class="form-item form-item--required">
-          <label for="category text-caption">카테고리</label>
-          <select name="category" id="category" required>
-            <option value="">선택해 주세요</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
-            <option value="일식">일식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="기타">기타</option>
-          </select>
+        <div id="category" class="form-item form-item--required">
         </div>
 
         <div class="form-item form-item--required">
@@ -28,7 +20,7 @@ class Modal extends Component {
           <input type="text" name="name" id="name" required>
         </div>
 
-        <div class="form-item form-item--required">
+        <div id="distance" class="form-item form-item--required">
           <label for="distance text-caption">거리(도보 이동 시간) </label>
           <select name="distance" id="distance" required>
             <option value="">선택해 주세요</option>
@@ -59,6 +51,12 @@ class Modal extends Component {
       </form>
     </div>
     `;
+  }
+
+  render() {
+    this.$target.innerHTML = this.template();
+    this.setEvent();
+    new Dropdown(document.getElementById("category"), categoryValue);
   }
 
   setEvent() {
