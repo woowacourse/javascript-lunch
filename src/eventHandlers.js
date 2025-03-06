@@ -10,6 +10,16 @@ function openModal() {
   });
 }
 
+function closeModal() {
+  const closeButton = document.querySelector('.button--secondary');
+
+  closeButton.addEventListener('click', () => {
+    const modal = document.querySelector('.modal');
+
+    modal.classList.remove('modal--open');
+  });
+}
+
 function readNewRestaurant(addNewRestaurantItem) {
   const form = document.querySelector('#new-restaurant-form');
 
@@ -29,6 +39,7 @@ function readNewRestaurant(addNewRestaurantItem) {
 
 const eventHandlers = {
   openModal,
+  closeModal,
   readNewRestaurant,
 };
 
