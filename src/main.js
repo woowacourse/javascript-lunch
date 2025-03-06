@@ -7,7 +7,7 @@ addEventListener("load", () => {
   const $headerContainer = document.querySelector(".gnb");
   Header($headerContainer);
   const $restaurantListContainer = document.querySelector(
-    ".restaurant-list-container",
+    ".restaurant-list-container"
   );
   RestaurantList($restaurantListContainer);
 
@@ -38,8 +38,9 @@ addEventListener("load", () => {
       const $distance = document.getElementById("distance");
       const $description = document.getElementById("description");
 
+      //rawDate
       const categoryValue = $category.value || "기타";
-      const nameValue = $name.value;
+      const nameValue = $name.value.trim();
       const distanceValue = $distance.value;
       const descriptionValue = $description.value;
 
