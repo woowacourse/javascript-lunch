@@ -16,18 +16,16 @@ export default class TextArea extends Component {
 
   setEvent() {
     if (!this.props) return;
-    const { onInput, id } = this.props;
-    const textAreaContainer = document.querySelector(`#${id}`);
-    if (textAreaContainer) {
-      textAreaContainer.addEventListener("input", (e) => {
-        e.preventDefault();
-        onInput(e);
-      });
-    }
+    document.addEventListener("input", (e) => {
+      if (e.target.id === this.props.id) {
+        this.props.onInput(e.target.value);
+      }
+    });
   }
 
   template() {
-    const { placeHolder, maxLength, rows, classList, styles, id } = this.props;
+    const { rows, maxLength, placeHolder, classList, styles, id } = this.props;
+
     return `
       <textarea 
         autofocus
