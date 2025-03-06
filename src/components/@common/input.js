@@ -5,7 +5,7 @@ const input = (props) => {
 
   return `
         <label for="${id} text-caption">${labelText}</label>
-        <input type="text" name=${id} id=${id} ${required} />
+        <input type="text" name=${id} id=${id} ${required} maxLength='20' />
         <span class="help-text text-caption">${spanText}</span>
     `;
 };

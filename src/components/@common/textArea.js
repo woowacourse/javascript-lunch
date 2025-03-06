@@ -18,8 +18,8 @@ const textArea = (props) => {
     cols=${cols}
     rows=${rows}
     ${required}
-    >    
-    </textarea>
+    maxLength= "1000"
+    ></textarea>
     <span class="help-text text-caption">${spanText}</span>
     `;
 };

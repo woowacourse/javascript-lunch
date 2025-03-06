@@ -31,12 +31,6 @@ const buttonHandler = (event) => {
 
   restaurants.push(newRestaurant);
 
-  $category.value = "";
-  $name.value = "";
-  $distance.value = "";
-  $description.value = "";
-  $link.value = "";
-
   const $restaurantModal = $("#restaurant-modal");
   $restaurantModal.classList.remove("modal--open");
 
