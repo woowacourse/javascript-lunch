@@ -1,10 +1,10 @@
 export const categoryValue = {
-  한식: "한식",
-  중식: "중식",
-  일식: "일식",
-  양식: "양식",
-  아시안: "아시안",
-  기타: "기타",
+  korean: "한식",
+  chinese: "중식",
+  japanese: "일식",
+  western: "양식",
+  asian: "아시안",
+  etc: "기타",
 };
 export const distanceValue = {
   5: "5분 내",
