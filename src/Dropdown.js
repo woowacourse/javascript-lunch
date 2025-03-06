@@ -1,13 +1,13 @@
 import Component from "./Component.js";
-
+import { label } from "./optionValue.js";
 class Dropdown extends Component {
   constructor($target, props) {
     super($target, props);
   }
   template() {
     return `
-              <label for="category text-caption">카테고리</label>
-    <select name="category" id="categoryOption" required>
+          <label for="${this.$target.getAttribute("id")} text-caption">${label[this.$target.getAttribute("id")]}</label>
+    <select name="${this.$target}" class="option" required>
                   <option value="">선택해 주세요</option>
             </select>
             `;
@@ -20,14 +20,12 @@ class Dropdown extends Component {
   }
 
   updateOptions() {
-    const categoryValue = this.props;
-    const categoryHTML = categoryValue
-      .map((data) => {
-        return `<option value=${data}>${data}</option>`;
-      })
-      .join("");
-
-    document.getElementById("categoryOption").innerHTML += categoryHTML;
+    const optionValue = this.props;
+    for (const [key, value] of Object.entries(optionValue)) {
+      this.$target.querySelector(".option").innerHTML +=
+        `<option value="${key}">${value}</option>
+`;
+    }
   }
 }
 
