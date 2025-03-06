@@ -5,11 +5,9 @@ import Button from "./components/button.js";
 import optionInput from "./components/optionInput.js";
 import textInput from "./components/textInput.js";
 import textArea from "./components/textArea.js";
-
-const options = {
-  category: ["한식", "중식", "일식", "양식", "아시안", "기타"],
-  distance: ["5", "10", "15", "20", "25", "30"],
-};
+import options from "./constants/options.js";
+import helpText from "./constants/helpText.js";
+import { modal } from "./utils/uitlsUI.js";
 
 addEventListener("load", () => {
   storeList.forEach((store) => {
@@ -22,25 +20,11 @@ addEventListener("load", () => {
 
   querySelector.modalForm().addEventListener("submit", (e) => updateStore(e));
 
-  querySelector
-    .modalForm()
-    .appendChild(optionInput("category", options.category));
-  querySelector.modalForm().appendChild(textInput("name", true));
-  querySelector
-    .modalForm()
-    .appendChild(optionInput("distance", options.distance));
-  querySelector
-    .modalForm()
-    .appendChild(textArea("description", "메뉴 등 추가 정보를 입력해 주세요."));
-  querySelector
-    .modalForm()
-    .appendChild(
-      textInput(
-        "link",
-        false,
-        "매장 정보를 확인할 수 있는 링크를 입력해 주세요."
-      )
-    );
+  modal.addChild(optionInput("category", options.category));
+  modal.addChild(textInput("name", true));
+  modal.addChild(optionInput("distance", options.distance));
+  modal.addChild(textArea("description", helpText.description));
+  modal.addChild(textInput("link", false, helpText.link));
 
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("button-container");
