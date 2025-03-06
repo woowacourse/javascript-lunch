@@ -10,6 +10,8 @@ import InputField from "./common/inputField";
 import Select from "./common/select";
 import Input from "./common/input";
 import Button from "./common/button";
+import ModalContent from "./common/modal";
+import Modal from "./common/modal";
 
 const restaurantList = [...mockRestaurants];
 
@@ -23,49 +25,56 @@ const renderRestaurants = (restaurantList) => {
 addEventListener("load", () => {
   $("#app").prepend(header());
   renderRestaurants(restaurantList);
-  $("#register-form").appendChild(
-    InputField("category", Select("category", true, Object.keys(FOOD_CATEGORY)))
-  );
-  $("#register-form").appendChild(InputField("name", Input("name", true)));
-  $("#register-form").appendChild(
-    InputField(
-      "category",
-      Select("distance", true, Object.keys(WALK_TIME_MINUTES))
-    )
-  );
-  $("#register-form").appendChild(
-    InputField("description", Input("description"))
-  );
-  $("#register-form").appendChild(InputField("link", Input("link")));
 
-  const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("button-container");
+  const h2 = document.createElement("h2");
+  h2.classList.add("modal-title", "text-title");
+  h2.textContent = "새로운 음식점";
 
-  $("#register-form").appendChild(buttonContainer);
-  buttonContainer.appendChild(
-    Button({
-      text: "취소하기",
-      style: "button--secondary",
-      onClick: () => $(".modal-backdrop").classList.remove("open"),
-      type: "button",
-      id: "cancel-button",
-    })
-  );
-  buttonContainer.appendChild(
-    Button({
-      text: "추가하기",
-      style: "button--primary",
-      onClick: (e) => {
-        e.preventDefault();
-        const restaurant = new Restaurant(getInfo());
-        restaurantList.push(restaurant);
+  $("main").appendChild(Modal(h2));
 
-        $(".modal-backdrop").classList.remove("open");
-        renderRestaurants(restaurantList);
-      },
-      id: "register-button",
-    })
-  );
+  // $("#register-form").appendChild(
+  //   InputField("category", Select("category", true, Object.keys(FOOD_CATEGORY)))
+  // );
+  // $("#register-form").appendChild(InputField("name", Input("name", true)));
+  // $("#register-form").appendChild(
+  //   InputField(
+  //     "category",
+  //     Select("distance", true, Object.keys(WALK_TIME_MINUTES))
+  //   )
+  // );
+  // $("#register-form").appendChild(
+  //   InputField("description", Input("description"))
+  // );
+  // $("#register-form").appendChild(InputField("link", Input("link")));
+
+  // const buttonContainer = document.createElement("div");
+  // buttonContainer.classList.add("button-container");
+
+  // $("#register-form").appendChild(buttonContainer);
+  // buttonContainer.appendChild(
+  //   Button({
+  //     text: "취소하기",
+  //     style: "button--secondary",
+  //     onClick: () => $(".modal-backdrop").classList.remove("open"),
+  //     type: "button",
+  //     id: "cancel-button",
+  //   })
+  // );
+  // buttonContainer.appendChild(
+  //   Button({
+  //     text: "추가하기",
+  //     style: "button--primary",
+  //     onClick: (e) => {
+  //       e.preventDefault();
+  //       const restaurant = new Restaurant(getInfo());
+  //       restaurantList.push(restaurant);
+
+  //       $(".modal-backdrop").classList.remove("open");
+  //       renderRestaurants(restaurantList);
+  //     },
+  //     id: "register-button",
+  //   })
+  // );
 
   $(".modal-backdrop").addEventListener("click", (e) => {
     if (e.target.classList.contains("modal-backdrop")) {
