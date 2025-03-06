@@ -42,6 +42,9 @@
   height: 40px;
 }
 
+.min-h-44 {
+  min-height: 44px;
+}
 .rounded-lg {
   border-radius: 8px;
 }
