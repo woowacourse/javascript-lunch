@@ -1,17 +1,15 @@
-import Restaurant from "./components/Restaurant.js";
-import RestaurantModal from "./components/RestaurantModal.js";
-import Modal from "./components/Modal.js";
+import Restaurant from "./components/restaurant/Restaurant.js";
+import RestaurantModal from "./components/modal/RestaurantModal.js";
+import Modal from "./components/util/Modal.js";
 
 window.addEventListener("load", () => {
   init();
   const $button = document.querySelector(".gnb__button");
   $button.addEventListener("click", () => {
-    const $modal = document.querySelector(".modal");
-    $modal?.classList.add("modal--open");
+    Modal(RestaurantModal);
   });
 });
 
 function init() {
   Restaurant();
-  Modal(RestaurantModal);
 }
