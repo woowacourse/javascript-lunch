@@ -43,3 +43,5 @@ export const LIST_ITEM_CONTENTS = [
     description: "멕시칸 캐주얼 그릴.",
   },
 ];
+
+export const SELECT_CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
