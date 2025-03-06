@@ -78,11 +78,6 @@ class AddRestaurantModal extends Modal {
     DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
   };
 
-  #removeModal = () => {
-    const modal = document.querySelector('.modal');
-    modal.remove();
-  };
-
   #validateInputs = () => {
     const testData = Object.fromEntries(new FormData(this.#modalForm));
     try {
@@ -102,12 +97,23 @@ class AddRestaurantModal extends Modal {
       event.preventDefault();
       if (this.#validateInputs()) {
         this.#addHandler();
-        this.#removeModal();
+        this.closeModal();
       }
     });
 
     this.#cancelButton.addEventListener('click', () => {
-      this.#removeModal();
+      this.closeModal();
+    });
+
+    document.querySelector('.modal-backdrop').addEventListener('click', () => {
+      this.closeModal();
+    });
+
+    document.addEventListener('keyup', (event) => {
+      if (event.key === 'Escape') {
+        this.closeModal();
+        const modalElement = document.querySelector('.modal');
+      }
     });
   };
 }
