@@ -1,4 +1,4 @@
-const Input = (name, required) => {
+const Input = (name, required = false) => {
   const input = document.createElement("input");
 
   input.setAttribute("type", "text");

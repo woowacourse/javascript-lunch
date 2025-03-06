@@ -10,17 +10,14 @@ const RegisterForm = (restaurantList) => {
   registerForm.setAttribute("id", "register-form");
 
   registerForm.appendChild(
-    InputField("category", Select("category", true, Object.keys(FOOD_CATEGORY)))
+    InputField(Select("category", true, Object.keys(FOOD_CATEGORY)))
   );
-  registerForm.appendChild(InputField("name", Input("name", true)));
+  registerForm.appendChild(InputField(Input("name", true)));
   registerForm.appendChild(
-    InputField(
-      "category",
-      Select("distance", true, Object.keys(WALK_TIME_MINUTES))
-    )
+    InputField(Select("distance", true, Object.keys(WALK_TIME_MINUTES)))
   );
-  registerForm.appendChild(InputField("description", Input("description")));
-  registerForm.appendChild(InputField("link", Input("link")));
+  registerForm.appendChild(InputField(Input("description")));
+  registerForm.appendChild(InputField(Input("link")));
 
   registerForm.appendChild(ButtonContainer(restaurantList));
 
