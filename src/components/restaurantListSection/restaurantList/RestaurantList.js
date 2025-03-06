@@ -2,8 +2,8 @@ import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
 import "./restaurantList.css";
 
 export default class RestaurantList {
-  constructor() {
-    this.itemsData = [];
+  constructor(restaurantList) {
+    this.restaurantList = restaurantList;
   }
 
   render() {
@@ -14,8 +14,8 @@ export default class RestaurantList {
     $list.className = "restaurant-list";
 
     $listSection.appendChild($list);
-    this.itemsData.forEach((data) =>
-      $list.appendChild(new RestaurantListItem(data).render())
+    this.restaurantList.forEach((restaurantInfo) =>
+      $list.appendChild(new RestaurantListItem(restaurantInfo).render())
     );
 
     return $listSection;

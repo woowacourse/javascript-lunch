@@ -13,6 +13,10 @@ import {
 } from "../../../constants/constants.js";
 
 export default class RestaurantForm {
+  constructor(addList) {
+    this.addList = addList;
+  }
+
   render() {
     const $form = document.createElement("form");
 
@@ -63,14 +67,22 @@ export default class RestaurantForm {
   #handleSubmit(e) {
     e.preventDefault();
 
-    const formData = this.#getFormData();
+    const formQuery = this.#getFormQuery();
 
-    this.#renderRestaurantItem(formData);
-    this.#resetFormData(formData);
+    const newRestaurantInfo = Object.entries(formQuery).reduce(
+      (acc, [key, query]) => {
+        acc[key] = query.value;
+        return acc;
+      },
+      {}
+    );
+
+    this.addList(newRestaurantInfo);
+    this.#resetFormData(formQuery);
     this.#closeModal();
   }
 
-  #getFormData() {
+  #getFormQuery() {
     const category = document.querySelector("#category");
     const name = document.querySelector("#name");
     const distance = document.querySelector("#distance");
@@ -78,19 +90,6 @@ export default class RestaurantForm {
     const link = document.querySelector("#link");
 
     return { category, name, distance, description, link };
-  }
-
-  #renderRestaurantItem({ category, name, distance, description, link }) {
-    const $restaurantItem = new RestaurantListItem({
-      category: category.value,
-      name: name.value,
-      distance: distance.value,
-      description: description.value,
-      link: link.value,
-    }).render();
-
-    const $restaurantList = document.querySelector(".restaurant-list");
-    $restaurantList.appendChild($restaurantItem);
   }
 
   #resetFormData({ category, name, distance, description, link }) {

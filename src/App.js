@@ -5,21 +5,35 @@ import RestaurantForm from "./components/restaurantFormSection/restaurantForm/Re
 
 export default class App {
   constructor() {
+    this.restaurantList = [];
     this.#initElement();
+  }
+
+  #addList = (newRestaurantInfo) => {
+    this.restaurantList = [...this.restaurantList, newRestaurantInfo];
+    this.#renderRestaurantList();
+  };
+
+  #renderRestaurantList() {
+    const $listContainer = document.querySelector(".restaurant-list-container");
+    this.$main.replaceChild(
+      new RestaurantList(this.restaurantList).render(),
+      $listContainer
+    );
   }
 
   #initElement() {
     const $body = document.querySelector("body");
     $body.appendChild(new Header().render());
 
-    const $main = document.createElement("main");
-    $body.appendChild($main);
+    this.$main = document.createElement("main");
+    $body.appendChild(this.$main);
 
-    $main.appendChild(new RestaurantList().render());
-    $main.appendChild(
+    this.$main.appendChild(new RestaurantList(this.restaurantList).render());
+    this.$main.appendChild(
       new BottomSheetBase({
         title: "새로운 음식점",
-        $children: new RestaurantForm().render(),
+        $children: new RestaurantForm(this.#addList).render(),
       }).render()
     );
   }
