@@ -6,7 +6,7 @@ function openModal() {
   gnbButton.addEventListener('click', () => {
     const modal = document.querySelector('.modal');
 
-    modal.classList.toggle('modal--open');
+    modal.classList.add('modal--open');
   });
 }
 
@@ -18,14 +18,22 @@ function closeModal() {
     const modal = document.querySelector('.modal');
 
     resetFormAndState();
-    modal.classList.toggle('modal--open');
+    modal.classList.remove('modal--open');
   });
 
   modalBackdrop.addEventListener('click', () => {
     const modal = document.querySelector('.modal');
 
     resetFormAndState();
-    modal.classList.toggle('modal--open');
+    modal.classList.remove('modal--open');
+  });
+
+  document.addEventListener('keydown', (event) => {
+    const modal = document.querySelector('.modal');
+    if (event.key === 'Escape' && modal.classList.contains('modal--open')) {
+      resetFormAndState();
+      modal.classList.remove('modal--open');
+    }
   });
 }
 
@@ -45,7 +53,7 @@ function readNewRestaurant(addNewRestaurantItem) {
     stateStore.updateState(newRestaurantData);
     addNewRestaurantItem();
     resetFormAndState();
-    modal.classList.toggle('modal--open');
+    modal.classList.remove('modal--open');
   });
 }
 
