@@ -12,13 +12,17 @@ export default class Header extends Component {
   }
 
   renderText() {
-    const text = new Text();
-    text.setProps({ content: this.props.title, classList: ["text-2xl"] });
+    const text = this.addChild(Text);
+    text.setProps({
+      content: this.props.title,
+      classList: ["text-2xl"],
+      id: "header-text",
+    });
     return text.template();
   }
 
   renderIcon() {
-    const icon = new Icon();
+    const icon = this.addChild(Icon);
     icon.setProps({
       iconName: this.props.iconName,
       id: "header-icon",
