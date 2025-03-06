@@ -1,5 +1,5 @@
-import restaurants from '../../public/data/restaurants.json';
-import createDOMElement from '../util/createDomElement.js';
+import restaurants from '../../../public/data/restaurants.json';
+import createDOMElement from '../../util/createDomElement.js';
 import RestaurantIcon from './RestaurantIcon.js';
 import RestaurantItem from './RestaurantItem.js';
 

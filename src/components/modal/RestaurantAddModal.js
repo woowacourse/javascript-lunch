@@ -1,6 +1,6 @@
-import createDOMElement from '../util/createDomElement.js';
-import Modal from './Modal.js';
-import RestaurantAddModalForm from './modal/RestaurantAddModalForm.js';
+import createDOMElement from '../../util/createDomElement.js';
+import Modal from '../Modal.js';
+import RestaurantAddModalForm from './RestaurantAddModalForm.js';
 
 function RestaurantAddModal() {
   return Modal({

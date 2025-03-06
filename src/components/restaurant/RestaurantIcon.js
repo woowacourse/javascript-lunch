@@ -1,4 +1,4 @@
-import createDOMElement from '../util/createDomElement.js';
+import createDOMElement from '../../util/createDomElement.js';
 
 function RestaurantIcon({ src, alt }) {
   return createDOMElement({

@@ -1,7 +1,7 @@
 import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../constant/selectOptions.js';
 import createDOMElement from '../../util/createDomElement.js';
-import ActionButton from '../ActionButton.js';
-import CTAButton from '../CTAButton.js';
+import ActionButton from '../button/ActionButton.js';
+import CTAButton from '../button/CTAButton.js';
 import { InputBox } from '../InputBox.js';
 
 function RestaurantAddModalForm() {

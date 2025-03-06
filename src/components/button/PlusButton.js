@@ -1,4 +1,4 @@
-import createDOMElement from '../util/createDomElement.js';
+import createDOMElement from '../../util/createDomElement.js';
 
 function PlusButton() {
   return createDOMElement({

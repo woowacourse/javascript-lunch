@@ -1,12 +1,9 @@
 import Header from './components/Header.js';
-import Modal from './components/Modal.js';
-import PlusButton from './components/PlusButton.js';
-import RestaurantAddModal from './components/RestaurantAddModal.js';
-import RestaurantIcon from './components/RestaurantIcon.js';
-import RestaurantItem from './components/RestaurantItem.js';
-import RestaurantList from './components/RestaurantList.js';
-import createDOMElement from './util/createDomElement.js';
-import { lockScroll, unlockScroll } from './util/scroll.js';
+import PlusButton from './components/button/PlusButton.js';
+import RestaurantAddModal from './components/modal/RestaurantAddModal.js';
+import RestaurantIcon from './components/restaurant/RestaurantIcon.js';
+import RestaurantItem from './components/restaurant/RestaurantItem.js';
+import RestaurantList from './components/restaurant/RestaurantList.js';
 import { $ } from './util/selector.js';
 
 addEventListener('load', () => {

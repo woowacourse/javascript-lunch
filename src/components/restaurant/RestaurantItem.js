@@ -1,4 +1,4 @@
-import createDOMElement from '../util/createDomElement.js';
+import createDOMElement from '../../util/createDomElement.js';
 
 function RestaurantItem({ name, distance, description, icon }) {
   return createDOMElement({
