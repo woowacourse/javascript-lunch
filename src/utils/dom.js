@@ -8,4 +8,5 @@ export const DOM = {
   $buttonContainer: $(".button-container"),
   $restaurantList: $(".restaurant-list"),
   $modalForm: $(".modal form"),
+  $modal: $(".modal"),
 };
