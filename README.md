@@ -105,10 +105,10 @@
   - [x] `input-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
     - [x] 동적 인자 ->`input`에 들어갈 타입 및 placeholder / label에 들어갈 이름
 
-- [ ] `textarea-form` (label + textarea.name + notice -> 묶고 있는 div)
+- [ ] `textarea-form` (textarea.name)
 
-  - [ ] (템플릿 코드 기반) `textarea-form` 태그를 바탕으로 테스트 작성
-  - [ ] (템플릿 코드 기반) `textarea`, `label`, `notice` 태그가 있는지 테스트 작성
+  - [x] (템플릿 코드 기반) `textarea-form` 태그를 바탕으로 테스트 작성
+  - [x] (템플릿 코드 기반) `textarea` 태그가 있는지 테스트 작성
   - [ ] (프로덕트 코드) `textarea-form` 태그 삭제 -> 테스트 실패
   - [ ] (테스트 실패를 성공시키기 위해) js를 이용해 동적으로 `textarea-form` 태그 제작 -> 테스트 성공
   - [ ] `textarea-form` 태그를 컴포넌트로 제작
