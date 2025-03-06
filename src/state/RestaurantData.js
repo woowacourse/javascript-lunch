@@ -1,3 +1,5 @@
+import categoryImage from "../constants/categoryImage";
+
 export default class RestaurantData {
   #id;
   #src;
@@ -8,17 +10,16 @@ export default class RestaurantData {
   #link;
   #category;
   constructor({
-    src,
-    alt,
+    id,
     name,
     distance,
     description = "",
     link = "",
     category = "",
   }) {
-    this.#id = crypto.randomUUID();
-    this.#src = src;
-    this.#alt = alt;
+    this.#id = id && crypto.randomUUID();
+    this.#src = categoryImage[category];
+    this.#alt = category;
     this.#name = name;
     this.#distance = distance;
     this.#description = description;
