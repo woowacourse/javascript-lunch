@@ -4,7 +4,7 @@ export default function RestaurantModalItem({
   isRequired,
   name,
   text,
-  element,
+  renderChild,
 }) {
   const $div = createElement({
     tag: "div",
@@ -18,7 +18,7 @@ export default function RestaurantModalItem({
   $label.textContent = text;
 
   $div.appendChild($label);
-  $div.appendChild(element());
+  $div.appendChild(renderChild());
 
   return $div;
 }
