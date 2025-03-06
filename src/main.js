@@ -74,10 +74,20 @@ const createRestaurantItem = ({
   const li = document.createElement("li");
   li.classList.add("restaurant");
 
-  const defaultImgSrc = imgSrc || "../images/default-category.png";
+  const imageSrcByRestaurantsCategory = {
+    한식: "./images/category-korean.png",
+    중식: "./images/category-chinese.png",
+    일식: "./images/category-japanese.png",
+    양식: "./images/category-western.png",
+    아시안: "./images/category-asian.png",
+    기타: "./images/category-etc.png",
+  };
+
+  const mappedImage = imageSrcByRestaurantsCategory[category];
+
   li.innerHTML = `
     <div class="restaurant__category">
-      <img src="${defaultImgSrc}" alt="${category}" class="category-icon" />
+      <img src="${mappedImage}" alt="${category}" class="category-icon" />
     </div>
     <div class="restaurant__info">
       <h3 class="restaurant__name text-subtitle">${name}</h3>
