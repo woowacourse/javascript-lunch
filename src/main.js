@@ -88,11 +88,11 @@ const descriptionTextarea = document.querySelector('textarea#description');
 const linkInput = document.querySelector('input#link');
 
 const restaurantInput = {
-  category: '',
-  name: '',
-  distance: '',
-  description: '',
-  link: '',
+  category: null,
+  name: null,
+  distance: null,
+  description: null,
+  link: null,
 };
 
 categorySelectBox.addEventListener('change', (event) => {
@@ -119,6 +119,12 @@ const $enrollForm = document.querySelector('form');
 
 $enrollForm.addEventListener('submit', (event) => {
   event.preventDefault();
+
+  if (!restaurantInput.category || !restaurantInput.name || !restaurantInput.distance) {
+    alert('카테고리, 이름, 거리 항목은 필수 입력입니다.');
+    return;
+  }
+
   restaurantInput.categoryImgSrc = `./category-${categoryImages[restaurantInput.category]}.png`;
   updateRestaurantList(restaurantInput);
   modal.classList.remove('modal--open');
