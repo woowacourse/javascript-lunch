@@ -60,9 +60,9 @@
 - [x] 드롭다운 : input-dropdown
   - [x] 카테고리 : category-dropdown
   - [x] 거리 : distance-dropdown
-- [ ] 입력 (이름, 링크) : input-short-text
-- [ ] 입력 (설명) : input-long-text
-- [ ] 입력 아래 설명 : input-descripttion
-- [ ] 입력 서브타이틀: input-title
+- [x] 입력 (이름, 링크) : input-short-text
+- [x] 입력 (설명) : input-long-text
+- [x] 입력 아래 설명 : input-descripttion
+- [x] 입력 서브타이틀: input-title
 
 # 프로젝트 구조
