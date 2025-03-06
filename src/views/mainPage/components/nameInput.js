@@ -1,5 +1,5 @@
-import input from "../components/@common/input";
-import { $ } from "../utils/domHelpers";
+import input from "../../../components/@common/input";
+import { $ } from "../../../utils/domHelpers";
 
 const nameInput = () => {
   const $inputContainer = $(".name-input");

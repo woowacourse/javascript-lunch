@@ -1,6 +1,6 @@
-import { $ } from "../utils/domHelpers.js";
-import restaurantItem from "../components/restaurantItem.js";
-import { restaurants } from "../constants/restaurantData.js";
+import { $ } from "../../../utils/domHelpers.js";
+import restaurantItem from "../../../components/restaurantItem.js";
+import { restaurants } from "../../../constants/restaurantData.js";
 
 const restaurantList = () => {
   const restaurantContainer = $(".restaurant-list");

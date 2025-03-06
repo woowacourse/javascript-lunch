@@ -1,5 +1,5 @@
-import { $ } from "../utils/domHelpers";
-import input from "../components/@common/input";
+import { $ } from "../../../utils/domHelpers";
+import input from "../../../components/@common/input";
 
 const linkInput = () => {
   const $linkInputContainer = $(".link-input");

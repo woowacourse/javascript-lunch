@@ -1,6 +1,6 @@
-import dropDown from "../components/@common/dropDown";
-import { distanceOptions } from "../constants/options";
-import { $ } from "../utils/domHelpers";
+import dropDown from "../../../components/@common/dropDown";
+import { distanceOptions } from "../../../constants/options";
+import { $ } from "../../../utils/domHelpers";
 
 const distanceSelect = () => {
   const $distanceSelectContainer = $(".distance-select");
