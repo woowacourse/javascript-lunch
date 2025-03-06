@@ -57,7 +57,9 @@
 
 ### 모달
 
-- [ ] 드롭다운 : input-dropdown
+- [x] 드롭다운 : input-dropdown
+  - [x] 카테고리 : category-dropdown
+  - [x] 거리 : distance-dropdown
 - [ ] 입력 (이름, 링크) : input-short-text
 - [ ] 입력 (설명) : input-long-text
 - [ ] 입력 아래 설명 : input-descripttion
