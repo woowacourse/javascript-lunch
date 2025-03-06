@@ -1,10 +1,11 @@
 import Component from "../../core/Component.js";
+import LunchForm from "../feature/LunchForm.js";
 
 export default class BottomSheet extends Component {
   setDefaultProps() {
     this.props = {
-      children: [],
       isOpen: false,
+      onAdd: () => {},
     };
   }
 
@@ -19,6 +20,12 @@ export default class BottomSheet extends Component {
     modalContainer.innerHTML = this.template(true);
 
     this.addModalEvents();
+
+    this.children.map((child) => {
+      child.setProps({
+        onAdd: this.props.onAdd,
+      });
+    });
   }
 
   close() {
@@ -38,52 +45,51 @@ export default class BottomSheet extends Component {
       });
     }
 
-    const cancelButton = document.getElementById("cancel-button");
+    const cancelButton = document.getElementById("cancelBtn");
     if (cancelButton) {
       cancelButton.addEventListener("click", () => {
         this.close();
+      });
+    }
+
+    const submitButton = document.getElementById("submitBtn");
+    if (submitButton) {
+      submitButton.addEventListener("click", () => {
+        this.children.map((child) => {
+          child.handleSubmit();
+          this.close();
+        });
       });
     }
   }
 
   template(isOpen = this.props.isOpen) {
     if (!isOpen) return "";
-    const { children } = this.props;
 
     return `
-     <div id="modal-open">
+      <div id="modal-open">
         <div 
           id="bottom-sheet-overlay"
           class="w-full h-full"
-          style="
-            position: fixed;
-            top: 0;
-            left: 0;                        
-            background-color: rgba(0, 0, 0, 0.5);
-          "
+          style="position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.5);"
         />
         <div
-          class="w-full flex justify-center" 
-          style="
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            height: 80%;      
-            z-index: 50;
-          "
+          class="w-full flex justify-center"
+          style="position: fixed; bottom: 0; left: 0; height: 80%; z-index: 50;"
         >
           <div 
-            class="bottom-sheet-content max-w-390 w-full flex flex-col bg-white overflow-y px-16"
-            style="
-              border-top-left-radius: 16px;
-              border-top-right-radius: 16px;
-              animation: slideUp 300ms ease-out forwards;
-            "
+            id="bottom-sheet-content"
+            class="relative max-w-390 w-full flex flex-col bg-white overflow-y px-16 box-border"
+            style="z-index: 50; border-top-left-radius: 16px; border-top-right-radius: 16px; animation: slideUp 300ms ease-out forwards;"
           >
-            ${children.template()}
+            ${this.children.map((child) => child.template()).join("")}
           </div>
         </div>
       </div>
     `;
+  }
+
+  render(props) {
+    super.render(props, "#modal");
   }
 }
