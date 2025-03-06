@@ -6,6 +6,17 @@ import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
 import { HEADER_CONTENTS, LIST_ITEM_CONTENTS, SELECT_CATEGORY, SELECT_DISTANCE } from "./contants.js";
 
+function TextareaForm(name) {
+  const textareaElement = document.createElement("textarea");
+
+  textareaElement.name = name;
+  textareaElement.id = name;
+  textareaElement.cols = 30;
+  textareaElement.rows = 5;
+
+  return textareaElement;
+}
+
 function renderContents() {
   const app = document.getElementById("app");
   const listContainerElement = app.querySelector(".restaurant-list-container");
@@ -17,6 +28,7 @@ function renderContents() {
   modalFormElement.appendChild(FormItem("카테고리", () => SelectForm(SELECT_CATEGORY)));
   modalFormElement.appendChild(FormItem("이름", () => InputForm("text", "name", true)));
   modalFormElement.appendChild(FormItem("거리(도보 이동 시간)", () => SelectForm(SELECT_DISTANCE)));
+  modalFormElement.appendChild(FormItem("설명", () => TextareaForm("description")));
 }
 
 renderContents();
