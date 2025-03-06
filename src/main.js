@@ -9,17 +9,9 @@ import { mockRestaurants } from "./mockRestaurant";
 import InputField from "./common/inputField";
 import Select from "./common/select";
 import Input from "./common/input";
+import Button from "./common/button";
 
 const restaurantList = [...mockRestaurants];
-
-$("#register-button").addEventListener("click", (e) => {
-  e.preventDefault();
-  const restaurant = new Restaurant(getInfo());
-  restaurantList.push(restaurant);
-
-  $(".modal-backdrop").classList.remove("open");
-  renderRestaurants(restaurantList);
-});
 
 const renderRestaurants = (restaurantList) => {
   const ulTag = $(".restaurant-list");
@@ -45,4 +37,36 @@ addEventListener("load", () => {
     InputField("description", Input("description"))
   );
   $("#register-form").appendChild(InputField("link", Input("link")));
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("button-container");
+
+  $("#register-form").appendChild(buttonContainer);
+  buttonContainer.appendChild(
+    Button({
+      text: "취소하기",
+      style: "button--secondary",
+      onClick: () => {},
+      type: "button",
+      id: "cancel-button",
+    })
+  );
+  buttonContainer.appendChild(
+    Button({
+      text: "추가하기",
+      style: "button--primary",
+      onClick: (e) => {
+        e.preventDefault();
+        const restaurant = new Restaurant(getInfo());
+        restaurantList.push(restaurant);
+
+        $(".modal-backdrop").classList.remove("open");
+        renderRestaurants(restaurantList);
+      },
+      id: "register-button",
+    })
+  );
 });
+{
+  /* <div class="button-container"> */
+}
