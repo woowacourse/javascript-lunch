@@ -2,6 +2,10 @@ import AddRestaurantModal from "./components/AddRestaurantModal.js";
 import Header from "./components/Header.js";
 import RestaurantItem from "./components/RestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
+import {
+  validateDescriptiontInput,
+  validateNameInput,
+} from "./validation/validator.js";
 
 addEventListener("load", () => {
   const $headerContainer = document.querySelector(".gnb");
@@ -41,9 +45,10 @@ addEventListener("load", () => {
       //rawDate
       const categoryValue = $category.value || "기타";
       const nameValue = $name.value.trim();
+      validateNameInput(nameValue);
       const distanceValue = $distance.value;
       const descriptionValue = $description.value;
-
+      validateDescriptiontInput(descriptionValue);
       const categoryCode = categoryMapping[categoryValue] || "etc";
 
       const inputValue = {

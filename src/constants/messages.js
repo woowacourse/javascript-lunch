@@ -1,0 +1,4 @@
+export const MESSAGES = Object.freeze({
+  MAXIMUM_NAME_LENGTH: 30,
+  MAXIMUM_DESCRIPTION_LENGTH: 1500,
+});
