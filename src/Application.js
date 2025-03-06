@@ -56,8 +56,6 @@ class Application extends Component {
   }
 
   template() {
-    console.log(this.state.restaurantList);
-
     return `
       ${new Header({ title: "오늘 뭐 먹지" }).template()}
       ${new RestaurantList({
