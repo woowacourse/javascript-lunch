@@ -5,7 +5,7 @@ export const foodItems = [
     name: "잇쇼우",
     distance: "10",
     description: "잇쇼우 최선을 다합니다",
-    link: "http://www.example.com",
+    link: "http://www.example.",
   },
   {
     imgSrc: "/category-japanese.png",
@@ -13,6 +13,5 @@ export const foodItems = [
     name: "잇쇼우",
     distance: "10",
     description: "잇쇼우 최선을 다합니다",
-    link: "http://www.example.com",
   },
 ];

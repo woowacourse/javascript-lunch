@@ -3,7 +3,7 @@ import {
   NAME_MAX_LENGTH,
   SELECT_OPTIONS,
 } from "../constants/constants.js";
-import { foodItems } from "../mock/foodItems.js";
+import { foodItems } from "../mock/mockItem.js";
 import { FoodListPage } from "../pages/FoodListPage.js";
 import { alertError } from "../util/alertError.js";
 import { computeImgSrcAlt } from "../util/computeImgSrcAlt.js";
