@@ -1,4 +1,3 @@
-import { isConstructorTypeNode } from "typescript";
 import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
 import "./restaurantList.css";
 
