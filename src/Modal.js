@@ -69,19 +69,32 @@ class Modal extends Component {
 
     return `
       <div class="modal modal--open hidden">
-          <div class="modal-backdrop"></div>
-          <div class="modal-container">
-            <h2 class="modal-title text-title">${this.props.modalTitle}</h2>
-            <form>
-              ${inputBoxList.map((input) => input.template()).join("")}
-              <div class="button-container">
-                ${cancelButton.template()}
-                ${addButtom.template()}
-              </div>
-            </form>
-          </div>
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+          <h2 class="modal-title text-title">${this.props.modalTitle}</h2>
+          <form>
+            ${inputBoxList.map((input) => input.template()).join("")}
+            <div class="button-container">
+              ${cancelButton.template()}
+              ${addButtom.template()}
+            </div>
+          </form>
         </div>
+      </div>
     `;
+  }
+
+  onRender() {
+    const $addRestaurantButton = document.querySelector(".gnb__button");
+    const $modal = this.element.querySelector(".modal");
+    const $modalCancelButton = this.element.querySelector("#modal-cancel");
+
+    $addRestaurantButton.addEventListener("click", function () {
+      $modal.classList.remove("hidden");
+    });
+    $modalCancelButton.addEventListener("click", function () {
+      $modal.classList.add("hidden");
+    });
   }
 }
 

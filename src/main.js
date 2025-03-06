@@ -12,21 +12,19 @@ addEventListener("load", () => {
   $app.appendChild(restaurantList.render());
 
   const modal = new Modal({ modalTitle: "새로운 음식점" });
-  $app.appendChild(modal.render());
+  $app.appendChild(modal.element);
+  // modal.onRender();
 
-  // 이벤트 리스너
+  //
 
-  const $addRestaurantButton = document.querySelector(".gnb__button");
-  const $modal = document.querySelector(".modal");
-  const $modalCancelButton = document.querySelector("#modal-cancel");
-
-  // $modal.classList.remove("hidden");
-
-  $addRestaurantButton.addEventListener("click", function () {
-    $modal.classList.remove("hidden");
-  });
-
-  $modalCancelButton.addEventListener("click", function () {
-    $modal.classList.add("hidden");
-  });
+  // const $addRestaurantButton = document.querySelector(".gnb__button");
+  // const $modal = document.querySelector(".modal");
+  // const $modalCancelButton = document.querySelector("#modal-cancel");
+  // console.log({ $addRestaurantButton, $modalCancelButton });
+  // $addRestaurantButton.addEventListener("click", function () {
+  //   $modal.classList.remove("hidden");
+  // });
+  // $modalCancelButton.addEventListener("click", function () {
+  //   $modal.classList.add("hidden");
+  // });
 });
