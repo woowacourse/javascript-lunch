@@ -88,18 +88,18 @@
 - [x] `select-form` (select.category)
 
   - [x] (템플릿 코드 기반) `select-form` 태그를 바탕으로 테스트 작성
-  - [x] (템플릿 코드 기반) `select`, `label`, `notice` 태그가 있는지 테스트 작성
+  - [x] (템플릿 코드 기반) `select`태그가 있는지 테스트 작성
   - [x] (프로덕트 코드) `select-form` 태그 삭제 -> 테스트 실패
   - [x] (테스트 실패를 성공시키기 위해) js를 이용해 동적으로 `select-form` 태그 제작 -> 테스트 성공
   - [x] `select-form` 태그를 컴포넌트로 제작
   - [x] `select-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
     - [x] 동적 인자 -> `select`에 들어갈 리스트들 / label에 들어갈 이름
 
-- [ ] `input-form` (label + input.name + notice(옵션) -> 묶고 있는 div)
+- [ ] `input-form` (input.name)
 
-  - [ ] (템플릿 코드 기반) `input-form` 태그를 바탕으로 테스트 작성
-  - [ ] (템플릿 코드 기반) `input`, `label`, `notice` 태그가 있는지 테스트 작성
-  - [ ] (프로덕트 코드) `input-form` 태그 삭제 -> 테스트 실패
+  - [x] (템플릿 코드 기반) `input-form` 태그를 바탕으로 테스트 작성
+  - [x] (템플릿 코드 기반) `input` 태그가 있는지 테스트 작성
+  - [x] (프로덕트 코드) `input-form` 태그 삭제 -> 테스트 실패
   - [ ] (테스트 실패를 성공시키기 위해) js를 이용해 동적으로 `input-form` 태그 제작 -> 테스트 성공
   - [ ] `input-form` 태그를 컴포넌트로 제작
   - [ ] `input-form` 컴포넌트 리팩토링 (동적 인자 전달/컴포넌트 이동 및 분리)
