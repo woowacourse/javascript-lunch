@@ -1,7 +1,15 @@
+export const CATEGORY = {
+  KOREAN: '한식',
+  CHINESE: '중식',
+  JAPANESE: '일식',
+  WESTERN: '양식',
+  ASIAN: '아시안',
+  ETC: '기타',
+};
+
 export const RESTAURANTS = [
   {
-    imageSource: '/category-korean.png',
-    imageAlt: '한식',
+    category: `${CATEGORY.KOREAN}`,
     name: '피양콩할마니',
     distance: 10,
     description:
@@ -9,16 +17,14 @@ export const RESTAURANTS = [
     link: '',
   },
   {
-    imageSource: '/category-chinese.png',
-    imageAlt: '중식',
+    category: `${CATEGORY.CHINESE}`,
     name: '친친',
     distance: 5,
     description: 'Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다',
     link: '',
   },
   {
-    imageSource: '/category-japanese.png',
-    imageAlt: '일식',
+    category: `${CATEGORY.JAPANESE}`,
     name: '잇쇼우',
     distance: 10,
     description:
@@ -26,27 +32,33 @@ export const RESTAURANTS = [
     link: '',
   },
   {
-    imageSource: '/category-western.png',
-    imageAlt: '양식',
+    category: `${CATEGORY.WESTERN}`,
     name: '이태리키친',
     distance: 20,
     description: '늘 변화를 추구하는 이태리키친입니다.',
     link: '',
   },
   {
-    imageSource: '/category-asian.png',
-    imageAlt: '아시안',
+    category: `${CATEGORY.ASIAN}`,
     name: '호아빈 삼성점',
     distance: 15,
     description: '푸짐한 양에 국물이 일품인 쌀국수',
     link: '',
   },
   {
-    imageSource: '/category-etc.png',
-    imageAlt: '기타',
+    category: `${CATEGORY.ETC}`,
     name: '도스타코스 선릉점',
     distance: 5,
     description: '멕시칸 캐주얼 그릴',
     link: '',
   },
 ];
+
+export const IMAGE = new Map([
+  ['한식', '/category-korean.png'],
+  ['중식', '/category-chinese.png'],
+  ['일식', '/category-japanese.png'],
+  ['양식', '/category-western.png'],
+  ['아시안', '/category-asian.png'],
+  ['기타', '/category-etc.png'],
+]);

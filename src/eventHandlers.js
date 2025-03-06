@@ -10,7 +10,7 @@ function openModal() {
   });
 }
 
-function readNewRestaurant() {
+function readNewRestaurant(addNewRestaurantItem) {
   const form = document.querySelector('#new-restaurant-form');
 
   form.addEventListener('submit', (event) => {
@@ -23,6 +23,7 @@ function readNewRestaurant() {
       link: document.querySelector('#link').value,
     };
     stateStore.updateState(newRestaurantData);
+    addNewRestaurantItem();
   });
 }
 
