@@ -8,6 +8,7 @@ import restaurantCard from "./components/restaurantCard";
 import { mockRestaurants } from "./mockRestaurant";
 import InputField from "./common/inputField";
 import Select from "./common/select";
+import Input from "./common/input";
 
 const restaurantList = [...mockRestaurants];
 
@@ -33,4 +34,15 @@ addEventListener("load", () => {
   $("#register-form").appendChild(
     InputField("category", Select("category", true, Object.keys(FOOD_CATEGORY)))
   );
+  $("#register-form").appendChild(InputField("name", Input("name", true)));
+  $("#register-form").appendChild(
+    InputField(
+      "category",
+      Select("distance", true, Object.keys(WALK_TIME_MINUTES))
+    )
+  );
+  $("#register-form").appendChild(
+    InputField("description", Input("description"))
+  );
+  $("#register-form").appendChild(InputField("link", Input("link")));
 });
