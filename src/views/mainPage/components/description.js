@@ -11,12 +11,6 @@ const description = () => {
     }
   });
 
-  $descriptionContainer.addEventListener("change", (event) => {
-    if (event.target.value.trim().length === 0) {
-      alert(ERROR.INVALID_EMPTY_INPUT);
-    }
-  });
-
   $descriptionContainer.innerHTML = `
   ${textArea({
     labelText: "설명",

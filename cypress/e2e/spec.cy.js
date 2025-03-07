@@ -1,3 +1,5 @@
+import { ERROR } from "../../src/constants/messages";
+
 context("공통 설정", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
@@ -54,7 +56,25 @@ context("공통 설정", () => {
 
       cy.get("@alertSpy").should(
         "have.been.calledOnceWith",
-        "필수 입력 항목을 모두 작성해주세요."
+        ERROR.INVALID_INPUT_REQUIRED
+      );
+    });
+
+    it("이름 입력값이 공백이면 alert가 작동한다", () => {
+      cy.get(".gnb__button > img").click();
+      cy.get("#category").select("한식");
+      cy.get("#distance").select("10");
+      cy.get("#name").type(" ");
+
+      cy.window().then((win) => {
+        cy.spy(win, "alert").as("alertSpy");
+      });
+
+      cy.get("#link").click();
+
+      cy.get("@alertSpy").should(
+        "have.been.calledOnceWith",
+        ERROR.INVALID_EMPTY_INPUT
       );
     });
   });
