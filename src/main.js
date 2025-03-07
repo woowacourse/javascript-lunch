@@ -1,13 +1,18 @@
 import { createHeader } from "./components/Header";
 import { createRestaurantItem } from "./components/RestaurantItem";
+import { createModal } from "./components/Modal";
 
 addEventListener("load", () => {
   const body = document.querySelector("body");
   const restaurantList = document.querySelector(".restaurant-list");
+  const main = document.querySelector("main");
 
   const header = createHeader({ title: "점심 뭐 먹지" });
   header.classList.add("gnb");
   body.prepend(header);
+
+  const modal = createModal();
+  main.append(modal);
 
   //////// 다음 컴포넌트
   restaurantList.append(
