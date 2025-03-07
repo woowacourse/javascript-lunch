@@ -1,23 +1,69 @@
-import image from "../templates/favorite-icon-filled.png";
-
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+import AddRestaurantModal from "./components/AddRestaurantModal.js";
+import Header from "./components/Header.js";
+import RestaurantItem from "./components/RestaurantItem.js";
+import RestaurantList from "./components/RestaurantList.js";
+import { categoryMapping } from "./utils/categoryMapping.js";
+import {
+  validateDescriptiontInput,
+  validateNameInput,
+  validateSelectInput,
+} from "./validation/validator.js";
 
 addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+  const $headerContainer = document.querySelector(".gnb");
+  Header($headerContainer);
+  const $restaurantListContainer = document.querySelector(
+    ".restaurant-list-container"
+  );
+  RestaurantList($restaurantListContainer);
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+  const $modalButton = document.getElementById("gnb-button");
+  const $appContainer = document.getElementById("app");
+
+  $modalButton.addEventListener("click", () => {
+    AddRestaurantModal($appContainer);
+
+    const $addRestaurantButton = document.querySelector(".button--primary");
+    $addRestaurantButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const $category = document.getElementById("category");
+      const $name = document.getElementById("name");
+      const $distance = document.getElementById("distance");
+      const $description = document.getElementById("description");
+
+      try {
+        const categoryValue = $category.value || "에러";
+        const nameValue = $name.value.trim();
+        validateNameInput(nameValue);
+        const distanceValue = $distance.value || "error_distance";
+        validateSelectInput(distanceValue);
+        const descriptionValue = $description.value;
+        validateDescriptiontInput(descriptionValue);
+        const categoryCode = categoryMapping[categoryValue];
+        validateSelectInput(categoryCode);
+
+        const inputValue = {
+          categoryCode,
+          nameValue,
+          distanceValue,
+          descriptionValue,
+        };
+
+        const $restaurantList = document.querySelector(".restaurant-list");
+
+        RestaurantItem($restaurantList, inputValue);
+      } catch (error) {
+        alert(error.message);
+      }
+      const $modal = document.querySelector(".modal");
+      $modal.remove();
+    });
+
+    const $closeModalButton = document.getElementById("close-modal");
+    $closeModalButton.addEventListener("click", () => {
+      const $modal = document.querySelector(".modal");
+      $modal.remove();
+    });
+  });
 });
