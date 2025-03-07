@@ -9,7 +9,7 @@ import render from "../utils/render.js";
 import { CATEGORY_ICON } from "../constants/constants.js";
 import { renderRestaurantList } from "../main.js";
 import state from "../state.js";
-import { Validator } from "../utils/validator.js";
+import { Validator } from "../utils/Validator.js";
 
 const AddLunchModalForm = {
   create() {
