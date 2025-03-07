@@ -1,22 +1,22 @@
-describe("정상적으로 음식점을 등록한다.", () => {
-  beforeEach(() => {
-    cy.visit("http://localhost:5173");
-    cy.viewport(1280, 720);
-  });
+import ERROR_MESSAGE from "../../src/constants/errorMessage";
 
-  it("정상적으로 음식점을 등록한다.", () => {
-    cy.get(".gnb__button").click();
-    cy.get(".modal-container").should("be.visible");
-    cy.get("#category").select("한식");
-    cy.get("#name").type("더휴");
-    cy.get("#distance").select("5분 내");
-    cy.get("#description").type("이집맛집임");
-    cy.get("#link").type("링크임");
+beforeEach(() => {
+  cy.visit("http://localhost:5173");
+  cy.viewport(1280, 720);
+});
 
-    cy.get(".button--primary").click();
-    cy.get(".modal-container").should("not.exist");
-    cy.get("body").contains("더휴");
-  });
+it("정상적으로 음식점을 등록한다.", () => {
+  cy.get(".gnb__button").click();
+  cy.get(".modal-container").should("be.visible");
+  cy.get("#category").select("한식");
+  cy.get("#name").type("더휴");
+  cy.get("#distance").select("5분 내");
+  cy.get("#description").type("이집맛집임");
+  cy.get("#link").type("링크임");
+
+  cy.get(".button--primary").click();
+  cy.get(".modal-container").should("not.exist");
+  cy.get("body").contains("더휴");
 });
 
 describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한다.", () => {
@@ -59,7 +59,7 @@ describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한
     cy.get("#distance").select("5분 내");
     cy.get(".button--primary").click();
     cy.on("window:alert", (text) => {
-      expect(text).to.equal("식당 이름은 2글자 이상 입력해 주세요");
+      expect(text).to.equal(ERROR_MESSAGE.name);
     });
   });
 });

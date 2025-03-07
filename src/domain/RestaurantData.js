@@ -1,3 +1,5 @@
+import ERROR_MASSAGE from "../constants/errorMessage.js";
+
 const categoryImage = Object.freeze({
   한식: "/public/category-korean.png",
   중식: "/public/category-chinese.png",
@@ -53,16 +55,14 @@ export default class RestaurantData {
   }
 
   validateCategory(category) {
-    if (this.isValidateOption(category))
-      throw Error("카테고리를 선택해 주세요");
+    if (this.isValidateOption(category)) throw Error(ERROR_MASSAGE.category);
   }
 
   validateDistance(distance) {
-    if (this.isValidateOption(distance)) throw Error("거리를 선택해 주세요");
+    if (this.isValidateOption(distance)) throw Error(ERROR_MASSAGE.distance);
   }
 
   validateName(name) {
-    if (this.isValidateName(name))
-      throw Error("식당 이름은 2글자 이상 입력해 주세요");
+    if (this.isValidateName(name)) throw Error(ERROR_MASSAGE.name);
   }
 }
