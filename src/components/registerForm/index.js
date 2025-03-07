@@ -16,7 +16,7 @@ const RegisterForm = (restaurantList) => {
   );
   registerForm.appendChild(InputField(Input("name", true)));
   registerForm.appendChild(
-    InputField(Select("distance", true, Object.keys(WALK_TIME_MINUTES)))
+    InputField(Select("distance", true, WALK_TIME_MINUTES))
   );
   registerForm.appendChild(
     InputField(TextArea("description"), INPUT_HELP_TEXT.DESCRIPTION)
