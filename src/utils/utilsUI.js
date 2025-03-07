@@ -27,6 +27,7 @@ export const modalUtils = {
     modalForm.appendChild(textInput("link", false, helpText.link));
 
     modalForm.appendChild(modalUtils.addButtons());
+    modalUtils.addFormCheck();
 
     querySelector("#cancel-button").addEventListener(
       "click",
@@ -41,6 +42,53 @@ export const modalUtils = {
     buttonContainer.appendChild(Button("add"));
 
     return buttonContainer;
+  },
+
+  addFormCheck: () => {
+    const nameInput = querySelector("#name");
+    const descInput = querySelector("#description");
+    const linkInput = querySelector("#link");
+
+    modalUtils.checkInput(nameInput, validate.nameLength);
+    modalUtils.checkInput(descInput, validate.descLength);
+    modalUtils.checkInput(linkInput, validate.linkForm);
+  },
+
+  checkInput: (input, validate) => {
+    const addButton = querySelector("#add-button");
+
+    input.addEventListener("input", (e) => {
+      try {
+        validate(e.target.value);
+        modalUtils.removeErrorText(input);
+        addButton.classList.remove("disabled-button");
+        addButton.disabled = false;
+      } catch (e) {
+        modalUtils.addErrorText(input, e);
+        addButton.classList.add("disabled-button");
+        addButton.disabled = true;
+      }
+    });
+  },
+
+  addErrorText: (input, e) => {
+    if (!input.classList.contains("form-item--error")) {
+      input.classList.add("form-item--error");
+      const parentNode = input.parentNode;
+      const errorText = document.createElement("span");
+      errorText.classList.add("error-text");
+      errorText.innerText = e.message;
+      parentNode.appendChild(errorText);
+    }
+  },
+
+  removeErrorText: (input) => {
+    if (input.parentNode.querySelector(".error-text")) {
+      input.classList.remove("form-item--error");
+      input.parentNode.removeChild(
+        input.parentNode.querySelector(".error-text")
+      );
+    }
   },
 };
 
