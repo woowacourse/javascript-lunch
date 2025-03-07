@@ -1,13 +1,12 @@
-import createRestaurantList from './components/RestaurantList/createRestaurantList.js';
-import createSectionContainer from './components/createSectionContainer.js';
+import { createRestaurantList, updateRestaurantList } from './components/RestaurantList.js';
+import createSectionContainer from './components/SectionContainer.js';
 import { CATEGORY_OPTIONS, DISTANCE_OPTIONS, RESTAURANT_ITEMS } from '../public/restaurantData.js';
-import createModal from './components/createModal.js';
-import createSelectBox from './components/createSelectBox.js';
-import createInputBox from './components/createInputBox.js';
-import createTextArea from './components/createTextArea.js';
-import createButton from './components/createButton.js';
+import createModal from './components/Modal.js';
+import createSelectBox from './components/SelectBox.js';
+import createInputBox from './components/InputBox.js';
+import createTextArea from './components/TextArea.js';
+import createButton from './components/Button.js';
 import createElement from './utils/createElement.js';
-import updateRestaurantList from './components/RestaurantList/updateRestaurantList.js';
 
 const $main = document.getElementsByTagName('main')[0];
 const $filterContainer = createSectionContainer('restaurant-list-container');
