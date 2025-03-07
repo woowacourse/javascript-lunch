@@ -3,7 +3,7 @@ describe("Test Group", () => {
     cy.visit("/");
   });
 
-  it("헤더 아이콘 클릭 시 바텀시트가 열린다.", () => {
+  it("헤더의 오른쪽에 위치한 햄버거 모양의 아이콘 클릭할 시, 음심점을 추가할 수 있는 form을 가진 바텀시트가 열린다.", () => {
     cy.get("#header-icon").click();
 
     cy.get("#bottom-sheet").within(() => {
