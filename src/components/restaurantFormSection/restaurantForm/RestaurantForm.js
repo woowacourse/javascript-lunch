@@ -1,6 +1,6 @@
 import Button from "../../common/button/Button.js";
 import LinkInput from "../linkInput/LinkInput.js";
-import RestaurantNameInput from "../restaurantNameInput/RestaurantNameInput.js";
+import NameInput from "../nameInput/NameInput.js";
 import DescriptionInput from "../descriptionInput/DescriptionInput.js";
 import RestaurantListItem from "../../restaurantListSection/restaurantListItem/RestaurantListItem.js";
 import CategorySelect from "../categorySelect/CategorySelect.js";
@@ -21,7 +21,7 @@ export default class RestaurantForm {
     const $form = document.createElement("form");
 
     const $categoryFormItem = new CategorySelect().render();
-    const $restaurantFormItem = new RestaurantNameInput().render();
+    const $nameFormItem = new NameInput().render();
     const $distanceFormItem = new DistanceSelect().render();
     const $descriptionFormItem = new DescriptionInput().render();
     const $linkFormItem = new LinkInput().render();
@@ -40,7 +40,7 @@ export default class RestaurantForm {
     }).render();
 
     $form.appendChild($categoryFormItem);
-    $form.appendChild($restaurantFormItem);
+    $form.appendChild($nameFormItem);
     $form.appendChild($distanceFormItem);
     $form.appendChild($descriptionFormItem);
     $form.appendChild($linkFormItem);
