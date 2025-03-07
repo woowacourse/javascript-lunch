@@ -25,18 +25,13 @@
 - 모달을 열고 모달을 overlay로 닫는 케이스
 - 모달을 열고 모달을 취소하기 버튼으로 닫는 케이스
 
-# 단위 테스트
+## 단위 테스트
 
 - 모달이 잘 열리는지
 - 모달이 overlay로 잘 닫히는지
 - 모달이 취소하기 버튼으로 잘 닫히는지
 
-# Component
-
-### css 스타일링
-
-- text
-- button
+### 기능 구현 목록
 
 ```ts
 
@@ -49,18 +44,7 @@ interface Restaurant {
 }
 
 interface data: Restaurant[]
-
-
-// 하나의 컴포넌트 단위
-- Container
-    - props: label, required, children
-    <Container label={label} required={true}>
-        <input value="" />
-        <hintText>
-    </Container>
 ```
-
-### 기능 구현 목록
 
 - [x] 헤더
 
