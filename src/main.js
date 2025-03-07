@@ -30,13 +30,29 @@ const MODAL_FORM = [
   },
 ];
 
+function Modal(innerComponents) {
+  const modalElement = document.createElement("div");
+  const modalBackdropElement = document.createElement("div");
+  const modalContainerElement = document.createElement("div");
+
+  modalElement.classList.add("modal");
+  modalBackdropElement.classList.add("modal-backdrop");
+  modalContainerElement.classList.add("modal-container");
+
+  innerComponents.forEach((component) => {
+    modalContainerElement.appendChild(component);
+  });
+  modalElement.appendChild(modalBackdropElement);
+  modalElement.appendChild(modalContainerElement);
+
+  return modalElement;
+}
+
 function renderContents() {
   const app = document.getElementById("app");
   const listContainerElement = app.querySelector(".restaurant-list-container");
-  const modalContainer = app.querySelector(".modal-container");
-
+  const mainElement = app.querySelector("main");
   const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS);
-
   const listElement = List(restaurantList.resaurants);
 
   app.prepend(Header(HEADER_CONTENTS));
@@ -70,9 +86,9 @@ function renderContents() {
     formElement.reset();
   });
 
-  modalContainer.appendChild(Title({ type: "modal", text: "새로운 음식점" }));
+  const titleElement = Title({ type: "modal", text: "새로운 음식점" });
 
-  modalContainer.appendChild(formElement);
+  mainElement.appendChild(Modal([titleElement, formElement]));
 }
 
 renderContents();
