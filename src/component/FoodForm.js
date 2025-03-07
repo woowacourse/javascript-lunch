@@ -10,11 +10,7 @@ import { computeImgSrcAlt } from "../util/computeImgSrcAlt.js";
 import { getInput } from "../util/getInput.js";
 import { removeError, resetError } from "../util/handleIsError.js";
 import { modalClose } from "../util/modalAction.js";
-import {
-  validateLength,
-  validateRequiredInput,
-  validateURL,
-} from "../validate/validateCondition.js";
+import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Alert } from "./Alert.js";
 import { Button } from "./Button.js";
 import { ButtonContainer } from "./ButtonContainer.js";
@@ -25,39 +21,7 @@ import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
 
-function validateFoodItem({ category, name, distance, description, link }) {
-  resetError();
-  try {
-    validateRequiredInput(category);
-    validateRequiredInput(name);
-    validateLength(name, NAME_MAX_LENGTH);
-    validateRequiredInput(distance);
-    validateLength(description, DESCRIPTION_MAX_LENGTH);
-    validateURL(link);
-  } catch (error) {
-    alertError(error.message);
-    return;
-  }
-  return {
-    category: getInput(category),
-    name: getInput(name),
-    distance: getInput(distance),
-    description: getInput(description),
-    link: getInput(link),
-  };
-}
-
 function addFoodItem() {
-  const foodInfo = handleSubmit();
-  if (!foodInfo) return;
-
-  const prevFoodItems = foodItems;
-  const foodList = FoodList({ foodItems: [...prevFoodItems, foodInfo] });
-
-  FoodListPage(foodList);
-}
-
-function handleSubmit() {
   const foodInfo = validateFoodItem({
     category: "category",
     name: "name",
@@ -65,16 +29,12 @@ function handleSubmit() {
     description: "description",
     link: "link",
   });
-
   if (!foodInfo) return;
 
-  return {
-    category: foodInfo.category,
-    name: foodInfo.name,
-    distance: foodInfo.distance,
-    description: foodInfo.description,
-    link: foodInfo.link,
-  };
+  const prevFoodItems = foodItems;
+  const foodList = FoodList({ foodItems: [...prevFoodItems, foodInfo] });
+
+  FoodListPage(foodList);
 }
 
 export function FoodForm() {
