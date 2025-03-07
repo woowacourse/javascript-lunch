@@ -30,10 +30,10 @@ export function ModalController(mainElement, { listElement, restaurantList }) {
   closeButtonElement.addEventListener("click", () => EventHandler.modalToggle(mainElement, formElement));
   modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(mainElement, formElement));
   formElement.addEventListener("submit", (event) => {
-    const values = formDataParsing(event);
+    const values = EventHandler.formDataParsing(event);
     const restaurant = restaurantList.addRestaurant(values);
     listElement.appendChild(ListItem(restaurant.information));
-    EventHandler.modalClose(mainElement, formElement);
+    EventHandler.modalToggle(mainElement, formElement);
   });
 
   mainElement.appendChild(modalElement);

@@ -3,8 +3,8 @@ import { HEADER_CONTENTS } from "../contants.js";
 import EventHandler from "./EventHandler.js";
 
 export function HeaderController(app) {
-  const modalButtonElement = app.querySelector("header button.gnb__button");
   app.prepend(Header(HEADER_CONTENTS));
+  const modalButtonElement = app.querySelector("header button.gnb__button");
   modalButtonElement.addEventListener("click", () => EventHandler.modalToggle(app));
 }
 
