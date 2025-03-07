@@ -103,7 +103,7 @@ class Modal extends Component {
       $modal.classList.add("hidden");
     });
     document.addEventListener("keydown", function () {
-      $modal.classList.add("hidden");
+      if (event.key === "Escape") $modal.classList.add("hidden");
     });
 
     const form = this.element.querySelector("form");
