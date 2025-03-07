@@ -1,6 +1,6 @@
 import ERROR_MASSAGE from "../constants/errorMessage.js";
 
-const categoryImage = Object.freeze({
+const CATEGORY_IMAGE = Object.freeze({
   한식: "/public/category-korean.png",
   중식: "/public/category-chinese.png",
   일식: "/public/category-japanese.png",
@@ -24,7 +24,7 @@ export default class RestaurantData {
     this.validateName(name);
 
     this.#id = id && crypto.randomUUID();
-    this.#src = categoryImage[category];
+    this.#src = CATEGORY_IMAGE[category];
     this.#alt = category;
     this.#name = name;
     this.#distance = distance;
@@ -47,7 +47,7 @@ export default class RestaurantData {
   }
 
   isValidateOption(value) {
-    return !!value;
+    return !value;
   }
 
   isValidateName(name) {
