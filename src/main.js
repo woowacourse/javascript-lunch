@@ -1,7 +1,8 @@
+import validateRestaurant from "./validateRestaurant.js";
 import { restaurantsData } from "./restaurantsData";
-import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "./constants/constants.js";
-import { validateRestaurant } from "./validateRestaurant.js";
 import { ERROR_MESSAGE } from "./constants/constants.js";
+import createHeader from "./components/Header.js";
+import createRestaurantItem from "./components/RestaurantItem.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
@@ -71,39 +72,3 @@ document.addEventListener("DOMContentLoaded", () => {
     addNewRestaurantModal.close();
   });
 });
-
-const createHeader = ({ title }) => {
-  const header = document.createElement("header");
-  header.innerHTML = `
-      <h1 class="gnb__title text-title">${title}</h1>
-      <button type="button" class="gnb__button" aria-label="음식점 추가">
-        <img src="images/add-button.png" alt="음식점 추가" />
-      </button>`;
-  header.classList.add("gnb");
-  return header;
-};
-
-const createRestaurantItem = ({
-  category,
-  name,
-  distance,
-  description,
-  imgSrc,
-}) => {
-  const li = document.createElement("li");
-  li.classList.add("restaurant");
-
-  const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category];
-
-  li.innerHTML = `
-    <div class="restaurant__category">
-      <img src="${mappedImage}" alt="${category}" class="category-icon" />
-    </div>
-    <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${name}</h3>
-      <span class="restaurant__distance text-body">${distance}</span>
-      <p class="restaurant__description text-body">${description}</p>
-    </div>
-  `;
-  return li;
-};

@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from "./constants/constants.js";
 
-export function validateRestaurant(newRestaurant, restaurantNames) {
+const validateRestaurant = (newRestaurant, restaurantNames) => {
   if (newRestaurant.name.length > 20) {
     return ERROR_MESSAGE.restaurantNameMaxLength;
   }
@@ -11,4 +11,6 @@ export function validateRestaurant(newRestaurant, restaurantNames) {
     return ERROR_MESSAGE.descriptionMaxLength;
   }
   return null;
-}
+};
+
+export default validateRestaurant;
