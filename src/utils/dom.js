@@ -21,3 +21,17 @@ export function createElementsFragment(elements) {
   fragment.append(...elements);
   return fragment;
 }
+
+export function elementCashController() {
+  const cash = new Map();
+
+  function getElement(selector) {
+    if (!cash.has(selector)) {
+      cash.set(selector, document.querySelector(selector));
+    }
+
+    return cash.get(selector);
+  }
+
+  return { getElement };
+}
