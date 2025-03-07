@@ -1,5 +1,8 @@
-/* 음식점 목록 *****************************************/
-
+@import url("global.css");
+@import url("header.css");
+@import url("modal.css");
+@import url("restaurantList.css");
+@import url("theme.css");
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
