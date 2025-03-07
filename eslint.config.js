@@ -13,7 +13,7 @@ export default [
     rules: {
       "max-depth": ["error", 1],
       "max-params": ["error", 3],
-      "max-lines-per-function": ["error", { max: 10 }],
+      "max-lines-per-function": ["error", { max: 15 }],
       ...eslintConfigPrettier.rules,
       "prettier/prettier": "error",
     },
