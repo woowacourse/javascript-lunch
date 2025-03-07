@@ -1,4 +1,4 @@
-import { convertStringToElement } from '../utils/convertStringToElement';
+import { convertStringToElement } from '../utils/convertStringToElement.js';
 
 const LABEL_TEMPLATE = (type, title) => {
   return `<label for="${type} text-caption">${title}</label>`;

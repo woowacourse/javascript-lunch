@@ -1,4 +1,4 @@
-import CATEGORY from '../constant/category';
+import CATEGORY from '../constant/category.js';
 
 const RESTAURANT_ICON = (src, alt) => {
   return `<img src=${src} alt=${alt} class="category-icon">`;

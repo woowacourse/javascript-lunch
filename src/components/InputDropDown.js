@@ -1,5 +1,5 @@
-import CATEGORY from '../constant/category';
-import { convertStringToElement } from '../utils/convertStringToElement';
+import CATEGORY from '../constant/category.js';
+import { convertStringToElement } from '../utils/convertStringToElement.js';
 const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
   return `
     <label for=${tag} class="text-caption">${title}</label>

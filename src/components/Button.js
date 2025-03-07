@@ -1,4 +1,4 @@
-import { convertStringToElement } from '../utils/convertStringToElement';
+import { convertStringToElement } from '../utils/convertStringToElement.js';
 
 const BUTTON_TEMPLATE = (className, buttonText) => {
   return `<button type="button" class="button ${className} text-caption">${buttonText}</button>`;
