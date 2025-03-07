@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test-unit": "jest --no-cache",
     "test-e2e": "cypress open",
     "deploy": "vite build --base=/javascript-lunch/ --minify=false && npx gh-pages -d dist"
   },
-  "homepage": "https://{username}.github.io/javascript-lunch",
+  "homepage": "https://guesung.github.io/javascript-lunch",
   "devDependencies": {
     "vite": "^6.1.0",
     "@types/cypress": "^0.1.6",
