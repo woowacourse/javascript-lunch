@@ -85,6 +85,11 @@ hr {
   border: 0;
 }
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("./public/font/Pretendard-Regular.woff2") format("woff2");
+}
+
 * {
   font-family: "Pretendard";
 }
