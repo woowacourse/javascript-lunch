@@ -1,23 +1,38 @@
-import image from "../templates/favorite-icon-filled.png";
+import createButton from "./components/button/button.js";
+import createDropdownBox from "./components/dropdown/dropdown.js";
+import createInputBox from "./components/input/input.js";
+import createRestaurantForm from "./components/restaurant/form/form.js";
+import createRestaurantItem from "./components/restaurant/item/item.js";
+import createTextAreaBox from "./components/textarea/textarea.js";
 
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+const app = document.querySelector("#app");
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+function bottomSheetController() {
+  let isFirstRender = false;
 
-  if (app) {
-    app.appendChild(buttonImage);
+  function handleBottomSheetToggle(event) {
+    const modal = document.querySelector(".modal");
+
+    if (event.target.closest(".restaurant-add-button")) {
+      modal.showModal();
+
+      if (!isFirstRender) {
+        const modalContainer = document.querySelector(".modal-container");
+        const restaurantFrom = createRestaurantForm();
+
+        modalContainer.appendChild(restaurantFrom);
+        isFirstRender = true;
+      }
+    }
+
+    if (event.target.closest(".modal-backdrop")) {
+      modal.close();
+    }
   }
-});
+
+  return { handleBottomSheetToggle };
+}
+
+const { handleBottomSheetToggle } = bottomSheetController();
+
+document.body.addEventListener("click", handleBottomSheetToggle);
