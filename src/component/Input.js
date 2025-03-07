@@ -6,13 +6,7 @@ function renderCaption(caption) {
     : "";
 }
 
-export function Input({
-  isRequired = false,
-  name,
-  label,
-  caption,
-  isError = false,
-}) {
+export function Input({ isRequired = false, name, label, caption }) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {

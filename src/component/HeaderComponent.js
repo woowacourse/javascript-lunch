@@ -1,3 +1,4 @@
+import { modalOpen } from "../util/modalAction.js";
 import { IconButton } from "./IconButton.js";
 
 export function HeaderComponent({ title = "제목" }) {
@@ -11,6 +12,7 @@ export function HeaderComponent({ title = "제목" }) {
     IconButton({
       imgSrc: "/add-button.png",
       label: "음식점 추가",
+      onClick: modalOpen,
     })
   );
 

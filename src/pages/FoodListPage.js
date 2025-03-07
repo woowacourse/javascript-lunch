@@ -6,9 +6,6 @@ import { foodItems } from "../mock/mockItem.js";
 import { modalClose, modalOpen } from "../util/modalAction.js";
 
 function init() {
-  document.querySelector(".gnb__button").addEventListener("click", () => {
-    modalOpen();
-  });
   document.querySelector(".modal-backdrop").addEventListener("click", () => {
     modalClose();
   });

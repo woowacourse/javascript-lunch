@@ -1,9 +1,4 @@
-export function TextareaInput({
-  isRequired = false,
-  label,
-  caption,
-  isError = false,
-}) {
+export function TextareaInput({ isRequired = false, label, caption }) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {
