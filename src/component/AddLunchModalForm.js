@@ -9,6 +9,7 @@ import render from "../utils/render.js";
 import { CATEGORY_ICON } from "../constants/constants.js";
 import { renderRestaurantList } from "../main.js";
 import state from "../state.js";
+import { Validator } from "../utils/validator.js";
 
 const AddLunchModalForm = {
   create() {
@@ -22,16 +23,24 @@ const AddLunchModalForm = {
       const { category, description, distance, link, name } =
         Object.fromEntries(formData.entries());
 
-      state.restaurantList.push({
-        src: CATEGORY_ICON[category],
-        name: name,
-        distance,
-        description,
-        label: category,
-      });
+      try {
+        Validator.name(name);
+        if (link !== "") Validator.link(link);
+        if (description !== "") Validator.description(description);
 
-      renderRestaurantList();
-      Modal.close();
+        state.restaurantList.push({
+          src: CATEGORY_ICON[category],
+          name: name,
+          distance,
+          description,
+          label: category,
+        });
+
+        renderRestaurantList();
+        Modal.close();
+      } catch (e) {
+        alert(e.message);
+      }
     });
 
     ModalFormElement.appendChild(
