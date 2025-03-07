@@ -1,6 +1,7 @@
 import { restaurants } from "../constants/restaurantData";
 import { $ } from "../utils/domHelpers";
 import restaurantList from "../views/mainPage/components/restaurantList";
+import { ERROR } from "../constants/messages";
 
 const buttonHandler = (event) => {
   event.preventDefault();
@@ -25,7 +26,7 @@ const buttonHandler = (event) => {
     !newRestaurant.title ||
     !newRestaurant.distance
   ) {
-    alert("필수 입력 항목을 모두 작성해주세요.");
+    alert(ERROR.INVALID_INPUT_REQUIRED);
     return;
   }
 

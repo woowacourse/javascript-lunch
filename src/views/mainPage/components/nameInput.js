@@ -1,5 +1,6 @@
 import input from "../../../components/@common/input";
 import { $ } from "../../../utils/domHelpers";
+import { ERROR } from "../../../constants/messages";
 
 const nameInput = () => {
   const $inputContainer = $(".name-input");
@@ -13,15 +14,14 @@ const nameInput = () => {
 `;
 
   $inputContainer.addEventListener("input", (event) => {
-    const inputValue = event.target.value;
-    if (inputValue.length > 20) {
-      alert("20자 이하로 입력해주세요.");
+    if (event.target.value.length > 20) {
+      alert(() => ERROR.INVALID_INPUT_LENGTH(20));
     }
   });
 
   $inputContainer.addEventListener("change", (event) => {
     if (event.target.value.trim() === "") {
-      alert("공백은 입력할 수 없습니다.");
+      alert(ERROR.INVALID_EMPTY_INPUT);
       event.target.value = "";
     }
   });

@@ -1,16 +1,19 @@
 import { $ } from "../../../utils/domHelpers";
 import textArea from "../../../components/@common/textArea";
+import { ERROR } from "../../../constants/messages";
 
 const description = () => {
   const $descriptionContainer = $(".description-area");
 
   $descriptionContainer.addEventListener("input", (event) => {
-    const inputValue = event.target.value;
-    if (inputValue > 1000) {
-      alert("1000자 이하로 입력해주세요.");
+    if (event.target.value > 1000) {
+      alert(() => ERROR.INVALID_INPUT_LENGTH(1000));
     }
-    if (inputValue.trim().length === 0) {
-      alert("공백은 입력할 수 없습니다.");
+  });
+
+  $descriptionContainer.addEventListener("change", (event) => {
+    if (event.target.value.trim().length === 0) {
+      alert(ERROR.INVALID_EMPTY_INPUT);
     }
   });
 

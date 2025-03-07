@@ -1,13 +1,14 @@
 import { $ } from "../../../utils/domHelpers";
 import input from "../../../components/@common/input";
+import { ERROR } from "../../../constants/messages";
 
 const linkInput = () => {
   const $linkInputContainer = $(".link-input");
 
   $linkInputContainer.addEventListener("input", (event) => {
     const inputValue = event.target.value;
-    if (inputValue.length > 1000) {
-      alert("1000자 이하로 입력해주세요.");
+    if (inputValue.length > 300) {
+      alert(() => ERROR.INVALID_INPUT_LENGTH(300));
     }
   });
 
