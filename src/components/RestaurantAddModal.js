@@ -1,7 +1,7 @@
 import Component from '../core/Component.js';
 import { InputBox, Button, Modal } from './index.js';
 
-class RestaurantAddModal extends Component {
+export default class RestaurantAddModal extends Component {
   template() {
     const inputBoxList = [
       new InputBox({
@@ -111,5 +111,3 @@ class RestaurantAddModal extends Component {
     });
   }
 }
-
-export default RestaurantAddModal;

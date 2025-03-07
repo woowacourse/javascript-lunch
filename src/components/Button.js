@@ -1,6 +1,6 @@
 import Component from '../core/Component.js';
 
-class Button extends Component {
+export default class Button extends Component {
   template() {
     return `
      <button
@@ -12,5 +12,3 @@ class Button extends Component {
     </button>`;
   }
 }
-
-export default Button;

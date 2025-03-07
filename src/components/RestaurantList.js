@@ -1,7 +1,7 @@
 import Restaurant from './Restaurant.js';
 import Component from '../core/Component.js';
 
-class RestaurantList extends Component {
+export default class RestaurantList extends Component {
   template() {
     return `
       <section class="restaurant-list-container">
@@ -12,5 +12,3 @@ class RestaurantList extends Component {
     `;
   }
 }
-
-export default RestaurantList;

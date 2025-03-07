@@ -1,4 +1,4 @@
-class Component {
+export default class Component {
   #element;
   state;
 
@@ -35,5 +35,3 @@ class Component {
     return this.#element;
   }
 }
-
-export default Component;

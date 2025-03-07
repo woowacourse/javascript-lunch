@@ -1,6 +1,6 @@
 import Component from '../core/Component.js';
 
-class InputBox extends Component {
+export default class InputBox extends Component {
   template() {
     return `
       <div class="form-item ${this.props?.isRequired ? 'form-item--required' : ''}">
@@ -11,5 +11,3 @@ class InputBox extends Component {
     `;
   }
 }
-
-export default InputBox;

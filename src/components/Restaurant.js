@@ -1,7 +1,7 @@
 import Component from '../core/Component.js';
 import { CATEGORY_MAP } from '../lib/constants.js';
 
-class Restaurant extends Component {
+export default class Restaurant extends Component {
   template() {
     return `
       <li class="restaurant">
@@ -24,5 +24,3 @@ class Restaurant extends Component {
     </li>`;
   }
 }
-
-export default Restaurant;

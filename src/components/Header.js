@@ -1,6 +1,6 @@
 import Component from '../core/Component.js';
 
-class Header extends Component {
+export default class Header extends Component {
   template() {
     return `
       <header class="gnb">
@@ -12,5 +12,3 @@ class Header extends Component {
     `;
   }
 }
-
-export default Header;

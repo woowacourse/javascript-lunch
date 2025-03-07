@@ -1,7 +1,7 @@
 import { Header, Restaurant, Modal, RestaurantList, RestaurantAddModal, InputBox, Button } from './components/index.js';
 import Component from './core/Component.js';
 
-class Application extends Component {
+export default class Application extends Component {
   constructor() {
     super();
   }
@@ -76,5 +76,3 @@ class Application extends Component {
     });
   }
 }
-
-export default Application;
