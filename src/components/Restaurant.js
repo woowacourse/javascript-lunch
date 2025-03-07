@@ -1,4 +1,5 @@
 import Component from '../core/Component.js';
+import { CATEGORY_MAP } from '../lib/constants.js';
 
 class Restaurant extends Component {
   constructor(props) {
@@ -6,12 +7,12 @@ class Restaurant extends Component {
   }
 
   template() {
-    return /* html */ `
+    return `
       <li class="restaurant">
       <div class="restaurant__category">
         <img
-          src="./public/images/category-korean.png"
-          alt=${this.props.category}
+          src="./public/images/category-${CATEGORY_MAP[this.props.category]}.png"
+          alt="${this.props.category}"
           class="category-icon"
         />
       </div>
