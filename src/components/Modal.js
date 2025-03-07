@@ -114,7 +114,7 @@ class Modal extends Component {
         imgUrl: `category-${FOOD_CATEGORY[$categoryInput.value]}.png`,
         category: $categoryInput.value,
         name: $name.value,
-        distance: $distance.value,
+        distance: `캠퍼스부터 ${$distance.value}분 내`,
         description: $description.value,
         link: $link.value,
       };
