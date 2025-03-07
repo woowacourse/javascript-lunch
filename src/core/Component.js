@@ -1,9 +1,10 @@
 class Component {
   #element;
   #state;
+  #props;
 
   constructor(props, parent) {
-    this.props = props;
+    this.#props = props;
     this.parent = parent;
     this.#state = {};
 
@@ -34,6 +35,10 @@ class Component {
 
   get element() {
     return this.#element;
+  }
+
+  get props() {
+    return this.#props;
   }
 
   get state() {
