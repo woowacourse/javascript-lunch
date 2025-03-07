@@ -87,8 +87,16 @@ function renderContents() {
   });
 
   const titleElement = Title({ type: "modal", text: "새로운 음식점" });
+  const modalElement = Modal([titleElement, formElement]);
 
-  mainElement.appendChild(Modal([titleElement, formElement]));
+  mainElement.appendChild(modalElement);
+
+  // 모달 백드랍 이벤트 등록
+  modalElement.querySelector(".modal-backdrop").addEventListener("click", () => {
+    // 모달 내려주기
+    app.querySelector(".modal").classList.remove("modal--open");
+    formElement.reset();
+  });
 }
 
 renderContents();
