@@ -5,7 +5,14 @@ const Category = () => {
   const name = "category";
   const required = true;
 
-  const options = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+  const options = Object.freeze([
+    "한식",
+    "중식",
+    "일식",
+    "양식",
+    "아시안",
+    "기타",
+  ]);
 
   const contents = /*html*/ `
     <select name="category" id="category" required data-testid="category">

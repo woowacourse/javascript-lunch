@@ -39,7 +39,7 @@ describe("음식점 정보 입력하는 모달에 대한 E2E 테스트", () => {
   });
 
   it("모달의 입력폼에 음식점 정보를 입력하지 않고 추가하기 버튼을 클릭하면 경고창이 뜬다.", () => {
-    cy.get('[data-testid="add-restaurant-form"]').click();
+    cy.get('[data-testid="add-restaurant-form"]').submit();
 
     // 경고창이 뜨는지 확인
     cy.get('[data-testid="category"]').then(($input) => {
