@@ -1,8 +1,16 @@
 import Component from "../../core/Component.js";
-import { match } from "../../utils/match.js";
 import CircleIcon from "../common/CircleIcon.js";
 import Icon from "../common/Icon.js";
 import Text from "../common/Text.js";
+
+const CATEGORY_IMAGE = {
+  한식: "category-korean",
+  중식: "category-chinese",
+  일식: "category-japanese",
+  아시안: "category-asian",
+  양식: "category-western",
+  기타: "category-etc",
+};
 
 export default class LunchItem extends Component {
   setDefaultProps() {
@@ -58,7 +66,7 @@ export default class LunchItem extends Component {
   renderCircleIcon() {
     const icon = this.addChild(CircleIcon);
     icon.setProps({
-      iconName: match(this.props.category),
+      iconName: CATEGORY_IMAGE[this.props.category],
       id: "category-item",
     });
 
