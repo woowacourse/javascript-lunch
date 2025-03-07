@@ -18,7 +18,7 @@ export default class Button extends Component {
   setEvent() {
     if (!this.props) return;
 
-    document.addEventListener("input", (e) => {
+    document.addEventListener("click", (e) => {
       if (e.target.closest(`#${this.props.id}`)) {
         this.props.onClick();
       }
