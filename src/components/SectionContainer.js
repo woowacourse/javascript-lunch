@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement.js';
 
-function createSectionContainer(className, children) {
+function createSectionContainer(className) {
   return createElement('section', className);
 }
 
