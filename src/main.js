@@ -8,6 +8,7 @@ import TextareaForm from "./components/Form/TextareaForm.js";
 import Header from "./components/Header.js";
 import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
+import Modal from "./components/Modal.js";
 import Title from "./components/Title.js";
 import {
   HEADER_CONTENTS,
@@ -29,24 +30,6 @@ const MODAL_FORM = [
     notice: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
   },
 ];
-
-function Modal(innerComponents) {
-  const modalElement = document.createElement("div");
-  const modalBackdropElement = document.createElement("div");
-  const modalContainerElement = document.createElement("div");
-
-  modalElement.classList.add("modal");
-  modalBackdropElement.classList.add("modal-backdrop");
-  modalContainerElement.classList.add("modal-container");
-
-  innerComponents.forEach((component) => {
-    modalContainerElement.appendChild(component);
-  });
-  modalElement.appendChild(modalBackdropElement);
-  modalElement.appendChild(modalContainerElement);
-
-  return modalElement;
-}
 
 function renderContents() {
   const app = document.getElementById("app");
