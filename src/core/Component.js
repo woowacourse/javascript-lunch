@@ -1,11 +1,11 @@
 class Component {
   #element;
-  state;
+  #state;
 
   constructor(props, parent) {
     this.props = props;
     this.parent = parent;
-    this.state = {};
+    this.#state = {};
 
     this.setup();
     this.render();
@@ -21,7 +21,7 @@ class Component {
   }
 
   setState(nextState) {
-    this.state = nextState;
+    this.#state = nextState;
 
     this.render();
   }
@@ -34,6 +34,10 @@ class Component {
 
   get element() {
     return this.#element;
+  }
+
+  get state() {
+    return this.#state;
   }
 }
 

@@ -12,7 +12,7 @@ class Application extends Component {
   }
 
   setup() {
-    this.state = {
+    this.setState({
       restaurantList: [
         {
           imgUrl: "category-korean.png",
@@ -60,7 +60,7 @@ class Application extends Component {
           description: "멕시칸 캐주얼 그릴",
         },
       ],
-    };
+    });
   }
 
   template() {
