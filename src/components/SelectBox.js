@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement.js';
 
-function createSelectBox({ options, isRequired, type }) {
+function createSelectBox({ options, isRequired, type, onChange }) {
   const selectBoxDiv = createElement('div', `form-item ${isRequired && 'form-item--required'}`);
   const categoryLabel = createElement(
     'label',
@@ -24,6 +24,10 @@ function createSelectBox({ options, isRequired, type }) {
 
   selectBox.appendChild(fragment);
   selectBoxDiv.append(categoryLabel, selectBox);
+
+  selectBox.addEventListener('change', (event) => {
+    onChange(event);
+  });
 
   return selectBoxDiv;
 }

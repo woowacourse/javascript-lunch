@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement.js';
 
-function createInputBox({ label, isRequired, type, helpText = '' }) {
+function createInputBox({ label, isRequired, type, helpText = '', onChange }) {
   const inputBoxDiv = createElement('div', `form-item ${isRequired && 'form-item--required'}`);
   const inputLabel = createElement('label', null, label, { for: `${type} text-caption` });
   const input = createElement('input', null, null, {
@@ -17,6 +17,10 @@ function createInputBox({ label, isRequired, type, helpText = '' }) {
   if (helpText !== '') {
     inputBoxDiv.appendChild(helpTextSpan);
   }
+
+  input.addEventListener('change', (event) => {
+    onChange(event);
+  });
 
   return inputBoxDiv;
 }
