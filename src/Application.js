@@ -1,4 +1,4 @@
-import { Header, Restaurant, Modal, RestaurantList } from './components/index.js';
+import { Header, Restaurant, Modal, RestaurantList, RestaurantAddModal, InputBox, Button } from './components/index.js';
 import Component from './core/Component.js';
 
 class Application extends Component {
@@ -61,19 +61,9 @@ class Application extends Component {
     `;
   }
 
-  addRestaurant(restaurant) {
-    this.setState({
-      ...this.state,
-      restaurantList: [...this.state.restaurantList, restaurant],
-    });
-  }
-
   onRender() {
-    const modal = new Modal({
-      modalTitle: '새로운 음식점',
-      addRestaurant: this.addRestaurant.bind(this),
-    });
-    this.element.appendChild(modal.element);
+    const restaurantAddModal = new RestaurantAddModal();
+    this.element.appendChild(restaurantAddModal.element);
 
     window.addEventListener('click', (event) => {
       const $modal = this.element.querySelector('.modal');
