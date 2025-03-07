@@ -39,6 +39,11 @@ function renderContents() {
   const listElement = List(restaurantList.resaurants);
 
   app.prepend(Header(HEADER_CONTENTS));
+
+  app.querySelector("header button.gnb__button").addEventListener("click", (event) => {
+    app.querySelector(".modal").classList.add("modal--open");
+  });
+
   listContainerElement.appendChild(listElement);
 
   const formElement = Form(MODAL_FORM);
@@ -61,6 +66,7 @@ function renderContents() {
 
     listElement.appendChild(ListItem(restaurant.information));
     app.querySelector(".modal").classList.remove("modal--open");
+    formElement.reset();
   });
 
   modalContainer.appendChild(formElement);
