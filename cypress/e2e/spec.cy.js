@@ -1,12 +1,13 @@
 describe("식당 목록", () => {
   it("첫 화면에서 식당 리스트가 보인다.", () => {
-    cy.visit("http://localhost:5174");
+    cy.visit("http://localhost:5173");
     cy.get(".restaurant-list");
   });
 });
+
 describe("식당 추가", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5174");
+    cy.visit("http://localhost:5173");
 
     cy.get(".gnb__button").click();
   });

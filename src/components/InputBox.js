@@ -1,4 +1,4 @@
-import Component from "./core/Component";
+import Component from "../core/Component";
 
 class InputBox extends Component {
   constructor(props) {

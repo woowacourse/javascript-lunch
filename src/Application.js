@@ -1,8 +1,10 @@
-import Header from "./Header";
-import Restaurant from "./Restaurant";
-import Modal from "./Modal";
-import RestaurantList from "./RestaurantList";
-import Component from "./core/Component";
+import {
+  Header,
+  Restaurant,
+  Modal,
+  RestaurantList,
+} from "./components/index.js";
+import Component from "./core/Component.js";
 
 class Application extends Component {
   constructor() {

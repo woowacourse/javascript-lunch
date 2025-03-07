@@ -1,5 +1,5 @@
 import Button from "./Button";
-import Component from "./core/Component";
+import Component from "../core/Component";
 import InputBox from "./InputBox";
 
 class Modal extends Component {
