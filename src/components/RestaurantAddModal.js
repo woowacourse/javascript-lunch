@@ -86,19 +86,8 @@ export default class RestaurantAddModal extends Component {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      const $categoryInput = this.element.querySelector('#category');
-      const $name = this.element.querySelector('#name');
-      const $distance = this.element.querySelector('#distance');
-      const $description = this.element.querySelector('#description');
-      const $link = this.element.querySelector('#link');
-
-      const modalInput = {
-        category: $categoryInput.value,
-        name: $name.value,
-        distance: $distance.value,
-        description: $description.value,
-        link: $link.value,
-      };
+      const formData = new FormData(event.target);
+      const modalInput = Object.fromEntries(formData);
 
       this.props.addRestaurant(modalInput);
     });
