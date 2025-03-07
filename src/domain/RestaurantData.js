@@ -47,7 +47,7 @@ export default class RestaurantData {
   }
 
   isValidateOption(value) {
-    return value === "선택해 주세요";
+    return !!value;
   }
 
   isValidateName(name) {
