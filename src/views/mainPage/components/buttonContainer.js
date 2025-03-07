@@ -5,8 +5,8 @@ import button from "../../../components/@common/button.js";
 import buttonHandler from "../../../eventHandler/button.js";
 
 const buttonContainer = () => {
-  const buttonContainer = $(".button-container");
-  buttonContainer.innerHTML = `
+  const $buttonContainer = $(".button-container");
+  $buttonContainer.innerHTML = `
       ${button({
         type: "button",
         id: "cancel-button",

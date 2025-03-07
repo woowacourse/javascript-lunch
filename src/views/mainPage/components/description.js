@@ -2,9 +2,9 @@ import { $ } from "../../../utils/domHelpers";
 import textArea from "../../../components/@common/textArea";
 
 const description = () => {
-  const descriptionContainer = $(".description-area");
+  const $descriptionContainer = $(".description-area");
 
-  descriptionContainer.innerHTML = `
+  $descriptionContainer.innerHTML = `
   ${textArea({
     labelText: "설명",
     id: "description",
@@ -12,7 +12,7 @@ const description = () => {
   })}
   `;
 
-  return descriptionContainer;
+  return $descriptionContainer;
 };
 
 export default description;
