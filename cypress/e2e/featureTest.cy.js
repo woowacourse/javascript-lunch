@@ -59,4 +59,21 @@ describe('기능 테스트', () => {
     cy.get('.modal-backdrop').click({ force: true });
     cy.get('.modal--open').should('not.exist');
   });
+
+  it('사용자가 음식점 추가 모달을 연 후, 모달을 닫았다가 다시 열었을 때 필드가 초기화 되는 시나리오 테스트', () => {
+    cy.get('.gnb__button').click();
+    cy.get('.modal--open').should('exist');
+
+    cy.get('#category').select('한식', { force: true });
+    cy.get('#name').type('꺼벙이');
+    cy.get('#distance').select('15분 내', { force: true });
+
+    cy.get('.button--secondary').click();
+    cy.get('.gnb__button').click();
+    cy.get('.modal--open').should('exist');
+
+    cy.get('#category').should('have.value', '');
+    cy.get('#name').should('have.value', '');
+    cy.get('#distance').should('have.value', '');
+  });
 });
