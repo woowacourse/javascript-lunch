@@ -2,12 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>점심 뭐 먹지</title>
+    <link rel="stylesheet" href="src/style/style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <!-- GNB -->
+    <div class="app" id="app">
+      <main>
+        <!-- 음식점 목록 -->
+        <section class="restaurant-list-container">
+          <ul class="restaurant-list" id="restaurant-list"></ul>
+        </section>
+
+        <!-- 음식점 추가 모달 -->
+      </main>
+    </div>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>
