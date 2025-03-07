@@ -1,11 +1,24 @@
 {
-  "rules": {},
   "env": {
-    "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
+  "rules": {
+    "lines-between-class-members": ["warn", "always", { "exceptAfterSingleLine": true }],
+    "functional/no-let": "error",
+    "max-depth": ["error", 1],
+    "max-params": ["error", 2],
+    "max-lines-per-function": ["error", 10]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": ["airbnb", "eslint:recommended", "prettier"],
+  "plugins": ["simple-import-sort"]
 }
