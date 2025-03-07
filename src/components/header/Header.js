@@ -16,7 +16,7 @@ export default class Header {
     $button.type = "button";
 
     const $img = document.createElement("img");
-    $img.setAttribute("src", "/assets/add-button.png");
+    $img.setAttribute("src", "./assets/add-button.png");
     $img.setAttribute("alt", "음식점 추가");
 
     $header.appendChild($title);
