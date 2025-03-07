@@ -116,7 +116,6 @@ class AddRestaurantModal extends Modal {
     });
 
     this.#cancelButton.addEventListener('click', () => {
-      console.log('SDFFSFFSD');
       this.closeModal();
     });
 
