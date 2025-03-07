@@ -1,8 +1,6 @@
-import Header from "./Header.js";
-import Restaurant from "./Restaurant.js";
-import { categoryValue } from "./optionValue.js";
-import Component from "./Component.js";
+import Header from "./Header/Header.js";
 import createRestaurant from "./createRestaurant.js";
+import Component from "./Component.js";
 class App extends Component {
   constructor($target) {
     super($target);

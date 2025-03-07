@@ -1,6 +1,6 @@
-import Dropdown from "./Dropdown.js";
-import Input from "./Input.js";
-import { categoryValue, distanceValue } from "./optionValue.js";
+import { categoryValue, distanceValue } from "../../constants/optionValue.js";
+import Dropdown from "../Dropdown/Dropdown.js";
+import Input from "../Input/Input.js";
 
 const createModalInputs = () => {
   new Dropdown(document.getElementById("category"), categoryValue);

@@ -1,5 +1,5 @@
-import Component from "./Component.js";
-import { label } from "./optionValue.js";
+import { label } from "../../constants/optionValue.js";
+import Component from "../Component.js";
 
 class Input extends Component {
   constructor($target, props) {

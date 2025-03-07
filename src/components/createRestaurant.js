@@ -1,5 +1,5 @@
-import { RestaurantData } from "./constants/RestaurantData.js";
-import Restaurant from "./Restaurant.js";
+import { RestaurantData } from "../constants/RestaurantData.js";
+import Restaurant from "./Restaurant/Restaurant.js";
 const createRestaurant = () => {
   RestaurantData.forEach((data) => {
     const restaurantItem = document.createElement("li");

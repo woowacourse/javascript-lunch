@@ -1,5 +1,5 @@
-import Component from "./Component.js";
-import Modal from "./Modal.js";
+import Component from "../Component.js";
+import Modal from "../Modal/Modal.js";
 class Header extends Component {
   constructor($target) {
     super($target);

@@ -1,8 +1,6 @@
+import Component from "../Component.js";
 import addData from "./addData.js";
-import Component from "./Component.js";
 import createModalInputs from "./createModalInputs.js";
-import { categoryValue, distanceValue } from "./optionValue.js";
-import { RestaurantData } from "./RestaurantData.js";
 class Modal extends Component {
   constructor($target) {
     super($target);
