@@ -1,13 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
     <title>점심 뭐 먹지</title>
+    <link rel="stylesheet" href="./src/styles/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <!-- GNB -->
+    <div id="app">
+      <header class="gnb">
+        <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+        <button type="button" class="gnb__button" aria-label="음식점 추가">
+          <img src="/add-button.png" alt="음식점 추가" />
+        </button>
+      </header>
+      <main>
+        <!-- 카테고리/정렬 필터 -->
+        <section class="restaurant-filter-container">
+          <select
+            name="category"
+            id="category-filter"
+            class="restaurant-filter"
+          >
+            <option value="all">전체</option>
+            <option value="korean">한식</option>
+            <option value="chinese">중식</option>
+            <option value="japanese">일식</option>
+            <option value="western">양식</option>
+            <option value="asian">아시안</option>
+            <option value="etc">기타</option>
+          </select>
+          <!-- 정렬 셀렉트 박스 -->
+          <select name="sorting" id="sorting-filter" class="restaurant-filter">
+            <option value="name">이름순</option>
+            <option value="distance">거리순</option>
+          </select>
+        </section>
+        <!-- 음식점 목록 -->
+        <section class="restaurant-list-container">
+          <ul class="restaurant-list"></ul>
+        </section>
+        <!-- 음식점 추가 모달 -->
+        <div class="modal" id="restaurant-modal">
+          <div class="modal-backdrop"></div>
+          <div class="modal-container">
+            <h2 class="modal-title text-title">새로운 음식점</h2>
+            <form>
+              <!-- 카테고리 -->
+              <div class="form-item form-item--required category-select"></div>
+              <!-- 음식점 이름 -->
+              <div class="form-item form-item--required name-input"></div>
+              <!-- 거리 -->
+              <div class="form-item form-item--required distance-select"></div>
+              <!-- 설명 -->
+              <div class="form-item description-area"></div>
+              <!-- 링크 -->
+              <div class="form-item link-input"></div>
+              <!-- 취소/추가 버튼 -->
+              <div class="button-container"></div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="/src/main.js" type="module" defer></script>
   </body>
 </html>
