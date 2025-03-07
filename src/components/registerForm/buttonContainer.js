@@ -1,6 +1,7 @@
 import { BUTTON_TEXT } from "../../constants/buttonText";
 import renderRestaurants from "../../domain/renderRestaurant";
 import Restaurant from "../../model/Restaurant";
+import { clearError } from "../../utils/clearError";
 import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
@@ -37,6 +38,7 @@ export default ButtonContainer;
 const closeModal = () => {
   $(".modal-backdrop").classList.remove("open");
   clearInput("#register-form");
+  clearError();
 };
 
 const registerRestaurant = (e, restaurantList) => {

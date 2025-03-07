@@ -1,4 +1,4 @@
-import { $ } from "./dom";
+import { clearError } from "./clearError";
 
 const addIdToError = (id, validateFn) => {
   try {
@@ -7,10 +7,6 @@ const addIdToError = (id, validateFn) => {
   } catch (e) {
     throw new Error(e.message, { cause: id });
   }
-};
-
-const clearError = () => {
-  $(".error-message")?.remove();
 };
 
 export default addIdToError;
