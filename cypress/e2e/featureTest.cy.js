@@ -43,4 +43,12 @@ describe('기능 테스트', () => {
     cy.get('.modal--open').should('not.exist');
     cy.get('.restaurant-list').should('not.contain', '꺼벙이');
   });
+
+  it('사용자가 음식점 추가 모달을 연 후, ESC 키를 클릭하여 음식점 추가를 취소하는 시나리오 테스트', () => {
+    cy.get('.gnb__button').click();
+    cy.get('.modal--open').should('exist');
+
+    cy.document().trigger('keydown', { key: 'Escape', keyCode: 27, which: 27, force: true });
+    cy.get('.modal--open').should('not.exist');
+  });
 });
