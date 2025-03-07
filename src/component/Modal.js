@@ -4,7 +4,7 @@ import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
 
-export function Modal({ form }) {
+export function Modal({ modalContent }) {
   const container = document.createElement("div");
   container.classList.add("modal");
   container.innerHTML = `
@@ -14,7 +14,7 @@ export function Modal({ form }) {
       </div>
 `;
   document.querySelector("body").appendChild(container);
-  document.querySelector(".modal-container").appendChild(form);
+  document.querySelector(".modal-container").appendChild(modalContent);
 
   return;
 }

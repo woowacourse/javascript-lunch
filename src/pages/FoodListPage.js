@@ -17,7 +17,7 @@ export function FoodListPage(foodList) {
   body.appendChild(HeaderComponent({ title: "점심 뭐 먹지?" }));
 
   body.appendChild(foodList);
-  Modal({ form: FoodForm() });
+  Modal({ modalContent: FoodForm() });
 
   init();
 }
