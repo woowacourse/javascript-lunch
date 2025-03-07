@@ -3,11 +3,11 @@ import { $ } from "../utils/querySelectors.js";
 import AddLunchModalForm from "./AddLunchModalForm.js";
 
 const Modal = {
-  create() {
+  create(modalContent) {
     const modalElement = document.createElement("div");
     modalElement.classList.add("modal");
     modalElement.appendChild(this.createModalBackdrop());
-    modalElement.appendChild(this.createModalContainer());
+    modalElement.appendChild(this.createModalContainer(modalContent));
 
     return modalElement;
   },
@@ -20,10 +20,10 @@ const Modal = {
     return modalBackdropElement;
   },
 
-  createModalContainer() {
+  createModalContainer(modalContent) {
     const modalContainerElement = document.createElement("div");
     modalContainerElement.classList.add("modal-container");
-    modalContainerElement.appendChild(AddLunchModalForm.create());
+    modalContainerElement.appendChild(modalContent);
 
     return modalContainerElement;
   },

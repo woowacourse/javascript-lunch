@@ -19,7 +19,7 @@ DOM.$body.prepend(Header.create());
 
 renderRestaurantList();
 
-DOM.$main.append(Modal.create());
+DOM.$main.append(Modal.create(AddLunchModalForm.create()));
 
 export function renderRestaurantList() {
   DOM.$restaurantList.replaceChildren();
