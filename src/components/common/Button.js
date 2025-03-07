@@ -34,7 +34,7 @@ export default class Button extends Component {
         ${disabled && "disabled"} 
         class="${
           variant === "primary" ? primary.join(" ") : secondary.join(" ")
-        } w-full h-44 flex justify-center items-center text-lg rounded-lg"
+        } w-full h-44 flex justify-center items-center text-lg rounded-lg cursor-pointer"
         style="${styleStr(styles)}"
       >
         ${text}

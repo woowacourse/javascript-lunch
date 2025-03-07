@@ -15,9 +15,10 @@ export default class Header extends Component {
     const text = this.addChild(Text);
     text.setProps({
       content: this.props.title,
-      classList: ["text-2xl"],
+      classList: ["text-2xl cursor-pointer"],
       id: "header-text",
     });
+
     return text.template();
   }
 
@@ -35,6 +36,11 @@ export default class Header extends Component {
       const headerIcon = document.querySelector("#header-icon");
       if (headerIcon === event.target) {
         this.props.onIconClick();
+      }
+
+      const titleText = document.querySelector("#header-text");
+      if (titleText === event.target) {
+        location.reload();
       }
     });
   }
