@@ -30,3 +30,7 @@
   - [ ] 재사용할 수 있는 컴포넌트에 대해 고민하고 적용해본다.
 - [ ] 단, 웹 컴포넌트를 사용하지 않는다
 - [ ] JavaScript 언어를 사용하여 구현한다.
+
+## 홈페이지 배포
+
+URL: https://ha-kuku.github.io/javascript-lunch
