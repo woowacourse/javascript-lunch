@@ -1,5 +1,3 @@
-import { ERROR_MESSAGE } from "../../src/constants/error.js";
-
 describe("음식점 목록 페이지 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
@@ -16,6 +14,5 @@ describe("음식점 목록 페이지 테스트", () => {
     items.forEach((item, index) => {
       item.should("contain.text", names[index]);
     });
-    // lastItem.should("contain.text", info.name);
   });
 });
