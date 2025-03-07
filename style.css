@@ -3,8 +3,8 @@
 @import "./src/css/alert.css";
 @import "./src/css/modal.css";
 @import "./src/css/form.css";
-@import "/src/css/button.css";
-@import "/src/css/filter.css";
+@import "./src/css/button.css";
+@import "./src/css/filter.css";
 
 * {
   padding: 0;
