@@ -16,7 +16,7 @@ const Validator = {
       throw new Error("거리(도보 이동 시간)을 선택해주세요.");
   },
   reference: (string) => {
-    if (!ValidationUtils.isValidURL(string) && string.length !== 0)
+    if (!ValidationUtils.isValidURL(string) && !ValidationUtils.isEmpty(string))
       throw new Error("https를 포함한 올바른 링크를 입력해주세요.");
   },
 };
