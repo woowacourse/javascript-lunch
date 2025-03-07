@@ -62,7 +62,7 @@ class Modal extends Component {
       message: "취소하기",
     });
 
-    const addButtom = new Button({
+    const addButton = new Button({
       type: "submit",
       class: "button--primary",
       id: "modal-add",
@@ -78,7 +78,7 @@ class Modal extends Component {
             ${inputBoxList.map((input) => input.template()).join("")}
             <div class="button-container">
               ${cancelButton.template()}
-              ${addButtom.template()}
+              ${addButton.template()}
             </div>
           </form>
         </div>
