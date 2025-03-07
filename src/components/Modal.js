@@ -1,14 +1,41 @@
 import createElement from '../utils/createElement.js';
+import { resetInput } from './RestaurantEnrollModal.js';
 
-function createModal(children) {
-  const modalContainer = createElement('div', 'modal');
-  const modalBackdrop = createElement('div', 'modal-backdrop');
-  const modalDiv = createElement('div', 'modal-container');
+class Modal {
+  #element;
+  #modalDiv;
 
-  modalDiv.appendChild(children);
-  modalContainer.append(modalBackdrop, modalDiv);
+  constructor() {
+    this.#element = this.initModal();
+  }
 
-  return modalContainer;
+  initModal() {
+    const modalContainer = createElement('div', 'modal');
+    const modalBackdrop = createElement('div', 'modal-backdrop');
+    this.#modalDiv = createElement('div', 'modal-container');
+
+    modalContainer.append(modalBackdrop, this.#modalDiv);
+
+    return modalContainer;
+  }
+
+  appendModalContent(content) {
+    console.log(this.#modalDiv, content);
+    this.#modalDiv.appendChild(content);
+  }
+
+  toggle() {
+    this.#element.classList.toggle('modal--open');
+
+    console.log(this.#element.classList.contains('modal--open'));
+    if (!this.#element.classList.contains('modal--open')) {
+      resetInput();
+    }
+  }
+
+  getElement() {
+    return this.#element;
+  }
 }
 
-export default createModal;
+export default Modal;
