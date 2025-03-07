@@ -3,8 +3,8 @@ import Component from "../core/Component.js";
 import InputBox from "./InputBox.js";
 
 class Modal extends Component {
-  constructor(props, parent) {
-    super(props, parent);
+  constructor(props) {
+    super(props);
   }
 
   template() {
@@ -70,7 +70,7 @@ class Modal extends Component {
     });
 
     return `
-      <div class="modal modal--open hidden">
+      <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">${this.props.modalTitle}</h2>
@@ -87,17 +87,6 @@ class Modal extends Component {
   }
 
   onRender() {
-    const $addRestaurantButton = this.parent.querySelector(".gnb__button");
-    const $modal = this.element.querySelector(".modal");
-    const $modalCancelButton = this.element.querySelector("#modal-cancel");
-
-    $addRestaurantButton.addEventListener("click", function () {
-      $modal.classList.remove("hidden");
-    });
-    $modalCancelButton.addEventListener("click", function () {
-      $modal.classList.add("hidden");
-    });
-
     const form = this.element.querySelector("form");
 
     form.addEventListener("submit", (event) => {

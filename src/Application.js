@@ -74,14 +74,24 @@ class Application extends Component {
   }
 
   onRender() {
-    const modal = new Modal(
-      {
-        modalTitle: "새로운 음식점",
-        addRestaurant: this.addRestaurant.bind(this),
-      },
-      this.element
-    );
+    const modal = new Modal({
+      modalTitle: "새로운 음식점",
+      addRestaurant: this.addRestaurant.bind(this),
+    });
     this.element.appendChild(modal.element);
+
+    window.addEventListener("click", (event) => {
+      const $modal = this.element.querySelector(".modal");
+      if (event.target.closest(".gnb__button")) {
+        $modal.classList.add("modal--open");
+      }
+      if (
+        event.target.closest("#modal-cancel") ||
+        event.target.closest(".modal-backdrop")
+      ) {
+        $modal.classList.remove("modal--open");
+      }
+    });
   }
 }
 

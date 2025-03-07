@@ -2,9 +2,8 @@ class Component {
   #element;
   state;
 
-  constructor(props, parent) {
+  constructor(props) {
     this.props = props;
-    this.parent = parent;
     this.state = {};
 
     this.setup();
