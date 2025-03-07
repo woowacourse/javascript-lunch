@@ -1,13 +1,16 @@
-export function createModal() {
+export function createModal({ element }) {
   const modal = document.createElement("div");
+  const modalBackDrop = document.createElement("div");
+  const modalContainer = document.createElement("div");
+
+  modalBackDrop.classList.add("modal-backdrop");
+  modalContainer.classList.add("modal-container");
+  modalContainer.append(element);
+
   modal.classList.add("modal");
   modal.classList.add("modal--open");
-  modal.innerHTML = /*html*/ `
-      <div class="modal-backdrop"></div>
-      <div class="modal-container">
-        <h2>주렁 추가</h2>
-      </div>
-    `;
+  modal.append(modalBackDrop);
+  modal.append(modalContainer);
 
   return modal;
 }
