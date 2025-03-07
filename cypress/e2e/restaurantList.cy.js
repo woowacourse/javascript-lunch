@@ -1,4 +1,4 @@
-import { RestaurantData } from "../../src/RestaurantData.js";
+import { RestaurantData } from "../../src/constants/RestaurantData.js";
 
 describe("레스트랑 목록 컴포넌트 테스트", () => {
   beforeEach(() => {
