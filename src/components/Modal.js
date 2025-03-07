@@ -118,15 +118,7 @@ class Modal extends Component {
       };
 
       this.props.addRestaurant(modalInput);
-
-      // const catgory = $categoryInput
-      // console.log(event.target.);
     });
-
-    // const categoryInputValue =
-    // $categoryInput.addEventListener("change", function (event) {
-    //   // console.log(form.elements);
-    // });
   }
 }
 
