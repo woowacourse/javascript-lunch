@@ -1,11 +1,10 @@
 export default class Component {
-  #element;
   #props;
+  #element;
   #state;
 
   constructor(props) {
     this.#props = props;
-    this.#state = {};
   }
 
   render() {
