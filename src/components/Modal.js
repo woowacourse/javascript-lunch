@@ -91,11 +91,18 @@ class Modal extends Component {
     const $addRestaurantButton = this.parent.querySelector(".gnb__button");
     const $modal = this.element.querySelector(".modal");
     const $modalCancelButton = this.element.querySelector("#modal-cancel");
+    const $modalBackdrop = this.element.querySelector(".modal-backdrop");
 
     $addRestaurantButton.addEventListener("click", function () {
       $modal.classList.remove("hidden");
     });
     $modalCancelButton.addEventListener("click", function () {
+      $modal.classList.add("hidden");
+    });
+    $modalBackdrop.addEventListener("click", function () {
+      $modal.classList.add("hidden");
+    });
+    document.addEventListener("keydown", function () {
       $modal.classList.add("hidden");
     });
 
