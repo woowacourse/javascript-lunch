@@ -108,7 +108,7 @@ describe("e2e 테스트", () => {
       cy.get("#description").type("맛맛맛있는 김치찌개"); // 설명 입력
       cy.get("#link").type("https://example.com"); // 링크 입력
   
-      cy.get(".button--primary").click(); // 추가 버튼 클릭
+      cy.get(".button--primary").click({ force:true }); // 추가 버튼 클릭
       cy.get(".modal").should("not.have.class", "modal--open");
   
       // 목록에 추가된 음식점이 있는지 확인

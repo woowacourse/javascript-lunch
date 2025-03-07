@@ -1,23 +1,10 @@
-const selectAttribute = {
-    categorySelect: {
-      required: true,
-      id: "category",
-      name: "category",
-    },
-    distanceSelect: {
-    required: true,
-      id: "distance",
-      name: "distance",
-    },
-  };
-
-const $select = (selectOptions,selectName) => {
+const $select = (selectInfo) => {
     const select = document.createElement("select");
-    Object.assign(select, selectAttribute[selectName]);
+    Object.assign(select, selectInfo.attribute);
 
-    Object.keys(selectOptions).forEach((selectName) => {
+    Object.keys(selectInfo.options).forEach((selectName) => {
         const option = document.createElement("option");
-        option.value = selectOptions[selectName];
+        option.value = selectInfo.options[selectName];
         option.textContent = selectName;
         select.appendChild(option);
     });

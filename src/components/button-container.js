@@ -1,5 +1,3 @@
-import $button from "./button";
-
 const $buttonContainer = (buttons) => {
   const container = document.createElement("div");
   container.classList.add("button-container");
