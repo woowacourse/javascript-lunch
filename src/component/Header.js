@@ -1,5 +1,5 @@
 import IconButton from "./IconButton.js";
-import AddLunchModal from "./AddLunchModal.js";
+import Modal from "./Modal.js";
 
 const Header = {
   create() {
@@ -9,7 +9,7 @@ const Header = {
     headerElement.appendChild(
       IconButton.create({
         src: "./templates/add-button.png",
-        onClick: () => AddLunchModal.open(),
+        onClick: () => Modal.open(),
         label: "음식점 추가",
       })
     );

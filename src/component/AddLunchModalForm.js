@@ -1,5 +1,5 @@
 import { DOM } from "../utils/dom.js";
-import AddLunchModal from "./AddLunchModal.js";
+import Modal from "./Modal.js";
 import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
 import TextareaForm from "./TextareaForm.js";
@@ -10,9 +10,11 @@ import { CATEGORY_ICON } from "../constants/constants.js";
 import { renderRestaurantList } from "../main.js";
 import state from "../state.js";
 
-const ModalForm = {
+const AddLunchModalForm = {
   create() {
     const ModalFormElement = document.createElement("form");
+
+    ModalFormElement.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
 
     ModalFormElement.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -29,7 +31,7 @@ const ModalForm = {
       });
 
       renderRestaurantList();
-      AddLunchModal.close();
+      Modal.close();
     });
 
     ModalFormElement.appendChild(
@@ -138,4 +140,4 @@ const ModalForm = {
   },
 };
 
-export default ModalForm;
+export default AddLunchModalForm;

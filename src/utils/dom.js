@@ -2,6 +2,7 @@ import { $, $$ } from "./querySelectors.js";
 
 export const DOM = {
   $body: $("body"),
+  $main: $("main"),
   $gnbButton: $(".gnb__button"),
   $cancelButton: $("#cancel__button"),
   $addButton: $("#add__button"),

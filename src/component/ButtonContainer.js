@@ -1,5 +1,5 @@
 import TextButton from "./TextButton.js";
-import AddLunchModal from "./AddLunchModal.js";
+import Modal from "./Modal.js";
 
 const ButtonContainer = {
   create() {
@@ -9,7 +9,7 @@ const ButtonContainer = {
       TextButton.create({
         id: "cancel__button",
         title: "취소하기",
-        onClick: () => AddLunchModal.close(),
+        onClick: () => Modal.close(),
       })
     );
     buttonContainerElement.appendChild(
