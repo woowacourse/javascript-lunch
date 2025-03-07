@@ -1,7 +1,6 @@
 import addData from "./addData.js";
 import Component from "./Component.js";
-import Dropdown from "./Dropdown.js";
-import Input from "./Input.js";
+import createModalInputs from "./createModalInputs.js";
 import { categoryValue, distanceValue } from "./optionValue.js";
 import { RestaurantData } from "./RestaurantData.js";
 class Modal extends Component {
@@ -38,17 +37,7 @@ class Modal extends Component {
   render() {
     this.$target.innerHTML = this.template();
     this.setEvent();
-    new Dropdown(document.getElementById("category"), categoryValue);
-    new Input(document.getElementById("name"), {
-      required: "required",
-      type: "text",
-    });
-    new Dropdown(document.getElementById("distance"), distanceValue);
-    new Input(document.getElementById("description"), {
-      required: "",
-      type: "text",
-    });
-    new Input(document.getElementById("link"), { required: "", type: "url" });
+    createModalInputs();
   }
 
   setEvent() {
