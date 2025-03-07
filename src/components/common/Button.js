@@ -29,16 +29,16 @@ export default class Button extends Component {
     const { text, variant, disabled, styles, id } = this.props;
     return `
       <button 
-        type="submit"
         id="${id}"  
+        type="submit"
+        ${disabled && "disabled"} 
         class="${
           variant === "primary" ? primary.join(" ") : secondary.join(" ")
-        } w-full h-44 flex justify-center items-center text-lg rounded-lg" ${
-      disabled && "disabled"
-    } 
-      style="${styleStr(styles)}  ">
-      ${text}
-    </button>
+        } w-full h-44 flex justify-center items-center text-lg rounded-lg"
+        style="${styleStr(styles)}"
+      >
+        ${text}
+      </button>
     `;
   }
 }

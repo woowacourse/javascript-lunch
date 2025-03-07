@@ -46,9 +46,9 @@ export default class LunchList extends Component {
 
   template() {
     return `
-      <section class="max-h-800 w-full h-full flex flex-col justify-start items-center my-16 overflow-y">
+      <section class="w-full flex flex-col justify-center items-center my-16 overflow-y">
         <ul id="restaurant-list">
-          <div class="h-140 flex flex-col items-center justify-center gap-16 mt-32">
+          <div class="flex flex-col items-center justify-center gap-16 mt-32">
             ${this.renderCircleIcon()}
             <p class="text-xl">아직 추가된 음식점이 없습니다.</p>
           </div>

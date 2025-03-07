@@ -7,7 +7,6 @@ export default class TextArea extends Component {
       rows: 1,
       maxLength: 10,
       placeHolder: "",
-      isError: false,
       onInput: () => {},
       classList: [],
       styles: {},
@@ -28,8 +27,7 @@ export default class TextArea extends Component {
   }
 
   template() {
-    const { rows, maxLength, placeHolder, classList, styles, id, isError } =
-      this.props;
+    const { rows, maxLength, placeHolder, classList, styles, id } = this.props;
 
     return `
       <textarea 

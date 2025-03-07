@@ -33,7 +33,7 @@ export default class Header extends Component {
   setEvent() {
     document.addEventListener("click", (event) => {
       const headerIcon = document.querySelector("#header-icon");
-      if (headerIcon && headerIcon === event.target) {
+      if (headerIcon === event.target) {
         this.props.onIconClick();
       }
     });

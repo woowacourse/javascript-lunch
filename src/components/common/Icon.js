@@ -4,8 +4,8 @@ import { styleStr } from "../../utils/styleStr.js";
 export default class Icon extends Component {
   setDefaultProps() {
     this.props = {
-      iconName: "",
       size: "40",
+      iconName: "",
       classList: [],
       styles: {},
       id: "init",
@@ -13,7 +13,7 @@ export default class Icon extends Component {
   }
 
   template() {
-    const { iconName, size, classList, styles, id } = this.props;
+    const { size, iconName, classList, styles, id } = this.props;
     return `
       <img
         id="${id}"
@@ -22,7 +22,8 @@ export default class Icon extends Component {
         alt="${iconName}"
         src="${iconName}.png"
         class=" ${classList.join(" ")} cursor-pointer" 
-        style="${styleStr(styles)}" />
+        style="${styleStr(styles)}"
+      />
       `;
   }
 }

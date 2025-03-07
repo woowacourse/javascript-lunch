@@ -18,8 +18,9 @@ export default class Text extends Component {
       <p
         id="${id}"
         class="${classList.join(" ")}" 
-        style="${styleStr(styles)}">
-          ${content} ${required ? `<span style="color: red;">*</span>` : ""}
+        style="${styleStr(styles)}"
+      >
+        ${content} ${required ? `<span style="color: red;">*</span>` : ""}
       </p>`;
   }
 }
