@@ -1,6 +1,6 @@
-import Button from "./Button";
-import Component from "../core/Component";
-import InputBox from "./InputBox";
+import Button from "./Button.js";
+import Component from "../core/Component.js";
+import InputBox from "./InputBox.js";
 
 class Modal extends Component {
   constructor(props, parent) {
