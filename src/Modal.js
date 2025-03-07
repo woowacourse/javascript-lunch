@@ -41,10 +41,16 @@ class Modal extends Component {
   }
 
   setEvent() {
+    const modalContainer = document.querySelector(".modal");
+
+    this.$target
+      .querySelector(".modal-backdrop")
+      .addEventListener("click", () => {
+        modalContainer.classList.toggle("modal--open");
+      });
     this.$target
       .querySelector(".button.button--secondary.text-caption")
       .addEventListener("click", () => {
-        const modalContainer = document.querySelector(".modal");
         modalContainer.classList.toggle("modal--open");
       });
     this.submitForm();
