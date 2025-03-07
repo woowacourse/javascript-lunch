@@ -1,26 +1,26 @@
 const CATEGORY = Object.freeze({
   KOREAN: {
-    SRC: '../../public/assets/category-korean.png',
+    SRC: 'https://h0ngju.github.io/javascript-lunch/public/assets/category-korean.png',
     ALT: '한식',
   },
   CHINESE: {
-    SRC: '../../public/assets/category-chinese.png',
+    SRC: 'https://h0ngju.github.io/javascript-lunch/public/assets/category-chinese.png',
     ALT: '중식',
   },
   JAPANESE: {
-    SRC: '../../public/assets/category-japanese.png',
+    SRC: 'https://h0ngju.github.io/javascript-lunch/public/assets/category-japanese.png',
     ALT: '일식',
   },
   WESTERN: {
-    SRC: '../../public/assets/category-western.png',
+    SRC: 'https://h0ngju.github.io/javascript-lunch/public/assets/category-western.png',
     ALT: '양식',
   },
   ASIAN: {
-    SRC: '../../public/assets/category-asian.png',
+    SRC: 'https://h0ngju.github.io/javascript-lunch/public/assets/category-asian.png',
     ALT: '아시안',
   },
   ETC: {
-    SRC: '../../public/assets/category-etc.png',
+    SRC: 'https://h0ngju.github.io/javascript-lunch/public/assets/category-etc.png',
     ALT: '기타',
   },
 });
