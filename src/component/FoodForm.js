@@ -1,22 +1,12 @@
-import {
-  DESCRIPTION_MAX_LENGTH,
-  NAME_MAX_LENGTH,
-  SELECT_OPTIONS,
-} from "../constants/constants.js";
+import { SELECT_OPTIONS } from "../constants/constants.js";
 import { foodItems } from "../mock/mockItem.js";
 import { FoodListPage } from "../pages/FoodListPage.js";
-import { alertError } from "../util/alertError.js";
-import { computeImgSrcAlt } from "../util/computeImgSrcAlt.js";
-import { getInput } from "../util/getInput.js";
 import { removeError, resetError } from "../util/handleIsError.js";
 import { modalClose } from "../util/modalAction.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
-import { Alert } from "./Alert.js";
 import { Button } from "./Button.js";
 import { ButtonContainer } from "./ButtonContainer.js";
-import { FoodItem } from "./FoodItem.js";
 import { FoodList } from "./FoodList.js";
-import { HeaderComponent } from "./HeaderComponent.js";
 import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
 import { TextareaInput } from "./TextareaInput.js";
