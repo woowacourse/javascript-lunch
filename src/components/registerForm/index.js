@@ -8,7 +8,7 @@ import Select from "../common/select";
 import TextArea from "../common/textArea";
 import ButtonContainer from "./buttonContainer";
 
-const RegisterForm = (restaurantList) => {
+const RegisterForm = () => {
   const registerForm = document.createElement("form");
   registerForm.setAttribute("id", "register-form");
 
@@ -42,7 +42,7 @@ const RegisterForm = (restaurantList) => {
   );
   registerForm.appendChild(InputField(Input("link"), INPUT_HELP_TEXT.LINK));
 
-  registerForm.appendChild(ButtonContainer(restaurantList));
+  registerForm.appendChild(ButtonContainer());
 
   return registerForm;
 };
