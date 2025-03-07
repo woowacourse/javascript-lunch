@@ -29,6 +29,15 @@ const MODAL_FORM = [
   },
 ];
 
+function Title({ type = "default", text }) {
+  const h2Element = document.createElement("h2");
+  h2Element.classList.add("text-title");
+  if (type === "modal") h2Element.classList.add("modal-title");
+  h2Element.innerText = text;
+
+  return h2Element;
+}
+
 function renderContents() {
   const app = document.getElementById("app");
   const listContainerElement = app.querySelector(".restaurant-list-container");
@@ -68,6 +77,8 @@ function renderContents() {
     app.querySelector(".modal").classList.remove("modal--open");
     formElement.reset();
   });
+
+  modalContainer.appendChild(Title({ type: "modal", text: "새로운 음식점" }));
 
   modalContainer.appendChild(formElement);
 }
