@@ -1,4 +1,5 @@
 import { SELECT_OPTIONS } from "../constants/constants.js";
+import { modalClose } from "../util/modalAction.js";
 import { Button } from "./Button.js";
 import { Input } from "./Input.js";
 import { SelectInput } from "./SelectInput.js";
@@ -15,6 +16,9 @@ export function Modal({ modalContent }) {
 `;
   document.querySelector("body").appendChild(container);
   document.querySelector(".modal-container").appendChild(modalContent);
+  document.querySelector(".modal-backdrop").addEventListener("click", () => {
+    modalClose();
+  });
 
   return;
 }

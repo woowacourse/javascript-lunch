@@ -15,7 +15,6 @@ export function validateRequiredInput(name) {
 }
 
 export function validateLength(name, maxLength) {
-  console.log(name, " : ", getInput(name));
   if (getInput(name).length > maxLength) {
     setError(name);
     throw new Error(ERROR_MESSAGE.length(maxLength));

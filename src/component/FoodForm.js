@@ -1,4 +1,5 @@
 import { SELECT_OPTIONS } from "../constants/constants.js";
+import { CAPTION } from "../constants/systemMessage.js";
 import { foodItems } from "../mock/mockItem.js";
 import { FoodListPage } from "../pages/FoodListPage.js";
 import { removeError, resetError } from "../util/handleIsError.js";
@@ -60,7 +61,7 @@ export function FoodForm() {
     TextareaInput({
       isRequired: false,
       label: "설명",
-      caption: "메뉴 등 추가 정보를 입력해 주세요",
+      caption: CAPTION.description,
     })
   );
 
@@ -69,7 +70,7 @@ export function FoodForm() {
       isRequired: false,
       label: "참고 링크",
       name: "link",
-      caption: "매장 정보를 확인할 수 있는 링크를 입력해 주세요",
+      caption: CAPTION.link,
     })
   );
 

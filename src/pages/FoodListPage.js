@@ -5,12 +5,6 @@ import { Modal } from "../component/Modal.js";
 import { foodItems } from "../mock/mockItem.js";
 import { modalClose, modalOpen } from "../util/modalAction.js";
 
-function init() {
-  document.querySelector(".modal-backdrop").addEventListener("click", () => {
-    modalClose();
-  });
-}
-
 export function FoodListPage(foodList) {
   const body = document.querySelector("body");
   body.innerHTML = "";
@@ -18,6 +12,4 @@ export function FoodListPage(foodList) {
 
   body.appendChild(foodList);
   Modal({ modalContent: FoodForm() });
-
-  init();
 }
