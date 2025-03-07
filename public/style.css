@@ -296,3 +296,17 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+.form-item--error {
+  outline: 1px solid red;
+}
+
+.error-text {
+  color: red;
+  font-size: 14px;
+}
+
+.disabled-button {
+  background: var(--grey-200);
+  color: var(--grey-300);
+}
