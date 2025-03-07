@@ -74,3 +74,15 @@ src
 - util : utility 함수 모음 (공통 기능 핸들링)
 
 ## 📄 사용 예제
+
+### 헤더 아이콘을 클릭하면 음식점 추가 모달이 열린다
+<img src="https://github.com/user-attachments/assets/54276441-2dac-4e42-87d3-a695f727a681" width="300"/>
+
+### 입력이 잘못됐을 경우 에러메세지를 띄운다
+<img src="https://github.com/user-attachments/assets/b9df16d7-bf2b-4202-8027-d45e728773df" width="300"/>
+
+### 제출 버튼을 누를 경우 음식점이 추가된다
+<img src="https://github.com/user-attachments/assets/ef4955d5-e336-4020-9c0e-09e1cb78b53e" width="300"/>
+
+
+
