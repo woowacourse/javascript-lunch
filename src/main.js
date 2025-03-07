@@ -20,9 +20,9 @@ import {
 import RestaurantList from "./domain/RestaurantList.js";
 
 const MODAL_FORM = [
-  { label: "카테고리", formComponent: () => SelectForm("category", SELECT_CATEGORY) },
-  { label: "이름", formComponent: () => InputForm("text", "name", true) },
-  { label: "거리(도보 이동 시간)", formComponent: () => SelectForm("distance", SELECT_DISTANCE) },
+  { label: "카테고리", formComponent: () => SelectForm("category", SELECT_CATEGORY), required: true },
+  { label: "이름", formComponent: () => InputForm("text", "name", true), required: true },
+  { label: "거리(도보 이동 시간)", formComponent: () => SelectForm("distance", SELECT_DISTANCE), required: true },
   { label: "설명", formComponent: () => TextareaForm("description"), notice: "메뉴 등 추가 정보를 입력해 주세요." },
   {
     label: "참고 링크",

@@ -1,7 +1,11 @@
-function FormItem({ label, formComponent, notice = "" }) {
+function FormItem({ label, formComponent, notice = "", required = false }) {
   const formItemElement = document.createElement("div");
+  formItemElement.classList.add("form-item");
 
-  formItemElement.className = "form-item form-item--required";
+  if (required) {
+    formItemElement.classList.add("form-item--required");
+  }
+
   formItemElement.innerHTML = `<label for="category text-caption">${label}</label>`;
   formItemElement.appendChild(formComponent());
 
