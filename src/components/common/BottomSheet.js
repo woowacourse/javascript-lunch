@@ -16,10 +16,10 @@ export default class BottomSheet extends Component {
   }
 
   open() {
-    const modalContainer = document.getElementById("modal");
-    modalContainer.innerHTML = this.template(true);
+    const bottomSheetContainer = document.getElementById("bottom-sheet");
+    bottomSheetContainer.innerHTML = this.template(true);
 
-    this.addModalEvents();
+    this.addBottomSheetEvents();
 
     this.children.map((child) => {
       child.setProps({
@@ -29,58 +29,53 @@ export default class BottomSheet extends Component {
   }
 
   close() {
-    const modalContainer = document.getElementById("modal");
-    if (modalContainer) {
-      modalContainer.innerHTML = "";
+    const bottomSheetContainer = document.getElementById("bottom-sheet");
+    if (bottomSheetContainer) {
+      bottomSheetContainer.innerHTML = "";
     }
   }
 
-  addModalEvents() {
+  addBottomSheetEvents() {
     const overlay = document.querySelector("#bottom-sheet-overlay");
-    if (overlay) {
-      overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) {
-          this.close();
-        }
-      });
-    }
+    const bottomSheetContent = document.getElementById("bottom-sheet-content");
+    overlay?.addEventListener(
+      "click",
+      (e) => !bottomSheetContent.contains(e.target) && this.close()
+    );
 
-    const cancelButton = document.getElementById("cancelBtn");
-    if (cancelButton) {
-      cancelButton.addEventListener("click", () => {
+    const cancelButton = document.getElementById("cancel-btn");
+    cancelButton?.addEventListener("click", () => {
+      this.close();
+    });
+
+    const submitButton = document.getElementById("submit-btn");
+    submitButton?.addEventListener("click", () => {
+      this.children.map((child) => {
+        child.handleSubmit();
         this.close();
       });
-    }
-
-    const submitButton = document.getElementById("submitBtn");
-    if (submitButton) {
-      submitButton.addEventListener("click", () => {
-        this.children.map((child) => {
-          child.handleSubmit();
-          this.close();
-        });
-      });
-    }
+    });
   }
 
   template(isOpen = this.props.isOpen) {
     if (!isOpen) return "";
 
     return `
-      <div id="modal-open">
+      <div id="bottom-sheet-open">
         <div 
           id="bottom-sheet-overlay"
-          class="w-full h-full"
-          style="position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.5);"
+          class="w-full h-full fixed top-0 left-0"
+          style="background-color: rgba(0, 0, 0, 0.5);"
         />
         <div
-          class="w-full flex justify-center"
-          style="position: fixed; bottom: 0; left: 0; height: 80%; z-index: 50;"
+          class="w-full fixed flex justify-center bottom-0 left-0"
+          style="height: 80%; z-index: 50;"
         >
           <div 
             id="bottom-sheet-content"
             class="relative max-w-390 w-full flex flex-col bg-white overflow-y px-16 box-border"
-            style="z-index: 50; border-top-left-radius: 16px; border-top-right-radius: 16px; animation: slideUp 300ms ease-out forwards;"
+            style="z-index: 50; border-top-left-radius: 16px; border-top-right-radius: 16px; 
+              animation: slideUp 300ms ease-out forwards;"
           >
             ${this.children.map((child) => child.template()).join("")}
           </div>
@@ -90,6 +85,6 @@ export default class BottomSheet extends Component {
   }
 
   render(props) {
-    super.render(props, "#modal");
+    super.render(props, "#bottom-sheet");
   }
 }
