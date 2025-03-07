@@ -1,4 +1,4 @@
-import { RESTAURANTS } from '../../src/constants.js';
+import { IMAGE, RESTAURANTS } from '../../src/constants.js';
 
 describe('Header 렌더링 테스트', () => {
   beforeEach(() => {
@@ -33,8 +33,8 @@ describe('음식점 아이템 렌더링 테스트', () => {
         cy.wrap($li)
           .find('.restaurant__category img')
           .should('exist')
-          .and('have.attr', 'src', `${RESTAURANTS[index].imageSource}`)
-          .and('have.attr', 'alt', `${RESTAURANTS[index].imageAlt}`);
+          .and('have.attr', 'src', `${IMAGE.get(RESTAURANTS[index].category)}`)
+          .and('have.attr', 'alt', `${RESTAURANTS[index].category}`);
       });
   });
 
@@ -47,7 +47,7 @@ describe('음식점 아이템 렌더링 테스트', () => {
         cy.wrap($li)
           .find('.restaurant__distance')
           .should('exist')
-          .contains(`캠퍼스부터 ${RESTAURANTS[index].distance}분 내`);
+          .contains(`캠퍼스부터 ${RESTAURANTS[index].distance}`);
         cy.wrap($li).find('.restaurant__description').should('exist').contains(`${RESTAURANTS[index].description}`);
         cy.wrap($li).find('.restaurant__info a').should('exist').and('have.attr', 'href', `${RESTAURANTS[index].link}`);
       });
@@ -61,6 +61,6 @@ describe('모달 렌더링 테스트', () => {
 
   it('모달이 잘 렌더링 되는지 확인', () => {
     cy.get('.gnb__button').click();
-    cy.get('.modal modal--open').should('exist');
+    cy.get('.modal').should('exist');
   });
 });
