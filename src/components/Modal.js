@@ -21,7 +21,7 @@ class Modal {
   };
 
   closeModal = () => {
-    const modal = document.querySelector('.modal');
+    const modal = document.querySelector('.modal-oepn');
     console.log(modal, 'here');
     modal.remove();
   };
