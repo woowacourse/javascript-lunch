@@ -1,12 +1,12 @@
-import BottomSheet from "./BottomSheet";
-import Button from "./Button";
-import CircleIcon from "./CircleIcon";
-import Header from "./Header";
-import Icon from "./Icon";
-import Layout from "./Layout";
-import Select from "./Select";
-import Text from "./Text";
-import TextArea from "./TextArea";
+import BottomSheet from "./BottomSheet.js";
+import Button from "./Button.js";
+import CircleIcon from "./CircleIcon.js";
+import Header from "./Header.js";
+import Icon from "./Icon.js";
+import Layout from "./Layout.js";
+import Select from "./Select.js";
+import Text from "./Text.js";
+import TextArea from "./TextArea.js";
 
 export {
   BottomSheet,
