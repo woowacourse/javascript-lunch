@@ -1,4 +1,4 @@
-import Application from "./Application";
+import Application from "./Application.js";
 
 addEventListener("load", () => {
   const $app = document.querySelector("#app");

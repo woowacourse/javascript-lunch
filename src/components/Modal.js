@@ -1,6 +1,6 @@
-import Button from "./Button";
-import Component from "../core/Component";
-import InputBox from "./InputBox";
+import Button from "./Button.js";
+import Component from "../core/Component.js";
+import InputBox from "./InputBox.js";
 
 class Modal extends Component {
   constructor(props, parent) {
@@ -11,7 +11,7 @@ class Modal extends Component {
     const inputBoxList = [
       new InputBox({
         input: ` 
-          <select name="category" id="category" >
+          <select name="category" id="category">
             <option value="">선택해 주세요</option>
             <option value="한식">한식</option>
             <option value="중식">중식</option>
@@ -30,7 +30,7 @@ class Modal extends Component {
       }),
       new InputBox({
         input: `
-        <select name="distance" id="distance" >
+        <select name="distance" id="distance">
           <option value="">선택해 주세요</option>
           <option value="5">5분 내</option>
           <option value="10">10분 내</option>

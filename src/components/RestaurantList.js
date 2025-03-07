@@ -1,5 +1,5 @@
-import Restaurant from "./Restaurant";
-import Component from "../core/Component";
+import Restaurant from "./Restaurant.js";
+import Component from "../core/Component.js";
 
 class RestaurantList extends Component {
   constructor(props) {
