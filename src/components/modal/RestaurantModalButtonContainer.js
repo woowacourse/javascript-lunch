@@ -11,19 +11,6 @@ export default function RestaurantModalButtonContainer() {
     classNames: ["button-container"],
   });
 
-  function handleClickCancel() {
-    document.querySelector(".modal").remove();
-  }
-
-  function handleClickAdd(event) {
-    event.preventDefault();
-    const $form = document.querySelector(".form");
-    const data = Object.fromEntries(new FormData($form));
-    restaurantDataList.addData(data);
-    reset();
-    init();
-  }
-
   $div.appendChild(
     Button({
       variant: "secondary",
@@ -41,4 +28,8 @@ export default function RestaurantModalButtonContainer() {
   );
 
   return $div;
+}
+
+function handleClickCancel() {
+  document.querySelector(".modal").remove();
 }
