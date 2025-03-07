@@ -23,7 +23,7 @@ export const FORM_FIELDS = Object.freeze({
         name: "link",
         type: "text",
         maxlength: 100,
-        placeholder: "https://www.crew-wiki.site/wiki/%EB%8C%80%EB%AC%B8",
+        placeholder: "https://www.woowacourse.io/",
       }
     },
     create: (info) => $input(info),
@@ -59,6 +59,7 @@ export const FORM_FIELDS = Object.freeze({
         cols: "30",
         rows: "5",
         maxlength: 200,
+        placeholder: "너무 맛있는데 너무 매워서 배가 아파요,,,",
       },
     },
     create: (info) => $textarea(info),
