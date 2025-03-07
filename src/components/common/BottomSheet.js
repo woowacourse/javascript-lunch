@@ -49,10 +49,14 @@ export default class BottomSheet extends Component {
     });
 
     const lunchForm = document.getElementById("lunch-form");
-    lunchForm?.addEventListener("submit", () => {
+    lunchForm?.addEventListener("submit", (e) => {
       this.children.map((child) => {
-        child.handleSubmit();
-        this.close();
+        try {
+          child.handleSubmit(e);
+          this.close();
+        } catch (e) {
+          alert(e.message);
+        }
       });
     });
   }

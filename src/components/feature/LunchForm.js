@@ -175,7 +175,7 @@ export default class LunchForm extends Component {
       text: "추가하기",
       variant: "primary",
       classList: ["w-full"],
-      onClick: () => this.handleSubmit(),
+      onClick: (e) => this.handleSubmit(e),
       id: "submit-btn",
     });
 
@@ -187,9 +187,11 @@ export default class LunchForm extends Component {
       `;
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     const { onAdd } = this.props;
 
+    this.validateLunchForm();
     this.props.onAdd({ ...this.state });
     this.handleReset();
   }
@@ -202,6 +204,12 @@ export default class LunchForm extends Component {
       description: "",
       reference: "",
     });
+  }
+
+  validateLunchForm() {
+    Validator.category(this.state.category);
+    Validator.location(this.state.location);
+    Validator.reference(this.state.reference);
   }
 
   template() {
