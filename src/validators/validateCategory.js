@@ -1,4 +1,5 @@
 import toThrowNewError from "./toThrowNewError.js";
+import RULES from "../constants/rules.js";
 
 const validateCategory = (category) => {
   toThrowNewError({
@@ -7,9 +8,7 @@ const validateCategory = (category) => {
   });
 
   toThrowNewError({
-    condition: !["한식", "중식", "일식", "양식", "아시안", "기타"].includes(
-      category
-    ),
+    condition: !RULES.CATEGORIES.includes(category),
     message:
       "카테고리는 한식, 중식, 일식, 양식, 아시안, 기타 중 하나여야 합니다.",
   });

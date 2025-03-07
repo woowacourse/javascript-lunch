@@ -1,4 +1,5 @@
 import toThrowNewError from "./toThrowNewError.js";
+import RULES from "../constants/rules.js";
 
 const validateDistance = (distance) => {
   toThrowNewError({
@@ -7,7 +8,7 @@ const validateDistance = (distance) => {
   });
 
   toThrowNewError({
-    condition: !["5", "10", "15", "20", "30"].includes(distance),
+    condition: !RULES.DISTANCES.includes(parseInt(distance, 10)),
     message:
       "거리(도보 이동 시간)는 5분, 10분, 15분, 20분, 30분 중 하나여야 합니다.",
   });
