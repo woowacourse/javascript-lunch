@@ -70,30 +70,30 @@ interface data: Restaurant[]
 - [x] 음식점 리스트
 
   - [x] 음식점 아이템
-    - [ ] 카테고리 (required)
-    - [ ] 이름 (required)
-    - [ ] 거리(도보 이동 시간) (required)
-    - [ ] 설명
+    - [x] 카테고리 (required)
+    - [x] 이름 (required)
+    - [x] 거리(도보 이동 시간) (required)
+    - [x] 설명
 
-- [ ] 새로운 음식점 추가하는 모달
+- [x] 새로운 음식점 추가하는 모달
   - [ ] 카테고리 (required)
-    - Container (label, required), option
-    - [ ] 유효성 검사
-      - [ ] 선택 무조건 하나 하기
-  - [ ] 이름 (required)
-    - Container (label, required), text input
-    - [ ] 유효성 검사
-      - [ ] 1글자 이상, 15글자 이하
-  - [ ] 거리(도보 이동 시간) (required)
-    - Container (label, required), option
-    - [ ] 유효성 검사
-      - [ ] 선택 무조건 하나 하기
-  - [ ] 설명
-    - Container (label, required), textarea, hint text
-    - 0자 이상, 300자 이하
-  - [ ] 참고 링크
-    - Container (label, required), textarea, hint text
-    - 0자 이상
-    - 정규표현식 써서 링크 형식인지 맞추기?
-  - [ ] 취소 버튼
-  - [ ] 추가 버튼
+    - [x] Container (label, required), option
+    - [x] 유효성 검사
+      - [x] 선택 무조건 하나 하기
+  - [x] 이름 (required)
+    - [x] Container (label, required), text input
+    - [x] 유효성 검사
+      - [x] 1글자 이상, 15글자 이하
+  - [x] 거리(도보 이동 시간) (required)
+    - [x] Container (label, required), option
+    - [x] 유효성 검사
+      - [x] 선택 무조건 하나 하기
+  - [x] 설명
+    - [x] Container (label, required), textarea, hint text
+    - [x] 0자 이상, 300자 이하
+  - [x] 참고 링크
+    - [x] Container (label, required), textarea, hint text
+    - [x] 0자 이상
+    - [x] 정규표현식 써서 링크 형식인지 맞추기
+  - [x] 취소 버튼
+  - [x] 추가 버튼
