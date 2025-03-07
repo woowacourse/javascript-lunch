@@ -76,4 +76,12 @@ describe('기능 테스트', () => {
     cy.get('#name').should('have.value', '');
     cy.get('#distance').should('have.value', '');
   });
+
+  it('사용자가 모달의 필수 필드 입력창에 아무것도 입력하지 않고 추가하기 버튼을 클릭하는 시나리오 테스트', () => {
+    cy.get('.gnb__button').click();
+    cy.get('.modal--open').should('exist');
+
+    cy.get('.button--primary').click();
+    cy.get('.modal--open').should('exist');
+  });
 });
