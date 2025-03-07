@@ -14,7 +14,7 @@ class Modal {
     divModal.classList.add('modal');
     divModal.innerHTML = MODAL_TEMPLATE;
     DOM.APP.appendChild(divModal);
-    return divModal; //추가
+    return divModal;
   };
 
   addElement = (element) => {
