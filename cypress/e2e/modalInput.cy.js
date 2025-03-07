@@ -58,3 +58,15 @@ describe('모달창에 입력을 할 수 있다.', () => {
     });
   });
 });
+
+describe('참고 링크를 작성할 수 있다.', () => {
+  beforeEach(() => {
+    cy.visit(VISIT_URL_CONSTANT.LINK);
+    cy.get('.gnb__button').click();
+  });
+
+  it('참고 링크 작성은 텍스트 인풋을 사용하여 작성할 수 있다.', () => {
+    cy.get('#link').type('https://github.com');
+    cy.get('#link').should('have.value', 'https://github.com');
+  });
+});

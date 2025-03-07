@@ -1,4 +1,4 @@
-const ERROR_MESSAGES = Object.freeze({
+export const ERROR_MESSAGES = Object.freeze({
   NOT_SELECTED: (title) => {
     return `${title}이(가) 선택되지 않았어요.`;
   },
