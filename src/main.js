@@ -57,7 +57,10 @@ function renderContents() {
     const formData = new FormData(event.target);
     const values = Object.fromEntries(formData.entries());
 
-    console.log(values);
+    const restaurant = restaurantList.addRestaurant(values);
+
+    listElement.appendChild(ListItem(restaurant.information));
+    app.querySelector(".modal").classList.remove("modal--open");
   });
 
   modalContainer.appendChild(formElement);
