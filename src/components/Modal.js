@@ -1,16 +1,36 @@
-export function createModal({ element }) {
-  const modal = document.createElement("div");
-  const modalBackDrop = document.createElement("div");
-  const modalContainer = document.createElement("div");
+class Modal {
+  #visible = false;
 
-  modalBackDrop.classList.add("modal-backdrop");
-  modalContainer.classList.add("modal-container");
-  modalContainer.append(element);
+  #modal;
+  #modalBackDrop;
+  #modalContainer;
 
-  modal.classList.add("modal");
-  modal.classList.add("modal--open");
-  modal.append(modalBackDrop);
-  modal.append(modalContainer);
+  constructor({ element }) {
+    this.#modal = document.createElement("div");
+    this.#modalBackDrop = document.createElement("div");
+    this.#modalContainer = document.createElement("div");
 
-  return modal;
+    this.#modalBackDrop.classList.add("modal-backdrop");
+    this.#modalBackDrop.addEventListener("click", () => {
+      this.toggle();
+    });
+
+    this.#modalContainer.classList.add("modal-container");
+    this.#modalContainer.append(element);
+    this.#modal.classList.add("modal");
+
+    this.#modal.append(this.#modalBackDrop);
+    this.#modal.append(this.#modalContainer);
+  }
+
+  toggle() {
+    this.#visible = !this.#visible;
+    this.#modal.classList.toggle("modal--open");
+  }
+
+  get rendered() {
+    return this.#modal;
+  }
 }
+
+export default Modal;

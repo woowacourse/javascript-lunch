@@ -1,24 +1,27 @@
 import { createHeader } from "./components/Header";
 import { createRestaurantItem } from "./components/RestaurantItem";
-import { createModal } from "./components/Modal";
+import Modal from "./components/Modal";
 
 addEventListener("load", () => {
   const body = document.querySelector("body");
   const restaurantList = document.querySelector(".restaurant-list");
   const main = document.querySelector("main");
 
-  const header = createHeader({ title: "점심 뭐 먹지" });
+  const innerModalContent = document.createElement("div");
+  innerModalContent.innerHTML = /*html*/ `
+        <h2>주렁 추가</h2>
+        이름: <input type="text" >
+        닉네임: <input type="text" >
+  `;
+  const modal = new Modal({ element: innerModalContent });
+  main.append(modal.rendered);
+
+  const toggleModal = () => {
+    modal.toggle();
+  };
+  const header = createHeader({ title: "점심 뭐 먹지", onClick: toggleModal });
   header.classList.add("gnb");
   body.prepend(header);
-
-  const modalRestaurantItem = createRestaurantItem({
-    category: "한식",
-    restaurantName: "피양콩할마니",
-    distance: 10,
-    description: "평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩",
-  });
-  const modal = createModal({ element: modalRestaurantItem });
-  main.append(modal);
 
   //////// 다음 컴포넌트
   restaurantList.append(
