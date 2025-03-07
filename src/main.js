@@ -61,22 +61,25 @@ function appendModalContents() {
   const distanceSelect = createSelect(DISTANCE);
   const descriptionTextarea = createTextarea(DESCRIPTION);
   const linkInput = createInput(LINK);
-  const addButton = createButton(ADD_BUTTON);
-
-  const cancelButton = createButton(CANCEL_BUTTON);
 
   form.insertAdjacentHTML('beforeend', categorySelect);
   form.insertAdjacentHTML('beforeend', nameInput);
   form.insertAdjacentHTML('beforeend', distanceSelect);
   form.insertAdjacentHTML('beforeend', descriptionTextarea);
   form.insertAdjacentHTML('beforeend', linkInput);
-  const buttonContainer = document.createElement('div');
-  buttonContainer.classList.add('button-container');
-  form.appendChild(buttonContainer);
+
+  appendModalButton(form);
 }
 
-function appendModalButton() {
-  buttonContainer = document.querySelector('.button-container');
+function appendModalButton(form) {
+  const buttonDiv = document.createElement('div');
+  buttonDiv.classList.add('button-container');
+  form.appendChild(buttonDiv);
+
+  const addButton = createButton(ADD_BUTTON);
+  const cancelButton = createButton(CANCEL_BUTTON);
+
+  const buttonContainer = document.querySelector('.button-container');
   buttonContainer.insertAdjacentHTML('beforeend', cancelButton);
   buttonContainer.insertAdjacentHTML('beforeend', addButton);
 }
