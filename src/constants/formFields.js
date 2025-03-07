@@ -13,7 +13,7 @@ export const FORM_FIELDS = Object.freeze({
         name: "name",
         type: "text",
         maxlength: 30,
-        placeholder: "음식점 이름을 입력해주세요."
+        placeholder: "음식점 이름을 입력해주세요.",
       },
     },
     link: {
@@ -24,7 +24,7 @@ export const FORM_FIELDS = Object.freeze({
         type: "text",
         maxlength: 100,
         placeholder: "https://www.woowacourse.io/",
-      }
+      },
     },
     create: (info) => $input(info),
   }),
@@ -45,7 +45,7 @@ export const FORM_FIELDS = Object.freeze({
         required: true,
         id: "distance",
         name: "distance",
-      }
+      },
     },
     create: (info) => $select(info),
   }),

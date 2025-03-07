@@ -7,6 +7,6 @@ const $buttonContainer = (buttons) => {
   });
 
   return container;
-}
+};
 
 export default $buttonContainer;

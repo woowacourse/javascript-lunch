@@ -1,7 +1,8 @@
-const $inputItem = (fieldType,fieldName) => {
+const $inputItem = (fieldType, fieldName) => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("form-item");
-  if (fieldType[fieldName].attribute.required) wrapper.classList.add("form-item--required");
+  if (fieldType[fieldName].attribute.required)
+    wrapper.classList.add("form-item--required");
 
   const label = document.createElement("label");
   label.htmlFor = `${fieldType[fieldName].attribute.id} text-caption`;

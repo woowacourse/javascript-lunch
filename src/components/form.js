@@ -15,7 +15,9 @@ export const handleAddRestaurant = (e) => {
 };
 
 const validateForm = (form) => {
-  const requiredFields =  form.querySelectorAll("input[required], select[required], textarea[required]");
+  const requiredFields = form.querySelectorAll(
+    "input[required], select[required], textarea[required]"
+  );
   requiredFields.forEach((requiredField) => {
     if (!requiredField.value.trim()) {
       const labelText = document.querySelector(
