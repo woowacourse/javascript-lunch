@@ -22,8 +22,17 @@ export default class Application extends Component {
     `;
   }
 
+  addRestaurant(restaurant) {
+    this.setState({
+      ...this.state,
+      restaurants: [...this.state.restaurants, restaurant],
+    });
+  }
+
   onRender() {
-    const restaurantAddModal = new RestaurantAddModal();
+    const restaurantAddModal = new RestaurantAddModal({
+      addRestaurant: this.addRestaurant.bind(this),
+    });
     this.element.appendChild(restaurantAddModal.element);
 
     window.addEventListener('click', (event) => {
@@ -35,5 +44,6 @@ export default class Application extends Component {
         $modal.classList.remove('modal--open');
       }
     });
+    console.log(this.state);
   }
 }

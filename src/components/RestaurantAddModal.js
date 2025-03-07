@@ -80,13 +80,6 @@ export default class RestaurantAddModal extends Component {
     return modal.template();
   }
 
-  addRestaurant(restaurant) {
-    this.setState({
-      ...this.state,
-      restaurantList: [...this.state.restaurantList, restaurant],
-    });
-  }
-
   onRender() {
     const form = this.element.querySelector('form');
 
