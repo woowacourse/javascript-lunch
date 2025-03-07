@@ -10,18 +10,19 @@ addEventListener("load", () => {
     storeUtils.addStore(store);
   });
   const modal = createModal();
-  document.querySelector("main").appendChild(modal);
+  querySelector("main").appendChild(modal);
 
-  querySelector.gnbButton().addEventListener("click", () => {
-    querySelector.modal().classList.add("modal--open");
+  querySelector(".gnb__button").addEventListener("click", () => {
+    querySelector(".modal").classList.add("modal--open");
     modalUtils.addForm();
 
-    querySelector
-      .modalForm()
-      .addEventListener("submit", (e) => storeUtils.updateStore(storeList, e));
+    querySelector(".modal-form").addEventListener("submit", (e) =>
+      storeUtils.updateStore(storeList, e)
+    );
   });
 
-  querySelector
-    .modalBackdrop()
-    .addEventListener("click", modalUtils.closeModal);
+  querySelector(".modal-backdrop").addEventListener(
+    "click",
+    modalUtils.closeModal
+  );
 });

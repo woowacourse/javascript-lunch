@@ -10,20 +10,16 @@ import textArea from "../components/textArea.js";
 import helpText from "../constants/helpText.js";
 
 export const modalUtils = {
-  addChild: (child) => {
-    querySelector.modalForm().appendChild(child);
-  },
-
   closeModal: () => {
-    const modal = document.querySelector(".modal");
+    const modal = querySelector(".modal");
     modal.classList.remove("modal--open");
   },
 
   addForm: () => {
-    const modalContainer = document.querySelector(".modal-container");
+    const modalContainer = querySelector(".modal-container");
     modalContainer.innerHTML = createFormContent({ title: "새로운 음식점" });
 
-    const modalForm = document.querySelector(".modal-form");
+    const modalForm = querySelector(".modal-form");
     modalForm.appendChild(optionInput("category", options.category));
     modalForm.appendChild(textInput("name", true));
     modalForm.appendChild(optionInput("distance", options.distance));
@@ -32,9 +28,10 @@ export const modalUtils = {
 
     modalForm.appendChild(modalUtils.addButtons());
 
-    querySelector
-      .modalCancelButton()
-      .addEventListener("click", modalUtils.closeModal);
+    querySelector("#cancel-button").addEventListener(
+      "click",
+      modalUtils.closeModal
+    );
   },
 
   addButtons: () => {
@@ -53,7 +50,7 @@ export const storeUtils = {
     list.classList.add("restaurant");
     const store = Store(storeProps);
     list.innerHTML = store;
-    querySelector.restaurantList().appendChild(list);
+    querySelector(".restaurant-list").appendChild(list);
   },
 
   updateStore: (storeList, e) => {
@@ -68,7 +65,7 @@ export const storeUtils = {
       storeList.updateList(newStore);
       storeUtils.addStore(newStore);
 
-      modalUtils.closeModal(e);
+      modalUtils.closeModal();
     } catch (error) {
       alert(error.message);
     }
