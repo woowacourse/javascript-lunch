@@ -38,7 +38,13 @@ function validateFoodItem({ category, name, distance, description, link }) {
     alertError(error.message);
     return;
   }
-  return { category, name, distance, description, link };
+  return {
+    category: getInput(category),
+    name: getInput(name),
+    distance: getInput(distance),
+    description: getInput(description),
+    link: getInput(link),
+  };
 }
 
 function addFoodItem() {
@@ -62,15 +68,12 @@ function handleSubmit() {
 
   if (!foodInfo) return;
 
-  const { imgSrc, imgAlt } = computeImgSrcAlt(foodInfo.category);
-
   return {
+    category: foodInfo.category,
     name: foodInfo.name,
     distance: foodInfo.distance,
     description: foodInfo.description,
     link: foodInfo.link,
-    imgSrc: imgSrc,
-    imgAlt: imgAlt,
   };
 }
 

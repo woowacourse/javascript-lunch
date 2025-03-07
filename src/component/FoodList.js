@@ -1,3 +1,4 @@
+import { computeImgSrcAlt } from "../util/computeImgSrcAlt.js";
 import { FoodItem } from "./FoodItem.js";
 
 export function FoodList({ foodItems }) {
@@ -6,13 +7,16 @@ export function FoodList({ foodItems }) {
   const foodFragment = document.createDocumentFragment();
 
   foodItems.forEach((foodItem) => {
+    const { imgSrc, imgAlt } = computeImgSrcAlt(foodItem.category);
+
     foodFragment.appendChild(
       FoodItem({
-        imgSrc: foodItem.imgSrc,
-        imgAlt: foodItem.imgAlt,
+        imgSrc: imgSrc,
+        imgAlt: imgAlt,
         name: foodItem.name,
         distance: foodItem.distance,
         description: foodItem.description,
+        link: foodItem.link,
       })
     );
   });
