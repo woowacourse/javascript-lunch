@@ -56,8 +56,8 @@ const handleSubmit = ({ name, distance, description, category }) => {
     name,
     distance,
     description,
-    icon: RestaurantIcon({ src: `../images/category-${category}.png`, alt: category }),
+    icon: RestaurantIcon({ src: `../images/category-${category}.png`, alt: category })
   });
 
-  const restaurantList = $('.restaurant-list').appendChild(item);
+  $('.restaurant-list').appendChild(item);
 };

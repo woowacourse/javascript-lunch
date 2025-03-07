@@ -5,7 +5,7 @@ function RestaurantIcon({ src, alt }) {
     tag: 'img',
     src,
     alt,
-    class: 'category-icon',
+    class: 'category-icon'
   });
 }
 

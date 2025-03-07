@@ -5,7 +5,7 @@ function CTAButton({ text, ...attribute }) {
     tag: 'button',
     class: ['button', 'button--primary', 'text-caption'],
     textContent: text,
-    ...attribute,
+    ...attribute
   });
 }
 

@@ -8,7 +8,7 @@ function RestaurantItem({ name, distance, description, icon }) {
       createDOMElement({
         tag: 'div',
         class: 'restaurant__category',
-        children: [icon],
+        children: [icon]
       }),
       createDOMElement({
         tag: 'div',
@@ -17,21 +17,21 @@ function RestaurantItem({ name, distance, description, icon }) {
           createDOMElement({
             tag: 'h3',
             class: ['restaurant__name', 'text-subtitle'],
-            textContent: name,
+            textContent: name
           }),
           createDOMElement({
             tag: 'span',
             class: ['restaurant__distance', 'text-body'],
-            textContent: `캠퍼스부터 ${distance}분 내`,
+            textContent: `캠퍼스부터 ${distance}분 내`
           }),
           createDOMElement({
             tag: 'p',
             class: ['restaurant__description', 'text-body'],
-            textContent: description,
-          }),
-        ],
-      }),
-    ],
+            textContent: description
+          })
+        ]
+      })
+    ]
   });
 }
 

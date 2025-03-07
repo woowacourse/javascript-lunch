@@ -7,10 +7,10 @@ function Modal({ content }) {
     children: [
       createDOMElement({
         tag: 'div',
-        class: 'modal-backdrop',
+        class: 'modal-backdrop'
       }),
-      content,
-    ],
+      content
+    ]
   });
 
   function open() {

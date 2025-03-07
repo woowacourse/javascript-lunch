@@ -10,9 +10,9 @@ function PlusButton() {
       createDOMElement({
         tag: 'img',
         src: './images/add-button.png',
-        alt: '음식점 추가',
-      }),
-    ],
+        alt: '음식점 추가'
+      })
+    ]
   });
 }
 

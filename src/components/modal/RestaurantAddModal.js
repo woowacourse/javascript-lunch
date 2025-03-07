@@ -11,11 +11,11 @@ function RestaurantAddModal() {
         createDOMElement({
           tag: 'h2',
           class: ['modal-title', 'text-title'],
-          textContent: '새로운 음식점',
+          textContent: '새로운 음식점'
         }),
-        RestaurantAddModalForm(),
-      ],
-    }),
+        RestaurantAddModalForm()
+      ]
+    })
   });
 }
 

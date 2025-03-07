@@ -11,7 +11,7 @@
     "test-e2e": "cypress open",
     "deploy": "vite build --base=/javascript-lunch/ --minify=false && npx gh-pages -d dist"
   },
-  "homepage": "https://{username}.github.io/javascript-lunch",
+  "homepage": "https://youdame.github.io/javascript-lunch",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
@@ -20,7 +20,8 @@
     "@types/jest": "^29.4.0",
     "babel-jest": "^29.3.1",
     "cypress": "^12.6.0",
-    "eslint": "^8.34.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-cypress": "^4.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^2.7.0",
     "jest": "^29.3.1",

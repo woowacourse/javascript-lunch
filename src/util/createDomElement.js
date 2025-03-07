@@ -1,5 +1,7 @@
 const createDOMElement = ({ tag, children, ...props }) => {
-  if (!tag) throw new Error('Tag is required');
+  if (!tag) {
+    throw new Error('Tag is required');
+  }
 
   const element = document.createElement(tag);
 

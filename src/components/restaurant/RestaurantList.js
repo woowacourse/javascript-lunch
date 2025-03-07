@@ -12,10 +12,10 @@ function RestaurantList() {
         tag: 'ul',
         class: 'restaurant-list',
         children: restaurants.map((restaurant) =>
-          RestaurantItem({ ...restaurant, icon: RestaurantIcon(restaurant.icon) }),
-        ),
-      }),
-    ],
+          RestaurantItem({ ...restaurant, icon: RestaurantIcon(restaurant.icon) })
+        )
+      })
+    ]
   });
 }
 

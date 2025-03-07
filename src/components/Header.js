@@ -8,10 +8,10 @@ function Header({ title, right }) {
       createDOMElement({
         tag: 'h1',
         class: ['gnb__title', 'text-title'],
-        textContent: title,
+        textContent: title
       }),
-      right,
-    ],
+      right
+    ]
   });
 }
 

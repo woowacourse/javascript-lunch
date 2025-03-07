@@ -4,7 +4,7 @@ function Root({ label, input, caption }) {
   return createDOMElement({
     tag: 'div',
     class: ['form-item', 'form-item--required'],
-    children: [label, input, caption].filter(Boolean),
+    children: [label, input, caption].filter(Boolean)
   });
 }
 
@@ -13,7 +13,7 @@ function Label({ text, className, ...attribute }) {
     tag: 'label',
     textContent: text,
     class: [className, 'text-caption'].filter(Boolean),
-    ...attribute,
+    ...attribute
   });
 }
 
@@ -24,24 +24,24 @@ function Select({ options, ...attribute }) {
       createDOMElement({
         tag: 'option',
         value: value,
-        textContent: option,
-      }),
+        textContent: option
+      })
     ),
-    ...attribute,
+    ...attribute
   });
 }
 
 function Input({ ...attribute }) {
   return createDOMElement({
     tag: 'input',
-    ...attribute,
+    ...attribute
   });
 }
 
 function TextArea({ ...attribute }) {
   return createDOMElement({
     tag: 'textarea',
-    ...attribute,
+    ...attribute
   });
 }
 
@@ -49,7 +49,7 @@ function Caption({ text }) {
   return createDOMElement({
     tag: 'span',
     class: ['help-text', 'text-caption'],
-    textContent: text,
+    textContent: text
   });
 }
 

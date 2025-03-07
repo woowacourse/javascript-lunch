@@ -4,7 +4,7 @@ function ActionButton({ text }) {
   return createDOMElement({
     tag: 'button',
     class: ['button', 'button--secondary', 'text-caption'],
-    textContent: text,
+    textContent: text
   });
 }
 
