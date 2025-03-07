@@ -20,7 +20,7 @@ export default class Icon extends Component {
         width="${size}"
         height="${size}"
         alt="${iconName}"
-        src="./${iconName}.png"
+        src="/public/${iconName}.png"
         class=" ${classList.join(" ")} cursor-pointer" 
         style="${styleStr(styles)}"
       />
