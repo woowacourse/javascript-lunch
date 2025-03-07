@@ -12,16 +12,17 @@ class Modal extends Component {
     return "";
   }
 
-  addEvent(eventType, callback) {
-    this.$target.addEventListener(eventType, (event) => callback(event));
+  componentDidMount() {
+    this.$backdrop = this.$target.querySelector(".modal-backdrop");
+    if (this.$backdrop) {
+      this.$backdrop.removeEventListener("click", this.handleClose);
+      this.$backdrop.addEventListener("click", this.handleClose);
+    }
   }
 
   componentDidUpdate() {
     if (this.state.isOpen) {
       this.initialRender();
-      this.$target
-        .querySelector(".modal-backdrop")
-        .addEventListener("click", this.handleClose);
     }
   }
 
@@ -46,14 +47,8 @@ class Modal extends Component {
   close() {
     if (this.state.isOpen) {
       this.setState({ isOpen: false });
-      this.destroy();
+      this.$target.replaceChildren();
     }
-  }
-
-  componentWillUnmount() {
-    this.$target
-      .querySelector(".modal-backdrop")
-      .removeEventListener("click", this.handleClose);
   }
 }
 

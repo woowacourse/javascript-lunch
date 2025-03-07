@@ -4,7 +4,11 @@ import RestaurantName from "./RestaurantName.js";
 import Distance from "./Distance.js";
 import Description from "./Description.js";
 import Link from "./Link.js";
-import { restaurants } from "../../../database/restaurants.js";
+import validateCategory from "../../../validators/validateCategory.js";
+import validateRestaurantName from "../../../validators/validateRestaurantName.js";
+import validateDistance from "../../../validators/validateDistance.js";
+import validateDescription from "../../../validators/validateDescription.js";
+import validateLink from "../../../validators/validateLink.js";
 
 class AddRestaurantModal extends Modal {
   contents() {
@@ -17,7 +21,6 @@ class AddRestaurantModal extends Modal {
         ${Description()}
         ${Link()}
 
-        <!-- 취소/추가 버튼 -->
         <div class="button-container">
           <button type="button" id="cancel-add-restaurant-form" class="button button--secondary text-caption" data-testid="cancel-add-restaurant-form">취소하기</button>
           <button class="button button--primary text-caption">추가하기</button>
@@ -26,40 +29,47 @@ class AddRestaurantModal extends Modal {
     `;
   }
 
-  componentDidUpdate() {
-    super.componentDidUpdate();
+  componentDidMount() {
+    super.componentDidMount();
     if (this.state.isOpen) {
-      const $cancelButton = document.querySelector(
-        "#cancel-add-restaurant-form"
-      );
-
-      $cancelButton.addEventListener("click", this.handleClose);
-      // cancelButton 에 관한 removeEventListener
-
-      const $addForm = document.querySelector("#add-restaurant-form");
-      $addForm.addEventListener("submit", this.handleSubmit.bind(this));
+      this.addEventListeners();
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
+  addEventListeners() {
+    const $cancelButton = document.querySelector("#cancel-add-restaurant-form");
+    const $addForm = document.querySelector("#add-restaurant-form");
 
-    this.props.updateRestaurant(data);
-    // form 에 관한 removeEventListener
-    this.close();
+    $cancelButton.removeEventListener("click", this.handleClose);
+    $addForm.removeEventListener("submit", this.handleSubmit);
+
+    $cancelButton.addEventListener("click", this.handleClose);
+    $addForm.addEventListener("submit", this.handleSubmit);
   }
 
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    this.$target
-      .querySelector("#cancel-add-restaurant-form")
-      .removeEventListener("click", this.handleClose);
+  handleSubmit = (event) => {
+    event.preventDefault();
 
-    this.$target
-      .querySelector("#add-restaurant-form")
-      .removeEventListener("submit", this.handleSubmit.bind(this));
+    try {
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+
+      this.validateData(data);
+
+      this.props.updateRestaurant(data);
+      this.close();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  validateData(data) {
+    const { category, name, distance, description, link } = data;
+    validateCategory(category);
+    validateRestaurantName(name);
+    validateDistance(distance);
+    validateDescription(description);
+    validateLink(link);
   }
 }
 

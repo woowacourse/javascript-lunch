@@ -12,14 +12,18 @@ class Component {
   }
 
   setup() {}
-  initialRender() {
+
+  render() {
     this.$target.insertAdjacentHTML("afterbegin", this.template());
+  }
+
+  initialRender() {
+    this.render();
     this.componentDidMount();
   }
 
   componentDidMount() {}
   componentDidUpdate() {}
-  componentWillUnmount() {}
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
@@ -29,11 +33,6 @@ class Component {
 
   template() {
     return "";
-  }
-
-  destroy() {
-    this.componentWillUnmount();
-    this.$target.replaceChildren();
   }
 }
 

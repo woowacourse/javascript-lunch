@@ -35,8 +35,9 @@ class App extends Component {
     const $modal = new AddRestaurantModal(document.querySelector("#modal"), {
       updateRestaurant: this.updateRestaurant.bind(this),
     });
+    const $gnbButton = this.$target.querySelector(".gnb__button");
 
-    document.querySelector(".gnb__button").addEventListener("click", () => {
+    $gnbButton.addEventListener("click", () => {
       $modal.open();
     });
 
