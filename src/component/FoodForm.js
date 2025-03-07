@@ -5,12 +5,12 @@ import { FoodListPage } from "../pages/FoodListPage.js";
 import { removeError, resetError } from "../util/handleIsError.js";
 import { modalClose } from "../util/modalAction.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
-import { Button } from "./Button.js";
-import { ButtonContainer } from "./ButtonContainer.js";
+import { Button } from "./button/Button.js";
+import { ButtonContainer } from "./button/ButtonContainer.js";
 import { FoodList } from "./FoodList.js";
-import { Input } from "./Input.js";
-import { SelectInput } from "./SelectInput.js";
-import { TextareaInput } from "./TextareaInput.js";
+import { Input } from "./input/Input.js";
+import { SelectInput } from "./input/SelectInput.js";
+import { TextareaInput } from "./input/TextareaInput.js";
 
 function addFoodItem() {
   const foodInfo = validateFoodItem({

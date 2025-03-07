@@ -1,9 +1,6 @@
-import { SELECT_OPTIONS } from "../constants/constants.js";
-import { modalClose } from "../util/modalAction.js";
-import { Button } from "./Button.js";
-import { Input } from "./Input.js";
-import { SelectInput } from "./SelectInput.js";
-import { TextareaInput } from "./TextareaInput.js";
+import { SELECT_OPTIONS } from "../../constants/constants.js";
+import { modalClose } from "../../util/modalAction.js";
+import { Button } from "../button/Button.js";
 
 export function Modal({ modalContent }) {
   const container = document.createElement("div");

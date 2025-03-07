@@ -1,7 +1,7 @@
-import { modalOpen } from "../util/modalAction.js";
-import { IconButton } from "./IconButton.js";
+import { modalOpen } from "../../util/modalAction.js";
+import { IconButton } from "../button/IconButton.js";
 
-export function HeaderComponent({ title = "제목" }) {
+export function Header({ title = "제목" }) {
   const header = document.createElement("header");
   header.className = "gnb";
   header.innerHTML = `
