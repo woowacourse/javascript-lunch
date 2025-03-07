@@ -1,3 +1,4 @@
+import addData from "./addData.js";
 import Component from "./Component.js";
 import Dropdown from "./Dropdown.js";
 import Input from "./Input.js";
@@ -61,22 +62,9 @@ class Modal extends Component {
         event.preventDefault();
         const modalContainer = document.querySelector(".modal");
         modalContainer.classList.toggle("modal--open");
-        this.addData();
+        addData();
         document.dispatchEvent(new CustomEvent("restaurantUpdated"));
       });
-  }
-
-  addData() {
-    const formData = new FormData(document.getElementById("input-form"));
-    const submittedData = Object.fromEntries(formData);
-    const information = {
-      name: submittedData.name,
-      distance: Number(submittedData.distance),
-      description: submittedData.description,
-      imgSrc: `../templates/category-${submittedData.category}.png`,
-      imgAlt: `${categoryValue[submittedData.category]}`,
-    };
-    RestaurantData.push(information);
   }
 }
 
