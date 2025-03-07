@@ -1,54 +1,3 @@
-.w-full {
-  width: 100%;
-}
-
-.max-w-390 {
-  max-width: 390px;
-}
-
-.w-64 {
-  width: 64px;
-}
-
-.w-40 {
-  width: 40px;
-}
-
-.max-h-800 {
-  max-height: 800px;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-140 {
-  height: 140px;
-}
-
-.h-90 {
-  height: 90px;
-}
-
-.h-64 {
-  height: 64px;
-}
-
-.h-48 {
-  height: 48px;
-}
-
-.h-44 {
-  height: 44px;
-}
-
-.h-40 {
-  height: 40px;
-}
-
-.min-h-44 {
-  min-height: 44px;
-}
 .rounded-lg {
   border-radius: 8px;
 }
@@ -63,6 +12,10 @@
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-y-auto {
+  overflow-y-auto: auto;
 }
 
 .overflow-y {
@@ -90,6 +43,11 @@
   margin-bottom: 16px;
 }
 
+.my-8 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 .pl-8 {
   padding-left: 8px;
 }
@@ -97,11 +55,6 @@
 .py-16 {
   padding-top: 16px;
   padding-bottom: 16px;
-}
-
-.px-8 {
-  padding-left: 8px;
-  padding-right: 8px;
 }
 
 .py-8 {
@@ -112,6 +65,11 @@
 .px-16 {
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.px-8 {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .box-border {
