@@ -10,8 +10,8 @@ class Modal extends Component {
   template() {
     const inputBoxList = [
       new InputBox({
-        input: ` 
-          <select name="category" id="category">
+        input: `
+          <select name="category" id="category" required>
             <option value="">선택해 주세요</option>
             <option value="한식">한식</option>
             <option value="중식">중식</option>
@@ -24,13 +24,13 @@ class Modal extends Component {
         isRequired: true,
       }),
       new InputBox({
-        input: `<input type="text" name="name" id="name" maxlength='20' />`,
+        input: `<input type="text" name="name" id="name" maxlength='20' required />`,
         label: '이름',
         isRequired: true,
       }),
       new InputBox({
         input: `
-        <select name="distance" id="distance">
+        <select name="distance" id="distance" required>
           <option value="">선택해 주세요</option>
           <option value="5">5분 내</option>
           <option value="10">10분 내</option>
