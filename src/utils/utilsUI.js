@@ -1,29 +1,49 @@
 import Button from "../components/button.js";
-import querySelector from "./querySelector.js";
 import Store from "../components/store.js";
+import querySelector from "./querySelector.js";
 import validate from "./validate.js";
+import createFormContent from "../components/formContent.js";
+import optionInput from "../components/optionInput.js";
+import options from "../constants/options.js";
+import textInput from "../components/textInput.js";
+import textArea from "../components/textArea.js";
+import helpText from "../constants/helpText.js";
 
 export const modalUtils = {
   addChild: (child) => {
     querySelector.modalForm().appendChild(child);
   },
 
-  closeModal: (e) => {
-    const modal = querySelector.modal();
+  closeModal: () => {
+    const modal = document.querySelector(".modal");
     modal.classList.remove("modal--open");
-    const formItems = modal.querySelectorAll("input, textarea, select");
-
-    formItems.forEach((item) => {
-      item.value = "";
-    });
   },
 
-  openModal: () => {
-    querySelector.modal().classList.add("modal--open");
+  addForm: () => {
+    const modalContainer = document.querySelector(".modal-container");
+    modalContainer.innerHTML = createFormContent({ title: "새로운 음식점" });
+
+    const modalForm = document.querySelector(".modal-form");
+    modalForm.appendChild(optionInput("category", options.category));
+    modalForm.appendChild(textInput("name", true));
+    modalForm.appendChild(optionInput("distance", options.distance));
+    modalForm.appendChild(textArea("description", helpText.description));
+    modalForm.appendChild(textInput("link", false, helpText.link));
+
+    modalForm.appendChild(modalUtils.addButtons());
+
+    querySelector
+      .modalCancelButton()
+      .addEventListener("click", modalUtils.closeModal);
   },
 
-  addButton: (container, type) => {
-    container.appendChild(Button(type));
+  addButtons: () => {
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
+    buttonContainer.appendChild(Button("cancel"));
+    buttonContainer.appendChild(Button("add"));
+
+    return buttonContainer;
   },
 };
 
