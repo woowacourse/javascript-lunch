@@ -28,6 +28,7 @@ export default class LunchForm extends Component {
     lunchText.setProps({
       content: "새로운 음식점",
       classList: ["w-full", "text-2xl"],
+      id: "lunch-form-title",
     });
     return lunchText.template();
   }
@@ -38,13 +39,14 @@ export default class LunchForm extends Component {
       content: "카테고리",
       required: true,
       classList: ["text-lg", "slate-500"],
+      id: "category-label",
     });
 
     const categorySelect = this.addChild(Select);
     categorySelect.setProps({
       options: ["한식", "중식", "일식", "아시안", "양식", "기타"],
       onChange: (value) => this.setState({ category: value }),
-      id: "category",
+      id: "category-select",
     });
 
     return `
@@ -61,6 +63,7 @@ export default class LunchForm extends Component {
       content: "이름",
       required: true,
       classList: ["text-lg", "slate-500"],
+      id: "store-name-label",
     });
 
     const storeName = this.addChild(TextArea);
@@ -70,7 +73,7 @@ export default class LunchForm extends Component {
       placeHolder: "피양콩할마니",
       onInput: (value) => this.setState({ storeName: value }),
       classList: ["h-44", "rounded-lg", "resize-none"],
-      id: "storeName",
+      id: "store-name-textarea",
     });
 
     return `
@@ -87,13 +90,14 @@ export default class LunchForm extends Component {
       content: "거리(도보 이동 시간)",
       required: true,
       classList: ["text-lg", "slate-500"],
+      id: "location-label",
     });
 
     const location = this.addChild(Select);
     location.setProps({
       options: ["5분", "10분", "15분", "20분", "30분"],
       onChange: (value) => this.setState({ location: value }),
-      id: "location",
+      id: "location-select",
     });
 
     return `
@@ -109,6 +113,7 @@ export default class LunchForm extends Component {
     descriptionLabel.setProps({
       content: "설명",
       classList: ["text-lg", "slate-500"],
+      id: "description-label",
     });
 
     const description = this.addChild(TextArea);
@@ -118,7 +123,7 @@ export default class LunchForm extends Component {
       placeHolder: "설명을 입력해주세요. 설명은 최대 255글자까지 가능합니다.",
       onInput: (value) => this.setState({ description: value }),
       classList: ["h-90", "rounded-lg", "resize-none"],
-      id: "description",
+      id: "description-textarea",
     });
 
     return `
@@ -134,6 +139,7 @@ export default class LunchForm extends Component {
     referenceLabel.setProps({
       content: "참고 링크",
       classList: ["text-lg", "slate-500"],
+      id: "reference-label",
     });
 
     const reference = this.addChild(TextArea);
@@ -143,7 +149,7 @@ export default class LunchForm extends Component {
       placeHolder: "https://techcourse.woowahan.com/",
       onInput: (value) => this.setState({ reference: value }),
       classList: ["h-44", "rounded-lg", "resize-none"],
-      id: "reference",
+      id: "reference-textarea",
     });
 
     return `
@@ -161,7 +167,7 @@ export default class LunchForm extends Component {
       variant: "secondary",
       classList: ["w-full"],
       onClick: () => this.handleReset(),
-      id: "cancelBtn",
+      id: "cancel-btn",
     });
 
     const submitBtn = this.addChild(Button);
@@ -170,7 +176,7 @@ export default class LunchForm extends Component {
       variant: "primary",
       classList: ["w-full"],
       onClick: () => this.handleSubmit(),
-      id: "submitBtn",
+      id: "submit-btn",
     });
 
     return `

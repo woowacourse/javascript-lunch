@@ -21,6 +21,7 @@ export default class LunchItem extends Component {
     storeName.setProps({
       content: this.props.storeName,
       classList: ["text-xl"],
+      id: "store-name-item",
     });
 
     return storeName.template();
@@ -31,21 +32,24 @@ export default class LunchItem extends Component {
     location.setProps({
       content: this.props.location,
       classList: ["text-lg", "primary-500"],
+      id: "location-item",
     });
 
     return location.template();
   }
 
   renderDescription() {
+    if (!this.props.description) return "";
     const description = this.addChild(Text);
     description.setProps({
       content: this.props.description,
-      classList: ["text-lg", "mt-8"],
+      classList: ["text-lg", "my-8"],
       styles: {
         display: "-webkit-box",
         "-webkit-line-clamp": 2,
         "-webkit-box-orient": "vertical",
       },
+      id: "description-item",
     });
 
     return description.template();
@@ -55,6 +59,7 @@ export default class LunchItem extends Component {
     const icon = this.addChild(CircleIcon);
     icon.setProps({
       iconName: match(this.props.category),
+      id: "category-item",
     });
 
     return icon.template();
@@ -62,7 +67,7 @@ export default class LunchItem extends Component {
 
   template() {
     return `
-      <div id="lunch-item" class="flex flex-row h-140 w-full items-start gap-16 py-8 px-8 border-b">
+      <div id="lunch-item" class="flex flex-row w-full items-start gap-16 py-16 px-8 border-b" style="height: auto;">
         <div>
           ${this.renderCircleIcon()}
         </div>
