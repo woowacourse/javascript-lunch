@@ -11,6 +11,10 @@ import render from "./utils/render.js";
 import state from "./state.js";
 import AddLunchModalForm from "./component/AddLunchModalForm.js";
 
+addEventListener("keydown", (e) => {
+  if (e.key === "Escape") Modal.close();
+});
+
 DOM.$body.prepend(Header.create());
 
 renderRestaurantList();
