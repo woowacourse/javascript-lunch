@@ -37,7 +37,7 @@ export default class RestaurantAddModal extends Component {
         isRequired: true,
       }),
       new InputBox({
-        input: `<textarea maxlength='1000' name="description" id="description" cols="30" rows="5"></textarea>`,
+        input: `<textarea maxlength="1000" name="description" id="description" cols="30" rows="5"></textarea>`,
         label: '설명',
         caption: '메뉴 등 추가 정보를 입력해 주세요.',
         isRequired: false,
