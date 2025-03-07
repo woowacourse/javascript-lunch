@@ -15,8 +15,8 @@ export default class Component {
     this.state = {};
   }
 
-  addChild(C, ...args) {
-    const component = new C(...args);
+  addChild(Component, ...args) {
+    const component = new Component(...args);
     this.children.push(component);
     return component;
   }
