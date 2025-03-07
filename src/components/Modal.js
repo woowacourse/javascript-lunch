@@ -1,6 +1,7 @@
 import Button from "./Button.js";
 import Component from "../core/Component.js";
 import InputBox from "./InputBox.js";
+import { FOOD_CATEGORY } from "../constants/constants.js";
 
 class Modal extends Component {
   constructor(props, parent) {
@@ -110,6 +111,7 @@ class Modal extends Component {
       const $link = this.element.querySelector("#link");
 
       const modalInput = {
+        imgUrl: `category-${FOOD_CATEGORY[$categoryInput.value]}.png`,
         category: $categoryInput.value,
         name: $name.value,
         distance: $distance.value,
