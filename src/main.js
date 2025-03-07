@@ -1,11 +1,6 @@
 import createRestaurantList from './components/RestaurantList/createRestaurantList.js';
 import createSectionContainer from './components/createSectionContainer.js';
-import {
-  restaurantItems,
-  categoryOptions,
-  distanceOptions,
-  categoryImages,
-} from '../public/restaurantData.js';
+import { CATEGORY_OPTIONS, DISTANCE_OPTIONS, RESTAURANT_ITEMS } from '../public/restaurantData.js';
 import createModal from './components/createModal.js';
 import createSelectBox from './components/createSelectBox.js';
 import createInputBox from './components/createInputBox.js';
@@ -16,7 +11,7 @@ import updateRestaurantList from './components/RestaurantList/updateRestaurantLi
 
 const $main = document.getElementsByTagName('main')[0];
 const $filterContainer = createSectionContainer('restaurant-list-container');
-const $restaurantList = createRestaurantList(restaurantItems);
+const $restaurantList = createRestaurantList(RESTAURANT_ITEMS);
 
 $filterContainer.appendChild($restaurantList);
 
@@ -24,13 +19,13 @@ const $modalTitle = createElement('h2', 'modal-title text-title', '새로운 음
 const $enrollForm = createElement('form');
 
 const $categoryBox = createSelectBox({
-  options: categoryOptions,
+  options: CATEGORY_OPTIONS,
   isRequired: true,
   type: 'category',
 });
 const $$nameInputBox = createInputBox({ label: '이름', isRequired: true, type: 'name' });
 const $distanceBox = createSelectBox({
-  options: distanceOptions,
+  options: DISTANCE_OPTIONS,
   isRequired: true,
   type: 'distance',
 });

@@ -1,4 +1,4 @@
-const restaurantItems = [
+const RESTAURANT_ITEMS = [
   {
     categoryImgSrc: './category-korean.png',
     category: '한식',
@@ -46,10 +46,10 @@ const restaurantItems = [
   },
 ];
 
-const categoryOptions = ['한식', '중식', '일식', '양식', '아시안', '기타'];
-const distanceOptions = ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'];
+const CATEGORY_OPTIONS = ['한식', '중식', '일식', '양식', '아시안', '기타'];
+const DISTANCE_OPTIONS = ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'];
 
-const categoryImages = {
+const CATEGORY_IMAGES = {
   한식: 'korean',
   중식: 'chinese',
   일식: 'japanese',
@@ -58,4 +58,4 @@ const categoryImages = {
   기타: 'etc',
 };
 
-export { restaurantItems, categoryOptions, distanceOptions, categoryImages };
+export { RESTAURANT_ITEMS, CATEGORY_OPTIONS, DISTANCE_OPTIONS, CATEGORY_IMAGES };

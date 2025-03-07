@@ -1,4 +1,8 @@
-import { categoryOptions, distanceOptions, restaurantItems } from '../../public/restaurantData.js';
+import {
+  CATEGORY_OPTIONS,
+  DISTANCE_OPTIONS,
+  RESTAURANT_ITEMS,
+} from '../../public/restaurantData.js';
 
 describe('식당 리스트 페이지 테스트', () => {
   beforeEach(() => {
@@ -53,18 +57,18 @@ describe('식당 리스트 페이지 테스트', () => {
 
     cy.get('.restaurant-list')
       .children()
-      .should('have.length', restaurantItems.length + 1);
+      .should('have.length', RESTAURANT_ITEMS.length + 1);
     cy.get('.restaurant-list').children().last().should('contain.text', '기와집');
   });
 
   it('카테고리는 "한식", "중식", "일식", "아시안", "양식", "기타" 중 하나를 선택한다', () => {
-    categoryOptions.forEach((categoryOption) => {
+    CATEGORY_OPTIONS.forEach((categoryOption) => {
       cy.get('select#category').should('contain.text', categoryOption);
     });
   });
 
   it('거리는 캠퍼스로부터 도보로 걸리는 시간(분). 5, 10, 15, 20, 30 중 하나를 선택한다', () => {
-    distanceOptions.forEach((distanceOption) => {
+    DISTANCE_OPTIONS.forEach((distanceOption) => {
       cy.get('select#distance').should('contain.text', distanceOption);
     });
   });
@@ -83,9 +87,9 @@ describe('식당 리스트 페이지 테스트', () => {
 
     cy.get('.restaurant-list')
       .children()
-      .should('have.length', restaurantItems.length + 1);
+      .should('have.length', RESTAURANT_ITEMS.length + 1);
 
     cy.reload();
-    cy.get('.restaurant-list').children().should('have.length', restaurantItems.length);
+    cy.get('.restaurant-list').children().should('have.length', RESTAURANT_ITEMS.length);
   });
 });
