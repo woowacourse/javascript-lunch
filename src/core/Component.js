@@ -1,27 +1,24 @@
 export default class Component {
   #element;
-  state;
+  #props;
+  #state;
 
   constructor(props) {
-    this.props = props;
-    this.state = {};
-
-    this.setup();
-    this.render();
+    this.#props = props;
+    this.#state = {};
   }
-
-  setup() {}
 
   render() {
     if (!this.#element) this.#element = document.createElement('div');
 
     this.#element.innerHTML = this.template();
     this.onRender();
+
+    return this.#element;
   }
 
   setState(nextState) {
-    this.state = nextState;
-
+    this.#state = nextState;
     this.render();
   }
 
@@ -33,5 +30,13 @@ export default class Component {
 
   get element() {
     return this.#element;
+  }
+
+  get props() {
+    return this.#props;
+  }
+
+  get state() {
+    return this.#state;
   }
 }

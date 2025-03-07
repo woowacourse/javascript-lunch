@@ -5,12 +5,8 @@ import { RESTAURANT_LIST_DEFAULT } from './lib/constants.js';
 export default class Application extends Component {
   constructor() {
     super();
-  }
 
-  setup() {
-    this.state = {
-      restaurants: RESTAURANT_LIST_DEFAULT,
-    };
+    this.setState({ restaurants: RESTAURANT_LIST_DEFAULT });
   }
 
   template() {
@@ -33,7 +29,7 @@ export default class Application extends Component {
     const restaurantAddModal = new RestaurantAddModal({
       addRestaurant: this.addRestaurant.bind(this),
     });
-    this.element.appendChild(restaurantAddModal.element);
+    this.element.appendChild(restaurantAddModal.render());
 
     window.addEventListener('click', (event) => {
       const $modal = this.element.querySelector('.modal');
@@ -44,6 +40,5 @@ export default class Application extends Component {
         $modal.classList.remove('modal--open');
       }
     });
-    console.log(this.state);
   }
 }
