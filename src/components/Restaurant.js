@@ -9,7 +9,7 @@ class Restaurant extends Component {
     return `  <li class="restaurant">
     <div class="restaurant__category">
       <img
-        src="./public/images/category-korean.png"
+        src="./public/images/${this.props.imgUrl}"
         alt=${this.props.category}
         class="category-icon"
       />
