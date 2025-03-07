@@ -6,12 +6,6 @@ import RestaurantItem from './components/restaurant/RestaurantItem.js';
 import RestaurantList from './components/restaurant/RestaurantList.js';
 import { $ } from './util/selector.js';
 
-addEventListener('load', () => {
-  renderHeader();
-  renderRestaurantList();
-  renderModal();
-});
-
 const renderHeader = () => {
   const body = $('body');
 
@@ -56,8 +50,12 @@ const handleSubmit = ({ name, distance, description, category }) => {
     name,
     distance,
     description,
-    icon: RestaurantIcon({ src: `../images/category-${category}.png`, alt: category }),
+    icon: RestaurantIcon({ src: `images/category-${category}.png`, alt: category }),
   });
 
-  const restaurantList = $('.restaurant-list').appendChild(item);
+  $('.restaurant-list').appendChild(item);
 };
+
+renderHeader();
+renderRestaurantList();
+renderModal();
