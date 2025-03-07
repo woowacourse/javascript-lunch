@@ -34,7 +34,6 @@ const attachModalEvents = (open, close) => {
   closeButton.addEventListener('click', close);
 
   const form = $('form');
-
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(form);

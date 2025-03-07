@@ -12,7 +12,7 @@ function RestaurantAddModalForm() {
     tag: 'form',
     children: [
       InputBox.Root({
-        label: InputBox.Label({ text: '카테고리', for: 'category', className: 'label-required' }),
+        label: InputBox.Label({ text: '카테고리', htmlFor: 'category', className: 'label-required' }),
         input: InputBox.Select({
           name: 'category',
           id: 'category',
@@ -21,11 +21,11 @@ function RestaurantAddModalForm() {
         }),
       }),
       InputBox.Root({
-        label: InputBox.Label({ text: '이름', for: 'name', className: 'label-required' }),
+        label: InputBox.Label({ text: '이름', htmlFor: 'name', className: 'label-required' }),
         input: InputBox.Input({ type: 'text', name: 'name', id: 'name', required: true }),
       }),
       InputBox.Root({
-        label: InputBox.Label({ text: '거리(도보 이동 시간)', for: 'distance', className: 'label-required' }),
+        label: InputBox.Label({ text: '거리(도보 이동 시간)', htmlFor: 'distance', className: 'label-required' }),
         input: InputBox.Select({
           name: 'distance',
           id: 'distance',
@@ -34,7 +34,7 @@ function RestaurantAddModalForm() {
         }),
       }),
       InputBox.Root({
-        label: InputBox.Label({ text: '설명', for: 'description' }),
+        label: InputBox.Label({ text: '설명', htmlFor: 'description' }),
         input: InputBox.TextArea({
           name: 'description',
           id: 'description',
@@ -46,7 +46,7 @@ function RestaurantAddModalForm() {
         }),
       }),
       InputBox.Root({
-        label: InputBox.Label({ text: '참고 링크' }),
+        label: InputBox.Label({ text: '참고 링크', htmlFor: 'link' }),
         input: InputBox.Input({
           type: 'text',
           name: 'link',
