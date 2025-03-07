@@ -37,7 +37,6 @@ export default function RestaurantModalButtonContainer() {
       variant: "primary",
       type: "submit",
       text: "추가하기",
-      // onClick: handleClickAdd,
     })
   );
 
