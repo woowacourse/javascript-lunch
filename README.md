@@ -183,5 +183,6 @@
   - [x] 모달에서 백드롭 클릭시, 모달 닫힘. (force 옵션 값 이용)
   - [x] E2E 테스트 전체 플로우 진행
 - [x] form 입력 값 required를 동적 인자로 받아 구현
-- [ ] 리팩토링
+- [x] 리팩토링
   - [x] main.js 함수 분리 -> 컨트롤러로 모듈 분리 (header, list, modal)
+  - [x] EventHandler 리팩토링
