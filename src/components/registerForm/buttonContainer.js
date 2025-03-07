@@ -5,6 +5,7 @@ import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
+import ErrorMessage from "../common/errorMessage";
 
 const ButtonContainer = (restaurantList) => {
   const buttonContainer = document.createElement("div");
@@ -40,11 +41,18 @@ const closeModal = () => {
 
 const registerRestaurant = (e, restaurantList) => {
   e.preventDefault();
-  const restaurant = new Restaurant(getInfo());
-  restaurantList.push(restaurant);
+  try {
+    const info = getInfo();
 
-  $(".modal-backdrop").classList.remove("open");
-  renderRestaurants(restaurantList);
+    const restaurant = new Restaurant(info);
+    restaurantList.push(restaurant);
 
-  clearInput("#register-form");
+    $(".modal-backdrop").classList.remove("open");
+    renderRestaurants(restaurantList);
+
+    clearInput("#register-form");
+  } catch (e) {
+    const currentInputField = $(`#${e.cause}-form-item`);
+    currentInputField.appendChild(ErrorMessage(e.message));
+  }
 };

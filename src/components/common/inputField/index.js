@@ -6,6 +6,7 @@ const InputField = (inputElement, text) => {
 
   const inputField = document.createElement("div");
   inputField.classList.add("form-item");
+  inputField.id = `${infoType}-form-item`;
 
   if (required) inputField.classList.add("form-item--required");
 
