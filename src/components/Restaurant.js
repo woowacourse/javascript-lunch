@@ -2,10 +2,6 @@ import Component from '../core/Component.js';
 import { CATEGORY_MAP } from '../lib/constants.js';
 
 class Restaurant extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   template() {
     return `
       <li class="restaurant">

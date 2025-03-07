@@ -1,12 +1,6 @@
 import Component from '../core/Component.js';
 
-const ButtonType = ['primary', 'secondary'];
-
 class Button extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   template() {
     return `
      <button

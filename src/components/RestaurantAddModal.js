@@ -2,10 +2,6 @@ import Component from '../core/Component.js';
 import { InputBox, Button, Modal } from './index.js';
 
 class RestaurantAddModal extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   template() {
     const inputBoxList = [
       new InputBox({

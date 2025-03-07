@@ -3,10 +3,6 @@ import Component from '../core/Component.js';
 import InputBox from './InputBox.js';
 
 class Modal extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   template() {
     return `
       <div class="modal">

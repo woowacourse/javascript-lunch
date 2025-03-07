@@ -1,10 +1,6 @@
 import Component from '../core/Component.js';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   template() {
     return `
       <header class="gnb">

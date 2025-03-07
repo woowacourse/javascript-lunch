@@ -1,10 +1,6 @@
 import Component from '../core/Component.js';
 
 class InputBox extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   template() {
     return `
       <div class="form-item ${this.props?.isRequired ? 'form-item--required' : ''}">
