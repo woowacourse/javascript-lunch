@@ -34,4 +34,13 @@ describe("modal E2E 테스트", () => {
 
     cy.get(".restaurant-list li").should("contain", inputTest.name).and("contain", inputTest.distance);
   });
+
+  it("모달에서 취소하기 버튼 클릭시, 모달 닫힘을 확인한다.", () => {
+    cy.get("header button").click();
+    cy.get(".modal form button[type='button']").click();
+
+    setTimeout(() => {
+      cy.get(".modal--open").should("exsit").not();
+    }, 1000);
+  });
 });
