@@ -9,7 +9,7 @@ function PlusButton() {
     children: [
       createDOMElement({
         tag: 'img',
-        src: './images/add-button.png',
+        src: 'images/add-button.png',
         alt: '음식점 추가'
       })
     ]
