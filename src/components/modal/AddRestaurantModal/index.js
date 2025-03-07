@@ -33,19 +33,33 @@ class AddRestaurantModal extends Modal {
         "#cancel-add-restaurant-form"
       );
 
-      $cancelButton.addEventListener("click", () => this.close());
+      $cancelButton.addEventListener("click", this.handleClose);
+      // cancelButton 에 관한 removeEventListener
 
       const $addForm = document.querySelector("#add-restaurant-form");
-      $addForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData.entries());
-
-        this.props.updateRestaurant(data);
-
-        this.close();
-      });
+      $addForm.addEventListener("submit", this.handleSubmit.bind(this));
     }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    this.props.updateRestaurant(data);
+    // form 에 관한 removeEventListener
+    this.close();
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    this.$target
+      .querySelector("#cancel-add-restaurant-form")
+      .removeEventListener("click", this.handleClose);
+
+    this.$target
+      .querySelector("#add-restaurant-form")
+      .removeEventListener("submit", this.handleSubmit.bind(this));
   }
 }
 

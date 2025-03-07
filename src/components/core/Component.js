@@ -19,6 +19,7 @@ class Component {
 
   componentDidMount() {}
   componentDidUpdate() {}
+  componentWillUnmount() {}
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
@@ -28,6 +29,11 @@ class Component {
 
   template() {
     return "";
+  }
+
+  destroy() {
+    this.componentWillUnmount();
+    this.$target.replaceChildren();
   }
 }
 

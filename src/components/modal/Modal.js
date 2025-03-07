@@ -5,10 +5,15 @@ class Modal extends Component {
     this.state = {
       isOpen: false,
     };
+    this.handleClose = this.close.bind(this);
   }
 
   contents() {
     return "";
+  }
+
+  addEvent(eventType, callback) {
+    this.$target.addEventListener(eventType, (event) => callback(event));
   }
 
   componentDidUpdate() {
@@ -16,7 +21,7 @@ class Modal extends Component {
       this.initialRender();
       this.$target
         .querySelector(".modal-backdrop")
-        .addEventListener("click", () => this.close());
+        .addEventListener("click", this.handleClose);
     }
   }
 
@@ -41,8 +46,14 @@ class Modal extends Component {
   close() {
     if (this.state.isOpen) {
       this.setState({ isOpen: false });
-      this.$target.replaceChildren();
+      this.destroy();
     }
+  }
+
+  componentWillUnmount() {
+    this.$target
+      .querySelector(".modal-backdrop")
+      .removeEventListener("click", this.handleClose);
   }
 }
 
