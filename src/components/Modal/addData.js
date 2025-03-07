@@ -8,7 +8,7 @@ const addData = () => {
     name: submittedData.name,
     distance: Number(submittedData.distance),
     description: submittedData.description,
-    imgSrc: `../../../public/templates/category-${submittedData.category}.png`,
+    imgSrc: `../../../public/category-${submittedData.category}.png`,
     imgAlt: `${categoryValue[submittedData.category]}`,
   };
   RestaurantData.push(information);
