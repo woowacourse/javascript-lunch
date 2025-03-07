@@ -16,7 +16,7 @@ function ListItem({ category, name, distance, description }) {
     </div>
     <div class="restaurant__info">
       <h3 class="restaurant__name text-subtitle">${name}</h3>
-      <span class="restaurant__distance text-body">${distance}</span>
+      <span class="restaurant__distance text-body">캠퍼스부터 ${distance}</span>
       <p class="restaurant__description text-body">
         ${description}
       </p>
