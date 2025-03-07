@@ -8,6 +8,7 @@ import TextareaForm from "./components/Form/TextareaForm.js";
 import Header from "./components/Header.js";
 import List from "./components/List.js";
 import ListItem from "./components/ListItem.js";
+import Title from "./components/Title.js";
 import {
   HEADER_CONTENTS,
   LIST_ITEM_CONTENTS,
@@ -28,15 +29,6 @@ const MODAL_FORM = [
     notice: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
   },
 ];
-
-function Title({ type = "default", text }) {
-  const h2Element = document.createElement("h2");
-  h2Element.classList.add("text-title");
-  if (type === "modal") h2Element.classList.add("modal-title");
-  h2Element.innerText = text;
-
-  return h2Element;
-}
 
 function renderContents() {
   const app = document.getElementById("app");
