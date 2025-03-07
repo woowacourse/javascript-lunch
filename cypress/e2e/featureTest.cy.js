@@ -51,4 +51,12 @@ describe('기능 테스트', () => {
     cy.document().trigger('keydown', { key: 'Escape', keyCode: 27, which: 27, force: true });
     cy.get('.modal--open').should('not.exist');
   });
+
+  it('사용자가 음식점 추가 모달을 연 후, 모달 외부를 클릭하여 음식점 추가를 취소하는 시나리오 테스트', () => {
+    cy.get('.gnb__button').click();
+    cy.get('.modal--open').should('exist');
+
+    cy.get('.modal-backdrop').click({ force: true });
+    cy.get('.modal--open').should('not.exist');
+  });
 });
