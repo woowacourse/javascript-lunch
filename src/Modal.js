@@ -39,10 +39,16 @@ class Modal extends Component {
     this.$target.innerHTML = this.template();
     this.setEvent();
     new Dropdown(document.getElementById("category"), categoryValue);
-    new Input(document.getElementById("name"), "required");
+    new Input(document.getElementById("name"), {
+      required: "required",
+      type: "text",
+    });
     new Dropdown(document.getElementById("distance"), distanceValue);
-    new Input(document.getElementById("description"), "");
-    new Input(document.getElementById("link"), "");
+    new Input(document.getElementById("description"), {
+      required: "",
+      type: "text",
+    });
+    new Input(document.getElementById("link"), { required: "", type: "url" });
   }
 
   setEvent() {

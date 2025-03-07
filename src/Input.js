@@ -6,9 +6,10 @@ class Input extends Component {
     super($target, props);
   }
   template() {
+    const { required, type } = this.props;
     return `
     <label for="${this.$target.getAttribute("id")} text-caption">${label[this.$target.getAttribute("id")]}</label>
-    <input type="text" name="${this.$target.getAttribute("id")}" id="${this.$target.getAttribute("id")}" ${this.props}>
+    <input type="${type}" name="${this.$target.getAttribute("id")}" id="${this.$target.getAttribute("id")}" ${required}>
 
             `;
   }
