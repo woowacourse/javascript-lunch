@@ -21,11 +21,12 @@ export default class BottomSheet extends Component {
 
     this.addBottomSheetEvents();
 
-    this.children.map((child) => {
-      child.setProps({
+    const lunchForm = this.findLunchForm();
+    if (lunchForm) {
+      lunchForm.setProps({
         onAdd: this.props.onAdd,
       });
-    });
+    }
   }
 
   close() {
@@ -33,6 +34,10 @@ export default class BottomSheet extends Component {
     if (bottomSheetContainer) {
       bottomSheetContainer.innerHTML = "";
     }
+  }
+
+  findLunchForm() {
+    return this.children.find((child) => child instanceof LunchForm);
   }
 
   addBottomSheetEvents() {
@@ -53,14 +58,15 @@ export default class BottomSheet extends Component {
   }
 
   handleFormSubmit(e) {
-    this.children.map((child) => {
+    const lunchForm = this.findLunchForm();
+    if (lunchForm) {
       try {
-        child.handleSubmit(e);
+        lunchForm.handleSubmit(e);
         this.close();
       } catch (e) {
         alert(e.message);
       }
-    });
+    }
   }
 
   template(isOpen = this.props.isOpen) {
