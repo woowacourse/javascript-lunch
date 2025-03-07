@@ -5,7 +5,7 @@ export const UI_CONFIG = Object.freeze({
   HEADER: Object.freeze({
     title: "점심 뭐 먹지",
     buttonTitle: "음식점 추가",
-    buttonImage: "/images/add-button.png",
+    buttonImage: "images/add-button.png",
   }),
   BUTTONS: Object.freeze({
     CANCEL: {
