@@ -2,6 +2,7 @@ import AddRestaurantModal from "./components/AddRestaurantModal.js";
 import Header from "./components/Header.js";
 import RestaurantItem from "./components/RestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
+import { categoryMapping } from "./utils/categoryMapping.js";
 import {
   validateDescriptiontInput,
   validateNameInput,
@@ -12,7 +13,7 @@ addEventListener("load", () => {
   const $headerContainer = document.querySelector(".gnb");
   Header($headerContainer);
   const $restaurantListContainer = document.querySelector(
-    ".restaurant-list-container",
+    ".restaurant-list-container"
   );
   RestaurantList($restaurantListContainer);
 
@@ -21,19 +22,6 @@ addEventListener("load", () => {
 
   $modalButton.addEventListener("click", () => {
     AddRestaurantModal($appContainer);
-
-    // 1. 모달창에서 입력값을 받아오고
-
-    // 카테고리 아이콘 매핑
-    const categoryMapping = {
-      한식: "korean",
-      중식: "chinese",
-      일식: "japanese",
-      양식: "western",
-      아시안: "asian",
-      기타: "etc",
-      에러: "error_category",
-    };
 
     const $addRestaurantButton = document.querySelector(".button--primary");
     $addRestaurantButton.addEventListener("click", (e) => {
