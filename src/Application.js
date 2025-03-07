@@ -41,12 +41,9 @@ export default class Application extends Component {
   #attachClickEventListener() {
     window.addEventListener('click', (event) => {
       const $modal = this.element.querySelector('.modal');
-      if (event.target.closest('.gnb__button')) {
-        $modal.classList.add('modal--open');
-      }
-      if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop')) {
+      if (event.target.closest('.gnb__button')) $modal.classList.add('modal--open');
+      if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop'))
         $modal.classList.remove('modal--open');
-      }
     });
   }
 
