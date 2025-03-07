@@ -53,3 +53,14 @@ describe('음식점 아이템 렌더링 테스트', () => {
       });
   });
 });
+
+describe('모달 렌더링 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
+  });
+
+  it('모달이 잘 렌더링 되는지 확인', () => {
+    cy.get('.gnb__button').click();
+    cy.get('.modal modal--open').should('exist');
+  });
+});
