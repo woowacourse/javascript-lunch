@@ -1,8 +1,6 @@
 function renderCaption(caption) {
   return caption
-    ? `<span class="help-text text-caption"
-  >${caption}</span
->`
+    ? `<span class="help-text text-caption">${caption}</span>`
     : "";
 }
 
@@ -14,9 +12,9 @@ export function Input({ isRequired = false, name, label, caption }) {
   }
 
   container.innerHTML = `
-              <label for="link text-caption">${label}</label>
-              <input type="text" name=${name} id=${name} />
-             ${renderCaption(caption)}
+  <label for="link text-caption">${label}</label>
+  <input type="text" name="${name}" id="${name}" />
+  ${renderCaption(caption)}
   `;
 
   return container;

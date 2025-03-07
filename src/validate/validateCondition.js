@@ -1,9 +1,5 @@
-import {
-  DESCRIPTION_MAX_LENGTH,
-  NAME_MAX_LENGTH,
-} from "../constants/constants.js";
 import { ERROR_MESSAGE } from "../constants/errorMessage.js";
-import { removeError, setError } from "../util/handleIsError.js";
+import { removeError, setError } from "../util/errorHandler.js";
 import { getInput } from "../util/getInput.js";
 
 export function validateRequiredInput(name) {

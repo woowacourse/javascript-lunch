@@ -1,5 +1,5 @@
 import { SELECT_OPTIONS } from "../../constants/constants.js";
-import { modalClose } from "../../util/modalAction.js";
+import { modalClose } from "../../util/modalHandler.js";
 import { Button } from "../button/Button.js";
 
 export function Modal({ modalContent }) {

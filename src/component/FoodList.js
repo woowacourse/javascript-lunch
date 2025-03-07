@@ -1,4 +1,4 @@
-import { computeImgSrcAlt } from "../util/computeImgSrcAlt.js";
+import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 import { FoodItem } from "./FoodItem.js";
 
 export function FoodList({ foodItems }) {
@@ -7,7 +7,7 @@ export function FoodList({ foodItems }) {
   const foodFragment = document.createDocumentFragment();
 
   foodItems.forEach((foodItem) => {
-    const { imgSrc, imgAlt } = computeImgSrcAlt(foodItem.category);
+    const { imgSrc, imgAlt } = getImgSrcAlt(foodItem.category);
 
     foodFragment.appendChild(
       FoodItem({

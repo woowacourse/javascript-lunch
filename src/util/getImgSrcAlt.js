@@ -1,4 +1,4 @@
-export function computeImgSrcAlt(category) {
+export function getImgSrcAlt(category) {
   switch (category) {
     case "한식":
       return { imgAlt: "한식", imgSrc: "/category-korean.png" };

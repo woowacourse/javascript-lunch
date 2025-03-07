@@ -1,4 +1,4 @@
-import { modalOpen } from "../../util/modalAction.js";
+import { modalOpen } from "../../util/modalHandler.js";
 import { IconButton } from "../button/IconButton.js";
 
 export function Header({ title = "제목" }) {
