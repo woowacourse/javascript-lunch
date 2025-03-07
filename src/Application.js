@@ -26,11 +26,18 @@ export default class Application extends Component {
   }
 
   onRender() {
+    this.#appendRestaurantAddModal();
+    this.#attachClicEventListner();
+  }
+
+  #appendRestaurantAddModal() {
     const restaurantAddModal = new RestaurantAddModal({
       addRestaurant: this.addRestaurant.bind(this),
     });
     this.element.appendChild(restaurantAddModal.render());
+  }
 
+  #attachClicEventListner() {
     window.addEventListener('click', (event) => {
       const $modal = this.element.querySelector('.modal');
       if (event.target.closest('.gnb__button')) {
