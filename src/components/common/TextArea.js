@@ -11,6 +11,7 @@ export default class TextArea extends Component {
       classList: [],
       styles: {},
       id: "init",
+      isRequired: false,
     };
   }
 
@@ -27,12 +28,14 @@ export default class TextArea extends Component {
   }
 
   template() {
-    const { rows, maxLength, placeHolder, classList, styles, id } = this.props;
+    const { isRequired, rows, maxLength, placeHolder, classList, styles, id } =
+      this.props;
 
     return `
       <textarea 
+        ${isRequired && "required"}
         autofocus
-        id="${id}"  
+        id="${id}"
         name="${id}"
         rows="${rows}"
         maxlength="${maxLength}"
