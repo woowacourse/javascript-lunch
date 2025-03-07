@@ -1,5 +1,4 @@
 import { DOM } from '../dom.js';
-import AddRestaurantModal from '../modal/AddRestaurantModal.js';
 
 const HEADER_TEMPLATE = `
   <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
@@ -9,9 +8,8 @@ const HEADER_TEMPLATE = `
 `;
 
 class Header {
-  modalOpen = false;
-
-  constructor() {
+  constructor(addRestaurantModal) {
+    this.addRestaurantModal = addRestaurantModal;
     this.#createHeader();
     this.#bindEvent();
   }
@@ -26,7 +24,7 @@ class Header {
   #bindEvent = () => {
     const addButton = document.querySelector('.gnb__button');
     addButton.addEventListener('click', () => {
-      new AddRestaurantModal();
+      this.addRestaurantModal.openModal();
     });
   };
 }

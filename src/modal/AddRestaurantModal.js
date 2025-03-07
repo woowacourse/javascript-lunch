@@ -38,7 +38,8 @@ class AddRestaurantModal extends Modal {
     super();
     this.#init();
     this.#bindEvent();
-    return this.#createAddModal();
+    this.#createAddModal();
+    return this;
   }
 
   #init = () => {
@@ -115,6 +116,7 @@ class AddRestaurantModal extends Modal {
     });
 
     this.#cancelButton.addEventListener('click', () => {
+      console.log('SDFFSFFSD');
       this.closeModal();
     });
 
@@ -125,7 +127,6 @@ class AddRestaurantModal extends Modal {
     document.addEventListener('keyup', (event) => {
       if (event.key === 'Escape') {
         this.closeModal();
-        const modalElement = document.querySelector('.modal');
       }
     });
   };

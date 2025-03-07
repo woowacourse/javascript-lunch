@@ -4,26 +4,32 @@ const MODAL_TEMPLATE = `<div class="modal-backdrop"></div>
           <div class="modal-container"></div>`;
 
 class Modal {
+  #modal;
   constructor() {
-    return this.createModal();
+    this.#modal = this.createModal();
   }
 
   createModal = () => {
     const divModal = document.createElement('div');
-    divModal.classList.add('modal', 'modal--open');
+    divModal.classList.add('modal');
     divModal.innerHTML = MODAL_TEMPLATE;
     DOM.APP.appendChild(divModal);
+    return divModal; //추가
   };
 
   addElement = (element) => {
-    const divElement = document.querySelector('.modal-container');
+    const divElement = this.#modal.querySelector('.modal-container');
     divElement.appendChild(element);
   };
 
+  openModal = () => {
+    this.#modal.classList.add('modal--open');
+    document.body.style.overflow = 'hidden';
+  };
+
   closeModal = () => {
-    const modal = document.querySelector('.modal-oepn');
-    console.log(modal, 'here');
-    modal.remove();
+    this.#modal.classList.remove('modal--open');
+    document.body.style.overflow = '';
   };
 }
 

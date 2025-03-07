@@ -4,7 +4,8 @@ import Header from './components/Header.js';
 import RestaurantItem from './components/RestaurantItem.js';
 import AddRestaurantModal from './modal/AddRestaurantModal.js';
 
-new Header();
+const addRestaurantModal = new AddRestaurantModal();
+new Header(addRestaurantModal);
 
 const createRestaurantList = (restaurantList) => {
   restaurantList.forEach((restaurant) => {
