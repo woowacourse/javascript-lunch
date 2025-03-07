@@ -8,7 +8,7 @@ const Header = {
     headerElement.innerHTML = `<h1 class="gnb__title text-title">점심 뭐 먹지</h1>`;
     headerElement.appendChild(
       IconButton.create({
-        src: "./templates/add-button.png",
+        src: "./add-button.png",
         onClick: () => Modal.open(),
         label: "음식점 추가",
       })
