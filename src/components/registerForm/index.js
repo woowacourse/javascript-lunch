@@ -1,6 +1,7 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
+import createKeyValuePair from "../../utils/createKeyValuePair";
 import Input from "../common/input";
 import InputField from "../common/inputField";
 import Select from "../common/select";
@@ -12,11 +13,29 @@ const RegisterForm = (restaurantList) => {
   registerForm.setAttribute("id", "register-form");
 
   registerForm.appendChild(
-    InputField(Select("category", true, Object.keys(FOOD_CATEGORY)))
+    InputField(
+      Select(
+        "category",
+        true,
+        createKeyValuePair(
+          Object.keys(FOOD_CATEGORY),
+          Object.keys(FOOD_CATEGORY)
+        )
+      )
+    )
   );
   registerForm.appendChild(InputField(Input("name", true)));
   registerForm.appendChild(
-    InputField(Select("distance", true, WALK_TIME_MINUTES))
+    InputField(
+      Select(
+        "distance",
+        true,
+        createKeyValuePair(
+          WALK_TIME_MINUTES,
+          WALK_TIME_MINUTES.map((minute) => minute + "분 내")
+        )
+      )
+    )
   );
   registerForm.appendChild(
     InputField(TextArea("description"), INPUT_HELP_TEXT.DESCRIPTION)

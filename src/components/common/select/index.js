@@ -11,12 +11,14 @@ const Select = (name, required, options) => {
   defaultOption.textContent = INPUT_HELP_TEXT.SELECT_PLACEHOLDER;
   select.appendChild(defaultOption);
 
-  options.forEach((option) => {
+  for (const [key, value] of Object.entries(options)) {
     const optionTag = document.createElement("option");
-    optionTag.setAttribute("value", option);
-    optionTag.textContent = option;
+
+    optionTag.setAttribute("value", key);
+    optionTag.textContent = value;
+
     select.appendChild(optionTag);
-  });
+  }
 
   return select;
 };
