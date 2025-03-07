@@ -145,7 +145,7 @@
 
 ### modalAlert.cy.js
 
-- [ ] 필수 입력 조건이 만족되지 않았을때, 모달창에서 추가하기 버튼을 클릭하면 Alert창을 띄운다.
+- [x] 필수 입력 조건이 만족되지 않았을때, 모달창에서 추가하기 버튼을 클릭하면 Alert창을 띄운다.
   - [x] 카테고리 필드 값이 올바르지 않으면 alert창을 띄운다.
     - [x] 카테고리 필드가 선택되지 않으면 alert창을 띄운다.
   - [x] 이름 필드 값이 올바르지 않으면 alert창을 띄운다.
@@ -160,3 +160,57 @@
     - [x] 링크 필드 값이 접두사로 'https://'를 갖지 않으면 alert창을 띄운다.
 
 # 프로젝트 구조
+
+```
+javascript-lunch
+├─ README.md
+├─ cypress
+│  ├─ e2e
+│  │  ├─ constants
+│  │  │  ├─ testConstant.js
+│  │  │  └─ visitUrl.js
+│  │  ├─ header.cy.js
+│  │  ├─ init.cy.js
+│  │  ├─ modal.cy.js
+│  │  ├─ modalAlert.cy.js
+│  │  └─ modalInput.cy.js
+├─ index.html
+├─ public
+│  └─ assets
+│     ├─ add-button.png
+│     ├─ category-asian.png
+│     ├─ category-chinese.png
+│     ├─ category-etc.png
+│     ├─ category-japanese.png
+│     ├─ category-korean.png
+│     ├─ category-western.png
+│     ├─ favorite-icon-filled.png
+│     └─ favorite-icon-lined.png
+├─ src
+│  ├─ Restaurant.js
+│  ├─ RestaurantList.js
+│  ├─ components
+│  │  ├─ Button.js
+│  │  ├─ Header.js
+│  │  ├─ InputDropDown.js
+│  │  ├─ InputText.js
+│  │  ├─ Modal.js
+│  │  ├─ RestaurantIcon.js
+│  │  ├─ RestaurantInfo.js
+│  │  └─ RestaurantItem.js
+│  ├─ constant
+│  │  └─ category.js
+│  ├─ dom.js
+│  ├─ main.js
+│  ├─ modal
+│  │  └─ AddRestaurantModal.js
+│  ├─ style
+│  │  └─ style.css
+│  ├─ utils
+│  │  └─ convertStringToElement.js
+│  └─ validation
+│     └─ validations.js
+├─ templates
+   └─ index.html
+
+```
