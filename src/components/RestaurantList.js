@@ -6,7 +6,7 @@ export default class RestaurantList extends Component {
     return `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
-          ${this.props.restaurantList.map((restaurant) => new Restaurant(restaurant).template()).join('')}
+          ${this.props.restaurants.map((restaurant) => new Restaurant(restaurant).template()).join('')}
         </ul>
       </section>
     `;
