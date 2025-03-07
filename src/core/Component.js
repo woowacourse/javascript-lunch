@@ -13,7 +13,7 @@ class Component {
   setup() {}
 
   render() {
-    if (!this.#element) this.#element = document.createElement("div");
+    if (!this.#element) this.#element = document.createElement('div');
 
     this.#element.innerHTML = this.template();
     this.onRender();
