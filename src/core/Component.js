@@ -8,7 +8,6 @@ class Component {
 
     this.setup();
     this.render();
-    this.onRender();
   }
 
   setup() {}
@@ -17,6 +16,7 @@ class Component {
     if (!this.#element) this.#element = document.createElement("div");
 
     this.#element.innerHTML = this.template();
+    this.onRender();
   }
 
   setState(nextState) {
