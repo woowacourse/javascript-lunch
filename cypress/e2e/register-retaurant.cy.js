@@ -9,11 +9,12 @@ describe("음식점 추가 페이지 테스트", () => {
     link: "http://localhost.30000",
   };
 
-  it("필수 필드를 입력하고 등록 하기 버튼을 누르면 마지막 항목으로 식당이 추가된다.", () => {
+  beforeEach(() => {
     cy.visit("http://localhost:5173");
+  });
 
+  it("필수 필드를 입력하고 등록 하기 버튼을 누르면 마지막 항목으로 식당이 추가된다.", () => {
     //given
-
     cy.get(".modal-backdrop").invoke("addClass", "open");
 
     cy.get("#register-form").within(() => {
@@ -34,8 +35,6 @@ describe("음식점 추가 페이지 테스트", () => {
 
   describe("각 입력 필드 유효성 검사시 적절한 오류 메시지가 표시된다.", () => {
     it("카테고리를 입력하지 않고 추가하기 버튼을 누르면 오류 메시지가 표시된다", () => {
-      cy.visit("http://localhost:5173");
-
       //given
 
       cy.get(".modal-backdrop").invoke("addClass", "open");
@@ -55,9 +54,8 @@ describe("음식점 추가 페이지 테스트", () => {
         ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED
       );
     });
-    it("이름을 입력하지 않고 추가하기 버튼을 누르면 오류 메시지가 표시된다", () => {
-      cy.visit("http://localhost:5173");
 
+    it("이름을 입력하지 않고 추가하기 버튼을 누르면 오류 메시지가 표시된다", () => {
       //given
 
       cy.get(".modal-backdrop").invoke("addClass", "open");
@@ -77,9 +75,8 @@ describe("음식점 추가 페이지 테스트", () => {
         ERROR_MESSAGE.NAME_FIELD_REQUIRED
       );
     });
-    it("거리를 입력하지 않고 추가하기 버튼을 누르면 오류 메시지가 표시된다", () => {
-      cy.visit("http://localhost:5173");
 
+    it("거리를 입력하지 않고 추가하기 버튼을 누르면 오류 메시지가 표시된다", () => {
       //given
 
       cy.get(".modal-backdrop").invoke("addClass", "open");
