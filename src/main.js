@@ -1,23 +1,21 @@
-import image from "../templates/favorite-icon-filled.png";
-
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+import { $ } from "./utils/dom";
+import header from "./components/header";
+import Modal from "./components/common/modal";
+import Title from "./components/common/title";
+import RegisterForm from "./components/registerForm";
+import renderRestaurants from "./domain/renderRestaurant";
+import { registerModalClose } from "./components/common/modal/handleCloseModal";
+import { restaurantList } from "./restaurantList";
 
 addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+  $("#app").prepend(header());
+  renderRestaurants(...restaurantList);
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+  $("main").appendChild(
+    Modal(
+      registerModalClose,
+      Title("새로운 음식점", "h2", "modal-title", "text-title"),
+      RegisterForm()
+    )
+  );
 });
