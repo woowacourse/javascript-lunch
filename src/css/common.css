@@ -36,3 +36,7 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+.error-message {
+  color: var(--primary-color);
+}
