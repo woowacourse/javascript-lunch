@@ -19,18 +19,6 @@ const program = {
   },
 
   initEvent() {
-    // document.querySelector('body').addEventListener('click', (event) => {
-    //   console.log(event.target, event.target.classList);
-    //   event.preventDefault();
-
-    //   if (
-    //     event.target.classList.contains('gnb') ||
-    //     event.target.classList.contains('modal-backdrop')
-    //   ) {
-    //     this.enrollRestaurantModal.toggle();
-    //   }
-    // });
-
     const $openModalButton = document.querySelector('.gnb__button');
 
     $openModalButton.addEventListener('click', () => {
