@@ -48,16 +48,20 @@ export const modalUtils = {
     const nameInput = querySelector("#name");
     const descInput = querySelector("#description");
     const linkInput = querySelector("#link");
+    const categorySelect = querySelector("#category");
+    const distSelect = querySelector("#distance");
 
     modalUtils.checkInput(nameInput, validate.nameLength);
     modalUtils.checkInput(descInput, validate.descLength);
     modalUtils.checkInput(linkInput, validate.linkForm);
+    modalUtils.checkInput(categorySelect, validate.emptySelector, "change");
+    modalUtils.checkInput(distSelect, validate.emptySelector, "change");
   },
 
-  checkInput: (input, validate) => {
+  checkInput: (input, validate, type = "input") => {
     const addButton = querySelector("#add-button");
 
-    input.addEventListener("input", (e) => {
+    input.addEventListener(type, (e) => {
       try {
         validate(e.target.value);
         modalUtils.removeErrorText(input);
@@ -102,11 +106,14 @@ export const storeUtils = {
   },
 
   updateStore: (storeList, e) => {
+    const newStore = storeUtils.createStore(e);
+
     try {
       e.preventDefault();
 
-      const newStore = storeUtils.createStore(e);
+      validate.emptySelector(newStore.category);
       validate.nameLength(newStore.name);
+      validate.emptySelector(newStore.dist);
       validate.descLength(newStore.description);
       validate.linkForm(newStore.link);
 
@@ -115,7 +122,16 @@ export const storeUtils = {
 
       modalUtils.closeModal();
     } catch (error) {
-      alert(error.message);
+      storeUtils.checkRequired("category", newStore.category, error);
+      storeUtils.checkRequired("name", newStore.name, error);
+      storeUtils.checkRequired("distance", newStore.dist, error);
+    }
+  },
+
+  checkRequired: (input, value, error) => {
+    if (value === "") {
+      const input = querySelector(`#${input}`);
+      modalUtils.addErrorText(input, error);
     }
   },
 

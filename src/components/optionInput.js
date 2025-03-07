@@ -15,7 +15,7 @@ const optionInput = (name, options) => {
 
   formItem.innerHTML = `
   <label for="category text-caption">${title[name]}</label>
-                <select name=${name} id=${name} required>
+                <select name=${name} id=${name}>
                   <option value="">선택해 주세요</option>
                 ${options
                   .map(

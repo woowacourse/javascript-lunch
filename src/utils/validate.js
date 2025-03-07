@@ -2,6 +2,9 @@ import form from "../constants/form.js";
 import errorMessage from "../constants/message.js";
 
 const validate = {
+  emptySelector: (value) => {
+    if (value === "") throw new Error(errorMessage.EMPTY_SELECTOR);
+  },
   nameLength: (name) => {
     if (
       name.length > form.MAX_NAME_LENGTH ||

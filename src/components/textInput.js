@@ -7,9 +7,7 @@ const textInput = (name, isRequired, helpText) => {
 
   formItem.innerHTML = `
                 <label for="${name} text-caption">${title[name]}</label>
-                <input type="text" name="${name}" id="${name}" ${
-    isRequired && "required"
-  } />
+                <input type="text" name="${name}" id="${name}" />
   `;
 
   if (helpText) {
