@@ -1,14 +1,3 @@
-.gnb__button {
-  height: 40px;
-
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-
-  font-size: 24px;
-  cursor: pointer;
-}
-
 .restaurant {
   display: flex;
   align-items: flex-start;
@@ -17,6 +6,20 @@
 
   border-bottom: 1px solid #e9eaed;
 }
+
+.restaurant-list-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+}
+
+.category-icon {
+  width: 36px;
+  height: 36px;
+}
+
 .restaurant__category {
   display: flex;
   justify-content: center;
