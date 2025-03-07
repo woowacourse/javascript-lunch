@@ -17,16 +17,16 @@
     - [x] 참고 링크
 
 - Modal
-  - [] title
-  - [] 카테고리(select)
+  - [x] title
+  - [x] 카테고리(select)
     - ["한식", "중식", "일식", "아시안", "양식", "기타"]
-  - [] 이름 (input, type: text)
-  - [] 거리(분) (select)
+  - [x] 이름 (input, type: text)
+  - [x] 거리(분) (select)
     - [5, 10, 15, 20, 30]
-  - [] 설명 (input, type: text)
-  - [] 참고 링크 (input, type: text)
-  - [] 취소하기 버튼 (button)
-  - [] 추가하기 버튼 (button)
+  - [x] 설명 (input, type: text)
+  - [x] 참고 링크 (input, type: text)
+  - [x] 취소하기 버튼 (button)
+  - [x] 추가하기 버튼 (button)
 
 <br>
 
@@ -58,7 +58,7 @@
   - [x] 모달을 닫는 기능
 
 - [] 입력값이 잘못되었을 때 alert로 사용자에게 알려주는 기능
-- [] 새로고침 시 이전에 추가한 새로운 음식점 정보는 초기화하는 기능
+- [x] 새로고침 시 이전에 추가한 새로운 음식점 정보는 초기화하는 기능
 
 <br>
 
