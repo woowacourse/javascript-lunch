@@ -27,7 +27,8 @@ export default class Application extends Component {
 
   onRender() {
     this.#appendRestaurantAddModal();
-    this.#attachClicEventListner();
+    this.#attachClickEventListener();
+    this.#attachKeyDownEventListener();
   }
 
   #appendRestaurantAddModal() {
@@ -37,13 +38,22 @@ export default class Application extends Component {
     this.element.appendChild(restaurantAddModal.render());
   }
 
-  #attachClicEventListner() {
+  #attachClickEventListener() {
     window.addEventListener('click', (event) => {
       const $modal = this.element.querySelector('.modal');
       if (event.target.closest('.gnb__button')) {
         $modal.classList.add('modal--open');
       }
       if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop')) {
+        $modal.classList.remove('modal--open');
+      }
+    });
+  }
+
+  #attachKeyDownEventListener() {
+    window.addEventListener('keydown', (event) => {
+      const $modal = this.element.querySelector('.modal');
+      if (event.key === 'Escape') {
         $modal.classList.remove('modal--open');
       }
     });
