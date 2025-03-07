@@ -11,7 +11,7 @@
     "test-e2e": "cypress open",
     "deploy": "vite build --base=/javascript-lunch/ --minify=false && npx gh-pages -d dist"
   },
-  "homepage": "https://{username}.github.io/javascript-lunch",
+  "homepage": "https://kaori-killer.github.io/javascript-lunch",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
