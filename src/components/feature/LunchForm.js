@@ -206,7 +206,7 @@ export default class LunchForm extends Component {
 
   template() {
     return `
-    <div id="lunch-form" class="flex flex-col justify-start items-start gap-32 mt-32" >
+    <form id="lunch-form" class="flex flex-col justify-start items-start gap-32 mt-32" >
       ${this.renderLunchText()}
       ${this.renderCategory()}
       ${this.renderStoreName()}
@@ -214,7 +214,7 @@ export default class LunchForm extends Component {
       ${this.renderDescription()}    
       ${this.renderReference()}
       ${this.renderButton()}
-    </div>
+    </form>
     `;
   }
 

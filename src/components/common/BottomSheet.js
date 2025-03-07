@@ -48,8 +48,8 @@ export default class BottomSheet extends Component {
       this.close();
     });
 
-    const submitButton = document.getElementById("submit-btn");
-    submitButton?.addEventListener("click", () => {
+    const lunchForm = document.getElementById("lunch-form");
+    lunchForm?.addEventListener("submit", () => {
       this.children.map((child) => {
         child.handleSubmit();
         this.close();

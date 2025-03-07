@@ -90,7 +90,7 @@ export default class Select extends Component {
 
     return `
       <div class="relative w-full flex flex-col">
-        <button id="${id}-button" class="w-full h-44 flex items-center justify-between cursor-pointer border rounded-lg bg-white text-lg">
+        <button type="button" id="${id}-button" class="w-full h-44 flex items-center justify-between cursor-pointer border rounded-lg bg-white text-lg">
           ${selected || "선택해주세요"}
           <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.2s; ${
             isOpen ? "transform: rotate(180deg);" : ""
