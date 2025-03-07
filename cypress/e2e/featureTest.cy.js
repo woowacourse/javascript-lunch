@@ -11,7 +11,7 @@ describe('기능 테스트', () => {
     cy.get('#name').type('꺼벙이');
     cy.get('#distance').select('15분 내', { force: true });
     cy.get('#description').type('꺼벙이 분식');
-    cy.get('#link').type('https://naver.com');
+    cy.get('#link').type('https://naver.me/G6DyD9tg');
 
     cy.get('.button--primary').click();
     cy.get('.restaurant-list').should('contain', '꺼벙이');
@@ -37,7 +37,7 @@ describe('기능 테스트', () => {
     cy.get('#name').type('꺼벙이');
     cy.get('#distance').select('15분 내', { force: true });
     cy.get('#description').type('꺼벙이 분식');
-    cy.get('#link').type('https://naver.com');
+    cy.get('#link').type('https://naver.me/G6DyD9tg');
 
     cy.get('.button--secondary').click();
     cy.get('.modal--open').should('not.exist');

@@ -60,7 +60,7 @@ function createSelect(fieldName) {
 function createInput(fieldName) {
   const input = `<div class="form-item ${fieldName.required}">
     <label for="${fieldName.name} text-caption">${fieldName.label}</label>
-    <input type="text" name="${fieldName.name}" id="${fieldName.name}">
+    <input type="${fieldName.type}" name="${fieldName.name}" id="${fieldName.name}">
     <span class="help-text text-caption">${fieldName.helpText}</span>
   </div>`;
 

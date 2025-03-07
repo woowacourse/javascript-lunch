@@ -28,6 +28,7 @@ export const NAME = {
   name: 'name',
   helpText: '',
   required: 'form-item--required',
+  type: 'text',
 };
 
 export const LINK = {
@@ -35,6 +36,7 @@ export const LINK = {
   name: 'link',
   helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
   required: '',
+  type: 'url',
 };
 
 export const DESCRIPTION = {
