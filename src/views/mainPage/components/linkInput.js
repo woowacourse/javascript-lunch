@@ -4,6 +4,13 @@ import input from "../../../components/@common/input";
 const linkInput = () => {
   const $linkInputContainer = $(".link-input");
 
+  $linkInputContainer.addEventListener("input", (event) => {
+    const inputValue = event.target.value;
+    if (inputValue.length > 1000) {
+      alert("1000자 이하로 입력해주세요.");
+    }
+  });
+
   $linkInputContainer.innerHTML = `
     ${input({
       id: "link",
