@@ -1,4 +1,4 @@
-import { createRestaurantList } from './components/RestaurantList.js';
+import { createRestaurantList, updateRestaurantList } from './components/RestaurantList.js';
 import createSectionContainer from './components/SectionContainer.js';
 import { RESTAURANT_ITEMS } from '../public/restaurantData.js';
 import { createRestaurantEnrollModal } from './components/RestaurantEnrollModal.js';
@@ -12,7 +12,7 @@ const program = {
     const $filterContainer = createSectionContainer('restaurant-list-container');
     $filterContainer.appendChild(createRestaurantList(RESTAURANT_ITEMS));
 
-    const $enrollRestaurantModal = createRestaurantEnrollModal();
+    const $enrollRestaurantModal = createRestaurantEnrollModal(updateRestaurantList);
     this.enrollRestaurantModal = $enrollRestaurantModal;
 
     $main.append($filterContainer, $enrollRestaurantModal.getElement());

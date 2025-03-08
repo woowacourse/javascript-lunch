@@ -7,7 +7,6 @@ import createElement from '../utils/createElement.js';
 import createButton from './Button.js';
 import createInputBox from './InputBox.js';
 import Modal from './Modal.js';
-import { updateRestaurantList } from './RestaurantList.js';
 import createSectionContainer from './SectionContainer.js';
 import createSelectBox from './SelectBox.js';
 import createTextArea from './TextArea.js';
@@ -28,7 +27,7 @@ function resetInput() {
   document.querySelector('input#link').value = '';
 }
 
-function createRestaurantEnrollModal() {
+function createRestaurantEnrollModal(onEnroll) {
   const modal = new Modal();
 
   const $modalTitle = createElement('h2', 'modal-title text-title', '새로운 음식점');
@@ -104,7 +103,8 @@ function createRestaurantEnrollModal() {
       restaurantInput.categoryImgSrc = `./category-${
         CATEGORY_IMAGES[restaurantInput.category]
       }.png`;
-      updateRestaurantList(restaurantInput);
+
+      onEnroll(restaurantInput);
 
       modal.toggle();
     },
