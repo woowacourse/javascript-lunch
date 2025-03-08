@@ -1,9 +1,13 @@
 export default class Component {
+  #isRendered;
+
   #props;
   #element;
   #state;
 
   constructor(props) {
+    this.#isRendered = false;
+
     this.#props = props;
     this.#state = {};
   }
@@ -13,6 +17,10 @@ export default class Component {
 
     this.#element.innerHTML = this.template();
     this.onRender();
+
+    if (!this.#isRendered) this.componentDidMount();
+
+    this.#isRendered = true;
 
     return this.#element;
   }
@@ -25,6 +33,8 @@ export default class Component {
   template() {
     return ``;
   }
+
+  componentDidMount() {}
 
   onRender() {}
 

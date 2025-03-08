@@ -6,8 +6,8 @@ export default class Application extends Component {
   constructor() {
     super();
 
-    // this.setState({ restaurants: JSON.parse(localStorage.getItem('restaurants')) ?? [] });
-    this.setState({ restaurants: RESTAURANT_LIST_DEFAULT });
+    this.setState({ restaurants: JSON.parse(localStorage.getItem('restaurants')) ?? [] });
+    // this.setState({ restaurants: RESTAURANT_LIST_DEFAULT });
   }
 
   template() {
@@ -16,11 +16,13 @@ export default class Application extends Component {
     `;
   }
 
-  onRender() {
-    this.#appendRestaurantAddModal();
-
+  componentDidMount() {
     this.#attachClickEventListener();
     this.#attachKeyDownEventListener();
+  }
+
+  onRender() {
+    this.#appendRestaurantAddModal();
   }
 
   #appendRestaurantAddModal() {
