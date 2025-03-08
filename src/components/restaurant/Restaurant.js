@@ -5,13 +5,12 @@ import RestaurantListContainer from "./RestaurantListContainer.js";
 import restaurantDataList from "../../domain/RestaurantDataList.js";
 
 export default function Restaurant() {
-  const $body = document.querySelector("body");
-  const $restaurantHeader = RestaurantHeader("점심 뭐 먹지");
+  const $restaurantHeader = RestaurantHeader({ title: "점심 뭐 먹지" });
 
   const $restaurantListContainer = RestaurantListContainer(
     restaurantDataList.getDataList()
   );
 
-  $body.appendChild($restaurantHeader);
-  $body.appendChild($restaurantListContainer);
+  document.body.appendChild($restaurantHeader);
+  document.body.appendChild($restaurantListContainer);
 }

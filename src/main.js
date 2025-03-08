@@ -8,12 +8,4 @@ window.addEventListener("load", () => {
 
 export function init() {
   Restaurant();
-  event();
-}
-
-function event() {
-  const $button = document.querySelector(".gnb__button");
-  $button.addEventListener("click", () => {
-    Modal(RestaurantModal);
-  });
 }

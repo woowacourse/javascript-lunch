@@ -7,6 +7,7 @@ import RestaurantModalButtonContainer from "./RestaurantModalButtonContainer.js"
 import restaurantDataList from "../../domain/RestaurantDataList.js";
 import reset from "../../util/reset.js";
 import { init } from "../../main.js";
+import { $ } from "../../util/querySelector.js";
 
 export default function RestaurantModal() {
   const $fragment = document.createDocumentFragment();
@@ -22,7 +23,7 @@ export default function RestaurantModal() {
   $form.addEventListener("submit", function handleClickAdd(event) {
     try {
       event.preventDefault();
-      const $form = document.querySelector(".form");
+      const $form = $(".form");
       const data = Object.fromEntries(new FormData($form));
       restaurantDataList.addData(data);
       reset();

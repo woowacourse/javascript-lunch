@@ -1,3 +1,3 @@
 export default function reset() {
-  document.querySelector("body").innerHTML = "";
+  document.body.innerHTML = "";
 }

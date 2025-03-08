@@ -1,6 +1,8 @@
 import createElement from "../../util/createElement";
+import Modal from "../util/Modal";
+import RestaurantModal from "../modal/RestaurantModal";
 
-export default function RestaurantHeader(text) {
+export default function RestaurantHeader({ title }) {
   const $header = createElement({ tag: "header", classNames: ["gnb"] });
   const $title = createElement({
     tag: "h1",
@@ -18,7 +20,11 @@ export default function RestaurantHeader(text) {
     alt: "음식점 추가",
   });
 
-  $title.textContent = "점심 뭐 먹지?";
+  $addButton.addEventListener("click", () => {
+    Modal(RestaurantModal);
+  });
+
+  $title.textContent = title;
 
   $header.appendChild($title);
   $header.appendChild($addButton);
