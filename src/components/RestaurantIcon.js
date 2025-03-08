@@ -18,12 +18,8 @@ class RestaurantIcon {
   };
 
   #getImageSrc = (category) => {
-    if (category === CATEGORY.KOREAN.ALT) return CATEGORY.KOREAN.SRC;
-    if (category === CATEGORY.CHINESE.ALT) return CATEGORY.CHINESE.SRC;
-    if (category === CATEGORY.JAPANESE.ALT) return CATEGORY.JAPANESE.SRC;
-    if (category === CATEGORY.WESTERN.ALT) return CATEGORY.WESTERN.SRC;
-    if (category === CATEGORY.ASIAN.ALT) return CATEGORY.ASIAN.SRC;
-    if (category === CATEGORY.ETC.ALT) return CATEGORY.ETC.SRC;
+    const url = `https://h0ngju.github.io/javascript-lunch/public/assets/category-`;
+    return `${url}${CATEGORY[category]}.png` || `${url}${CATEGORY['기타']}.png`;
   };
 
   getElement() {
