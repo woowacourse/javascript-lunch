@@ -5,7 +5,6 @@ import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/RestaurantItem.js';
 import { DOM } from '../dom.js';
 import Restaurant from '../Restaurant.js';
-import { RestaurantList } from '../RestaurantList.js';
 import { validateDropDown, validateName, validateDescription, validateLink } from '../validation/validations.js';
 
 const CATEGORY_LIST = [
@@ -85,7 +84,7 @@ class AddRestaurantModal extends Modal {
     this.addElement(divButton);
   };
 
-  #addHandler = () => {
+  #addNewRestaurant = () => {
     const testData = Object.fromEntries(new FormData(this.#modalForm));
     const newRestaurant = new Restaurant(testData.name, testData.distance, testData.description, testData.category);
     const newRestaurantItem = new RestaurantItem(newRestaurant);
@@ -110,8 +109,9 @@ class AddRestaurantModal extends Modal {
     this.#addButton.addEventListener('click', (event) => {
       event.preventDefault();
       if (this.#validateInputs()) {
-        this.#addHandler();
+        this.#addNewRestaurant();
         this.closeModal();
+        this.#init();
       }
     });
 
