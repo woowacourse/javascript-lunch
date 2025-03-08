@@ -20,10 +20,9 @@ export default class Application extends Component {
     this.setState({
       restaurants: JSON.parse(localStorage.getItem('restaurants')) ?? [],
       tab: 'all',
-      filter: 'all',
+      filter: '전체',
       sort: '이름순',
     });
-    // this.setState({ restaurants: RESTAURANT_LIST_DEFAULT });
   }
 
   template() {
@@ -81,7 +80,7 @@ export default class Application extends Component {
   #appendRestaurantList() {
     const filteredRestaurants = [...this.state.restaurants]
       .filter((restaurant) => this.state.tab === 'all' || restaurant.isLike)
-      .filter((restaurant) => this.state.filter === 'all' || restaurant.category === this.state.filter)
+      .filter((restaurant) => this.state.filter === '전체' || restaurant.category === this.state.filter)
       .sort((a, b) =>
         this.state.sort === '이름순' ? (a.name < b.name ? -1 : a.name > b.name ? 1 : 0) : a.distance - b.distance,
       );
