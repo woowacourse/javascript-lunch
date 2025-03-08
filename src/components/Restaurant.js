@@ -13,14 +13,27 @@ export default class Restaurant extends Component {
         />
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
-        <span class="restaurant__distance text-body"
-          >${this.props.distance}</span
-        >
+        <div class="restaurant__info--inner">
+          <div>
+            <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
+            <span class="restaurant__distance text-body">${this.props.distance}</span>
+          </div>
+          ${
+            this.props.isLike
+              ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-name=${this.props.name} />`
+              : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-name=${this.props.name} />`
+          }
+        </div>
         <p class="restaurant__description text-body">
           ${this.props.description}
         </p>
       </div>
     </li>`;
   }
+
+  // onRender() {
+  //   this.element.querySelector('#like__button').addEventListener('click', () => {
+  //     // console.log(this.props.)
+  //   });
+  // }
 }

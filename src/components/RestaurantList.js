@@ -6,9 +6,15 @@ export default class RestaurantList extends Component {
     return `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
-          ${this.props.restaurants.map((restaurant) => new Restaurant(restaurant).template()).join('')}
+
         </ul>
       </section>
     `;
+  }
+
+  onRender() {
+    this.props.restaurants.forEach((restaurant) => {
+      this.element.querySelector('.restaurant-list').appendChild(new Restaurant(restaurant).render());
+    });
   }
 }

@@ -5,5 +5,5 @@ addEventListener('load', () => {
 
   const application = new Application();
 
-  $app.appendChild(application.render());
+  $app.appendChild(application.element);
 });
