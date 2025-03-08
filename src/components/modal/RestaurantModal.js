@@ -23,8 +23,7 @@ export default function RestaurantModal() {
   function createRestaurantItem(event) {
     try {
       event.preventDefault();
-      const $form = $(".restaurant-add-form");
-      const data = Object.fromEntries(new FormData($form));
+      const data = Object.fromEntries(new FormData(this));
       restaurantDataList.addData(data);
       reset();
       init();
