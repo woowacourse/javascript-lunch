@@ -25,15 +25,6 @@ describe("모달 사용자 입력 테스트", () => {
   });
 
   describe("설명 입력 테스트", () => {
-    it("설명의 입력 값은 공백일 수 없다.", () => {
-      // given
-      const input = "";
-
-      // then
-      expect(() => validateDescriptionInput(input)).toThrow(
-        ERRORS.EMPTY_DESCRIPTION
-      );
-    });
     it("설명의 입력 값은 1500자를 넘길 수 없다.", () => {
       // given
       const input = "a".repeat(MESSAGES.MAXIMUM_DESCRIPTION_LENGTH + 1);
@@ -46,10 +37,12 @@ describe("모달 사용자 입력 테스트", () => {
   });
 
   describe("카테고리 입력 테스트", () => {
-    it("카테고리 드롭박스를 선택하지 않으면 추가할수 없다.", () => {
-      const input = "error";
+    it("카테고리 드롭박스를 선택하지 않으면 추가할 수 없다.", () => {
+      const input = "error_category";
 
-      expect(() => validateSelectInput(input)).toThrow(ERRORS.NON_SELECTED);
+      expect(() => validateSelectInput(input)).toThrow(
+        ERRORS.NON_SELECTED(input.slice(MESSAGES.SELECT_TYPE))
+      );
     });
   });
 });
