@@ -1,6 +1,6 @@
-import $select from "../components/select.js";
-import $input from "../components/input.js";
-import $textarea from "../components/textarea.js";
+import $select from "../components/common/select.js";
+import $input from "../components/common/input.js";
+import $textarea from "../components/common/textarea.js";
 import { categoryOptions, distanceOptions } from "../data/selectOptions.js";
 
 export const FORM_FIELDS = Object.freeze({

@@ -1,4 +1,4 @@
-import { addRestaurant } from "./modal.js";
+import { addRestaurant } from "../modal/modal.js";
 
 export const handleAddRestaurant = (e) => {
   e.preventDefault();

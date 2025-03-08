@@ -1,6 +1,6 @@
-import $form from "./form.js";
-import $restaurantItem from "./restaurant-item.js";
-import { CATEGORY_ICON } from "../constants/iconPath.js";
+import $form from "../form-elements/form.js";
+import $restaurantItem from "../restaurant/restaurant-item.js";
+import { CATEGORY_ICON } from "../../constants/iconPath.js";
 
 export const addRestaurant = (data) => {
   handleModalClose();

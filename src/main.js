@@ -1,9 +1,9 @@
-import $header from "./components/header.js";
-import $restaurantItem from "./components/restaurant-item.js";
-import $inputItem from "./components/input-item.js";
-import $modal from "./components/modal.js";
-import $button from "./components/button.js";
-import $buttonContainer from "./components/button-container.js";
+import $header from "./components/layout/header.js";
+import $restaurantItem from "./components/restaurant/restaurant-item.js";
+import $inputItem from "./components/form-elements/input-item.js";
+import $modal from "./components/modal/modal.js";
+import $button from "./components/common/button.js";
+import $buttonContainer from "./components/layout/button-container.js";
 import { UI_CONFIG } from "./constants/uiConfig.js";
 import { restaurantData } from "./data/restaurant.js";
 import { FORM_FIELDS } from "./constants/formFields.js";
