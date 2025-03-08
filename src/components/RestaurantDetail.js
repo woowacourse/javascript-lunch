@@ -2,7 +2,6 @@ import Component from '../core/Component.js';
 
 export default class RestaurantDetail extends Component {
   template() {
-    console.log(1, this.props.filter);
     return `
       <div class="restaurant-filter-container">
         <select name="filter" id="filter" class="restaurant-filter">

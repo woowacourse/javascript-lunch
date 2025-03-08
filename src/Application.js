@@ -150,6 +150,15 @@ export default class Application extends Component {
         });
         this.element.querySelector('#restaurant-detail-modal').classList.add('modal--open');
       }
+
+      if (event.target.closest('#modal-delete')) {
+        this.setState({
+          ...this.state,
+          restaurants: this.state.restaurants.filter(
+            (restaurant) => restaurant.name !== this.state.currentRestaurant.name,
+          ),
+        });
+      }
     });
   }
 

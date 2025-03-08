@@ -23,7 +23,7 @@ export default class RestaurantDetailModal extends Component {
     ${new Modal({
       id: 'restaurant-detail-modal',
       children: `
-        <div class="restaurant restaurant-detail-modal">
+        <div class="restaurant-detail-modal">
           <div class="restaurant-detail-modal__header">
             <div class="restaurant__category">
               <img
