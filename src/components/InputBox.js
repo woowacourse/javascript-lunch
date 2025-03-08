@@ -3,7 +3,7 @@ import createElement from '../utils/createElement.js';
 function createInputBox({ label, isRequired, type, helpText = '', onChange }) {
   const inputBoxDiv = createElement({
     tag: 'div',
-    className: `form-item ${isRequired && 'form-item--required'}`,
+    className: `form-item ${isRequired ? 'form-item--required' : ''}`,
   });
   const inputLabel = createElement({
     tag: 'label',

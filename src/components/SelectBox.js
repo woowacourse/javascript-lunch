@@ -3,7 +3,7 @@ import createElement from '../utils/createElement.js';
 function createSelectBox({ options, isRequired, type, onChange }) {
   const selectBoxDiv = createElement({
     tag: 'div',
-    className: `form-item ${isRequired && 'form-item--required'}`,
+    className: `form-item ${isRequired ? 'form-item--required' : ''}`,
   });
   const categoryLabel = createElement({
     tag: 'label',
