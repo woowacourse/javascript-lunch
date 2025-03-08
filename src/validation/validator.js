@@ -21,7 +21,6 @@ export const validateDescriptiontInput = (rawInput) => {
 };
 
 export const validateSelectInput = (code) => {
-  console.log(code);
   if (code === "error_category" || code === "error_distance")
-    throw new Error(ERRORS.NON_SELECTED(code.slice(6)));
+    throw new Error(ERRORS.NON_SELECTED(code.slice(MESSAGES.SELECT_TYPE)));
 };
