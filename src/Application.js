@@ -8,6 +8,7 @@ import {
   Button,
   RestaurantTab,
   RestaurantDetailModal,
+  RestaurantDetail,
 } from './components/index.js';
 import Component from './core/Component.js';
 import { RESTAURANT_LIST_DEFAULT } from './lib/constants.js';
@@ -16,7 +17,12 @@ export default class Application extends Component {
   constructor() {
     super();
 
-    this.setState({ restaurants: JSON.parse(localStorage.getItem('restaurants')) ?? [] });
+    this.setState({
+      restaurants: JSON.parse(localStorage.getItem('restaurants')) ?? [],
+      tab: 'all',
+      filter: 'all',
+      sort: 'distance',
+    });
     // this.setState({ restaurants: RESTAURANT_LIST_DEFAULT });
   }
 
@@ -33,9 +39,19 @@ export default class Application extends Component {
   }
 
   onRender() {
+    this.#appendRestaurantTab();
+    this.#appendRestaurantDetail();
     this.#appendRestaurantList();
     this.#appendRestaurantAddModal();
     this.#appendRestaurantDetailModal();
+  }
+
+  #appendRestaurantTab() {
+    this.element.appendChild(new RestaurantTab({}).render());
+  }
+
+  #appendRestaurantDetail() {
+    this.element.appendChild(new RestaurantDetail({}).render());
   }
 
   #appendRestaurantList() {

@@ -7,8 +7,6 @@ export default class RestaurantList extends Component {
   template() {
     return `
       <section class="restaurant-list-container">
-        ${new RestaurantTab().template()}
-        ${new RestaurantDetail().template()}
         <ul class="restaurant-list">
 
         </ul>

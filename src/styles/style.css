@@ -57,6 +57,8 @@
 
 /* 음식점 탭 */
 .restaurant__tab-list {
+  margin-top: 16px;
+  padding: 0 16px;
   display: flex;
 }
 
