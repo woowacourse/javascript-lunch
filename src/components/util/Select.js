@@ -25,13 +25,16 @@ function createOptions(options) {
   const $defaultOption = createElement({
     tag: "option",
     value: "",
+    textContent: "선택해 주세요.",
   });
-  $defaultOption.textContent = "선택해 주세요.";
   $fragment.appendChild($defaultOption);
 
   options.forEach((option) => {
-    const $option = createElement({ tag: "option", value: option });
-    $option.textContent = option;
+    const $option = createElement({
+      tag: "option",
+      value: option,
+      textContent: option,
+    });
     $fragment.appendChild($option);
   });
 

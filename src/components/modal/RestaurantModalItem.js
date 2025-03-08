@@ -4,8 +4,8 @@ function createHelpText(helpText) {
   const $span = createElement({
     tag: "span",
     classNames: ["help-text", "text-caption"],
+    textContent: helpText,
   });
-  $span.textContent = helpText;
   return $span;
 }
 
@@ -24,8 +24,8 @@ export default function RestaurantModalItem({
   const $label = createElement({
     tag: "label",
     for: `${name} text-caption`,
+    textContent: text,
   });
-  $label.textContent = text;
 
   $div.appendChild($label);
   $div.appendChild(renderChild());

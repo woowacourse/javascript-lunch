@@ -23,6 +23,7 @@ export default function RestaurantModal() {
   const $h2 = createElement({
     tag: "h2",
     classNames: ["modal-title", "text-title"],
+    textContent: "새로운 음식점",
   });
   const $form = createElement({
     tag: "form",
@@ -42,8 +43,6 @@ export default function RestaurantModal() {
   }
 
   $form.addEventListener("submit", createRestaurantItem);
-
-  $h2.textContent = "새로운 음식점";
 
   $fragment.appendChild($h2);
   $fragment.appendChild($form);

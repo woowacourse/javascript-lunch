@@ -7,6 +7,7 @@ export default function RestaurantHeader({ title }) {
   const $title = createElement({
     tag: "h1",
     classNames: ["gnb__title", "text-title"],
+    textContent: title,
   });
   const $addButton = createElement({
     tag: "button",
@@ -23,8 +24,6 @@ export default function RestaurantHeader({ title }) {
   $addButton.addEventListener("click", () => {
     Modal(RestaurantModal);
   });
-
-  $title.textContent = title;
 
   $header.appendChild($title);
   $header.appendChild($addButton);
