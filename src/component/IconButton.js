@@ -1,5 +1,3 @@
-import { DOM } from "../utils/dom.js";
-
 const IconButton = {
   create({ src, onClick, label }) {
     const IconButtonElement = document.createElement("button");

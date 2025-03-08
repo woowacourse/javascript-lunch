@@ -1,5 +1,3 @@
-import { DOM } from "../utils/dom.js";
-
 const LunchInfoCard = {
   create({ src, name, label, distance, description }) {
     const LunchInfoCardElement = document.createElement("li");

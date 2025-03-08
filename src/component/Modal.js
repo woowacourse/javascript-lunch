@@ -1,4 +1,3 @@
-import { DOM } from "../utils/dom.js";
 import { $ } from "../utils/querySelectors.js";
 import AddLunchModalForm from "./AddLunchModalForm.js";
 
