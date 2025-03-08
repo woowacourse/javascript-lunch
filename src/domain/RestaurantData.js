@@ -12,6 +12,7 @@ export default class RestaurantData {
     category: "카테고리를 선택해 주세요",
     distance: "거리를 선택해 주세요",
     name: "식당 이름은 2글자 이상 입력해 주세요",
+    link: "올바른 링크 주소를 입력해 주세요.",
   });
 
   #id;
@@ -26,6 +27,7 @@ export default class RestaurantData {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
+    this.validateLink(link);
 
     this.#id = id || crypto.randomUUID();
     this.#src = CATEGORY_IMAGE[category];
@@ -58,6 +60,10 @@ export default class RestaurantData {
     return name.length < 2;
   }
 
+  isValidateLink(link) {
+    return link.trim().length !== 0 && !/^(https?:\/\/)[^\s]+/.test(link);
+  }
+
   validateCategory(category) {
     if (this.isValidateOption(category))
       throw Error(this.ERROR_MASSAGE.category);
@@ -70,5 +76,9 @@ export default class RestaurantData {
 
   validateName(name) {
     if (this.isValidateName(name)) throw Error(this.ERROR_MASSAGE.name);
+  }
+
+  validateLink(link) {
+    if (this.isValidateLink(link)) throw Error(this.ERROR_MASSAGE.link);
   }
 }
