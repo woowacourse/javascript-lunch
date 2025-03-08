@@ -1,15 +1,16 @@
+import { CATEGORY_DISPLAY } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 
 function createTags(data) {
   const categoryImg = createElement('img', 'category-icon', null, {
-    src: data.categoryImgSrc,
-    alt: data.category,
+    src: `./category-${data.category}.png`,
+    alt: CATEGORY_DISPLAY[data.category],
   });
   const nameHeading = createElement('h3', 'restaurant__name text-subtitle', data.name);
   const distanceSpan = createElement(
     'span',
     'restaurant__distance text-body',
-    `캠퍼스부터 ${data.distance}`
+    `캠퍼스부터 ${data.distance}분 내`
   );
   const descriptionPara = createElement('p', 'restaurant__description text-body', data.description);
 

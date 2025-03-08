@@ -1,8 +1,4 @@
-import {
-  CATEGORY_IMAGES,
-  CATEGORY_OPTIONS,
-  DISTANCE_OPTIONS,
-} from '../../public/restaurantData.js';
+import { CATEGORY_KEY, CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 import createButton from './Button.js';
 import createInputBox from './InputBox.js';
@@ -101,9 +97,7 @@ function createRestaurantEnrollModal() {
         return;
       }
 
-      restaurantInput.categoryImgSrc = `./category-${
-        CATEGORY_IMAGES[restaurantInput.category]
-      }.png`;
+      restaurantInput.category = CATEGORY_KEY[restaurantInput.category];
       updateRestaurantList(restaurantInput);
 
       modal.toggle();
