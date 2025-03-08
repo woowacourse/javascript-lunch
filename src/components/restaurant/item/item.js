@@ -15,24 +15,34 @@ export default function createRestaurantItem({
   link,
 }) {
   const restaurantItem = createElement("li", { className: "restaurant" });
-  restaurantItem.innerHTML = `
-  <div class="restaurant__category">
-    <img
-      src="${categoryIcon[category]}"
-      alt="${category}"
-      class="category-icon"
-    />
-  </div>
-  <div class="restaurant__info">
-    <h3 class="restaurant__name text-subtitle">${name}</h3>
-    <span class="restaurant__distance text-body"
-      >캠퍼스부터 ${distance}분 내</span
-    >
-    <p class="restaurant__description text-body">
-      ${description}
-    </p>
-  </div>
-  `;
 
+  const categoryBox = createElement("div", {
+    className: "restaurant__category",
+  });
+  const categoryImage = createElement("img", {
+    src: categoryIcon[category],
+    alt: category,
+    className: "category-icon",
+  });
+  categoryBox.appendChild(categoryImage);
+
+  const infoBox = createElement("div", { className: "restaurant__info" });
+  const nameElement = createElement("h3", {
+    className: ["restaurant__name", "text-subtitle"],
+    textContent: name,
+  });
+  const distanceElement = createElement("span", {
+    className: ["restaurant__distance", "text-body"],
+    textContent: `캠퍼스부터 ${distance}분 내`,
+  });
+  const descriptionElement = createElement("p", {
+    className: ["restaurant__description", "text-body"],
+    textContent: description,
+  });
+  infoBox.appendChild(
+    createElementsFragment([nameElement, distanceElement, descriptionElement])
+  );
+
+  restaurantItem.appendChild(createElementsFragment([categoryBox, infoBox]));
   return restaurantItem;
 }
