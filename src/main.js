@@ -1,7 +1,7 @@
 import { createRestaurantList } from './components/RestaurantList.js';
 import createSectionContainer from './components/SectionContainer.js';
 import { RESTAURANT_ITEMS } from '../public/restaurantData.js';
-import { createRestaurantEnrollModal } from './components/RestaurantEnrollModal.js';
+import createRestaurantEnrollModal from './components/RestaurantEnrollModal.js';
 
 const program = {
   enrollRestaurantModal: null,

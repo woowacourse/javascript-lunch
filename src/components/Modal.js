@@ -1,5 +1,5 @@
 import createElement from '../utils/createElement.js';
-import { resetInput } from './RestaurantEnrollModal.js';
+import { resetInput } from './RestaurantEnrollForm.js';
 
 class Modal {
   #element;
