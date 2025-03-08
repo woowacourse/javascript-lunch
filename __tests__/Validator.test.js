@@ -7,22 +7,33 @@ import {
 import { Validator } from "../src/utils/Validator.js";
 
 describe("Validator 테스트", () => {
-  test(`${RESTAURANT_NAME_LENGTH_MAX}자를 넘는 가게 이름은 받을 수 없다.`, () => {
+  test(`가게 이름이 ${RESTAURANT_NAME_LENGTH_MAX}자를 넘어가면 예외가 발생한다.`, () => {
+    const CORRECT_NAME = "a".repeat(RESTAURANT_NAME_LENGTH_MAX - 1);
     const LONG_NAME = "a".repeat(RESTAURANT_NAME_LENGTH_MAX + 1);
+
+    expect(() => {
+      Validator.name(CORRECT_NAME);
+    }).not.toThrow(ERROR_MESSAGE.NAME_LENGTH_MAX);
 
     expect(() => {
       Validator.name(LONG_NAME);
     }).toThrow(ERROR_MESSAGE.NAME_LENGTH_MAX);
   });
 
-  test(`${DESCRIPTION_LENGTH_MAX}자를 넘는 가게 이름은 받을 수 없다.`, () => {
+  test(`설명이 ${DESCRIPTION_LENGTH_MAX}자를 넘어가면 예외가 발생한다.`, () => {
+    const CORRECT_DESCRIPTION = "a".repeat(DESCRIPTION_LENGTH_MAX - 1);
     const LONG_DESCRIPTION = "a".repeat(DESCRIPTION_LENGTH_MAX + 1);
+
+    expect(() => {
+      Validator.description(CORRECT_DESCRIPTION);
+    }).not.toThrow(ERROR_MESSAGE.DESCRIPTION_MAX);
+
     expect(() => {
       Validator.description(LONG_DESCRIPTION);
     }).toThrow(ERROR_MESSAGE.DESCRIPTION_MAX);
   });
 
-  test("link형식에 맞지 않는 링크는 입력받을 수 없다.", () => {
+  test("link가 링크 형식에 맞지 않으면 예외가 발생한다.", () => {
     const wrongLink = "링크";
     const correctLink = "https://www.woowacourse.io/";
     expect(() => {
