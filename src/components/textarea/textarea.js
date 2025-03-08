@@ -10,7 +10,7 @@ export default function createTextAreaBox({
     className: ["form-item", `${required && "form-item--required"}`],
   });
   const textAreaLabel = createElement("label", {
-    htmlFor: "description",
+    htmlFor: id,
     className: "text-caption",
     textContent: labelText,
   });
