@@ -21,7 +21,7 @@ const validateForm = (form) => {
   requiredFields.forEach((requiredField) => {
     if (!requiredField.value.trim()) {
       const labelText = document.querySelector(
-        `label[for="${requiredField.id} text-caption"]`
+        `label[for="${requiredField.id}"]`
       ).textContent;
       throw new Error(`${labelText}(은)는 필수 값입니다.`);
     }
