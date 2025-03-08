@@ -22,13 +22,12 @@ renderRestaurantList();
 DOM.$main.append(Modal.create(AddLunchModalForm.create()));
 
 export function renderRestaurantList() {
-  DOM.$restaurantList.replaceChildren();
-  state.restaurantList.forEach(
-    ({ src, name, distance, description, label }) => {
-      render(
-        LunchInfoCard.create({ src, name, distance, description, label }),
-        DOM.$restaurantList
-      );
-    }
+  const restaurantElementList = state.restaurantList.map(
+    ({ src, name, distance, description, label }) =>
+      LunchInfoCard.create({ src, name, distance, description, label })
+  );
+
+  restaurantElementList.forEach((restaurantElement) =>
+    render(restaurantElement, DOM.$restaurantList)
   );
 }
