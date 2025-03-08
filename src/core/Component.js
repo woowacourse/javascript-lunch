@@ -1,15 +1,12 @@
 export default class Component {
-  #isRendered;
+  #isRendered = false;
+  #state = {};
 
   #props;
   #element;
-  #state;
 
   constructor(props) {
-    this.#isRendered = false;
-
     this.#props = props;
-    this.#state = {};
   }
 
   render() {
@@ -26,9 +23,9 @@ export default class Component {
     return this.#element;
   }
 
-  setState(nextState, shouldRender = true) {
+  setState(nextState) {
     this.#state = { ...this.#state, ...nextState };
-    if (shouldRender) this.render();
+    this.render();
   }
 
   template() {

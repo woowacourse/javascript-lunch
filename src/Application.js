@@ -151,6 +151,7 @@ export default class Application extends Component {
             (restaurant) => restaurant.name !== this.state.currentRestaurant.name,
           ),
         });
+        localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
         this.#removeModal();
       }
     });
