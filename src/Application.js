@@ -32,10 +32,78 @@ export default class Application extends Component {
     `;
   }
 
+  /**
+   * 이벤트 리스너
+   */
+
   componentDidMount() {
     this.#attachClickEventListener();
     this.#attachKeyDownEventListener();
   }
+
+  #attachClickEventListener() {
+    window.addEventListener('click', (event) => {
+      if (event.target.closest('.gnb__button')) {
+        this.element.querySelector('#restaurant-add-modal').classList.add('modal--open');
+        return;
+      }
+      if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop')) {
+        this.#removeModals();
+        return;
+      }
+
+      if (event.target.closest('#like__button')) {
+        this.#toggleLike(event.target.dataset.name);
+        return;
+      }
+
+      if (event.target.closest('.restaurant')) {
+        this.setState({
+          currentRestaurant: this.state.restaurants.find(
+            (restaurant) => restaurant.name === event.target.closest('.restaurant').dataset.name,
+          ),
+        });
+        this.element.querySelector('#restaurant-detail-modal').classList.add('modal--open');
+        return;
+      }
+
+      if (event.target.closest('#modal-delete')) {
+        this.setState({
+          restaurants: this.state.restaurants.filter(
+            (restaurant) => restaurant.name !== this.state.currentRestaurant.name,
+          ),
+        });
+        localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
+        this.#removeModals();
+        return;
+      }
+    });
+  }
+
+  #attachKeyDownEventListener() {
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') this.#removeModals();
+    });
+  }
+
+  #toggleLike(restaurantName) {
+    const copiedRestaurants = [...this.state.restaurants];
+
+    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.name === restaurantName);
+    const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
+
+    copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });
+
+    this.setState({
+      restaurants: copiedRestaurants,
+    });
+
+    localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
+  }
+
+  /**
+   * 자식 컴포넌트 렌더링
+   */
 
   onRender() {
     this.#appendRestaurantTab();
@@ -108,67 +176,7 @@ export default class Application extends Component {
     localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
   }
 
-  #toggleLike(restaurantName) {
-    const copiedRestaurants = [...this.state.restaurants];
-
-    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.name === restaurantName);
-    const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
-
-    copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });
-
-    this.setState({
-      restaurants: copiedRestaurants,
-    });
-
-    localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
-  }
-
-  #attachClickEventListener() {
-    window.addEventListener('click', (event) => {
-      if (event.target.closest('.gnb__button')) {
-        this.element.querySelector('#restaurant-add-modal').classList.add('modal--open');
-        return;
-      }
-      if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop')) {
-        this.#removeModal();
-        return;
-      }
-
-      if (event.target.closest('#like__button')) {
-        this.#toggleLike(event.target.dataset.name);
-        return;
-      }
-
-      if (event.target.closest('.restaurant')) {
-        this.setState({
-          currentRestaurant: this.state.restaurants.find(
-            (restaurant) => restaurant.name === event.target.closest('.restaurant').dataset.name,
-          ),
-        });
-        this.element.querySelector('#restaurant-detail-modal').classList.add('modal--open');
-        return;
-      }
-
-      if (event.target.closest('#modal-delete')) {
-        this.setState({
-          restaurants: this.state.restaurants.filter(
-            (restaurant) => restaurant.name !== this.state.currentRestaurant.name,
-          ),
-        });
-        localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
-        this.#removeModal();
-        return;
-      }
-    });
-  }
-
-  #attachKeyDownEventListener() {
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') this.#removeModal();
-    });
-  }
-
-  #removeModal() {
+  #removeModals() {
     this.element.querySelectorAll('.modal').forEach((modal) => {
       modal.classList.remove('modal--open');
     });
