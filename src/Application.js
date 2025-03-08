@@ -128,9 +128,7 @@ export default class Application extends Component {
       if (event.target.closest('.gnb__button'))
         this.element.querySelector('#restaurant-add-modal').classList.add('modal--open');
       if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop')) {
-        this.element.querySelectorAll('.modal').forEach((modal) => {
-          modal.classList.remove('modal--open');
-        });
+        this.#removeModal();
       }
 
       if (event.target.closest('#like__button')) {
@@ -153,6 +151,7 @@ export default class Application extends Component {
             (restaurant) => restaurant.name !== this.state.currentRestaurant.name,
           ),
         });
+        this.#removeModal();
       }
     });
   }
@@ -160,10 +159,14 @@ export default class Application extends Component {
   #attachKeyDownEventListener() {
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        this.element.querySelectorAll('.modal').forEach((modal) => {
-          modal.classList.remove('modal--open');
-        });
+        this.#removeModal();
       }
+    });
+  }
+
+  #removeModal() {
+    this.element.querySelectorAll('.modal').forEach((modal) => {
+      modal.classList.remove('modal--open');
     });
   }
 }
