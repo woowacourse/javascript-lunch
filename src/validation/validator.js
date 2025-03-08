@@ -1,4 +1,5 @@
 import { ERRORS } from "../constants/errors";
+import { MESSAGES } from "../constants/messages";
 
 export const validateNameInput = (rawInput) => {
   const input = rawInput.trim();
@@ -6,7 +7,7 @@ export const validateNameInput = (rawInput) => {
     throw new Error(ERRORS.EMPTY_NAME);
   }
 
-  if (input.length > 30) {
+  if (input.length > MESSAGES.MAXIMUM_NAME_LENGTH) {
     throw new Error(ERRORS.MAXIMUM_NAME);
   }
 };
@@ -14,7 +15,7 @@ export const validateNameInput = (rawInput) => {
 export const validateDescriptiontInput = (rawInput) => {
   const input = rawInput.trim();
 
-  if (input.length > 1500) {
+  if (input.length > MESSAGES.MAXIMUM_DESCRIPTION_LENGTH) {
     throw new Error(ERRORS.MAXIMUM_DESCRIPTION);
   }
 };
