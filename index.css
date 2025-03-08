@@ -8,6 +8,7 @@
 @import "src/components/dropdown/dropdown.css";
 @import "src/components/restaurant/form/form.css";
 @import "src/components/restaurant/item/item.css";
+@import "src/components/toast/toast.css";
 
 * {
   padding: 0;
@@ -60,4 +61,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+dialog::backdrop {
+  z-index: 5000; /* dialog보다 낮게 설정 */
 }
