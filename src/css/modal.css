@@ -2,12 +2,11 @@
 
 .modal-backdrop {
   display: none;
-  margin: auto;
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
-  width: var(--app-width);
-  height: var(--app-height);
+  width: 100%;
+  height: 100%;
 }
 
 .modal-backdrop.open {
@@ -15,12 +14,17 @@
 }
 
 .modal-container {
-  border-radius: 8px 8px 0px 0px;
-  padding: 32px 16px;
-  background: var(--grey-100);
-  width: var(--app-width);
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  width: 100%;
+  max-height: 100vh;
+  padding: 32px 16px;
+
+  overflow: scroll;
+  scrollbar-width: none;
+
+  border-radius: 8px 8px 0px 0px;
+  background: var(--grey-100);
 }
 
 .modal-title {

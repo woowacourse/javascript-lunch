@@ -1,14 +1,3 @@
-#app {
-  width: var(--app-width);
-  height: var(--app-height);
-  margin: auto;
-  position: relative;
-}
-
-main {
-  height: calc(100% - var(--header-height));
-}
-
 /* GNB ********************************************/
 .gnb {
   display: flex;
