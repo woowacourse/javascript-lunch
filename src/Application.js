@@ -139,7 +139,10 @@ export default class Application extends Component {
         });
       }
 
-      if (event.target.closest('#like__button')) this.#toggleLike(event.target.dataset.name);
+      if (event.target.closest('#like__button')) {
+        this.#toggleLike(event.target.dataset.name);
+        return;
+      }
 
       if (event.target.closest('.restaurant')) {
         this.setState({
