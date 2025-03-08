@@ -1,5 +1,6 @@
 import Component from "../Component.js";
 import Modal from "../Modal/Modal.js";
+import "./header.css";
 
 class Header extends Component {
   constructor($target) {

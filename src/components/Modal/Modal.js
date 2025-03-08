@@ -1,6 +1,7 @@
 import Component from "../Component.js";
 import addData from "./addData.js";
 import createModalInputs from "./createModalInputs.js";
+import "./modal.css";
 class Modal extends Component {
   constructor($target) {
     super($target);

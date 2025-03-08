@@ -1,7 +1,4 @@
 @import url("global.css");
-@import url("../src/components/Header/header.css");
-@import url("../src/components/Modal/modal.css");
-@import url("../src/components/restaurantList.css");
 @import url("theme.css");
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
