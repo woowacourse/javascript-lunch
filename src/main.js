@@ -1,6 +1,6 @@
 import AddRestaurantModal from "./components/AddRestaurantModal.js";
 import Header from "./components/Header.js";
-import { RestaurantItem } from "./components/RestaurantItem.js";
+import { createRestaurantItem } from "./components/createRestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
 import { categoryMapping } from "./utils/categoryMapping.js";
 import {
@@ -52,7 +52,7 @@ addEventListener("load", () => {
 
         const $restaurantList = document.querySelector(".restaurant-list");
 
-        RestaurantItem($restaurantList, inputValue);
+        createRestaurantItem($restaurantList, inputValue);
       } catch (error) {
         alert(error.message);
       }

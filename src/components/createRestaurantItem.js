@@ -1,4 +1,4 @@
-export function RestaurantItem(container, inputValue) {
+export function createRestaurantItem(container, inputValue) {
   container.innerHTML += `
     <li class="restaurant">
       <div class="restaurant__category">
@@ -13,7 +13,7 @@ export function RestaurantItem(container, inputValue) {
   `;
 }
 
-export function DefaultRestaurantItem(inputValue) {
+export function createDefaultRestaurantItem(inputValue) {
   return `
   <li class="restaurant">
     <div class="restaurant__category">
