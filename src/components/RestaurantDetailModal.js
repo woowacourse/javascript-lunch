@@ -42,7 +42,7 @@ export default class RestaurantDetailModal extends Component {
             <div class="restaurant__info--inner">
               <div>
                 <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
-                <span class="restaurant-detail-modal__distance text-body">${this.props.distance}</span>
+                <span class="restaurant-detail-modal__distance text-body">캠퍼스부터 ${this.props.distance}분 내</span>
               </div>
             </div>
             <p class="text-body">

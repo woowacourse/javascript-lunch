@@ -16,8 +16,8 @@ export default class RestaurantDetail extends Component {
         </select>
 
         <select name="sort" id="sort">
-          <option value="이름순">이름순</option>
-          <option value="거리순">거리순</option>
+          <option value="이름순" ${this.props.sort === '이름순' ? 'selected' : ''}>이름순</option>
+          <option value="거리순" ${this.props.sort === '거리순' ? 'selected' : ''}>거리순</option>
         </select>
       </div>
     `;

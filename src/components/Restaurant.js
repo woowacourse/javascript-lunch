@@ -16,12 +16,12 @@ export default class Restaurant extends Component {
         <div class="restaurant__info--inner">
           <div>
             <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
-            <span class="restaurant__distance text-body">${this.props.distance}</span>
+            <span class="restaurant__distance text-body">캠퍼스부터 ${this.props.distance}분 내</span>
           </div>
           ${
             this.props.isLike
-              ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-name=${this.props.name} />`
-              : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-name=${this.props.name} />`
+              ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-name="${this.props.name}" />`
+              : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-name="${this.props.name}" />`
           }
         </div>
         <p class="restaurant__description text-body">
