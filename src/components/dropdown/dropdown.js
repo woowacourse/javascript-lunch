@@ -21,16 +21,17 @@ export default function createDropdownBox({
   });
 
   const optionList = [defaultOption, ...dropdownList];
-  const optionElements = optionList.map(({ value, text }) =>
-    createElement("option", {
-      value,
-      textContent: text,
-    })
+  const optionElements = createElementsFragment(
+    optionList.map(({ value, text }) =>
+      createElement("option", {
+        value,
+        textContent: text,
+      })
+    )
   );
 
-  select.append(...optionElements);
-  const fragment = createElementsFragment([dropdownLabel, select]);
-  dropdownBox.appendChild(fragment);
+  select.appendChild(optionElements);
+  dropdownBox.appendChild(createElementsFragment([dropdownLabel, select]));
 
   return dropdownBox;
 }
