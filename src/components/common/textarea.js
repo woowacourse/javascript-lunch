@@ -1,7 +1,7 @@
-const $textarea = (textareaInfo) => {
+const $textarea = ( {attribute} ) => {
   const textarea = document.createElement("textarea");
 
-  Object.assign(textarea, textareaInfo.attribute);
+  Object.assign(textarea, attribute);
 
   return textarea;
 };

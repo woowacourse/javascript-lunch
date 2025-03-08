@@ -1,7 +1,7 @@
-const $input = (inputInfo) => {
+const $input = ({ attribute }) => {
   const input = document.createElement("input");
 
-  Object.assign(input, inputInfo.attribute);
+  Object.assign(input, attribute);
 
   return input;
 };

@@ -1,10 +1,10 @@
-const $select = (selectInfo) => {
+const $select = ({attribute, options}) => {
   const select = document.createElement("select");
-  Object.assign(select, selectInfo.attribute);
+  Object.assign(select, attribute);
 
-  Object.keys(selectInfo.options).forEach((selectName) => {
+  Object.keys(options).forEach((selectName) => {
     const option = document.createElement("option");
-    option.value = selectInfo.options[selectName];
+    option.value = options[selectName];
     option.textContent = selectName;
     select.appendChild(option);
   });
