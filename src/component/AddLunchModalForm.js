@@ -21,31 +21,9 @@ const AddLunchModalForm = {
 
     ModalFormElement.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
 
-    ModalFormElement.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const formData = new FormData(event.target);
-      const { category, description, distance, link, name } =
-        Object.fromEntries(formData.entries());
-
-      try {
-        Validator.name(name);
-        if (link !== "") Validator.link(link);
-        if (description !== "") Validator.description(description);
-
-        state.restaurantList.push({
-          src: CATEGORY_ICON[category],
-          name: name,
-          distance,
-          description,
-          label: category,
-        });
-
-        renderRestaurantList();
-        Modal.close();
-      } catch (e) {
-        alert(e.message);
-      }
-    });
+    ModalFormElement.addEventListener("submit", (event) =>
+      this.handleSubmit(event)
+    );
 
     ModalFormElement.appendChild(
       SelectForm.create({
@@ -96,6 +74,39 @@ const AddLunchModalForm = {
     ModalFormElement.appendChild(ButtonContainer.create());
 
     return ModalFormElement;
+  },
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const { category, description, distance, link, name } = Object.fromEntries(
+      formData.entries()
+    );
+
+    try {
+      this.validateFormInputs({ name, link, description });
+      this.addRestaurant({ category, name, distance, description });
+      renderRestaurantList();
+      Modal.close();
+    } catch (e) {
+      alert(e.message);
+    }
+  },
+
+  validateFormInputs({ name, link, description }) {
+    Validator.name(name);
+    if (link !== "") Validator.link(link);
+    if (description !== "") Validator.description(description);
+  },
+
+  addRestaurant({ category, name, distance, description }) {
+    state.restaurantList.push({
+      src: CATEGORY_ICON[category],
+      name: name,
+      distance,
+      description,
+      label: category,
+    });
   },
 };
 
