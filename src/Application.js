@@ -108,16 +108,16 @@ export default class Application extends Component {
     localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
   }
 
-  #toggleLike(name) {
-    const copied = [...this.state.restaurants];
+  #toggleLike(restaurantName) {
+    const copiedRestaurants = [...this.state.restaurants];
 
-    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.name === name);
-    const changedRestaurant = this.state.restaurants[currentRestaurantIndex];
+    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.name === restaurantName);
+    const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
 
-    copied.splice(currentRestaurantIndex, 1, { ...changedRestaurant, isLike: !changedRestaurant.isLike });
+    copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });
 
     this.setState({
-      restaurants: copied,
+      restaurants: copiedRestaurants,
     });
 
     localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
@@ -125,10 +125,13 @@ export default class Application extends Component {
 
   #attachClickEventListener() {
     window.addEventListener('click', (event) => {
-      if (event.target.closest('.gnb__button'))
+      if (event.target.closest('.gnb__button')) {
         this.element.querySelector('#restaurant-add-modal').classList.add('modal--open');
+        return;
+      }
       if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop')) {
         this.#removeModal();
+        return;
       }
 
       if (event.target.closest('#like__button')) {
@@ -143,6 +146,7 @@ export default class Application extends Component {
           ),
         });
         this.element.querySelector('#restaurant-detail-modal').classList.add('modal--open');
+        return;
       }
 
       if (event.target.closest('#modal-delete')) {
@@ -153,15 +157,14 @@ export default class Application extends Component {
         });
         localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
         this.#removeModal();
+        return;
       }
     });
   }
 
   #attachKeyDownEventListener() {
     window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        this.#removeModal();
-      }
+      if (event.key === 'Escape') this.#removeModal();
     });
   }
 
