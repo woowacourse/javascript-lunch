@@ -61,8 +61,17 @@ export default function AddRestaurantModal(container) {
 
             <!-- 취소/추가 버튼 -->
             <div class="button-container">
-          ${CustomButton("close-modal", "button--secondary", "취소하기")}
-          ${CustomButton("", "button--primary", "추가하기")}
+          ${CustomButton({
+            id: "close-modal",
+            type: "close",
+            className: "button--secondary",
+            text: "취소하기",
+          })}
+          ${CustomButton({
+            type: "submit",
+            className: "button--primary",
+            text: "추가하기",
+          })}
             </div>
           </form>
         </div>
