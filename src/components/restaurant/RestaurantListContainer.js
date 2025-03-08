@@ -1,7 +1,6 @@
 import RestaurantItem from "./RestaurantItem.js";
 import createElement from "../../util/createElement.js";
 import restaurantDataList from "../../domain/RestaurantDataList.js";
-import { RestaurantDataList } from "../../domain/RestaurantDataList.js";
 
 export default function RestaurantListContainer() {
   const $restaurantListContainer = createElement({
