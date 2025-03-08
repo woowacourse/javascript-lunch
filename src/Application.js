@@ -60,13 +60,28 @@ export default class Application extends Component {
   }
 
   #appendRestaurantDetail() {
-    this.element.appendChild(new RestaurantDetail({}).render());
+    this.element.appendChild(
+      new RestaurantDetail({
+        filter: this.state.filter,
+        sort: this.state.sort,
+        setFilter: (filter) =>
+          this.setState({
+            ...this.state,
+            filter,
+          }),
+        setSort: (sort) =>
+          this.setState({
+            ...this.state,
+            sort,
+          }),
+      }).render(),
+    );
   }
 
   #appendRestaurantList() {
-    const filteredRestaurants = this.state.restaurants.filter(
-      (restaurant) => this.state.tab === 'all' || restaurant.isLike,
-    );
+    const filteredRestaurants = [...this.state.restaurants]
+      .filter((restaurant) => this.state.tab === 'all' || restaurant.isLike)
+      .filter((restaurant) => this.state.filter === 'all' || restaurant.category === this.state.filter);
 
     this.element.appendChild(
       new RestaurantList({
