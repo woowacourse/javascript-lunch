@@ -27,6 +27,7 @@ export default function createRestaurantForm() {
       required: true,
       type: "text",
       id: "name",
+      placeholder: "음식점 이름(12자 이하)",
     }),
     createDropdownBox({
       labelText: "거리(도보 이동 시간)",
@@ -38,12 +39,14 @@ export default function createRestaurantForm() {
       labelText: "설명",
       id: "description",
       textCaption: "메뉴 등 추가 정보를 입력해 주세요.",
+      placeholder: "설명은 300자 이하여야 합니다. 맛있는 설명을 곁들여 주세요!",
     }),
     createInputBox({
       labelText: "참고 링크",
       type: "text",
       id: "link",
       textCaption: "메장 정보를 확인할 수 있는 링크를 입력해 주세요.",
+      placeholder: "https://example.com 링크는 300자 이하여야 합니다.",
     })
   );
 

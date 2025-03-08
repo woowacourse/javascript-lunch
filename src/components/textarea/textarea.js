@@ -5,6 +5,7 @@ export default function createTextAreaBox({
   textCaption = "",
   cols = 30,
   rows = 5,
+  placeholder = "",
 }) {
   const textAreaBox = createElement("div", {
     className: ["form-item", `${required && "form-item--required"}`],
@@ -19,6 +20,7 @@ export default function createTextAreaBox({
     id,
     cols,
     rows,
+    placeholder,
   });
 
   const fragment = createElementsFragment([textAreaLabel, textArea]);
