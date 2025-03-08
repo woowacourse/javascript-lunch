@@ -1,0 +1,75 @@
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-390 {
+  max-width: 390px;
+}
+
+.w-64 {
+  width: 64px;
+}
+
+.w-40 {
+  width: 40px;
+}
+
+.max-h-800 {
+  max-height: 800px;
+}
+
+.max-h-140 {
+  height: 140px;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-90 {
+  height: 90px;
+}
+
+.h-64 {
+  height: 64px;
+}
+
+.h-48 {
+  height: 48px;
+}
+
+.h-44 {
+  height: 44px;
+}
+
+.h-40 {
+  height: 40px;
+}
+
+.min-h-44 {
+  min-height: 44px;
+}
