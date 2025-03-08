@@ -6,33 +6,20 @@ import createRestaurantItem from "./components/restaurant/item/item.js";
 import createTextAreaBox from "./components/textarea/textarea.js";
 
 const app = document.querySelector("#app");
+const modalContainer = document.querySelector(".modal-container");
+const restaurantFrom = createRestaurantForm();
+modalContainer.appendChild(restaurantFrom);
 
-function bottomSheetController() {
-  let isFirstRender = false;
+function handleBottomSheetToggle(event) {
+  const modal = document.querySelector(".modal");
 
-  function handleBottomSheetToggle(event) {
-    const modal = document.querySelector(".modal");
-
-    if (event.target.closest(".restaurant-add-button")) {
-      modal.showModal();
-
-      if (!isFirstRender) {
-        const modalContainer = document.querySelector(".modal-container");
-        const restaurantFrom = createRestaurantForm();
-
-        modalContainer.appendChild(restaurantFrom);
-        isFirstRender = true;
-      }
-    }
-
-    if (event.target.closest(".modal-backdrop")) {
-      modal.close();
-    }
+  if (event.target.closest(".restaurant-add-button")) {
+    modal.showModal();
   }
 
-  return { handleBottomSheetToggle };
+  if (event.target.closest(".modal-backdrop")) {
+    modal.close();
+  }
 }
-
-const { handleBottomSheetToggle } = bottomSheetController();
 
 document.body.addEventListener("click", handleBottomSheetToggle);
