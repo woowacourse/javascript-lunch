@@ -17,13 +17,13 @@ export default function RestaurantModal() {
   });
   const $form = createElement({
     tag: "form",
-    classNames: ["form"],
+    classNames: ["restaurant-add-form"],
   });
 
   $form.addEventListener("submit", function handleClickAdd(event) {
     try {
       event.preventDefault();
-      const $form = $(".form");
+      const $form = $(".restaurant-add-form");
       const data = Object.fromEntries(new FormData($form));
       restaurantDataList.addData(data);
       reset();
