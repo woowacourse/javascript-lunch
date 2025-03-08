@@ -1,4 +1,13 @@
-import { Header, Restaurant, Modal, RestaurantList, RestaurantAddModal, InputBox, Button } from './components/index.js';
+import {
+  Header,
+  Restaurant,
+  Modal,
+  RestaurantList,
+  RestaurantAddModal,
+  InputBox,
+  Button,
+  RestaurantTab,
+} from './components/index.js';
 import Component from './core/Component.js';
 import { RESTAURANT_LIST_DEFAULT } from './lib/constants.js';
 
@@ -23,6 +32,7 @@ export default class Application extends Component {
 
   onRender() {
     this.#appendRestaurantAddModal();
+    this.#appendRestaurantList();
   }
 
   #appendRestaurantAddModal() {
@@ -30,7 +40,9 @@ export default class Application extends Component {
       addRestaurant: this.#addRestaurant.bind(this),
     });
     this.element.appendChild(restaurantAddModal.render());
+  }
 
+  #appendRestaurantList() {
     this.element.appendChild(
       new RestaurantList({
         restaurants: this.state.restaurants,
@@ -65,7 +77,6 @@ export default class Application extends Component {
 
   #attachClickEventListener() {
     window.addEventListener('click', (event) => {
-      console.log(4);
       const $modal = this.element.querySelector('.modal');
       if (event.target.closest('.gnb__button')) $modal.classList.add('modal--open');
       if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop'))

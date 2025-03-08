@@ -111,6 +111,25 @@ body {
   padding: 8px;
 }
 
+/* 음식점 탭 */
+.restaurant__tab-list {
+  display: flex;
+}
+
+.restaurant__tab-item {
+  flex: 1;
+  text-align: center;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.restaurant__tab-item--active {
+  color: var(--primary-color);
+  border-bottom: var(--primary-color) 2px solid;
+}
+
 /* 음식점 목록 */
 .restaurant-list-container {
   display: flex;
