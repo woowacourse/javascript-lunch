@@ -8,10 +8,9 @@ const HEADER_TEMPLATE = `
 `;
 
 class Header {
-  constructor(addRestaurantModal) {
-    this.addRestaurantModal = addRestaurantModal;
+  constructor(modalClickHandler) {
     this.#createHeader();
-    this.#bindEvent();
+    this.#bindEvent(modalClickHandler);
   }
 
   #createHeader = () => {
@@ -21,10 +20,10 @@ class Header {
     DOM.APP.prepend(header);
   };
 
-  #bindEvent = () => {
+  #bindEvent = (modalClickHandler) => {
     const addButton = document.querySelector('.gnb__button');
     addButton.addEventListener('click', () => {
-      this.addRestaurantModal.openModal();
+      modalClickHandler();
     });
   };
 }

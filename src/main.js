@@ -5,5 +5,8 @@ import AddRestaurantModal from './modal/AddRestaurantModal.js';
 import RestaurantList from './RestaurantList.js';
 
 const addRestaurantModal = new AddRestaurantModal();
-new Header(addRestaurantModal);
+const modalClickHandler = () => {
+  addRestaurantModal.openModal();
+};
+new Header(modalClickHandler);
 new RestaurantList();
