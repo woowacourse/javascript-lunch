@@ -1,4 +1,4 @@
-function createElement(tag, className, textContent, attributes = {}) {
+function createElement({ tag, className, textContent, attributes = {} }) {
   const element = document.createElement(tag);
 
   if (className) element.className = className;

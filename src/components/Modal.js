@@ -10,9 +10,9 @@ class Modal {
   }
 
   initModal() {
-    const modalContainer = createElement('div', 'modal');
-    const modalBackdrop = createElement('div', 'modal-backdrop');
-    this.#modalDiv = createElement('div', 'modal-container');
+    const modalContainer = createElement({ tag: 'div', className: 'modal' });
+    const modalBackdrop = createElement({ tag: 'div', className: 'modal-backdrop' });
+    this.#modalDiv = createElement({ tag: 'div', className: 'modal-container' });
 
     modalContainer.append(modalBackdrop, this.#modalDiv);
 

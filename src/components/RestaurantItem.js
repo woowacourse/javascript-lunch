@@ -2,25 +2,37 @@ import { CATEGORY_DISPLAY } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 
 function createTags(data) {
-  const categoryImg = createElement('img', 'category-icon', null, {
-    src: `./category-${data.category}.png`,
-    alt: CATEGORY_DISPLAY[data.category],
+  const categoryImg = createElement({
+    tag: 'img',
+    className: 'category-icon',
+    attributes: {
+      src: `./category-${data.category}.png`,
+      alt: CATEGORY_DISPLAY[data.category],
+    },
   });
-  const nameHeading = createElement('h3', 'restaurant__name text-subtitle', data.name);
-  const distanceSpan = createElement(
-    'span',
-    'restaurant__distance text-body',
-    `캠퍼스부터 ${data.distance}분 내`
-  );
-  const descriptionPara = createElement('p', 'restaurant__description text-body', data.description);
+  const nameHeading = createElement({
+    tag: 'h3',
+    className: 'restaurant__name text-subtitle',
+    textContent: data.name,
+  });
+  const distanceSpan = createElement({
+    tag: 'span',
+    className: 'restaurant__distance text-body',
+    textContent: `캠퍼스부터 ${data.distance}분 내`,
+  });
+  const descriptionPara = createElement({
+    tag: 'p',
+    className: 'restaurant__description text-body',
+    textContent: data.description,
+  });
 
   return { categoryImg, nameHeading, distanceSpan, descriptionPara };
 }
 
 function createRestaurantItem(data) {
-  const restaurantItem = createElement('li', 'restaurant');
-  const categoryDiv = createElement('div', 'restaurant__category');
-  const infoDiv = createElement('div', 'restaurant__info');
+  const restaurantItem = createElement({ tag: 'li', className: 'restaurant' });
+  const categoryDiv = createElement({ tag: 'div', className: 'restaurant__category' });
+  const infoDiv = createElement({ tag: 'div', className: 'restaurant__info' });
 
   const { categoryImg, nameHeading, distanceSpan, descriptionPara } = createTags(data);
 

@@ -2,7 +2,7 @@ import createElement from '../utils/createElement.js';
 import createRestaurantItem from './RestaurantItem.js';
 
 function createRestaurantList(datas) {
-  const restaurantList = createElement('ul', 'restaurant-list');
+  const restaurantList = createElement({ tag: 'ul', className: 'restaurant-list' });
 
   const fragment = new DocumentFragment();
   datas.forEach((data) => {

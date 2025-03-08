@@ -41,7 +41,7 @@ const RESTAURANT_ITEMS = [
 ];
 
 const CATEGORY_OPTIONS = ['한식', '중식', '일식', '양식', '아시안', '기타'];
-const DISTANCE_OPTIONS = ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'];
+const DISTANCE_OPTIONS = [5, 10, 15, 20, 30];
 
 const CATEGORY_DISPLAY = {
   korean: '한식',

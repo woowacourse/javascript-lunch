@@ -1,20 +1,31 @@
 import createElement from '../utils/createElement.js';
 
 function createTextArea({ label, type, helpText = '', onChange }) {
-  const textAreaDiv = createElement('div', 'form-item');
-  const textLabel = createElement('label', null, label, { for: `${type} text-caption` });
-  const textArea = createElement('textarea', null, null, {
-    name: type,
-    id: type,
-    cols: '30',
-    rows: '5',
+  const textAreaDiv = createElement({ tag: 'div', className: 'form-item' });
+  const textLabel = createElement({
+    tag: 'label',
+    textContent: label,
+    attributes: { for: `${type} text-caption` },
+  });
+  const textArea = createElement({
+    tag: 'textarea',
+    attributes: {
+      name: type,
+      id: type,
+      cols: '30',
+      rows: '5',
+    },
   });
 
   textArea.addEventListener('change', (event) => {
     onChange(event);
   });
 
-  const helpTextSpan = createElement('span', 'help-text text-caption', helpText);
+  const helpTextSpan = createElement({
+    tag: 'span',
+    className: 'help-text text-caption',
+    textContent: helpText,
+  });
 
   textAreaDiv.append(textLabel, textArea);
 

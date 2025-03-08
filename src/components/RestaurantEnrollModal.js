@@ -27,8 +27,12 @@ function resetInput() {
 function createRestaurantEnrollModal() {
   const modal = new Modal();
 
-  const $modalTitle = createElement('h2', 'modal-title text-title', '새로운 음식점');
-  const $enrollForm = createElement('form');
+  const $modalTitle = createElement({
+    tag: 'h2',
+    className: 'modal-title text-title',
+    textContent: '새로운 음식점',
+  });
+  const $enrollForm = createElement({ tag: 'form' });
 
   const $categoryBox = createSelectBox({
     options: CATEGORY_OPTIONS,
