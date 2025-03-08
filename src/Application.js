@@ -47,7 +47,16 @@ export default class Application extends Component {
   }
 
   #appendRestaurantTab() {
-    this.element.appendChild(new RestaurantTab({}).render());
+    this.element.appendChild(
+      new RestaurantTab({
+        setTab: (tab) =>
+          this.setState({
+            ...this.state,
+            tab,
+          }),
+        focusedTab: this.state.tab,
+      }).render(),
+    );
   }
 
   #appendRestaurantDetail() {
