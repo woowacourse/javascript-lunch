@@ -18,16 +18,17 @@ export default class Component {
     this.#element.innerHTML = this.template();
     this.onRender();
 
-    if (!this.#isRendered) this.componentDidMount();
-
-    this.#isRendered = true;
+    if (!this.#isRendered) {
+      this.componentDidMount();
+      this.#isRendered = true;
+    }
 
     return this.#element;
   }
 
-  setState(nextState) {
-    this.#state = nextState;
-    this.render();
+  setState(nextState, shouldRender = true) {
+    this.#state = { ...this.#state, ...nextState };
+    if (shouldRender) this.render();
   }
 
   template() {

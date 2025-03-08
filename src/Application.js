@@ -38,7 +38,6 @@ export default class Application extends Component {
   }
 
   onRender() {
-    console.log(this.state);
     this.#appendRestaurantTab();
     this.#appendRestaurantDetail();
     this.#appendRestaurantList();
@@ -51,7 +50,6 @@ export default class Application extends Component {
       new RestaurantTab({
         setTab: (tab) =>
           this.setState({
-            ...this.state,
             tab,
           }),
         focusedTab: this.state.tab,
@@ -66,12 +64,10 @@ export default class Application extends Component {
         sort: this.state.sort,
         setFilter: (filter) =>
           this.setState({
-            ...this.state,
             filter,
           }),
         setSort: (sort) =>
           this.setState({
-            ...this.state,
             sort,
           }),
       }).render(),
@@ -106,7 +102,6 @@ export default class Application extends Component {
 
   #addRestaurant(restaurant) {
     this.setState({
-      ...this.state,
       restaurants: [...this.state.restaurants, restaurant],
     });
 
@@ -122,7 +117,6 @@ export default class Application extends Component {
     copied.splice(currentRestaurantIndex, 1, { ...changedRestaurant, isLike: !changedRestaurant.isLike });
 
     this.setState({
-      ...this.state,
       restaurants: copied,
     });
 
@@ -146,7 +140,6 @@ export default class Application extends Component {
 
       if (event.target.closest('.restaurant')) {
         this.setState({
-          ...this.state,
           currentRestaurant: this.state.restaurants.find(
             (restaurant) => restaurant.name === event.target.closest('.restaurant').dataset.name,
           ),
@@ -156,7 +149,6 @@ export default class Application extends Component {
 
       if (event.target.closest('#modal-delete')) {
         this.setState({
-          ...this.state,
           restaurants: this.state.restaurants.filter(
             (restaurant) => restaurant.name !== this.state.currentRestaurant.name,
           ),
