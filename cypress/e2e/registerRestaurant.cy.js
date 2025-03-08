@@ -56,7 +56,7 @@ describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한
     });
   });
 
-  it("두 글자 이하를 입력했을 때 alert 창으로 경고 문구가 발생한다.", () => {
+  it("음식점 이름을 두 글자 이하를 입력했을 때, alert 창으로 경고 문구가 발생한다.", () => {
     cy.get(".gnb__button").click();
     cy.get("#category").select("한식");
     cy.get("#name").type("더");
