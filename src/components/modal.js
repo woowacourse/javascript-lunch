@@ -38,7 +38,7 @@ const $modal = (form) => {
 
   const title = document.createElement("h2");
   title.classList.add("modal-title", "text-title");
-  title.innerText = "새로운 음식점";
+  title.textContent = "새로운 음식점";
   container.appendChild(title);
   container.appendChild($form(form));
   wrapper.appendChild(container);

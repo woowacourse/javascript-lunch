@@ -22,7 +22,7 @@ const validateForm = (form) => {
     if (!requiredField.value.trim()) {
       const labelText = document.querySelector(
         `label[for="${requiredField.id} text-caption"]`
-      ).innerText;
+      ).textContent;
       throw new Error(`${labelText}(은)는 필수 값입니다.`);
     }
   });

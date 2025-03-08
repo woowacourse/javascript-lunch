@@ -1,6 +1,6 @@
 const $button = (buttonInfo) => {
   const button = document.createElement("button");
-  button.innerText = buttonInfo.text;
+  button.textContent = buttonInfo.text;
   button.type = buttonInfo.type;
   button.classList.add(...buttonInfo.className);
 
