@@ -23,7 +23,7 @@ export default class RestaurantData {
     this.validateDistance(distance);
     this.validateName(name);
 
-    this.#id = id && crypto.randomUUID();
+    this.#id = id || crypto.randomUUID();
     this.#src = CATEGORY_IMAGE[category];
     this.#alt = category;
     this.#name = name;
