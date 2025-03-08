@@ -39,10 +39,8 @@ export default function createRestaurantItem({
     className: ["restaurant__description", "text-body"],
     textContent: description,
   });
-  infoBox.appendChild(
-    createElementsFragment([nameElement, distanceElement, descriptionElement])
-  );
+  infoBox.append(nameElement, distanceElement, descriptionElement);
 
-  restaurantItem.appendChild(createElementsFragment([categoryBox, infoBox]));
+  restaurantItem.append(categoryBox, infoBox);
   return restaurantItem;
 }
