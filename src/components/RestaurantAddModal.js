@@ -43,7 +43,7 @@ export default class RestaurantAddModal extends Component {
         isRequired: false,
       }),
       new InputBox({
-        input: `<input type="url" name="link" id="link" />`,
+        input: `<input type="url" name="url" id="url" />`,
         label: '참고 링크',
         caption: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
         isRequired: false,

@@ -29,7 +29,6 @@ export default class Application extends Component {
   template() {
     return `
       ${new Header({ title: '오늘 뭐 먹지' }).template()}
-      
     `;
   }
 
@@ -39,6 +38,7 @@ export default class Application extends Component {
   }
 
   onRender() {
+    console.log(this.state);
     this.#appendRestaurantTab();
     this.#appendRestaurantDetail();
     this.#appendRestaurantList();
