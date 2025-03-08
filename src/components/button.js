@@ -4,8 +4,8 @@ const $button = (buttonInfo) => {
   button.type = buttonInfo.type;
   button.classList.add(...(buttonInfo?.className || []));
 
-  if (buttonInfo.event) {
-    button.addEventListener("click", buttonInfo.event);
+  if (buttonInfo.event && buttonInfo.eventType) {
+    button.addEventListener(buttonInfo.eventType, buttonInfo.event);
   }
 
   return button;

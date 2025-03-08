@@ -11,6 +11,7 @@ export const UI_CONFIG = Object.freeze({
     CANCEL: {
       text: "취소하기",
       type: "button",
+      eventType: "click",
       event: handleModalClose,
       className: [
         "button",
