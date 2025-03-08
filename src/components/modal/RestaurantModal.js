@@ -10,6 +10,15 @@ import { init } from "../../main.js";
 import { $ } from "../../util/querySelector.js";
 
 export default function RestaurantModal() {
+  const CATEGORY_OPTIONS = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+  const DISTANCE_OPTIONS = [
+    "5분 내",
+    "10분 내",
+    "15분 내",
+    "20분 내",
+    "30분 내",
+  ];
+
   const $fragment = document.createDocumentFragment();
   const $h2 = createElement({
     tag: "h2",
@@ -47,7 +56,7 @@ export default function RestaurantModal() {
         Select({
           name: "category",
           id: "category",
-          options: ["한식", "중식", "일식", "양식", "아시안", "기타"],
+          options: CATEGORY_OPTIONS,
           isRequired: true,
         }),
     })
@@ -75,7 +84,7 @@ export default function RestaurantModal() {
         Select({
           name: "distance",
           id: "distance",
-          options: ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"],
+          options: DISTANCE_OPTIONS,
           isRequired: true,
         }),
     })
