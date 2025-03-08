@@ -66,4 +66,28 @@ describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한
       expect(text).to.equal(RestaurantData.ERROR_MASSAGE.nameLength);
     });
   });
+
+  it("음식점 이름에 특수 문자가 포함되어 있을 때, alert 창으로 경고 문구가 발생한다.", () => {
+    cy.get(".gnb__button").click();
+    cy.get("#category").select("한식");
+    cy.get("#name").type("%더휴");
+    cy.get("#distance").select("5분 내");
+    cy.get(".button--add").click();
+    cy.on("window:alert", (text) => {
+      expect(text).to.equal(RestaurantData.ERROR_MASSAGE.nameChar);
+    });
+  });
+
+  it('음식점 링크 입력에 "https://"가 포함되어 있지 않을 때, alert 창으로 경고 문구가 발생한다.', () => {
+    cy.get(".gnb__button").click();
+    cy.get("#category").select("한식");
+    cy.get("#name").type("더휴");
+    cy.get("#distance").select("5분 내");
+    cy.get("#description").type("이집맛집임");
+    cy.get("#link").type("www.naver.com");
+    cy.get(".button--add").click();
+    cy.on("window:alert", (text) => {
+      expect(text).to.equal(RestaurantData.ERROR_MASSAGE.link);
+    });
+  });
 });
