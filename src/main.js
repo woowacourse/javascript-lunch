@@ -1,6 +1,6 @@
 import AddRestaurantModal from "./components/AddRestaurantModal.js";
 import Header from "./components/Header.js";
-import RestaurantItem from "./components/RestaurantItem.js";
+import { RestaurantItem } from "./components/RestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
 import { categoryMapping } from "./utils/categoryMapping.js";
 import {
