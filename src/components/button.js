@@ -1,11 +1,11 @@
-const $button = (BUTTON_INFO) => {
+const $button = (buttonInfo) => {
   const button = document.createElement("button");
-  button.innerText = BUTTON_INFO.text;
-  button.type = BUTTON_INFO.type;
-  button.classList.add(...BUTTON_INFO.className);
+  button.innerText = buttonInfo.text;
+  button.type = buttonInfo.type;
+  button.classList.add(...buttonInfo.className);
 
-  if (BUTTON_INFO.event) {
-    button.addEventListener("click", BUTTON_INFO.event);
+  if (buttonInfo.event) {
+    button.addEventListener("click", buttonInfo.event);
   }
 
   return button;
