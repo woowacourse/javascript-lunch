@@ -64,9 +64,13 @@ export default class Application extends Component {
   }
 
   #appendRestaurantList() {
+    const filteredRestaurants = this.state.restaurants.filter(
+      (restaurant) => this.state.tab === 'all' || restaurant.isLike,
+    );
+
     this.element.appendChild(
       new RestaurantList({
-        restaurants: this.state.restaurants,
+        restaurants: filteredRestaurants,
       }).render(),
     );
   }
