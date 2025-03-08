@@ -11,9 +11,9 @@ describe("새로고침하면 데이터가 초기화된다.", () => {
     cy.get("#name").type("더휴");
     cy.get("#distance").select("5분 내");
     cy.get("#description").type("이집맛집임");
-    cy.get("#link").type("링크임");
+    cy.get("#link").type("https://www.naver.com");
 
-    cy.get(".button--primary").click();
+    cy.get(".button--add").click();
     cy.get(".modal-container").should("not.exist");
     cy.get("body").contains("더휴");
 

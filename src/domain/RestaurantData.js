@@ -8,7 +8,7 @@ const CATEGORY_IMAGE = Object.freeze({
 });
 
 export default class RestaurantData {
-  ERROR_MASSAGE = Object.freeze({
+  static ERROR_MASSAGE = Object.freeze({
     category: "카테고리를 선택해 주세요",
     distance: "거리를 선택해 주세요",
     nameLength: "식당 이름은 2글자 이상 입력해 주세요",
@@ -71,21 +71,23 @@ export default class RestaurantData {
 
   validateCategory(category) {
     if (this.isValidateOption(category))
-      throw Error(this.ERROR_MASSAGE.category);
+      throw Error(RestaurantData.ERROR_MASSAGE.category);
   }
 
   validateDistance(distance) {
     if (this.isValidateOption(distance))
-      throw Error(this.ERROR_MASSAGE.distance);
+      throw Error(RestaurantData.ERROR_MASSAGE.distance);
   }
 
   validateName(name) {
     if (this.isValidateNameLength(name))
-      throw Error(this.ERROR_MASSAGE.nameLength);
-    if (this.hasInvalidNameChar(name)) throw Error(this.ERROR_MASSAGE.nameChar);
+      throw Error(RestaurantData.ERROR_MASSAGE.nameLength);
+    if (this.hasInvalidNameChar(name))
+      throw Error(RestaurantData.ERROR_MASSAGE.nameChar);
   }
 
   validateLink(link) {
-    if (this.isValidateLink(link)) throw Error(this.ERROR_MASSAGE.link);
+    if (this.isValidateLink(link))
+      throw Error(RestaurantData.ERROR_MASSAGE.link);
   }
 }

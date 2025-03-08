@@ -12,7 +12,7 @@ describe("모달창 e2e 테스트", () => {
   it("모달에서 취소버튼을 누르면 모달창이 닫힌다.", () => {
     cy.get(".gnb__button").click();
 
-    cy.get(".button--secondary").click();
+    cy.get(".button--cancel").click();
     cy.get(".modal-container").should("not.exist");
   });
 });

@@ -10,6 +10,7 @@ export default function RestaurantModalButtonContainer() {
 
   $div.appendChild(
     Button({
+      className: "button--cancel",
       variant: "secondary",
       type: "button",
       text: "취소하기",
@@ -18,6 +19,7 @@ export default function RestaurantModalButtonContainer() {
   );
   $div.appendChild(
     Button({
+      className: "button--add",
       variant: "primary",
       type: "submit",
       text: "추가하기",
