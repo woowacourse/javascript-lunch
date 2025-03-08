@@ -1,18 +1,11 @@
 import { label } from "../../constants/optionValue.js";
-import Component from "../Component.js";
 
-class Input extends Component {
-  constructor($target, props) {
-    super($target, props);
-  }
-  template() {
-    const { required, type } = this.props;
-    return `
-    <label for="${this.$target.getAttribute("id")} text-caption">${label[this.$target.getAttribute("id")]}</label>
-    <input type="${type}" name="${this.$target.getAttribute("id")}" id="${this.$target.getAttribute("id")}" ${required}>
-
-            `;
-  }
-}
-
+const Input = ({ id, required, type }) => {
+  console.log({ id, required, type });
+  return `
+  <div id="name" class="form-item ${required ? "form-item--required" : ""}">
+      <label for="${id} text-caption">${label[id]}</label>
+      <input type="${type}" name="${id}" ${required}>
+    </div>`;
+};
 export default Input;

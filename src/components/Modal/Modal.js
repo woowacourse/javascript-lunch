@@ -1,28 +1,27 @@
+import { categoryValue, distanceValue } from "../../constants/optionValue.js";
 import Component from "../Component.js";
+import Dropdown from "../Dropdown/Dropdown.js";
+import Input from "../Input/Input.js";
 import addData from "./addData.js";
 import createModalInputs from "./createModalInputs.js";
 import "./modal.css";
 class Modal extends Component {
-  constructor($target) {
-    super($target);
+  constructor($target, props) {
+    super($target, props);
   }
 
   template() {
+    const { isModalOpen } = this.props;
     return `<div class="modal-backdrop"></div>
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
       <form id='input-form'>
 
-      <div id="category" class="form-item form-item--required"></div>
-
-        <div id="name" class="form-item form-item--required">
-        </div>
-
-        <div id="distance" class="form-item form-item--required"></div>
-
-        <div id="description" class="form-item"></div>
-
-        <div id="link" class="form-item"></div>
+        ${Dropdown({ id: "category", required: "required", optionValue: categoryValue })}
+        ${Input({ id: "name", required: "required", type: "text" })}
+        ${Dropdown({ id: "distance", required: "required", optionValue: distanceValue })}
+        ${Input({ id: "description", required: "", type: "text" })}
+        ${Input({ id: "link", required: "", type: "url" })}
 
         <div class="button-container">
           <button type="button" class="button button--secondary text-caption">취소하기</button>
@@ -34,14 +33,18 @@ class Modal extends Component {
   }
 
   render() {
-    this.$target.innerHTML = this.template();
-    this.setEvent();
-    createModalInputs();
+    super.render();
+    if (this.props.isModalOpen) {
+      this.$target.classList.add("modal--open");
+    } else {
+      this.$target.classList.remove("modal--open");
+    }
   }
 
   setEvent() {
     const modalContainer = document.querySelector(".modal");
 
+    //todo: toggle에서 상태 업데이트로 변경
     this.$target
       .querySelector(".modal-backdrop")
       .addEventListener("click", () => {
