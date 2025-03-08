@@ -3,8 +3,8 @@ import Modal from "../Modal/Modal.js";
 import "./header.css";
 
 class Header extends Component {
-  constructor($target) {
-    super($target);
+  constructor($target, props) {
+    super($target, props);
   }
 
   template() {
@@ -17,9 +17,7 @@ class Header extends Component {
 
   setEvent() {
     this.$target.querySelector(".gnb__button").addEventListener("click", () => {
-      const modalContainer = document.querySelector(".modal");
-      new Modal(modalContainer);
-      modalContainer.classList.toggle("modal--open");
+      this.props.toggleModal();
     });
   }
 }
