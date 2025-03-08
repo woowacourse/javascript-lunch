@@ -9,6 +9,7 @@ import {
 import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.js";
 import { extractFormData } from "../../../utils/extract.js";
 import createRestaurantItem from "../item/item.js";
+import Toast from "../../Toast/Toast.js";
 
 export default function createRestaurantForm() {
   const restaurantAddForm = createElement("form", {
@@ -84,11 +85,11 @@ export default function createRestaurantForm() {
       const restaurantList = document.querySelector(".restaurant-list");
       restaurantList.appendChild(createRestaurantItem(formData));
       restaurantAddForm.reset();
-
+      Toast.showToast(`${formData.name} 음식점을 추가했습니다.`, "success");
       const modal = document.querySelector(".modal");
       modal.close();
     } catch (error) {
-      alert(error.message);
+      Toast.showToast(`${error.message}`, "error");
     }
   }
 

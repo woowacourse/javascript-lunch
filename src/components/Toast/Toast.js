@@ -1,5 +1,5 @@
 const Toast = {
-  showToast(message, type = "error", duration = 3000) {
+  showToast(message, type = "error", duration = 5000) {
     if (type === "info") duration = 2000;
     let toastContainer = document.querySelector(".toast-container");
     if (!toastContainer) {

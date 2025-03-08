@@ -14,7 +14,7 @@ function handleBottomSheetToggle(event) {
   const modal = document.querySelector(".modal");
 
   if (event.target.closest(".restaurant-add-button")) {
-    modal.showModal();
+    modal.show();
   }
 
   if (event.target.closest(".modal-backdrop")) {
