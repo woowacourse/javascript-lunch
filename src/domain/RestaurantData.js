@@ -1,5 +1,3 @@
-import ERROR_MASSAGE from "../constants/errorMessage.js";
-
 const CATEGORY_IMAGE = Object.freeze({
   한식: "./category-korean.png",
   중식: "./category-chinese.png",
@@ -10,6 +8,12 @@ const CATEGORY_IMAGE = Object.freeze({
 });
 
 export default class RestaurantData {
+  ERROR_MASSAGE = Object.freeze({
+    category: "카테고리를 선택해 주세요",
+    distance: "거리를 선택해 주세요",
+    name: "식당 이름은 2글자 이상 입력해 주세요",
+  });
+
   #id;
   #src;
   #alt;
@@ -55,14 +59,16 @@ export default class RestaurantData {
   }
 
   validateCategory(category) {
-    if (this.isValidateOption(category)) throw Error(ERROR_MASSAGE.category);
+    if (this.isValidateOption(category))
+      throw Error(this.ERROR_MASSAGE.category);
   }
 
   validateDistance(distance) {
-    if (this.isValidateOption(distance)) throw Error(ERROR_MASSAGE.distance);
+    if (this.isValidateOption(distance))
+      throw Error(this.ERROR_MASSAGE.distance);
   }
 
   validateName(name) {
-    if (this.isValidateName(name)) throw Error(ERROR_MASSAGE.name);
+    if (this.isValidateName(name)) throw Error(this.ERROR_MASSAGE.name);
   }
 }
