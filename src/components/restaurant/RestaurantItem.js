@@ -1,6 +1,7 @@
 import createElement from "../../util/createElement";
 
 export default function RestaurantItem({
+  id,
   src,
   alt,
   name,
@@ -10,6 +11,7 @@ export default function RestaurantItem({
   const $restaurantItem = createElement({
     tag: "li",
     classNames: ["restaurant"],
+    id: id,
   });
 
   $restaurantItem.innerHTML = `
