@@ -21,7 +21,7 @@ export default class Application extends Component {
       restaurants: JSON.parse(localStorage.getItem('restaurants')) ?? [],
       tab: 'all',
       filter: 'all',
-      sort: 'distance',
+      sort: '이름순',
     });
     // this.setState({ restaurants: RESTAURANT_LIST_DEFAULT });
   }
@@ -79,11 +79,12 @@ export default class Application extends Component {
   }
 
   #appendRestaurantList() {
-    console.log(this.state.restaurants);
     const filteredRestaurants = [...this.state.restaurants]
       .filter((restaurant) => this.state.tab === 'all' || restaurant.isLike)
       .filter((restaurant) => this.state.filter === 'all' || restaurant.category === this.state.filter)
-      .sort((a, b) => a.distance - b.distance);
+      .sort((a, b) =>
+        this.state.sort === '이름순' ? (a.name < b.name ? -1 : a.name > b.name ? 1 : 0) : a.distance - b.distance,
+      );
 
     this.element.appendChild(
       new RestaurantList({
