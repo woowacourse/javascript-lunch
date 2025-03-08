@@ -11,7 +11,8 @@ export default class RestaurantData {
   ERROR_MASSAGE = Object.freeze({
     category: "카테고리를 선택해 주세요",
     distance: "거리를 선택해 주세요",
-    name: "식당 이름은 2글자 이상 입력해 주세요",
+    nameLength: "식당 이름은 2글자 이상 입력해 주세요",
+    nameChar: "올바른 식당 이름을 입력해 주세요.",
     link: "올바른 링크 주소를 입력해 주세요.",
   });
 
@@ -56,7 +57,11 @@ export default class RestaurantData {
     return !value;
   }
 
-  isValidateName(name) {
+  hasInvalidNameChar(name) {
+    return !/^[가-힣a-zA-Z0-9\s]+$/.test(name);
+  }
+
+  isValidateNameLength(name) {
     return name.length < 2;
   }
 
@@ -75,7 +80,9 @@ export default class RestaurantData {
   }
 
   validateName(name) {
-    if (this.isValidateName(name)) throw Error(this.ERROR_MASSAGE.name);
+    if (this.isValidateNameLength(name))
+      throw Error(this.ERROR_MASSAGE.nameLength);
+    if (this.hasInvalidNameChar(name)) throw Error(this.ERROR_MASSAGE.nameChar);
   }
 
   validateLink(link) {
