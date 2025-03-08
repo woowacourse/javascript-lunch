@@ -5,7 +5,10 @@ import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/RestaurantItem.js';
 import { DOM } from '../dom.js';
 import Restaurant from '../Restaurant.js';
-import { validateDropDown, validateName, validateDescription, validateLink } from '../validation/validations.js';
+import { validateDescription } from '../validation/validateDescription.js';
+import { validateDropDown } from '../validation/validateDropDown.js';
+import { validateLink } from '../validation/validateLink.js';
+import { validateName } from '../validation/validateName.js';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
@@ -102,6 +105,7 @@ class AddRestaurantModal extends Modal {
       return true;
     } catch (error) {
       alert(error.message);
+      return false;
     }
   };
 
