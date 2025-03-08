@@ -4,7 +4,7 @@ import { CATEGORY_MAP } from '../lib/constants.js';
 export default class Restaurant extends Component {
   template() {
     return `
-      <li class="restaurant">
+      <li class="restaurant" data-name="${this.props.name}">
       <div class="restaurant__category">
         <img
           src="./public/images/category-${CATEGORY_MAP[this.props.category]}.png"
