@@ -1,0 +1,101 @@
+.rounded-lg {
+  border-radius: 8px;
+}
+
+.rounded-full {
+  border-radius: 999px;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-y-auto {
+  overflow-y-auto: auto;
+}
+
+.overflow-y {
+  overflow-y: scroll;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.mt-32 {
+  margin-top: 32px;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.my-16 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.my-8 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.pl-8 {
+  padding-left: 8px;
+}
+
+.py-16 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.py-8 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.px-16 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.px-8 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.box-border {
+  box-sizing: border-box;
+}
+
+.border {
+  border: 1px solid var(--slate-50);
+}
+
+.border-b {
+  border-bottom: 1px solid var(--slate-50);
+}
+
+.border-slate-400 {
+  border-color: var(--slate-400);
+}
+
+.border-red {
+  border-color: red;
+}
+
+.border-none {
+  border: none;
+}
+
+.resize-none {
+  resize: none;
+}

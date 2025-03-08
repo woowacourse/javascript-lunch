@@ -1,23 +1,39 @@
-import image from "../templates/favorite-icon-filled.png";
-
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+import {
+  Icon,
+  Text,
+  Header,
+  Layout,
+  BottomSheet,
+} from "./components/common/index.js";
+import { LunchList, LunchItem, LunchForm } from "./components/feature/index.js";
 
 addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+  const layout = new Layout();
+  const header = new Header();
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+  const lunchList = new LunchList();
+  const bottomSheet = new BottomSheet();
+
+  bottomSheet.setProps({
+    onAdd: (data) => {
+      const newLunchItem = new LunchItem();
+      newLunchItem.setProps(data);
+      lunchList.addLunchItem(newLunchItem);
+    },
+  });
+
+  const lunchForm = new LunchForm();
+  bottomSheet.addChild(LunchForm);
+
+  header.setProps({
+    title: "점심 뭐먹지",
+    iconName: "add-button",
+    onIconClick: () => bottomSheet.open(),
+  });
+
+  layout.setProps({
+    children: [header, lunchList],
+  });
+
+  layout.render();
 });
