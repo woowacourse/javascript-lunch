@@ -29,7 +29,7 @@ describe('모달창이 뜨면 입력 내용들이 뜬다.', () => {
 
 describe('모달창을 닫을 수 있다.', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173/');
+    cy.visit(VISIT_URL_CONSTANT.LINK);
     cy.get('.gnb__button').click();
   });
 
@@ -51,7 +51,7 @@ describe('모달창을 닫을 수 있다.', () => {
 
 describe('필수 입력 조건이 만족됐을 때, 모달창에서 추가하기 버튼을 클릭하면 새로운 음식점을 추가할 수 있다.', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173/');
+    cy.visit(VISIT_URL_CONSTANT.LINK);
     cy.get('.gnb__button').click();
   });
 
