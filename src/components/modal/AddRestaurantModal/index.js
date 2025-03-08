@@ -32,11 +32,11 @@ class AddRestaurantModal extends Modal {
   componentDidMount() {
     super.componentDidMount();
     if (this.state.isOpen) {
-      this.addEventListeners();
+      this.setupEventListeners();
     }
   }
 
-  addEventListeners() {
+  setupEventListeners() {
     const $cancelButton = document.querySelector("#cancel-add-restaurant-form");
     const $addForm = document.querySelector("#add-restaurant-form");
 
@@ -55,7 +55,6 @@ class AddRestaurantModal extends Modal {
       const data = Object.fromEntries(formData.entries());
 
       this.validateData(data);
-
       this.props.updateRestaurant(data);
       this.close();
     } catch (error) {

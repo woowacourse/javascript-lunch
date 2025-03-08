@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       restaurants: restaurants,
     };
+    this.watchState("restaurants", this.renderRestaurantList.bind(this));
   }
 
   updateRestaurant(newRestaurant) {
@@ -25,10 +26,6 @@ class App extends Component {
         <main></main>
         <div id="modal"></div>
     `;
-  }
-
-  componentDidUpdate() {
-    this.renderRestaurantList();
   }
 
   componentDidMount() {
