@@ -1,0 +1,30 @@
+import { DOM } from '../dom.js';
+
+const HEADER_TEMPLATE = `
+  <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+  <button type="button" class="gnb__button" aria-label="음식점 추가">
+    <img src="https://h0ngju.github.io/javascript-lunch/public/assets/add-button.png" alt="음식점 추가">
+  </button>
+`;
+
+class Header {
+  constructor(modalClickHandler) {
+    this.#createHeader();
+    this.#bindEvent(modalClickHandler);
+  }
+
+  #createHeader = () => {
+    const header = document.createElement('header');
+    header.classList = 'gnb';
+    header.innerHTML = HEADER_TEMPLATE;
+    DOM.APP.prepend(header);
+  };
+
+  #bindEvent = (modalClickHandler) => {
+    const addButton = document.querySelector('.gnb__button');
+    addButton.addEventListener('click', () => {
+      modalClickHandler();
+    });
+  };
+}
+export default Header;
