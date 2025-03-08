@@ -12,10 +12,15 @@ addEventListener("load", () => {
   renderRestaurants(...restaurantList);
 
   $("main").appendChild(
-    Modal(
-      registerModalClose,
-      Title("새로운 음식점", "h2", "modal-title", "text-title"),
-      RegisterForm()
-    )
+    Modal({
+      handleClose: registerModalClose,
+      headerComponent: Title(
+        "새로운 음식점",
+        "h2",
+        "modal-title",
+        "text-title"
+      ),
+      bodyComponent: RegisterForm(),
+    })
   );
 });

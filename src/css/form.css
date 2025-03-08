@@ -10,7 +10,8 @@
   font-size: 14px;
 }
 
-.form-item--required label::after {
+.form-item:has(input[required]) label::after,
+.form-item:has(select[required]) label::after {
   padding-left: 4px;
 
   color: var(--primary-color);

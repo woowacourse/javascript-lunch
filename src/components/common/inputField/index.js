@@ -1,14 +1,9 @@
 import { LABEL_TEXT } from "../../../constants/labelText";
 
-const InputField = (inputElement, text) => {
-  const infoType = inputElement.id;
-  const required = inputElement.required;
-
+const InputField = (infoType, inputElement, text) => {
   const inputField = document.createElement("div");
   inputField.classList.add("form-item");
   inputField.id = `${infoType}-form-item`;
-
-  if (required) inputField.classList.add("form-item--required");
 
   const label = document.createElement("label");
   label.setAttribute("for", infoType);

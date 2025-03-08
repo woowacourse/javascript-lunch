@@ -1,4 +1,4 @@
-const TextArea = (name, required = false) => {
+const TextArea = ({ name, required = false }) => {
   const textArea = document.createElement("textarea");
 
   textArea.setAttribute("type", "text");

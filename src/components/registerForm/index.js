@@ -6,6 +6,7 @@ import Input from "../common/input";
 import InputField from "../common/inputField";
 import Select from "../common/select";
 import TextArea from "../common/textArea";
+import Distance from "../restaurantCard/distance";
 import ButtonContainer from "./buttonContainer";
 
 const RegisterForm = () => {
@@ -14,33 +15,43 @@ const RegisterForm = () => {
 
   registerForm.appendChild(
     InputField(
-      Select(
-        "category",
-        true,
-        createKeyValuePair(
+      "category",
+      Select({
+        name: "category",
+        required: true,
+        options: createKeyValuePair(
           Object.keys(FOOD_CATEGORY),
           Object.keys(FOOD_CATEGORY)
-        )
-      )
+        ),
+      })
     )
   );
-  registerForm.appendChild(InputField(Input("name", true)));
+  registerForm.appendChild(
+    InputField("name", Input({ name: "name", required: true }))
+  );
   registerForm.appendChild(
     InputField(
-      Select(
-        "distance",
-        true,
-        createKeyValuePair(
+      "distance",
+      Select({
+        name: "distance",
+        required: true,
+        options: createKeyValuePair(
           WALK_TIME_MINUTES,
           WALK_TIME_MINUTES.map((minute) => minute + "분 내")
-        )
-      )
+        ),
+      })
     )
   );
   registerForm.appendChild(
-    InputField(TextArea("description"), INPUT_HELP_TEXT.DESCRIPTION)
+    InputField(
+      "description",
+      TextArea({ name: "description" }),
+      INPUT_HELP_TEXT.DESCRIPTION
+    )
   );
-  registerForm.appendChild(InputField(Input("link"), INPUT_HELP_TEXT.LINK));
+  registerForm.appendChild(
+    InputField("link", Input({ name: "link" }), INPUT_HELP_TEXT.LINK)
+  );
 
   registerForm.appendChild(ButtonContainer());
 
