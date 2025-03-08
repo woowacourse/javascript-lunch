@@ -12,7 +12,7 @@ export const validateNameInput = (rawInput) => {
   }
 };
 
-export const validateDescriptiontInput = (rawInput) => {
+export const validateDescriptionInput = (rawInput) => {
   const input = rawInput.trim();
 
   if (input.length > MESSAGES.MAXIMUM_DESCRIPTION_LENGTH) {

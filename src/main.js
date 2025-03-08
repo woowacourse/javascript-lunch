@@ -4,7 +4,7 @@ import RestaurantItem from "./components/RestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
 import { categoryMapping } from "./utils/categoryMapping.js";
 import {
-  validateDescriptiontInput,
+  validateDescriptionInput,
   validateNameInput,
   validateSelectInput,
 } from "./validation/validator.js";
@@ -39,7 +39,7 @@ addEventListener("load", () => {
         const distanceValue = $distance.value || "error_distance";
         validateSelectInput(distanceValue);
         const descriptionValue = $description.value;
-        validateDescriptiontInput(descriptionValue);
+        validateDescriptionInput(descriptionValue);
         const categoryCode = categoryMapping[categoryValue];
         validateSelectInput(categoryCode);
 
