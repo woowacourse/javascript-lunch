@@ -1,23 +1,34 @@
-import image from "../templates/favorite-icon-filled.png";
+import { DOM } from "./utils/dom.js";
+import IconButton from "./component/IconButton.js";
+import Modal from "./component/Modal.js";
+import TextButton from "./component/TextButton.js";
+import LunchInfoCard from "./component/LunchInfoCard.js";
+import SelectForm from "./component/SelectForm.js";
+import TextareaForm from "./component/TextareaForm.js";
+import InputForm from "./component/InputForm.js";
+import Header from "./component/Header.js";
+import render from "./utils/render.js";
+import state from "./state.js";
+import AddLunchModalForm from "./component/AddLunchModalForm.js";
 
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
-
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
-
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+addEventListener("keydown", (e) => {
+  if (e.key === "Escape") Modal.close();
 });
+
+DOM.$body.prepend(Header.create());
+
+renderRestaurantList();
+
+DOM.$main.append(Modal.create(AddLunchModalForm.create()));
+
+export function renderRestaurantList() {
+  DOM.$restaurantList.replaceChildren();
+  state.restaurantList.forEach(
+    ({ src, name, distance, description, label }) => {
+      render(
+        LunchInfoCard.create({ src, name, distance, description, label }),
+        DOM.$restaurantList
+      );
+    }
+  );
+}
