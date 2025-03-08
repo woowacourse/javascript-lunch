@@ -65,6 +65,7 @@ export default class RestaurantAddModal extends Component {
     });
 
     const modal = new Modal({
+      id: 'restaurant-add-modal',
       children: `
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form>

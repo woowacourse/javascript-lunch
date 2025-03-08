@@ -7,3 +7,4 @@ export { default as RestaurantList } from './RestaurantList.js';
 export { default as RestaurantAddModal } from './RestaurantAddModal.js';
 export { default as RestaurantTab } from './RestaurantTab.js';
 export { default as RestaurantDetail } from './RestaurantDetail.js';
+export { default as RestaurantDetailModal } from './RestaurantDetailModal.js';

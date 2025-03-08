@@ -30,10 +30,4 @@ export default class Restaurant extends Component {
       </div>
     </li>`;
   }
-
-  // onRender() {
-  //   this.element.querySelector('#like__button').addEventListener('click', () => {
-  //     // console.log(this.props.)
-  //   });
-  // }
 }

@@ -265,3 +265,29 @@ input[name='link'] {
 
   color: var(--grey-100);
 }
+
+/* 음식점 상세 모달 */
+.restaurant-detail-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  padding: 16px 8px;
+  gap: 16px;
+
+  border-bottom: 1px solid #e9eaed;
+}
+.restaurant-detail-modal__header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.restaurant-detail-modal__distance {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  display: block;
+}
+.restaurant-detail-modal__url {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
