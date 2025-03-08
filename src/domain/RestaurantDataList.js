@@ -1,10 +1,13 @@
 import RestaurantData from "./RestaurantData";
 
-class RestaurantDataList {
+export class RestaurantDataList {
   #dataList;
+  #subscribers = [];
+
   constructor(dataList) {
     this.#dataList = dataList.map((data) => {
       return this.createData(data);
+      a;
     });
   }
 
@@ -14,6 +17,7 @@ class RestaurantDataList {
 
   addData(data) {
     this.#dataList.push(this.createData(data));
+    this.notify();
   }
 
   createData(data) {
@@ -25,6 +29,14 @@ class RestaurantDataList {
       link: data.link,
       category: data.category,
     });
+  }
+
+  subscribe(callback) {
+    this.#subscribers.push(callback);
+  }
+
+  notify() {
+    this.#subscribers.forEach((callback) => callback());
   }
 }
 
