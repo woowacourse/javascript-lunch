@@ -2,11 +2,12 @@ import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
 import createKeyValuePair from "../../utils/createKeyValuePair";
+import { $ } from "../../utils/dom";
+import ErrorMessage from "../common/errorMessage";
 import Input from "../common/input";
 import InputField from "../common/inputField";
 import Select from "../common/select";
 import TextArea from "../common/textArea";
-import Distance from "../restaurantCard/distance";
 import ButtonContainer from "./buttonContainer";
 
 const RegisterForm = () => {
@@ -53,9 +54,14 @@ const RegisterForm = () => {
     InputField("link", Input({ name: "link" }), INPUT_HELP_TEXT.LINK)
   );
 
-  registerForm.appendChild(ButtonContainer());
+  registerForm.appendChild(ButtonContainer(onSubmitFailed));
 
   return registerForm;
+};
+
+const onSubmitFailed = (e) => {
+  const currentInputField = $(`#${e.cause}-form-item`);
+  currentInputField.appendChild(ErrorMessage(e.message));
 };
 
 export default RegisterForm;

@@ -7,9 +7,8 @@ import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
-import ErrorMessage from "../common/errorMessage";
 
-const ButtonContainer = () => {
+const ButtonContainer = (onSubmitFailed) => {
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("button-container");
 
@@ -27,7 +26,13 @@ const ButtonContainer = () => {
     Button({
       text: BUTTON_TEXT.ADD,
       style: "button--primary",
-      onClick: (e) => registerRestaurant(e),
+      onClick: (e) => {
+        try {
+          registerRestaurant(e);
+        } catch (e) {
+          onSubmitFailed(e);
+        }
+      },
       id: "register-button",
     })
   );
@@ -44,18 +49,14 @@ const closeModal = () => {
 
 const registerRestaurant = (e) => {
   e.preventDefault();
-  try {
-    const info = getInfo();
 
-    const restaurant = new Restaurant(info);
-    restaurantList.push(restaurant);
+  const info = getInfo();
 
-    $(".modal-backdrop").classList.remove("open");
-    renderRestaurants(restaurant);
+  const restaurant = new Restaurant(info);
+  restaurantList.push(restaurant);
 
-    clearInput("#register-form");
-  } catch (e) {
-    const currentInputField = $(`#${e.cause}-form-item`);
-    currentInputField.appendChild(ErrorMessage(e.message));
-  }
+  $(".modal-backdrop").classList.remove("open");
+  renderRestaurants(restaurant);
+
+  clearInput("#register-form");
 };
