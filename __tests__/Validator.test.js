@@ -8,19 +8,17 @@ import { Validator } from "../src/utils/Validator.js";
 
 describe("Validator 테스트", () => {
   test(`${RESTAURANT_NAME_LENGTH_MAX}자를 넘는 가게 이름은 받을 수 없다.`, () => {
-    const wrongName =
-      "안녕하세요저는밍고에요테스트케이스를작성해야하는데20자를넘겨야해요잘부탁드립니다.";
+    const LONG_NAME = "a".repeat(RESTAURANT_NAME_LENGTH_MAX + 1);
 
     expect(() => {
-      Validator.name(wrongName);
+      Validator.name(LONG_NAME);
     }).toThrow(ERROR_MESSAGE.NAME_LENGTH_MAX);
   });
 
   test(`${DESCRIPTION_LENGTH_MAX}자를 넘는 가게 이름은 받을 수 없다.`, () => {
-    const wrongDescription =
-      "안녕하세요이제는300자를넘겨야하네요조금은엉성한코드일수있겠지만아무쪼록잘부탁드립니다.300자를넘기기위해선어떤이야기를해야할까요?오늘점심은제가우육면을먹었어요사실다적었었는데중간에라이브쉐어가꺼져서300자를적어놓고82자밖에남지않았어요너무억울해서조금만복붙하겠습니다안녕하세요이제는300자를넘겨야하네요조금은엉성한코드일수있겠지만아무쪼록잘부탁드립니다.300자를넘기기위해선어떤이야기를해야할까요?오늘점심은제가우육면을먹었어요사실다적었었는데중간에라이브쉐어가꺼져서300자를적어놓고82자밖에남지않았어요너무억울해서조금만복붙하겠습니다";
+    const LONG_DESCRIPTION = "a".repeat(DESCRIPTION_LENGTH_MAX + 1);
     expect(() => {
-      Validator.description(wrongDescription);
+      Validator.description(LONG_DESCRIPTION);
     }).toThrow(ERROR_MESSAGE.DESCRIPTION_MAX);
   });
 
