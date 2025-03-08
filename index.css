@@ -1,13 +1,13 @@
-@import "gnb.css";
-@import "restaurant-list.css";
-@import "modal.css";
-@import "restaurant-filter.css";
-@import "/src/components/button/button.css";
-@import "/src/components/textarea/textarea.css";
-@import "/src/components/input/input.css";
-@import "/src/components/dropdown/dropdown.css";
-@import "/src/components/restaurant/form/form.css";
-@import "/src/components/restaurant/item/item.css";
+@import "public/gnb.css";
+@import "public/restaurant-list.css";
+@import "public/modal.css";
+@import "public/restaurant-filter.css";
+@import "src/components/button/button.css";
+@import "src/components/textarea/textarea.css";
+@import "src/components/input/input.css";
+@import "src/components/dropdown/dropdown.css";
+@import "src/components/restaurant/form/form.css";
+@import "src/components/restaurant/item/item.css";
 
 * {
   padding: 0;
