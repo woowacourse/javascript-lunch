@@ -53,11 +53,12 @@ addEventListener("load", () => {
         const $restaurantList = document.querySelector(".restaurant-list");
 
         createRestaurantItem($restaurantList, inputValue);
+
+        const $modal = document.querySelector(".modal");
+        $modal.remove();
       } catch (error) {
         alert(error.message);
       }
-      const $modal = document.querySelector(".modal");
-      $modal.remove();
     });
 
     const $closeModalButton = document.getElementById("close-modal");
