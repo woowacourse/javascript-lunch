@@ -8,15 +8,6 @@ import restaurantDataList from "../../domain/RestaurantDataList.js";
 import { $ } from "../../util/querySelector.js";
 
 export default function RestaurantModal() {
-  const CATEGORY_OPTIONS = ["한식", "중식", "일식", "양식", "아시안", "기타"];
-  const DISTANCE_OPTIONS = [
-    "5분 내",
-    "10분 내",
-    "15분 내",
-    "20분 내",
-    "30분 내",
-  ];
-
   const $fragment = document.createDocumentFragment();
   const $h2 = createElement({
     tag: "h2",
@@ -28,25 +19,43 @@ export default function RestaurantModal() {
     classNames: ["restaurant-add-form"],
   });
 
-  function createRestaurantItem(event) {
-    try {
-      event.preventDefault();
-
-      const restaurantData = Object.fromEntries(new FormData(this));
-      restaurantDataList.addData(restaurantData);
-
-      $(".modal")?.remove();
-    } catch (e) {
-      alert(e.message);
-    }
-  }
-
   $form.addEventListener("submit", createRestaurantItem);
 
   $fragment.appendChild($h2);
   $fragment.appendChild($form);
-  $form.appendChild(
-    RestaurantModalItem({
+
+  const formItems = createFormItems();
+  $form.append(...formItems);
+  $form.appendChild(RestaurantModalButtonContainer());
+
+  return $fragment;
+}
+
+function createRestaurantItem(event) {
+  try {
+    event.preventDefault();
+
+    const restaurantData = Object.fromEntries(new FormData(this));
+    restaurantDataList.addData(restaurantData);
+
+    $(".modal")?.remove();
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
+function createFormItems() {
+  const CATEGORY_OPTIONS = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+  const DISTANCE_OPTIONS = [
+    "5분 내",
+    "10분 내",
+    "15분 내",
+    "20분 내",
+    "30분 내",
+  ];
+
+  return [
+    {
       isRequired: true,
       name: "category",
       text: "카테고리",
@@ -57,24 +66,15 @@ export default function RestaurantModal() {
           options: CATEGORY_OPTIONS,
           isRequired: true,
         }),
-    })
-  );
-  $form.appendChild(
-    RestaurantModalItem({
+    },
+    {
       isRequired: true,
       name: "name",
       text: "이름",
       renderChild: () =>
-        Input({
-          type: "text",
-          name: "name",
-          id: "name",
-          isRequired: true,
-        }),
-    })
-  );
-  $form.appendChild(
-    RestaurantModalItem({
+        Input({ type: "text", name: "name", id: "name", isRequired: true }),
+    },
+    {
       isRequired: true,
       name: "distance",
       text: "거리(도보 이동 시간)",
@@ -85,10 +85,8 @@ export default function RestaurantModal() {
           options: DISTANCE_OPTIONS,
           isRequired: true,
         }),
-    })
-  );
-  $form.appendChild(
-    RestaurantModalItem({
+    },
+    {
       isRequired: false,
       name: "description",
       text: "설명",
@@ -99,27 +97,17 @@ export default function RestaurantModal() {
           cols: "30",
           rows: "5",
         }),
-      helpText: "메뉴 등 추가 정보를 입력해 주세요.",
-    })
-  );
-
-  $form.appendChild(
-    RestaurantModalItem({
+      helpText: "메뉴 등 추가 정보를 입력해 주세요",
+    },
+    {
       isRequired: false,
       name: "link",
       text: "참고 링크",
       renderChild: () =>
-        Input({
-          type: "text",
-          name: "link",
-          id: "link",
-          isRequired: false,
-        }),
+        Input({ type: "text", name: "link", id: "link", isRequired: false }),
       helpText: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
-    })
-  );
-
-  $form.appendChild(RestaurantModalButtonContainer());
-
-  return $fragment;
+    },
+  ].map((formItem) => {
+    return RestaurantModalItem(formItem);
+  });
 }
