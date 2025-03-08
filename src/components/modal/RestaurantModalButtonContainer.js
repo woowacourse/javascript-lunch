@@ -1,9 +1,5 @@
 import createElement from "../../util/createElement";
 import Button from "../util/Button";
-import reset from "../../util/reset";
-import restaurantDataList from "../../domain/RestaurantDataList";
-import Restaurant from "../restaurant/Restaurant";
-import { init } from "../../main";
 import { $ } from "../../util/querySelector";
 
 export default function RestaurantModalButtonContainer() {

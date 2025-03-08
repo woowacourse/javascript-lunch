@@ -1,5 +1,4 @@
 import RestaurantItem from "./RestaurantItem.js";
-
 import createElement from "../../util/createElement.js";
 
 export default function RestaurantListContainer(restaurantItems) {
