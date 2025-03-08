@@ -2,7 +2,7 @@ import { MESSAGES } from "../src/constants/messages";
 import { ERRORS } from "../src/constants/errors";
 import {
   validateNameInput,
-  validateDescriptiontInput,
+  validateDescriptionInput,
   validateSelectInput,
 } from "../src/validation/validator";
 
@@ -30,8 +30,8 @@ describe("모달 사용자 입력 테스트", () => {
       const input = "";
 
       // then
-      expect(() => validateDescriptiontInput(input)).toThrow(
-        ERRORS.EMPTY_DESCRIPTION,
+      expect(() => validateDescriptionInput(input)).toThrow(
+        ERRORS.EMPTY_DESCRIPTION
       );
     });
     it("설명의 입력 값은 1500자를 넘길 수 없다.", () => {
@@ -39,8 +39,8 @@ describe("모달 사용자 입력 테스트", () => {
       const input = "a".repeat(MESSAGES.MAXIMUM_DESCRIPTION_LENGTH + 1);
 
       // then
-      expect(() => validateDescriptiontInput(input)).toThrow(
-        ERRORS.MAXIMUM_DESCRIPTION,
+      expect(() => validateDescriptionInput(input)).toThrow(
+        ERRORS.MAXIMUM_DESCRIPTION
       );
     });
   });
