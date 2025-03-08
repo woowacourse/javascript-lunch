@@ -4,7 +4,7 @@ export default function createDropdownBox({
   labelText,
   id,
   dropdownList,
-  required,
+  required = false,
 }) {
   const dropdownBox = createElement("div", {
     className: ["form-item", `${required && "form-item--required"}`],
