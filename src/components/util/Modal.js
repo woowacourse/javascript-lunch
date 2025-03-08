@@ -33,7 +33,7 @@ function handleEscKeyDown(event) {
   }
 }
 
-function removeModal() {
+export function removeModal() {
   $(".modal").remove();
   document.removeEventListener("keydown", handleEscKeyDown);
 }

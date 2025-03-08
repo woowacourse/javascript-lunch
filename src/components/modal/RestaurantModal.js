@@ -6,6 +6,7 @@ import TextArea from "../util/TextArea.js";
 import RestaurantModalButtonContainer from "./RestaurantModalButtonContainer.js";
 import restaurantDataList from "../../domain/RestaurantDataList.js";
 import { $ } from "../../util/querySelector.js";
+import { removeModal } from "../util/Modal.js";
 
 export default function RestaurantModal() {
   const $fragment = document.createDocumentFragment();
@@ -38,7 +39,7 @@ function createRestaurantItem(event) {
     const restaurantData = Object.fromEntries(new FormData(this));
     restaurantDataList.addData(restaurantData);
 
-    $(".modal")?.remove();
+    removeModal();
   } catch (e) {
     alert(e.message);
   }

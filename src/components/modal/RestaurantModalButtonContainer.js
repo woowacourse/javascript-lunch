@@ -1,6 +1,7 @@
 import createElement from "../../util/createElement";
 import Button from "../util/Button";
 import { $ } from "../../util/querySelector";
+import { removeModal } from "../util/Modal";
 
 export default function RestaurantModalButtonContainer() {
   const $div = createElement({
@@ -14,7 +15,7 @@ export default function RestaurantModalButtonContainer() {
       variant: "secondary",
       type: "button",
       text: "취소하기",
-      onClick: handleClickCancel,
+      onClick: removeModal,
     })
   );
   $div.appendChild(
@@ -27,8 +28,4 @@ export default function RestaurantModalButtonContainer() {
   );
 
   return $div;
-}
-
-function handleClickCancel() {
-  $(".modal").remove();
 }
