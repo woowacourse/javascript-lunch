@@ -20,7 +20,7 @@ export default function RestaurantModal() {
     classNames: ["restaurant-add-form"],
   });
 
-  $form.addEventListener("submit", function handleClickAdd(event) {
+  function createRestaurantItem(event) {
     try {
       event.preventDefault();
       const $form = $(".restaurant-add-form");
@@ -31,7 +31,9 @@ export default function RestaurantModal() {
     } catch (e) {
       alert(e.message);
     }
-  });
+  }
+
+  $form.addEventListener("submit", createRestaurantItem);
 
   $h2.textContent = "새로운 음식점";
 
