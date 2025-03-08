@@ -20,14 +20,12 @@ class Modal {
   }
 
   appendModalContent(content) {
-    console.log(this.#modalDiv, content);
     this.#modalDiv.appendChild(content);
   }
 
   toggle() {
     this.#element.classList.toggle('modal--open');
 
-    console.log(this.#element.classList.contains('modal--open'));
     if (!this.#element.classList.contains('modal--open')) {
       resetInput();
     }
