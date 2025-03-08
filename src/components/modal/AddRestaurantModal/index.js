@@ -11,26 +11,14 @@ import validateDescription from "../../../validators/validateDescription.js";
 import validateLink from "../../../validators/validateLink.js";
 
 class AddRestaurantModal extends Modal {
-  contents() {
-    return /*html */ `
-      <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form id='add-restaurant-form' data-testid='add-restaurant-form'>
-        ${Category()}
-        ${RestaurantName()}
-        ${Distance()}
-        ${Description()}
-        ${Link()}
-
-        <div class="button-container">
-          <button type="button" id="cancel-add-restaurant-form" class="button button--secondary text-caption" data-testid="cancel-add-restaurant-form">취소하기</button>
-          <button class="button button--primary text-caption">추가하기</button>
-        </div>
-      </form>
-    `;
+  setup() {
+    super.setup();
+    this.setupTriggerButtons([".gnb__button"]);
   }
 
   componentDidMount() {
     super.componentDidMount();
+
     if (this.state.isOpen) {
       this.setupEventListeners();
     }
@@ -55,7 +43,7 @@ class AddRestaurantModal extends Modal {
       const data = Object.fromEntries(formData.entries());
 
       this.validateData(data);
-      this.props.updateRestaurant(data);
+      this.props.submit(data);
       this.close();
     } catch (error) {
       alert(error.message);
@@ -69,6 +57,24 @@ class AddRestaurantModal extends Modal {
     validateDistance(distance);
     validateDescription(description);
     validateLink(link);
+  }
+
+  contents() {
+    return /*html */ `
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+      <form id='add-restaurant-form' data-testid='add-restaurant-form'>
+        ${Category()}
+        ${RestaurantName()}
+        ${Distance()}
+        ${Description()}
+        ${Link()}
+
+        <div class="button-container">
+          <button type="button" id="cancel-add-restaurant-form" class="button button--secondary text-caption" data-testid="cancel-add-restaurant-form">취소하기</button>
+          <button class="button button--primary text-caption">추가하기</button>
+        </div>
+      </form>
+    `;
   }
 }
 

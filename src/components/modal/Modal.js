@@ -6,6 +6,8 @@ class Modal extends Component {
       isOpen: false,
     };
     this.watchState("isOpen", () => this.initialRender());
+
+    this.handleOpen = this.open.bind(this);
     this.handleClose = this.close.bind(this);
   }
 
@@ -19,6 +21,20 @@ class Modal extends Component {
       this.$backdrop.removeEventListener("click", this.handleClose);
       this.$backdrop.addEventListener("click", this.handleClose);
     }
+  }
+
+  setupTriggerButtons(selectors = []) {
+    this.triggerSelectors = selectors;
+    if (!this.triggerSelectors.length) return;
+
+    this.$triggerButtons = this.triggerSelectors
+      .map((selector) => Array.from(document.querySelectorAll(selector)))
+      .flat();
+
+    this.$triggerButtons.forEach((button) => {
+      button.removeEventListener("click", this.handleOpen);
+      button.addEventListener("click", this.handleOpen);
+    });
   }
 
   template() {

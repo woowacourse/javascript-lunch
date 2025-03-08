@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       restaurants: restaurants,
     };
-    this.watchState("restaurants", this.renderRestaurantList.bind(this));
+    this.watchState("restaurants", () => this.renderRestaurantList());
   }
 
   updateRestaurant(newRestaurant) {
@@ -29,16 +29,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const $modal = new AddRestaurantModal(document.querySelector("#modal"), {
-      updateRestaurant: this.updateRestaurant.bind(this),
-    });
-    const $gnbButton = this.$target.querySelector(".gnb__button");
-
-    $gnbButton.addEventListener("click", () => {
-      $modal.open();
-    });
-
+    this.renderModal();
     this.renderRestaurantList();
+  }
+
+  renderModal() {
+    const $modal = new AddRestaurantModal(document.querySelector("#modal"), {
+      submit: this.updateRestaurant.bind(this),
+    });
   }
 
   renderRestaurantList() {
