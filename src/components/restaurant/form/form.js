@@ -10,6 +10,12 @@ import { restaurantFormValidation } from "../../../validation/restaurantFormVali
 import { extractFormData } from "../../../utils/extract.js";
 import createRestaurantItem from "../item/item.js";
 
+const modal = document.querySelector(".modal");
+
+function handleModalClose() {
+  modal.close();
+}
+
 export default function createRestaurantForm() {
   const restaurantAddForm = createElement("form", {
     className: "restaurant-add-form",
@@ -61,7 +67,7 @@ export default function createRestaurantForm() {
         "cancel-button",
       ],
       textContent: "취소하기",
-      onclick: () => document.querySelector(".modal").close(),
+      onclick: handleModalClose,
     }),
     createButton({
       type: "submit",
@@ -81,9 +87,7 @@ export default function createRestaurantForm() {
       const restaurantList = document.querySelector(".restaurant-list");
       restaurantList.appendChild(createRestaurantItem(formData));
       restaurantAddForm.reset();
-
-      const modal = document.querySelector(".modal");
-      modal.close();
+      handleModalClose();
     } catch (error) {
       alert(error.message);
     }
