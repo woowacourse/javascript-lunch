@@ -43,10 +43,11 @@ function HandleAddRestaurant(e) {
     validateSelectInput(distanceValue, "거리");
     const descriptionValue = $description.value;
     validateDescriptionInput(descriptionValue);
-    const categoryCode = categoryMapping[categoryValue];
+    const category = categoryMapping[categoryValue];
 
     const inputValue = {
-      categoryCode,
+      category,
+      categoryValue,
       nameValue,
       distanceValue,
       descriptionValue,
