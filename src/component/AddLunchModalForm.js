@@ -1,14 +1,14 @@
 import Modal from "./Modal.js";
 import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
-import TextareaForm from "./TextareaForm.js";
-import TextButton from "./TextButton.js";
 import ButtonContainer from "./ButtonContainer.js";
+import TextareaForm from "./TextareaForm.js";
 import render from "../utils/render.js";
 import { CATEGORY_ICON } from "../constants/constants.js";
 import { renderRestaurantList } from "../main.js";
 import state from "../state.js";
 import { Validator } from "../utils/Validator.js";
+import TextButton from "./TextButton.js";
 
 const AddLunchModalForm = {
   create() {
@@ -43,7 +43,7 @@ const AddLunchModalForm = {
     });
 
     ModalFormElement.appendChild(
-      SelectForm.create({
+      SelectForm({
         id: "category",
         label: "카테고리",
         dropdownList: [
@@ -81,7 +81,7 @@ const AddLunchModalForm = {
     );
 
     ModalFormElement.appendChild(
-      InputForm.create({
+      InputForm({
         id: "name",
         label: "이름",
         isRequired: true,
@@ -90,7 +90,7 @@ const AddLunchModalForm = {
     );
 
     ModalFormElement.appendChild(
-      SelectForm.create({
+      SelectForm({
         id: "distance",
         label: "거리(도보 이동 시간)",
         dropdownList: [
@@ -124,7 +124,7 @@ const AddLunchModalForm = {
     );
 
     ModalFormElement.appendChild(
-      TextareaForm.create({
+      TextareaForm({
         id: "description",
         bottomDescription: "메뉴 등 추가 정보를 입력해 주세요.",
         rows: "5",
@@ -134,7 +134,7 @@ const AddLunchModalForm = {
     );
 
     ModalFormElement.appendChild(
-      InputForm.create({
+      InputForm({
         id: "link",
         label: "참고 링크",
         isRequired: false,
@@ -142,7 +142,19 @@ const AddLunchModalForm = {
       })
     );
 
-    ModalFormElement.appendChild(ButtonContainer.create());
+    ModalFormElement.appendChild(
+      ButtonContainer([
+        TextButton({
+          id: "cancel__button",
+          title: "취소하기",
+          onClick: () => Modal.close(),
+        }),
+        TextButton({
+          id: "add__button",
+          title: "추가하기",
+        }),
+      ])
+    );
 
     return ModalFormElement;
   },

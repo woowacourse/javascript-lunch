@@ -1,26 +1,16 @@
 import TextButton from "./TextButton.js";
 import Modal from "./Modal.js";
+import append from "../utils/append.js";
+import toElement from "../utils/toElement.js";
 
-const ButtonContainer = {
-  create() {
-    const buttonContainerElement = document.createElement("div");
-    buttonContainerElement.classList.add("button-container");
-    buttonContainerElement.appendChild(
-      TextButton.create({
-        id: "cancel__button",
-        title: "취소하기",
-        onClick: () => Modal.close(),
-      })
-    );
-    buttonContainerElement.appendChild(
-      TextButton.create({
-        id: "add__button",
-        title: "추가하기",
-      })
-    );
+function ButtonContainer(buttonList) {
+  const $buttonContainer = toElement(`<div class="button-container" />`);
 
-    return buttonContainerElement;
-  },
-};
+  buttonList.forEach((button) => {
+    append($buttonContainer, button);
+  });
+
+  return $buttonContainer;
+}
 
 export default ButtonContainer;
