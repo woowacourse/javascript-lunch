@@ -1,15 +1,16 @@
 describe('기능 테스트', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5173');
-    cy.get('.gnb__button').click(); // ✅ 모든 테스트에서 모달을 여는 코드 중복 제거
+    cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
+    cy.viewport(1024, 768);
   });
 
   describe('음식점 추가 성공 테스트', () => {
     it('모든 필드를 입력 후 음식점을 추가하는 시나리오 테스트', () => {
-      cy.get('#category').select('한식', { force: true });
+      cy.get('#category').select('한식');
       cy.get('#name').type('꺼벙이');
-      cy.get('#distance').select('15분 내', { force: true });
+      cy.get('#distance').select('15분 내');
       cy.get('#description').type('꺼벙이 분식');
       cy.get('#link').type('https://naver.me/G6DyD9tg');
 
@@ -18,9 +19,9 @@ describe('기능 테스트', () => {
     });
 
     it('필수 입력값만 입력 후 추가하기 시나리오 테스트', () => {
-      cy.get('#category').select('한식', { force: true });
+      cy.get('#category').select('한식');
       cy.get('#name').type('꺼벙이');
-      cy.get('#distance').select('15분 내', { force: true });
+      cy.get('#distance').select('15분 내');
 
       cy.get('.button--primary').click();
       cy.get('.restaurant-list').should('contain', '꺼벙이');
@@ -29,9 +30,9 @@ describe('기능 테스트', () => {
 
   describe('음식점 추가 취소 테스트', () => {
     it('음식점 추가 중 취소하기 버튼을 클릭하여 음식점 추가를 취소하는 시나리오 테스트', () => {
-      cy.get('#category').select('한식', { force: true });
+      cy.get('#category').select('한식');
       cy.get('#name').type('꺼벙이');
-      cy.get('#distance').select('15분 내', { force: true });
+      cy.get('#distance').select('15분 내');
       cy.get('#description').type('꺼벙이 분식');
       cy.get('#link').type('https://naver.me/G6DyD9tg');
 
@@ -41,7 +42,7 @@ describe('기능 테스트', () => {
     });
 
     it('ESC 키를 클릭하여 음식점 추가를 취소하는 시나리오 테스트', () => {
-      cy.document().trigger('keydown', { key: 'Escape', keyCode: 27, which: 27, force: true });
+      cy.document().trigger('keydown', { key: 'Escape', keyCode: 27, which: 27 });
       cy.get('.modal--open').should('not.exist');
     });
 
@@ -53,9 +54,9 @@ describe('기능 테스트', () => {
 
   describe('음식점 추가 모달 동작 테스트', () => {
     it('모달을 닫았다가 다시 열었을 때 필드가 초기화 되는 시나리오 테스트', () => {
-      cy.get('#category').select('한식', { force: true });
+      cy.get('#category').select('한식');
       cy.get('#name').type('꺼벙이');
-      cy.get('#distance').select('15분 내', { force: true });
+      cy.get('#distance').select('15분 내');
 
       cy.get('.button--secondary').click();
       cy.get('.gnb__button').click();
