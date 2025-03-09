@@ -54,7 +54,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     cy.contains("p", "설명 테스트용 텍스트").should("exist").and("be.visible");
   });
 
-  it("음식점 추가 버튼을 누르면 바텀 시트가 열리고, 필수 입력 정보를 입력하지 않을 시 모달창이 닫히지 않고 해당 음식점이 추가가 되지 않는다.", () => {
+  it("음식점 추가 버튼을 누르면 바텀 시트가 열리고, 필수 입력 정보를 입력하지 않을 시 추가하기 버튼이 비활성화 된다.", () => {
     openFormAndCheckLabels();
 
     const category = "한식";
@@ -73,11 +73,8 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
       .type("설명 테스트용 텍스트")
       .should("have.value", "설명 테스트용 텍스트");
 
-    cy.contains("button", "추가하기").should("exist").and("be.visible").click();
-    cy.get(".modal").should("have.class", "modal--open");
-
-    cy.contains("h3", "얌생 김밥").should("not.exist");
-    cy.contains("span", "캠퍼스부터 10분 내").should("not.exist");
-    cy.contains("p", "설명 테스트용 텍스트").should("not.exist");
+    cy.contains("button", "추가하기")
+      .should("exist")
+      .and("have.class", "disabled-btn");
   });
 });
