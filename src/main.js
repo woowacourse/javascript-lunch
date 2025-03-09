@@ -21,7 +21,7 @@ addEventListener('load', () => {
   const nameInputElement = document.querySelector('#name');
   setRequired(nameInputElement);
 
-  addEventHandlers();
+  eventHandlers.registerEventHandlers(addNewRestaurantItem);
 });
 
 function appendHeader() {
@@ -35,12 +35,6 @@ function addNewRestaurantItem() {
   const newRestaurantData = stateStore.getState();
   const newItem = createRestaurantItem(newRestaurantData);
   ul.insertAdjacentHTML('beforeend', newItem);
-}
-
-function addEventHandlers() {
-  eventHandlers.openModal();
-  eventHandlers.readNewRestaurant(addNewRestaurantItem);
-  eventHandlers.closeModal();
 }
 
 function setRequired(element) {
