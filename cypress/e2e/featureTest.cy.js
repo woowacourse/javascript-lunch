@@ -56,7 +56,7 @@ describe('기능 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.get('.modal-backdrop').click({ force: true });
+    cy.get('.modal-backdrop').invoke('css', 'z-index', '9999').click();
     cy.get('.modal--open').should('not.exist');
   });
 
