@@ -109,10 +109,8 @@ describe("기능 테스트", () => {
 
     cy.get("#name").type("tester");
     cy.get("#distance").select("5");
-    // 추가하기 버튼 클릭
     cy.get(".button--primary").click();
 
-    // 목록에 새로운 음식점 생겼는지 체크
     cy.get(".restaurant").should("contain", "tester");
   });
 });
