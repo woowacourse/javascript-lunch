@@ -22,20 +22,44 @@ describe("음식점 정보 입력하는 모달에 대한 E2E 테스트", () => {
   });
 
   it("모달의 입력폼에 음식점 정보를 입력하고 확인하기 버튼을 클릭하여 음식점 정보를 추가할 수 있다.", () => {
-    cy.get('[data-testid="category"]').select("한식");
-    cy.get('[data-testid="restaurant-name"]').type("맛있는 떡볶이");
-    cy.get('[data-testid="distance"]').select("5");
-    cy.get('[data-testid="description"]').type("맛있는 떡볶이입니다");
-    cy.get('[data-testid="link"]').type("https://www.google.com");
-
-    cy.get('[data-testid="add-restaurant-form"]').submit();
-
-    cy.get('[data-testid="modal"]').should("not.exist");
-
-    cy.get('[data-testid="restaurant-list"')
+    cy.get('[data-testid="restaurant-list"]')
       .children()
-      .first()
-      .should("contain.text", "맛있는 떡볶이");
+      .its("length")
+      .then((initialLength) => {
+        cy.get('[data-testid="category"]').select("한식");
+        cy.get('[data-testid="restaurant-name"]').type("맛있는 떡볶이");
+        cy.get('[data-testid="distance"]').select("5");
+        cy.get('[data-testid="description"]').type("맛있는 떡볶이입니다");
+        cy.get('[data-testid="link"]').type("https://www.google.com");
+
+        cy.get('[data-testid="add-restaurant-form"]').submit();
+
+        cy.get('[data-testid="modal"]').should("not.exist");
+
+        cy.get('[data-testid="restaurant-list"]')
+          .children()
+          .should("have.length", initialLength + 1);
+
+        cy.get('[data-testid="restaurant-list"]')
+          .children()
+          .first()
+          .within(() => {
+            cy.get(".restaurant__name").should("have.text", "맛있는 떡볶이");
+            cy.get(".restaurant__category img").should(
+              "have.attr",
+              "alt",
+              "한식"
+            );
+            cy.get(".restaurant__distance").should(
+              "have.text",
+              "캠퍼스부터 5분 내"
+            );
+            cy.get(".restaurant__description").should(
+              "have.text",
+              "맛있는 떡볶이입니다"
+            );
+          });
+      });
   });
 
   it("모달의 입력폼에 음식점 정보를 입력하지 않고 추가하기 버튼을 클릭하면 경고창이 뜬다.", () => {
