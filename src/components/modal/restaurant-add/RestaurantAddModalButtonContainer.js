@@ -1,7 +1,7 @@
 import createElement from "../../../util/createElement";
 import Button from "../../common/Button";
 import { $ } from "../../../util/querySelector";
-import { removeModal } from "../../common/Modal";
+import { removeModal } from "../Modal";
 
 export default function RestaurantAddModalButtonContainer() {
   const $div = createElement({

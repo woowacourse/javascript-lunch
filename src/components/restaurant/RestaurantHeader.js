@@ -1,5 +1,5 @@
 import createElement from "../../util/createElement";
-import Modal from "../common/Modal";
+import Modal from "../modal/Modal";
 import RestaurantAddModal from "../modal/restaurant-add/RestaurantAddModal";
 
 export default function RestaurantHeader({ title }) {

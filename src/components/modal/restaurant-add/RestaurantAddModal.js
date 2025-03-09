@@ -6,7 +6,7 @@ import TextArea from "../../common/TextArea.js";
 import RestaurantAddModalButtonContainer from "./RestaurantAddModalButtonContainer.js";
 import restaurantDataList from "../../../domain/RestaurantDataList.js";
 import { $ } from "../../../util/querySelector.js";
-import { removeModal } from "../../common/Modal.js";
+import { removeModal } from "../Modal.js";
 
 export default function RestaurantAddModal() {
   const $fragment = document.createDocumentFragment();
