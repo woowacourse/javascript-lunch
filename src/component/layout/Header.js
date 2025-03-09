@@ -10,6 +10,7 @@ export function Header({ title = "제목" }) {
 
   header.appendChild(
     IconButton({
+      name: "add",
       imgSrc: "./add-button.png",
       label: "음식점 추가",
       onClick: modalOpen,

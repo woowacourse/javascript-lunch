@@ -1,5 +1,6 @@
-export function Button({ cssType, innerText, onClick = () => {} }) {
+export function Button({ name, cssType, innerText, onClick = () => {} }) {
   const button = document.createElement("button");
+  button.name = name;
   button.type = "button";
   button.classList.add("button");
   button.classList.add(`button--${cssType}`);

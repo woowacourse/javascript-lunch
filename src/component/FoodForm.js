@@ -78,11 +78,13 @@ export function FoodForm() {
     ButtonContainer({
       buttons: [
         Button({
+          name: "cancel",
           cssType: "secondary",
           innerText: "취소하기",
           onClick: modalClose,
         }),
         Button({
+          name: "submit",
           cssType: "primary",
           innerText: "추가하기",
           onClick: addFoodItem,

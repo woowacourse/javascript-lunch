@@ -1,7 +1,7 @@
-export function IconButton({ imgSrc, label, onClick = () => {} }) {
+export function IconButton({ name, imgSrc, label, onClick = () => {} }) {
   const container = document.createElement("div");
   container.innerHTML = `
-    <button type="button" class="gnb__button" aria-label="${label}">
+    <button type="button" class="gnb__button" aria-label="${label}" name=${name}>
     <img src="${imgSrc}" alt="${label}" /></button
   >
   `;
