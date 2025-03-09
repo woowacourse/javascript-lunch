@@ -1,3 +1,11 @@
+.modal-title {
+  margin-bottom: 36px;
+}
+
+.button-container {
+  display: flex;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
