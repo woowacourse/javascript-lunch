@@ -84,6 +84,7 @@ function createFormItems() {
           name: "distance",
           id: "distance",
           options: DISTANCE_OPTIONS,
+          values: ["5", "10", "15", "20", "30"],
           isRequired: true,
         }),
     },
