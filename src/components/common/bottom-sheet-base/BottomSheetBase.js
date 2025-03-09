@@ -24,16 +24,13 @@ export default class BottomSheetBase {
     this.$modal.append($backdrop, $container);
     $container.append($title, this.$children);
 
-    $backdrop.addEventListener(
-      EVENT_TYPES.click,
-      this.#handleBackdropClick.bind(this)
-    );
+    $backdrop.addEventListener(EVENT_TYPES.click, this.close.bind(this));
 
     return this.$modal;
   }
 
-  #handleBackdropClick(e) {
-    if (!e.target.closest(".modal-container")) {
+  close(e) {
+    if (!e || !e.target.closest(".modal-container")) {
       this.$modal.classList.remove("modal--open");
     }
   }

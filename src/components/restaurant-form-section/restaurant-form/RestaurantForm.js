@@ -13,8 +13,9 @@ import {
 } from "../../../constants/constants.js";
 
 export default class RestaurantForm {
-  constructor(addList) {
-    this.addList = addList;
+  constructor({ onSubmit, onCancel }) {
+    this.onSubmit = onSubmit;
+    this.onCancel = onCancel;
     this.formElements = {
       category: new CategorySelect().render(),
       name: new NameInput().render(),
@@ -51,10 +52,7 @@ export default class RestaurantForm {
 
     $buttonContainer.append($cancelButton, $addButton);
 
-    $cancelButton.addEventListener(
-      EVENT_TYPES.click,
-      this.#closeModal.bind(this)
-    );
+    $cancelButton.addEventListener(EVENT_TYPES.click, this.onCancel.bind(this));
 
     $form.addEventListener(EVENT_TYPES.submit, this.#handleSubmit.bind(this));
 
@@ -66,9 +64,8 @@ export default class RestaurantForm {
 
     const newRestaurantInfo = this.#getFormData();
 
-    this.addList(newRestaurantInfo);
+    this.onSubmit(newRestaurantInfo);
     this.#resetFormData();
-    this.#closeModal();
   }
 
   #getFormData() {
@@ -81,14 +78,7 @@ export default class RestaurantForm {
   #resetFormData() {
     Object.values(this.formElements).forEach((el) => {
       const query = el.querySelector("input, select, textarea");
-      if (query) {
-        query.value = "";
-      }
+      if (query) query.value = "";
     });
-  }
-
-  #closeModal() {
-    const $modal = document.querySelector(".modal");
-    $modal.classList.remove("modal--open");
   }
 }

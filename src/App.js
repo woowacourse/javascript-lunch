@@ -29,12 +29,22 @@ export default class App {
     this.$main = document.createElement("main");
     $body.append(this.$main);
 
+    this.$restaurantList = new RestaurantList(this.restaurantList);
+
+    this.$bottomSheet = new BottomSheetBase({
+      title: "새로운 음식점",
+      $children: new RestaurantForm({
+        onSubmit: (newRestaurantInfo) => {
+          this.#addList(newRestaurantInfo);
+          this.$bottomSheet.close();
+        },
+        onCancel: () => this.$bottomSheet.close(),
+      }).render(),
+    });
+
     this.$main.append(
-      new RestaurantList(this.restaurantList).render(),
-      new BottomSheetBase({
-        title: "새로운 음식점",
-        $children: new RestaurantForm(this.#addList).render(),
-      }).render()
+      this.$restaurantList.render(),
+      this.$bottomSheet.render()
     );
   }
 }
