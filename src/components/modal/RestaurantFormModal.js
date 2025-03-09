@@ -8,7 +8,7 @@ import restaurantDataList from "../../domain/RestaurantDataList.js";
 import reset from "../../util/reset.js";
 import { init } from "../../main.js";
 
-export default function RestaurantModal() {
+export default function RestaurantFormModal() {
 
   function submitRestaurantForm (event) {
     try {
