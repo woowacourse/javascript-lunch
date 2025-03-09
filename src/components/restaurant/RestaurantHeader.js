@@ -1,6 +1,6 @@
 import createElement from "../../util/createElement";
-import Modal from "../util/Modal";
-import RestaurantModal from "../modal/RestaurantModal";
+import Modal from "../common/Modal";
+import RestaurantAddModal from "../modal/restaurant-add/RestaurantAddModal";
 
 export default function RestaurantHeader({ title }) {
   const $header = createElement({ tag: "header", classNames: ["gnb"] });
@@ -22,7 +22,7 @@ export default function RestaurantHeader({ title }) {
   });
 
   $addButton.addEventListener("click", () => {
-    Modal(RestaurantModal);
+    Modal(RestaurantAddModal);
   });
 
   $header.appendChild($title);

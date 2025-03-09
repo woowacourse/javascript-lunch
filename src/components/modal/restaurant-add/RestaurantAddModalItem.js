@@ -1,4 +1,4 @@
-import createElement from "../../util/createElement";
+import createElement from "../../../util/createElement";
 
 function createHelpText(helpText) {
   const $span = createElement({
@@ -9,7 +9,7 @@ function createHelpText(helpText) {
   return $span;
 }
 
-export default function RestaurantModalItem({
+export default function RestaurantAddModalItem({
   isRequired,
   name,
   text,

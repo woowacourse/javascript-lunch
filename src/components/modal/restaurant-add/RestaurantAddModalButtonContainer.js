@@ -1,9 +1,9 @@
-import createElement from "../../util/createElement";
-import Button from "../util/Button";
-import { $ } from "../../util/querySelector";
-import { removeModal } from "../util/Modal";
+import createElement from "../../../util/createElement";
+import Button from "../../common/Button";
+import { $ } from "../../../util/querySelector";
+import { removeModal } from "../../common/Modal";
 
-export default function RestaurantModalButtonContainer() {
+export default function RestaurantAddModalButtonContainer() {
   const $div = createElement({
     tag: "div",
     classNames: ["button-container"],

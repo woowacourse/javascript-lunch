@@ -1,14 +1,14 @@
-import createElement from "../../util/createElement.js";
-import Select from "../util/Select.js";
-import RestaurantModalItem from "./RestaurantModalItem.js";
-import Input from "../util/Input.js";
-import TextArea from "../util/TextArea.js";
-import RestaurantModalButtonContainer from "./RestaurantModalButtonContainer.js";
-import restaurantDataList from "../../domain/RestaurantDataList.js";
-import { $ } from "../../util/querySelector.js";
-import { removeModal } from "../util/Modal.js";
+import createElement from "../../../util/createElement.js";
+import Select from "../../common/Select.js";
+import RestaurantAddModalItem from "./RestaurantAddModalItem.js";
+import Input from "../../common/Input.js";
+import TextArea from "../../common/TextArea.js";
+import RestaurantAddModalButtonContainer from "./RestaurantAddModalButtonContainer.js";
+import restaurantDataList from "../../../domain/RestaurantDataList.js";
+import { $ } from "../../../util/querySelector.js";
+import { removeModal } from "../../common/Modal.js";
 
-export default function RestaurantModal() {
+export default function RestaurantAddModal() {
   const $fragment = document.createDocumentFragment();
   const $h2 = createElement({
     tag: "h2",
@@ -27,7 +27,7 @@ export default function RestaurantModal() {
 
   const formItems = createFormItems();
   $form.append(...formItems);
-  $form.appendChild(RestaurantModalButtonContainer());
+  $form.appendChild(RestaurantAddModalButtonContainer());
 
   return $fragment;
 }
@@ -110,6 +110,6 @@ function createFormItems() {
       helpText: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
     },
   ].map((formItem) => {
-    return RestaurantModalItem(formItem);
+    return RestaurantAddModalItem(formItem);
   });
 }
