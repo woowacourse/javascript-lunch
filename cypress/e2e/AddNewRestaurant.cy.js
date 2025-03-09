@@ -43,8 +43,8 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
 
     cy.get('input[name="link"]')
       .should("be.visible")
-      .type("링크 테스트용 텍스트")
-      .should("have.value", "링크 테스트용 텍스트");
+      .type("https://www.youtube.com/")
+      .should("have.value", "https://www.youtube.com/");
 
     cy.contains("button", "추가하기").should("exist").and("be.visible").click();
     cy.get(".modal").should("not.have.class", "modal--open");
