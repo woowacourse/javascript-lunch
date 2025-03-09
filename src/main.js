@@ -2,10 +2,10 @@ import { DOM } from "./utils/dom.js";
 import Modal from "./component/Modal.js";
 import LunchInfoCard from "./component/LunchInfoCard.js";
 import Header from "./component/Header.js";
-import render from "./utils/render.js";
 import state from "./state.js";
 import AddLunchModalForm from "./component/AddLunchModalForm.js";
 import IconButton from "./component/IconButton.js";
+import append from "./utils/append.js";
 
 DOM.$body.prepend(
   Header(
@@ -25,9 +25,9 @@ export function renderRestaurantList() {
   DOM.$restaurantList.replaceChildren();
   state.restaurantList.forEach(
     ({ src, name, distance, description, label }) => {
-      render(
-        LunchInfoCard({ src, name, distance, description, label }),
-        DOM.$restaurantList
+      append(
+        DOM.$restaurantList,
+        LunchInfoCard({ src, name, distance, description, label })
       );
     }
   );

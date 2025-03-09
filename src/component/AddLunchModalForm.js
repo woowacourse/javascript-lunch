@@ -3,7 +3,6 @@ import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
 import ButtonContainer from "./ButtonContainer.js";
 import TextareaForm from "./TextareaForm.js";
-import render from "../utils/render.js";
 import { CATEGORY_ICON } from "../constants/constants.js";
 import { renderRestaurantList } from "../main.js";
 import state from "../state.js";
