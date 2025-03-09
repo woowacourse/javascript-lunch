@@ -7,7 +7,7 @@ export default function RestaurantModalButtonContainer() {
     classNames: ["button-container"],
   });
 
-  function handleClickCancel() {
+  function closeModal() {
     document.querySelector(".modal").remove();
   }
 
@@ -16,7 +16,7 @@ export default function RestaurantModalButtonContainer() {
       variant: "secondary",
       type: "button",
       text: "취소하기",
-      onClick: handleClickCancel,
+      onClick: closeModal,
     })
   );
   $div.appendChild(

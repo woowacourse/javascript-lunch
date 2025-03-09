@@ -9,17 +9,8 @@ import reset from "../../util/reset.js";
 import { init } from "../../main.js";
 
 export default function RestaurantModal() {
-  const $fragment = document.createDocumentFragment();
-  const $h2 = createElement({
-    tag: "h2",
-    classNames: ["modal-title", "text-title"],
-  });
-  const $form = createElement({
-    tag: "form",
-    classNames: ["form"],
-  });
 
-  $form.addEventListener("submit", function handleClickAdd(event) {
+  function submitRestaurantForm (event) {
     try {
       event.preventDefault();
       const $form = document.querySelector(".form");
@@ -30,7 +21,19 @@ export default function RestaurantModal() {
     } catch (e) {
       alert(e.message);
     }
+  }
+
+  const $fragment = document.createDocumentFragment();
+  const $h2 = createElement({
+    tag: "h2",
+    classNames: ["modal-title", "text-title"],
   });
+  const $form = createElement({
+    tag: "form",
+    classNames: ["form"],
+  });
+
+  $form.addEventListener("submit", submitRestaurantForm);
 
   $h2.textContent = "새로운 음식점";
 
