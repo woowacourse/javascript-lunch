@@ -24,7 +24,7 @@ describe("Validator 테스트", () => {
     }).toThrow(ERROR_MESSAGE.DESCRIPTION_MAX);
   });
 
-  test("link형식에 맞지 않는 링크는 입력받을 수 없다.", () => {
+  test("URL형식에 맞지 않는 링크는 입력받을 수 없다.", () => {
     const wrongLink = "링크";
     const correctLink = "https://www.woowacourse.io/";
     expect(() => {
