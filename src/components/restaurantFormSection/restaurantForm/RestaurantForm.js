@@ -70,12 +70,29 @@ export default class RestaurantForm {
     const category = document.querySelector("#category").value;
     const name = document.querySelector("#name").value;
     const distance = document.querySelector("#distance").value;
+    const link = document.querySelector("#link").value;
+
+    const $addButton = document.querySelector(".button--primary");
 
     if (category !== "" && name !== "" && distance !== "") {
-      const $addButton = document.querySelector(".button--primary");
-
       $addButton.disabled = false;
       $addButton.classList.remove("disabled-btn");
+    }
+
+    if ($addButton.classList.contains("disabled-btn")) return;
+
+    if (link !== "" && !this.#validateLink(link)) {
+      $addButton.disabled = true;
+      $addButton.classList.add("disabled-btn");
+    }
+  }
+
+  #validateLink(link) {
+    try {
+      new URL(link.trim());
+      return true;
+    } catch (err) {
+      return false;
     }
   }
 
