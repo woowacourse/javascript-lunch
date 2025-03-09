@@ -39,6 +39,4 @@ export default function RestaurantFilterContainer(container) {
       </div>
 
   `;
-
-  document.head.appendChild(style);
 }
