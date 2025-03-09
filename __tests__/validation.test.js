@@ -36,12 +36,13 @@ describe("모달 사용자 입력 테스트", () => {
     });
   });
 
-  describe("카테고리 입력 테스트", () => {
+  describe("Select 선택하지 않았을 때 오류 테스트", () => {
     it("카테고리 드롭박스를 선택하지 않으면 추가할 수 없다.", () => {
-      const input = "error_category";
+      const selectValue = "";
+      const title = "카테고리";
 
-      expect(() => validateSelectInput(input)).toThrow(
-        ERRORS.NON_SELECTED(input.slice(MESSAGES.SELECT_TYPE))
+      expect(() => validateSelectInput(selectValue)).toThrow(
+        ERRORS.EMPTY_SELECT(selectValue, title)
       );
     });
   });
