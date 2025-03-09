@@ -30,10 +30,16 @@ const Modal = {
 
   open() {
     $(".modal").classList.add("modal--open");
+    document.addEventListener("keydown", this.handleEscapeAtModal);
   },
 
   close() {
     $(".modal").classList.remove("modal--open");
+    document.removeEventListener("keydown", this.handleEscapeAtModal);
+  },
+
+  handleEscapeAtModal(e) {
+    if (e.key === "Escape") Modal.close();
   },
 };
 

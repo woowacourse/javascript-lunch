@@ -14,6 +14,16 @@ describe("Modal 테스트", () => {
     cy.get(".modal-container").should("not.be.visible");
   });
 
+  it("esc를 누르면 모달이 닫힌다", () => {
+    cy.get("body").type("{esc}");
+    cy.get(".modal-container").should("not.be.visible");
+  });
+
+  it("모달 바깥 backdrop을 누르면 모달이 닫힌다", () => {
+    cy.get(".modal-backdrop").click({ force: true });
+    cy.get(".modal-container").should("not.be.visible");
+  });
+
   it("모달창을 띄우면 카테고리/이름/거리/설명/링크 입력 컴포넌트가 보인다.", () => {
     cy.get(".modal select[id='category']").should("be.visible");
     cy.get(".modal input[id='name']").should("be.visible");
