@@ -2,7 +2,6 @@ import { ERRORS } from "../constants/errors";
 import { MESSAGES } from "../constants/messages";
 
 export const validateNameInput = (rawInput) => {
-  const input = rawInput.trim();
   if (input === "") {
     throw new Error(ERRORS.EMPTY_NAME);
   }
@@ -13,8 +12,6 @@ export const validateNameInput = (rawInput) => {
 };
 
 export const validateDescriptionInput = (rawInput) => {
-  const input = rawInput.trim();
-
   if (input.length > MESSAGES.MAXIMUM_DESCRIPTION_LENGTH) {
     throw new Error(ERRORS.MAXIMUM_DESCRIPTION);
   }
