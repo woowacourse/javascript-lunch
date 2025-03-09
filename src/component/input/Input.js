@@ -13,7 +13,9 @@ export function Input({ isRequired = false, name, label, caption }) {
 
   container.innerHTML = `
   <label for="link text-caption">${label}</label>
-  <input type="text" name="${name}" id="${name}" />
+  <input type="text" name="${name}" id="${name}" ${
+    isRequired ? "required" : ""
+  }/>
   ${renderCaption(caption)}
   `;
 
