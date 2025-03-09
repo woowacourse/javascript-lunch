@@ -13,9 +13,9 @@ export default class RestaurantList {
     const $list = document.createElement("ul");
     $list.className = "restaurant-list";
 
-    $listSection.appendChild($list);
+    $listSection.append($list);
     this.restaurantList.forEach((restaurantInfo) =>
-      $list.appendChild(new RestaurantListItem(restaurantInfo).render())
+      $list.append(new RestaurantListItem(restaurantInfo).render())
     );
 
     return $listSection;

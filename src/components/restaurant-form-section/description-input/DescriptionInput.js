@@ -19,9 +19,11 @@ export default class DescriptionInput {
     $descriptionHelpText.className = "help-text text-caption";
     $descriptionHelpText.textContent = "메뉴 등 추가 정보를 입력해 주세요.";
 
-    $descriptionFormItem.appendChild($descriptionLabel);
-    $descriptionFormItem.appendChild($descriptionTextarea);
-    $descriptionFormItem.appendChild($descriptionHelpText);
+    $descriptionFormItem.append(
+      $descriptionLabel,
+      $descriptionTextarea,
+      $descriptionHelpText
+    );
 
     return $descriptionFormItem;
   }

@@ -39,15 +39,16 @@ export default class RestaurantForm {
       action: BUTTON_TYPES.add,
     }).render();
 
-    $form.appendChild($categoryFormItem);
-    $form.appendChild($nameFormItem);
-    $form.appendChild($distanceFormItem);
-    $form.appendChild($descriptionFormItem);
-    $form.appendChild($linkFormItem);
-    $form.appendChild($buttonContainer);
+    $form.append(
+      $categoryFormItem,
+      $nameFormItem,
+      $distanceFormItem,
+      $descriptionFormItem,
+      $linkFormItem,
+      $buttonContainer
+    );
 
-    $buttonContainer.appendChild($cancelButton);
-    $buttonContainer.appendChild($addButton);
+    $buttonContainer.append($cancelButton, $addButton);
 
     $cancelButton.addEventListener(
       EVENT_TYPES.click,

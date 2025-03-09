@@ -24,13 +24,13 @@ export default class App {
 
   #initElement() {
     const $body = document.querySelector("body");
-    $body.appendChild(new Header().render());
+    $body.append(new Header().render());
 
     this.$main = document.createElement("main");
-    $body.appendChild(this.$main);
+    $body.append(this.$main);
 
-    this.$main.appendChild(new RestaurantList(this.restaurantList).render());
-    this.$main.appendChild(
+    this.$main.append(
+      new RestaurantList(this.restaurantList).render(),
       new BottomSheetBase({
         title: "새로운 음식점",
         $children: new RestaurantForm(this.#addList).render(),

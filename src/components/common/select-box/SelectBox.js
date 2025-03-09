@@ -23,9 +23,8 @@ export default class SelectBox {
     $defaultOption.value = "";
     $defaultOption.textContent = "선택해 주세요";
 
-    $formItem.appendChild($label);
-    $formItem.appendChild($select);
-    $select.appendChild($defaultOption);
+    $formItem.append($label, $select);
+    $select.append($defaultOption);
 
     this.options.forEach((option) => {
       const $option = document.createElement("option");
@@ -34,7 +33,7 @@ export default class SelectBox {
       if (this.label === "distance") $option.textContent = `${option}분 내`;
       else $option.textContent = option;
 
-      $select.appendChild($option);
+      $select.append($option);
     });
 
     return $formItem;

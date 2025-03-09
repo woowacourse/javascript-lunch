@@ -19,9 +19,9 @@ export default class Header {
     $img.setAttribute("src", "./assets/add-button.png");
     $img.setAttribute("alt", "음식점 추가");
 
-    $header.appendChild($title);
-    $button.appendChild($img);
-    $header.appendChild($button);
+    $header.append($title);
+    $button.append($img);
+    $header.append($button);
 
     $button.addEventListener(
       EVENT_TYPES.click,

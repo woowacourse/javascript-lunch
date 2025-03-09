@@ -15,8 +15,7 @@ export default class NameInput {
     $nameInput.id = "name";
     $nameInput.required = true;
 
-    $nameFormItem.appendChild($nameLabel);
-    $nameFormItem.appendChild($nameInput);
+    $nameFormItem.append($nameLabel, $nameInput);
 
     return $nameFormItem;
   }

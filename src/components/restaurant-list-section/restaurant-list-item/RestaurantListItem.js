@@ -35,13 +35,9 @@ export default class RestaurantListItem {
     $description.className = "restaurant__description text-body";
     $description.textContent = description;
 
-    $item.appendChild($category);
-    $item.appendChild($info);
-
-    $category.appendChild($categoryImg);
-    $info.appendChild($name);
-    $info.appendChild($distance);
-    $info.appendChild($description);
+    $item.append($category, $info);
+    $category.append($categoryImg);
+    $info.append($name, $distance, $description);
 
     return $item;
   }
