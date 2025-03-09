@@ -104,10 +104,11 @@ describe("기능 테스트", () => {
   it("음식점 정보를 입력하고 추가하기를 누르면 음식점 리스트에 추가된다.", () => {
     cy.get("#gnb-button").click();
 
-    cy.get("select#category").select("한식", { force: true });
-    cy.get("#name").type("tester");
-    cy.get("select#distance").select("5분 내", { force: true });
+    cy.get(".modal-container").invoke("css", "position", "relative");
+    cy.get("#category").select("한식");
 
+    cy.get("#name").type("tester");
+    cy.get("#distance").select("5");
     // 추가하기 버튼 클릭
     cy.get(".button--primary").click();
 
