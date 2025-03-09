@@ -1,4 +1,3 @@
-import { DOM } from "./utils/dom.js";
 import Modal from "./component/Modal.js";
 import LunchInfoCard from "./component/LunchInfoCard.js";
 import Header from "./component/Header.js";
@@ -7,8 +6,9 @@ import IconButton from "./component/IconButton.js";
 import append from "./utils/append.js";
 import RestaurantList from "./component/RestaurantList.js";
 import state from "./state.js";
+import { $ } from "./utils/querySelectors.js";
 
-DOM.$body.prepend(
+$("body").prepend(
   Header(
     IconButton({
       src: "./add-button.png",
@@ -20,5 +20,4 @@ DOM.$body.prepend(
 
 const restaurantList = new RestaurantList(state.restaurantList);
 restaurantList.$restaurantList;
-
-DOM.$main.append(Modal.create(AddLunchModalForm.create(restaurantList)));
+$("main").append(Modal.create(AddLunchModalForm.create(restaurantList)));
