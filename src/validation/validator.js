@@ -20,8 +20,8 @@ export const validateDescriptionInput = (rawInput) => {
   }
 };
 
-export const validateSelectInput = (code) => {
-  if (code === "error_category" || code === "error_distance") {
-    throw new Error(ERRORS.NON_SELECTED(code.slice(MESSAGES.SELECT_TYPE)));
+export const validateSelectInput = (selectValue, title) => {
+  if (selectValue === "") {
+    throw new Error(ERRORS.EMPTY_SELECT(title));
   }
 };
