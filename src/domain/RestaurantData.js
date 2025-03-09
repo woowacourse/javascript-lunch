@@ -51,7 +51,8 @@ export default class RestaurantData {
   }
 
   isValidateName(name) {
-    return name.length < 2;
+    const NAME_LENGTH_MIN = 2;
+    return name.length < NAME_LENGTH_MIN;
   }
 
   validateCategory(category) {
