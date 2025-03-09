@@ -2,7 +2,9 @@ import AddRestaurantModal from "./components/AddRestaurantModal.js";
 import Header from "./components/Header.js";
 import RestaurantItem from "./components/RestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
+import RestaurantFilterContainer from "./components/RestaurantFilterContainer.js";
 import { categoryMapping } from "./utils/categoryMapping.js";
+
 import {
   validateDescriptiontInput,
   validateNameInput,
@@ -13,9 +15,15 @@ addEventListener("load", () => {
   const $headerContainer = document.querySelector(".gnb");
   Header($headerContainer);
   const $restaurantListContainer = document.querySelector(
-    ".restaurant-list-container"
+    ".restaurant-list-container",
   );
   RestaurantList($restaurantListContainer);
+
+  const filterContainer = document.querySelector(
+    ".restaurant-filter-container",
+  );
+  // 컴포넌트 렌더링
+  RestaurantFilterContainer(filterContainer);
 
   const $modalButton = document.getElementById("gnb-button");
   const $appContainer = document.getElementById("app");
