@@ -13,12 +13,12 @@ class Component {
 
   setup() {}
 
-  render() {
+  updateView() {
     this.$target.insertAdjacentHTML("afterbegin", this.template());
   }
 
   initialRender() {
-    this.render();
+    this.updateView();
     this.componentDidMount();
   }
 
