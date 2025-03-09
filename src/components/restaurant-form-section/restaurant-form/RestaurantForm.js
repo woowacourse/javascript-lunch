@@ -15,16 +15,17 @@ import {
 export default class RestaurantForm {
   constructor(addList) {
     this.addList = addList;
+    this.formElements = {
+      category: new CategorySelect().render(),
+      name: new NameInput().render(),
+      distance: new DistanceSelect().render(),
+      description: new DescriptionInput().render(),
+      link: new LinkInput().render(),
+    };
   }
 
   render() {
     const $form = document.createElement("form");
-
-    const $categoryFormItem = new CategorySelect().render();
-    const $nameFormItem = new NameInput().render();
-    const $distanceFormItem = new DistanceSelect().render();
-    const $descriptionFormItem = new DescriptionInput().render();
-    const $linkFormItem = new LinkInput().render();
 
     const $buttonContainer = document.createElement("div");
     $buttonContainer.className = "button-container";
@@ -40,11 +41,11 @@ export default class RestaurantForm {
     }).render();
 
     $form.append(
-      $categoryFormItem,
-      $nameFormItem,
-      $distanceFormItem,
-      $descriptionFormItem,
-      $linkFormItem,
+      this.formElements.category,
+      this.formElements.name,
+      this.formElements.distance,
+      this.formElements.description,
+      this.formElements.link,
       $buttonContainer
     );
 
@@ -68,37 +69,26 @@ export default class RestaurantForm {
   #handleSubmit(e) {
     e.preventDefault();
 
-    const formQuery = this.#getFormQuery();
-
-    const newRestaurantInfo = Object.entries(formQuery).reduce(
-      (acc, [key, query]) => {
-        acc[key] = query.value;
+    const newRestaurantInfo = Object.entries(this.formElements).reduce(
+      (acc, [key, el]) => {
+        acc[key] = el.querySelector("input, select, textarea").value;
         return acc;
       },
       {}
     );
 
     this.addList(newRestaurantInfo);
-    this.#resetFormData(formQuery);
+    this.#resetFormData();
     this.#closeModal();
   }
 
-  #getFormQuery() {
-    const category = document.querySelector("#category");
-    const name = document.querySelector("#name");
-    const distance = document.querySelector("#distance");
-    const description = document.querySelector("#description");
-    const link = document.querySelector("#link");
-
-    return { category, name, distance, description, link };
-  }
-
-  #resetFormData({ category, name, distance, description, link }) {
-    category.value = "";
-    name.value = "";
-    distance.value = "";
-    description.value = "";
-    link.value = "";
+  #resetFormData() {
+    Object.values(this.formElements).forEach((el) => {
+      const query = el.querySelector("input, select, textarea");
+      if (query) {
+        query.value = "";
+      }
+    });
   }
 
   #closeModal() {
