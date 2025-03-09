@@ -1,7 +1,7 @@
 import { ERRORS } from "../constants/errors";
 import { MESSAGES } from "../constants/messages";
 
-export const validateNameInput = (rawInput) => {
+export const validateNameInput = (input) => {
   if (input === "") {
     throw new Error(ERRORS.EMPTY_NAME);
   }
@@ -11,7 +11,7 @@ export const validateNameInput = (rawInput) => {
   }
 };
 
-export const validateDescriptionInput = (rawInput) => {
+export const validateDescriptionInput = (input) => {
   if (input.length > MESSAGES.MAXIMUM_DESCRIPTION_LENGTH) {
     throw new Error(ERRORS.MAXIMUM_DESCRIPTION);
   }
