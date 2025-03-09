@@ -89,7 +89,13 @@ class AddRestaurantModal extends Modal {
 
   #addNewRestaurant = () => {
     const testData = Object.fromEntries(new FormData(this.#modalForm));
-    const newRestaurant = new Restaurant(testData.name, testData.distance, testData.description, testData.category);
+    const newRestaurant = new Restaurant(
+      testData.name,
+      testData.distance,
+      testData.description,
+      testData.category,
+      testData.link,
+    );
     const newRestaurantItem = new RestaurantItem(newRestaurant);
     DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
   };
