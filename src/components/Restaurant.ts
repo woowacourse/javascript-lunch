@@ -15,7 +15,7 @@ export default class Restaurant extends Component<null, RestaurantProps> {
       <li class="restaurant" data-name="${this.props.name}">
       <div class="restaurant__category">
         <img
-          src="./public/images/category-${CATEGORY_MAP[this.props.category]}.png"
+          src="./public/images/category-${CATEGORY_MAP[this.props.category as keyof typeof CATEGORY_MAP]}.png"
           alt="${this.props.category}"
           class="category-icon"
         />

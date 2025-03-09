@@ -2,7 +2,7 @@ import Component from '../core/Component.ts';
 import Modal from './Modal.ts';
 import Button from './Button.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';
-import { RestaurantType } from '../Application.ts';
+import { RestaurantType } from '../lib/types.ts';
 
 export default class RestaurantDetailModal extends Component<
   {},
@@ -35,7 +35,9 @@ export default class RestaurantDetailModal extends Component<
           <div class="restaurant-detail-modal__header">
             <div class="restaurant__category">
               <img
-                src="./public/images/category-${CATEGORY_MAP[currentRestaurant?.category]}.png"
+                src="./public/images/category-${
+                  CATEGORY_MAP[currentRestaurant?.category as keyof typeof CATEGORY_MAP]
+                }.png"
                 alt="${currentRestaurant?.category}"
                 class="category-icon"
               />

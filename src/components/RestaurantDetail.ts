@@ -1,5 +1,5 @@
 import Component from '../core/Component.ts';
-import { FilterType, SortType } from '../Application.ts';
+import { FilterType, SortType } from '../lib/types.ts';
 
 interface RestaurantDetailProps {
   filter: FilterType;

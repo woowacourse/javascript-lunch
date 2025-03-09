@@ -1,4 +1,4 @@
-import { RestaurantType } from '../Application.ts';
+import { RestaurantType } from '../lib/types.ts';
 import Component from '../core/Component.ts';
 import Restaurant from './Restaurant.ts';
 

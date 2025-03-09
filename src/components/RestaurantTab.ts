@@ -1,5 +1,5 @@
 import Component from '../core/Component.ts';
-import { TabType } from '../Application.ts';
+import { TabType } from '../lib/types.ts';
 
 interface RestaurantTabProps {
   focusedTab: TabType;
