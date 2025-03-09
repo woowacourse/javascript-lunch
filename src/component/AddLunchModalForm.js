@@ -4,13 +4,11 @@ import SelectForm from "./SelectForm.js";
 import ButtonContainer from "./ButtonContainer.js";
 import TextareaForm from "./TextareaForm.js";
 import { CATEGORY_ICON } from "../constants/constants.js";
-import { renderRestaurantList } from "../main.js";
-import state from "../state.js";
 import { Validator } from "../utils/Validator.js";
 import TextButton from "./TextButton.js";
 
 const AddLunchModalForm = {
-  create() {
+  create(restaurantList) {
     const ModalFormElement = document.createElement("form");
 
     ModalFormElement.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
@@ -26,7 +24,7 @@ const AddLunchModalForm = {
         if (link !== "") Validator.link(link);
         if (description !== "") Validator.description(description);
 
-        state.restaurantList.push({
+        restaurantList.add({
           src: CATEGORY_ICON[category],
           name: name,
           distance,
@@ -34,7 +32,6 @@ const AddLunchModalForm = {
           label: category,
         });
 
-        renderRestaurantList();
         Modal.close();
       } catch (e) {
         alert(e.message);

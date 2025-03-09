@@ -4,5 +4,4 @@ export const DOM = {
   $body: $("body"),
   $main: $("main"),
   $header: $(".gnb"),
-  $restaurantList: $(".restaurant-list"),
 };
