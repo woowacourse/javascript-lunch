@@ -1,10 +1,11 @@
 import Component from '../core/Component.ts';
+import { FilterType, SortType } from '../Application.ts';
 
 interface RestaurantDetailProps {
-  filter: string;
-  sort: string;
-  setFilter: (filter: string) => void;
-  setSort: (sort: string) => void;
+  filter: FilterType;
+  sort: SortType;
+  setFilter: (filter: FilterType) => void;
+  setSort: (sort: SortType) => void;
 }
 
 export default class RestaurantDetail extends Component<null, RestaurantDetailProps> {
@@ -30,10 +31,10 @@ export default class RestaurantDetail extends Component<null, RestaurantDetailPr
   }
   onRender() {
     this.element?.querySelector('#filter')?.addEventListener('change', (event) => {
-      this.props.setFilter((event?.target as HTMLSelectElement)?.value ?? '');
+      this.props.setFilter((event?.target as HTMLSelectElement)?.value as FilterType);
     });
     this.element?.querySelector('#sort')?.addEventListener('change', (event) => {
-      this.props.setSort((event?.target as HTMLSelectElement)?.value ?? '');
+      this.props.setSort((event?.target as HTMLSelectElement)?.value as SortType);
     });
   }
 }

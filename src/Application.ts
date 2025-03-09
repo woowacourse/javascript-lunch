@@ -8,9 +8,9 @@ import {
 } from './components/index.ts';
 import Component from './core/Component.ts';
 
-type TabType = 'all' | 'like';
-type FilterType = '전체' | '한식' | '중식' | '일식' | '양식' | '분식' | '기타';
-type SortType = '이름순' | '거리순';
+export type TabType = 'all' | 'like';
+export type FilterType = '전체' | '한식' | '중식' | '일식' | '양식' | '분식' | '기타' | '아시안';
+export type SortType = '이름순' | '거리순';
 export type RestaurantType = {
   name: string;
   description: string;
@@ -28,7 +28,7 @@ export default class Application extends Component<{
   currentRestaurant: RestaurantType | null;
 }> {
   constructor() {
-    super();
+    super({});
 
     this.setState({
       restaurants: JSON.parse(localStorage.getItem('restaurants') ?? '') ?? [],
@@ -133,7 +133,7 @@ export default class Application extends Component<{
   #appendRestaurantTab() {
     this.element.appendChild(
       new RestaurantTab({
-        setTab: (tab: TabType) =>
+        setTab: (tab) =>
           this.setState({
             tab,
           }),
@@ -147,11 +147,11 @@ export default class Application extends Component<{
       new RestaurantDetail({
         filter: this.state.filter,
         sort: this.state.sort,
-        setFilter: (filter: FilterType) =>
+        setFilter: (filter) =>
           this.setState({
             filter,
           }),
-        setSort: (sort: SortType) =>
+        setSort: (sort) =>
           this.setState({
             sort,
           }),

@@ -1,8 +1,9 @@
 import Component from '../core/Component.ts';
+import { TabType } from '../Application.ts';
 
 interface RestaurantTabProps {
-  focusedTab: string;
-  setTab: (tab: string) => void;
+  focusedTab: TabType;
+  setTab: (tab: TabType) => void;
 }
 
 export default class RestaurantTab extends Component<null, RestaurantTabProps> {
@@ -26,7 +27,7 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
   onRender() {
     this.element?.querySelectorAll('.restaurant__tab-item').forEach((tabItem) => {
       tabItem.addEventListener('click', (event) => {
-        this.props.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab ?? '');
+        this.props.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab as TabType);
       });
     });
   }
