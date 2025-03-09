@@ -1,5 +1,3 @@
-import Component from "./core/Component.js";
-
 const Header = () => {
   return /*html*/ `
     <header class="gnb">
