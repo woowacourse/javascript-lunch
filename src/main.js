@@ -1,23 +1,37 @@
-import image from "../templates/favorite-icon-filled.png";
+import { createRestaurantList } from './components/RestaurantList.js';
+import createSectionContainer from './components/SectionContainer.js';
+import { RESTAURANT_ITEMS } from '../public/restaurantData.js';
+import createRestaurantEnrollModal from './components/RestaurantEnrollModal.js';
 
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+const program = {
+  enrollRestaurantModal: null,
 
-addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+  initUI() {
+    const $main = document.getElementsByTagName('main')[0];
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
-});
+    const $filterContainer = createSectionContainer('restaurant-list-container');
+    $filterContainer.appendChild(createRestaurantList(RESTAURANT_ITEMS));
+
+    const $enrollRestaurantModal = createRestaurantEnrollModal();
+    this.enrollRestaurantModal = $enrollRestaurantModal;
+
+    $main.append($filterContainer, $enrollRestaurantModal.getElement());
+  },
+
+  initEvent() {
+    const $openModalButton = document.querySelector('.gnb__button');
+
+    $openModalButton.addEventListener('click', () => {
+      this.enrollRestaurantModal.toggle();
+    });
+
+    const $backDrop = document.querySelector('.modal-backdrop');
+
+    $backDrop.addEventListener('click', () => {
+      this.enrollRestaurantModal.toggle();
+    });
+  },
+};
+
+program.initUI();
+program.initEvent();
