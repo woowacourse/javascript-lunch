@@ -7,9 +7,9 @@ describe('기능 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.get('#category').select('한식', { force: true });
+    cy.get('#category').select('한식');
     cy.get('#name').type('꺼벙이');
-    cy.get('#distance').select('15분 내', { force: true });
+    cy.get('#distance').select('15분 내');
     cy.get('#description').type('꺼벙이 분식');
     cy.get('#link').type('https://naver.me/G6DyD9tg');
 
@@ -21,9 +21,9 @@ describe('기능 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.get('#category').select('한식', { force: true });
+    cy.get('#category').select('한식');
     cy.get('#name').type('꺼벙이');
-    cy.get('#distance').select('15분 내', { force: true });
+    cy.get('#distance').select('15분 내');
 
     cy.get('.button--primary').click();
     cy.get('.restaurant-list').should('contain', '꺼벙이');
@@ -33,9 +33,9 @@ describe('기능 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.get('#category').select('한식', { force: true });
+    cy.get('#category').select('한식');
     cy.get('#name').type('꺼벙이');
-    cy.get('#distance').select('15분 내', { force: true });
+    cy.get('#distance').select('15분 내');
     cy.get('#description').type('꺼벙이 분식');
     cy.get('#link').type('https://naver.me/G6DyD9tg');
 
@@ -48,7 +48,7 @@ describe('기능 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.document().trigger('keydown', { key: 'Escape', keyCode: 27, which: 27, force: true });
+    cy.document().trigger('keydown', { key: 'Escape', keyCode: 27, which: 27 });
     cy.get('.modal--open').should('not.exist');
   });
 
@@ -64,9 +64,9 @@ describe('기능 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.get('#category').select('한식', { force: true });
+    cy.get('#category').select('한식');
     cy.get('#name').type('꺼벙이');
-    cy.get('#distance').select('15분 내', { force: true });
+    cy.get('#distance').select('15분 내');
 
     cy.get('.button--secondary').click();
     cy.get('.gnb__button').click();
