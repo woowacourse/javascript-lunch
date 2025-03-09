@@ -9,7 +9,7 @@ const ButtonContainer = {
       TextButton.create({
         id: "cancel__button",
         title: "취소하기",
-        onClick: () => Modal.close(),
+        onClick: () => Modal.close("addLunch"),
       })
     );
     buttonContainerElement.appendChild(

@@ -15,7 +15,7 @@ DOM.$body.prepend(Header.create());
 
 renderRestaurantList();
 
-DOM.$main.append(Modal.create(AddLunchModalForm.create()));
+DOM.$main.append(Modal.create("addLunch", AddLunchModalForm.create()));
 
 export function renderRestaurantList() {
   const restaurantElementList = state.restaurantList.map(

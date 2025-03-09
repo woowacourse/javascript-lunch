@@ -3,19 +3,20 @@ import { $ } from "../utils/querySelectors.js";
 import AddLunchModalForm from "./AddLunchModalForm.js";
 
 const Modal = {
-  create(modalContent) {
+  create(id, modalContent) {
     const modalElement = document.createElement("div");
+    modalElement.id = id;
     modalElement.classList.add("modal");
-    modalElement.appendChild(this.createModalBackdrop());
+    modalElement.appendChild(this.createModalBackdrop(id));
     modalElement.appendChild(this.createModalContainer(modalContent));
 
     return modalElement;
   },
 
-  createModalBackdrop() {
+  createModalBackdrop(id) {
     const modalBackdropElement = document.createElement("div");
     modalBackdropElement.classList.add("modal-backdrop");
-    modalBackdropElement.addEventListener("click", () => Modal.close());
+    modalBackdropElement.addEventListener("click", () => Modal.close(id));
 
     return modalBackdropElement;
   },
@@ -28,18 +29,18 @@ const Modal = {
     return modalContainerElement;
   },
 
-  open() {
-    $(".modal").classList.add("modal--open");
-    document.addEventListener("keydown", this.handleEscapeAtModal);
+  open(id) {
+    $(`.modal[id=${id}]`).classList.add("modal--open");
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") Modal.close(id);
+    });
   },
 
-  close() {
-    $(".modal").classList.remove("modal--open");
-    document.removeEventListener("keydown", this.handleEscapeAtModal);
-  },
-
-  handleEscapeAtModal(e) {
-    if (e.key === "Escape") Modal.close();
+  close(id) {
+    $(`.modal[id=${id}]`).classList.remove("modal--open");
+    document.removeEventListener("keydown", (e) => {
+      if (e.key === "Escape") Modal.close(id);
+    });
   },
 };
 

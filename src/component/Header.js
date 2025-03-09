@@ -9,7 +9,7 @@ const Header = {
     headerElement.appendChild(
       IconButton.create({
         src: "./add-button.png",
-        onClick: () => Modal.open(),
+        onClick: () => Modal.open("addLunch"),
         label: "음식점 추가",
       })
     );

@@ -4,7 +4,7 @@ import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
 import TextareaForm from "./TextareaForm.js";
 import TextButton from "./TextButton.js";
-import ButtonContainer from "./ButtonContainer.js";
+import ButtonContainer from "./AddLunchButtonContainer.js";
 import render from "../utils/render.js";
 import {
   CATEGORY_DROPDOWN_LIST,
@@ -87,7 +87,7 @@ const AddLunchModalForm = {
       this.validateFormInputs({ name, link, description });
       this.addRestaurant({ category, name, distance, description });
       renderRestaurantList();
-      Modal.close();
+      Modal.close("addLunch");
     } catch (e) {
       alert(e.message);
     }
