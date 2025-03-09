@@ -1,4 +1,5 @@
-import { VISIT_URL_CONSTANT } from './constants/visitUrl';
+import { VISIT_URL_CONSTANT } from './constants/visitUrl.js';
+
 describe('모달창에 입력을 할 수 있다.', () => {
   beforeEach(() => {
     cy.visit(VISIT_URL_CONSTANT.LINK);
