@@ -1,4 +1,4 @@
-import { Alert } from "../component/layout/Alert.js";
+import { Alert } from "./Alert.js";
 
 export function alertError(error) {
   if (!document.querySelector(".alert")) {

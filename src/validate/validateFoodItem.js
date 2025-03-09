@@ -2,7 +2,7 @@ import {
   DESCRIPTION_MAX_LENGTH,
   NAME_MAX_LENGTH,
 } from "../constants/constants.js";
-import { alertError } from "../util/alertError.js";
+import { alertError } from "../component/layout/alert/alertError.js";
 import { getInput } from "../util/getInput.js";
 import { resetError } from "../util/errorHandler.js";
 import {
