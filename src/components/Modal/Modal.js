@@ -3,7 +3,6 @@ import Component from "../Component.js";
 import Dropdown from "../Dropdown/Dropdown.js";
 import Input from "../Input/Input.js";
 import addData from "./addData.js";
-import createModalInputs from "./createModalInputs.js";
 import "./modal.css";
 class Modal extends Component {
   constructor($target, props) {
@@ -42,18 +41,16 @@ class Modal extends Component {
   }
 
   setEvent() {
-    const modalContainer = document.querySelector(".modal");
-
-    //todo: toggle에서 상태 업데이트로 변경
+    const { toggleModal } = this.props;
     this.$target
       .querySelector(".modal-backdrop")
       .addEventListener("click", () => {
-        modalContainer.classList.toggle("modal--open");
+        this.props.toggleModal();
       });
     this.$target
       .querySelector(".button.button--secondary.text-caption")
       .addEventListener("click", () => {
-        modalContainer.classList.toggle("modal--open");
+        this.props.toggleModal();
       });
     this.submitForm();
   }
@@ -63,9 +60,8 @@ class Modal extends Component {
       .getElementById("input-form")
       .addEventListener("submit", (event) => {
         event.preventDefault();
-        const modalContainer = document.querySelector(".modal");
-        modalContainer.classList.toggle("modal--open");
         addData();
+        this.props.toggleModal();
         document.dispatchEvent(new CustomEvent("restaurantUpdated"));
       });
   }
