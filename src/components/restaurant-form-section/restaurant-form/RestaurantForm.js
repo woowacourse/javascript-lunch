@@ -53,17 +53,12 @@ export default class RestaurantForm {
 
     $cancelButton.addEventListener(
       EVENT_TYPES.click,
-      this.#handleCancelButtonClick.bind(this)
+      this.#closeModal.bind(this)
     );
 
     $form.addEventListener(EVENT_TYPES.submit, this.#handleSubmit.bind(this));
 
     return $form;
-  }
-
-  #handleCancelButtonClick() {
-    const $modal = document.querySelector(".modal");
-    $modal.classList.remove("modal--open");
   }
 
   #handleSubmit(e) {
