@@ -76,5 +76,67 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     cy.contains("button", "추가하기")
       .should("exist")
       .and("have.class", "disabled-btn");
+
+    cy.contains("button", "추가하기").should("exist").should("be.disabled");
+  });
+
+  it("음식점 추가 버튼을 누르면 바텀 시트가 열리고, 링크를 입력했을 시 올바른 링크 입력시 버튼이 활성화 된다.", () => {
+    openFormAndCheckLabels();
+
+    const category = "한식";
+    cy.get('select[name="category"]')
+      .should("be.visible")
+      .select(category)
+      .should("have.value", category);
+
+    cy.get('input[name="name"]')
+      .should("be.visible")
+      .type("얌생 김밥")
+      .should("have.value", "얌생 김밥");
+
+    cy.get('select[name="distance"]')
+      .should("be.visible")
+      .select("10분 내")
+      .should("have.value", "10");
+
+    cy.get('input[name="link"]')
+      .should("be.visible")
+      .type("https://www.youtube.com/");
+
+    cy.contains("button", "추가하기")
+      .should("exist")
+      .and("not.have.class", "disabled-btn");
+
+    cy.contains("button", "추가하기").should("exist").should("not.be.disabled");
+  });
+
+  it("음식점 추가 버튼을 누르면 바텀 시트가 열리고, 링크를 입력했을 시 올바르지 않은 링크 입력시 버튼이 비활성화 된다.", () => {
+    openFormAndCheckLabels();
+
+    const category = "한식";
+    cy.get('select[name="category"]')
+      .should("be.visible")
+      .select(category)
+      .should("have.value", category);
+
+    cy.get('input[name="name"]')
+      .should("be.visible")
+      .type("얌생 김밥")
+      .should("have.value", "얌생 김밥");
+
+    cy.get('select[name="distance"]')
+      .should("be.visible")
+      .select("10분 내")
+      .should("have.value", "10");
+
+    cy.get('input[name="link"]').should("be.visible").type("링크");
+
+    cy.contains("button", "추가하기").should("exist").should("be.disabled");
+
+    cy.contains("button", "추가하기")
+      .should("exist")
+      .and("have.class", "disabled-btn");
+
+    cy.contains("button", "추가하기").should("exist").should("be.disabled");
   });
 });
