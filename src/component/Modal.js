@@ -29,10 +29,23 @@ const Modal = {
 
   open() {
     $(".modal").classList.add("modal--open");
+
+    this.keydownHandler = (e) => {
+      if (e.key === "Escape") {
+        this.close();
+      }
+    };
+
+    document.addEventListener("keydown", this.keydownHandler, { once: true });
   },
 
   close() {
     $(".modal").classList.remove("modal--open");
+
+    if (this.keydownHandler) {
+      document.removeEventListener("keydown", this.keydownHandler);
+      this.keydownHandler = null;
+    }
   },
 };
 

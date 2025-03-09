@@ -7,10 +7,6 @@ import state from "./state.js";
 import AddLunchModalForm from "./component/AddLunchModalForm.js";
 import IconButton from "./component/IconButton.js";
 
-addEventListener("keydown", (e) => {
-  if (e.key === "Escape") Modal.close();
-});
-
 DOM.$body.prepend(
   Header(
     IconButton({
