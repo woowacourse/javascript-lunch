@@ -1,4 +1,4 @@
-import Component from '../core/Component.js';
+import Component from '../core/Component.ts';
 import { CATEGORY_MAP } from '../lib/constants.js';
 
 export default class Restaurant extends Component {

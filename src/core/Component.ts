@@ -1,12 +1,12 @@
-export default class Component {
+export default class Component<T = Record<string, any>> {
   #isRendered = false;
-  #state = {};
+  #state = {} as T;
 
-  #props;
-  #element;
+  #props: Record<string, any>;
+  #element: HTMLElement = document.createElement('div');
 
-  constructor(props) {
-    this.#props = props;
+  constructor(props?: Record<string, any>) {
+    this.#props = props ?? {};
   }
 
   render() {
@@ -23,7 +23,7 @@ export default class Component {
     return this.#element;
   }
 
-  setState(nextState) {
+  setState(nextState: Record<string, any>) {
     this.#state = { ...this.#state, ...nextState };
     this.render();
   }

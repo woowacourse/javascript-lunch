@@ -1,4 +1,4 @@
-import Component from '../core/Component.js';
+import Component from '../core/Component.ts';
 import { InputBox, Button, Modal } from './index.js';
 
 export default class RestaurantAddModal extends Component {

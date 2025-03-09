@@ -1,7 +1,7 @@
 import Restaurant from './Restaurant.js';
 import RestaurantTab from './RestaurantTab.js';
 import RestaurantDetail from './RestaurantDetail.js';
-import Component from '../core/Component.js';
+import Component from '../core/Component.ts';
 
 export default class RestaurantList extends Component {
   template() {

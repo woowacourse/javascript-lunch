@@ -1,24 +1,37 @@
 import {
   Header,
-  Restaurant,
-  Modal,
-  RestaurantList,
   RestaurantAddModal,
-  InputBox,
-  Button,
-  RestaurantTab,
-  RestaurantDetailModal,
   RestaurantDetail,
+  RestaurantDetailModal,
+  RestaurantList,
+  RestaurantTab,
 } from './components/index.js';
-import Component from './core/Component.js';
-import { RESTAURANT_LIST_DEFAULT } from './lib/constants.js';
+import Component from './core/Component.ts';
 
-export default class Application extends Component {
+type TabType = 'all' | 'like';
+type FilterType = '전체' | '한식' | '중식' | '일식' | '양식' | '분식' | '기타';
+type SortType = '이름순' | '거리순';
+type RestaurantType = {
+  name: string;
+  description: string;
+  distance: number;
+  category: string;
+  isLike: boolean;
+  url: string;
+};
+
+export default class Application extends Component<{
+  restaurants: RestaurantType[];
+  tab: TabType;
+  filter: FilterType;
+  sort: SortType;
+  currentRestaurant: RestaurantType | null;
+}> {
   constructor() {
     super();
 
     this.setState({
-      restaurants: JSON.parse(localStorage.getItem('restaurants')) ?? [],
+      restaurants: JSON.parse(localStorage.getItem('restaurants') ?? '') ?? [],
       tab: 'all',
       filter: '전체',
       sort: '이름순',
@@ -43,34 +56,38 @@ export default class Application extends Component {
 
   #attachClickEventListener() {
     window.addEventListener('click', (event) => {
-      if (event.target.closest('.gnb__button')) {
-        this.element.querySelector('#restaurant-add-modal').classList.add('modal--open');
+      if (!event.target) return;
+
+      const target = event.target as HTMLElement;
+
+      if (target.closest('.gnb__button')) {
+        this.element.querySelector('#restaurant-add-modal')?.classList.add('modal--open');
         return;
       }
-      if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop')) {
+      if (target.closest('#modal-cancel') || target.closest('.modal-backdrop')) {
         this.#removeModals();
         return;
       }
 
-      if (event.target.closest('#like__button')) {
-        this.#toggleLike(event.target.dataset.name);
+      if (target.closest('#like__button') && target.dataset.name) {
+        this.#toggleLike(target.dataset.name);
         return;
       }
 
-      if (event.target.closest('.restaurant')) {
+      if (target.closest('.restaurant')) {
         this.setState({
           currentRestaurant: this.state.restaurants.find(
-            (restaurant) => restaurant.name === event.target.closest('.restaurant').dataset.name,
+            (restaurant) => restaurant.name === (target.closest('.restaurant') as HTMLElement).dataset.name,
           ),
         });
-        this.element.querySelector('#restaurant-detail-modal').classList.add('modal--open');
+        this.element.querySelector('#restaurant-detail-modal')?.classList.add('modal--open');
         return;
       }
 
-      if (event.target.closest('#modal-delete')) {
+      if (target.closest('#modal-delete')) {
         this.setState({
           restaurants: this.state.restaurants.filter(
-            (restaurant) => restaurant.name !== this.state.currentRestaurant.name,
+            (restaurant) => restaurant.name !== this.state.currentRestaurant?.name,
           ),
         });
         localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
@@ -86,7 +103,7 @@ export default class Application extends Component {
     });
   }
 
-  #toggleLike(restaurantName) {
+  #toggleLike(restaurantName: string) {
     const copiedRestaurants = [...this.state.restaurants];
 
     const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.name === restaurantName);
@@ -116,7 +133,7 @@ export default class Application extends Component {
   #appendRestaurantTab() {
     this.element.appendChild(
       new RestaurantTab({
-        setTab: (tab) =>
+        setTab: (tab: TabType) =>
           this.setState({
             tab,
           }),
@@ -130,11 +147,11 @@ export default class Application extends Component {
       new RestaurantDetail({
         filter: this.state.filter,
         sort: this.state.sort,
-        setFilter: (filter) =>
+        setFilter: (filter: FilterType) =>
           this.setState({
             filter,
           }),
-        setSort: (sort) =>
+        setSort: (sort: SortType) =>
           this.setState({
             sort,
           }),
@@ -165,10 +182,10 @@ export default class Application extends Component {
   }
 
   #appendRestaurantDetailModal() {
-    this.element.appendChild(new RestaurantDetailModal(this.state.currentRestaurant).render());
+    this.element.appendChild(new RestaurantDetailModal({ currentRestaurant: this.state.currentRestaurant }).render());
   }
 
-  #addRestaurant(restaurant) {
+  #addRestaurant(restaurant: RestaurantType) {
     this.setState({
       restaurants: [...this.state.restaurants, restaurant],
     });

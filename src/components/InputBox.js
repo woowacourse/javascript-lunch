@@ -1,4 +1,4 @@
-import Component from '../core/Component.js';
+import Component from '../core/Component.ts';
 
 export default class InputBox extends Component {
   template() {

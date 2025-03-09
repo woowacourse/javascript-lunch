@@ -1,4 +1,4 @@
-import Component from '../core/Component.js';
+import Component from '../core/Component.ts';
 import InputBox from './InputBox.js';
 
 export default class Modal extends Component {
