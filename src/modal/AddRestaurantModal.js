@@ -115,7 +115,7 @@ class AddRestaurantModal extends Modal {
     }
   };
 
-  #bindEvent = () => {
+  #bindAddButtonEvent = () => {
     this.#addButton.addEventListener('click', (event) => {
       event.preventDefault();
       if (this.#validateInputs()) {
@@ -124,20 +124,33 @@ class AddRestaurantModal extends Modal {
         this.#init();
       }
     });
+  };
 
+  #bindCancleButtonEvent = () => {
     this.#cancelButton.addEventListener('click', () => {
       this.closeModal();
     });
+  };
 
+  #bindModalBackDropEvent = () => {
     document.querySelector('.modal-backdrop').addEventListener('click', () => {
       this.closeModal();
     });
+  };
 
+  #bindESCEvent = () => {
     document.addEventListener('keyup', (event) => {
       if (event.key === 'Escape') {
         this.closeModal();
       }
     });
+  };
+
+  #bindEvent = () => {
+    this.#bindAddButtonEvent();
+    this.#bindCancleButtonEvent();
+    this.#bindESCEvent();
+    this.#bindModalBackDropEvent();
   };
 }
 
