@@ -1,7 +1,7 @@
 import {
   CATEGORY_OPTIONS,
   DISTANCE_OPTIONS,
-  RESTAURANT_ITEMS,
+  RESTAURANT_DATA,
 } from '../../public/restaurantData.js';
 
 describe('식당 리스트 페이지 테스트', () => {
@@ -57,7 +57,7 @@ describe('식당 리스트 페이지 테스트', () => {
 
     cy.get('.restaurant-list')
       .children()
-      .should('have.length', RESTAURANT_ITEMS.length + 1);
+      .should('have.length', RESTAURANT_DATA.length + 1);
     cy.get('.restaurant-list').children().last().should('contain.text', '기와집');
   });
 
@@ -87,9 +87,9 @@ describe('식당 리스트 페이지 테스트', () => {
 
     cy.get('.restaurant-list')
       .children()
-      .should('have.length', RESTAURANT_ITEMS.length + 1);
+      .should('have.length', RESTAURANT_DATA.length + 1);
 
     cy.reload();
-    cy.get('.restaurant-list').children().should('have.length', RESTAURANT_ITEMS.length);
+    cy.get('.restaurant-list').children().should('have.length', RESTAURANT_DATA.length);
   });
 });

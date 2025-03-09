@@ -1,6 +1,6 @@
 import { createRestaurantList } from './components/RestaurantList.js';
 import createSectionContainer from './components/SectionContainer.js';
-import { RESTAURANT_ITEMS } from '../public/restaurantData.js';
+import { RESTAURANT_DATA } from '../public/restaurantData.js';
 import createRestaurantEnrollModal from './components/RestaurantEnrollModal.js';
 
 const program = {
@@ -10,7 +10,7 @@ const program = {
     const $main = document.getElementsByTagName('main')[0];
 
     const $filterContainer = createSectionContainer('restaurant-list-container');
-    $filterContainer.appendChild(createRestaurantList(RESTAURANT_ITEMS));
+    $filterContainer.appendChild(createRestaurantList(RESTAURANT_DATA));
 
     const $enrollRestaurantModal = createRestaurantEnrollModal();
     this.enrollRestaurantModal = $enrollRestaurantModal;
