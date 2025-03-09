@@ -41,6 +41,10 @@ const fillForm = (formData) => {
   });
 };
 
+const clickAddButton = () => {
+  cy.contains("button", "추가하기").should("exist").and("be.visible").click();
+};
+
 describe("새로운 음식점 추가 플로우 테스트", () => {
   beforeEach(() => {
     cy.initializeTestEnvironment();
@@ -56,18 +60,17 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
       category: "한식",
       name: "얌생 김밥",
       distance: "10",
-      description: "설명 테스트용 텍스트",
+      description: "맛있는 김밥",
       link: "링크 테스트용 텍스트",
     };
     fillForm(formData);
-    cy.contains("button", "추가하기").should("exist").and("be.visible").click();
+    clickAddButton();
 
     // then
     cy.get(".modal").should("not.have.class", "modal--open");
-
     cy.contains("h3", "얌생 김밥").should("exist").and("be.visible");
     cy.contains("span", "캠퍼스부터 10분 내").should("exist").and("be.visible");
-    cy.contains("p", "설명 테스트용 텍스트").should("exist").and("be.visible");
+    cy.contains("p", "맛있는 김밥").should("exist").and("be.visible");
   });
 
   it("음식점 추가 버튼을 누르면 바텀 시트가 열리고, 필수 입력 정보를 입력하지 않을 시 모달창이 닫히지 않고 해당 음식점이 추가가 되지 않는다.", () => {
@@ -79,16 +82,56 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     const formData = {
       category: "한식",
       name: "얌생 김밥",
-      description: "설명 테스트용 텍스트",
+      description: "맛있는 김밥",
     };
     fillForm(formData);
-    cy.contains("button", "추가하기").should("exist").and("be.visible").click();
+    clickAddButton();
 
     // then
     cy.get(".modal").should("have.class", "modal--open");
-
     cy.contains("h3", "얌생 김밥").should("not.exist");
     cy.contains("span", "캠퍼스부터 10분 내").should("not.exist");
-    cy.contains("p", "설명 테스트용 텍스트").should("not.exist");
+    cy.contains("p", "맛있는 김밥").should("not.exist");
+  });
+
+  it("음식점이 여러 개 추가되는 경우, 이전 음식점이 목록에서 사라지지 않고 정상적으로 유지된다.", () => {
+    // given
+    openForm();
+    checkFormLabels();
+
+    // when
+    const firstFormData = {
+      category: "한식",
+      name: "얌생 김밥",
+      distance: "10",
+      description: "맛있는 김밥",
+      link: "링크 테스트용 텍스트",
+    };
+    fillForm(firstFormData);
+    clickAddButton();
+
+    // given
+    openForm();
+    checkFormLabels();
+
+    // when
+    const secondFormData = {
+      category: "중식",
+      name: "짜장면",
+      distance: "15",
+      description: "맛있는 짜장면",
+      link: "링크 테스트용 텍스트",
+    };
+    fillForm(secondFormData);
+    clickAddButton();
+
+    // then
+    cy.get(".modal").should("not.have.class", "modal--open");
+    cy.contains("h3", "얌생 김밥").should("exist").and("be.visible");
+    cy.contains("h3", "짜장면").should("exist").and("be.visible");
+    cy.contains("span", "캠퍼스부터 10분 내").should("exist").and("be.visible");
+    cy.contains("span", "캠퍼스부터 15분 내").should("exist").and("be.visible");
+    cy.contains("p", "맛있는 김밥").should("exist").and("be.visible");
+    cy.contains("p", "맛있는 짜장면").should("exist").and("be.visible");
   });
 });
