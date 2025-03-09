@@ -1,4 +1,4 @@
-import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
+import RestaurantListItem from "../restaurant-list-item/RestaurantListItem.js";
 import "./restaurantList.css";
 
 export default class RestaurantList {

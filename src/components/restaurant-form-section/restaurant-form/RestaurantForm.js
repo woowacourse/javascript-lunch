@@ -1,10 +1,10 @@
 import Button from "../../common/button/Button.js";
-import LinkInput from "../linkInput/LinkInput.js";
-import NameInput from "../nameInput/NameInput.js";
-import DescriptionInput from "../descriptionInput/DescriptionInput.js";
-import RestaurantListItem from "../../restaurantListSection/restaurantListItem/RestaurantListItem.js";
-import CategorySelect from "../categorySelect/CategorySelect.js";
-import DistanceSelect from "../distanceSelect/DistanceSelect.js";
+import LinkInput from "../link-input/LinkInput.js";
+import NameInput from "../name-input/NameInput.js";
+import DescriptionInput from "../description-input/DescriptionInput.js";
+import RestaurantListItem from "../../restaurant-list-section/restaurant-list-item/RestaurantListItem.js";
+import CategorySelect from "../category-select/CategorySelect.js";
+import DistanceSelect from "../distance-select/DistanceSelect.js";
 import "./restaurantForm.css";
 import {
   EVENT_TYPES,

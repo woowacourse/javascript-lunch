@@ -1,4 +1,4 @@
-import SelectBox from "../../common/selectBox/SelectBox.js";
+import SelectBox from "../../common/select-box/SelectBox.js";
 import { DISTANCE } from "../../../constants/constants.js";
 
 export default class DistanceSelect {

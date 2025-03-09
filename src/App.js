@@ -1,7 +1,7 @@
 import Header from "./components/header/Header.js";
-import RestaurantList from "./components/restaurantListSection/restaurantList/RestaurantList.js";
-import BottomSheetBase from "./components/common/bottomSheetBase/BottomSheetBase.js";
-import RestaurantForm from "./components/restaurantFormSection/restaurantForm/RestaurantForm.js";
+import RestaurantList from "./components/restaurant-list-section/restaurant-list/RestaurantList.js";
+import BottomSheetBase from "./components/common/bottom-sheet-base/BottomSheetBase.js";
+import RestaurantForm from "./components/restaurant-form-section/restaurant-form/RestaurantForm.js";
 
 export default class App {
   constructor() {
