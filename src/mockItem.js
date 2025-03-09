@@ -1,4 +1,4 @@
-const state = {
+const MOCK_ITEM = {
   restaurantList: [
     {
       src: "./category-korean.png",
@@ -55,4 +55,4 @@ const state = {
   ],
 };
 
-export default state;
+export default MOCK_ITEM;

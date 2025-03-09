@@ -2,7 +2,7 @@ import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
 import { $ } from "../utils/querySelectors.js";
 import LunchInfoCard from "./LunchInfoCard.js";
-import state from "../state.js";
+import MOCK_ITEM from "../mockItem.js";
 
 class RestaurantList {
   $restaurantList;
@@ -19,7 +19,7 @@ class RestaurantList {
       );
     });
 
-    this.count = state.restaurantList.length;
+    this.count = MOCK_ITEM.restaurantList.length;
   }
 
   add(newRestaurant) {

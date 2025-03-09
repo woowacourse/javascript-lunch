@@ -5,7 +5,8 @@ import AddLunchModalForm from "./component/AddLunchModalForm.js";
 import IconButton from "./component/IconButton.js";
 import append from "./utils/append.js";
 import RestaurantList from "./component/RestaurantList.js";
-import state from "./state.js";
+import MOCK_ITEM from "./mockItem.js";
+
 import { $ } from "./utils/querySelectors.js";
 
 $("body").prepend(
@@ -18,6 +19,6 @@ $("body").prepend(
   )
 );
 
-const restaurantList = new RestaurantList(state.restaurantList);
+const restaurantList = new RestaurantList(MOCK_ITEM.restaurantList);
 restaurantList.$restaurantList;
 $("main").append(Modal.create(AddLunchModalForm.create(restaurantList)));
