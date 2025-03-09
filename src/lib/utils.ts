@@ -1,0 +1,15 @@
+import { concat, flat, map, pipe, reduce, zip } from '@fxts/core';
+import Component from '../core/Component';
+export function html(strings: TemplateStringsArray, ...values: any[]) {
+  return pipe(
+    zip(
+      strings,
+      concat(
+        map((value) => (value instanceof Component ? value.template() : value), values),
+        [''],
+      ),
+    ),
+    flat,
+    reduce((a, b) => a + b),
+  );
+}

@@ -1,6 +1,7 @@
 import Component from '../core/Component.ts';
 import { InputBox, Button, Modal } from './index.ts';
 import { RestaurantType } from '../lib/types.ts';
+import { html } from '../lib/utils.ts';
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
@@ -10,27 +11,25 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
   template() {
     const inputBoxList = [
       new InputBox({
-        input: `
-          <select name="category" id="category" required>
-            <option value="">선택해 주세요</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
-            <option value="일식">일식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="기타">기타</option>
-          </select>`,
+        input: html` <select name="category" id="category" required>
+          <option value="">선택해 주세요</option>
+          <option value="한식">한식</option>
+          <option value="중식">중식</option>
+          <option value="일식">일식</option>
+          <option value="양식">양식</option>
+          <option value="아시안">아시안</option>
+          <option value="기타">기타</option>
+        </select>`,
         label: '카테고리',
         isRequired: true,
       }),
       new InputBox({
-        input: `<input type="text" name="name" id="name" maxlength='20' required />`,
+        input: html`<input type="text" name="name" id="name" maxlength="20" required />`,
         label: '이름',
         isRequired: true,
       }),
       new InputBox({
-        input: `
-        <select name="distance" id="distance" required>
+        input: html` <select name="distance" id="distance" required>
           <option value="">선택해 주세요</option>
           <option value="5">5분 내</option>
           <option value="10">10분 내</option>
@@ -42,13 +41,13 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
         isRequired: true,
       }),
       new InputBox({
-        input: `<textarea maxlength="1000" name="description" id="description" cols="30" rows="5"></textarea>`,
+        input: html`<textarea maxlength="1000" name="description" id="description" cols="30" rows="5"></textarea>`,
         label: '설명',
         caption: '메뉴 등 추가 정보를 입력해 주세요.',
         isRequired: false,
       }),
       new InputBox({
-        input: `<input type="url" name="url" id="url" />`,
+        input: html`<input type="url" name="url" id="url" />`,
         label: '참고 링크',
         caption: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
         isRequired: false,
@@ -71,19 +70,16 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
 
     const modal = new Modal({
       id: 'restaurant-add-modal',
-      children: `
+      children: html`
         <h2 class="modal-title text-title">새로운 음식점</h2>
         <form>
-          ${inputBoxList.map((input) => input.template()).join('')}
-          <div class="button-container">
-            ${cancelButton.template()}
-            ${addButton.template()}
-          </div>
+          ${inputBoxList.map((input) => html`${input}`).join('')}
+          <div class="button-container">${cancelButton} ${addButton}</div>
         </form>
       `,
     });
 
-    return modal.template();
+    return html`${modal}`;
   }
 
   onRender() {

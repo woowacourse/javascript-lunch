@@ -1,4 +1,3 @@
-import { concat, flat, map, pipe, reduce, zip } from '@fxts/core';
 import {
   Header,
   RestaurantAddModal,
@@ -9,20 +8,7 @@ import {
 } from './components/index.ts';
 import Component from './core/Component.ts';
 import { FilterType, RestaurantType, SortType, TabType } from './lib/types.ts';
-
-function html(strings: TemplateStringsArray, ...values: any[]) {
-  return pipe(
-    zip(
-      strings,
-      concat(
-        map((value) => (value instanceof Component ? value.template() : value), values),
-        [''],
-      ),
-    ),
-    flat,
-    reduce((a, b) => a + b),
-  );
-}
+import { html } from './lib/utils.ts';
 
 export default class Application extends Component<{
   restaurants: RestaurantType[];
