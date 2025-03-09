@@ -12,7 +12,15 @@ export default class App {
   #addList = (newRestaurantInfo) => {
     this.restaurantList = [...this.restaurantList, newRestaurantInfo];
     this.#renderRestaurantList();
+    this.#resetForm();
   };
+
+  #resetForm() {
+    const $addButton = document.querySelector(".button--primary");
+
+    $addButton.disabled = true;
+    $addButton.classList.add("disabled-btn");
+  }
 
   #renderRestaurantList() {
     const $listContainer = document.querySelector(".restaurant-list-container");

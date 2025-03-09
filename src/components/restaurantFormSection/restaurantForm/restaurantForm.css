@@ -56,3 +56,10 @@ input[name="link"] {
 .button-container {
   display: flex;
 }
+
+.disabled-btn {
+  pointer-events: none;
+  opacity: 0.5;
+  background-color: var(--grey-300);
+  cursor: not-allowed;
+}

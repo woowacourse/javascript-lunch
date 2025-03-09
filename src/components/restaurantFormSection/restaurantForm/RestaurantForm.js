@@ -39,6 +39,9 @@ export default class RestaurantForm {
       action: BUTTON_TYPES.add,
     }).render();
 
+    $addButton.disabled = true;
+    $addButton.classList.add("disabled-btn");
+
     $form.appendChild($categoryFormItem);
     $form.appendChild($nameFormItem);
     $form.appendChild($distanceFormItem);
@@ -55,8 +58,25 @@ export default class RestaurantForm {
     );
 
     $form.addEventListener(EVENT_TYPES.submit, this.#handleSubmit.bind(this));
+    $form.addEventListener(
+      EVENT_TYPES.change,
+      this.#handleFormChange.bind(this)
+    );
 
     return $form;
+  }
+
+  #handleFormChange(e) {
+    const category = document.querySelector("#category").value;
+    const name = document.querySelector("#name").value;
+    const distance = document.querySelector("#distance").value;
+
+    if (category !== "" && name !== "" && distance !== "") {
+      const $addButton = document.querySelector(".button--primary");
+
+      $addButton.disabled = false;
+      $addButton.classList.remove("disabled-btn");
+    }
   }
 
   #handleCancelButtonClick() {
