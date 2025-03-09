@@ -6,7 +6,7 @@ export default class NameInput {
     $nameFormItem.className = "form-item form-item--required";
 
     const $nameLabel = document.createElement("label");
-    $nameLabel.setAttribute("for", "name text-caption");
+    $nameLabel.setAttribute("for", "name");
     $nameLabel.textContent = LABEL_NAMES.name;
 
     const $nameInput = document.createElement("input");

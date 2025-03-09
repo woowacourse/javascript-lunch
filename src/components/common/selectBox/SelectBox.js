@@ -11,7 +11,7 @@ export default class SelectBox {
     $formItem.className = "form-item form-item--required";
 
     const $label = document.createElement("label");
-    $label.setAttribute("for", `${this.label} text-caption`);
+    $label.setAttribute("for", this.label);
     $label.textContent = LABEL_NAMES[this.label];
 
     const $select = document.createElement("select");

@@ -6,7 +6,7 @@ export default class DescriptionInput {
     $descriptionFormItem.className = "form-item";
 
     const $descriptionLabel = document.createElement("label");
-    $descriptionLabel.setAttribute("for", "description text-caption");
+    $descriptionLabel.setAttribute("for", "description");
     $descriptionLabel.textContent = LABEL_NAMES.description;
 
     const $descriptionTextarea = document.createElement("textarea");

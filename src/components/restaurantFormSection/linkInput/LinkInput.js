@@ -6,7 +6,7 @@ export default class LinkInput {
     $linkFormItem.className = "form-item";
 
     const $linkLabel = document.createElement("label");
-    $linkLabel.setAttribute("for", "link text-caption");
+    $linkLabel.setAttribute("for", "link");
     $linkLabel.textContent = LABEL_NAMES.link;
 
     const $linkInput = document.createElement("input");
