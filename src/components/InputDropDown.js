@@ -15,8 +15,12 @@ const OPTION_TEMPLATE = (value, innerValue) => {
 };
 
 class InputDropDown {
+  #input;
+  #inputContainer;
+
   constructor(title, option) {
-    return this.#createInputDropDown(title, option);
+    this.#inputContainer = this.#createInputDropDown(title, option);
+    return this;
   }
 
   #createInputDropDown = (title, option) => {
@@ -27,6 +31,7 @@ class InputDropDown {
     inputDropDown.innerHTML = INPUT_DROPDOWN_TEMPLATE(tag, title);
 
     const select = inputDropDown.querySelector('select');
+    this.#input = select;
 
     Object.entries(option).forEach(([key, value]) => {
       const optionHTML = this.#addTemplate(value, key);
@@ -38,6 +43,14 @@ class InputDropDown {
 
   #addTemplate = (value, innerValue) => {
     return OPTION_TEMPLATE(value, innerValue);
+  };
+
+  reset = () => {
+    this.#input.selectedIndex = 0;
+  };
+
+  getElement = () => {
+    return this.#inputContainer;
   };
 }
 

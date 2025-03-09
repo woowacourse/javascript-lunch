@@ -41,6 +41,14 @@ class AddRestaurantModal extends Modal {
     this.#modalForm = document.createElement('form');
   };
 
+  #resetForm = () => {
+    this.#divCategory.reset();
+    this.#divName.reset();
+    this.#divDistance.reset();
+    this.#divDescription.reset();
+    this.#divLink.reset();
+  };
+
   #createButton = () => {
     const divButton = document.createElement('div');
     divButton.classList.add('button-container');
@@ -52,11 +60,11 @@ class AddRestaurantModal extends Modal {
   };
 
   #appendChildToModalForm = () => {
-    this.#modalForm.appendChild(this.#divCategory);
-    this.#modalForm.appendChild(this.#divName);
-    this.#modalForm.appendChild(this.#divDistance);
-    this.#modalForm.appendChild(this.#divDescription);
-    this.#modalForm.appendChild(this.#divLink);
+    this.#modalForm.appendChild(this.#divCategory.getElement());
+    this.#modalForm.appendChild(this.#divName.getElement());
+    this.#modalForm.appendChild(this.#divDistance.getElement());
+    this.#modalForm.appendChild(this.#divDescription.getElement());
+    this.#modalForm.appendChild(this.#divLink.getElement());
   };
 
   #createAddModal = () => {
@@ -106,20 +114,22 @@ class AddRestaurantModal extends Modal {
       event.preventDefault();
       if (this.#validateInputs()) {
         this.#addNewRestaurant();
+        this.#resetForm();
         this.closeModal();
-        this.#init();
       }
     });
   };
 
   #bindCancleButtonEvent = () => {
     this.#cancelButton.addEventListener('click', () => {
+      this.#resetForm();
       this.closeModal();
     });
   };
 
   #bindModalBackDropEvent = () => {
     document.querySelector('.modal-backdrop').addEventListener('click', () => {
+      this.#resetForm();
       this.closeModal();
     });
   };
@@ -127,6 +137,7 @@ class AddRestaurantModal extends Modal {
   #bindESCEvent = () => {
     document.addEventListener('keyup', (event) => {
       if (event.key === 'Escape') {
+        this.#resetForm();
         this.closeModal();
       }
     });

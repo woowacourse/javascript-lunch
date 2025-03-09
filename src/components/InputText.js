@@ -15,8 +15,12 @@ const SPAN_TEMPLATE = (text) => {
 };
 
 class InputText {
+  #input;
+  #inputContainer;
+
   constructor(title) {
-    return this.#createInputText(title);
+    this.#inputContainer = this.#createInputText(title);
+    return this;
   }
   #createInputText = (title) => {
     if (title === '이름') return this.#handleName(title);
@@ -29,6 +33,8 @@ class InputText {
     formItem.classList.add('form-item');
     formItem.classList.add('form-item--required');
     formItem.innerHTML = `${LABEL_TEMPLATE('name', '이름')}${INPUT_TEMPLATE('name')}`;
+
+    this.#input = formItem.querySelector('#name');
     return formItem;
   };
 
@@ -38,6 +44,7 @@ class InputText {
     formItem.innerHTML = `${LABEL_TEMPLATE('description', '설명')}${TEXTAREA_TEMPLATE()}${SPAN_TEMPLATE(
       '메뉴 등 추가 정보를 입력해 주세요.',
     )}`;
+    this.#input = formItem.querySelector('#description');
     return formItem;
   };
 
@@ -47,7 +54,18 @@ class InputText {
     formItem.innerHTML = `${LABEL_TEMPLATE('link', '참고 링크')}${INPUT_TEMPLATE('link')}${SPAN_TEMPLATE(
       '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
     )}`;
+    this.#input = formItem.querySelector('#link');
     return formItem;
+  };
+
+  reset = () => {
+    if (this.#input) {
+      this.#input.value = '';
+    }
+  };
+
+  getElement = () => {
+    return this.#inputContainer;
   };
 }
 
