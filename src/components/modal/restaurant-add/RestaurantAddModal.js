@@ -8,6 +8,9 @@ import restaurantDataList from "../../../domain/RestaurantDataList.js";
 import { $ } from "../../../util/querySelector.js";
 import { removeModal } from "../Modal.js";
 
+const CATEGORY_OPTIONS = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+const DISTANCE_OPTIONS = ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"];
+
 export default function RestaurantAddModal() {
   const $fragment = document.createDocumentFragment();
   const $h2 = createElement({
@@ -46,15 +49,6 @@ function createRestaurantItem(event) {
 }
 
 function createFormItems() {
-  const CATEGORY_OPTIONS = ["한식", "중식", "일식", "양식", "아시안", "기타"];
-  const DISTANCE_OPTIONS = [
-    "5분 내",
-    "10분 내",
-    "15분 내",
-    "20분 내",
-    "30분 내",
-  ];
-
   return [
     {
       isRequired: true,
