@@ -32,6 +32,7 @@ const AddLunchModalForm = {
           label: category,
         });
 
+        event.target.reset();
         Modal.close();
       } catch (e) {
         alert(e.message);
