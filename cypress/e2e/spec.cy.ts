@@ -19,7 +19,7 @@ describe('애플리케이션 테스트', () => {
     });
 
     it('모달을 열어 각 값을 입력하여 ‘추가하기’ 버튼을 누르면 식당 리스트가 추가된다.', () => {
-      cy.addRestaurant('이름입니다', '일식', '10');
+      cy.addRestaurant('이름입니다', '일식', 10);
 
       cy.contains('이름입니다');
       cy.contains('10분 내');
@@ -28,7 +28,7 @@ describe('애플리케이션 테스트', () => {
 
   describe('식당 저장', () => {
     it('새로고침을 했을 때 이전에 추가한 식당이 보인다.', () => {
-      cy.addRestaurant('이름입니다', '일식', '10');
+      cy.addRestaurant('이름입니다', '일식', 10);
 
       cy.reload();
 
@@ -39,7 +39,7 @@ describe('애플리케이션 테스트', () => {
 
   describe('식당 상세히 보기', () => {
     it('식당을 누르면 식당의 상세 정보가 보인다.', () => {
-      cy.addRestaurant('이름입니다', '일식', '10');
+      cy.addRestaurant('이름입니다', '일식', 10);
       cy.get('.restaurant-list').find('.restaurant').first().click();
 
       cy.contains('삭제하기');
@@ -49,7 +49,7 @@ describe('애플리케이션 테스트', () => {
 
   describe('식당 삭제', () => {
     it('식당 상세 정보에서 식당을 제거하면 식당이 제거된다.', () => {
-      cy.addRestaurant('이름입니다', '일식', '10');
+      cy.addRestaurant('이름입니다', '일식', 10);
       cy.get('.restaurant-list').find('.restaurant').first().click();
 
       cy.get('#modal-delete').click();
@@ -59,25 +59,21 @@ describe('애플리케이션 테스트', () => {
   });
 
   describe('필터링', () => {
-    context('탭을 클릭하면', () => {
-      it('자주 가는 음식점을 누르면 자주 가는 음식점만 필터링해 보여준다.', () => {
-        cy.addRestaurant('이름입니다', '일식', '10');
-        cy.get('#tab-like').click();
+    it('자주 가는 음식점을 누르면 자주 가는 음식점만 필터링해 보여준다.', () => {
+      cy.addRestaurant('이름입니다', '일식', 10);
+      cy.get('#tab-like').click();
 
-        cy.get('.restaurant').should('not.exist');
-      });
+      cy.get('.restaurant').should('not.exist');
     });
-    context('카테고리를 클릭하면', () => {
-      it('한식을 선택하면 한식만 보여준다.', () => {
-        cy.addRestaurant('이름입니다', '일식', '10');
-        cy.get('#filter').select('한식');
-        cy.get('.restaurant').should('not.exist');
-      });
-      it('일식을 선택하면 일식만 보여준다.', () => {
-        cy.addRestaurant('이름입니다', '일식', '10');
-        cy.get('#filter').select('일식');
-        cy.get('.restaurant').should('exist');
-      });
+    it('한식을 선택하면 한식만 보여준다.', () => {
+      cy.addRestaurant('이름입니다', '일식', 10);
+      cy.get('#filter').select('한식');
+      cy.get('.restaurant').should('not.exist');
+    });
+    it('일식을 선택하면 일식만 보여준다.', () => {
+      cy.addRestaurant('이름입니다', '일식', 10);
+      cy.get('#filter').select('일식');
+      cy.get('.restaurant').should('exist');
     });
   });
 });
