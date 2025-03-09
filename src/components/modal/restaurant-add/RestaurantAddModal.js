@@ -36,7 +36,7 @@ function createRestaurantItem(event) {
   try {
     event.preventDefault();
 
-    const restaurantData = Object.fromEntries(new FormData(this));
+    const restaurantData = Object.fromEntries(new FormData(event.target));
     restaurantDataList.addData(restaurantData);
 
     removeModal();
