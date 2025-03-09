@@ -21,9 +21,7 @@ class Modal extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.isOpen) {
-      this.initialRender();
-    }
+    this.initialRender();
   }
 
   template() {
@@ -41,6 +39,7 @@ class Modal extends Component {
   open() {
     if (!this.state.isOpen) {
       this.setState({ isOpen: true });
+      this.componentDidUpdate();
     }
   }
 

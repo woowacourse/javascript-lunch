@@ -3,6 +3,7 @@ import RestaurantList from "./components/RestaurantList.js";
 import { restaurants } from "./database/restaurants.js";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
 import Component from "./components/core/Component.js";
+import RestaurantItem from "./components/RestaurantItem.js";
 
 class App extends Component {
   setup() {
@@ -15,6 +16,8 @@ class App extends Component {
     this.setState({
       restaurants: [...this.state.restaurants, newRestaurant],
     });
+
+    this.componentDidUpdate(newRestaurant);
   }
 
   template() {
@@ -25,8 +28,12 @@ class App extends Component {
     `;
   }
 
-  componentDidUpdate() {
-    this.renderRestaurantList();
+  componentDidUpdate(newRestaurant) {
+    const $restaurantList = document.querySelector("#restaurant-list");
+    $restaurantList.insertAdjacentHTML(
+      "afterbegin",
+      RestaurantItem(newRestaurant)
+    );
   }
 
   componentDidMount() {
@@ -45,7 +52,6 @@ class App extends Component {
   renderRestaurantList() {
     const $main = document.querySelector("main");
 
-    $main.replaceChildren();
     $main.insertAdjacentHTML(
       "afterbegin",
       RestaurantList(this.state.restaurants)
