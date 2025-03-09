@@ -1,6 +1,6 @@
 describe("새로운 음식점 추가 플로우 테스트", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5174/");
+    cy.visit("http://localhost:5173/");
     cy.viewport(1536, 960);
   });
 

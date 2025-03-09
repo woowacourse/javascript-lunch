@@ -1,6 +1,6 @@
 describe("바텀 시트 닫는 기능 테스트", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5174/");
+    cy.visit("http://localhost:5173/");
     cy.viewport(1536, 960);
   });
 
