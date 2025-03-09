@@ -1,7 +1,7 @@
-import { CATEGORY, DISTANCE, NAME, LINK, DESCRIPTION, CANCEL_BUTTON, ADD_BUTTON } from './constants.js';
-import { RESTAURANTS } from './restaurantData.js';
-import eventHandlers from './eventHandlers.js';
-import stateStore from './stateStore.js';
+import { CATEGORY, DISTANCE, NAME, LINK, DESCRIPTION, CANCEL_BUTTON, ADD_BUTTON } from './constants/constants.js';
+import { RESTAURANTS } from './data/restaurantData.js';
+import eventHandlers from './handlers/eventHandlers.js';
+import stateStore from './store/stateStore.js';
 import {
   createButton,
   createHeader,

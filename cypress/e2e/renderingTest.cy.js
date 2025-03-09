@@ -1,5 +1,5 @@
-import { IMAGE } from '../../src/constants.js';
-import { RESTAURANTS } from '../../src/restaurantData.js';
+import { IMAGE } from '../../src/constants/constants.js';
+import { RESTAURANTS } from '../../src/data/restaurantData.js';
 
 describe('Header 렌더링 테스트', () => {
   beforeEach(() => {

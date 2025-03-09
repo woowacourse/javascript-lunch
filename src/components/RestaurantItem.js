@@ -1,4 +1,4 @@
-import { IMAGE } from '../constants.js';
+import { IMAGE } from '../constants/constants.js';
 
 function createRestaurantItem({ category, name, distance, description, link }) {
   const item = `<li class="restaurant">
