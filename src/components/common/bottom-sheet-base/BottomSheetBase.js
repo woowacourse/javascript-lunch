@@ -29,6 +29,10 @@ export default class BottomSheetBase {
     return this.$modal;
   }
 
+  open() {
+    this.$modal.classList.add("modal--open");
+  }
+
   close(e) {
     if (!e || !e.target.closest(".modal-container")) {
       this.$modal.classList.remove("modal--open");

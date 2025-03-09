@@ -2,6 +2,10 @@ import { EVENT_TYPES } from "../../constants/constants.js";
 import "./header.css";
 
 export default class Header {
+  constructor({ onOpen }) {
+    this.onOpen = onOpen;
+  }
+
   render() {
     const $header = document.createElement("header");
     $header.className = "gnb";
@@ -23,16 +27,8 @@ export default class Header {
     $button.append($img);
     $header.append($button);
 
-    $button.addEventListener(
-      EVENT_TYPES.click,
-      this.#handleButtonClick.bind(this)
-    );
+    $button.addEventListener(EVENT_TYPES.click, this.onOpen);
 
     return $header;
-  }
-
-  #handleButtonClick() {
-    const $modal = document.querySelector(".modal");
-    $modal.classList.add("modal--open");
   }
 }

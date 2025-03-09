@@ -24,7 +24,9 @@ export default class App {
 
   #initElement() {
     const $body = document.querySelector("body");
-    $body.append(new Header().render());
+    $body.append(
+      new Header({ onOpen: () => this.$bottomSheet.open() }).render()
+    );
 
     this.$main = document.createElement("main");
     $body.append(this.$main);
