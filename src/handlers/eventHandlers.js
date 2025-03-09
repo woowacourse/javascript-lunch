@@ -1,4 +1,4 @@
-import stateStore from './stateStore.js';
+import stateStore from '../store/stateStore.js';
 
 function openModal() {
   const gnbButton = document.querySelector('.gnb__button');
