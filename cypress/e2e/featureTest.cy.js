@@ -17,7 +17,7 @@ describe('기능 테스트', () => {
     cy.get('.restaurant-list').should('contain', '꺼벙이');
   });
 
-  it('사용자가 음식점 추가 모달을 열어, 필수 입력값만 입력 후 추가하기 시나리오 테스트', () => {
+  it('사용자가 음식점 추가 모달을 열어, 필수 입력값만 입력 후 추가하는 시나리오 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
