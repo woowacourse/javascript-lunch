@@ -5,13 +5,13 @@ import {
   RestaurantDetailModal,
   RestaurantList,
   RestaurantTab,
-} from './components/index.js';
+} from './components/index.ts';
 import Component from './core/Component.ts';
 
 type TabType = 'all' | 'like';
 type FilterType = '전체' | '한식' | '중식' | '일식' | '양식' | '분식' | '기타';
 type SortType = '이름순' | '거리순';
-type RestaurantType = {
+export type RestaurantType = {
   name: string;
   description: string;
   distance: number;

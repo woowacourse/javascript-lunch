@@ -5,7 +5,7 @@ export const CATEGORY_MAP = {
   양식: 'western',
   아시안: 'asian',
   기타: 'etc',
-};
+} as const;
 
 export const RESTAURANT_LIST_DEFAULT = [
   {
@@ -58,4 +58,4 @@ export const RESTAURANT_LIST_DEFAULT = [
     isLike: false,
     url: 'https://naver.me/G6DyD9tg',
   },
-];
+] as const;

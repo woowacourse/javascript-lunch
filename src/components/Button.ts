@@ -1,6 +1,13 @@
 import Component from '../core/Component.ts';
 
-export default class Button extends Component {
+interface ButtonProps {
+  type: string;
+  class: string;
+  id: string;
+  message: string;
+}
+
+export default class Button extends Component<null, ButtonProps> {
   template() {
     return `
      <button

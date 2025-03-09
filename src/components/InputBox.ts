@@ -1,6 +1,13 @@
 import Component from '../core/Component.ts';
 
-export default class InputBox extends Component {
+interface InputBoxProps {
+  label: string;
+  input: string;
+  caption?: string;
+  isRequired?: boolean;
+}
+
+export default class InputBox extends Component<InputBoxProps> {
   template() {
     return `
       <div class="form-item ${this.props?.isRequired ? 'form-item--required' : ''}">

@@ -1,11 +1,17 @@
 import Component from '../core/Component.ts';
-import Modal from './Modal.js';
-import Button from './Button.js';
-import { CATEGORY_MAP } from '../lib/constants.js';
+import Modal from './Modal.ts';
+import Button from './Button.ts';
+import { CATEGORY_MAP } from '../lib/constants.ts';
+import { RestaurantType } from '../Application.ts';
 
-export default class RestaurantDetailModal extends Component {
+export default class RestaurantDetailModal extends Component<
+  {},
+  {
+    currentRestaurant: RestaurantType | null;
+  }
+> {
   template() {
-    const { currentRestaurant } = this.props;
+    const currentRestaurant = this.props?.currentRestaurant;
 
     const deleteButton = new Button({
       type: 'button',

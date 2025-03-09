@@ -1,6 +1,13 @@
 import Component from '../core/Component.ts';
 
-export default class RestaurantDetail extends Component {
+interface RestaurantDetailProps {
+  filter: string;
+  sort: string;
+  setFilter: (filter: string) => void;
+  setSort: (sort: string) => void;
+}
+
+export default class RestaurantDetail extends Component<null, RestaurantDetailProps> {
   template() {
     return `
       <div class="restaurant-filter-container">
@@ -22,11 +29,11 @@ export default class RestaurantDetail extends Component {
     `;
   }
   onRender() {
-    this.element.querySelector('#filter').addEventListener('change', (event) => {
-      this.props.setFilter(event.target.value);
+    this.element?.querySelector('#filter')?.addEventListener('change', (event) => {
+      this.props.setFilter((event?.target as HTMLSelectElement)?.value ?? '');
     });
-    this.element.querySelector('#sort').addEventListener('change', (event) => {
-      this.props.setSort(event.target.value);
+    this.element?.querySelector('#sort')?.addEventListener('change', (event) => {
+      this.props.setSort((event?.target as HTMLSelectElement)?.value ?? '');
     });
   }
 }

@@ -1,12 +1,12 @@
-export default class Component<T = Record<string, any>> {
+export default class Component<State = Record<string, any>, Props = Record<string, any>> {
   #isRendered = false;
-  #state = {} as T;
+  #state = {} as State;
 
-  #props: Record<string, any>;
+  #props: Props;
   #element: HTMLElement = document.createElement('div');
 
-  constructor(props?: Record<string, any>) {
-    this.#props = props ?? {};
+  constructor(props: Props) {
+    this.#props = props;
   }
 
   render() {

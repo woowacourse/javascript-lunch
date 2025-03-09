@@ -1,7 +1,12 @@
 import Component from '../core/Component.ts';
-import { InputBox, Button, Modal } from './index.js';
+import { InputBox, Button, Modal } from './index.ts';
+import { RestaurantType } from '../Application.ts';
 
-export default class RestaurantAddModal extends Component {
+interface RestaurantAddModalProps {
+  addRestaurant: (restaurant: RestaurantType) => void;
+}
+
+export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
   template() {
     const inputBoxList = [
       new InputBox({
@@ -83,6 +88,7 @@ export default class RestaurantAddModal extends Component {
 
   onRender() {
     const form = this.element.querySelector('form');
+    if (!form) return;
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();

@@ -1,7 +1,11 @@
 import Component from '../core/Component.ts';
-import InputBox from './InputBox.js';
 
-export default class Modal extends Component {
+interface ModalProps {
+  id: string;
+  children: string;
+}
+
+export default class Modal extends Component<ModalProps> {
   template() {
     return `
       <div class="modal" id="${this.props.id}">

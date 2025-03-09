@@ -1,6 +1,10 @@
 import Component from '../core/Component.ts';
 
-export default class Header extends Component {
+interface HeaderProps {
+  title: string;
+}
+
+export default class Header extends Component<null, HeaderProps> {
   template() {
     return `
       <header class="gnb">
