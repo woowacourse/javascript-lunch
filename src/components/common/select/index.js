@@ -1,15 +1,12 @@
 import { INPUT_HELP_TEXT } from "../../../constants/inputHelpText";
+import { createElement } from "../../../utils/createElement";
 
 const Select = ({ name, required, options }) => {
-  const select = document.createElement("select");
-  select.setAttribute("name", name);
-  select.setAttribute("id", name);
-  select.toggleAttribute("required", required);
-
-  const defaultOption = document.createElement("option");
-  defaultOption.setAttribute("value", "");
-  defaultOption.textContent = INPUT_HELP_TEXT.SELECT_PLACEHOLDER;
-  select.appendChild(defaultOption);
+  const select = createElement(/*html*/ `
+    <select name=${name} id=${name} required=${required}>
+      <option value="">${INPUT_HELP_TEXT.SELECT_PLACEHOLDER}</option>
+    </select>
+  `);
 
   for (const [key, value] of Object.entries(options)) {
     const optionTag = document.createElement("option");

@@ -1,9 +1,9 @@
-const Distance = (minute) => {
-  const distance = document.createElement("span");
-  distance.classList.add("restaurant__distance", "text-body");
-  distance.textContent = `캠퍼스부터 ${minute}분 내`;
+import { createElement } from "../../utils/createElement";
 
-  return distance;
+const Distance = (minute) => {
+  return createElement(/*html*/ `
+    <span class="restaurant__distance text-body">${`캠퍼스부터 ${minute}분 내`}</span>
+    `);
 };
 
 export default Distance;

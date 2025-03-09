@@ -1,11 +1,11 @@
-const Button = ({ text, style, onClick, type = "submit", id }) => {
-  const button = document.createElement("button");
+import { createElement } from "../../../utils/createElement";
 
-  button.textContent = text;
-  button.setAttribute("type", type);
-  button.setAttribute("id", id);
-  button.classList.add("button", "text-caption");
-  button.classList.add(style);
+const Button = ({ text, style, onClick, type = "submit", id }) => {
+  const button = createElement(/*html*/ `
+    <button type=${type} id=${id} class="button text-caption ${style}">
+      ${text}
+    </button>
+  `);
 
   button.addEventListener("click", onClick);
 

@@ -1,12 +1,9 @@
+import { createElement } from "../../../utils/createElement";
+
 const Input = ({ name, required = false }) => {
-  const input = document.createElement("input");
-
-  input.setAttribute("type", "text");
-  input.setAttribute("name", name);
-  input.setAttribute("id", name);
-  input.toggleAttribute("required", required);
-
-  return input;
+  return createElement(/*html*/ `
+    <input type="text" id=${name} name=${name} required=${required}>/>
+  `);
 };
 
 export default Input;

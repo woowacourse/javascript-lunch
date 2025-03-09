@@ -1,6 +1,9 @@
+import { createElement } from "../../../utils/createElement";
+
 const BackDrop = (handleCloseModal) => {
-  const backDrop = document.createElement("div");
-  backDrop.classList.add("modal-backdrop");
+  const backDrop = createElement(/*html*/ `
+    <div class="modal-backdrop"></div>
+  `);
 
   backDrop.addEventListener("click", handleCloseModal);
 

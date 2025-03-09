@@ -1,10 +1,9 @@
-const Image = (src, alt, className) => {
-  const image = document.createElement("img");
-  image.setAttribute("src", src);
-  image.setAttribute("alt", alt);
-  image.classList.add(className);
+import { createElement } from "../../../utils/createElement";
 
-  return image;
+const Image = (src, alt, className) => {
+  return createElement(/*html*/ `
+    <img class="${className}" src=${src} alt=${alt}/>
+  `);
 };
 
 export default Image;
