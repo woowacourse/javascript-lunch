@@ -21,7 +21,7 @@ export const CATEGORY_ASSETS = Object.freeze({
 export const EVENT_TYPES = Object.freeze({
   click: "click",
   submit: "submit",
-  change: "change",
+  input: "input",
 });
 
 export const BUTTON_TYPES = Object.freeze({

@@ -60,7 +60,7 @@ export default class RestaurantForm {
 
     $form.addEventListener(EVENT_TYPES.submit, this.#handleSubmit.bind(this));
     $form.addEventListener(
-      EVENT_TYPES.change,
+      EVENT_TYPES.input,
       this.#handleFormChange.bind(this)
     );
 
