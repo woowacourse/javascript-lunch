@@ -51,7 +51,7 @@ function appendModal() {
   const main = document.querySelector('main');
   const modal = createModal();
 
-  main.insertAdjacentHTML('beforeend', modal);
+  main.appendChild(modal);
 }
 
 function appendModalContents() {
