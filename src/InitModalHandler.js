@@ -35,15 +35,15 @@ function HandleAddRestaurant(e) {
   const $description = document.getElementById("description");
 
   try {
-    const categoryValue = $category.value || "에러";
+    const categoryValue = $category.value;
+    validateSelectInput(categoryValue, "카테고리");
     const nameValue = $name.value.trim();
     validateNameInput(nameValue);
-    const distanceValue = $distance.value || "error_distance";
-    validateSelectInput(distanceValue);
+    const distanceValue = $distance.value;
+    validateSelectInput(distanceValue, "거리");
     const descriptionValue = $description.value;
     validateDescriptionInput(descriptionValue);
     const categoryCode = categoryMapping[categoryValue];
-    validateSelectInput(categoryCode);
 
     const inputValue = {
       categoryCode,
