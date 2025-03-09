@@ -1,19 +1,19 @@
-import { DOM } from "../utils/dom.js";
-import Modal from "./Modal.js";
-import InputForm from "./InputForm.js";
-import SelectForm from "./SelectForm.js";
-import TextareaForm from "./TextareaForm.js";
-import TextButton from "./TextButton.js";
-import ButtonContainer from "./AddLunchButtonContainer.js";
-import render from "../utils/render.js";
+import { DOM } from "../../utils/dom.js";
+import Modal from "../Modal.js";
+import InputForm from "../InputForm.js";
+import SelectForm from "../SelectForm.js";
+import TextareaForm from "../TextareaForm.js";
+import TextButton from "../TextButton.js";
+import AddLunchButtonContainer from "./AddLunchButtonContainer.js";
+import render from "../../utils/render.js";
 import {
   CATEGORY_DROPDOWN_LIST,
   CATEGORY_ICON,
   DISTANCE_DROPDOWN_LIST,
-} from "../constants/constants.js";
-import { renderRestaurantList } from "../main.js";
-import state from "../state.js";
-import { Validator } from "../utils/Validator.js";
+} from "../../constants/constants.js";
+import { renderRestaurantList } from "../../main.js";
+import state from "../../state.js";
+import { Validator } from "../../utils/Validator.js";
 
 const AddLunchModalForm = {
   create() {
@@ -71,7 +71,7 @@ const AddLunchModalForm = {
       })
     );
 
-    ModalFormElement.appendChild(ButtonContainer.create());
+    ModalFormElement.appendChild(AddLunchButtonContainer.create());
 
     return ModalFormElement;
   },

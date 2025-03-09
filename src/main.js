@@ -9,7 +9,7 @@ import InputForm from "./component/InputForm.js";
 import Header from "./component/Header.js";
 import render from "./utils/render.js";
 import state from "./state.js";
-import AddLunchModalForm from "./component/AddLunchModalForm.js";
+import AddLunchModalForm from "./component/AddLunchModal/AddLunchModalForm.js";
 
 DOM.$body.prepend(Header.create());
 

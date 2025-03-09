@@ -1,7 +1,7 @@
-import TextButton from "./TextButton.js";
-import Modal from "./Modal.js";
+import TextButton from "../TextButton.js";
+import Modal from "../Modal.js";
 
-const ButtonContainer = {
+const AddLunchButtonContainer = {
   create() {
     const buttonContainerElement = document.createElement("div");
     buttonContainerElement.classList.add("button-container");
@@ -23,4 +23,4 @@ const ButtonContainer = {
   },
 };
 
-export default ButtonContainer;
+export default AddLunchButtonContainer;
