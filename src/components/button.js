@@ -1,9 +1,8 @@
 const $button = (buttonInfo) => {
   const button = document.createElement("button");
-  button.textContent = buttonInfo.text;
-  button.type = buttonInfo.type;
-  button.classList.add(...(buttonInfo?.className || []));
 
+  Object.assign(button, buttonInfo.attribute);
+  button.textContent = buttonInfo.text;
   if (buttonInfo.event && buttonInfo.eventType) {
     button.addEventListener(buttonInfo.eventType, buttonInfo.event);
   }

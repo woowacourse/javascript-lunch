@@ -10,21 +10,20 @@ export const UI_CONFIG = Object.freeze({
   BUTTONS: Object.freeze({
     CANCEL: {
       text: "취소하기",
-      type: "button",
       eventType: "click",
       event: handleModalClose,
-      className: [
-        "button",
-        "button--secondary",
-        "text-caption",
-        "cancel-button",
-      ],
+      attribute: {
+        type: "button",
+        className: "button button--secondary text-caption cancel-button",
+      },
     },
     ADD: {
       text: "추가하기",
-      type: "submit",
       event: handleAddRestaurant,
-      className: ["button", "button--primary", "text-caption", "add-button"],
+      attribute: {
+        type: "submit",
+        className: "button button--primary text-caption add-button",
+      },
     },
   }),
 });
