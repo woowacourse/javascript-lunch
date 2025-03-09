@@ -19,7 +19,8 @@ class RestaurantIcon {
 
   #getImageSrc = (category) => {
     const url = `https://h0ngju.github.io/javascript-lunch/public/assets/category-`;
-    return `${url}${CATEGORY[category]}.png` || `${url}${CATEGORY['기타']}.png`;
+    const key = CATEGORY[category] ? category : 'etc';
+    return `${url}${key}.png`;
   };
 
   getElement() {

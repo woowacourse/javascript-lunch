@@ -3,6 +3,8 @@ import InputDropDown from '../components/InputDropDown.js';
 import InputText from '../components/InputText.js';
 import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/RestaurantItem.js';
+import CATEGORY from '../constant/category.js';
+import DISTANCE from '../constant/distance.js';
 import { DOM } from '../dom.js';
 import Restaurant from '../Restaurant.js';
 import { validateDescription } from '../validation/validateDescription.js';
@@ -47,9 +49,9 @@ class AddRestaurantModal extends Modal {
   #init = () => {
     this.#cancelButton = new Button('button--secondary', '취소하기');
     this.#addButton = new Button('button--primary', '추가하기');
-    this.#divCategory = new InputDropDown('카테고리', CATEGORY_LIST);
+    this.#divCategory = new InputDropDown('카테고리', CATEGORY);
     this.#divName = new InputText('이름');
-    this.#divDistance = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
+    this.#divDistance = new InputDropDown('거리(도보 이동 시간)', DISTANCE);
     this.#divDescription = new InputText('설명');
     this.#divLink = new InputText('참조 링크');
     this.#modalForm = document.createElement('form');

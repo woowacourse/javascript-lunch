@@ -1,10 +1,10 @@
 const CATEGORY = Object.freeze({
-  한식: 'korean',
-  중식: 'chinese',
-  일식: 'japanese',
-  양식: 'western',
-  아시안: 'asian',
-  기타: 'etc',
+  korean: '한식',
+  chinese: '중식',
+  japanese: '일식',
+  western: '양식',
+  asian: '아시안',
+  etc: '기타',
 });
 
 export default CATEGORY;

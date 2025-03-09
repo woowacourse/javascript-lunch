@@ -1,5 +1,6 @@
 import CATEGORY from '../constant/category.js';
 import { convertStringToElement } from '../utils/convertStringToElement.js';
+
 const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
   return `
     <label for=${tag} class="text-caption">${title}</label>
@@ -14,11 +15,11 @@ const OPTION_TEMPLATE = (value, innerValue) => {
 };
 
 class InputDropDown {
-  constructor(title, List) {
-    return this.#createInputDropDown(title, List);
+  constructor(title, option) {
+    return this.#createInputDropDown(title, option);
   }
 
-  #createInputDropDown = (title, optionList) => {
+  #createInputDropDown = (title, option) => {
     const inputDropDown = document.createElement('div');
     inputDropDown.classList.add('form-item');
     inputDropDown.classList.add('form-item--required');
@@ -27,8 +28,8 @@ class InputDropDown {
 
     const select = inputDropDown.querySelector('select');
 
-    optionList.forEach(([value, innerValue]) => {
-      const optionHTML = this.#addTemplate(value, innerValue);
+    Object.entries(option).forEach(([key, value]) => {
+      const optionHTML = this.#addTemplate(value, key);
       select.insertAdjacentHTML('beforeend', optionHTML);
     });
 
