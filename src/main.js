@@ -12,10 +12,8 @@ import state from "./state.js";
 import AddLunchModalForm from "./component/AddLunchModal/AddLunchModalForm.js";
 
 DOM.$body.prepend(Header.create());
-
 renderRestaurantList();
-
-DOM.$main.append(Modal.create("addLunch", AddLunchModalForm.create()));
+initAddLunchModal();
 
 export function renderRestaurantList() {
   const restaurantElementList = state.restaurantList.map(
@@ -26,4 +24,10 @@ export function renderRestaurantList() {
   restaurantElementList.forEach((restaurantElement) =>
     render(restaurantElement, DOM.$restaurantList)
   );
+}
+
+function initAddLunchModal() {
+  const addLunchModalContent = AddLunchModalForm.create();
+  const addLunchModalElement = Modal.create("addLunch", addLunchModalContent);
+  DOM.$main.append(addLunchModalElement);
 }
