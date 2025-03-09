@@ -7,7 +7,6 @@ export class RestaurantDataList {
   constructor(dataList) {
     this.#dataList = dataList.map((data) => {
       return this.createData(data);
-      a;
     });
   }
 
