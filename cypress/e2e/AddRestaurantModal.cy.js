@@ -31,7 +31,7 @@ describe("음식점 정보 입력하는 모달에 대한 E2E 테스트", () => {
     cy.get('[data-testid="add-restaurant-form"]').submit();
 
     cy.get('[data-testid="modal"]').should("not.exist");
-    // 리스트 첫 번째 아이템이 추가한 음식점 정보인지 확인
+
     cy.get('[data-testid="restaurant-list"')
       .children()
       .first()
