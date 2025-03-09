@@ -22,9 +22,9 @@ export default function Modal(component) {
 
   document.body.appendChild($modal);
 
+  $modalContainer.appendChild(component());
   $modal.appendChild($modalBackdrop);
   $modal.appendChild($modalContainer);
-  $modalContainer.appendChild(component());
 }
 
 function handleEscKeyDown(event) {

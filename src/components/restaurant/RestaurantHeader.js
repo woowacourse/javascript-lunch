@@ -25,9 +25,9 @@ export default function RestaurantHeader({ title }) {
     Modal(RestaurantAddModal);
   });
 
+  $addButton.appendChild($addButtonImg);
   $header.appendChild($title);
   $header.appendChild($addButton);
-  $addButton.appendChild($addButtonImg);
 
   return $header;
 }

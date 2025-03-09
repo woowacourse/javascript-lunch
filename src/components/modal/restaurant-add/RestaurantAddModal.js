@@ -20,14 +20,14 @@ export default function RestaurantAddModal() {
     classNames: ["restaurant-add-form"],
   });
 
+  const formItems = createFormItems();
+
   $form.addEventListener("submit", createRestaurantItem);
 
-  $fragment.appendChild($h2);
-  $fragment.appendChild($form);
-
-  const formItems = createFormItems();
   $form.append(...formItems);
   $form.appendChild(RestaurantAddModalButtonContainer());
+  $fragment.appendChild($h2);
+  $fragment.appendChild($form);
 
   return $fragment;
 }
