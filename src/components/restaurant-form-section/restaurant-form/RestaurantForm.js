@@ -64,17 +64,18 @@ export default class RestaurantForm {
   #handleSubmit(e) {
     e.preventDefault();
 
-    const newRestaurantInfo = Object.entries(this.formElements).reduce(
-      (acc, [key, el]) => {
-        acc[key] = el.querySelector("input, select, textarea").value;
-        return acc;
-      },
-      {}
-    );
+    const newRestaurantInfo = this.#getFormData();
 
     this.addList(newRestaurantInfo);
     this.#resetFormData();
     this.#closeModal();
+  }
+
+  #getFormData() {
+    return Object.entries(this.formElements).reduce((acc, [key, el]) => {
+      acc[key] = el.querySelector("input, select, textarea").value;
+      return acc;
+    }, {});
   }
 
   #resetFormData() {
