@@ -1,4 +1,4 @@
-describe('기능 테스트', () => {
+describe('기능 테스트: 음식을 추가하는 시나리오 테스트', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5173');
   });
@@ -27,6 +27,12 @@ describe('기능 테스트', () => {
 
     cy.get('.button--primary').click();
     cy.get('.restaurant-list').should('contain', '꺼벙이');
+  });
+});
+
+describe('기능 테스트: 음식 추가를 취소하는 시나리오 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
   });
 
   it('사용자가 음식점 추가 모달을 연 후, 음식점 추가 중 취소하기 버튼을 클릭하여 음식점 추가를 취소하는 시나리오 테스트', () => {
@@ -58,6 +64,12 @@ describe('기능 테스트', () => {
 
     cy.get('.modal-backdrop').invoke('css', 'z-index', '9999').click();
     cy.get('.modal--open').should('not.exist');
+  });
+});
+
+describe('기능 테스트: 모달 기능 동작 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
   });
 
   it('사용자가 음식점 추가 모달을 연 후, 모달을 닫았다가 다시 열었을 때 필드가 초기화 되는 시나리오 테스트', () => {
