@@ -4,14 +4,16 @@ describe("e2e 테스트", () => {
   });
 
   describe("헤더 컴포넌트 테스트", () => {
-    it("헤더 정상 생성", () => {
+    it("헤더의 텍스트가 정상정으로 생성됐는지 검사", () => {
       cy.get(".gnb")
         .children()
         .get("h1")
         .should("exist")
         .and("have.class", "gnb__title", "text-title")
         .and("have.text", "점심 뭐 먹지");
+    });
 
+    it("헤더의 모달 버튼 이미지가 정상정으로 생성됐는지 검사", () => {
       cy.get(".gnb")
         .get(".gnb__button")
         .should("exist")
@@ -22,20 +24,22 @@ describe("e2e 테스트", () => {
 
   describe("모달 기능 테스트", () => {
     it("음식점 추가 버튼 클릭 시 모달 뜨는지 검사", () => {
-      // 음식점 추가 버튼 클릭 시 모달 활성화 여부
       cy.get(".modal").should("not.have.class", "modal--open");
       cy.get(".gnb__button").click();
       cy.get(".modal").should("have.class", "modal--open");
+    });
 
-      // 배경 클릭시 모달 닫히는지 여부
+    it("배경 클릭시 모달 닫히는지 검사", () => {
       cy.get(".modal-backdrop").click({ force: true });
       cy.get(".modal").should("not.have.class", "modal--open");
+    });
 
-      // esc 눌렀을 시 모달 닫히는지 여부
+    it("esc 눌렀을 시 모달 닫히는지 검사", () => {
       cy.get("body").type("{esc}");
       cy.get(".modal").should("not.have.class", "modal--open");
+    });
 
-      // 취소 버튼을 눌렀을 시 모달 닫히는지 여부
+    it("취소 버튼을 눌렀을 시 모달 닫히는지 검사", () => {
       cy.get(".cancel-button").click({ force: true });
       cy.get(".modal").should("not.have.class", "modal--open");
     });
