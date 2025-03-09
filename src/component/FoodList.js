@@ -22,5 +22,6 @@ export function FoodList({ foodItems }) {
   });
 
   foodList.appendChild(foodFragment);
+
   return foodList;
 }
