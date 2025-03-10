@@ -60,7 +60,7 @@ interface data: Restaurant[]
     - [x] 설명
 
 - [x] 새로운 음식점 추가하는 모달
-  - [ ] 카테고리 (required)
+  - [x] 카테고리 (required)
     - [x] Container (label, required), option
     - [x] 유효성 검사
       - [x] 선택 무조건 하나 하기
