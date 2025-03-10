@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from "../constants/errorMessage.js";
-import { removeError, setError } from "../util/errorHandler.js";
+import { removeError, setError } from "../component/input/errorHandler.js";
 import { getInput } from "../util/getInput.js";
 
 export function validateRequiredInput(name) {

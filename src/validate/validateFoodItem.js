@@ -4,7 +4,7 @@ import {
 } from "../constants/constants.js";
 import { alertError } from "../component/layout/alert/alertError.js";
 import { getInput } from "../util/getInput.js";
-import { resetError } from "../util/errorHandler.js";
+import { resetError } from "../component/input/errorHandler.js";
 import {
   validateLength,
   validateRequiredInput,

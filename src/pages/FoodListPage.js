@@ -1,6 +1,6 @@
 import { FoodForm } from "../component/FoodForm.js";
 import { Header } from "../component/layout/Header.js";
-import { Modal } from "../component/layout/Modal.js";
+import { Modal } from "../component/layout/modal/Modal.js";
 
 export function FoodListPage(foodList) {
   const body = document.querySelector("body");

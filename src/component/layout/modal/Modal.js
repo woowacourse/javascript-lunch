@@ -1,6 +1,6 @@
-import { SELECT_OPTIONS } from "../../constants/constants.js";
-import { modalClose } from "../../util/modalHandler.js";
-import { Button } from "../button/Button.js";
+import { SELECT_OPTIONS } from "../../../constants/constants.js";
+import { modalClose } from "./modalHandler.js";
+import { Button } from "../../button/Button.js";
 
 export function Modal({ modalContent }) {
   const container = document.createElement("div");
