@@ -41,6 +41,8 @@ export default class Application extends Component {
   #attachClickEventListener() {
     window.addEventListener('click', (event) => {
       const $modal = this.element.querySelector('.modal');
+      if (!$modal) return;
+
       if (event.target.closest('.gnb__button')) $modal.classList.add('modal--open');
       if (event.target.closest('#modal-cancel') || event.target.closest('.modal-backdrop'))
         $modal.classList.remove('modal--open');
