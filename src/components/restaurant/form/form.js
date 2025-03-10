@@ -5,9 +5,9 @@ import createTextAreaBox from "../../textarea/textarea.js";
 import {
   FOOD_CATEGORY,
   RESTAURANT_DISTANCE,
-} from "../../../settings/settings.js";
-import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.js";
-import { extractFormData } from "../../../utils/extract.js";
+} from "../../../settings/settings.ts";
+import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.ts";
+import { extractFormData } from "../../../utils/extract.ts";
 import createRestaurantItem from "../item/item.js";
 import Toast from "../../Toast/Toast.js";
 
