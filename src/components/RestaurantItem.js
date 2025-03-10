@@ -1,6 +1,6 @@
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants";
 
-const createRestaurantItem = ({ category, name, distance, description }) => {
+const renderRestaurantElement = ({ category, name, distance, description }) => {
   const li = document.createElement("li");
   li.classList.add("restaurant");
 
@@ -27,4 +27,4 @@ const createRestaurantItem = ({ category, name, distance, description }) => {
   return li;
 };
 
-export default createRestaurantItem;
+export default renderRestaurantElement;

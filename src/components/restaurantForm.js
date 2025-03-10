@@ -1,5 +1,5 @@
 import validateRestaurant from "../validateRestaurant.js";
-import createRestaurantItem from "./RestaurantItem.js";
+import renderRestaurantElement from "./RestaurantItem.js";
 import { restaurantsData } from "../restaurantsMockData.js";
 
 export default class RestaurantForm {
@@ -43,7 +43,7 @@ export default class RestaurantForm {
     }
     restaurantsData.push(newRestaurant);
 
-    const restaurantItem = createRestaurantItem(newRestaurant);
+    const restaurantItem = renderRestaurantElement(newRestaurant);
     this.restaurantList.appendChild(restaurantItem);
     this.formElement.reset();
     this.modal.close();

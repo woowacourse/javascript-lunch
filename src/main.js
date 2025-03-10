@@ -1,7 +1,7 @@
 import Modal from "./components/Modal.js";
-import RestaurantForm from "./components/restaurantForm.js";
+import RestaurantForm from "./components/RestaurantForm.js";
 import createHeader from "./components/Header.js";
-import createRestaurantItem from "./components/RestaurantItem.js";
+import renderRestaurantElement from "./components/RestaurantItem.js";
 import { restaurantsData } from "./restaurantsMockData.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   new RestaurantForm(formElement, restaurantList, modal);
 
   restaurantsData.forEach((restaurantData) => {
-    const restaurantItem = createRestaurantItem(restaurantData);
+    const restaurantItem = renderRestaurantElement(restaurantData);
     restaurantList.appendChild(restaurantItem);
   });
 
