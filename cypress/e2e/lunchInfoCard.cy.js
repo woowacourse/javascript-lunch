@@ -1,7 +1,6 @@
 describe("LunchInfoCard 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
-
     cy.get(".restaurant-list").invoke(
       "html",
       `

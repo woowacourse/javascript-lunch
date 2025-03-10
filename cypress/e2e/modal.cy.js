@@ -95,6 +95,7 @@ describe("Modal 테스트", () => {
     cy.get(".modal-container").should("be.visible");
   });
 
+
   it("모든 필수 요소를 입력하면 정상적으로 제출 후 폼은 초기화 된다.", () => {
     cy.get(".modal select[id='distance']").select("5분 내");
     cy.get(".modal select[id='category']").select("한식");
