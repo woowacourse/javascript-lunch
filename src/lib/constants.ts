@@ -59,3 +59,7 @@ export const RESTAURANT_LIST_DEFAULT = [
     url: 'https://naver.me/G6DyD9tg',
   },
 ] as const;
+
+export const LOCAL_STORAGE_KEY_MAP = {
+  restaurants: 'restaurants',
+} as const;

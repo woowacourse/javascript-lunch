@@ -1,4 +1,5 @@
 import Component from '../core/Component.ts';
+import { LOCAL_STORAGE_KEY_MAP } from '../lib/constants.ts';
 import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { RestaurantAddModal, RestaurantDetail, RestaurantDetailModal, RestaurantTab, Restaurant } from './index.ts';
 
@@ -13,7 +14,7 @@ export default class Application extends Component<{
     super({});
 
     this.setState({
-      restaurants: JSON.parse(localStorage.getItem('restaurants') ?? '') ?? [],
+      restaurants: JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants) ?? '') ?? [],
       tab: 'all',
       filter: '전체',
       sort: '이름순',
@@ -76,7 +77,7 @@ export default class Application extends Component<{
             (restaurant) => restaurant.name !== this.state.currentRestaurant?.name,
           ),
         });
-        localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
+        localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
         this.#removeModals();
         return;
       }
@@ -101,7 +102,7 @@ export default class Application extends Component<{
       restaurants: copiedRestaurants,
     });
 
-    localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
+    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
   }
 
   /**
@@ -174,7 +175,7 @@ export default class Application extends Component<{
       restaurants: [...this.state.restaurants, restaurant],
     });
 
-    localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
+    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
   }
 
   #removeModals() {
