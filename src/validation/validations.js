@@ -13,7 +13,7 @@ const isNotSelected = (input) => {
 };
 
 const isBlank = (name) => {
-  if (name.trim() === '') return true;
+  if (!name || name.trim() === '') return true;
 };
 
 export const validateDropDown = (title, input) => {

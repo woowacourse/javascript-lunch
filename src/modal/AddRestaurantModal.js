@@ -93,7 +93,7 @@ class AddRestaurantModal extends Modal {
       event.preventDefault();
       if (this.#validateInputs()) {
         this.#addHandler();
-        this.closeModal();
+        this.#closeAndResetForm();
       }
     });
 

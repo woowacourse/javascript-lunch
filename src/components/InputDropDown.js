@@ -2,7 +2,7 @@ import CATEGORY from '../constant/category.js';
 
 const TAG_MAP = {
   '카테고리': 'category',
-  '거리': 'distance'
+  '거리(도보 이동 시간)': 'distance'
 };
 
 class InputDropDown {
