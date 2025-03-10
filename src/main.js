@@ -3,13 +3,13 @@ import header from "./components/header";
 import Modal from "./components/common/modal";
 import Title from "./components/common/title";
 import RegisterForm from "./components/registerForm";
-import renderRestaurants from "./domain/renderRestaurant";
 import { registerModalClose } from "./components/common/modal/handleCloseModal";
 import { restaurantList } from "./restaurantList";
+import Restaurants from "./components/restaurants";
 
 addEventListener("load", () => {
   $("#app").prepend(header());
-  renderRestaurants(...restaurantList);
+  Restaurants(...restaurantList);
 
   $("main").appendChild(
     Modal({

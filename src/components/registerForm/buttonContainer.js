@@ -1,5 +1,4 @@
 import { BUTTON_TEXT } from "../../constants/buttonText";
-import renderRestaurants from "../../domain/renderRestaurant";
 import { restaurantList } from "../../restaurantList";
 import Restaurant from "../../model/Restaurant";
 import { clearError } from "../../utils/clearError";
@@ -7,6 +6,7 @@ import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
+import Restaurants from "../restaurants";
 
 const ButtonContainer = (onSubmitFailed) => {
   const buttonContainer = document.createElement("div");
@@ -56,7 +56,7 @@ const registerRestaurant = (e) => {
   restaurantList.push(restaurant);
 
   $(".modal-backdrop").classList.remove("open");
-  renderRestaurants(restaurant);
+  Restaurants(restaurant);
 
   clearInput("#register-form");
 };
