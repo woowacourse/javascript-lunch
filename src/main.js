@@ -9,6 +9,7 @@ import {
   validateNameInput,
   validateSelectInput,
 } from "./validation/validator.js";
+import removeModal from "./utils/removeModal.js";
 
 addEventListener("load", () => {
   const $restaurantListContainer = document.querySelector(
@@ -90,13 +91,7 @@ addEventListener("load", () => {
           } catch (error) {
             alert(error.message);
           }
-
-          const $modal = document.querySelector(".modal");
-          if ($modal) {
-            $modal.remove();
-          } else {
-            console.warn("제거할 모달을 찾을 수 없습니다.");
-          }
+          removeModal();
         });
       } else {
         console.warn("레스토랑 추가 버튼을 DOM에서 찾을 수 없습니다.");
@@ -104,12 +99,7 @@ addEventListener("load", () => {
 
       if ($closeModalButton) {
         $closeModalButton.addEventListener("click", () => {
-          const $modal = document.querySelector(".modal");
-          if ($modal) {
-            $modal.remove();
-          } else {
-            console.warn("Modal not found for removal");
-          }
+          removeModal();
         });
       } else {
         console.warn("모달 닫기 버튼을 DOM에서 찾을 수 없습니다.");
