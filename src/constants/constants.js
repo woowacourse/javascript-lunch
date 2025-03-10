@@ -1,0 +1,38 @@
+export const LABEL_NAMES = Object.freeze({
+  category: "카테고리",
+  name: "이름",
+  distance: "거리(도보 이동 시간)",
+  description: "설명",
+  link: "참고 링크",
+});
+
+export const DISTANCE = ["5", "10", "15", "20", "30"];
+export const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+
+export const CATEGORY_ASSETS = Object.freeze({
+  한식: "./assets/category-korean.png",
+  중식: "./assets/category-chinese.png",
+  일식: "./assets/category-japanese.png",
+  양식: "./assets/category-western.png",
+  아시안: "./assets/category-asian.png",
+  기타: "./assets/category-etc.png",
+});
+
+export const EVENT_TYPES = Object.freeze({
+  click: "click",
+  submit: "submit",
+});
+
+export const BUTTON_TYPES = Object.freeze({
+  add: "add",
+  cancel: "cancel",
+  delete: "delete",
+  close: "close",
+});
+
+export const BUTTON_TEXTS = Object.freeze({
+  [BUTTON_TYPES.add]: "추가하기",
+  [BUTTON_TYPES.cancel]: "취소하기",
+  [BUTTON_TYPES.delete]: "삭제하기",
+  [BUTTON_TYPES.close]: "닫기",
+});
