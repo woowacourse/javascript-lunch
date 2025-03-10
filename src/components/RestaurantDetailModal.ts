@@ -12,7 +12,7 @@ export default class RestaurantDetailModal extends Component<
   }
 > {
   template() {
-    const currentRestaurant = this.props?.currentRestaurant;
+    const currentRestaurant = this.props?.currentRestaurant ?? null;
 
     const deleteButton = new Button({
       type: 'button',
@@ -39,7 +39,7 @@ export default class RestaurantDetailModal extends Component<
                   src="./public/images/category-${CATEGORY_MAP[
                     currentRestaurant?.category as keyof typeof CATEGORY_MAP
                   ]}.png"
-                  alt="${currentRestaurant?.category}"
+                  alt="${currentRestaurant?.category ?? ''}"
                   class="category-icon"
                 />
               </div>
@@ -50,15 +50,15 @@ export default class RestaurantDetailModal extends Component<
             <div class="restaurant__info">
               <div class="restaurant__info--inner">
                 <div>
-                  <h3 class="restaurant__name text-subtitle">${currentRestaurant?.name}</h3>
+                  <h3 class="restaurant__name text-subtitle">${currentRestaurant?.name ?? ''}</h3>
                   <span class="restaurant-detail-modal__distance text-body"
-                    >캠퍼스부터 ${currentRestaurant?.distance}분 내</span
+                    >캠퍼스부터 ${currentRestaurant?.distance ?? 5}분 내</span
                   >
                 </div>
               </div>
-              <p class="text-body">${currentRestaurant?.description}</p>
-              <a class="text-body restaurant-detail-modal__url" href="${currentRestaurant?.url}" target="_blank">
-                ${currentRestaurant?.url}
+              <p class="text-body">${currentRestaurant?.description ?? ''}</p>
+              <a class="text-body restaurant-detail-modal__url" href="${currentRestaurant?.url ?? ''}" target="_blank">
+                ${currentRestaurant?.url ?? ''}
               </a>
               <div class="button-container">${deleteButton} ${cancelButton}</div>
             </div>

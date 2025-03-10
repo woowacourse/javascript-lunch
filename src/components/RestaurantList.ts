@@ -169,7 +169,8 @@ export default class Application extends Component<{
   }
 
   #appendRestaurantDetailModal() {
-    this.element.appendChild(new RestaurantDetailModal({ currentRestaurant: this.state.currentRestaurant }).render());
+    const restaurantDetailModal = new RestaurantDetailModal({ currentRestaurant: this.state.currentRestaurant });
+    this.element.appendChild(restaurantDetailModal.render());
   }
 
   #addRestaurant(restaurant: RestaurantType) {
