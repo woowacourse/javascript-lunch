@@ -1,36 +1,46 @@
 import { DOM } from '../dom.js';
 
-const MODAL_TEMPLATE = `<div class="modal-backdrop"></div>
-          <div class="modal-container"></div>`;
-
 class Modal {
   #modal;
+  #modalContainer;
+  
   constructor() {
-    this.#modal = this.createModal();
+    this.#modal = this.#createModal();
   }
 
-  createModal = () => {
-    const divModal = document.createElement('div');
-    divModal.classList.add('modal');
-    divModal.innerHTML = MODAL_TEMPLATE;
-    DOM.APP.appendChild(divModal);
-    return divModal;
+  #createModal = () => {
+    const modal = document.createElement('div');
+    modal.classList.add('modal', 'modal--open');
+    modal.classList.toggle('modal--open');
+
+    const modalBackdrop = document.createElement('div');
+    modalBackdrop.classList.add('modal-backdrop');
+
+    this.#modalContainer = document.createElement('div');
+    this.#modalContainer.classList.add('modal-container');
+
+    modal.appendChild(modalBackdrop);
+    modal.appendChild(this.#modalContainer);
+    DOM.APP.appendChild(modal);
+    return modal;
   };
 
-  addElement = (element) => {
-    const divElement = this.#modal.querySelector('.modal-container');
-    divElement.appendChild(element);
+  addElementToModalContainer = (element) => {
+    this.#modalContainer.appendChild(element);
   };
 
-  openModal = () => {
-    this.#modal.classList.add('modal--open');
-    document.body.style.overflow = 'hidden';
+  toggleModal = () => {
+    this.#modal.classList.toggle('modal--open');
+    document.body.style.overflow = this.#modal.classList.contains('modal--open') ? 'hidden' : '';
   };
 
-  closeModal = () => {
-    this.#modal.classList.remove('modal--open');
-    document.body.style.overflow = '';
-  };
+  getModalContainerForm = () => {
+    return this.#modal.querySelector('.modal-container form');
+  }
+
+  checkModalOpen = () => {
+    return this.#modal.classList.contains('modal--open');
+  }
 }
 
 export default Modal;

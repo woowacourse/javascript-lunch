@@ -2,8 +2,10 @@ import { DOM } from '../dom.js';
 import { BUTTON_IMAGE_SRC } from '../../public/assets/imgaePaths.js';
 
 class Header {
+  #addRestaurantModal;
+
   constructor(addRestaurantModal) {
-    this.addRestaurantModal = addRestaurantModal;
+    this.#addRestaurantModal = addRestaurantModal;
     this.#createHeader();
     this.#bindEvent();
   }
@@ -35,7 +37,7 @@ class Header {
   #bindEvent = () => {
     const addButton = document.querySelector('.gnb__button');
     addButton.addEventListener('click', () => {
-      this.addRestaurantModal.openModal();
+      this.#addRestaurantModal.toggleModal();
     });
   };
 }

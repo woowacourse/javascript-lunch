@@ -1,6 +1,9 @@
 class Button {
+  #button;
+
   constructor(className, buttonText) {
-    return this.#createButton(className, buttonText);
+    this.#button = this.#createButton(className, buttonText);
+    return this.#button;
   }
 
   #createButton = (className, buttonText) => {
@@ -9,6 +12,10 @@ class Button {
     button.classList.add('button', className);
     button.textContent = buttonText;
     return button;
+  };
+
+  addEventListener = (type, listener) => {
+    this.#button.addEventListener(type, listener);
   };
 }
 

@@ -1,16 +1,8 @@
 import CATEGORY from '../constant/category.js';
-import { convertStringToElement } from '../utils/convertStringToElement.js';
-const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
-  return `
-    <label for=${tag} class="text-caption">${title}</label>
-    <select name=${tag} id="${tag}" class="select-input" required>
-      <option value="">선택해주세요</option>
-    </select>
-  `;
-};
 
-const OPTION_TEMPLATE = (value, innerValue) => {
-  return `<option value="${innerValue}">${value}</option>`;
+const TAG_MAP = {
+  '카테고리': 'category',
+  '거리': 'distance'
 };
 
 class InputDropDown {
@@ -18,25 +10,42 @@ class InputDropDown {
     return this.#createInputDropDown(title, List);
   }
 
+  #createOption = (value, textContent) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = textContent;
+    return option;
+  };
+
   #createInputDropDown = (title, optionList) => {
     const inputDropDown = document.createElement('div');
     inputDropDown.classList.add('form-item');
     inputDropDown.classList.add('form-item--required');
-    const tag = title === '카테고리' ? 'category' : 'distance';
-    inputDropDown.innerHTML = INPUT_DROPDOWN_TEMPLATE(tag, title);
 
-    const select = inputDropDown.querySelector('select');
+    const tag = TAG_MAP[title];
+    const label = document.createElement('label');
+    label.setAttribute('for', tag);
+    label.classList.add('text-caption');
+    label.textContent = title;
 
-    optionList.forEach(([value, innerValue]) => {
-      const optionHTML = this.#addTemplate(value, innerValue);
-      select.insertAdjacentHTML('beforeend', optionHTML);
+    const select = document.createElement('select');
+    select.name = tag;
+    select.id = tag;
+    select.classList.add('select-input');
+    select.required = true;
+
+    const defaultOption = this.#createOption('', '선택해주세요');
+    select.appendChild(defaultOption);
+    
+    optionList.forEach(([value, textContent]) => {
+      const option = this.#createOption(value, textContent);
+      select.appendChild(option);
     });
 
-    return inputDropDown;
-  };
+    inputDropDown.appendChild(label);
+    inputDropDown.appendChild(select);
 
-  #addTemplate = (value, innerValue) => {
-    return OPTION_TEMPLATE(value, innerValue);
+    return inputDropDown;
   };
 }
 

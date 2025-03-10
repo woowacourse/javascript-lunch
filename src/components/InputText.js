@@ -1,53 +1,73 @@
-import { convertStringToElement } from '../utils/convertStringToElement.js';
-
-const LABEL_TEMPLATE = (type, title) => {
-  return `<label for="${type} text-caption">${title}</label>`;
-};
-const INPUT_TEMPLATE = (tag) => {
-  return `<input type="text" name="${tag}" id="${tag}" required />`;
-};
-const TEXTAREA_TEMPLATE = () => {
-  return `<textarea name="description" id="description" cols="30" rows="5"></textarea>
-    `;
-};
-const SPAN_TEMPLATE = (text) => {
-  return `<span class="help-text text-caption">${text}</span>`;
-};
-
 class InputText {
   constructor(title) {
-    return this.#createInputText(title);
+    return this.#createInputFormItem(title);
   }
-  #createInputText = (title) => {
-    if (title === '이름') return this.#handleName(title);
-    if (title === '설명') return this.#handleDescription(title);
-    if (title === '참조 링크') return this.#handleLink(title);
-  };
 
-  #handleName = () => {
+  #createInputFormItem = (title) => {
+    if (title === '이름') return this.#createNameFormItem(title);
+    if (title === '설명') return this.#createDescriptionFormItem(title);
+    if (title === '참조 링크') return this.#createLinkFormItem(title);
+  };
+  
+  #createNameFormItem = () => {
     const formItem = document.createElement('div');
     formItem.classList.add('form-item');
     formItem.classList.add('form-item--required');
-    formItem.innerHTML = `${LABEL_TEMPLATE('name', '이름')}${INPUT_TEMPLATE('name')}`;
+    formItem.appendChild(this.#createLabel('name', '이름'));
+    formItem.appendChild(this.#createInput('name'));
+    return formItem;
+  };
+  
+  #createDescriptionFormItem = () => {
+    const formItem = document.createElement('div');
+    formItem.classList.add('form-item');
+    formItem.appendChild(this.#createLabel('description', '설명'));
+    formItem.appendChild(this.#createTextarea());
+    formItem.appendChild(this.#createSpan('메뉴 등 추가 정보를 입력해 주세요.'));
+    return formItem;
+  };
+  
+  #createLinkFormItem = () => {
+    const formItem = document.createElement('div');
+    formItem.classList.add('form-item');
+    formItem.appendChild(this.#createLabel('link', '참고 링크'));
+    formItem.appendChild(this.#createInput('link'));
+    formItem.appendChild(this.#createSpan('매장 정보를 확인할 수 있는 링크를 입력해 주세요.'));
     return formItem;
   };
 
-  #handleDescription = () => {
-    const formItem = document.createElement('div');
-    formItem.classList.add('form-item');
-    formItem.innerHTML = `${LABEL_TEMPLATE('description', '설명')}${TEXTAREA_TEMPLATE()}${SPAN_TEMPLATE(
-      '메뉴 등 추가 정보를 입력해 주세요.',
-    )}`;
-    return formItem;
+  #createLabel = (type, title) => {
+    const label = document.createElement('label');
+    label.setAttribute('for', type);
+    label.classList.add('text-caption');
+    label.textContent = title;
+    return label;
   };
 
-  #handleLink = () => {
-    const formItem = document.createElement('div');
-    formItem.classList.add('form-item');
-    formItem.innerHTML = `${LABEL_TEMPLATE('link', '참고 링크')}${INPUT_TEMPLATE('link')}${SPAN_TEMPLATE(
-      '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
-    )}`;
-    return formItem;
+  #createInput = (tag) => {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.name = tag;
+    input.id = tag;
+    input.required = true;
+    return input;
+  };
+
+  #createTextarea = () => {
+    const textarea = document.createElement('textarea');
+    textarea.name = 'description';
+    textarea.id = 'description';
+    textarea.cols = 30;
+    textarea.rows = 5;
+    return textarea;
+  };
+
+  #createSpan = (text) => {
+    const span = document.createElement('span');
+    span.classList.add('help-text');
+    span.classList.add('text-caption');
+    span.textContent = text;
+    return span;
   };
 }
 
