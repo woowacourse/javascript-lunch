@@ -10,6 +10,10 @@ import { restaurantFormValidation } from "../../../validation/restaurantFormVali
 import { extractFormData } from "../../../utils/extract.ts";
 import createRestaurantItem from "../item/item.js";
 import Toast from "../../Toast/Toast.js";
+import {
+  addRestaurant,
+  restaurantList,
+} from "../../../model/RestaurantList.ts";
 
 export default function createRestaurantForm() {
   const restaurantAddForm = createElement("form", {
@@ -80,13 +84,15 @@ export default function createRestaurantForm() {
     event.preventDefault();
 
     try {
-      const formData = extractFormData(restaurantAddForm);
-      restaurantFormValidation(formData);
-      const restaurantList = document.querySelector(".restaurant-list");
-      restaurantList.appendChild(createRestaurantItem(formData));
-      restaurantAddForm.reset();
-      Toast.showToast(`${formData.name} 음식점을 추가했습니다.`, "success");
+      const restaurantForm = extractFormData(restaurantAddForm);
+      const restaurant = restaurantFormValidation(restaurantForm);
+      const restaurantListElement = document.querySelector(".restaurant-list");
+      addRestaurant(restaurantForm, restaurantList);
+      restaurantListElement.appendChild(createRestaurantItem(restaurantForm));
+
+      Toast.showToast(`${restaurant.name} 음식점을 추가했습니다.`, "success");
       const modal = document.querySelector(".modal");
+      restaurantAddForm.reset();
       modal.close();
     } catch (error) {
       Toast.showToast(`${error.message}`, "error");
