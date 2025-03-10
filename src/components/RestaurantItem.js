@@ -1,25 +1,23 @@
-const RestaurantItem = ({ category, name, distance, description }) => {
-  const imageSource = () => {
-    switch (category) {
-      case "한식":
-        return "category-korean.png";
-      case "중식":
-        return "category-chinese.png";
-      case "일식":
-        return "category-japanese.png";
-      case "양식":
-        return "category-western.png";
-      case "아시안":
-        return "category-asian.png";
-      default:
-        return "category-etc.png";
-    }
-  };
+const CATEGORY_IMAGES = Object.freeze({
+  한식: "category-korean.png",
+  중식: "category-chinese.png",
+  일식: "category-japanese.png",
+  양식: "category-western.png",
+  아시안: "category-asian.png",
+  기타: "category-etc.png",
+});
 
+const imageSource = (category) => {
+  return CATEGORY_IMAGES[category];
+};
+
+const RestaurantItem = ({ category, name, distance, description }) => {
   return /* html */ `
     <li class="restaurant">
       <div class="restaurant__category">
-        <img src="./icons/${imageSource()}" alt="${category}" class="category-icon">
+        <img src="./icons/${imageSource(
+          category
+        )}" alt="${category}" class="category-icon">
       </div>
       <div class="restaurant__info">
         <h3 class="restaurant__name text-subtitle">${name}</h3>
