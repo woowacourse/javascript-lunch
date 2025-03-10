@@ -22,11 +22,13 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
         </select>`,
         label: '카테고리',
         isRequired: true,
+        labelId: 'category',
       }),
       new InputBox({
         input: html`<input type="text" name="name" id="name" maxlength="20" required />`,
         label: '이름',
         isRequired: true,
+        labelId: 'name',
       }),
       new InputBox({
         input: html` <select name="distance" id="distance" required>
@@ -39,18 +41,21 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
         </select>`,
         label: '거리(도보 이동 시간)',
         isRequired: true,
+        labelId: 'distance',
       }),
       new InputBox({
         input: html`<textarea maxlength="1000" name="description" id="description" cols="30" rows="5"></textarea>`,
         label: '설명',
         caption: '메뉴 등 추가 정보를 입력해 주세요.',
         isRequired: false,
+        labelId: 'description',
       }),
       new InputBox({
         input: html`<input type="url" name="url" id="url" />`,
         label: '참고 링크',
         caption: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
         isRequired: false,
+        labelId: 'url',
       }),
     ];
 
