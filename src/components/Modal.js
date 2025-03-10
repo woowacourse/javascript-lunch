@@ -6,7 +6,7 @@ class Modal {
   #modalBackdrop;
   constructor() {
     this.#modal = this.#createModal();
-    this.#bindEvent();
+    this.#bindEvents();
   }
 
   #createModal = () => {
@@ -26,9 +26,15 @@ class Modal {
     return modal;
   };
 
-  #bindEvent = () => {
+  #bindEvents = () => {
     this.#modalBackdrop.addEventListener('click', () => {
-      this.handleBackdropClick();
+      this.handleToggleModal();
+    });
+
+    document.addEventListener('keyup', (event) => {
+      if (event.key === 'Escape' && this.checkModalOpen()) {
+        this.handleToggleModal();
+      }
     });
   }
 
@@ -45,7 +51,7 @@ class Modal {
     return this.#modal.classList.contains('modal--open');
   }
 
-  handleBackdropClick = () => {
+  handleToggleModal = () => {
     this.toggleModal();
   }
 }

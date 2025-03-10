@@ -93,18 +93,12 @@ class AddRestaurantModal extends Modal {
       event.preventDefault();
       if (this.#validateInputs()) {
         this.#addHandler();
-        this.#closeAndResetForm();
+        this.handleToggleModal();
       }
     });
 
     this.#cancelButton.addEventListener('click', () => {
-      this.#closeAndResetForm();
-    });
-
-    document.addEventListener('keyup', (event) => {
-      if (event.key === 'Escape' && this.checkModalOpen()) {
-        this.#closeAndResetForm();
-      }
+      this.handleToggleModal();
     });
   };
 
@@ -129,17 +123,9 @@ class AddRestaurantModal extends Modal {
     }
   };
 
-  #closeAndResetForm = () => {
+  handleToggleModal = () => {
     this.toggleModal();
-    this.#resetForm();
-  };
-
-  #resetForm = () => {
     this.#modalForm.reset();
-  };
-
-  handleBackdropClick = () => {
-    this.#closeAndResetForm();
   }
 }
 
