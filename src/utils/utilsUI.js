@@ -4,7 +4,7 @@ import querySelector from "./querySelector.js";
 import validate from "./validate.js";
 import createFormContent from "../components/formContent.js";
 import optionInput from "../components/optionInput.js";
-import options from "../constants/options.js";
+import selectOptions from "../constants/selectOptions.js";
 import textInput from "../components/textInput.js";
 import textArea from "../components/textArea.js";
 import helpText from "../constants/helpText.js";
@@ -20,11 +20,11 @@ export const modalUtils = {
     modalContainer.innerHTML = createFormContent({ title: "새로운 음식점" });
 
     const modalForm = querySelector(".modal-form");
-    modalForm.appendChild(optionInput("category", options.category));
+    modalForm.appendChild(optionInput("category", selectOptions.CATEGORY));
     modalForm.appendChild(textInput("name", true));
-    modalForm.appendChild(optionInput("distance", options.distance));
-    modalForm.appendChild(textArea("description", helpText.description));
-    modalForm.appendChild(textInput("link", false, helpText.link));
+    modalForm.appendChild(optionInput("distance", selectOptions.DISTANCE));
+    modalForm.appendChild(textArea("description", helpText.DESCRIPTION));
+    modalForm.appendChild(textInput("link", false, helpText.LINK));
 
     modalForm.appendChild(modalUtils.addButtons());
     modalUtils.addFormCheck();
