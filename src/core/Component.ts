@@ -14,7 +14,7 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
     this.onRender();
 
     if (!this.#isRendered) {
-      this.componentDidMount();
+      this.attachEventListener();
       this.#isRendered = true;
     }
 
@@ -33,7 +33,7 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
 
   abstract template(): string;
 
-  componentDidMount() {}
+  attachEventListener() {}
 
   onRender() {}
 

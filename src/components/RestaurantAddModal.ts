@@ -87,7 +87,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
     return html`${modal}`;
   }
 
-  onRender() {
+  attachEventListener() {
     const form = this.element.querySelector('form');
     if (!form) return;
 

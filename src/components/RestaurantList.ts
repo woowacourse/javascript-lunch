@@ -45,7 +45,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
    * 이벤트 리스너
    */
 
-  componentDidMount() {
+  attachEventListener() {
     this.#attachClickEventListener();
     this.#attachKeyDownEventListener();
   }
