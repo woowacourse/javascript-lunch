@@ -10,14 +10,14 @@ export const Validator = {
   },
 
   description(description) {
-    if (description.length > DESCRIPTION_LENGTH_MAX) {
+    if (description.length > DESCRIPTION_LENGTH_MAX && description !== "") {
       throw new Error(ERROR_MESSAGE.DESCRIPTION_MAX);
     }
   },
 
   link(link) {
     const urlRegex = /^(https?|ftp):\/\/(-\.)?([^\s\/?\.#-]+\.?)+(\/[^\s]*)?$/i;
-    if (!urlRegex.test(link)) {
+    if (!urlRegex.test(link) && link !== "") {
       throw new Error(ERROR_MESSAGE.LINK);
     }
   },

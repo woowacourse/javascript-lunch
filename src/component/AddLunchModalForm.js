@@ -3,7 +3,7 @@ import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
 import ButtonContainer from "./ButtonContainer.js";
 import TextareaForm from "./TextareaForm.js";
-import { Validator } from "../utils/Validator.js";
+import { Validator } from "../validator/Validator.js";
 import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
@@ -33,8 +33,8 @@ function AddLunchModalForm(restaurantList, modalId) {
 
     try {
       Validator.name(name);
-      if (link !== "") Validator.link(link);
-      if (description !== "") Validator.description(description);
+      Validator.link(link);
+      Validator.description(description);
 
       restaurantList.add({
         src: CATEGORY_ICON[category],
