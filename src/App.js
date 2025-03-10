@@ -21,7 +21,13 @@ class App extends Component {
 
   template() {
     return /*html*/ `
-        ${Header()}
+        ${Header({
+          title: "점심 뭐 먹지",
+          ariaLabel: "음식점 추가",
+          dataTestId: "open-add-restaurant-modal-button",
+          iconImageSource: "./icons/add-button.png",
+          alt: "음식점 추가",
+        })}
         <main></main>
         <div id="modal"></div>
     `;
