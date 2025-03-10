@@ -1,21 +1,31 @@
+const $inputItemLabel = ({ attribute, label }) => {
+  const itemLabel = document.createElement("label");
+  itemLabel.classList.add("text-caption");
+  itemLabel.htmlFor = attribute.id;
+  itemLabel.textContent = label;
+
+  return itemLabel;
+};
+
+const $inputItemHelperText = ({ helperText }) => {
+  const itemHelperText = document.createElement("span");
+  itemHelperText.classList.add("help-text", "text-caption");
+  itemHelperText.textContent = helperText;
+
+  return itemHelperText;
+};
+
 const $inputItem = (fieldType, fieldName) => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("form-item");
-  if (fieldType[fieldName].attribute.required)
+  if (fieldType[fieldName].attribute.required) {
     wrapper.classList.add("form-item--required");
+  }
 
-  const label = document.createElement("label");
-  label.htmlFor = `${fieldType[fieldName].attribute.id}`;
-  label.classList.add("text-caption");
-  label.textContent = fieldType[fieldName].label;
-  wrapper.appendChild(label);
+  wrapper.appendChild($inputItemLabel(fieldType[fieldName]));
   wrapper.appendChild(fieldType.create(fieldType[fieldName]));
-
   if (fieldType[fieldName].helperText) {
-    const helperText = document.createElement("span");
-    helperText.classList.add("help-text", "text-caption");
-    helperText.textContent = fieldType[fieldName].helperText;
-    wrapper.appendChild(helperText);
+    wrapper.appendChild($inputItemHelperText(fieldType[fieldName]));
   }
 
   return wrapper;

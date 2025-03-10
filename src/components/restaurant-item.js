@@ -1,36 +1,45 @@
+const $restaurantCategory = ({ categoryIcon, categoryTitle }) => {
+  const category = document.createElement("div");
+  category.classList.add("restaurant__category");
+
+  const categoryImage = document.createElement("img");
+  categoryImage.src = categoryIcon;
+  categoryImage.alt = categoryTitle;
+  categoryImage.classList.add("category-icon");
+  category.appendChild(categoryImage);
+
+  return category;
+};
+
+const $restaurantInfo = ({ name, distance, description }) => {
+  const info = document.createElement("div");
+  info.classList.add("restaurant__info");
+
+  const InfoName = document.createElement("h3");
+  InfoName.classList.add("restaurant__name", "text-subtitle");
+  InfoName.textContent = name;
+  info.appendChild(InfoName);
+
+  const InfoDistance = document.createElement("span");
+  InfoDistance.classList.add("restaurant__distance", "text-body");
+  InfoDistance.textContent = distance;
+  info.appendChild(InfoDistance);
+
+  const InfoDescription = document.createElement("p");
+  InfoDescription.classList.add("restaurant__description", "text-body");
+  InfoDescription.textContent = description;
+  info.appendChild(InfoDescription);
+
+  return info;
+};
+
 const $restaurantItem = (restaurantInfo) => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
 
-  const category = document.createElement("div");
-  category.classList.add("restaurant__category");
+  restaurantItem.appendChild($restaurantCategory(restaurantInfo));
+  restaurantItem.appendChild($restaurantInfo(restaurantInfo));
 
-  const categoryIcon = document.createElement("img");
-  categoryIcon.src = restaurantInfo.categoryIcon;
-  categoryIcon.alt = restaurantInfo.categoryTitle;
-  categoryIcon.classList.add("category-icon");
-  category.appendChild(categoryIcon);
-
-  const info = document.createElement("div");
-  info.classList.add("restaurant__info");
-
-  const name = document.createElement("h3");
-  name.classList.add("restaurant__name", "text-subtitle");
-  name.textContent = restaurantInfo.name;
-  info.appendChild(name);
-
-  const distance = document.createElement("span");
-  distance.classList.add("restaurant__distance", "text-body");
-  distance.textContent = restaurantInfo.distance;
-  info.appendChild(distance);
-
-  const description = document.createElement("p");
-  description.classList.add("restaurant__description", "text-body");
-  description.textContent = restaurantInfo.description;
-  info.appendChild(description);
-
-  restaurantItem.appendChild(category);
-  restaurantItem.appendChild(info);
   return restaurantItem;
 };
 
