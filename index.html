@@ -3,11 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="./src/styles/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>점심 뭐 먹지</title>
   </head>
+
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="app">
+      <main>
+        <!-- 음식점 목록 -->
+        <section class="restaurant-list-container">
+          <ul class="restaurant-list"></ul>
+        </section>
+        <template id="modal-template">
+          <div class="modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-container">
+              <h2 class="modal-title text-title">새로운 음식점</h2>
+              <form id="new-restaurant-form"></form>
+            </div>
+          </div>
+        </template>
+      </main>
+    </div>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>
