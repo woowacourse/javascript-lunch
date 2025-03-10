@@ -1,14 +1,12 @@
 import addRequired from "../utils/required.js";
 import toElement from "../utils/toElement.js";
 
-function InputForm({ id, label, isRequired, bottomDescription }) {
+function InputForm({ id, label, required, bottomDescription }) {
   const $inputForm = toElement(
     `
         <div class="form-item">
       <label for="${id} text-caption">${label}</label>
-      <input type="text" name=${id} id=${id}  ${
-      isRequired ? "required" : ""
-    }  />
+      <input type="text" name=${id} id=${id}  ${required ? "required" : ""}  />
         ${
           bottomDescription === ""
             ? ""
@@ -17,7 +15,7 @@ function InputForm({ id, label, isRequired, bottomDescription }) {
         </div>
       `
   );
-  addRequired($inputForm, isRequired);
+  addRequired($inputForm, required);
 
   return $inputForm;
 }

@@ -1,7 +1,7 @@
 import addRequired from "../utils/required.js";
 import toElement from "../utils/toElement.js";
 
-function TextareaForm({ id, bottomDescription, rows, label, isRequired }) {
+function TextareaForm({ id, bottomDescription, rows, label, required }) {
   const $textareaForm = toElement(
     `
       <div class="form-item">
@@ -11,7 +11,7 @@ function TextareaForm({ id, bottomDescription, rows, label, isRequired }) {
           id=${id}
           cols="30"
           rows=${rows}
-          ${isRequired ? "required" : ""}
+          ${required ? "required" : ""}
         ></Textarea>
         <span class="help-text text-caption"
           >${bottomDescription}</span
@@ -19,7 +19,7 @@ function TextareaForm({ id, bottomDescription, rows, label, isRequired }) {
       </div>
     `
   );
-  addRequired($textareaForm, isRequired);
+  addRequired($textareaForm, required);
 
   return $textareaForm;
 }

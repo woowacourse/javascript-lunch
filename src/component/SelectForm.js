@@ -1,11 +1,11 @@
 import addRequired from "../utils/required.js";
 import toElement from "../utils/toElement.js";
 
-function SelectForm({ id, label, dropdownList, isRequired }) {
+function SelectForm({ id, label, dropdownList, required }) {
   const $selectForm = toElement(
     ` <div class="form-item">
             <label for="${id} text-caption">${label}</label>
-              <select name=${id} id=${id} ${isRequired ? "required" : ""} >
+              <select name=${id} id=${id} ${required ? "required" : ""} >
               ${dropdownList
                 .map(
                   ({ label, value }) =>
@@ -16,7 +16,7 @@ function SelectForm({ id, label, dropdownList, isRequired }) {
         </div>
   `
   );
-  addRequired($selectForm, isRequired);
+  addRequired($selectForm, required);
 
   return $selectForm;
 }
