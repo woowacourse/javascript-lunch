@@ -1,55 +1,43 @@
+import { categoryValue, distanceValue } from "../../constants/optionValue.js";
 import Component from "../Component.js";
+import Dropdown from "../Dropdown/Dropdown.js";
+import Input from "../Input/Input.js";
 import addData from "./addData.js";
-import createModalInputs from "./createModalInputs.js";
+import "./modal.css";
 class Modal extends Component {
-  constructor($target) {
-    super($target);
+  constructor($target, props) {
+    super($target, props);
   }
 
   template() {
+    const { isModalOpen, content } = this.props;
     return `<div class="modal-backdrop"></div>
     <div class="modal-container">
-      <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form id='input-form'>
-
-      <div id="category" class="form-item form-item--required"></div>
-
-        <div id="name" class="form-item form-item--required">
-        </div>
-
-        <div id="distance" class="form-item form-item--required"></div>
-
-        <div id="description" class="form-item"></div>
-
-        <div id="link" class="form-item"></div>
-
-        <div class="button-container">
-          <button type="button" class="button button--secondary text-caption">취소하기</button>
-          <button class="button button--primary text-caption">추가하기</button>
-        </div>
-      </form>
-    </div>
-    `;
+      ${content}
+    </div>`;
   }
 
   render() {
-    this.$target.innerHTML = this.template();
-    this.setEvent();
-    createModalInputs();
+    super.render();
+    if (this.props.isModalOpen) {
+      this.$target.classList.add("modal--open");
+    } else {
+      this.$target.classList.remove("modal--open");
+    }
   }
 
   setEvent() {
-    const modalContainer = document.querySelector(".modal");
-
+    const { toggleModal } = this.props;
     this.$target
       .querySelector(".modal-backdrop")
       .addEventListener("click", () => {
-        modalContainer.classList.toggle("modal--open");
+        this.props.toggleModal();
+
       });
     this.$target
       .querySelector(".button.button--secondary.text-caption")
       .addEventListener("click", () => {
-        modalContainer.classList.toggle("modal--open");
+        this.props.toggleModal();
       });
     this.submitForm();
   }
@@ -59,10 +47,9 @@ class Modal extends Component {
       .getElementById("input-form")
       .addEventListener("submit", (event) => {
         event.preventDefault();
-        const modalContainer = document.querySelector(".modal");
-        modalContainer.classList.toggle("modal--open");
         addData();
-        document.dispatchEvent(new CustomEvent("restaurantUpdated"));
+        this.props.toggleModal();
+
       });
   }
 }

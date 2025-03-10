@@ -1,32 +1,17 @@
 import { label } from "../../constants/optionValue.js";
-import Component from "../Component.js";
-class Dropdown extends Component {
-  constructor($target, props) {
-    super($target, props);
-  }
-  template() {
-    return `
-          <label for="${this.$target.getAttribute("id")} text-caption">${label[this.$target.getAttribute("id")]}</label>
-    <select name="${this.$target.getAttribute("id")}" class="option" required>
-                  <option value="">선택해 주세요</option>
-            </select>
-            `;
-  }
 
-  render() {
-    this.$target.innerHTML = this.template();
-    this.setEvent();
-    this.updateOptions();
-  }
-
-  updateOptions() {
-    const optionValue = this.props;
-    for (const [key, value] of Object.entries(optionValue)) {
-      this.$target.querySelector(".option").innerHTML +=
-        `<option value="${key}">${value}</option>
-`;
-    }
-  }
-}
+const Dropdown = ({ id, required, optionValue }) => {
+  return `
+  <div id="${id}" class="form-item ${required ? "form-item--required" : ""}">
+    <label for="${id} text-caption">${label[id]}</label>
+    <select name="${id}" class="option" ${required}}>
+      <option value="">선택해 주세요</option>
+      ${Object.entries(optionValue)
+        .map(([key, value]) => `<option value="${key}">${value}</option>`)
+        .join("")}    
+    </select>
+  </div>
+  `;
+};
 
 export default Dropdown;

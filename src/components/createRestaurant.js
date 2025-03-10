@@ -1,11 +1,15 @@
 import { RestaurantData } from "../constants/RestaurantData.js";
 import Restaurant from "./Restaurant/Restaurant.js";
+import "./restaurantList.css";
 const createRestaurant = () => {
-  RestaurantData.forEach((data) => {
-    const restaurantItem = document.createElement("li");
-    restaurantItem.classList.add("restaurant");
-    document.querySelector(".restaurant-list").appendChild(restaurantItem);
-    new Restaurant(restaurantItem, data);
-  });
+  const restaurantList = document.querySelector(".restaurant-list");
+  if (restaurantList.childElementCount === 0) {
+    RestaurantData.forEach((data) => {
+      const restaurantItem = document.createElement("li");
+      restaurantItem.classList.add("restaurant");
+      new Restaurant(restaurantItem, data);
+      restaurantList.appendChild(restaurantItem);
+    });
+  }
 };
 export default createRestaurant;
