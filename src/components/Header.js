@@ -1,11 +1,5 @@
 import { DOM } from '../dom.js';
-
-const HEADER_TEMPLATE = `
-  <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-  <button type="button" class="gnb__button" aria-label="음식점 추가">
-    <img src="./public/assets/add-button.png" alt="음식점 추가">
-  </button>
-`;
+import { BUTTON_IMAGE_SRC } from '../../public/assets/imgaePaths.js';
 
 class Header {
   constructor(addRestaurantModal) {
@@ -16,8 +10,25 @@ class Header {
 
   #createHeader = () => {
     const header = document.createElement('header');
-    header.classList = 'gnb';
-    header.innerHTML = HEADER_TEMPLATE;
+    header.classList.add('gnb');
+
+    const title = document.createElement('h1');
+    title.classList.add('gnb__title', 'text-title');
+    title.textContent = '점심 뭐 먹지';
+
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.classList.add('gnb__button');
+    addButton.setAttribute('aria-label', '음식점 추가');
+
+    const buttonImage = document.createElement('img');
+    buttonImage.src = BUTTON_IMAGE_SRC.ADD_BUTTON;
+    buttonImage.alt = '음식점 추가';
+
+    addButton.appendChild(buttonImage);
+    header.appendChild(title);
+    header.appendChild(addButton);
+    
     DOM.APP.prepend(header);
   };
 
@@ -28,4 +39,5 @@ class Header {
     });
   };
 }
+
 export default Header;
