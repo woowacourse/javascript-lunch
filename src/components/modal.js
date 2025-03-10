@@ -1,4 +1,4 @@
-const createModal = () => {
+const Modal = () => {
   const modal = document.createElement("div");
   const modalBackdrop = document.createElement("div");
   const modalContainer = document.createElement("div");
@@ -13,4 +13,4 @@ const createModal = () => {
   return modal;
 };
 
-export default createModal;
+export default Modal;

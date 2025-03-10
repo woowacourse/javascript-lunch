@@ -1,13 +1,14 @@
-import Button from "../components/button.js";
-import Store from "../components/store.js";
+import Button from "../components/Button.js";
+import FormContent from "../components/FormContent.js";
+import OptionInput from "../components/OptionInput.js";
+import Restaurant from "../components/Restaurant.js";
+import TextInput from "../components/TextInput.js";
+import TextArea from "../components/TextArea.js";
+
+import helpText from "../constants/helpText.js";
+import selectOptions from "../constants/selectOptions.js";
 import querySelector from "./querySelector.js";
 import validate from "./validate.js";
-import createFormContent from "../components/formContent.js";
-import optionInput from "../components/optionInput.js";
-import selectOptions from "../constants/selectOptions.js";
-import textInput from "../components/textInput.js";
-import textArea from "../components/textArea.js";
-import helpText from "../constants/helpText.js";
 
 export const modalUtils = {
   closeModal: () => {
@@ -17,14 +18,14 @@ export const modalUtils = {
 
   addForm: () => {
     const modalContainer = querySelector(".modal-container");
-    modalContainer.innerHTML = createFormContent({ title: "새로운 음식점" });
+    modalContainer.innerHTML = FormContent({ title: "새로운 음식점" });
 
     const modalForm = querySelector(".modal-form");
-    modalForm.appendChild(optionInput("category", selectOptions.CATEGORY));
-    modalForm.appendChild(textInput("name", true));
-    modalForm.appendChild(optionInput("distance", selectOptions.DISTANCE));
-    modalForm.appendChild(textArea("description", helpText.DESCRIPTION));
-    modalForm.appendChild(textInput("link", false, helpText.LINK));
+    modalForm.appendChild(OptionInput("category", selectOptions.CATEGORY));
+    modalForm.appendChild(TextInput("name", true));
+    modalForm.appendChild(OptionInput("distance", selectOptions.DISTANCE));
+    modalForm.appendChild(TextArea("description", helpText.DESCRIPTION));
+    modalForm.appendChild(TextInput("link", false, helpText.LINK));
 
     modalForm.appendChild(modalUtils.addButtons());
     modalUtils.addFormCheck();
@@ -96,35 +97,35 @@ export const modalUtils = {
   },
 };
 
-export const storeUtils = {
-  addStore: (storeProps) => {
+export const restaurantUtils = {
+  addRestaurant: (restaurantProps) => {
     const list = document.createElement("li");
     list.classList.add("restaurant");
-    const store = Store(storeProps);
-    list.innerHTML = store;
+    const restaurant = Restaurant(restaurantProps);
+    list.innerHTML = restaurant;
     querySelector(".restaurant-list").appendChild(list);
   },
 
-  updateStore: (storeList, e) => {
-    const newStore = storeUtils.createStore(e);
+  updateRestaurant: (restaurantList, e) => {
+    const newRestaurant = restaurantUtils.createRestaurant(e);
 
     try {
       e.preventDefault();
 
-      validate.emptySelector(newStore.category);
-      validate.nameLength(newStore.name);
-      validate.emptySelector(newStore.dist);
-      validate.descLength(newStore.description);
-      validate.linkForm(newStore.link);
+      validate.emptySelector(newRestaurant.category);
+      validate.nameLength(newRestaurant.name);
+      validate.emptySelector(newRestaurant.dist);
+      validate.descLength(newRestaurant.description);
+      validate.linkForm(newRestaurant.link);
 
-      storeList.updateList(newStore);
-      storeUtils.addStore(newStore);
+      restaurantList.updateList(newRestaurant);
+      restaurantUtils.addRestaurant(newRestaurant);
 
       modalUtils.closeModal();
     } catch (error) {
-      storeUtils.checkRequired("category", newStore.category, error);
-      storeUtils.checkRequired("name", newStore.name, error);
-      storeUtils.checkRequired("distance", newStore.dist, error);
+      restaurantUtils.checkRequired("category", newRestaurant.category, error);
+      restaurantUtils.checkRequired("name", newRestaurant.name, error);
+      restaurantUtils.checkRequired("distance", newRestaurant.dist, error);
     }
   },
 
@@ -135,7 +136,7 @@ export const storeUtils = {
     }
   },
 
-  createStore: (e) => {
+  createRestaurant: (e) => {
     return {
       category: e.target[0].value,
       name: e.target[1].value,

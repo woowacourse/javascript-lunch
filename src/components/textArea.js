@@ -1,6 +1,6 @@
 import inputTitle from "../constants/inputTitle.js";
 
-const textArea = (name, helpText, colRow = { col: 30, row: 5 }) => {
+const TextArea = (name, helpText, colRow = { col: 30, row: 5 }) => {
   const formItem = document.createElement("div");
   formItem.classList.add("form-item");
 
@@ -22,4 +22,4 @@ const textArea = (name, helpText, colRow = { col: 30, row: 5 }) => {
   return formItem;
 };
 
-export default textArea;
+export default TextArea;

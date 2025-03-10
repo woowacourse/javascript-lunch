@@ -1,4 +1,4 @@
-const storeData = [
+const restaurantData = [
   {
     category: "한식",
     name: "피양콩할마니",
@@ -38,4 +38,4 @@ const storeData = [
   },
 ];
 
-export default storeData;
+export default restaurantData;

@@ -1,15 +1,16 @@
+import Modal from "./components/Modal.js";
+import RestaurantList from "./RestaurantList.js";
+
+import restaurantData from "./restaurantData.js";
 import querySelector from "./utils/querySelector.js";
-import StoreList from "./StoreList.js";
-import storeData from "./storeData.js";
-import createModal from "./components/modal.js";
-import { modalUtils, storeUtils } from "./utils/utilsUI.js";
+import { modalUtils, restaurantUtils } from "./utils/utilsUI.js";
 
 addEventListener("load", () => {
-  const storeList = new StoreList(storeData);
-  storeList.list.forEach((store) => {
-    storeUtils.addStore(store);
+  const restaurantList = new RestaurantList(restaurantData);
+  restaurantList.list.forEach((restaurant) => {
+    restaurantUtils.addRestaurant(restaurant);
   });
-  const modal = createModal();
+  const modal = Modal();
   querySelector("main").appendChild(modal);
 
   querySelector(".gnb__button").addEventListener("click", () => {
@@ -17,7 +18,7 @@ addEventListener("load", () => {
     modalUtils.addForm();
 
     querySelector(".modal-form").addEventListener("submit", (e) =>
-      storeUtils.updateStore(storeList, e)
+      restaurantUtils.updateRestaurant(restaurantList, e)
     );
   });
 

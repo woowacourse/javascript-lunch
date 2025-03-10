@@ -1,6 +1,6 @@
 import inputTitle from "../constants/inputTitle.js";
 
-const textInput = (name, isRequired, helpText) => {
+const TextInput = (name, isRequired, helpText) => {
   const formItem = document.createElement("div");
   formItem.classList.add("form-item");
   if (isRequired) formItem.classList.add("form-item--required");
@@ -23,4 +23,4 @@ const textInput = (name, isRequired, helpText) => {
   return formItem;
 };
 
-export default textInput;
+export default TextInput;
