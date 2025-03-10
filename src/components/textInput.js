@@ -12,8 +12,7 @@ const TextInput = (name, isRequired, helpText) => {
 
   if (helpText) {
     const span = document.createElement("span");
-    span.classList.add("help-text");
-    span.classList.add("text-caption");
+    span.classList.add("help-text", "text-caption");
     span.innerText = helpText;
     formItem.appendChild(span);
   }

@@ -10,8 +10,7 @@ const getOptionValue = (name, option) => {
 
 const OptionInput = (name, options) => {
   const formItem = document.createElement("div");
-  formItem.classList.add("form-item");
-  formItem.classList.add("form-item--required");
+  formItem.classList.add("form-item", "form-item--required");
 
   formItem.innerHTML = `
   <label for="category text-caption">${title[name]}</label>

@@ -2,9 +2,11 @@ const Button = (category) => {
   const button = document.createElement("button");
   button.setAttribute("type", buttonCategory[category].type);
   button.setAttribute("id", buttonCategory[category].id);
-  button.classList.add(buttonCategory[category].class);
-  button.classList.add("text-caption");
-  button.classList.add("button");
+  button.classList.add(
+    buttonCategory[category].class,
+    "text-caption",
+    "button"
+  );
   button.textContent = buttonCategory[category].name;
 
   return button;
