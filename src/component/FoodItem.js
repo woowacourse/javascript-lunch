@@ -1,4 +1,8 @@
-export function FoodItem({ imgSrc, imgAlt, name, distance, description }) {
+import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
+
+export function FoodItem({ category, name, distance, description }) {
+  const { imgAlt, imgSrc } = getImgSrcAlt(category);
+
   const container = document.createElement("div");
   container.innerHTML = `
      <li class="restaurant">

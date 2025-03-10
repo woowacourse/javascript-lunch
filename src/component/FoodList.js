@@ -1,27 +1,28 @@
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 import { FoodItem } from "./FoodItem.js";
 
-export function FoodList({ foodItems }) {
-  const foodList = document.createElement("ul");
-  foodList.classList.add("restaurant-list");
-  const foodFragment = document.createDocumentFragment();
+export default class FoodList {
+  constructor({ foodItems }) {
+    this.foodItems = foodItems;
+    this.foodList = document.createElement("ul");
+    this.foodList.classList.add("restaurant-list");
 
-  foodItems.forEach((foodItem) => {
-    const { imgSrc, imgAlt } = getImgSrcAlt(foodItem.category);
+    const foodFragment = document.createDocumentFragment();
 
-    foodFragment.appendChild(
-      FoodItem({
-        imgSrc: imgSrc,
-        imgAlt: imgAlt,
-        name: foodItem.name,
-        distance: foodItem.distance,
-        description: foodItem.description,
-        link: foodItem.link,
-      })
-    );
-  });
+    foodItems.forEach((foodItem) => {
+      foodFragment.appendChild(
+        FoodItem({
+          category: foodItem.category,
+          name: foodItem.name,
+          distance: foodItem.distance,
+          description: foodItem.description,
+        })
+      );
+    });
 
-  foodList.appendChild(foodFragment);
-
-  return foodList;
+    this.foodList.appendChild(foodFragment);
+  }
+  get element() {
+    return this.foodList;
+  }
 }

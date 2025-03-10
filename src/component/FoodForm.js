@@ -6,7 +6,7 @@ import { removeError } from "./input/errorHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
-import { FoodList } from "./FoodList.js";
+import FoodList from "./FoodList.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput.js";
@@ -22,9 +22,9 @@ function addFoodItem() {
   if (!foodInfo) return;
 
   const prevFoodItems = foodItems;
-  const foodList = FoodList({ foodItems: [...prevFoodItems, foodInfo] });
+  // const foodList = new FoodList({ foodItems: [...prevFoodItems, foodInfo] });
 
-  FoodListPage(foodList);
+  // FoodListPage(foodList);
 }
 
 export function FoodForm() {

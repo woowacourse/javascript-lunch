@@ -1,4 +1,4 @@
-export class Modal {
+export default class Modal {
   #isOpen = false;
   constructor({ title, content }) {
     this.title = title;
