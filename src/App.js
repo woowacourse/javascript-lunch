@@ -9,42 +9,55 @@ export default class App {
     this.restaurantService = restaurantService;
 
     this.render();
-    this.restaurantStore.subscribe(() => this.#renderRestaurantList());
+    this.restaurantStore.subscribe(() => this.#updateRestaurantList());
   }
 
   render() {
-    const $body = document.querySelector("body");
-    $body.append(
-      new Header({ onOpen: () => this.$bottomSheet.open() }).render()
-    );
+    this.$body = document.querySelector("body");
+    this.#renderHeader();
+    this.#renderMain();
+  }
 
+  #renderHeader() {
+    const $header = new Header({ onOpen: () => this.$bottomSheet.open() });
+    this.$body.append($header.render());
+  }
+
+  #renderMain() {
     this.$main = document.createElement("main");
-    $body.append(this.$main);
+    this.$body.append(this.$main);
 
+    this.#renderRestaurantList();
+    this.#renderBottomSheet();
+  }
+
+  #renderRestaurantList() {
     this.$restaurantList = new RestaurantList(
       this.restaurantService.getRestaurants()
     );
+    this.$main.append(this.$restaurantList.render());
+  }
 
-    this.$restaurantForm = new RestaurantForm({
-      onSubmit: (newRestaurantInfo) => {
-        this.restaurantService.addRestaurant(newRestaurantInfo);
-        this.$bottomSheet.close();
-      },
+  #renderBottomSheet() {
+    const $restaurantForm = new RestaurantForm({
+      onSubmit: this.#handleFormSubmit.bind(this),
       onCancel: () => this.$bottomSheet.close(),
     });
 
     this.$bottomSheet = new BottomSheetBase({
       title: "새로운 음식점",
-      $children: this.$restaurantForm.render(),
+      $children: $restaurantForm.render(),
     });
 
-    this.$main.append(
-      this.$restaurantList.render(),
-      this.$bottomSheet.render()
-    );
+    this.$main.append(this.$bottomSheet.render());
   }
 
-  #renderRestaurantList() {
+  #handleFormSubmit(newRestaurantInfo) {
+    this.restaurantService.addRestaurant(newRestaurantInfo);
+    this.$bottomSheet.close();
+  }
+
+  #updateRestaurantList() {
     const restaurantList = this.restaurantService.getRestaurants();
     this.$restaurantList.update(restaurantList);
   }
