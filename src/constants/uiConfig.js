@@ -1,5 +1,5 @@
 import { handleModalClose } from "../components/modal.js";
-import { handleAddRestaurant } from "../components/form.js";
+import { handleAddRestaurant } from "../components/formEvent.js";
 
 export const UI_CONFIG = Object.freeze({
   HEADER: Object.freeze({

@@ -1,35 +1,4 @@
-import { ERROR } from "../constants/message.js";
-import { addRestaurant } from "./modal.js";
-
-export const handleAddRestaurant = (e) => {
-  e.preventDefault();
-
-  try {
-    const form = document.getElementById("add-restaurant-form");
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    validateForm(form);
-    addRestaurant(data);
-  } catch (error) {
-    alert(error.message);
-  }
-};
-
-const validateForm = (form) => {
-  const requiredFields = form.querySelectorAll(
-    "input[required], select[required], textarea[required]"
-  );
-  requiredFields.forEach((requiredField) => {
-    if (!requiredField.value.trim()) {
-      const labelText = document.querySelector(
-        `label[for="${requiredField.id}"]`
-      ).textContent;
-      throw new Error(`${labelText}${ERROR.INVALID_REQUIRED}`);
-    }
-  });
-};
-
-const $form = (formFields) => {
+const $form = (formFields, { eventType, eventHandler }) => {
   const form = document.createElement("form");
   form.id = "add-restaurant-form";
 
@@ -37,7 +6,7 @@ const $form = (formFields) => {
     form.appendChild(field);
   });
 
-  form.addEventListener("submit", handleAddRestaurant);
+  form.addEventListener(eventType, eventHandler);
 
   return form;
 };

@@ -1,21 +1,7 @@
 import $form from "./form.js";
 import $restaurantItem from "./restaurant-item.js";
 import { CATEGORY_ICON } from "../constants/iconPath.js";
-
-export const addRestaurant = (data) => {
-  handleModalClose();
-  const categoryIcon = CATEGORY_ICON[data.category];
-  const newRestaurant = {
-    categoryIcon,
-    categoryTitle: data.category,
-    name: data.name,
-    distance: `캠퍼스부터 ${data.distance}분 내`,
-    description: data.description,
-  };
-  document
-    .querySelector(".restaurant-list")
-    .appendChild($restaurantItem(newRestaurant));
-};
+import { FORM_EVENT } from "./formEvent.js";
 
 export const handleModalClose = () => {
   document.querySelector(".modal").classList.remove("modal--open");
@@ -46,7 +32,7 @@ const $modal = (form) => {
   title.classList.add("modal-title", "text-title");
   title.textContent = "새로운 음식점";
   container.appendChild(title);
-  container.appendChild($form(form));
+  container.appendChild($form(form, FORM_EVENT.addRestaurant));
   wrapper.appendChild(container);
 
   document.addEventListener("keydown", handleModalCloseEsc);
