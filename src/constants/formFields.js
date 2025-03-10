@@ -2,11 +2,29 @@ import $select from "../components/common/select.js";
 import $input from "../components/common/input.js";
 import $textarea from "../components/common/textarea.js";
 import { categoryOptions, distanceOptions } from "../data/selectOptions.js";
+import { validateRestaurantForm } from "../validation/validationForm.js";
+
+const senseChangeRestaurantFormValue = () => {
+  try {
+    const form = document.getElementById("add-restaurant-form");
+    validateRestaurantForm(form);
+
+    const submitButton = document.getElementById("addRestaurantButton");
+    submitButton.classList.remove("button--disabled");
+    submitButton.disabled = false;
+  } catch (error) {
+    const submitButton = document.getElementById("addRestaurantButton");
+    submitButton.classList.add("button--disabled");
+    submitButton.disabled = true;
+  }
+};
 
 export const FORM_FIELDS = Object.freeze({
   INPUTS: Object.freeze({
     name: {
       label: "이름",
+      eventType: "input",
+      event: senseChangeRestaurantFormValue,
       attribute: {
         required: true,
         id: "name",
@@ -18,6 +36,8 @@ export const FORM_FIELDS = Object.freeze({
     },
     link: {
       label: "참고 링크",
+      eventType: "input",
+      event: senseChangeRestaurantFormValue,
       attribute: {
         id: "link",
         name: "link",
@@ -32,6 +52,8 @@ export const FORM_FIELDS = Object.freeze({
     category: {
       label: "카테고리",
       options: categoryOptions,
+      eventType: "change",
+      event: senseChangeRestaurantFormValue,
       attribute: {
         required: true,
         id: "category",
@@ -41,6 +63,8 @@ export const FORM_FIELDS = Object.freeze({
     distance: {
       label: "거리(도보 이동 시간)",
       options: distanceOptions,
+      eventType: "change",
+      event: senseChangeRestaurantFormValue,
       attribute: {
         required: true,
         id: "distance",

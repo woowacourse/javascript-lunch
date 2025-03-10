@@ -21,8 +21,11 @@ export const UI_CONFIG = Object.freeze({
       text: "추가하기",
       event: handleAddRestaurant,
       attribute: {
+        id: "addRestaurantButton",
         type: "submit",
-        className: "button button--primary text-caption add-button",
+        disabled: true,
+        className:
+          "button button--primary text-caption add-button button--disabled",
       },
     },
   }),

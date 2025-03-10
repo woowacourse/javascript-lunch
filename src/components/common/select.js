@@ -9,6 +9,10 @@ const $select = (selectInfo) => {
     select.appendChild(option);
   });
 
+  if (selectInfo.eventType && selectInfo.event) {
+    select.addEventListener(selectInfo.eventType, selectInfo.event);
+  }
+
   return select;
 };
 
