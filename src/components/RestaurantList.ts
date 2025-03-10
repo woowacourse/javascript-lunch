@@ -3,13 +3,15 @@ import { LOCAL_STORAGE_KEY_MAP } from '../lib/constants.ts';
 import { CategoryType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { RestaurantAddModal, RestaurantDetail, RestaurantDetailModal, RestaurantTab, Restaurant } from './index.ts';
 
-export default class RestaurantList extends Component<{
+interface RestaurantListState {
   restaurants: RestaurantType[];
   tab: TabType;
   filter: CategoryType;
   sort: SortType;
   currentRestaurant: RestaurantType | null;
-}> {
+}
+
+export default class RestaurantList extends Component<RestaurantListState> {
   constructor() {
     super();
 
