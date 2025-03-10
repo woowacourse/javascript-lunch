@@ -1,4 +1,4 @@
-function FormItem({ label, formComponent, notice = "", required = false }) {
+function FormItemField({ label, formComponent, notice = "", required = false }) {
   const formItemElement = document.createElement("div");
   formItemElement.classList.add("form-item");
 
@@ -14,4 +14,4 @@ function FormItem({ label, formComponent, notice = "", required = false }) {
   return formItemElement;
 }
 
-export default FormItem;
+export default FormItemField;

@@ -1,6 +1,6 @@
 import { TEXTAREA } from "../constants/common.js";
 
-function TextareaForm(name) {
+function TextareaField(name) {
   const textareaElement = document.createElement("textarea");
 
   textareaElement.name = name;
@@ -11,4 +11,4 @@ function TextareaForm(name) {
   return textareaElement;
 }
 
-export default TextareaForm;
+export default TextareaField;

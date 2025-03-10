@@ -1,4 +1,4 @@
-function SelectForm(name, selectItems) {
+function SelectField(name, selectItems) {
   const selectElement = document.createElement("select");
   selectElement.id = name;
   selectElement.name = name;
@@ -12,4 +12,4 @@ function SelectForm(name, selectItems) {
   return selectElement;
 }
 
-export default SelectForm;
+export default SelectField;

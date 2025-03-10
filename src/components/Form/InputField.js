@@ -1,4 +1,4 @@
-function InputForm(type, name, required = false) {
+function InputField(type, name, required = false) {
   const inputElement = document.createElement("input");
 
   inputElement.type = type;
@@ -9,4 +9,4 @@ function InputForm(type, name, required = false) {
   return inputElement;
 }
 
-export default InputForm;
+export default InputField;

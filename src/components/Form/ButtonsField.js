@@ -1,6 +1,6 @@
 import Button from "../Button.js";
 
-function ButtonsForm(buttonsProperty) {
+function ButtonsField(buttonsProperty) {
   const buttonContainerElement = document.createElement("div");
   buttonContainerElement.classList.add("button-container");
 
@@ -11,4 +11,4 @@ function ButtonsForm(buttonsProperty) {
   return buttonContainerElement;
 }
 
-export default ButtonsForm;
+export default ButtonsField;
