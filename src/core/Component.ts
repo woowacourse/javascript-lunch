@@ -10,8 +10,6 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
   }
 
   render() {
-    if (!this.#element) this.#element = document.createElement('div');
-
     this.#element.innerHTML = this.template();
     this.onRender();
 
