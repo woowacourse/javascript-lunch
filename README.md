@@ -94,3 +94,4 @@ src
 - [x] FoodList 및 FoodItem 수정 - class화로 변경
 - [x] SELECT_OPTIONS를 FoodForm.js 부분으로 옮기기
 - [x] getImgSrcAlt switch문에서 객체로 바꾸기
+- [x] e2e 테스트 추가

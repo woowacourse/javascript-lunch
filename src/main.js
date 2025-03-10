@@ -11,7 +11,7 @@ addEventListener("load", () => {
     onClick: Modal.open,
   });
 
-  const foodListPage = new FoodListPage("점심 뭐먹지", addFoodItemIcon);
+  const foodListPage = new FoodListPage("점심 뭐 먹지", addFoodItemIcon);
 
   const modal = new Modal(FoodForm());
 });
