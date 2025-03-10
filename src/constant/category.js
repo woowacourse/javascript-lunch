@@ -1,26 +1,27 @@
+import { CATEGORY_IMAGE_SRC } from '../../public/assets/imgaePaths.js';
 const CATEGORY = Object.freeze({
   KOREAN: {
-    SRC: './public/assets/category-korean.png',
+    SRC: CATEGORY_IMAGE_SRC.KOREAN,
     ALT: '한식',
   },
   CHINESE: {
-    SRC: './public/assets/category-chinese.png',
+    SRC: CATEGORY_IMAGE_SRC.CHINESE,
     ALT: '중식',
   },
   JAPANESE: {
-    SRC: './public/assets/category-japanese.png',
+    SRC: CATEGORY_IMAGE_SRC.JAPANESE,
     ALT: '일식',
   },
   WESTERN: {
-    SRC: './public/assets/category-western.png',
+    SRC: CATEGORY_IMAGE_SRC.WESTERN,
     ALT: '양식',
   },
   ASIAN: {
-    SRC: './public/assets/category-asian.png',
+    SRC: CATEGORY_IMAGE_SRC.ASIAN,
     ALT: '아시안',
   },
   ETC: {
-    SRC: './public/assets/category-etc.png',
+    SRC: CATEGORY_IMAGE_SRC.ETC,
     ALT: '기타',
   },
 });
