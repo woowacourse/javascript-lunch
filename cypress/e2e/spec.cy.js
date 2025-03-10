@@ -50,7 +50,7 @@ describe("e2e 테스트", () => {
       cy.get(".gnb__button").click(); // 음식점 추가 모달 열기
     });
 
-    it("카테고리를 선택하지 않으면 추가할 수 없다", () => {
+    it("카테고리를 선택하지 않으면 alert창이 뜨고 추가할 수 없다", () => {
       cy.get("#name").type("새로운 음식점");
       cy.get("#distance").select("10");
 
@@ -62,7 +62,7 @@ describe("e2e 테스트", () => {
       });
     });
 
-    it("이름을 입력하지 않으면 추가할 수 없다", () => {
+    it("이름을 입력하지 않으면 alert창이 뜨고 추가할 수 없다", () => {
       cy.get("#category").select("한식");
       cy.get("#distance").select("10");
 
@@ -74,7 +74,7 @@ describe("e2e 테스트", () => {
       });
     });
 
-    it("이름을 공백만 입력하면 추가할 수 없다", () => {
+    it("이름을 공백만 입력하면 alert창이 뜨고 추가할 수 없다", () => {
       cy.get("#category").select("한식");
       cy.get("#name").type("  ");
       cy.get("#distance").select("10");
@@ -87,7 +87,7 @@ describe("e2e 테스트", () => {
       });
     });
 
-    it("거리를 선택하지 않으면 추가할 수 없다", () => {
+    it("거리를 선택하지 않으면 alert창이 뜨고 추가할 수 없다", () => {
       cy.get("#category").select("한식");
       cy.get("#name").type("새로운 음식점");
 
@@ -105,7 +105,7 @@ describe("e2e 테스트", () => {
       cy.get(".gnb__button").click(); // 음식점 추가 모달 열기
     });
 
-    it("입력한 정보가 추가 버튼 클릭 후 목록에 반영되는지 확인", () => {
+    it("입력한 정보가 추가 버튼 클릭 후 음식점 목록에 반영되는지 확인", () => {
       cy.get("#category").select("한식"); // 카테고리 선택
       cy.get("#name").type("김찌"); // 이름 입력
       cy.get("#distance").select("10"); // 거리 선택
