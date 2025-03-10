@@ -14,21 +14,18 @@ const optionInput = (name, options) => {
   formItem.classList.add("form-item--required");
 
   formItem.innerHTML = `
-  <label for=${name} class="text-caption">${
+    <label for=${name} class="text-caption">${
     inputTitle[name.toUpperCase()]
   }</label>
-                <select name=${name} id=${name}>
-                  <option value="">선택해 주세요</option>
-                ${options
-                  .map(
-                    (option) =>
-                      `<option value="${option}">${getOptionValue(
-                        name,
-                        option
-                      )}</option>`
-                  )
-                  .join("")}
-                </select>
+    <select name=${name} id=${name}>
+      <option value="">선택해 주세요</option>
+    ${options
+      .map(
+        (option) =>
+          `<option value="${option}">${getOptionValue(name, option)}</option>`
+      )
+      .join("")}
+    </select>
   `;
 
   return formItem;

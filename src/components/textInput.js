@@ -6,10 +6,10 @@ const textInput = (name, isRequired, helpText) => {
   if (isRequired) formItem.classList.add("form-item--required");
 
   formItem.innerHTML = `
-                <label for=${name} class="text-caption">${
+    <label for=${name} class="text-caption">${
     inputTitle[name.toUpperCase()]
   }</label>
-                <input type="text" name=${name} id=${name} />
+    <input type="text" name=${name} id=${name} />
   `;
 
   if (helpText) {
