@@ -27,4 +27,5 @@ export const ERROR_MESSAGE = {
   INVALID_RESTAURANT_DISTANCE: "음식점 거리가 유효하지 않습니다.",
   INVALID_RESTAURANT_DESCRIPTION_LENGTH: `음식점 설명은 ${RESTAURANT_FIELD_LENGTH.description.max}이하만 가능합니다.`,
   INVALID_RESTAURANT_LINK_LENGTH: `움식점 링크는 ${RESTAURANT_FIELD_LENGTH.link.max}이하만 가능합니다.`,
+  DUPLICATE_RESTAURANT: `이미 동일한 이름의 음식점이 있습니다. 다른 음식점을 입력해주세요.`,
 } as const;
