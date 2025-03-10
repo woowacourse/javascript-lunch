@@ -1,4 +1,4 @@
-import { CATEGORY, CATEGORY_ASSETS } from "../../../constants/constants.js";
+import { CATEGORY_ASSETS } from "../../../constants/constants.js";
 import "./restaurantListItem.css";
 
 export default class RestaurantListItem {
