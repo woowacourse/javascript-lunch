@@ -21,6 +21,12 @@ export const handleModalClose = () => {
   document.querySelector(".modal").classList.remove("modal--open");
 };
 
+const handleModalCloseEsc = (e) => {
+  if (e.key === "Escape") {
+    handleModalClose();
+  }
+};
+
 const handleModalOpen = () => {
   document.querySelector(".modal").classList.add("modal--open");
 };
@@ -43,9 +49,7 @@ const $modal = (form) => {
   container.appendChild($form(form));
   wrapper.appendChild(container);
 
-  document.addEventListener("keydown", (e) => {
-    e.key === "Escape" && handleModalClose();
-  });
+  document.addEventListener("keydown", handleModalCloseEsc);
   background.addEventListener("click", handleModalClose);
 
   document
