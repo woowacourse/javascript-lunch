@@ -4,7 +4,7 @@ describe("E2E 테스트", () => {
   });
   describe("헤더 테스트", () => {
     it("헤더에 '점심 뭐 먹지' 텍스트가 표시되는지 확인한다.", () => {
-      cy.get(".text-title").should("contain", "점심 뭐 먹지");
+      cy.get(".text-title").should("have.text", "점심 뭐 먹지");
     });
     it("헤더에 모달 버튼이 표시되는지 확인한다.", () => {
       cy.get("#gnb-button").should("exist");
@@ -100,8 +100,8 @@ describe("E2E 테스트", () => {
 
     it("모달 하단에 '취소하기' 버튼 '추가하기' 버튼이 표시되는지 확인한다", () => {
       cy.get("#gnb-button").click();
-      cy.get(".button--secondary").should("contain", "취소하기");
-      cy.get(".button--primary").should("contain", "추가하기");
+      cy.get(".button--secondary").should("have.text", "취소하기");
+      cy.get(".button--primary").should("have.text", "추가하기");
     });
   });
   describe("기능 테스트", () => {
