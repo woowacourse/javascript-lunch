@@ -3,6 +3,7 @@ import $input from "../components/common/input.js";
 import $textarea from "../components/common/textarea.js";
 import { categoryOptions, distanceOptions } from "./selectOptions.js";
 import { validateRestaurantForm } from "../validation/validationForm.js";
+import { deepFreeze } from "../utils/deepFreeze.js";
 
 const senseChangeRestaurantFormValue = () => {
   try {
@@ -19,8 +20,8 @@ const senseChangeRestaurantFormValue = () => {
   }
 };
 
-export const FORM_FIELDS = Object.freeze({
-  INPUTS: Object.freeze({
+export const FORM_FIELDS = deepFreeze({
+  INPUTS: {
     name: {
       label: "이름",
       eventType: "input",
@@ -47,8 +48,8 @@ export const FORM_FIELDS = Object.freeze({
       },
     },
     create: (info) => $input(info),
-  }),
-  SELECTS: Object.freeze({
+  },
+  SELECTS: {
     category: {
       label: "카테고리",
       options: categoryOptions,
@@ -72,8 +73,8 @@ export const FORM_FIELDS = Object.freeze({
       },
     },
     create: (info) => $select(info),
-  }),
-  TEXTAREAS: Object.freeze({
+  },
+  TEXTAREAS: {
     description: {
       label: "설명",
       helperText: "메뉴 등 추가 정보를 입력해 주세요.",
@@ -87,5 +88,5 @@ export const FORM_FIELDS = Object.freeze({
       },
     },
     create: (info) => $textarea(info),
-  }),
+  },
 });

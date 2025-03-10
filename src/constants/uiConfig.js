@@ -1,13 +1,14 @@
 import { handleModalClose } from "../components/modal/modal.js";
 import { handleAddRestaurant } from "../components/form/formEvent.js";
+import { deepFreeze } from "../utils/deepFreeze.js";
 
-export const UI_CONFIG = Object.freeze({
-  HEADER: Object.freeze({
+export const UI_CONFIG = deepFreeze({
+  HEADER: {
     title: "점심 뭐 먹지",
     buttonTitle: "음식점 추가",
     buttonImage: "images/add-button.png",
-  }),
-  BUTTONS: Object.freeze({
+  },
+  BUTTONS: {
     CANCEL: {
       text: "취소하기",
       eventType: "click",
@@ -28,5 +29,5 @@ export const UI_CONFIG = Object.freeze({
           "button button--primary text-caption add-button button--disabled",
       },
     },
-  }),
+  },
 });
