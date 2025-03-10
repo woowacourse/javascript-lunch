@@ -224,7 +224,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +258,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -295,4 +295,10 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 기타 */
+
+.hidden {
+  display: none;
 }
