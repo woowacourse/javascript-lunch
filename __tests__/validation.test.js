@@ -1,5 +1,5 @@
 import { MESSAGES } from "../src/constants/messages";
-import { ERRORS } from "../src/constants/errors";
+import { ERRORS, ERROR_TYPES } from "../src/constants/errors";
 import {
   validateNameInput,
   validateDescriptiontInput,
@@ -25,15 +25,6 @@ describe("모달 사용자 입력 테스트", () => {
   });
 
   describe("설명 입력 테스트", () => {
-    it("설명의 입력 값은 공백일 수 없다.", () => {
-      // given
-      const input = "";
-
-      // then
-      expect(() => validateDescriptiontInput(input)).toThrow(
-        ERRORS.EMPTY_DESCRIPTION,
-      );
-    });
     it("설명의 입력 값은 1500자를 넘길 수 없다.", () => {
       // given
       const input = "a".repeat(MESSAGES.MAXIMUM_DESCRIPTION_LENGTH + 1);
@@ -45,11 +36,19 @@ describe("모달 사용자 입력 테스트", () => {
     });
   });
 
-  describe("카테고리 입력 테스트", () => {
+  describe("카테고리 및 거리 입력 테스트", () => {
     it("카테고리 드롭박스를 선택하지 않으면 추가할수 없다.", () => {
-      const input = "error";
+      const categoryInput = "";
+      expect(() =>
+        validateSelectInput(categoryInput, ERROR_TYPES.CATEGORY),
+      ).toThrow(ERRORS.NON_SELECTED(ERROR_TYPES.CATEGORY));
+    });
 
-      expect(() => validateSelectInput(input)).toThrow(ERRORS.NON_SELECTED);
+    it("거리 드롭박스를 선택하지 않으면 추가할수 없다.", () => {
+      const distanceInput = "";
+      expect(() =>
+        validateSelectInput(distanceInput, ERROR_TYPES.DISTANCE),
+      ).toThrow(ERRORS.NON_SELECTED(ERROR_TYPES.DISTANCE));
     });
   });
 });

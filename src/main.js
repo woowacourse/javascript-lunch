@@ -10,6 +10,7 @@ import {
   validateSelectInput,
 } from "./validation/validator.js";
 import removeModal from "./utils/removeModal.js";
+import { ERROR_TYPES } from "./constants/errors.js";
 
 addEventListener("load", () => {
   const $restaurantListContainer = document.querySelector(
@@ -60,18 +61,18 @@ addEventListener("load", () => {
           }
 
           try {
-            const categoryValue = $category.value || "에러";
+            const categoryValue = $category.value || "";
             const nameValue = $name.value.trim();
             validateNameInput(nameValue);
 
-            const distanceValue = $distance.value || "error_distance";
-            validateSelectInput(distanceValue);
+            const distanceValue = $distance.value || "";
+            validateSelectInput(distanceValue, ERROR_TYPES.DISTANCE);
 
             const descriptionValue = $description.value;
             validateDescriptiontInput(descriptionValue);
 
             const categoryCode = categoryMapping[categoryValue];
-            validateSelectInput(categoryCode);
+            validateSelectInput(categoryCode, ERROR_TYPES.CATEGORY);
 
             const inputValue = {
               categoryCode,
