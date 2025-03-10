@@ -2,11 +2,11 @@ import Button from "../../common/button/Button.js";
 import LinkInput from "../link-input/LinkInput.js";
 import NameInput from "../name-input/NameInput.js";
 import DescriptionInput from "../description-input/DescriptionInput.js";
-import RestaurantListItem from "../../restaurant-list-section/restaurant-list-item/RestaurantListItem.js";
-import CategorySelect from "../category-select/CategorySelect.js";
-import DistanceSelect from "../distance-select/DistanceSelect.js";
+import SelectBox from "../../common/select-box/SelectBox.js";
 import "./restaurantForm.css";
 import {
+  CATEGORY,
+  DISTANCE,
   EVENT_TYPES,
   BUTTON_TEXTS,
   BUTTON_TYPES,
@@ -17,9 +17,15 @@ export default class RestaurantForm {
     this.onSubmit = onSubmit;
     this.onCancel = onCancel;
     this.formElements = {
-      category: new CategorySelect().render(),
+      category: new SelectBox({
+        label: "category",
+        options: CATEGORY,
+      }).render(),
       name: new NameInput().render(),
-      distance: new DistanceSelect().render(),
+      distance: new SelectBox({
+        label: "distance",
+        options: DISTANCE,
+      }).render(),
       description: new DescriptionInput().render(),
       link: new LinkInput().render(),
     };
