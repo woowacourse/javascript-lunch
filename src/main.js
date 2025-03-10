@@ -1,5 +1,5 @@
 import AddRestaurantModal from "./components/AddRestaurantModal.js";
-import Header from "./components/Header.js";
+
 import RestaurantItem from "./components/RestaurantItem.js";
 import RestaurantList from "./components/RestaurantList.js";
 import RestaurantFilterContainer from "./components/RestaurantFilterContainer.js";
@@ -11,13 +11,6 @@ import {
 } from "./validation/validator.js";
 
 addEventListener("load", () => {
-  const $headerContainer = document.querySelector(".gnb");
-  if ($headerContainer) {
-    Header($headerContainer);
-  } else {
-    console.warn("헤더 컨테이너를 DOM에서 찾을 수 없습니다.");
-  }
-
   const $restaurantListContainer = document.querySelector(
     ".restaurant-list-container",
   );
