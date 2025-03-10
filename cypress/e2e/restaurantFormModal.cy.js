@@ -60,7 +60,7 @@ describe("유저가 음식점을 추가하고, 추가한 음식점을 목록에�
   });
 
   it("취소 버튼을 누르면 모달이 닫힌다.", () => {
-    cy.get(".button—secondary").click();
+    cy.get(".button--secondary").click();
     cy.get(".modal-container").should("not.exist");
   });  
 });
