@@ -3,7 +3,43 @@ import $input from "../components/common/input.js";
 import $textarea from "../components/common/textarea.js";
 import { categoryOptions, distanceOptions } from "../data/selectOptions.js";
 
-export const FORM_FIELDS = Object.freeze({
+type BaseField = {
+  label: string;
+  attribute: {
+    required?: boolean;
+    id: string;
+    name: string;
+    type?: string;
+    maxlength?: number;
+    placeholder?: string;
+  };
+  helperText?: string;
+};
+
+type SelectField = BaseField & {
+  options: Record<string, string | number>;
+};
+
+type TextareaField = BaseField & {
+  attribute: BaseField["attribute"] & {
+    cols?: string;
+    rows?: string;
+  };
+};
+
+type FormField = BaseField | SelectField | TextareaField;
+
+type FieldGroup = {
+  create: (info: FormField) => HTMLElement;
+};
+
+type FormFields = {
+  INPUTS: FieldGroup;
+  SELECTS: FieldGroup;
+  TEXTAREAS: FieldGroup;
+};
+
+export const FORM_FIELDS: FormFields = Object.freeze({
   INPUTS: Object.freeze({
     name: {
       label: "이름",
@@ -26,7 +62,7 @@ export const FORM_FIELDS = Object.freeze({
         placeholder: "https://www.woowacourse.io/",
       },
     },
-    create: (info) => $input(info),
+    create: (info: FormField) => $input(info),
   }),
   SELECTS: Object.freeze({
     category: {
@@ -47,7 +83,10 @@ export const FORM_FIELDS = Object.freeze({
         name: "distance",
       },
     },
-    create: (info) => $select(info),
+    create: (info: FormField) => {
+      if ("options" in info) return $select(info);
+      throw new Error("select에 옵션 값이 없습니다.");
+    },
   }),
   TEXTAREAS: Object.freeze({
     description: {
@@ -62,6 +101,6 @@ export const FORM_FIELDS = Object.freeze({
         placeholder: "너무 맛있는데 너무 매워서 배가 아파요,,,",
       },
     },
-    create: (info) => $textarea(info),
+    create: (info: FormField) => $textarea(info),
   }),
 });
