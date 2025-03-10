@@ -5,9 +5,6 @@ import CTAButton from '../button/CTAButton.js';
 import { InputBox } from '../InputBox.js';
 
 function RestaurantAddModalForm() {
-  const CancelButton = ActionButton({ text: '취소하기', type: 'button' });
-  const AddButton = CTAButton({ text: '추가하기', type: 'submit' });
-
   return createDOMElement({
     tag: 'form',
     children: [
@@ -59,7 +56,7 @@ function RestaurantAddModalForm() {
       createDOMElement({
         tag: 'div',
         class: 'button-container',
-        children: [CancelButton, AddButton],
+        children: [ActionButton({ text: '취소하기', type: 'button' }), CTAButton({ text: '추가하기', type: 'submit' })],
       }),
     ],
   });
