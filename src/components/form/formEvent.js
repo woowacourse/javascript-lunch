@@ -3,8 +3,13 @@ import { CATEGORY_ICON } from "../../constants/iconPath.js";
 import { validateRestaurantForm } from "../../validation/validationForm.js";
 import { handleModalClose } from "../modal/modal.js";
 
-const addRestaurant = (data) => {
+export const restaurantFormReset = () => {
   handleModalClose();
+  const form = document.getElementById("add-restaurant-form");
+  form.reset();
+};
+
+const addRestaurant = (data) => {
   const categoryIcon = CATEGORY_ICON[data.category];
   const newRestaurant = {
     categoryIcon,
@@ -27,7 +32,7 @@ export const handleAddRestaurant = (e) => {
     const data = Object.fromEntries(formData);
     validateRestaurantForm(form);
     addRestaurant(data);
-    form.reset();
+    restaurantFormReset(form);
   } catch (error) {
     alert(error.message);
   }

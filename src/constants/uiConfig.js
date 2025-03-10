@@ -1,5 +1,8 @@
 import { handleModalClose } from "../components/modal/modal.js";
-import { handleAddRestaurant } from "../components/form/formEvent.js";
+import {
+  restaurantFormReset,
+  handleAddRestaurant,
+} from "../components/form/formEvent.js";
 import { deepFreeze } from "../utils/deepFreeze.js";
 
 export const UI_CONFIG = deepFreeze({
@@ -12,7 +15,7 @@ export const UI_CONFIG = deepFreeze({
     CANCEL: {
       text: "취소하기",
       eventType: "click",
-      event: handleModalClose,
+      event: restaurantFormReset,
       attribute: {
         type: "button",
         className: "button button--secondary text-caption cancel-button",
