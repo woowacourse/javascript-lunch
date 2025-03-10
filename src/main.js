@@ -1,5 +1,5 @@
 import Modal from "./components/Modal.js";
-import RestaurantList from "./RestaurantList.js";
+import RestaurantList from "./stores/RestaurantList.js";
 
 import restaurantData from "./restaurantData.js";
 import querySelector from "./utils/querySelector.js";
