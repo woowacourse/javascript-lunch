@@ -15,20 +15,18 @@ export class FoodItem {
   }
 
   #getImgSrcAlt(category) {
-    switch (category) {
-      case "한식":
-        return { imgAlt: "한식", imgSrc: "./category-korean.png" };
-      case "중식":
-        return { imgAlt: "중식", imgSrc: "./category-chinese.png" };
-      case "일식":
-        return { imgAlt: "일식", imgSrc: "./category-japanese.png" };
-      case "양식":
-        return { imgAlt: "양식", imgSrc: "./category-western.png" };
-      case "아시안":
-        return { imgAlt: "아시안", imgSrc: "./category-asian.png" };
-      default:
-        return { imgAlt: "기타", imgSrc: "./category-etc.png" };
-    }
+    const categoryMap = {
+      한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },
+      중식: { imgAlt: "중식", imgSrc: "./category-chinese.png" },
+      일식: { imgAlt: "일식", imgSrc: "./category-japanese.png" },
+      양식: { imgAlt: "양식", imgSrc: "./category-western.png" },
+      아시안: { imgAlt: "아시안", imgSrc: "./category-asian.png" },
+    };
+
+    // 주어진 category가 없을 경우 기본값 반환
+    return (
+      categoryMap[category] || { imgAlt: "기타", imgSrc: "./category-etc.png" }
+    );
   }
 
   getFoodItem() {

@@ -1,5 +1,3 @@
-// import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
-
 export class FoodList {
   foodItems;
 
