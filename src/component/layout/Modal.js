@@ -11,7 +11,7 @@ export class Modal {
           <h2 class="modal-title text-title">새로운 음식점</h2>
         </div>
   `;
-    document.querySelector("body").appendChild(container);
+    document.querySelector("main").appendChild(container);
     document.querySelector(".modal-container").appendChild(modalContent);
     document.querySelector(".modal-backdrop").addEventListener("click", () => {
       Modal.close();

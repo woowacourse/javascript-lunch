@@ -3,13 +3,8 @@ import {
   NAME_MAX_LENGTH,
 } from "../constants/constants.js";
 import { alertError } from "../util/alertError.js";
-import { getInput } from "../util/getInput.js";
 import { resetError } from "../util/errorHandler.js";
-import {
-  validateLength,
-  validateRequiredInput,
-  validateURL,
-} from "../validate/validateCondition.js";
+import { InputGuide } from "./InputGuide.js";
 
 export function validateFoodItem({
   category,
@@ -20,21 +15,13 @@ export function validateFoodItem({
 }) {
   resetError();
   try {
-    validateRequiredInput(category);
-    validateRequiredInput(name);
-    validateLength(name, NAME_MAX_LENGTH);
-    validateRequiredInput(distance);
-    validateLength(description, DESCRIPTION_MAX_LENGTH);
-    validateURL(link);
+    InputGuide.category(category);
+    InputGuide.name(name, NAME_MAX_LENGTH);
+    InputGuide.distance(distance);
+    InputGuide.description(description, DESCRIPTION_MAX_LENGTH);
+    InputGuide.link(link);
   } catch (error) {
     alertError(error.message);
-    return;
+    throw error;
   }
-  return {
-    category: getInput(category),
-    name: getInput(name),
-    distance: getInput(distance),
-    description: getInput(description),
-    link: getInput(link),
-  };
 }

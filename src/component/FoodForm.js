@@ -1,11 +1,12 @@
 import { SELECT_OPTIONS } from "../constants/constants.js";
 import { CAPTION } from "../constants/systemMessage.js";
 import { foodItems } from "../mock/mockItem.js";
-import { FoodListPage } from "../pages/FoodListPage.js";
+
 import { removeError } from "../util/errorHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
+import { FoodItem } from "./FoodItem.js";
 import { FoodList } from "./FoodList.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
@@ -13,19 +14,13 @@ import { TextareaInput } from "./input/TextareaInput.js";
 import { Modal } from "./layout/Modal.js";
 
 function addFoodItem() {
-  const foodInfo = validateFoodItem({
-    category: "category",
-    name: "name",
-    distance: "distance",
-    description: "description",
-    link: "link",
-  });
+  const foodItem = new FoodItem();
+  const foodInfo = foodItem.getFoodItem();
   if (!foodInfo) return;
 
-  const prevFoodItems = foodItems;
-  const foodList = FoodList({ foodItems: [...prevFoodItems, foodInfo] });
-
-  FoodListPage(foodList);
+  const foodList = new FoodList();
+  foodList.updateFoodList(foodInfo);
+  Modal.close();
 }
 
 export function FoodForm() {
@@ -62,6 +57,7 @@ export function FoodForm() {
       isRequired: false,
       label: "설명",
       caption: CAPTION.description,
+      name: "description",
     })
   );
 

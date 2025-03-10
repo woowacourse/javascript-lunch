@@ -1,26 +1,27 @@
-import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
-import { FoodItem } from "./FoodItem.js";
+// import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 
-export function FoodList({ foodItems }) {
-  const foodList = document.createElement("ul");
-  foodList.classList.add("restaurant-list");
-  const foodFragment = document.createDocumentFragment();
+export class FoodList {
+  foodItems;
 
-  foodItems.forEach((foodItem) => {
-    const { imgSrc, imgAlt } = getImgSrcAlt(foodItem.category);
+  constructor() {
+    this.foodItems = this.getPreviousFoodList();
+  }
 
-    foodFragment.appendChild(
-      FoodItem({
-        imgSrc: imgSrc,
-        imgAlt: imgAlt,
-        name: foodItem.name,
-        distance: foodItem.distance,
-        description: foodItem.description,
-        link: foodItem.link,
-      })
-    );
-  });
+  getPreviousFoodList() {
+    const foodItems = document.querySelectorAll(".restaurant-list li");
+    return foodItems;
+  }
 
-  foodList.appendChild(foodFragment);
-  return foodList;
+  updateFoodList(foodItem) {
+    this.foodItems = [...this.foodItems, foodItem];
+    const foodListContainer = document.querySelector(".restaurant-list");
+    foodListContainer.innerHTML = "";
+    this.foodItems.forEach((item) => {
+      foodListContainer.appendChild(item);
+    });
+  }
+
+  getFoodList() {
+    return this.foodItems;
+  }
 }

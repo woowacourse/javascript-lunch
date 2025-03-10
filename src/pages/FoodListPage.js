@@ -1,20 +1,38 @@
 import { IconButton } from "../component/button/IconButton.js";
-import { FoodForm } from "../component/FoodForm.js";
+import { FoodList } from "../component/FoodList.js";
 import { Header } from "../component/layout/Header.js";
 import { Modal } from "../component/layout/Modal.js";
 
-export function FoodListPage(foodList) {
-  const body = document.querySelector("body");
-  body.innerHTML = "";
+export class FoodListPage {
+  #body;
 
-  const addFoodItemIcon = IconButton({
-    imgSrc: "./add-button.png",
-    label: "음식점 추가",
-    onClick: Modal.open,
-  });
+  constructor(title, iconButton = null) {
+    this.loadHeader(title, iconButton);
+    this.loadMain();
+    this.loadFoodList();
+  }
 
-  body.appendChild(Header({ title: "점심 뭐 먹지?", icon: addFoodItemIcon }));
+  loadHeader(title, iconButton) {
+    this.#body = document.querySelector("body");
+    if (iconButton) {
+      this.#body.appendChild(Header({ title, icon: iconButton }));
+    } else {
+      this.#body.appendChild(Header({ title }));
+    }
+  }
 
-  body.appendChild(foodList);
-  const modal = new Modal(FoodForm());
+  loadMain() {
+    const main = document.createElement("main");
+    this.#body.appendChild(main);
+  }
+
+  loadFoodList() {
+    const main = document.querySelector("main");
+    main.innerHTML = `
+    <section class="restaurant-list-container">
+      <ul class="restaurant-list">
+      </ul>
+    </section>
+    `;
+  }
 }
