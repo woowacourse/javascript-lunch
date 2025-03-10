@@ -1,7 +1,9 @@
-export const title = {
-  category: "카테고리",
-  distance: "거리 (도보 이동 시간)",
-  name: "이름",
-  description: "설명",
-  link: "참고 링크",
+const inputTitle = {
+  CATEGORY: "카테고리",
+  DISTANCE: "거리 (도보 이동 시간)",
+  NAME: "이름",
+  DESCRIPTION: "설명",
+  LINK: "참고 링크",
 };
+
+export default inputTitle;
