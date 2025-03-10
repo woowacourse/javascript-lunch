@@ -1,6 +1,6 @@
 export default class Component<State = Record<string, any>, Props = Record<string, any>> {
   #isRendered = false;
-  #state = {} as State;
+  state = {} as State;
 
   #props: Props | null;
   #element: HTMLElement = document.createElement('div');
@@ -24,7 +24,7 @@ export default class Component<State = Record<string, any>, Props = Record<strin
   }
 
   setState(nextState: Partial<State>) {
-    this.#state = { ...this.#state, ...nextState };
+    this.state = { ...this.state, ...nextState };
     this.render();
   }
 
@@ -42,9 +42,5 @@ export default class Component<State = Record<string, any>, Props = Record<strin
 
   get props() {
     return this.#props;
-  }
-
-  get state() {
-    return this.#state;
   }
 }

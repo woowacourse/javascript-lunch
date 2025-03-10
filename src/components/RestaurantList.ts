@@ -18,13 +18,13 @@ export default class RestaurantList extends Component<RestaurantListState> {
     const localStorageRestaurants = localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants);
     const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : [];
 
-    this.setState({
+    this.state = {
       restaurants: initialRestaurants,
       tab: 'all',
       filter: '전체',
       sort: '이름순',
       currentRestaurant: null,
-    });
+    };
   }
 
   template() {
