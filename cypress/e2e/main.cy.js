@@ -38,8 +38,6 @@ describe("main E2E 테스트", () => {
     cy.get("header button").click();
     cy.get(".modal-backdrop").click({ force: true });
 
-    setTimeout(() => {
-      cy.get(".modal--open").should("not.exist");
-    }, 1000);
+    cy.get(".modal--open").should("not.exist");
   });
 });

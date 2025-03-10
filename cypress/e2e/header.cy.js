@@ -15,9 +15,6 @@ describe("header 태그 E2E 테스트", () => {
 
   it("header태그의 모달버튼을 누를시, 모달이 활성화된다.", () => {
     cy.get("header button").click();
-
-    setTimeout(() => {
-      cy.get(".modal--open").should("exsit");
-    }, 1000);
+    cy.get(".modal--open").should("exist");
   });
 });
