@@ -3,7 +3,7 @@ type ButtonProps = {
   type?: "button" | "submit";
   className?: string[];
   event?: (event: MouseEvent) => void;
-}
+};
 
 const $button = ({ text, type = "button", className = [], event }: ButtonProps): HTMLButtonElement => {
   const button = document.createElement("button");
