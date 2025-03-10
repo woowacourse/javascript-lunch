@@ -1,12 +1,12 @@
-import Button from "../components/button.js";
-import Store from "../components/store.js";
+import Button from "../components/Button.js";
+import Store from "../components/Store.js";
 import querySelector from "./querySelector.js";
 import validate from "./validate.js";
 import createFormContent from "../components/formContent.js";
-import optionInput from "../components/optionInput.js";
+import optionInput from "../components/OptionInput.js";
 import options from "../constants/options.js";
-import textInput from "../components/textInput.js";
-import textArea from "../components/textArea.js";
+import textInput from "../components/TextInput.js";
+import textArea from "../components/TextArea.js";
 import helpText from "../constants/helpText.js";
 
 export const modalUtils = {

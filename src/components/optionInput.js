@@ -8,7 +8,7 @@ const getOptionValue = (name, option) => {
   return option;
 };
 
-const optionInput = (name, options) => {
+const OptionInput = (name, options) => {
   const formItem = document.createElement("div");
   formItem.classList.add("form-item");
   formItem.classList.add("form-item--required");
@@ -32,4 +32,4 @@ const optionInput = (name, options) => {
   return formItem;
 };
 
-export default optionInput;
+export default OptionInput;
