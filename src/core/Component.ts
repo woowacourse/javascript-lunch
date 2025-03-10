@@ -21,9 +21,14 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
     return this.#element;
   }
 
-  setState(nextState: Partial<State>) {
+  protected setState(nextState: Partial<State>) {
     this.state = { ...this.state, ...nextState };
     this.render();
+  }
+
+  protected appendChild(element: HTMLElement, selector?: string) {
+    if (selector) this.element.querySelector(selector)?.appendChild(element);
+    else this.element.appendChild(element);
   }
 
   abstract template(): string;
@@ -31,11 +36,6 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
   componentDidMount() {}
 
   onRender() {}
-
-  appendChild(element: HTMLElement, selector?: string) {
-    if (selector) this.element.querySelector(selector)?.appendChild(element);
-    else this.element.appendChild(element);
-  }
 
   get element() {
     return this.#element;
