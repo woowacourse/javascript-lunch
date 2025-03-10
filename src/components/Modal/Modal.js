@@ -62,7 +62,6 @@ class Modal extends Component {
         event.preventDefault();
         addData();
         this.props.toggleModal();
-        document.dispatchEvent(new CustomEvent("restaurantUpdated"));
       });
   }
 }
