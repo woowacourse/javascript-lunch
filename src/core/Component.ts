@@ -1,4 +1,4 @@
-export default class Component<State = Record<string, any>, Props = Record<string, any>> {
+export default abstract class Component<State = Record<string, any>, Props = Record<string, any>> {
   #isRendered = false;
   state = {} as State;
 
@@ -28,9 +28,7 @@ export default class Component<State = Record<string, any>, Props = Record<strin
     this.render();
   }
 
-  template(): string {
-    return ``;
-  }
+  abstract template(): string;
 
   componentDidMount() {}
 
