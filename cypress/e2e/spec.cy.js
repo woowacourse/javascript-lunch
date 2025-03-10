@@ -107,16 +107,36 @@ describe("E2E 테스트", () => {
   describe("기능 테스트", () => {
     it("음식점 정보를 입력하고 추가하기를 누르면 음식점 리스트에 추가된다.", () => {
       cy.get("#gnb-button").click();
+      cy.get(".restaurant__description").should("exist");
+      cy.get(".modal-container").should("exist");
 
-      cy.get("select#category").select("한식", { force: true });
-      cy.get("#name").type("tester");
-      cy.get("select#distance").select("5분 내", { force: true });
+      cy.get("select#category")
+        .select("한식", { force: true })
+        .should("have.value", "한식");
 
-      // 추가하기 버튼 클릭
+      cy.get("#name").type("tester").should("have.value", "tester");
+
+      cy.get("select#distance")
+        .select("5분 내", { force: true })
+        .should("have.value", "5");
+
       cy.get(".button--primary").click();
+      cy.get(".modal-container").should("not.exist");
 
-      // 목록에 새로운 음식점 생겼는지 체크
-      cy.get(".restaurant").should("contain", "tester");
+      cy.get(".restaurant")
+        .last()
+        .should("be.visible")
+        .within(() => {
+          cy.get(".restaurant__name")
+            .should("be.visible")
+            .should("contain", "tester");
+
+          cy.get(".restaurant__distance")
+            .should("be.visible")
+            .should("contain", "5");
+
+          cy.get(".restaurant__category img").should("be.visible");
+        });
     });
   });
 });
