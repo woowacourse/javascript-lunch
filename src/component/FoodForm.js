@@ -89,6 +89,7 @@ export default class FoodForm {
 
       try {
         const formData = this.getFormInputs();
+        this.validateFoodForm(formData);
         onSubmit(formData);
 
         this.container.reset();
@@ -100,16 +101,15 @@ export default class FoodForm {
   }
   getFormInputs() {
     const formData = new FormData(this.container);
-    this.validateFormForm(formData);
     return Object.fromEntries(formData.entries());
   }
-  validateFormForm(formData) {
-    validateRequiredInput(formData.get("category"));
-    validateRequiredInput(formData.get("name"));
-    validateLength(formData.get("name"), NAME_MAX_LENGTH);
-    validateRequiredInput(formData.get("distance"));
-    validateLength(formData.get("description"), DESCRIPTION_MAX_LENGTH);
-    validateURL(formData.get("link"));
+  validateFoodForm(formData) {
+    validateRequiredInput(formData.category);
+    validateRequiredInput(formData.name);
+    validateLength(formData.name, NAME_MAX_LENGTH);
+    validateRequiredInput(formData.distance);
+    validateLength(formData.description, DESCRIPTION_MAX_LENGTH);
+    validateURL(formData.link);
   }
   get element() {
     return this.container;
