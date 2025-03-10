@@ -21,7 +21,6 @@ export default class Application extends Component {
 
   addRestaurant(restaurant) {
     this.setState({
-      ...this.state,
       restaurants: [...this.state.restaurants, restaurant],
     });
   }
