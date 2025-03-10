@@ -17,7 +17,8 @@ export const modalUtils = {
 
   addForm: () => {
     const modalContainer = querySelector(".modal-container");
-    modalContainer.innerHTML = createFormContent({ title: "새로운 음식점" });
+    modalContainer.innerHTML = `<h2 class="modal-title text-title">${title}</h2>
+    <form class="modal-form"></form>`;
 
     const modalForm = querySelector(".modal-form");
     modalForm.appendChild(optionInput("category", options.category));
