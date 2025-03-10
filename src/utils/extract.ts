@@ -1,5 +1,5 @@
 export function extractByKey<T extends Record<string, any>>(
-  list: T[],
+  list: readonly T[],
   key: string
 ): string[] {
   return list
