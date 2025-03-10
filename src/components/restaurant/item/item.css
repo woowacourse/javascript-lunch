@@ -20,3 +20,8 @@
 .form-item .help-text {
   color: var(--grey-300);
 }
+
+.favorite-icon {
+  width: 32px;
+  height: 32px;
+}
