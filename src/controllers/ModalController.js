@@ -6,12 +6,17 @@ import ListItem from "../components/ListItem.js";
 import Modal from "../components/Modal.js";
 import Title from "../components/Title.js";
 import { SELECT_CATEGORY, SELECT_DISTANCE } from "../contants.js";
+import { formatCategory, formatDistance } from "../utils/format.js";
 import EventHandler from "./EventHandler.js";
 
 const MODAL_FORM = [
-  { label: "카테고리", formComponent: () => SelectField("category", SELECT_CATEGORY), required: true },
+  { label: "카테고리", formComponent: () => SelectField("category", formatCategory(SELECT_CATEGORY)), required: true },
   { label: "이름", formComponent: () => InputField("text", "name", true), required: true },
-  { label: "거리(도보 이동 시간)", formComponent: () => SelectField("distance", SELECT_DISTANCE), required: true },
+  {
+    label: "거리(도보 이동 시간)",
+    formComponent: () => SelectField("distance", formatDistance(SELECT_DISTANCE)),
+    required: true,
+  },
   { label: "설명", formComponent: () => TextareaField("description"), notice: "메뉴 등 추가 정보를 입력해 주세요." },
   {
     label: "참고 링크",
