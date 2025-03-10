@@ -1,6 +1,6 @@
 import validateRestaurant from "../validateRestaurant.js";
 import createRestaurantItem from "./RestaurantItem.js";
-import { restaurantsData } from "../restaurantsData.js";
+import { restaurantsData } from "../restaurantsMockData.js";
 
 export default class RestaurantForm {
   constructor(formElement, restaurantList, modal) {
