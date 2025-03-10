@@ -101,10 +101,6 @@ class AddRestaurantModal extends Modal {
       this.#closeAndResetForm();
     });
 
-    document.querySelector('.modal-backdrop').addEventListener('click', () => {
-      this.#closeAndResetForm();
-    });
-
     document.addEventListener('keyup', (event) => {
       if (event.key === 'Escape' && this.checkModalOpen()) {
         this.#closeAndResetForm();
@@ -141,6 +137,10 @@ class AddRestaurantModal extends Modal {
   #resetForm = () => {
     this.#modalForm.reset();
   };
+
+  handleBackdropClick = () => {
+    this.#closeAndResetForm();
+  }
 }
 
 export default AddRestaurantModal;
