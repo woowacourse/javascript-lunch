@@ -6,7 +6,7 @@ import {
 } from "../settings/settings.ts";
 import { extractByKey } from "../utils/extract.ts";
 import { isInRange } from "../utils/predicate.ts";
-import { RestaurantForm } from "../../types/restaurantTypes.ts";
+import { Restaurant, RestaurantForm } from "../../types/restaurantTypes.ts";
 
 const categoryList: string[] = extractByKey(FOOD_CATEGORY, "value");
 const distanceList: string[] = extractByKey(RESTAURANT_DISTANCE, "value");
@@ -59,10 +59,13 @@ export function _validateRestaurantLink(link: string): void {
   }
 }
 
-export function restaurantFormValidation(restaurant: RestaurantForm): void {
+export function restaurantFormValidation(
+  restaurant: RestaurantForm
+): Restaurant {
   _validateRestaurantCategory(restaurant.category);
   _validateRestaurantName(restaurant.name);
   _validateRestaurantDistance(restaurant.distance);
   _validateRestaurantDescription(restaurant.description);
   _validateRestaurantLink(restaurant.link);
+  return { ...restaurant, isFavorite: false };
 }
