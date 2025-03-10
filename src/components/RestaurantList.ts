@@ -72,16 +72,18 @@ export default class Application extends Component<{
       }
 
       if (target.closest('#modal-delete')) {
-        this.setState({
-          restaurants: this.state.restaurants.filter(
-            (restaurant) => restaurant.name !== this.state.currentRestaurant?.name,
-          ),
-        });
-        localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
+        this.#deleteRestaurant(this.state.currentRestaurant?.name ?? '');
         this.#removeModals();
         return;
       }
     });
+  }
+
+  #deleteRestaurant(name: string) {
+    this.setState({
+      restaurants: this.state.restaurants.filter((restaurant) => restaurant.name !== name),
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
   }
 
   #attachKeyDownEventListener() {
