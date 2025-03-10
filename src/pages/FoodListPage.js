@@ -19,7 +19,7 @@ export function FoodListPage() {
   const modal = new Modal({
     title: "음식점 추가",
     content: new FoodForm({
-      onCancel: () => {},
+      onModalClose: () => modal.close(),
       onSubmit: foodList.addItem.bind(foodList),
     }).element,
   });

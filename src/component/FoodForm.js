@@ -8,7 +8,7 @@ import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput";
 
 export default class FoodForm {
-  constructor({ onCancel = () => {}, onSubmit = () => {} }) {
+  constructor({ onModalClose = () => {}, onSubmit = () => {} }) {
     this.container = document.createElement("form");
 
     this.container.appendChild(
@@ -62,7 +62,7 @@ export default class FoodForm {
             name: "cancel",
             cssType: "secondary",
             innerText: "취소하기",
-            onClick: onCancel,
+            onClick: onModalClose,
           }),
           Button({
             name: "submit",
@@ -80,6 +80,8 @@ export default class FoodForm {
 
       onSubmit(formData);
       this.container.reset();
+
+      onModalClose();
     };
   }
   get element() {
