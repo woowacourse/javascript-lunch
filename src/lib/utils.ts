@@ -1,6 +1,6 @@
 import { concat, flat, map, pipe, reduce, zip } from '@fxts/core';
 import Component from '../core/Component';
-export function html(strings: TemplateStringsArray, ...values: any[]) {
+export function html(strings: TemplateStringsArray, ...values: any[]): string {
   return pipe(
     zip(
       strings,

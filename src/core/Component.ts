@@ -1,3 +1,5 @@
+import { html } from '../lib/utils.ts';
+
 export default class Component<State = Record<string, any>, Props = Record<string, any>> {
   #isRendered = false;
   #state = {} as State;
@@ -28,7 +30,7 @@ export default class Component<State = Record<string, any>, Props = Record<strin
     this.render();
   }
 
-  template() {
+  template(): string {
     return ``;
   }
 
