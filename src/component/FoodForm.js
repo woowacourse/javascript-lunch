@@ -3,7 +3,6 @@ import { CAPTION } from "../constants/systemMessage.js";
 import { foodItems } from "../mock/mockItem.js";
 import { FoodListPage } from "../pages/FoodListPage.js";
 import { removeError } from "../util/errorHandler.js";
-import { modalClose } from "../util/modalHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
@@ -11,6 +10,7 @@ import { FoodList } from "./FoodList.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput.js";
+import { Modal } from "./layout/Modal.js";
 
 function addFoodItem() {
   const foodInfo = validateFoodItem({
@@ -80,7 +80,7 @@ export function FoodForm() {
         Button({
           cssType: "secondary",
           innerText: "취소하기",
-          onClick: modalClose,
+          onClick: Modal.close,
         }),
         Button({
           cssType: "primary",
