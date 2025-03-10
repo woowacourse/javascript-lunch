@@ -1,7 +1,7 @@
-import $restaurantItem from "./restaurant-item.js";
-import { CATEGORY_ICON } from "../constants/iconPath.js";
-import { validateRestaurantForm } from "../validation/validationForm.js";
-import { handleModalClose } from "./modal.js";
+import $restaurantItem from "../restaurant/restaurant-item.js";
+import { CATEGORY_ICON } from "../../constants/iconPath.js";
+import { validateRestaurantForm } from "../../validation/validationForm.js";
+import { handleModalClose } from "../modal/modal.js";
 
 const addRestaurant = (data) => {
   handleModalClose();

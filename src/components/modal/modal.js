@@ -1,7 +1,7 @@
-import $form from "./form.js";
-import $restaurantItem from "./restaurant-item.js";
-import { CATEGORY_ICON } from "../constants/iconPath.js";
-import { FORM_EVENT } from "./formEvent.js";
+import $form from "../form/form.js";
+import $restaurantItem from "../restaurant/restaurant-item.js";
+import { CATEGORY_ICON } from "../../constants/iconPath.js";
+import { FORM_EVENT } from "../form/formEvent.js";
 
 export const handleModalClose = () => {
   document.querySelector(".modal").classList.remove("modal--open");
