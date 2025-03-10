@@ -34,10 +34,6 @@ class Modal {
     document.body.style.overflow = this.#modal.classList.contains('modal--open') ? 'hidden' : '';
   };
 
-  getModalContainerForm = () => {
-    return this.#modal.querySelector('.modal-container form');
-  }
-
   checkModalOpen = () => {
     return this.#modal.classList.contains('modal--open');
   }

@@ -26,6 +26,7 @@ const DISTANCE_LIST = [
 ];
 
 class AddRestaurantModal extends Modal {
+  #modalForm;
   #cancelButton;
   #addButton;
   #categoryDropDown;
@@ -49,7 +50,7 @@ class AddRestaurantModal extends Modal {
     this.#distanceDropDown = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
     this.#descriptionInput = new InputText('설명');
     this.#linkInput = new InputText('참조 링크');
-    // this.#modalForm = document.createElement('form');
+    this.#modalForm = document.createElement('form');
   };
 
   #createAddModal = () => {
@@ -58,8 +59,8 @@ class AddRestaurantModal extends Modal {
     modalTitle.innerText = '새로운 음식점';
     this.addElementToModalContainer(modalTitle);
 
-    const modalForm = this.#createModalForm();  
-    this.addElementToModalContainer(modalForm);
+    this.#modalForm = this.#createModalForm();  
+    this.addElementToModalContainer(this.#modalForm);
 
     const buttonContainer = this.#createButtonContainer();
     this.addElementToModalContainer(buttonContainer);
@@ -112,16 +113,14 @@ class AddRestaurantModal extends Modal {
   };
 
   #addHandler = () => {
-    const modalForm = this.getModalContainerForm();
-    const modalFormData = Object.fromEntries(new FormData(modalForm));
+    const modalFormData = Object.fromEntries(new FormData(this.#modalForm));
     const newRestaurant = new Restaurant(modalFormData.name, modalFormData.distance, testData.description, testData.category);
     const newRestaurantItem = new RestaurantItem(newRestaurant);
     DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
   };
 
   #validateInputs = () => {
-    const modalForm = this.getModalContainerForm();
-    const modalFormData = Object.fromEntries(new FormData(modalForm));
+    const modalFormData = Object.fromEntries(new FormData(this.#modalForm));
     try {
       validateDropDown('카테고리', modalFormData.category);
       validateName(modalFormData.name);
@@ -140,8 +139,7 @@ class AddRestaurantModal extends Modal {
   };
 
   #resetForm = () => {
-    const modalForm = this.getModalContainerForm();
-    modalForm.reset();
+    this.#modalForm.reset();
   };
 }
 
