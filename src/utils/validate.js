@@ -1,5 +1,5 @@
-import modalInputRules from "../constants/modalInputRules.js";
 import errorMessage from "../constants/message.js";
+import modalInputRules from "../constants/modalInputRules.js";
 
 const validate = {
   emptySelector: (value) => {
