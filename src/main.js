@@ -13,7 +13,7 @@ $("body").prepend(
   Header(
     IconButton({
       src: "./add-button.png",
-      onClick: () => Modal.open(),
+      onClick: () => Modal.open("addLunchModal"),
       label: "음식점 추가",
     })
   )
@@ -21,4 +21,6 @@ $("body").prepend(
 
 const restaurantList = new RestaurantList(MOCK_ITEM.restaurantList);
 restaurantList.$restaurantList;
-$("main").append(Modal.create(AddLunchModalForm.create(restaurantList)));
+$("main").append(
+  new Modal("addLunchModal", AddLunchModalForm(restaurantList, "addLunchModal"))
+);

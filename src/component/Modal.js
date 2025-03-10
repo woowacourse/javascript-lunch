@@ -1,52 +1,55 @@
+import append from "../utils/append.js";
 import { $ } from "../utils/querySelectors.js";
+import toElement from "../utils/toElement.js";
 import AddLunchModalForm from "./AddLunchModalForm.js";
 
-const Modal = {
-  create(modalContent) {
-    const $modalElement = document.createElement("div");
-    $modalElement.classList.add("modal");
-    $modalElement.appendChild(this.createModalBackdrop());
-    $modalElement.appendChild(this.createModalContainer(modalContent));
+class Modal {
+  constructor(id, modalContent) {
+    const $modal = toElement(`<div id="${id}" class="modal" />`);
+    append($modal, this.createModalBackdrop(id));
+    append($modal, this.createModalContainer(modalContent));
 
-    return $modalElement;
-  },
+    return $modal;
+  }
 
-  createModalBackdrop() {
-    const $modalBackdropElement = document.createElement("div");
-    $modalBackdropElement.classList.add("modal-backdrop");
-    $modalBackdropElement.addEventListener("click", () => Modal.close());
+  createModalBackdrop(id) {
+    const $modalBackdrop = toElement(`
+      <div class="modal-backdrop" />
+      `);
+    $modalBackdrop.addEventListener("click", () => Modal.close(id));
 
-    return $modalBackdropElement;
-  },
+    return $modalBackdrop;
+  }
 
   createModalContainer(modalContent) {
-    const $modalContainerElement = document.createElement("div");
-    $modalContainerElement.classList.add("modal-container");
-    $modalContainerElement.appendChild(modalContent);
+    const $modalContainer = toElement(`
+      <div class="modal-container"/>
+      `);
+    append($modalContainer, modalContent);
 
-    return $modalContainerElement;
-  },
+    return $modalContainer;
+  }
 
-  open() {
-    $(".modal").classList.add("modal--open");
+  static open(id) {
+    document.getElementById(id).classList.add("modal--open");
 
     this.keydownHandler = (e) => {
       if (e.key === "Escape") {
-        this.close();
+        this.close(id);
       }
     };
 
     document.addEventListener("keydown", this.keydownHandler, { once: true });
-  },
+  }
 
-  close() {
-    $(".modal").classList.remove("modal--open");
+  static close(id) {
+    document.getElementById(id).classList.remove("modal--open");
 
     if (this.keydownHandler) {
       document.removeEventListener("keydown", this.keydownHandler);
       this.keydownHandler = null;
     }
-  },
-};
+  }
+}
 
 export default Modal;
