@@ -15,4 +15,10 @@ export default class Header extends Component<null, HeaderProps> {
       </header>
     `;
   }
+
+  attachEventListener() {
+    this.element?.addEventListener('click', () => {
+      document.querySelector('#restaurant-add-modal')?.classList.add('modal--open');
+    });
+  }
 }

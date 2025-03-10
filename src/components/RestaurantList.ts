@@ -56,10 +56,6 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
       const target = event.target as HTMLElement;
 
-      if (target.closest('.gnb__button')) {
-        this.element.querySelector('#restaurant-add-modal')?.classList.add('modal--open');
-        return;
-      }
       if (target.closest('#modal-cancel') || target.closest('.modal-backdrop')) {
         this.#removeModals();
         return;

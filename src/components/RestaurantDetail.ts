@@ -29,7 +29,8 @@ export default class RestaurantDetail extends Component<null, RestaurantDetailPr
       </div>
     `;
   }
-  onRender() {
+
+  attachEventListener() {
     this.element?.querySelector('#filter')?.addEventListener('change', (event) => {
       this.props?.setFilter((event?.target as HTMLSelectElement)?.value as CategoryType);
     });

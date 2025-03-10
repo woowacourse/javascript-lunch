@@ -4,10 +4,11 @@ import { html } from './lib/utils';
 
 export default class Application extends Component {
   template() {
-    return html`${new Header({ title: '오늘 뭐 먹지' })}`;
+    return ``;
   }
 
   onRender() {
+    this.appendChild(new Header({ title: '오늘 뭐 먹지' }).render());
     this.appendChild(new RestaurantList().render());
   }
 }
