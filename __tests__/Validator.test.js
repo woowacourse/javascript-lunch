@@ -3,8 +3,7 @@ import {
   DESCRIPTION_LENGTH_MAX,
   ERROR_MESSAGE,
 } from "../src/constants/constants.js";
-
-import { Validator } from "../src/utils/Validator.js";
+import { Validator } from "../src/validator/Validator.js";
 
 describe("Validator 테스트", () => {
   test(`${RESTAURANT_NAME_LENGTH_MAX}자를 넘는 가게 이름은 받을 수 없다.`, () => {
