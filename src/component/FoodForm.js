@@ -3,7 +3,6 @@ import { CAPTION } from "../constants/systemMessage.js";
 import { foodItems } from "../mock/mockItem.js";
 import { FoodListPage } from "../pages/FoodListPage.js";
 import { removeError } from "./input/errorHandler.js";
-import { modalClose } from "./layout/modal/modalHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
@@ -81,7 +80,7 @@ export function FoodForm() {
           name: "cancel",
           cssType: "secondary",
           innerText: "취소하기",
-          onClick: modalClose,
+          onClick: () => {},
         }),
         Button({
           name: "submit",

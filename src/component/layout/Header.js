@@ -1,7 +1,6 @@
-import { modalOpen } from "./modal/modalHandler.js";
 import { IconButton } from "../button/IconButton.js";
 
-export function Header({ title = "제목" }) {
+export function Header({ title = "제목", onAddClick = () => {} }) {
   const header = document.createElement("header");
   header.className = "gnb";
   header.innerHTML = `
@@ -13,7 +12,7 @@ export function Header({ title = "제목" }) {
       name: "add",
       imgSrc: "./add-button.png",
       label: "음식점 추가",
-      onClick: modalOpen,
+      onClick: onAddClick,
     })
   );
 
