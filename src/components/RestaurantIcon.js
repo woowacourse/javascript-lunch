@@ -1,9 +1,5 @@
 import CATEGORY from '../constant/category.js';
 
-const RESTAURANT_ICON = (src, alt) => {
-  return `<img src=${src} alt=${alt} class="category-icon">`;
-};
-
 class RestaurantIcon {
   constructor(category) {
     return this.#createRestaurantIcon(category);
@@ -12,8 +8,13 @@ class RestaurantIcon {
   #createRestaurantIcon = (category) => {
     const divIcon = document.createElement('div');
     divIcon.classList = 'restaurant__category';
-    divIcon.innerHTML = RESTAURANT_ICON(this.#getImageSrc(category), category);
 
+    const img = document.createElement('img');
+    img.classList.add('category-icon');
+    img.src = this.#getImageSrc(category);
+    img.alt = category;
+
+    divIcon.appendChild(img);
     return divIcon;
   };
 
