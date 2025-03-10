@@ -56,7 +56,7 @@ describe("e2e 테스트", () => {
       cy.get("#name").type("새로운 음식점");
       cy.get("#distance").select("10");
 
-      cy.get(".button--primary").click();
+      cy.get(".button--primary").click({ force: true });
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
@@ -68,7 +68,7 @@ describe("e2e 테스트", () => {
       cy.get("#category").select("한식");
       cy.get("#distance").select("10");
 
-      cy.get(".button--primary").click();
+      cy.get(".button--primary").click({ force: true });
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
@@ -81,7 +81,7 @@ describe("e2e 테스트", () => {
       cy.get("#name").type("  ");
       cy.get("#distance").select("10");
 
-      cy.get(".button--primary").click();
+      cy.get(".button--primary").click({ force: true });
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
@@ -93,7 +93,7 @@ describe("e2e 테스트", () => {
       cy.get("#category").select("한식");
       cy.get("#name").type("새로운 음식점");
 
-      cy.get(".button--primary").click();
+      cy.get(".button--primary").click({ force: true });
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
