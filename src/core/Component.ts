@@ -1,14 +1,12 @@
-import { html } from '../lib/utils.ts';
-
 export default class Component<State = Record<string, any>, Props = Record<string, any>> {
   #isRendered = false;
   #state = {} as State;
 
-  #props: Props;
+  #props: Props | null;
   #element: HTMLElement = document.createElement('div');
 
-  constructor(props: Props) {
-    this.#props = props;
+  constructor(props?: Props) {
+    this.#props = props ?? null;
   }
 
   render() {
