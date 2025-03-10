@@ -129,7 +129,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   }
 
   #appendRestaurantTab() {
-    this.element.querySelector('.restaurant-tab')?.appendChild(
+    this.appendChild(
       new RestaurantTab({
         setTab: (tab) =>
           this.setState({
@@ -137,11 +137,12 @@ export default class RestaurantList extends Component<RestaurantListState> {
           }),
         focusedTab: this.state.tab,
       }).render(),
+      '.restaurant-tab',
     );
   }
 
   #appendRestaurantDetail() {
-    this.element.querySelector('.restaurant-detail')?.appendChild(
+    this.appendChild(
       new RestaurantDetail({
         filter: this.state.filter,
         sort: this.state.sort,
@@ -154,6 +155,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
             sort,
           }),
       }).render(),
+      '.restaurant-detail',
     );
   }
 
@@ -166,7 +168,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
       );
 
     filteredRestaurants.forEach((restaurant) => {
-      this.element.querySelector('.restaurant-list')?.appendChild(new Restaurant(restaurant).render());
+      this.appendChild(new Restaurant(restaurant).render(), '.restaurant-list');
     });
   }
 
@@ -174,12 +176,12 @@ export default class RestaurantList extends Component<RestaurantListState> {
     const restaurantAddModal = new RestaurantAddModal({
       addRestaurant: this.#addRestaurant.bind(this),
     });
-    this.element.querySelector('.restaurant-add-modal')?.appendChild(restaurantAddModal.render());
+    this.appendChild(restaurantAddModal.render(), '.restaurant-add-modal');
   }
 
   #appendRestaurantDetailModal() {
     const restaurantDetailModal = new RestaurantDetailModal(this.state.currentRestaurant);
-    this.element.querySelector('.restaurant-detail-modal')?.appendChild(restaurantDetailModal.render());
+    this.appendChild(restaurantDetailModal.render(), '.restaurant-detail-modal');
   }
 
   #addRestaurant(restaurant: RestaurantType) {

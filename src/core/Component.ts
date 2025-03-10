@@ -32,6 +32,11 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
 
   onRender() {}
 
+  appendChild(element: HTMLElement, selector?: string) {
+    if (selector) this.element.querySelector(selector)?.appendChild(element);
+    else this.element.appendChild(element);
+  }
+
   get element() {
     return this.#element;
   }

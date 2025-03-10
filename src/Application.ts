@@ -8,6 +8,6 @@ export default class Application extends Component {
   }
 
   onRender() {
-    this.element.appendChild(new RestaurantList().render());
+    this.appendChild(new RestaurantList().render());
   }
 }
