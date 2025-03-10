@@ -27,6 +27,7 @@ export const handleAddRestaurant = (e) => {
     const data = Object.fromEntries(formData);
     validateRestaurantForm(form, ["category", "name", "distance"]);
     addRestaurant(data);
+    form.reset();
   } catch (error) {
     alert(error.message);
   }
