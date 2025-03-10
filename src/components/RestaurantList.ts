@@ -3,7 +3,7 @@ import { LOCAL_STORAGE_KEY_MAP } from '../lib/constants.ts';
 import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { RestaurantAddModal, RestaurantDetail, RestaurantDetailModal, RestaurantTab, Restaurant } from './index.ts';
 
-export default class Application extends Component<{
+export default class RestaurantList extends Component<{
   restaurants: RestaurantType[];
   tab: TabType;
   filter: FilterType;
@@ -11,10 +11,12 @@ export default class Application extends Component<{
   currentRestaurant: RestaurantType | null;
 }> {
   constructor() {
-    super({});
+    super();
+
+    const initialRestaurants = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants) ?? '') ?? [];
 
     this.setState({
-      restaurants: JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants) ?? '') ?? [],
+      restaurants: initialRestaurants,
       tab: 'all',
       filter: '전체',
       sort: '이름순',

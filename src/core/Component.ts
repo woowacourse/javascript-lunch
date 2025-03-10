@@ -23,7 +23,7 @@ export default class Component<State = Record<string, any>, Props = Record<strin
     return this.#element;
   }
 
-  setState(nextState: Record<string, any>) {
+  setState(nextState: Partial<State>) {
     this.#state = { ...this.#state, ...nextState };
     this.render();
   }
