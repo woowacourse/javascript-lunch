@@ -7,7 +7,7 @@ export default class Modal extends Component {
       <div class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
-          ${this.props.children}
+          ${this.props?.children}
         </div>
       </div>
     `;

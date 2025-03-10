@@ -4,11 +4,11 @@ export default class Button extends Component {
   template() {
     return `
      <button
-        type=${this.props.type}
-        class="button ${this.props.class} text-caption"
-        id=${this.props.id}
+        class="button text-caption ${this.props?.class ?? ''} "
+        ${this.props?.type ? `type = ${this.props?.type}` : ''}
+        ${this.props?.id ? `id = ${this.props?.id}` : ''}
       >
-      ${this.props.message}
+      ${this.props?.message}
     </button>`;
   }
 }
