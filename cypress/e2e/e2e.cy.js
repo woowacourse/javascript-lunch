@@ -2,6 +2,7 @@ describe("e2e 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
   });
+
   it("유저가 헤더의 메뉴 추가 버튼을 누르면, 모달이 열리고 식당을 입력할 수 있고 메인 화면에서 등록됨을 확인할 수 있다.", () => {
     // 해더의 메뉴 추가 버튼을 클릭한다.
     cy.get(".gnb__button").should("exist");
@@ -11,6 +12,7 @@ describe("e2e 테스트", () => {
     cy.get(".modal.modal--open").should("exist");
 
     // 식당 정보를 입력한다.
+
     cy.get('select[name="category"]').select("chinese");
     cy.get('input[name="name"]').type("마담밍");
     cy.get('select[name="distance"]').select("10");
@@ -18,6 +20,7 @@ describe("e2e 테스트", () => {
     cy.get('input[name="link"]').type(
       "https://map.naver.com/p/entry/place/11707122?lng=127.0502732&lat=37.5035179&placePath=%2Fhome&entry=plt&searchType=place&c=15.00,0,0,0,dh",
     );
+
 
     // 저장 버튼을 클릭한다.
     cy.get(".button.button--primary.text-caption").click();

@@ -32,6 +32,7 @@ class Modal extends Component {
       .querySelector(".modal-backdrop")
       .addEventListener("click", () => {
         this.props.toggleModal();
+
       });
     this.$target
       .querySelector(".button.button--secondary.text-caption")
@@ -48,6 +49,7 @@ class Modal extends Component {
         event.preventDefault();
         addData();
         this.props.toggleModal();
+
       });
   }
 }
