@@ -1,7 +1,7 @@
 import Modal from "./components/Modal.js";
 import RestaurantList from "./stores/RestaurantList.js";
 
-import restaurantData from "./restaurantData.js";
+import restaurantData from "./data/restaurantData.js";
 import querySelector from "./utils/querySelector.js";
 import { modalHandler } from "./handlers/modalHandler.js";
 import { restaurantHandler } from "./handlers/restaurantHandler.js";
