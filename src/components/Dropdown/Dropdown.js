@@ -1,4 +1,4 @@
-import { label } from "../../constants/optionValue.js";
+import { label } from "../../data/optionValue.js";
 import Component from "../Component.js";
 class Dropdown extends Component {
   constructor($target, props) {

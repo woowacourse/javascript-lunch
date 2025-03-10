@@ -1,4 +1,4 @@
-import { RestaurantData } from "../constants/RestaurantData.js";
+import { RestaurantData } from "../data/RestaurantData.js";
 import Restaurant from "./Restaurant/Restaurant.js";
 const createRestaurant = () => {
   RestaurantData.forEach((data) => {

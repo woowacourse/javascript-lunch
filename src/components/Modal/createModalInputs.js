@@ -1,4 +1,4 @@
-import { categoryValue, distanceValue } from "../../constants/optionValue.js";
+import { categoryValue, distanceValue } from "../../data/optionValue.js";
 import Dropdown from "../Dropdown/Dropdown.js";
 import Input from "../Input/Input.js";
 
