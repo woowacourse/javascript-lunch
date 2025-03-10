@@ -4,6 +4,7 @@ import Component from "./Component.js";
 import Modal from "./Modal/Modal.js";
 import Restaurant from "./Restaurant/Restaurant.js";
 import { RestaurantData } from "../constants/RestaurantData.js";
+import getModalContent from "./Modal/getModalContent.js";
 class App extends Component {
   constructor($target) {
     super($target);
@@ -23,6 +24,7 @@ class App extends Component {
     new Modal(document.querySelector(".modal"), {
       isModalOpen: this.state.isModalOpen,
       toggleModal: () => this.toggleModal(),
+      content: getModalContent("restaurant"),
     });
 
     createRestaurant();
