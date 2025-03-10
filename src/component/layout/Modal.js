@@ -1,4 +1,3 @@
-import { SELECT_OPTIONS } from "../../constants/constants.js";
 import { Button } from "../button/Button.js";
 
 export class Modal {

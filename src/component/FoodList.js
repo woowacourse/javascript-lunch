@@ -20,8 +20,4 @@ export class FoodList {
       foodListContainer.appendChild(item);
     });
   }
-
-  getFoodList() {
-    return this.foodItems;
-  }
 }

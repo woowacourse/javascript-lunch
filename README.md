@@ -92,3 +92,4 @@ src
 - [x] modalHandler 수정 - class화로 변경
 - [x] Header에서 Icon Props로 분리
 - [x] FoodList 및 FoodItem 수정 - class화로 변경
+- [x] SELECT_OPTIONS를 FoodForm.js 부분으로 옮기기
