@@ -8,7 +8,7 @@ export default class Button extends Component {
         ${this.props?.type ? `type = ${this.props?.type}` : ''}
         ${this.props?.id ? `id = ${this.props?.id}` : ''}
       >
-      ${this.props?.message}
+      ${this.props?.message ?? ''}
     </button>`;
   }
 }
