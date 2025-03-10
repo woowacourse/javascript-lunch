@@ -90,3 +90,4 @@ src
 ## 피드백 반영
 
 - [x] modalHandler 수정 - class화로 변경
+- [x] Header에서 Icon Props로 분리
