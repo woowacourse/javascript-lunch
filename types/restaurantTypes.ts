@@ -11,9 +11,13 @@ type FoodCategory = (typeof FoodCategory)[number];
 type Distance = (typeof Distance)[number];
 
 export interface RestaurantForm {
-  category: FoodCategory;
-  name: string;
-  distance: Distance;
-  description: string;
-  link: string;
+  readonly category: FoodCategory;
+  readonly name: string;
+  readonly distance: Distance;
+  readonly description: string;
+  readonly link: string;
+}
+
+export interface Restaurant extends RestaurantForm {
+  isFavorite: boolean;
 }
