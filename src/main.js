@@ -1,34 +1,26 @@
-import { DOM } from "./utils/dom.js";
-import IconButton from "./component/IconButton.js";
 import Modal from "./component/Modal.js";
-import TextButton from "./component/TextButton.js";
 import LunchInfoCard from "./component/LunchInfoCard.js";
-import SelectForm from "./component/SelectForm.js";
-import TextareaForm from "./component/TextareaForm.js";
-import InputForm from "./component/InputForm.js";
 import Header from "./component/Header.js";
-import render from "./utils/render.js";
-import state from "./state.js";
 import AddLunchModalForm from "./component/AddLunchModalForm.js";
+import IconButton from "./component/IconButton.js";
+import append from "./utils/append.js";
+import RestaurantList from "./component/RestaurantList.js";
+import MOCK_ITEM from "./mockItem.js";
 
-addEventListener("keydown", (e) => {
-  if (e.key === "Escape") Modal.close();
-});
+import { $ } from "./utils/querySelectors.js";
 
-DOM.$body.prepend(Header.create());
+$("body").prepend(
+  Header(
+    IconButton({
+      src: "./add-button.png",
+      onClick: () => Modal.open("addLunchModal"),
+      label: "음식점 추가",
+    })
+  )
+);
 
-renderRestaurantList();
-
-DOM.$main.append(Modal.create(AddLunchModalForm.create()));
-
-export function renderRestaurantList() {
-  DOM.$restaurantList.replaceChildren();
-  state.restaurantList.forEach(
-    ({ src, name, distance, description, label }) => {
-      render(
-        LunchInfoCard.create({ src, name, distance, description, label }),
-        DOM.$restaurantList
-      );
-    }
-  );
-}
+const restaurantList = new RestaurantList(MOCK_ITEM.restaurantList);
+restaurantList.$restaurantList;
+$("main").append(
+  new Modal("addLunchModal", AddLunchModalForm(restaurantList, "addLunchModal"))
+);

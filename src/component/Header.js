@@ -1,21 +1,16 @@
-import IconButton from "./IconButton.js";
-import Modal from "./Modal.js";
 
-const Header = {
-  create() {
-    const headerElement = document.createElement("header");
-    headerElement.classList.add("gnb");
-    headerElement.innerHTML = `<h1 class="gnb__title text-title">점심 뭐 먹지</h1>`;
-    headerElement.appendChild(
-      IconButton.create({
-        src: "./add-button.png",
-        onClick: () => Modal.open(),
-        label: "음식점 추가",
-      })
-    );
+import toElement from "../utils/toElement.js";
+import append from "../utils/append.js";
 
-    return headerElement;
-  },
-};
+function Header(iconButton) {
+  const $header = toElement(`
+    <header class="gnb">
+      <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
+    </header>`);
+
+  append($header, iconButton);
+
+  return $header;
+}
 
 export default Header;

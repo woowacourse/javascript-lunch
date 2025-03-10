@@ -1,25 +1,23 @@
-import { DOM } from "../utils/dom.js";
+import addRequired from "../utils/required.js";
+import toElement from "../utils/toElement.js";
 
-const InputForm = {
-  create({ id, label, isRequired, bottomDescription }) {
-    const InputFormElement = document.createElement("div");
-    InputFormElement.classList.add("form-item");
-    if (isRequired) InputFormElement.classList.add("form-item--required");
+function InputForm({ id, label, required, bottomDescription }) {
+  const $inputForm = toElement(
+    `
+        <div class="form-item">
+      <label for="${id} text-caption">${label}</label>
+      <input type="text" name=${id} id=${id}  ${required ? "required" : ""}  />
+        ${
+          bottomDescription === ""
+            ? ""
+            : `<span class='help-text text-caption'>${bottomDescription}</span>`
+        }
+        </div>
+      `
+  );
+  addRequired($inputForm, required);
 
-    InputFormElement.innerHTML = `
-                <label for="${id} text-caption">${label}</label>
-                <input type="text" name=${id} id=${id}  ${
-      isRequired ? "required" : ""
-    }  />
-                ${
-                  bottomDescription === ""
-                    ? ""
-                    : `<span class='help-text text-caption'>${bottomDescription}</span>`
-                }
-    `;
-
-    return InputFormElement;
-  },
-};
+  return $inputForm;
+}
 
 export default InputForm;

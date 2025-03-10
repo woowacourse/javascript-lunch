@@ -1,10 +1,9 @@
-import { DOM } from "../utils/dom.js";
+import toElement from "../utils/toElement.js";
 
-const LunchInfoCard = {
-  create({ src, name, label, distance, description }) {
-    const LunchInfoCardElement = document.createElement("li");
-    LunchInfoCardElement.setAttribute("class", "restaurant");
-    LunchInfoCardElement.innerHTML = `
+function LunchInfoCard({ src, name, label, distance, description }) {
+  return toElement(
+    `
+        <li class="restaurant">
           <div class="restaurant__category">
               <img src=${src} alt=${label} />
           </div>
@@ -13,10 +12,9 @@ const LunchInfoCard = {
               <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
               <p class="restaurant__description text-body">${description}</p>
           </div>
-    `;
-
-    return LunchInfoCardElement;
-  },
-};
+        </li>
+`
+  );
+}
 
 export default LunchInfoCard;

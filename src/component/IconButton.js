@@ -1,16 +1,15 @@
-import { DOM } from "../utils/dom.js";
+import toElement from "../utils/toElement.js";
 
-const IconButton = {
-  create({ src, onClick, label }) {
-    const IconButtonElement = document.createElement("button");
-    IconButtonElement.setAttribute("type", "button");
-    IconButtonElement.setAttribute("class", "gnb__button");
-    IconButtonElement.setAttribute("aria-label", label);
-    IconButtonElement.addEventListener("click", onClick);
-    IconButtonElement.innerHTML = `<img src=${src} alt=${label} />`;
+function IconButton({ src, onClick, label }) {
+  const $button = toElement(`
+    <button type="button" class="gnb__button" aria-label="${label}">
+      <img src="${src}" alt="${label}" />
+    </button>
+  `);
 
-    return IconButtonElement;
-  },
-};
+  $button.addEventListener("click", onClick);
+
+  return $button;
+}
 
 export default IconButton;

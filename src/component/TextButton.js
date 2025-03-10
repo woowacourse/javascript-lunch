@@ -1,23 +1,21 @@
-import { DOM } from "../utils/dom.js";
+import toElement from "../utils/toElement.js";
 
-const TextButton = {
-  create({ title, onClick, id }) {
-    const TextButtonElement = document.createElement("button");
-    TextButtonElement.setAttribute("id", id);
-    TextButtonElement.setAttribute("class", "button");
-    TextButtonElement.setAttribute("type", "button");
-    TextButtonElement.classList.add("text-caption");
-    if (id === "cancel__button")
-      TextButtonElement.classList.add("button--secondary");
-    if (id === "add__button") {
-      TextButtonElement.setAttribute("type", "submit");
-      TextButtonElement.classList.add("button--primary");
-    }
-    TextButtonElement.addEventListener("click", onClick);
-    TextButtonElement.innerText = title;
+function TextButton({ title, onClick, id }) {
+  const buttonStyled = {
+    add__button: "button--primary",
+    cancel__button: "button--secondary",
+  };
 
-    return TextButtonElement;
-  },
-};
+  const $textButton = toElement(
+    `<button class="text-caption button ${buttonStyled[id]}" id="${id}" type="${
+      id === "add__button" ? "submit" : "button"
+    }">
+      ${title}
+    </button>`
+  );
+  $textButton.addEventListener("click", onClick);
+
+  return $textButton;
+}
 
 export default TextButton;

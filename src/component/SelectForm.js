@@ -1,14 +1,11 @@
-import { DOM } from "../utils/dom.js";
+import addRequired from "../utils/required.js";
+import toElement from "../utils/toElement.js";
 
-const SelectForm = {
-  create({ id, label, dropdownList, isRequired }) {
-    const SelectFormElement = document.createElement("div");
-    SelectFormElement.classList.add("form-item");
-    if (isRequired) SelectFormElement.classList.add("form-item--required");
-
-    SelectFormElement.innerHTML = `
+function SelectForm({ id, label, dropdownList, required }) {
+  const $selectForm = toElement(
+    ` <div class="form-item">
             <label for="${id} text-caption">${label}</label>
-              <select name=${id} id=${id} ${isRequired ? "required" : ""} >
+              <select name=${id} id=${id} ${required ? "required" : ""} >
               ${dropdownList
                 .map(
                   ({ label, value }) =>
@@ -16,10 +13,12 @@ const SelectForm = {
                 )
                 .join("\n")}
               </select>
-  `;
+        </div>
+  `
+  );
+  addRequired($selectForm, required);
 
-    return SelectFormElement;
-  },
-};
+  return $selectForm;
+}
 
 export default SelectForm;
