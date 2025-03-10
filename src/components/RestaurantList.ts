@@ -15,7 +15,8 @@ export default class RestaurantList extends Component<RestaurantListState> {
   constructor() {
     super();
 
-    const initialRestaurants = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants) ?? '') ?? [];
+    const localStorageRestaurants = localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants);
+    const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : [];
 
     this.setState({
       restaurants: initialRestaurants,
@@ -28,11 +29,15 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   template() {
     return `
+      <section class="restaurant-tab"></section>
+      <section class="restaurant-detail"></section>
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
 
         </ul>
       </section>
+      <section class="restaurant-add-modal"></section>
+      <section class="restaurant-detail-modal"></section>
     `;
   }
 
@@ -124,7 +129,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   }
 
   #appendRestaurantTab() {
-    this.element.appendChild(
+    this.element.querySelector('.restaurant-tab')?.appendChild(
       new RestaurantTab({
         setTab: (tab) =>
           this.setState({
@@ -136,7 +141,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   }
 
   #appendRestaurantDetail() {
-    this.element.appendChild(
+    this.element.querySelector('.restaurant-detail')?.appendChild(
       new RestaurantDetail({
         filter: this.state.filter,
         sort: this.state.sort,
@@ -169,12 +174,12 @@ export default class RestaurantList extends Component<RestaurantListState> {
     const restaurantAddModal = new RestaurantAddModal({
       addRestaurant: this.#addRestaurant.bind(this),
     });
-    this.element.appendChild(restaurantAddModal.render());
+    this.element.querySelector('.restaurant-add-modal')?.appendChild(restaurantAddModal.render());
   }
 
   #appendRestaurantDetailModal() {
     const restaurantDetailModal = new RestaurantDetailModal(this.state.currentRestaurant);
-    this.element.appendChild(restaurantDetailModal.render());
+    this.element.querySelector('.restaurant-detail-modal')?.appendChild(restaurantDetailModal.render());
   }
 
   #addRestaurant(restaurant: RestaurantType) {
