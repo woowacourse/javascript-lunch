@@ -1,10 +1,10 @@
 import Component from '../core/Component.ts';
-import { FilterType, SortType } from '../lib/types.ts';
+import { CategoryType, SortType } from '../lib/types.ts';
 
 interface RestaurantDetailProps {
-  filter: FilterType;
+  filter: CategoryType;
   sort: SortType;
-  setFilter: (filter: FilterType) => void;
+  setFilter: (filter: CategoryType) => void;
   setSort: (sort: SortType) => void;
 }
 
@@ -31,7 +31,7 @@ export default class RestaurantDetail extends Component<null, RestaurantDetailPr
   }
   onRender() {
     this.element?.querySelector('#filter')?.addEventListener('change', (event) => {
-      this.props?.setFilter((event?.target as HTMLSelectElement)?.value as FilterType);
+      this.props?.setFilter((event?.target as HTMLSelectElement)?.value as CategoryType);
     });
     this.element?.querySelector('#sort')?.addEventListener('change', (event) => {
       this.props?.setSort((event?.target as HTMLSelectElement)?.value as SortType);

@@ -1,12 +1,12 @@
 import Component from '../core/Component.ts';
 import { LOCAL_STORAGE_KEY_MAP } from '../lib/constants.ts';
-import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
+import { CategoryType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { RestaurantAddModal, RestaurantDetail, RestaurantDetailModal, RestaurantTab, Restaurant } from './index.ts';
 
 export default class RestaurantList extends Component<{
   restaurants: RestaurantType[];
   tab: TabType;
-  filter: FilterType;
+  filter: CategoryType;
   sort: SortType;
   currentRestaurant: RestaurantType | null;
 }> {
@@ -171,7 +171,7 @@ export default class RestaurantList extends Component<{
   }
 
   #appendRestaurantDetailModal() {
-    const restaurantDetailModal = new RestaurantDetailModal({ currentRestaurant: this.state.currentRestaurant });
+    const restaurantDetailModal = new RestaurantDetailModal(this.state.currentRestaurant);
     this.element.appendChild(restaurantDetailModal.render());
   }
 

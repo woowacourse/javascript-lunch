@@ -1,13 +1,8 @@
 import Component from '../core/Component.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';
+import { RestaurantType } from '../lib/types.ts';
 
-interface RestaurantProps {
-  name: string;
-  category: string;
-  distance: number;
-  description: string;
-  isLike: boolean;
-}
+interface RestaurantProps extends RestaurantType {}
 
 export default class Restaurant extends Component<null, RestaurantProps> {
   template() {

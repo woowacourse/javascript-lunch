@@ -5,14 +5,11 @@ import { CATEGORY_MAP } from '../lib/constants.ts';
 import { RestaurantType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
 
-export default class RestaurantDetailModal extends Component<
-  {},
-  {
-    currentRestaurant: RestaurantType | null;
-  }
-> {
+interface RestaurantDetailModalProps extends RestaurantType {}
+
+export default class RestaurantDetailModal extends Component<null, RestaurantDetailModalProps | null> {
   template() {
-    const currentRestaurant = this.props?.currentRestaurant ?? null;
+    const currentRestaurant = this.props ?? null;
 
     const deleteButton = new Button({
       type: 'button',
