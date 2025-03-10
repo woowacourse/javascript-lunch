@@ -26,7 +26,6 @@ export default class FoodList {
   }
   addItem(foodItem) {
     this.foodItems = [...this.foodItems, foodItem];
-    console.log(this.foodItems);
     this.render();
   }
   get element() {

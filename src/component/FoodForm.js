@@ -11,7 +11,6 @@ import {
 } from "../validate/validateCondition.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
-import { removeError, setError } from "./input/errorHandler.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput";
@@ -84,6 +83,7 @@ export default class FoodForm {
         ],
       })
     );
+
     this.container.onsubmit = (e) => {
       e.preventDefault();
 
