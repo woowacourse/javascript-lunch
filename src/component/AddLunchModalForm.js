@@ -3,11 +3,19 @@ import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
 import ButtonContainer from "./ButtonContainer.js";
 import TextareaForm from "./TextareaForm.js";
-import { CATEGORY_ICON } from "../constants/constants.js";
 import { Validator } from "../utils/Validator.js";
 import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
+
+const CATEGORY_ICON = {
+  한식: "./category-korean.png",
+  중식: "./category-chinese.png",
+  일식: "./category-japanese.png",
+  양식: "./category-western.png",
+  아시안: "./category-asian.png",
+  기타: "./category-etc.png",
+};
 
 function AddLunchModalForm(restaurantList, modalId) {
   const $modalForm = toElement(`
