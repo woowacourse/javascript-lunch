@@ -1,96 +1,78 @@
 import { SELECT_OPTIONS } from "../constants/constants.js";
 import { CAPTION } from "../constants/systemMessage.js";
-import { foodItems } from "../mock/mockItem.js";
-import { FoodListPage } from "../pages/FoodListPage.js";
-import { removeError } from "./input/errorHandler.js";
-import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
-import FoodList from "./FoodList.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
-import { TextareaInput } from "./input/TextareaInput.js";
+import { TextareaInput } from "./input/TextareaInput";
 
-function addFoodItem() {
-  const foodInfo = validateFoodItem({
-    category: "category",
-    name: "name",
-    distance: "distance",
-    description: "description",
-    link: "link",
-  });
-  if (!foodInfo) return;
+export default class FoodForm {
+  constructor() {
+    this.container = document.createElement("form");
 
-  const prevFoodItems = foodItems;
-  // const foodList = new FoodList({ foodItems: [...prevFoodItems, foodInfo] });
+    this.container.appendChild(
+      SelectInput({
+        isRequired: true,
+        name: "category",
+        label: "카테고리",
+        optionList: SELECT_OPTIONS.category,
+      })
+    );
 
-  // FoodListPage(foodList);
-}
+    this.container.appendChild(
+      Input({
+        isRequired: true,
+        name: "name",
+        label: "이름",
+      })
+    );
 
-export function FoodForm() {
-  const container = document.createElement("form");
+    this.container.appendChild(
+      SelectInput({
+        isRequired: true,
+        name: "distance",
+        label: "거리(도보 이동 시간)",
+        optionList: SELECT_OPTIONS.distance,
+      })
+    );
 
-  container.appendChild(
-    SelectInput({
-      isRequired: true,
-      name: "category",
-      label: "카테고리",
-      optionList: SELECT_OPTIONS.category,
-    })
-  );
+    this.container.appendChild(
+      TextareaInput({
+        isRequired: false,
+        label: "설명",
+        caption: CAPTION.description,
+      })
+    );
 
-  container.appendChild(
-    Input({
-      isRequired: true,
-      name: "name",
-      label: "이름",
-    })
-  );
+    this.container.appendChild(
+      Input({
+        isRequired: false,
+        label: "참고 링크",
+        name: "link",
+        caption: CAPTION.link,
+      })
+    );
 
-  container.appendChild(
-    SelectInput({
-      isRequired: true,
-      name: "distance",
-      label: "거리(도보 이동 시간)",
-      optionList: SELECT_OPTIONS.distance,
-    })
-  );
-
-  container.appendChild(
-    TextareaInput({
-      isRequired: false,
-      label: "설명",
-      caption: CAPTION.description,
-    })
-  );
-
-  container.appendChild(
-    Input({
-      isRequired: false,
-      label: "참고 링크",
-      name: "link",
-      caption: CAPTION.link,
-    })
-  );
-
-  container.appendChild(
-    ButtonContainer({
-      buttons: [
-        Button({
-          name: "cancel",
-          cssType: "secondary",
-          innerText: "취소하기",
-          onClick: () => {},
-        }),
-        Button({
-          name: "submit",
-          cssType: "primary",
-          innerText: "추가하기",
-          onClick: addFoodItem,
-        }),
-      ],
-    })
-  );
-
-  return container;
+    this.container.appendChild(
+      ButtonContainer({
+        buttons: [
+          Button({
+            name: "cancel",
+            cssType: "secondary",
+            innerText: "취소하기",
+            onClick: () => {},
+          }),
+          Button({
+            name: "submit",
+            cssType: "primary",
+            innerText: "추가하기",
+            onClick: () => {},
+          }),
+        ],
+      })
+    );
+  }
+  get element() {
+    return this.container;
+  }
 }

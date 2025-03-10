@@ -7,9 +7,11 @@ export default class FoodList {
     this.foodList = document.createElement("ul");
     this.foodList.classList.add("restaurant-list");
 
+    this.render();
+  }
+  render() {
     const foodFragment = document.createDocumentFragment();
-
-    foodItems.forEach((foodItem) => {
+    this.foodItems.forEach((foodItem) => {
       foodFragment.appendChild(
         FoodItem({
           category: foodItem.category,
@@ -19,7 +21,6 @@ export default class FoodList {
         })
       );
     });
-
     this.foodList.appendChild(foodFragment);
   }
   get element() {
