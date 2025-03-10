@@ -10,6 +10,7 @@ export default class FoodList {
     this.render();
   }
   render() {
+    this.foodList.innerHTML = "";
     const foodFragment = document.createDocumentFragment();
     this.foodItems.forEach((foodItem) => {
       foodFragment.appendChild(
@@ -22,6 +23,11 @@ export default class FoodList {
       );
     });
     this.foodList.appendChild(foodFragment);
+  }
+  addItem(foodItem) {
+    this.foodItems = [...this.foodItems, foodItem];
+    console.log(this.foodItems);
+    this.render();
   }
   get element() {
     return this.foodList;

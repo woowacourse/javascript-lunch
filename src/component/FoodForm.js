@@ -1,5 +1,6 @@
 import { SELECT_OPTIONS } from "../constants/constants.js";
 import { CAPTION } from "../constants/systemMessage.js";
+import { getInput } from "../util/getInput.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
 import { Input } from "./input/Input.js";
@@ -7,7 +8,7 @@ import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput";
 
 export default class FoodForm {
-  constructor() {
+  constructor({ onCancel = () => {}, onSubmit = () => {} }) {
     this.container = document.createElement("form");
 
     this.container.appendChild(
@@ -40,6 +41,7 @@ export default class FoodForm {
       TextareaInput({
         isRequired: false,
         label: "설명",
+        name: "description",
         caption: CAPTION.description,
       })
     );
@@ -60,19 +62,36 @@ export default class FoodForm {
             name: "cancel",
             cssType: "secondary",
             innerText: "취소하기",
-            onClick: () => {},
+            onClick: onCancel,
           }),
           Button({
             name: "submit",
+            type: "submit",
             cssType: "primary",
             innerText: "추가하기",
-            onClick: () => {},
           }),
         ],
       })
     );
+    this.container.onsubmit = (e) => {
+      e.preventDefault();
+
+      const formData = this.getFormInputs();
+
+      onSubmit(formData);
+      this.container.reset();
+    };
   }
   get element() {
     return this.container;
+  }
+  getFormInputs() {
+    return {
+      category: getInput("category"),
+      name: getInput("name"),
+      distance: getInput("distance"),
+      description: getInput("description"),
+      link: getInput("link"),
+    };
   }
 }
