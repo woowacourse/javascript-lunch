@@ -1,15 +1,26 @@
-import { SELECT_OPTIONS } from "../constants/constants.js";
+import {
+  DESCRIPTION_MAX_LENGTH,
+  NAME_MAX_LENGTH,
+  SELECT_OPTIONS,
+} from "../constants/constants.js";
 import { CAPTION } from "../constants/systemMessage.js";
-import { getInput } from "../util/getInput.js";
+import {
+  validateLength,
+  validateRequiredInput,
+  validateURL,
+} from "../validate/validateCondition.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
+import { removeError, setError } from "./input/errorHandler.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput";
+import { alertError } from "./layout/alert/alertError.js";
 
 export default class FoodForm {
   constructor({ onModalClose = () => {}, onSubmit = () => {} }) {
     this.container = document.createElement("form");
+    this.container.setAttribute("novalidate", "true");
 
     this.container.appendChild(
       SelectInput({
@@ -76,24 +87,31 @@ export default class FoodForm {
     this.container.onsubmit = (e) => {
       e.preventDefault();
 
-      const formData = this.getFormInputs();
+      try {
+        const formData = this.getFormInputs();
+        onSubmit(formData);
 
-      onSubmit(formData);
-      this.container.reset();
-
-      onModalClose();
+        this.container.reset();
+        onModalClose();
+      } catch (error) {
+        alertError(error.message);
+      }
     };
+  }
+  getFormInputs() {
+    const formData = new FormData(this.container);
+    this.validateFormForm(formData);
+    return Object.fromEntries(formData.entries());
+  }
+  validateFormForm(formData) {
+    validateRequiredInput(formData.get("category"));
+    validateRequiredInput(formData.get("name"));
+    validateLength(formData.get("name"), NAME_MAX_LENGTH);
+    validateRequiredInput(formData.get("distance"));
+    validateLength(formData.get("description"), DESCRIPTION_MAX_LENGTH);
+    validateURL(formData.get("link"));
   }
   get element() {
     return this.container;
-  }
-  getFormInputs() {
-    return {
-      category: getInput("category"),
-      name: getInput("name"),
-      distance: getInput("distance"),
-      description: getInput("description"),
-      link: getInput("link"),
-    };
   }
 }
