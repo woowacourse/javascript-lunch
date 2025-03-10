@@ -1,4 +1,4 @@
-import { title } from "../constants/inputTitle.js";
+import inputTitle from "../constants/inputTitle.js";
 
 const getOptionValue = (name, option) => {
   if (name === "distance") {
@@ -14,7 +14,9 @@ const optionInput = (name, options) => {
   formItem.classList.add("form-item--required");
 
   formItem.innerHTML = `
-  <label for="category text-caption">${title[name]}</label>
+  <label for=${name} class="text-caption">${
+    inputTitle[name.toUpperCase()]
+  }</label>
                 <select name=${name} id=${name}>
                   <option value="">선택해 주세요</option>
                 ${options
