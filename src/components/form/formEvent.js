@@ -25,7 +25,7 @@ export const handleAddRestaurant = (e) => {
     const form = document.getElementById("add-restaurant-form");
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
-    validateRestaurantForm(form);
+    validateRestaurantForm(form, ["category", "name", "distance"]);
     addRestaurant(data);
   } catch (error) {
     alert(error.message);
