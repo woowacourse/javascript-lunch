@@ -13,17 +13,6 @@
   color: #fcfcfd;
 }
 
-.gnb__button {
-  height: 40px;
-
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-
-  font-size: 24px;
-  cursor: pointer;
-}
-
 .gnb__button img {
   display: block;
   width: 40px;
@@ -264,6 +253,17 @@ input[name="link"] {
 
 .restaurant-filter {
   padding: 8px;
+}
+
+.icon-button--primary {
+  height: 40px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  font-size: 24px;
+  cursor: pointer;
 }
 
 * {
