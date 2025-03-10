@@ -92,7 +92,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       const formData = new FormData(event.target as HTMLFormElement);
       const modalInput = Object.fromEntries(formData);
 
-      this.props.addRestaurant(modalInput as unknown as RestaurantType);
+      this.props?.addRestaurant(modalInput as unknown as RestaurantType);
     });
   }
 }

@@ -11,12 +11,12 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
     return `
       <div class="restaurant__tab-list">
         <div class="restaurant__tab-item ${
-          this.props.focusedTab === 'all' ? 'restaurant__tab-item--active' : ''
+          this.props?.focusedTab === 'all' ? 'restaurant__tab-item--active' : ''
         }" data-tab="all" id="tab-all">
           <span>모든 음식점</span>
         </div>
         <div class="restaurant__tab-item ${
-          this.props.focusedTab === 'like' ? 'restaurant__tab-item--active' : ''
+          this.props?.focusedTab === 'like' ? 'restaurant__tab-item--active' : ''
         }" data-tab="like" id="tab-like">
           <span>자주 가는 음식점</span>
         </div>
@@ -27,7 +27,7 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
   onRender() {
     this.element?.querySelectorAll('.restaurant__tab-item').forEach((tabItem) => {
       tabItem.addEventListener('click', (event) => {
-        this.props.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab as TabType);
+        this.props?.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab as TabType);
       });
     });
   }

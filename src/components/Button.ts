@@ -10,8 +10,12 @@ interface ButtonProps {
 
 export default class Button extends Component<null, ButtonProps> {
   template() {
-    return html` <button type=${this.props.type} class="button ${this.props.class} text-caption" id=${this.props.id}>
-      ${this.props.message}
+    return html` <button
+      class="button text-caption ${this.props?.class}"
+      ${this.props?.type ? `type = ${this.props?.type}` : ''}
+      ${this.props?.id ? `id = ${this.props?.id}` : ''}
+    >
+      ${this.props?.message}
     </button>`;
   }
 }
