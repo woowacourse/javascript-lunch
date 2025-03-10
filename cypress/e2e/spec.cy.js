@@ -1,3 +1,5 @@
+import { ERROR } from "../../src/constants/message.js";
+
 describe("e2e 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
@@ -50,7 +52,7 @@ describe("e2e 테스트", () => {
       cy.get(".gnb__button").click(); // 음식점 추가 모달 열기
     });
 
-    it("카테고리를 선택하지 않으면 alert창이 뜨고 추가할 수 없다", () => {
+    it("카테고리를 선택하지 않으면 에러를 발생시키고 alert창이 뜬다.", () => {
       cy.get("#name").type("새로운 음식점");
       cy.get("#distance").select("10");
 
@@ -58,11 +60,11 @@ describe("e2e 테스트", () => {
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
-        expect(message).to.equal("카테고리(은)는 필수 값입니다.");
+        expect(message).to.equal(`카테고리${ERROR.INVALID_REQUIRED}`);
       });
     });
 
-    it("이름을 입력하지 않으면 alert창이 뜨고 추가할 수 없다", () => {
+    it("이름을 입력하지 않으면 에러를 발생시키고 alert창이 뜬다.", () => {
       cy.get("#category").select("한식");
       cy.get("#distance").select("10");
 
@@ -70,11 +72,11 @@ describe("e2e 테스트", () => {
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
-        expect(message).to.equal("이름(은)는 필수 값입니다.");
+        expect(message).to.equal(`이름${ERROR.INVALID_REQUIRED}`);
       });
     });
 
-    it("이름을 공백만 입력하면 alert창이 뜨고 추가할 수 없다", () => {
+    it("이름을 공백만 입력하면 에러를 발생시키고 alert창이 뜬다.", () => {
       cy.get("#category").select("한식");
       cy.get("#name").type("  ");
       cy.get("#distance").select("10");
@@ -83,11 +85,11 @@ describe("e2e 테스트", () => {
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
-        expect(message).to.equal("이름(은)는 필수 값입니다.");
+        expect(message).to.equal(`이름${ERROR.INVALID_REQUIRED}`);
       });
     });
 
-    it("거리를 선택하지 않으면 alert창이 뜨고 추가할 수 없다", () => {
+    it("거리를 선택하지 않으면 에러를 발생시키고 alert창이 뜬다.", () => {
       cy.get("#category").select("한식");
       cy.get("#name").type("새로운 음식점");
 
@@ -95,7 +97,9 @@ describe("e2e 테스트", () => {
       cy.get(".modal").should("have.class", "modal--open");
 
       cy.on("window:alert", (message) => {
-        expect(message).to.equal("거리(도보 이동 시간)(은)는 필수 값입니다.");
+        expect(message).to.equal(
+          `거리(도보 이동 시간)${ERROR.INVALID_REQUIRED}`
+        );
       });
     });
   });

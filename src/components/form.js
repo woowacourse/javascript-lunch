@@ -1,3 +1,4 @@
+import { ERROR } from "../constants/message.js";
 import { addRestaurant } from "./modal.js";
 
 export const handleAddRestaurant = (e) => {
@@ -23,7 +24,7 @@ const validateForm = (form) => {
       const labelText = document.querySelector(
         `label[for="${requiredField.id}"]`
       ).textContent;
-      throw new Error(`${labelText}(은)는 필수 값입니다.`);
+      throw new Error(`${labelText}${ERROR.INVALID_REQUIRED}`);
     }
   });
 };
