@@ -14,11 +14,8 @@ export default class App {
   }
 
   #renderRestaurantList() {
-    const $listContainer = document.querySelector(".restaurant-list-container");
-    this.$main.replaceChild(
-      new RestaurantList(this.restaurantService.getRestaurants()).render(),
-      $listContainer
-    );
+    const restaurantList = this.restaurantService.getRestaurants();
+    this.$restaurantList.update(restaurantList);
   }
 
   #initElement() {

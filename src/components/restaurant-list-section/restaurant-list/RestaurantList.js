@@ -4,20 +4,23 @@ import "./restaurantList.css";
 export default class RestaurantList {
   constructor(restaurantList) {
     this.restaurantList = restaurantList;
+    this.$listSection = document.createElement("section");
+    this.$listSection.className = "restaurant-list-container";
+    this.$list = document.createElement("ul");
+    this.$list.className = "restaurant-list";
+    this.$listSection.append(this.$list);
   }
 
   render() {
-    const $listSection = document.createElement("section");
-    $listSection.className = "restaurant-list-container";
-
-    const $list = document.createElement("ul");
-    $list.className = "restaurant-list";
-
-    $listSection.append($list);
+    this.$list.innerHTML = "";
     this.restaurantList.forEach((restaurantInfo) =>
-      $list.append(new RestaurantListItem(restaurantInfo).render())
+      this.$list.append(new RestaurantListItem(restaurantInfo).render())
     );
+    return this.$listSection;
+  }
 
-    return $listSection;
+  update(restaurantList) {
+    this.restaurantList = restaurantList;
+    this.render();
   }
 }
