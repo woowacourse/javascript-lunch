@@ -1,10 +1,10 @@
-const $input = (inputInfo) => {
+const $input = ({ attribute, eventType, event }) => {
   const input = document.createElement("input");
 
-  Object.assign(input, inputInfo.attribute);
+  Object.assign(input, attribute);
 
-  if (inputInfo.eventType && inputInfo.event) {
-    input.addEventListener(inputInfo.eventType, inputInfo.event);
+  if (eventType && event) {
+    input.addEventListener(eventType, event);
   }
 
   return input;

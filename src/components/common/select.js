@@ -1,16 +1,16 @@
-const $select = (selectInfo) => {
+const $select = ({ attribute, options, eventType, event }) => {
   const select = document.createElement("select");
-  Object.assign(select, selectInfo.attribute);
+  Object.assign(select, attribute);
 
-  Object.keys(selectInfo.options).forEach((selectName) => {
+  Object.keys(options).forEach((selectName) => {
     const option = document.createElement("option");
-    option.value = selectInfo.options[selectName];
+    option.value = options[selectName];
     option.textContent = selectName;
     select.appendChild(option);
   });
 
-  if (selectInfo.eventType && selectInfo.event) {
-    select.addEventListener(selectInfo.eventType, selectInfo.event);
+  if (eventType && event) {
+    select.addEventListener(eventType, event);
   }
 
   return select;

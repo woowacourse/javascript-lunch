@@ -1,10 +1,10 @@
-const $button = (buttonInfo) => {
+const $button = ({ attribute, text, eventType, event }) => {
   const button = document.createElement("button");
 
-  Object.assign(button, buttonInfo.attribute);
-  button.textContent = buttonInfo.text;
-  if (buttonInfo.event && buttonInfo.eventType) {
-    button.addEventListener(buttonInfo.eventType, buttonInfo.event);
+  Object.assign(button, attribute);
+  button.textContent = text;
+  if (eventType && event) {
+    button.addEventListener(eventType, event);
   }
 
   return button;
