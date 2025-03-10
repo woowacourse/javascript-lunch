@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { $ } from "../../utils/selector.js";
 
 class Modal extends Component {
   setup() {
@@ -13,7 +14,7 @@ class Modal extends Component {
   }
 
   componentDidMount() {
-    this.$backdrop = this.$target.querySelector(".modal-backdrop");
+    this.$backdrop = $(".modal-backdrop");
     if (this.$backdrop) {
       this.$backdrop.removeEventListener("click", this.handleClose);
       this.$backdrop.addEventListener("click", this.handleClose);

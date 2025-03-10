@@ -5,6 +5,7 @@ import { restaurants } from "./database/restaurants.js";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
 import Modal from "./components/modal/Modal.js";
 import Component from "./components/core/Component.js";
+import { $ } from "./utils/selector.js";
 
 class App extends Component {
   setup() {
@@ -38,10 +39,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const $modal = new AddRestaurantModal(document.querySelector("#modal"), {
+    const $modal = new AddRestaurantModal($("#modal"), {
       updateRestaurant: this.updateRestaurant.bind(this),
     });
-    const $gnbButton = this.$target.querySelector(".gnb__button");
+    const $gnbButton = $(".gnb__button");
 
     $gnbButton.addEventListener("click", () => {
       $modal.open();
@@ -51,7 +52,7 @@ class App extends Component {
   }
 
   renderRestaurantList() {
-    const $main = document.querySelector("main");
+    const $main = $("main");
 
     $main.replaceChildren();
     $main.insertAdjacentHTML(
@@ -61,5 +62,5 @@ class App extends Component {
   }
 }
 
-const app = document.querySelector("#app");
+const app = $("#app");
 new App(app);

@@ -9,6 +9,7 @@ import validateRestaurantName from "../../../validators/validateRestaurantName.j
 import validateDistance from "../../../validators/validateDistance.js";
 import validateDescription from "../../../validators/validateDescription.js";
 import validateLink from "../../../validators/validateLink.js";
+import { $ } from "../../../utils/selector.js";
 
 class AddRestaurantModal extends Modal {
   contents() {
@@ -37,8 +38,8 @@ class AddRestaurantModal extends Modal {
   }
 
   addEventListeners() {
-    const $cancelButton = document.querySelector("#cancel-add-restaurant-form");
-    const $addForm = document.querySelector("#add-restaurant-form");
+    const $cancelButton = $("#cancel-add-restaurant-form");
+    const $addForm = $("#add-restaurant-form");
 
     $cancelButton.removeEventListener("click", this.handleClose);
     $addForm.removeEventListener("submit", this.handleSubmit);
