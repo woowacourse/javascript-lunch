@@ -1,14 +1,7 @@
-import { categoryValue, distanceValue } from "../../constants/optionValue.js";
 import Component from "../Component.js";
-import Dropdown from "../Dropdown/Dropdown.js";
-import Input from "../Input/Input.js";
 import addData from "./addData.js";
 import "./modal.css";
 class Modal extends Component {
-  constructor($target, props) {
-    super($target, props);
-  }
-
   template() {
     const { isModalOpen, content } = this.props;
     return `<div class="modal-backdrop"></div>
@@ -32,7 +25,6 @@ class Modal extends Component {
       .querySelector(".modal-backdrop")
       .addEventListener("click", () => {
         this.props.toggleModal();
-
       });
     this.$target
       .querySelector(".button.button--secondary.text-caption")
@@ -49,7 +41,6 @@ class Modal extends Component {
         event.preventDefault();
         addData();
         this.props.toggleModal();
-
       });
   }
 }

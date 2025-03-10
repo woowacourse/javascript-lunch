@@ -1,10 +1,6 @@
 import Component from "../Component.js";
 
 class Restaurant extends Component {
-  constructor($target, props) {
-    super($target, props);
-  }
-
   template() {
     const { name, distance, description, imgSrc, imgAlt } = this.props;
     return `    <div class="restaurant__category">
