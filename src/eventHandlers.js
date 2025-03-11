@@ -1,3 +1,4 @@
+import sortRestaurants from './domain/sortRestaurants.js';
 import stateStore from './stateStore.js';
 
 function openModal() {
@@ -91,6 +92,17 @@ function resetState() {
 function resetFormAndState() {
   resetForm();
   resetState();
+}
+
+function sortRestaurantItems(restaurantItems, renderer) {
+  const itemsSort = document.querySelector('.items-sort');
+
+  itemsSort.addEventListener('change', (event) => {
+    const sortKey = event.target.value;
+    const sortedRestaurants = sortRestaurants(sortKey, restaurantItems);
+
+    stateStore.updateState(sortedRestaurants);
+  });
 }
 
 const eventHandlers = {
