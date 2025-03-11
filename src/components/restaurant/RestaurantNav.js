@@ -1,0 +1,38 @@
+import createElement from "../../util/createElement";
+
+export default function RestaurantNav() {
+  const $nav = createElement({ tag: "nav", classNames: ["restaurant-nav"] });
+  const $allRestaurant = createElement({
+    tag: "div",
+    classNames: ["restaurant-nav-item", "text-subtitle", "select"],
+    name: "all-restaurant",
+    textContent: "모든 음식점",
+  });
+  const $favoriteRestaurant = createElement({
+    tag: "div",
+    classNames: ["restaurant-nav-item", "text-subtitle"],
+    name: "favorite-Restaurant",
+    textContent: "자주 가는 음식점",
+  });
+
+  $allRestaurant.addEventListener("click", (e) => {
+    if (e.target.name === "all-restaurant") return;
+    $allRestaurant.classList.add("select");
+    $favoriteRestaurant.classList.remove("select");
+    // 모든 음식점 가져와서 render 함수 호출
+  });
+
+  $favoriteRestaurant.addEventListener("click", (e) => {
+    if (e.target.name === "favorite-Restaurant") return;
+    $allRestaurant.classList.remove("select");
+    $favoriteRestaurant.classList.add("select");
+    // 좋아요 음식점 가져와서 render 함수 호출
+  });
+
+  $nav.append($allRestaurant, $favoriteRestaurant);
+  return $nav;
+}
+
+function onClickAllRestaurant() {
+  select = "all-restaurant";
+}

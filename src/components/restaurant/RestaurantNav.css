@@ -1,0 +1,21 @@
+.restaurant-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin: 0 3rem;
+}
+
+.restaurant-nav-item {
+  text-align: center;
+  flex: 1;
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--grey-200);
+  color: var(--grey-300);
+  cursor: pointer;
+}
+
+.select {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
