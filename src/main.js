@@ -1,23 +1,16 @@
-import image from "../templates/favorite-icon-filled.png";
-
-console.log("npm run dev 명령어를 통해 점심 뭐 먹지 미션을 시작하세요");
-console.log(
-  "%c ___       ___  ___  ________   ________  ___  ___     \n" +
-    "|\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\   ____\\|\\  \\|\\  \\    \n" +
-    "\\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\___|\\ \\  \\\\\\  \\   \n" +
-    " \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\    \\ \\   __  \\  \n" +
-    "  \\ \\  \\____\\ \\  \\\\\\  \\ \\  \\\\ \\  \\ \\  \\____\\ \\  \\ \\  \\ \n" +
-    "   \\ \\_______\\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \\__\\ \\__\\\n" +
-    "    \\|_______|\\|_______|\\|__| \\|__|\\|_______|\\|__|\\|__|",
-  "color: #d81b60; font-size: 14px; font-weight: bold;"
-);
+import { IconButton } from "./component/button/IconButton.js";
+import { FoodForm } from "./component/FoodForm.js";
+import { Modal } from "./component/layout/Modal.js";
+import { FoodListPage } from "./pages/FoodListPage.js";
 
 addEventListener("load", () => {
-  const app = document.querySelector("#app");
-  const buttonImage = document.createElement("img");
-  buttonImage.src = image;
+  const AddFoodItemIcon = IconButton({
+    imgSrc: "./add-button.png",
+    label: "음식점 추가",
+    onClick: Modal.open,
+  });
 
-  if (app) {
-    app.appendChild(buttonImage);
-  }
+  const foodListPage = new FoodListPage("점심 뭐 먹지", AddFoodItemIcon);
+
+  const modal = new Modal(FoodForm());
 });
