@@ -29,9 +29,9 @@ function createRestaurantItem(container, inputValue) {
             <h3 class="restaurant__name text-subtitle">${
               inputValue.nameValue
             }</h3>
-            <span class="restaurant__distance text-body">캠퍼스부터 ${
-              inputValue.distanceValue
-            }</span>
+            <span class="restaurant__distance text-body">
+            캠퍼스부터 ${inputValue.distanceValue}
+            </span>
           </div>
           <button class="restaurant-favorite-star-button">
             <img class="restaurant-favorite-star" src=${

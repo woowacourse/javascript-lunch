@@ -15,7 +15,7 @@ export function GetAllRestaurants() {
   return DEFAULT_RESTAURANTS;
 }
 
-export function GetRestaurantFromStorage() {
+function GetRestaurantFromStorage() {
   return JSON.parse(localStorage.getItem("restaurants")) || [];
 }
 

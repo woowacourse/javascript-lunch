@@ -51,7 +51,7 @@ function HandleAddRestaurant(e) {
       category,
       categoryValue,
       nameValue,
-      distanceValue,
+      distanceValue: `${distanceValue}분 내`,
       descriptionValue,
       link,
       favorite: false,
