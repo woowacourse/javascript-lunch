@@ -29,12 +29,12 @@ describe('모달창이 뜨면 입력 내용들이 뜬다.', () => {
 
 describe('모달창을 닫을 수 있다.', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173/');
+    cy.visit(VISIT_URL_CONSTANT.LINK);
     cy.get('.gnb__button').click();
   });
 
   it('모달창에서 취소하기 버튼을 클릭하면 모달창을 닫을 수 있다.', () => {
-    cy.contains('취소하기').click();
+    cy.get('button').contains('취소하기').click();
     cy.get('.modal').should('not.have.class', '.modal--open');
   });
 
