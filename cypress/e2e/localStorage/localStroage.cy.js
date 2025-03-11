@@ -1,7 +1,4 @@
-import {
-  ERROR_MESSAGE,
-  INITIAL_RESTAURANT,
-} from "../../../src/settings/settings";
+import { ERROR_MESSAGE } from "../../../src/settings/settings";
 
 describe("로컬 스토리지가 잘 되는지 확인하는 시나리오", () => {
   before(() => {
