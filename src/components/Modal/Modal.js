@@ -3,7 +3,7 @@ import addData from "./addData.js";
 import "./modal.css";
 class Modal extends Component {
   template() {
-    const { isModalOpen, content } = this.props;
+    const { content } = this.props;
     return `<div class="modal-backdrop"></div>
     <div class="modal-container">
       ${content}
