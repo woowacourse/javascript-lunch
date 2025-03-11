@@ -27,7 +27,7 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
     cy.get("#name").clear();
     cy.get("#name").type("더휴웨딩몰");
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
   });
   it("모달 열기 테스트, 음식점 추가(음식점 이름이 중복된다는 경고창을 발생시킨다.)", () => {
     // 모달 띄우기
@@ -50,7 +50,7 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
     cy.get("#name").clear();
     cy.get("#name").type("더휴웨딩몰");
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
   });
   it("모달 열기 테스트, 음식점 추가(음식점 설명이 300자를 초과해서 경고창을 발생시킨다.)", () => {
     // 모달 띄우기
@@ -75,7 +75,7 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
     cy.get("#description").clear();
     cy.get("#description").type("강추!");
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
   });
 
   it("모달 열기 테스트, 음식점 추가(음식점 링크가 300자를 초과해서 경고창을 발생시킨다.)", () => {
@@ -99,6 +99,6 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
     cy.get("#link").clear();
     cy.get("#link").type("강추!");
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
   });
 });

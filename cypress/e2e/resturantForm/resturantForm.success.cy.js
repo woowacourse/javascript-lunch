@@ -26,7 +26,7 @@ describe("음식점 추가가 잘 되는지 확인하는 시나리오", () => {
 
     // 폼 제출
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
 
     cy.get(".toast")
       .should("be.visible")
@@ -46,7 +46,7 @@ describe("음식점 추가가 잘 되는지 확인하는 시나리오", () => {
 
     // 폼 제출
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
 
     // 모달 띄우기
     cy.get(".gnb__button").click();
@@ -61,7 +61,7 @@ describe("음식점 추가가 잘 되는지 확인하는 시나리오", () => {
     // 폼 제출
     cy.get(".restaurant-add-form").submit();
 
-    cy.get(".restaurant").should("have.length", 6);
+    cy.get(".restaurant").should("have.length", 12);
     cy.get(".toast")
       .should("be.visible")
       .should("contain", "잇쇼이 음식점을 추가했습니다.");

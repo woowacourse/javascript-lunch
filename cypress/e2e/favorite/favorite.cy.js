@@ -36,15 +36,15 @@ describe("즐겨찾기 테스트", () => {
     cy.get("#name").type("더휴웨딩몰");
     cy.get(".restaurant-add-form").submit();
 
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
     cy.get(
-      ":nth-child(5) > .restaurant__info > .restaurant__header > .favorite-icon"
+      ":nth-child(11) > .restaurant__info > .restaurant__header > .favorite-icon"
     )
       .click()
       .should("have.attr", "src", "./Star.png");
 
     cy.get(
-      ":nth-child(5) > .restaurant__info > .restaurant__header > .favorite-icon"
+      ":nth-child(11) > .restaurant__info > .restaurant__header > .favorite-icon"
     )
       .click()
       .should("have.attr", "src", "./Un-star.png");

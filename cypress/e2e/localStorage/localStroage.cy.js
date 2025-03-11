@@ -32,7 +32,7 @@ describe("로컬 스토리지가 잘 되는지 확인하는 시나리오", () =>
     cy.get("#distance").select("20");
 
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 5);
+    cy.get(".restaurant").should("have.length", 11);
 
     cy.get(".toast")
       .should("be.visible")
@@ -49,7 +49,7 @@ describe("로컬 스토리지가 잘 되는지 확인하는 시나리오", () =>
     cy.get("#distance").select("10");
 
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 6);
+    cy.get(".restaurant").should("have.length", 12);
     cy.get(".toast")
       .should("be.visible")
       .should("contain", "타코집 음식점을 추가했습니다.");
@@ -72,7 +72,7 @@ describe("로컬 스토리지가 잘 되는지 확인하는 시나리오", () =>
     cy.get("#name").type("잇쇼이비슷한거");
 
     cy.get(".restaurant-add-form").submit();
-    cy.get(".restaurant").should("have.length", 7).should("be.visible");
+    cy.get(".restaurant").should("have.length", 13).should("be.visible");
 
     cy.get(".toast")
       .should("be.visible")
