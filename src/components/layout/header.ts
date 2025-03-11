@@ -1,4 +1,10 @@
-const $header = ({ title, buttonTitle, buttonImage }) => {
+type HeaderProps = {
+  title: string;
+  buttonTitle: string;
+  buttonImage: string;
+}
+
+const $header = ({ title, buttonTitle, buttonImage }: HeaderProps): HTMLElement => {
   const header = document.createElement("header");
   header.classList.add("gnb");
 

@@ -1,4 +1,4 @@
-import $header from "./components/layout/header.js";
+import $header from "./components/layout/header.ts";
 import $restaurantItem from "./components/restaurant/restaurant-item.js";
 import $inputItem from "./components/form-elements/input-item.js";
 import $modal from "./components/modal/modal.js";
