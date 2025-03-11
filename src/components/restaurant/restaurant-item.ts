@@ -1,4 +1,12 @@
-const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, description }) => {
+type RestaurantItemProps = {
+  categoryIcon: string;
+  categoryTitle: string;
+  name: string;
+  distance: string;
+  description: string;
+}
+
+const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, description }: RestaurantItemProps): HTMLLIElement => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
 
