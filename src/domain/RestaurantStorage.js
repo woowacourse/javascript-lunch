@@ -13,17 +13,16 @@ export function AddNewRestaurant({ restaurant }) {
 export function GetAllRestaurants() {
   const defaultRestaurants = [...DEFAULT_RESTAURANTS];
 
-  console.log("#@@@@", defaultRestaurants);
-
   const restaurantsFromStorage = GetRestaurantFromStorage();
   restaurantsFromStorage.forEach((restaurant) => {
-    defaultRestaurants.forEach((defaultRestaurant) => {
+    defaultRestaurants.some((defaultRestaurant) => {
       if (defaultRestaurant.nameValue === restaurant.nameValue) {
         if (defaultRestaurant.favorite !== restaurant.favorite) {
           defaultRestaurant.favorite = restaurant.favorite;
         }
       } else {
         defaultRestaurants.push(restaurant);
+        return true;
       }
     });
   });

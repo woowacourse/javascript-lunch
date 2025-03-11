@@ -1,4 +1,5 @@
 import { GetAllRestaurants } from "../domain/RestaurantStorage";
+import SaveFavoriteRestaurant from "../domain/SaveFavoriteRestaurant";
 
 export function createRestaurantList(restaurants) {
   const $restaurantListContainer = document.querySelector(
@@ -13,6 +14,7 @@ export function createRestaurantList(restaurants) {
   });
 
   $restaurantListContainer.innerHTML = restaurantList.outerHTML;
+  SaveFavoriteRestaurant();
 }
 
 function createRestaurantItem(container, inputValue) {
