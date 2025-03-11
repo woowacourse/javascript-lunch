@@ -2,18 +2,17 @@ import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
 import { $ } from "../utils/querySelectors.js";
 import LunchInfoCard from "./LunchInfoCard.js";
-import MOCK_ITEM from "../mockItem.js";
 
 class RestaurantList {
+  #el;
+
   constructor(id, items) {
-    const $element = $(".restaurant-list");
-    $element.id = id;
-    $element.innerHTML = items.map(LunchInfoCard).join("");
+    this.#el = $(".restaurant-list");
+    this.#el.innerHTML = items.map(LunchInfoCard).join("");
   }
 
-  static add(id, newRestaurant) {
-    const $targetList = document.getElementById(id);
-    append($targetList, LunchInfoCard(newRestaurant));
+  add(newRestaurant) {
+    append(this.#el, toElement(LunchInfoCard(newRestaurant)));
   }
 }
 

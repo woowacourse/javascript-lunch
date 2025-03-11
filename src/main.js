@@ -22,8 +22,5 @@ const restaurantList = new RestaurantList(
 );
 
 $("main").append(
-  new Modal(
-    "addLunchModal",
-    AddLunchModalForm("toalRestaurantList", "addLunchModal")
-  )
+  new Modal("addLunchModal", AddLunchModalForm(restaurantList, "addLunchModal"))
 );
