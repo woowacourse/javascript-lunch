@@ -1,9 +1,6 @@
 import { label } from "../../data/optionValue.js";
 import Component from "../Component.js";
 class Dropdown extends Component {
-  constructor($target, props) {
-    super($target, props);
-  }
   template() {
     return `
           <label for="${this.$target.getAttribute("id")} text-caption">${label[this.$target.getAttribute("id")]}</label>

@@ -2,9 +2,6 @@ import { label } from "../../data/optionValue.js";
 import Component from "../Component.js";
 
 class Input extends Component {
-  constructor($target, props) {
-    super($target, props);
-  }
   template() {
     const { required, type } = this.props;
     return `
