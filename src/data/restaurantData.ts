@@ -1,6 +1,7 @@
 import { CATEGORY } from '../constants/constants.js';
+import { State } from '../store/stateStore.js';
 
-export const RESTAURANTS = [
+export const RESTAURANTS: State[] = [
   {
     category: `${CATEGORY.lists.get('KOREAN')}`,
     name: '피양콩할마니',
