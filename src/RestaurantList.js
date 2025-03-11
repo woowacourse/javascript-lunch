@@ -1,5 +1,4 @@
 import RestaurantItem from './components/RestaurantItem.js';
-import { DOM } from './dom.js';
 import Restaurant from './Restaurant.js';
 
 const restaurantDatas = [
@@ -30,15 +29,18 @@ const restaurantDatas = [
 ];
 
 class RestaurantList {
-  constructor() {
+  #restaurantListContainer;
+
+  constructor(restaurantListContainer) {
+    this.#restaurantListContainer = restaurantListContainer;
     this.#createRestaurantList(restaurantDatas);
   }
-  #createRestaurantList = (restaurantList) => {
+  #createRestaurantList(restaurantList) {
     restaurantList.forEach((restaurant) => {
       const restaurantItem = new RestaurantItem(restaurant);
-      DOM.RESTAURANT_LIST.appendChild(restaurantItem);
+      this.#restaurantListContainer.appendChild(restaurantItem);
     });
-  };
+  }
 }
 
 export default RestaurantList;

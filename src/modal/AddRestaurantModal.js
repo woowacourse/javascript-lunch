@@ -5,7 +5,6 @@ import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/RestaurantItem.js';
 import CATEGORY from '../constant/category.js';
 import DISTANCE from '../constant/distance.js';
-import { DOM } from '../dom.js';
 import Restaurant from '../Restaurant.js';
 import { validateDescription } from '../validation/validateDescription.js';
 import { validateDropDown } from '../validation/validateDropDown.js';
@@ -21,16 +20,18 @@ class AddRestaurantModal extends Modal {
   #divDescription;
   #divLink;
   #modalForm;
+  #restaurantListContainer;
 
-  constructor() {
-    super();
+  constructor(appContainer, restaurantListContainer) {
+    super(appContainer);
+    this.#restaurantListContainer = restaurantListContainer;
     this.#init();
     this.#bindEvent();
     this.#createAddModal();
     return this;
   }
 
-  #init = () => {
+  #init() {
     this.#cancelButton = new Button('button--secondary', '취소하기');
     this.#addButton = new Button('button--primary', '추가하기');
     this.#divCategory = new InputDropDown('카테고리', CATEGORY);
@@ -39,17 +40,17 @@ class AddRestaurantModal extends Modal {
     this.#divDescription = new InputText('설명');
     this.#divLink = new InputText('참조 링크');
     this.#modalForm = document.createElement('form');
-  };
+  }
 
-  #resetForm = () => {
+  #resetForm() {
     this.#divCategory.reset();
     this.#divName.reset();
     this.#divDistance.reset();
     this.#divDescription.reset();
     this.#divLink.reset();
-  };
+  }
 
-  #createButton = () => {
+  #createButton() {
     const divButton = document.createElement('div');
     divButton.classList.add('button-container');
 
@@ -57,17 +58,17 @@ class AddRestaurantModal extends Modal {
     divButton.appendChild(this.#addButton);
 
     return divButton;
-  };
+  }
 
-  #appendChildToModalForm = () => {
+  #appendChildToModalForm() {
     this.#modalForm.appendChild(this.#divCategory.getElement());
     this.#modalForm.appendChild(this.#divName.getElement());
     this.#modalForm.appendChild(this.#divDistance.getElement());
     this.#modalForm.appendChild(this.#divDescription.getElement());
     this.#modalForm.appendChild(this.#divLink.getElement());
-  };
+  }
 
-  #createAddModal = () => {
+  #createAddModal() {
     const modalTitle = document.createElement('h2');
     modalTitle.classList.add('modal-title');
     modalTitle.classList.add('text-title');
@@ -79,9 +80,9 @@ class AddRestaurantModal extends Modal {
 
     const divButton = this.#createButton();
     this.addElement(divButton);
-  };
+  }
 
-  #addNewRestaurant = () => {
+  #addNewRestaurant() {
     const formData = Object.fromEntries(new FormData(this.#modalForm));
     const newRestaurant = new Restaurant(
       formData.name,
@@ -91,10 +92,10 @@ class AddRestaurantModal extends Modal {
       formData.link,
     );
     const newRestaurantItem = new RestaurantItem(newRestaurant);
-    DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
-  };
+    this.#restaurantListContainer.appendChild(newRestaurantItem);
+  }
 
-  #validateInputs = () => {
+  #validateInputs() {
     const formData = Object.fromEntries(new FormData(this.#modalForm));
     try {
       validateDropDown('카테고리', formData.category);
@@ -107,7 +108,7 @@ class AddRestaurantModal extends Modal {
       alert(error.message);
       return false;
     }
-  };
+  }
 
   #bindAddButtonEvent = () => {
     this.#addButton.addEventListener('click', (event) => {

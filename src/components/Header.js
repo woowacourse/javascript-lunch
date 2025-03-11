@@ -1,5 +1,3 @@
-import { DOM } from '../dom.js';
-
 const HEADER_TEMPLATE = `
   <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
   <button type="button" class="gnb__button" aria-label="음식점 추가">
@@ -8,17 +6,20 @@ const HEADER_TEMPLATE = `
 `;
 
 class Header {
-  constructor({ onClickIcon }) {
+  #appContainer;
+
+  constructor({ appContainer, onClickIcon }) {
+    this.#appContainer = appContainer;
     this.#createHeader();
     this.#bindEvent(onClickIcon);
   }
 
-  #createHeader = () => {
+  #createHeader() {
     const header = document.createElement('header');
     header.classList = 'gnb';
     header.innerHTML = HEADER_TEMPLATE;
-    DOM.APP.prepend(header);
-  };
+    this.#appContainer.prepend(header);
+  }
 
   #bindEvent = (onClickIcon) => {
     const addButton = document.querySelector('.gnb__button');
