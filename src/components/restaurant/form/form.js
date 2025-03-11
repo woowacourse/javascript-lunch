@@ -7,14 +7,14 @@ import {
   RESTAURANT_DISTANCE,
 } from "../../../settings/settings.ts";
 import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.ts";
-import { extractFormData } from "../../../utils/extract.ts";
+
 import createRestaurantItem from "../item/item.js";
 import Toast from "../../Toast/Toast.js";
-import restaurantList from "../../../model/RestaurantList.ts";
 
-export default function createRestaurantForm() {
+export default function createRestaurantForm(restaurantList) {
   const restaurantAddForm = createElement("form", {
     className: "restaurant-add-form",
+    id: "restaurant-add-form",
   });
 
   restaurantAddForm.append(
@@ -76,28 +76,6 @@ export default function createRestaurantForm() {
   );
 
   restaurantAddForm.appendChild(buttonContainer);
-
-  function handleAddRestaurantFormSubmit(event) {
-    event.preventDefault();
-
-    try {
-      const restaurantForm = extractFormData(restaurantAddForm);
-      const restaurant = restaurantFormValidation(restaurantForm);
-      const restaurantListElement = document.querySelector(".restaurant-list");
-
-      restaurantList.addRestaurant(restaurant);
-      restaurantListElement.appendChild(createRestaurantItem(restaurantForm));
-
-      Toast.showToast(`${restaurant.name} 음식점을 추가했습니다.`, "success");
-      const modal = document.querySelector(".modal");
-      restaurantAddForm.reset();
-      modal.close();
-    } catch (error) {
-      Toast.showToast(`${error.message}`, "error");
-    }
-  }
-
-  restaurantAddForm.addEventListener("submit", handleAddRestaurantFormSubmit);
 
   return restaurantAddForm;
 }
