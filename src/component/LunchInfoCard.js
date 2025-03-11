@@ -1,8 +1,7 @@
 import toElement from "../utils/toElement.js";
 
 function LunchInfoCard({ src, name, label, distance, description }) {
-  return toElement(
-    `
+  return `
         <li class="restaurant">
           <div class="restaurant__category">
               <img src=${src} alt=${label} />
@@ -13,8 +12,7 @@ function LunchInfoCard({ src, name, label, distance, description }) {
               <p class="restaurant__description text-body">${description}</p>
           </div>
         </li>
-`
-  );
+`;
 }
 
 export default LunchInfoCard;

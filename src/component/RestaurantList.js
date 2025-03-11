@@ -8,9 +8,7 @@ class RestaurantList {
   constructor(id, restaurantList) {
     const $restaurantList = $(".restaurant-list");
     $restaurantList.id = id;
-    this.$restaurantList.innerHTML = this.restuarantList
-      .map(LunchInfoCard)
-      .join("");
+    $restaurantList.innerHTML = restaurantList.map(LunchInfoCard).join("");
   }
 
   static add(id, newRestaurant) {
