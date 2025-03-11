@@ -10,7 +10,7 @@ class RestaurantList {
       try {
         this.addRestaurant(restaurantFormValidation(item));
       } catch (error) {
-        console.error();
+        console.error(ERROR_MESSAGE.INVALID_DEFAULT_RESTAURANT);
       }
     }
   }
