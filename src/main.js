@@ -49,6 +49,7 @@ function handleBottomSheetToggle(event) {
 }
 
 // 좋아요 버튼 토글 처리
+
 function handleFavoriteToggle(event) {
   if (!event.target.classList.contains("favorite-icon")) return;
   const parent = event.target.parentElement;
@@ -58,6 +59,14 @@ function handleFavoriteToggle(event) {
   restaurantList.toggleFavoriteRestaurant(restaurant);
 
   localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+
+  if (
+    !restaurant.isFavorite &&
+    document.querySelector('input[name="favoriteFilter"]:checked').value ===
+      "favorite"
+  ) {
+    restaurantListElement.removeChild(parent.parentElement.parentElement);
+  }
 
   event.target.src = restaurant.isFavorite ? "./Star.png" : "./Un-star.png";
 }
@@ -103,52 +112,43 @@ function sortList(list, sortOption) {
 function handleSort(sortFor) {
   const restaurantItems = Array.from(restaurantListElement.children);
 
-  // 정렬 기준을 로컬 스토리지에 저장
   localStorage.setItem("sort", sortFor);
 
-  // 리스트 정렬
   const sortedItems = sortList(restaurantItems, sortFor);
 
-  // 정렬된 항목을 다시 DOM에 추가
   sortedItems.forEach((item) => restaurantListElement.appendChild(item));
 }
 
 function handleCombinedFilter() {
-  // 기존 리스트 초기화
   while (restaurantListElement.firstChild) {
     restaurantListElement.removeChild(restaurantListElement.firstChild);
   }
 
-  // 두 필터 요소의 값 가져오기
   const categoryFilter = document.getElementById("category-filter").value;
-  const favoriteFilter = document.getElementById("favorite-filter").value; // 즐겨찾기 필터 요소가 있다고 가정
+  const favoriteFilter = document.querySelector(
+    'input[name="favoriteFilter"]:checked'
+  ).value;
 
-  // 전체 리스트에서 시작
   let filteredList = restaurantList.List;
 
-  // 즐겨찾기 필터 적용 (예: "all"이 아니면 즐겨찾기만 필터링)
   if (favoriteFilter !== "all") {
     filteredList = filteredList.filter(({ isFavorite }) => isFavorite);
   }
 
-  // 카테고리 필터 적용 (예: "전체"가 아니라면 해당 카테고리만 필터링)
   if (categoryFilter !== "전체") {
     filteredList = filteredList.filter(
       ({ category }) => category === categoryFilter
     );
   }
 
-  // 정렬 옵션 가져오기 및 정렬
   const sortOption = localStorage.getItem("sort") || "name";
   const sortedList = sortList(filteredList, sortOption);
 
-  // 정렬된 리스트를 DOM에 추가
   sortedList.forEach((restaurantItem) =>
     restaurantListElement.appendChild(createRestaurantItem(restaurantItem))
   );
 }
 
-// 클릭 이벤트 리스너 등록
 document.body.addEventListener("click", (event) => {
   [handleBottomSheetToggle, handleFavoriteToggle].forEach((handler) =>
     handler(event)
@@ -160,6 +160,7 @@ document
 document
   .getElementById("favorite-filter")
   .addEventListener("change", handleCombinedFilter);
+
 document
   .getElementById("sorting-filter")
   .addEventListener("change", (event) => {

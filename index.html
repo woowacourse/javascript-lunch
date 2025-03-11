@@ -22,7 +22,25 @@
         </button>
       </header>
       <main>
-        <!-- 카테고리/정렬 필터 -->
+        <div id="favorite-filter">
+          <input
+            type="radio"
+            id="filter-all"
+            name="favoriteFilter"
+            value="all"
+            checked
+          />
+          <label for="filter-all">모든 음식점</label>
+
+          <input
+            type="radio"
+            id="filter-favorite"
+            name="favoriteFilter"
+            value="favorite"
+          />
+          <label for="filter-favorite">자주 가는 음식점</label>
+        </div>
+
         <section class="restaurant-filter-container">
           <select
             name="category"
@@ -41,10 +59,6 @@
           <select name="sorting" id="sorting-filter" class="restaurant-filter">
             <option value="name">이름순</option>
             <option value="distance">거리순</option>
-          </select>
-          <select name="favorite" id="favorite-filter" class="favorite-filter">
-            <option value="all">전체</option>
-            <option value="favorite">즐겨찾기만</option>
           </select>
         </section>
         <!-- 음식점 목록 -->
