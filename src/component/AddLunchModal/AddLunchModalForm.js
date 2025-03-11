@@ -5,10 +5,9 @@ import TextareaForm from "../TextareaForm.js";
 import AddLunchButtonContainer from "./AddLunchButtonContainer.js";
 import {
   CATEGORY_DROPDOWN_LIST,
-  CATEGORY_ICON,
   DISTANCE_DROPDOWN_LIST,
 } from "../../constants/constants.js";
-import state from "../../state.js";
+import state from "../../state.ts";
 import { Validator } from "../../utils/Validator.js";
 import RestaurantList from "../RestaurantList.js";
 
@@ -82,7 +81,7 @@ const AddLunchModalForm = {
 
     try {
       this.validateFormInputs({ name, link, description });
-      this.addRestaurant({ category, name, distance, description });
+      this.addRestaurant({ category, name, distance, description, link });
       RestaurantList.applyState();
       Modal.close("addLunch");
       Modal.reset("addLunch");
@@ -97,13 +96,13 @@ const AddLunchModalForm = {
     if (description !== "") Validator.description(description);
   },
 
-  addRestaurant({ category, name, distance, description }) {
+  addRestaurant({ category, name, distance, description, link }) {
     state.restaurantList.push({
-      src: CATEGORY_ICON[category],
-      name: name,
-      distance,
-      description,
       label: category,
+      name: name,
+      distance: Number(distance),
+      description,
+      link: link,
     });
   },
 };

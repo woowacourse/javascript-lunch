@@ -1,4 +1,5 @@
-import state from "../state.js";
+import { CATEGORY_ICON } from "../constants/constants.js";
+import state from "../state.ts";
 import { $ } from "../utils/querySelectors.js";
 import LunchInfoCard from "./LunchInfoCard.js";
 
@@ -18,9 +19,14 @@ const RestaurantList = {
   },
 
   getRestaurantElementList() {
-    return state.restaurantList.map(
-      ({ src, name, distance, description, label }) =>
-        LunchInfoCard.create({ src, name, distance, description, label })
+    return state.restaurantList.map(({ name, distance, description, label }) =>
+      LunchInfoCard.create({
+        src: CATEGORY_ICON[label],
+        name,
+        distance,
+        description,
+        label,
+      })
     );
   },
 };

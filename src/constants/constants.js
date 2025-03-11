@@ -53,23 +53,23 @@ export const DISTANCE_DROPDOWN_LIST = [
     label: "선택해 주세요",
   },
   {
-    value: "5",
+    value: 5,
     label: "5분 내",
   },
   {
-    value: "10",
+    value: 10,
     label: "10분 내",
   },
   {
-    value: "15",
+    value: 15,
     label: "15분 내",
   },
   {
-    value: "20",
+    value: 20,
     label: "20분 내",
   },
   {
-    value: "30",
+    value: 30,
     label: "30분 내",
   },
 ];
