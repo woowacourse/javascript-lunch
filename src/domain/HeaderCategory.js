@@ -21,6 +21,11 @@ export default function HeaderCategory() {
     $allButton.classList.remove("active");
     const favoriteList = GetFavoriteRestaurant();
 
+    const $restaurantFilterContainer = document.querySelector(
+      ".restaurant-filter-container"
+    );
+    $restaurantFilterContainer.classList.add("active");
+
     createRestaurantList(favoriteList);
   });
 }
