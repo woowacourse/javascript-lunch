@@ -1,5 +1,5 @@
-import { createRestaurantItem } from "./components/createRestaurantItem";
-import { DEFAULT_RESTAURANTS } from "./constants/options";
+import { createRestaurantItem } from "../components/createRestaurantItem";
+import { DEFAULT_RESTAURANTS } from "../constants/options";
 
 export default function InitRestaurantList() {
   const $restaurantList = document.querySelector(".restaurant-list");

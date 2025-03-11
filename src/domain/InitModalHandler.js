@@ -1,11 +1,11 @@
-import AddRestaurantModal from "./components/AddRestaurantModal";
-import { createRestaurantItem } from "./components/createRestaurantItem";
-import { categoryMapping } from "./utils/categoryMapping";
+import AddRestaurantModal from "../components/AddRestaurantModal";
+import { createRestaurantItem } from "../components/createRestaurantItem";
+import { categoryMapping } from "../utils/categoryMapping";
 import {
   validateDescriptionInput,
   validateNameInput,
   validateSelectInput,
-} from "./validation/validator";
+} from "../validation/validator";
 
 export default function InitModalHandler() {
   const $modalButton = document.getElementById("gnb-button");
