@@ -1,8 +1,13 @@
 import Modal from "./components/Modal/Modal.js";
 import RestaurantForm from "./components/RestaurantForm/RestaurantForm.js";
-import createHeader from "./components/Header/Header.js";
+import createHeader from "./components/\bHeader/Header.js";
 import renderRestaurantElement from "./components/RestaurantItem/RestaurantItem.js";
 import { restaurantsData } from "./restaurantsMockData.js";
+import createCategory from "./components/Select/CategorySelect.js";
+import createName from "./components/Select/NameLink.js";
+import createDistance from "./components/Select/DistanceSelect.js";
+import createDescription from "./components/Select/DescriptionLink.js";
+import createLink from "./components/Select/LinkInput.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
@@ -22,6 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
     addRestaurantModalButton,
     closeModalButton
   );
+
+  createCategory();
+  createName();
+  createDistance();
+  createDescription();
+  createLink();
 
   new RestaurantForm(formElement, restaurantList, modal);
 

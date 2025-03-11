@@ -12,3 +12,6 @@ export const IMAGE_SRC_BY_RESTAURANTS_CATEGORY = {
   아시안: "images/category-asian.png",
   기타: "images/category-etc.png",
 };
+
+export const CATEGORIES = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+export const DISTANCES = [5, 10, 15, 20, 30];
