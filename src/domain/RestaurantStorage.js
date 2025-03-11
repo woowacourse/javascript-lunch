@@ -11,8 +11,33 @@ export function AddNewRestaurant({ restaurant }) {
 }
 
 export function GetAllRestaurants() {
-  DEFAULT_RESTAURANTS.push(...GetRestaurantFromStorage());
-  return DEFAULT_RESTAURANTS;
+  const defaultRestaurants = [...DEFAULT_RESTAURANTS];
+
+  console.log("#@@@@", defaultRestaurants);
+
+  const restaurantsFromStorage = GetRestaurantFromStorage();
+  restaurantsFromStorage.forEach((restaurant) => {
+    defaultRestaurants.forEach((defaultRestaurant) => {
+      if (defaultRestaurant.nameValue === restaurant.nameValue) {
+        if (defaultRestaurant.favorite !== restaurant.favorite) {
+          defaultRestaurant.favorite = restaurant.favorite;
+        }
+      } else {
+        defaultRestaurants.push(restaurant);
+      }
+    });
+  });
+
+  const favoriteRestaurants = GetFavoriteRestaurant();
+  defaultRestaurants.forEach((restaurant) => {
+    favoriteRestaurants.forEach((favoriteRestaurant) => {
+      if (restaurant.nameValue === favoriteRestaurant.nameValue) {
+        restaurant.favorite = true;
+      }
+    });
+  });
+
+  return defaultRestaurants;
 }
 
 function GetRestaurantFromStorage() {
