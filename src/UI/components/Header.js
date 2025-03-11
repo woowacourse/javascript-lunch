@@ -14,25 +14,36 @@ class Header {
     const header = document.createElement('header');
     header.classList.add('gnb');
 
-    const title = document.createElement('h1');
-    title.classList.add('gnb__title', 'text-title');
-    title.textContent = '점심 뭐 먹지';
+    const title = this.#createTitle('점심 뭐 먹지');
+    const addButton = this.#createButton(BUTTON_IMAGE_SRC.ADD_BUTTON, '음식점 추가');
 
-    const addButton = document.createElement('button');
-    addButton.type = 'button';
-    addButton.classList.add('gnb__button');
-    addButton.setAttribute('aria-label', '음식점 추가');
-
-    const buttonImage = document.createElement('img');
-    buttonImage.src = BUTTON_IMAGE_SRC.ADD_BUTTON;
-    buttonImage.alt = '음식점 추가';
-
-    addButton.appendChild(buttonImage);
     header.appendChild(title);
     header.appendChild(addButton);
     
     DOM.APP.prepend(header);
   };
+
+  #createTitle = (titleText) => {
+    const title = document.createElement('h1');
+    title.classList.add('gnb__title', 'text-title');
+    title.textContent = titleText;
+    return title;
+  };
+
+  #createButton = (buttonImageSrc, buttonImageAlt) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.classList.add('gnb__button');
+    button.setAttribute('aria-label', buttonImageAlt);
+
+    const buttonImage = document.createElement('img');
+    buttonImage.src = buttonImageSrc;
+    buttonImage.alt = buttonImageAlt;
+
+    button.appendChild(buttonImage);
+    return button;
+  };
+  
 
   #bindEvent = () => {
     const addButton = document.querySelector('.gnb__button');
