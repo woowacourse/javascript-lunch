@@ -1,18 +1,11 @@
 import { Restaurant, RestaurantForm } from "../../types/restaurantTypes";
-import { ERROR_MESSAGE, INITIAL_RESTAURANT } from "../settings/settings";
+import { ERROR_MESSAGE } from "../settings/settings";
 import { restaurantFormValidation } from "../validation/restaurantFormValidation";
 
 class RestaurantList {
   readonly restaurantList: Restaurant[] = [];
   constructor(restaurantList: Restaurant[]) {
-    //추가 검증작업.
-    for (const item of restaurantList) {
-      try {
-        this.addRestaurant(restaurantFormValidation(item));
-      } catch (error) {
-        console.error(ERROR_MESSAGE.INVALID_DEFAULT_RESTAURANT);
-      }
-    }
+    this.restaurantList = restaurantList;
   }
   get List() {
     return this.restaurantList;
@@ -32,4 +25,4 @@ class RestaurantList {
     restaurant.isFavorite = !restaurant.isFavorite;
   }
 }
-export default new RestaurantList([...INITIAL_RESTAURANT]);
+export default RestaurantList;
