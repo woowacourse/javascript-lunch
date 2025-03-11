@@ -1,7 +1,7 @@
 import { createElement } from "../utils/utils.js";
 
 export function StoreInfo({ name, distance, description, link, type }) {
-  function render() {
+  function template() {
     return `
             ${type === "summary" ? `<div class="restaurant__info">` : `<div class="restaurant__info__full">`}
                 <h3 class="restaurant__name text-subtitle">${name}</h3>
@@ -11,5 +11,5 @@ export function StoreInfo({ name, distance, description, link, type }) {
             </div>
     `;
   }
-  return render();
+  return template();
 }
