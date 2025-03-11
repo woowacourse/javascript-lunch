@@ -16,10 +16,12 @@ addEventListener("load", () => {
     restaurantList.appendChild($restaurantItem(data));
   });
 
-  const submitCancelButtons = $buttonContainer([
-    $button(UI_CONFIG.BUTTONS.CANCEL),
-    $button(UI_CONFIG.BUTTONS.ADD),
-  ]);
+  const submitCancelButtons = $buttonContainer({
+    buttons: [
+      $button(UI_CONFIG.BUTTONS.CANCEL),
+      $button(UI_CONFIG.BUTTONS.ADD),
+    ],
+  });
 
   const restaurantAddForm = [
     $inputItem(FORM_FIELDS.SELECTS, "category"),

@@ -1,4 +1,8 @@
-const $buttonContainer = (buttons) => {
+type ButtonContainerProps = {
+  buttons: HTMLButtonElement[];
+};
+
+const $buttonContainer = ({ buttons = [] }: ButtonContainerProps): HTMLDivElement => {
   const container = document.createElement("div");
   container.classList.add("button-container");
 
@@ -8,5 +12,6 @@ const $buttonContainer = (buttons) => {
 
   return container;
 };
+
 
 export default $buttonContainer;
