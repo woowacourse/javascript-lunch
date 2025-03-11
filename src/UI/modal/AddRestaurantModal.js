@@ -4,7 +4,7 @@ import InputText from '../components/InputText.js';
 import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/RestaurantItem.js';
 import { DOM } from '../../dom.js';
-import { addRestaurant } from '../../Domain/services/restaurantService.js';
+import { addRestaurant } from '../../Domain/services/RestaurantService.js';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
