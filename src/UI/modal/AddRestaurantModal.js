@@ -40,7 +40,7 @@ class AddRestaurantModal extends Modal {
   }
 
   #init = () => {
-    this.#cancelButton = new Button('button', 'button--secondary', '취소하기', () => this.#handleAddButton());
+    this.#cancelButton = new Button('button', 'button--secondary', '취소하기', () => this.#handleCancelButton());
     this.#addButton = new Button('submit', 'button--primary', '추가하기', (event) => this.#handleAddButton(event));
     this.#categoryDropDown = new InputDropDown('카테고리', CATEGORY_LIST);
     this.#nameInput = new InputText('이름');
