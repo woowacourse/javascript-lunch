@@ -1,3 +1,5 @@
+import "./Modal.css";
+
 export default class Modal {
   constructor(modalElement, openButton, closeButton) {
     this.modalElement = modalElement;
