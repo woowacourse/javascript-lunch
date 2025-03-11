@@ -5,13 +5,12 @@ import {
 } from "./RestaurantStorage";
 
 export default function SaveFavoriteRestaurant() {
-  const $favoriteButton = document.querySelector(
+  const $favoriteButtons = document.querySelectorAll(
     ".restaurant-favorite-star-button"
   );
 
-  document
-    .querySelector(".restaurant-list-container")
-    .addEventListener("click", (e) => {
+  $favoriteButtons.forEach((favoriteButton) => {
+    favoriteButton.addEventListener("click", (e) => {
       const $restaurantItem = e.target.closest(".restaurant");
 
       const restaurants = GetAllRestaurants();
@@ -34,4 +33,5 @@ export default function SaveFavoriteRestaurant() {
       });
       location.reload();
     });
+  });
 }
