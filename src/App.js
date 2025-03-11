@@ -6,6 +6,7 @@ import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
 import Modal from "./components/modal/Modal.js";
 import Component from "./components/core/Component.js";
 import { $ } from "./utils/selector.js";
+import RestaurantItem from "./components/RestaurantItem.js";
 
 class App extends Component {
   setup() {
@@ -18,6 +19,16 @@ class App extends Component {
     this.setState({
       restaurants: [...this.state.restaurants, newRestaurant],
     });
+    this.updateNewRestaurant(newRestaurant);
+  }
+
+  updateNewRestaurant(newRestaurant) {
+    const $restaurantList = $(".restaurant-list");
+
+    $restaurantList.insertAdjacentHTML(
+      "afterbegin",
+      RestaurantItem(newRestaurant)
+    );
   }
 
   template() {
@@ -27,9 +38,7 @@ class App extends Component {
     `;
   }
 
-  componentDidUpdate() {
-    this.renderRestaurantList();
-  }
+  componentDidUpdate() {}
 
   componentDidMount() {
     const $modal = new AddRestaurantModal($("#modal"), {
@@ -62,13 +71,11 @@ class App extends Component {
       buttonCallback: { openModal },
     });
 
-    this.renderRestaurantList();
+    this.#renderRestaurantList();
   }
 
-  renderRestaurantList() {
+  #renderRestaurantList() {
     const $main = $("main");
-
-    $main.replaceChildren();
     $main.insertAdjacentHTML(
       "afterbegin",
       RestaurantList(this.state.restaurants)
