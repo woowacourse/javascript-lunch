@@ -65,3 +65,15 @@ export const IMAGE = new Map([
   ['아시안', 'category-asian.png'],
   ['기타', 'category-etc.png'],
 ]);
+
+export const TOTAL_ITEMS_TAB = {
+  type: 'button',
+  className: 'tab--total-items',
+  content: '모든 음식점',
+};
+
+export const FREQUENT_ITEMS_TAB = {
+  type: 'button',
+  className: 'tab--frequent-items',
+  content: '자주 가는 음식점',
+};

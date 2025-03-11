@@ -1,4 +1,14 @@
-import { CATEGORY, DISTANCE, NAME, LINK, DESCRIPTION, CANCEL_BUTTON, ADD_BUTTON } from './constants.js';
+import {
+  CATEGORY,
+  DISTANCE,
+  NAME,
+  LINK,
+  DESCRIPTION,
+  CANCEL_BUTTON,
+  ADD_BUTTON,
+  TOTAL_ITEMS_TAB,
+  FREQUENT_ITEMS_TAB,
+} from './constants.js';
 import { RESTAURANTS } from './data/restaurantData.js';
 import eventHandlers from './eventHandlers.js';
 import stateStore from './stateStore.js';
@@ -14,6 +24,7 @@ import {
 
 addEventListener('load', () => {
   appendHeader();
+  appendTabs();
   initRestaurantItems();
   appendModal();
   appendModalContents();
@@ -28,6 +39,19 @@ function appendHeader() {
   const app = document.querySelector('#app');
   const header = createHeader({ title: '점심 뭐 먹지' });
   app.prepend(header);
+}
+
+function appendTabs() {
+  const main = document.querySelector('main');
+  const div = document.createElement('div');
+  div.classList.add('tab-container');
+  main.prepend(div);
+
+  const totalItemsTab = createButton(TOTAL_ITEMS_TAB);
+  const frequentItemsTab = createButton(FREQUENT_ITEMS_TAB);
+  const tabContainer = document.querySelector('.tab-container');
+  tabContainer.insertAdjacentHTML('beforeend', totalItemsTab);
+  tabContainer.insertAdjacentHTML('beforeend', frequentItemsTab);
 }
 
 function addNewRestaurantItem() {

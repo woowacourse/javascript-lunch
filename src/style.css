@@ -306,3 +306,34 @@ input[name='link'] {
 
   color: var(--grey-100);
 }
+
+/* 탭 버튼 */
+
+.tab-container {
+  display: flex;
+  padding: 16px;
+}
+
+.tab--total-items {
+  margin: 0;
+
+  background-color: transparent;
+  border-bottom: 2px solid var(--grey-200);
+  border-radius: 0;
+
+  color: var(--grey-300);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.tab--frequent-items {
+  margin: 0;
+
+  background-color: transparent;
+  border-bottom: 2px solid var(--grey-200);
+  border-radius: 0;
+
+  color: var(--grey-300);
+  font-size: 16px;
+  font-weight: 700;
+}
