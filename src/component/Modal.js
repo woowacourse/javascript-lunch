@@ -1,7 +1,5 @@
 import append from "../utils/append.js";
-import { $ } from "../utils/querySelectors.js";
 import toElement from "../utils/toElement.js";
-import AddLunchModalForm from "./AddLunchModalForm.js";
 
 class Modal {
   constructor(id, modalContent) {
