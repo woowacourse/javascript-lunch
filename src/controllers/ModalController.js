@@ -17,9 +17,10 @@ const INPUT_ITEMS = [
     type: "select",
     name: "category",
     required: true,
+    notice: "",
     values: formatCategory(SELECT_CATEGORY),
   },
-  { label: "이름", tag: "input", type: "text", name: "name", required: true },
+  { label: "이름", tag: "input", type: "text", name: "name", notice: "", required: true },
   {
     label: "거리(도보 이동 시간)",
     tag: "select",
@@ -33,6 +34,7 @@ const INPUT_ITEMS = [
     tag: "textarea",
     type: "textarea",
     name: "description",
+    required: false,
     notice: "메뉴 등 추가 정보를 입력해 주세요.",
   },
   {
@@ -40,6 +42,7 @@ const INPUT_ITEMS = [
     tag: "input",
     type: "url",
     name: "link",
+    required: false,
     notice: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
   },
 ];
