@@ -1,7 +1,8 @@
 import { LunchItem } from "../components/LunchItem.js";
+import { LunchList } from "../components/LunchList.js";
 
 const getHTML = (id) => document.getElementById(id);
-
+const lunchList = LunchList({ targetID: "restaurantListSection" });
 class SubmitEvent {
   constructor(elem) {
     elem.addEventListener("submit", this.onSubmit.bind(this));
@@ -9,7 +10,6 @@ class SubmitEvent {
 
   handleRestaurantSubmit(event, form) {
     event.preventDefault();
-
     const formData = new FormData(form);
     const category = formData.get("category");
     const name = formData.get("name");
@@ -17,19 +17,14 @@ class SubmitEvent {
     const description = formData.get("description");
     const link = formData.get("link");
 
-    this.#addRestaurantItem({ category, name, distance, description, link });
-    this.#closeModal();
-  }
-
-  #addRestaurantItem({ category, name, distance, description, link }) {
-    LunchItem({
-      targetID: "restaurantList",
+    lunchList.addRestaurantItem({
       category,
       name,
       distance,
       description,
       link,
     });
+    this.#closeModal();
   }
 
   #closeModal() {
