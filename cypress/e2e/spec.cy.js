@@ -1,6 +1,7 @@
 describe("The Home Page", () => {
   it("페이지가 정상적으로 로드된다.", () => {
     cy.visit("http://localhost:5173/");
+    cy.get("header").should("be.visible");
   });
 });
 
@@ -11,6 +12,7 @@ describe("Modal Test", () => {
 
   it("헤더에서 버튼을 눌러 모달창을 띄운다.", () => {
     cy.get(".gnb__button").click();
+    cy.get(".modal-container").should("be.visible");
   });
 
   it("모달창을 열고 아무것도 입력하지 않은 상태로 취소하기 버튼으로 닫으면 모달이 닫힌다.", () => {
