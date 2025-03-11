@@ -1,39 +1,52 @@
 import createElement from "../../../utils/createElement/createElement";
+import Input from "../input";
+import Select from "../select";
+import TextArea from "../textArea";
+import createFormSelectorByType from "./createFormSelectorByType";
+import HelpText from "./HelpText";
+import Label from "./Label";
 
-const InputField = (inputElement, text) => {
-  const infoType = inputElement.id;
-  const required = inputElement.required;
-  //TODO: className 리스트 전달하는 방법 고민
-  const inputFieldClassNames = ["form-item"];
+const INPUT_HELP_TEXT = {
+  DESCRIPTION: "메뉴 등 추가 정보를 입력해 주세요.",
+  LINK: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
+};
 
-  if (required) inputFieldClassNames.push("form-item--required");
+const InputField = ({ inputType, infoType, required, options }) => {
+  const formSelector = createFormSelectorByType({
+    inputType,
+    infoType,
+    required,
+    options,
+  });
 
   const inputField = createElement({
     tagName: "div",
-    classNames: inputFieldClassNames,
+    classNames: ["form-item", required ? "form-item--required" : ""],
     attributes: { id: `${infoType}-form-item` },
+    children: [
+      Label(infoType),
+      formSelector,
+      INPUT_HELP_TEXT[infoType.toUpperCase()] &&
+        HelpText(INPUT_HELP_TEXT[infoType.toUpperCase()]),
+    ],
   });
-
-  const label = createElement({
-    tagName: "label",
-    attributes: { for: infoType },
-    classNames: ["text-caption"],
-    text: LABEL_TEXT[infoType],
-  });
-
-  const helpText = createElement({
-    tagName: "span",
-    classNames: ["help-text", "text-caption"],
-    text,
-  });
-
-  inputField.appendChild(label);
-  inputField.appendChild(inputElement);
-
-  if (text) inputField.appendChild(helpText);
 
   return inputField;
 };
+
+// const InputField = ({ formSelector, helpText, required }) => {
+//   const infoType = formSelector.id;
+//   const required = formSelector.required;
+
+//   const inputField = createElement({
+//     tagName: "div",
+//     classNames: ["form-item", required ? "form-item--required" : ""],
+//     attributes: { id: `${infoType}-form-item` },
+//     children: [Label(infoType), formSelector, helpText ? HelpText(text) : null],
+//   });
+
+//   return inputField;
+// };
 
 export default InputField;
 
