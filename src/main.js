@@ -29,6 +29,11 @@ restaurantList.List.forEach((restaurantItem) =>
   restaurantListElement.appendChild(createRestaurantItem(restaurantItem))
 );
 
+if (localStorage.getItem("sort")) {
+  handleSort(localStorage.getItem("sort"));
+  document.getElementById("sorting-filter").value =
+    localStorage.getItem("sort");
+}
 // 모달 열기/닫기 토글 처리
 function handleBottomSheetToggle(event) {
   const modal = document.querySelector(".modal");
@@ -78,12 +83,75 @@ function handleAddRestaurantFormSubmit(event) {
   }
 }
 
+// 정렬 함수
+function sortList(list, sortOption) {
+  return list.sort((a, b) => {
+    const nameA = a.name || a.dataset.name;
+    const nameB = b.name || b.dataset.name;
+    const distanceA = Number(a.distance || a.dataset.distance);
+    const distanceB = Number(b.distance || b.dataset.distance);
+
+    if (sortOption === "distance") {
+      return distanceA - distanceB || nameA.localeCompare(nameB);
+    }
+    return nameA.localeCompare(nameB) || distanceA - distanceB;
+  });
+}
+
+function handleSort(sortFor) {
+  const restaurantItems = Array.from(restaurantListElement.children);
+
+  // 정렬 기준을 로컬 스토리지에 저장
+  localStorage.setItem("sort", sortFor);
+
+  // 리스트 정렬
+  const sortedItems = sortList(restaurantItems, sortFor);
+
+  // 정렬된 항목을 다시 DOM에 추가
+  sortedItems.forEach((item) => restaurantListElement.appendChild(item));
+}
+
+function handleFilter(event) {
+  // 기존 리스트 초기화
+  while (restaurantListElement.firstChild) {
+    restaurantListElement.removeChild(restaurantListElement.firstChild);
+  }
+
+  // 필터링된 리스트 가져오기
+  const filteredList =
+    event.target.value === "전체"
+      ? restaurantList.List
+      : restaurantList.List.filter(
+          ({ category }) => category === event.target.value
+        );
+
+  // 로컬 스토리지에서 정렬 기준 가져오기
+  const sortOption = localStorage.getItem("sort") || "name";
+
+  // 필터링된 리스트 정렬
+  const sortedList = sortList(filteredList, sortOption);
+
+  // 정렬된 리스트를 DOM에 추가
+  sortedList.forEach((restaurantItem) =>
+    restaurantListElement.appendChild(createRestaurantItem(restaurantItem))
+  );
+}
+
 // 클릭 이벤트 리스너 등록
 document.body.addEventListener("click", (event) => {
   [handleBottomSheetToggle, handleFavoriteToggle].forEach((handler) =>
     handler(event)
   );
 });
-
+document
+  .getElementById("category-filter")
+  .addEventListener("change", (event) => {
+    handleFilter(event);
+  });
+document
+  .getElementById("sorting-filter")
+  .addEventListener("change", (event) => {
+    handleSort(event.target.value);
+  });
 // 폼 제출 이벤트 리스너 등록
 restaurantAddForm.addEventListener("submit", handleAddRestaurantFormSubmit);
