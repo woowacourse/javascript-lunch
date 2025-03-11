@@ -1,7 +1,6 @@
 import { createElement } from "../../utils/createElement";
 
 const Tab = ({ text, active = false }) => {
-  console.log(active);
   const tab = createElement(/*html*/ `
     <div class="favorite-filter-tab ${active ? "active" : ""}">${text}</div>
   `);

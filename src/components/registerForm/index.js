@@ -19,8 +19,8 @@ const RegisterForm = () => {
         name: "category",
         required: true,
         options: Object.keys(FOOD_CATEGORY).map((key) => ({
-          label: key,
-          value: FOOD_CATEGORY[key],
+          label: FOOD_CATEGORY[key],
+          value: key,
         })),
       })
     )

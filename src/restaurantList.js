@@ -3,7 +3,7 @@ import Restaurant from "./model/Restaurant";
 
 export const restaurantList = [
   new Restaurant({
-    category: "한식",
+    category: "korean",
     name: "피양콩할마니",
     distance: WALK_TIME_MINUTES[0],
     description:
@@ -11,14 +11,14 @@ export const restaurantList = [
     link: "http//localhost:30000",
   }),
   new Restaurant({
-    category: "중식",
+    category: "chinese",
     name: "친친",
     distance: WALK_TIME_MINUTES[0],
     description: "설명입니다",
     link: "http//localhost:30000",
   }),
   new Restaurant({
-    category: "일식",
+    category: "japanese",
     name: "잇쇼우",
     distance: WALK_TIME_MINUTES[0],
     description: "설명입니다",

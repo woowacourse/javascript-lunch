@@ -1,5 +1,7 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
+import { restaurantList } from "../../restaurantList";
 import Select from "../common/select";
+import Restaurants from "../restaurants";
 
 const CategoryAndSortFilter = () => {
   const filterContainer = document.createElement("section");
@@ -12,10 +14,18 @@ const CategoryAndSortFilter = () => {
       options: [
         { label: "전체", value: "all" },
         ...Object.keys(FOOD_CATEGORY).map((key) => ({
-          label: key,
-          value: FOOD_CATEGORY[key],
+          label: FOOD_CATEGORY[key],
+          value: key,
         })),
       ],
+      onChange: (e) => {
+        console.log(restaurantList);
+        const filterdRestaurant = restaurantList.filter(
+          (restaurant) => restaurant.info.category === e.target.value
+        );
+        console.log(filterdRestaurant);
+        Restaurants(...filterdRestaurant);
+      },
     })
   );
 
