@@ -1,7 +1,8 @@
-import { CATEGORY, DISTANCE, NAME, LINK, DESCRIPTION, CANCEL_BUTTON, ADD_BUTTON } from './constants/constants.js';
-import { RESTAURANTS } from './data/restaurantData.js';
-import eventHandlers from './handlers/eventHandlers.js';
-import stateStore from './store/stateStore.js';
+import { CATEGORY, DISTANCE, NAME, LINK, DESCRIPTION, CANCEL_BUTTON, ADD_BUTTON } from './constants/constants.ts';
+import { RESTAURANTS } from './data/restaurantData.ts';
+import eventHandlers from './handlers/eventHandlers.ts';
+import stateStore from './store/stateStore.ts';
+
 import {
   createButton,
   createHeader,
@@ -19,30 +20,35 @@ addEventListener('load', () => {
   appendModalContents();
 
   const nameInputElement = document.querySelector('#name');
-  setRequired(nameInputElement);
+  if (nameInputElement instanceof HTMLInputElement) {
+    setRequired(nameInputElement);
+  }
 
   eventHandlers.registerEventHandlers(addNewRestaurantItem);
 });
 
 function appendHeader() {
   const app = document.querySelector('#app');
+  if (!app) return;
   const header = createHeader({ title: '점심 뭐 먹지' });
   app.prepend(header);
 }
 
 function addNewRestaurantItem() {
   const ul = document.querySelector('.restaurant-list');
+  if (!ul) return;
   const newRestaurantData = stateStore.getState();
   const newItem = createRestaurantItem(newRestaurantData);
   ul.insertAdjacentHTML('beforeend', newItem);
 }
 
-function setRequired(element) {
+function setRequired(element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
   element.required = true;
 }
 
 function appendModal() {
   const main = document.querySelector('main');
+  if (!main) return;
   const modal = createModal();
 
   main.appendChild(modal);
@@ -50,6 +56,7 @@ function appendModal() {
 
 function appendModalContents() {
   const form = document.querySelector('#new-restaurant-form');
+  if (!(form instanceof HTMLFormElement)) return;
   const categorySelect = createSelect(CATEGORY);
   const nameInput = createInput(NAME);
   const distanceSelect = createSelect(DISTANCE);
@@ -65,7 +72,7 @@ function appendModalContents() {
   appendModalButton(form);
 }
 
-function appendModalButton(form) {
+function appendModalButton(form: HTMLFormElement) {
   const buttonDiv = document.createElement('div');
   buttonDiv.classList.add('button-container');
   form.appendChild(buttonDiv);
@@ -74,13 +81,15 @@ function appendModalButton(form) {
   const cancelButton = createButton(CANCEL_BUTTON);
 
   const buttonContainer = document.querySelector('.button-container');
+  if (!buttonContainer) return;
   buttonContainer.insertAdjacentHTML('beforeend', cancelButton);
   buttonContainer.insertAdjacentHTML('beforeend', addButton);
 }
 
 function initRestaurantItems() {
   const ul = document.querySelector('.restaurant-list');
-  const items = RESTAURANTS.map((restaurant) => {
+  if (!ul) return;
+  const items: string = RESTAURANTS.map((restaurant) => {
     return createRestaurantItem(restaurant);
   }).join('');
 
