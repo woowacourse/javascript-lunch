@@ -4,7 +4,7 @@ const Description = (text, ellipsis) => {
   const description = createElement({
     tagName: "p",
     classNames: ["restaurant__description", "text-body"],
-    textContent: text,
+    text: text,
   });
 
   if (ellipsis) {
