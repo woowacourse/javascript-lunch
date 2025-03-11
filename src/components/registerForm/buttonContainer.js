@@ -1,7 +1,7 @@
 import { BUTTON_TEXT } from "../../constants/buttonText";
-import renderRestaurants from "../../domain/renderRestaurant";
-import restaurantList from "../../model/RestaurantList";
-import Restaurant from "../../model/Restaurant";
+import renderRestaurants from "../../ui/renderRestaurant";
+import restaurantList from "../../domain/RestaurantList";
+import Restaurant from "../../domain/Restaurant";
 import { clearError } from "../../utils/clearError";
 import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";

@@ -1,5 +1,5 @@
 import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
-import Restaurant from "./model/Restaurant";
+import Restaurant from "./domain/Restaurant";
 
 export const restaurantListData = [
   new Restaurant({

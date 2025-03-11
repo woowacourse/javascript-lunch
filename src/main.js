@@ -3,11 +3,11 @@ import header from "./components/header";
 import Modal from "./components/common/modal";
 import Title from "./components/common/title";
 import RegisterForm from "./components/registerForm";
-import renderRestaurants from "./domain/renderRestaurant";
+import renderRestaurants from "./ui/renderRestaurant";
 import { registerModalClose } from "./components/common/modal/handleCloseModal";
 import { restaurantListData } from "./restaurantListData";
-import Restaurant from "./model/Restaurant";
-import RestaurantList from "./model/RestaurantList";
+import Restaurant from "./domain/Restaurant";
+import RestaurantList from "./domain/RestaurantList";
 
 addEventListener("load", () => {
   $("#app").prepend(header());
