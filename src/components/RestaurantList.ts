@@ -5,8 +5,8 @@ import {
   RestaurantAddModal,
   RestaurantDetailModal,
   RestaurantTab,
-  RestaurantFilter,
-  RestaurantSort,
+  RestaurantFilterSelect,
+  RestaurantSortSelect,
   Restaurant,
 } from './index.ts';
 
@@ -125,7 +125,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   onRender() {
     this.#appendRestaurantTab();
-    this.#appendRestaurantFilterSort();
+    this.#appendRestaurantFilterSelectSort();
     this.#appendRestaurantList();
     this.#appendRestaurantAddModal();
     this.#appendRestaurantDetailModal();
@@ -144,9 +144,9 @@ export default class RestaurantList extends Component<RestaurantListState> {
     );
   }
 
-  #appendRestaurantFilterSort() {
+  #appendRestaurantFilterSelectSort() {
     this.appendChild(
-      new RestaurantFilter({
+      new RestaurantFilterSelect({
         filter: this.state.filter,
         setFilter: (filter) =>
           this.setState({
@@ -156,7 +156,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
       '.restaurant-filter-sort',
     );
     this.appendChild(
-      new RestaurantSort({
+      new RestaurantSortSelect({
         sort: this.state.sort,
         setSort: (sort) =>
           this.setState({
