@@ -1,5 +1,5 @@
 import toThrowNewError from "./toThrowNewError.js";
-import RULES from "../constants/rules.js";
+import RESTAURANT_RULES from "../constants/rules.js";
 
 const validateCategory = (category) => {
   toThrowNewError({
@@ -8,8 +8,10 @@ const validateCategory = (category) => {
   });
 
   toThrowNewError({
-    condition: !RULES.CATEGORIES.includes(category),
-    message: `카테고리는 ${RULES.CATEGORIES.join(", ")} 중 하나여야 합니다.`,
+    condition: !RESTAURANT_RULES.CATEGORIES.includes(category),
+    message: `카테고리는 ${RESTAURANT_RULES.CATEGORIES.join(
+      ", "
+    )} 중 하나여야 합니다.`,
   });
 };
 
