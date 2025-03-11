@@ -20,6 +20,7 @@ export default function SaveFavoriteRestaurant() {
         $restaurantItem.querySelector(".restaurant__name").textContent;
 
       if (DeleteFavoriteRestaurantInStorage(restaurantName)) {
+        location.reload();
         return;
       }
 
@@ -31,5 +32,6 @@ export default function SaveFavoriteRestaurant() {
         ...restaurant,
         favorite: !restaurant.favorite,
       });
+      location.reload();
     });
 }
