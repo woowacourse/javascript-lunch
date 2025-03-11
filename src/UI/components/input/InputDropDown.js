@@ -1,4 +1,5 @@
-import CATEGORY from '../constant/category.js';
+import CATEGORY from '../../constant/category.js';
+import './Input.css';
 
 const TAG_MAP = {
   '카테고리': 'category',

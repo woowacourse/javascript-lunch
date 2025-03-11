@@ -1,8 +1,8 @@
-import Button from '../components/Button.js';
-import InputDropDown from '../components/InputDropDown.js';
-import InputText from '../components/InputText.js';
-import Modal from '../components/Modal.js';
-import RestaurantItem from '../components/RestaurantItem.js';
+import Button from '../components/button/Button.js';
+import InputDropDown from '../components/input/InputDropDown.js';
+import InputText from '../components/input/InputText.js';
+import Modal from '../components/modal/Modal.js';
+import RestaurantItem from '../components/restaurant/RestaurantItem.js';
 import { DOM } from '../../dom.js';
 import { addRestaurant } from '../../Domain/services/RestaurantService.js';
 

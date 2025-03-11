@@ -1,4 +1,5 @@
-import CATEGORY from '../constant/category.js';
+import CATEGORY from '../../constant/category.js';
+import './Restaurant.css';
 
 class RestaurantInfo {
   constructor(name, distance, description) {

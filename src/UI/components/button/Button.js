@@ -1,3 +1,5 @@
+import './Button.css';
+
 class Button {
   #button;
 

@@ -1,5 +1,6 @@
-import { DOM } from '../../dom.js';
-import { BUTTON_IMAGE_SRC } from '../../../public/assets/imgaePaths.js';
+import { DOM } from '../../../dom.js';
+import { BUTTON_IMAGE_SRC } from '../../../../public/assets/imgaePaths.js';
+import './Header.css';
 
 class Header {
   #onButtonClick;

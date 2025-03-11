@@ -1,11 +1,11 @@
-import CATEGORY from '../constant/category.js';
+import CATEGORY from '../../constant/category.js';
 import RestaurantIcon from './RestaurantIcon.js';
 import RestaurantInfo from './RestaurantInfo.js';
+import './Restaurant.css';
 
 class RestaurantItem {
   constructor(restaurant) {
-    const div = this.#createRestaurantItem(restaurant);
-    return div;
+    return this.#createRestaurantItem(restaurant);
   }
 
   #createRestaurantItem = (restaurant) => {
@@ -14,7 +14,7 @@ class RestaurantItem {
     const icon = new RestaurantIcon(restaurant.getCategory());
     const info = new RestaurantInfo(restaurant.getName(), restaurant.getDistance(), restaurant.getDescription());
 
-    li.classList = 'restaurant';
+    li.classList.add('restaurant');
     li.appendChild(icon);
     li.appendChild(info);
 
