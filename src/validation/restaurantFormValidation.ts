@@ -29,8 +29,8 @@ export function _validateRestaurantName(restaurantName: string): void {
   }
 }
 
-export function _validateRestaurantDistance(distance: string): void {
-  if (!distanceList.includes(distance)) {
+export function _validateRestaurantDistance(distance: number): void {
+  if (!distanceList.includes(distance.toString())) {
     throw new Error(ERROR_MESSAGE.INVALID_RESTAURANT_DISTANCE);
   }
 }
@@ -60,12 +60,23 @@ export function _validateRestaurantLink(link: string): void {
 }
 
 export function restaurantFormValidation(
-  restaurant: RestaurantForm
+  restaurantForm: RestaurantForm
 ): Restaurant {
-  _validateRestaurantCategory(restaurant.category);
-  _validateRestaurantName(restaurant.name);
-  _validateRestaurantDistance(restaurant.distance);
-  _validateRestaurantDescription(restaurant.description);
-  _validateRestaurantLink(restaurant.link);
-  return { ...restaurant, isFavorite: false };
+  _validateRestaurantCategory(restaurantForm.category);
+  _validateRestaurantName(restaurantForm.name);
+  _validateRestaurantDistance(restaurantForm.distance);
+  _validateRestaurantDescription(restaurantForm.description);
+  _validateRestaurantLink(restaurantForm.link);
+
+  const { name, distance, description, category, link } = restaurantForm;
+
+  // 순서가 뒤죽 박죽 되어 있는것을 일부로 표준으로 포멧팅함.
+  return {
+    name,
+    distance: +distance,
+    description,
+    category,
+    link,
+    isFavorite: false,
+  };
 }
