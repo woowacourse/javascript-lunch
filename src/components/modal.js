@@ -5,12 +5,9 @@ import { InputBox } from "./InputBox.js";
 import { SelectBox } from "./SelectBox.js";
 
 export function openModal() {
-  console.log("modal");
   const modalHTML = `<div class="modal modal--open">
     <div class="modal-container">
       <h2 class="modal-title text-title">새로운 음식점</h2>
-
-
       <form id="restaurantForm">
 
         <!-- 카테고리 -->
