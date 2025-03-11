@@ -24,7 +24,16 @@ export default class RestaurantData {
   #description;
   #link;
   #category;
-  constructor({ id, name, distance, description = "", link = "", category }) {
+  #isFavorite;
+  constructor({
+    id,
+    name,
+    distance,
+    description = "",
+    link = "",
+    category,
+    isFavorite = false,
+  }) {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
@@ -38,6 +47,7 @@ export default class RestaurantData {
     this.#description = description;
     this.#link = link;
     this.#category = category;
+    this.#isFavorite = isFavorite;
   }
 
   getData() {
@@ -50,6 +60,7 @@ export default class RestaurantData {
       description: this.#description,
       link: this.#link,
       category: this.#category,
+      isFavorite: this.#isFavorite,
     };
   }
 

@@ -13,12 +13,11 @@ export default function RestaurantListContainer() {
     classNames: ["restaurant-list"],
   });
 
-  function render() {
-    const restaurantElements = restaurantDataList
-      .getDataList()
-      .map(({ id, src, alt, name, distance, description }) =>
+  function render(restaurantDataList) {
+    const restaurantElements = restaurantDataList.map(
+      ({ id, src, alt, name, distance, description }) =>
         RestaurantItem({ id, src, alt, name, distance, description })
-      );
+    );
 
     $restaurantList.replaceChildren(...restaurantElements);
     $restaurantListContainer.appendChild($restaurantList);
@@ -26,6 +25,5 @@ export default function RestaurantListContainer() {
 
   restaurantDataList.subscribe(render);
 
-  render();
   return $restaurantListContainer;
 }
