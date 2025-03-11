@@ -1,5 +1,3 @@
-import { Button } from "../button/Button.js";
-
 export class Modal {
   constructor(modalContent) {
     const container = document.createElement("div");

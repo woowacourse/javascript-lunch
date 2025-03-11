@@ -14,6 +14,15 @@ export class FoodItem {
     };
   }
 
+  getFoodItem() {
+    try {
+      validateFoodItem(this.foodItem);
+      return this.#createFoodItem();
+    } catch (error) {
+      return;
+    }
+  }
+
   #getImgSrcAlt(category) {
     const categoryMap = {
       한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },
@@ -23,19 +32,9 @@ export class FoodItem {
       아시안: { imgAlt: "아시안", imgSrc: "./category-asian.png" },
     };
 
-    // 주어진 category가 없을 경우 기본값 반환
     return (
       categoryMap[category] || { imgAlt: "기타", imgSrc: "./category-etc.png" }
     );
-  }
-
-  getFoodItem() {
-    try {
-      validateFoodItem(this.foodItem);
-      return this.#createFoodItem();
-    } catch (error) {
-      return;
-    }
   }
 
   #createFoodItem() {

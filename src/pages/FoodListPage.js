@@ -1,5 +1,3 @@
-import { IconButton } from "../component/button/IconButton.js";
-import { FoodList } from "../component/FoodList.js";
 import { Header } from "../component/layout/Header.js";
 import { Modal } from "../component/layout/Modal.js";
 

@@ -1,4 +1,3 @@
-import { IconButton } from "../button/IconButton.js";
 import { Modal } from "./Modal.js";
 
 export function Header({ title = "제목", icon = null }) {

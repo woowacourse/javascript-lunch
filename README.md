@@ -95,3 +95,4 @@ src
 - [x] SELECT_OPTIONS를 FoodForm.js 부분으로 옮기기
 - [x] getImgSrcAlt switch문에서 객체로 바꾸기
 - [x] e2e 테스트 추가
+- [x] props로 컴포넌트가 들어가는 경우 변수명 변경 (대문자로 시작)

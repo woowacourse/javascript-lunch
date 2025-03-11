@@ -1,4 +1,4 @@
-function renderCaption(caption) {
+function RenderCaption(caption) {
   return caption
     ? `<span class="help-text text-caption">${caption}</span>`
     : "";
@@ -14,7 +14,7 @@ export function Input({ isRequired = false, name, label, caption }) {
   container.innerHTML = `
   <label for="link text-caption">${label}</label>
   <input type="text" name="${name}" id="${name}" />
-  ${renderCaption(caption)}
+  ${RenderCaption(caption)}
   `;
 
   return container;

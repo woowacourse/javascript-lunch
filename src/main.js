@@ -5,13 +5,13 @@ import { foodItems } from "./mock/mockItem.js";
 import { FoodListPage } from "./pages/FoodListPage.js";
 
 addEventListener("load", () => {
-  const addFoodItemIcon = IconButton({
+  const AddFoodItemIcon = IconButton({
     imgSrc: "./add-button.png",
     label: "음식점 추가",
     onClick: Modal.open,
   });
 
-  const foodListPage = new FoodListPage("점심 뭐 먹지", addFoodItemIcon);
+  const foodListPage = new FoodListPage("점심 뭐 먹지", AddFoodItemIcon);
 
   const modal = new Modal(FoodForm());
 });
