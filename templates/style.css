@@ -175,6 +175,17 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
+
+#modalBackground {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#modalBackground.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 .modal {
   display: none;
 }
