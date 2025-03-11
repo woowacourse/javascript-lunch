@@ -26,9 +26,10 @@ class App {
 
   #componentDidMount() {
     const $gnbButton = this.#$target.querySelector(".gnb__button");
-    const $modal = new AddRestaurantModal(document.querySelector("#modal"), {
-      addRestaurant: this.#addRestaurant.bind(this),
-    });
+    const $modal = new AddRestaurantModal(
+      document.querySelector("#modal"),
+      this.#addRestaurant.bind(this)
+    );
 
     $gnbButton.addEventListener("click", () => {
       $modal.open();

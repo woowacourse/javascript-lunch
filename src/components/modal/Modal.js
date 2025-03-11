@@ -1,10 +1,9 @@
-import Component from "../core/Component.js";
+class Modal {
+  #$target;
+  #isOpen = false;
 
-class Modal extends Component {
-  setup() {
-    this.state = {
-      isOpen: false,
-    };
+  constructor($target) {
+    this.#$target = $target;
     this.handleClose = this.close.bind(this);
   }
 
@@ -12,20 +11,16 @@ class Modal extends Component {
     return "";
   }
 
-  componentDidMount() {
-    this.$backdrop = this.$target.querySelector(".modal-backdrop");
-    if (this.$backdrop) {
-      this.$backdrop.removeEventListener("click", this.handleClose);
-      this.$backdrop.addEventListener("click", this.handleClose);
+  #componentDidMount() {
+    const $backdrop = this.#$target.querySelector(".modal-backdrop");
+    if ($backdrop) {
+      $backdrop.removeEventListener("click", this.handleClose);
+      $backdrop.addEventListener("click", this.handleClose);
     }
   }
 
-  componentDidUpdate() {
-    this.initialRender();
-  }
-
-  template() {
-    if (!this.state.isOpen) return "";
+  #template() {
+    if (!this.#isOpen) return "";
     return /* html */ `
       <div class="modal" data-testid="modal">
         <div class="modal-backdrop" data-testid="modal-backdrop"></div>
@@ -37,17 +32,22 @@ class Modal extends Component {
   }
 
   open() {
-    if (!this.state.isOpen) {
-      this.setState({ isOpen: true });
-      this.componentDidUpdate();
+    if (!this.#isOpen) {
+      this.#isOpen = true;
+      this.#$target.insertAdjacentHTML("beforeend", this.#template());
+      this.#componentDidMount();
     }
   }
 
   close() {
-    if (this.state.isOpen) {
-      this.setState({ isOpen: false });
-      this.$target.replaceChildren();
+    if (this.#isOpen) {
+      this.#isOpen = false;
+      this.#$target.replaceChildren();
     }
+  }
+
+  get isOpen() {
+    return this.#isOpen;
   }
 }
 
