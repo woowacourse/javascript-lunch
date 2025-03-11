@@ -57,6 +57,28 @@ function readNewRestaurant(addNewRestaurantItem) {
   });
 }
 
+function switchTab() {
+  let selected;
+
+  const handleTabClick = (event) => {
+    const { target } = event;
+    const tab = target.closest('.tab-container');
+    if (!tab) {
+      return;
+    }
+
+    if (selected) {
+      selected.classList.remove('selected');
+    }
+
+    selected = target;
+    selected.classList.add('selected');
+  };
+
+  const tabContainer = document.querySelector('.tab-container');
+  tabContainer.addEventListener('click', handleTabClick);
+}
+
 function resetForm() {
   const form = document.querySelector('#new-restaurant-form');
   form.reset();
@@ -75,6 +97,7 @@ const eventHandlers = {
   openModal,
   closeModal,
   readNewRestaurant,
+  switchTab,
 };
 
 export default eventHandlers;

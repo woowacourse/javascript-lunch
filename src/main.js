@@ -86,6 +86,7 @@ function addEventHandlers() {
   eventHandlers.openModal();
   eventHandlers.readNewRestaurant(addNewRestaurantItem);
   eventHandlers.closeModal();
+  eventHandlers.switchTab();
 }
 
 function setRequired(element) {

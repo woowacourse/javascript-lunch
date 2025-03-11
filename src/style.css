@@ -326,6 +326,11 @@ input[name='link'] {
   font-weight: 700;
 }
 
+.tab-container > .selected {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
 .items-controller {
   padding: 16px;
 
