@@ -1,4 +1,12 @@
-export const restaurants = [
+interface Restaurant {
+  category: string;
+  name: string;
+  distance: number;
+  description?: string;
+  link?: string;
+}
+
+export const restaurants: Restaurant[] = [
   {
     category: "한식",
     name: "피양콩할마니",
