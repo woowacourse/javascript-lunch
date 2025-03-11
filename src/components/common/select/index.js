@@ -1,9 +1,9 @@
 import { INPUT_HELP_TEXT } from "../../../constants/inputHelpText";
 import { createElement } from "../../../utils/createElement";
 
-const Select = ({ name, required, options }) => {
+const Select = ({ name, required = false, options }) => {
   const select = createElement(/*html*/ `
-    <select name=${name} id=${name} required=${required}>
+    <select name=${name} id=${name} ${required ? "required" : ""}>
       <option value="">${INPUT_HELP_TEXT.SELECT_PLACEHOLDER}</option>
     </select>
   `);
