@@ -5,7 +5,7 @@ import RestaurantItem from './UI/components/RestaurantItem.js';
 import AddRestaurantModal from './UI/modal/AddRestaurantModal.js';
 
 const addRestaurantModal = new AddRestaurantModal();
-new Header(addRestaurantModal);
+new Header(() => addRestaurantModal.handleToggleModal());
 
 const createRestaurantList = (restaurantList) => {
   restaurantList.forEach((restaurant) => {
