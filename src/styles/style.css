@@ -35,7 +35,7 @@
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */
-.restaurant-filter-container {
+.restaurant-filter-sort {
   display: flex;
   justify-content: space-between;
 
@@ -43,7 +43,7 @@
   margin-top: 24px;
 }
 
-.restaurant-filter-container select {
+.restaurant-filter-sort select {
   height: 44px;
   min-width: 125px;
 

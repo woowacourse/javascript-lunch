@@ -1,7 +1,14 @@
 import Component from '../core/Component.ts';
 import { LOCAL_STORAGE_KEY_MAP } from '../lib/constants.ts';
 import { CategoryType, RestaurantType, SortType, TabType } from '../lib/types.ts';
-import { RestaurantAddModal, RestaurantDetail, RestaurantDetailModal, RestaurantTab, Restaurant } from './index.ts';
+import {
+  RestaurantAddModal,
+  RestaurantDetailModal,
+  RestaurantTab,
+  RestaurantFilter,
+  RestaurantSort,
+  Restaurant,
+} from './index.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -30,7 +37,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   template() {
     return `
       <section class="restaurant-tab"></section>
-      <section class="restaurant-detail"></section>
+      <section class="restaurant-filter-sort"></section>
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
 
@@ -118,7 +125,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   onRender() {
     this.#appendRestaurantTab();
-    this.#appendRestaurantDetail();
+    this.#appendRestaurantFilterSort();
     this.#appendRestaurantList();
     this.#appendRestaurantAddModal();
     this.#appendRestaurantDetailModal();
@@ -137,21 +144,26 @@ export default class RestaurantList extends Component<RestaurantListState> {
     );
   }
 
-  #appendRestaurantDetail() {
+  #appendRestaurantFilterSort() {
     this.appendChild(
-      new RestaurantDetail({
+      new RestaurantFilter({
         filter: this.state.filter,
-        sort: this.state.sort,
         setFilter: (filter) =>
           this.setState({
             filter,
           }),
+      }).render(),
+      '.restaurant-filter-sort',
+    );
+    this.appendChild(
+      new RestaurantSort({
+        sort: this.state.sort,
         setSort: (sort) =>
           this.setState({
             sort,
           }),
       }).render(),
-      '.restaurant-detail',
+      '.restaurant-filter-sort',
     );
   }
 

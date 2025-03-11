@@ -6,5 +6,6 @@ export { default as Restaurant } from './Restaurant.ts';
 export { default as RestaurantList } from './RestaurantList.ts';
 export { default as RestaurantAddModal } from './RestaurantAddModal.ts';
 export { default as RestaurantTab } from './RestaurantTab.ts';
-export { default as RestaurantDetail } from './RestaurantDetail.ts';
 export { default as RestaurantDetailModal } from './RestaurantDetailModal.ts';
+export { default as RestaurantFilter } from './RestaurantFilter.ts';
+export { default as RestaurantSort } from './RestaurantSort.ts';
