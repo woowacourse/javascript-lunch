@@ -34,20 +34,6 @@ const InputField = ({ inputType, infoType, required, options }) => {
   return inputField;
 };
 
-// const InputField = ({ formSelector, helpText, required }) => {
-//   const infoType = formSelector.id;
-//   const required = formSelector.required;
-
-//   const inputField = createElement({
-//     tagName: "div",
-//     classNames: ["form-item", required ? "form-item--required" : ""],
-//     attributes: { id: `${infoType}-form-item` },
-//     children: [Label(infoType), formSelector, helpText ? HelpText(text) : null],
-//   });
-
-//   return inputField;
-// };
-
 export default InputField;
 
 const LABEL_TEXT = {
