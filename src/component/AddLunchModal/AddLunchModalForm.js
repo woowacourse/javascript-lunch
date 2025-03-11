@@ -8,7 +8,7 @@ import {
   DISTANCE_DROPDOWN_LIST,
 } from "../../constants/constants.js";
 import state from "../../state.ts";
-import { Validator } from "../../utils/Validator.js";
+import { Validator } from "../../utils/Validator.ts";
 import RestaurantList from "../RestaurantList.js";
 
 const AddLunchModalForm = {
