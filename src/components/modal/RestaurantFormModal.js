@@ -5,8 +5,7 @@ import TextArea from "../util/TextArea.js";
 import RestaurantFormModalItem from "./RestaurantFormModalItem.js";
 import RestaurantFormModalButtonContainer from "./RestaurantFormModalButtonContainer.js";
 import restaurantDataList from "../../domain/RestaurantDataList.js";
-import reset from "../../util/reset.js";
-import { init } from "../../main.js";
+import Restaurant from "../restaurant/Restaurant.js";
 
 export default function RestaurantFormModal() {
 
@@ -16,8 +15,9 @@ export default function RestaurantFormModal() {
       const $form = document.querySelector(".form");
       const data = Object.fromEntries(new FormData($form));
       restaurantDataList.addData(data);
-      reset();
-      init();
+      Restaurant({
+        isReRender: true
+      })
     } catch (e) {
       alert(e.message);
     }

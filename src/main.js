@@ -7,7 +7,9 @@ window.addEventListener("load", () => {
 });
 
 export function init() {
-  Restaurant();
+  Restaurant({
+    isReRender: false
+  });
   event();
 }
 
