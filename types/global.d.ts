@@ -1,14 +1,21 @@
+import {
+  CATEGORY_ICON,
+  DISTANCE_DROPDOWN_LIST,
+  SORT_DROPDOWN_LIST,
+} from "../src/constants/constants";
+
 declare module "*.png";
 declare module "*.jpg";
 declare module "*.svg";
 declare module "*.css";
 
-type Label = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+type Label = keyof typeof CATEGORY_ICON;
+type Distance = (typeof DISTANCE_DROPDOWN_LIST)[number]["value"] & number;
 
 interface Restaurant {
   label: Label;
   name: string;
-  distance: number;
+  distance: Distance;
   description?: string;
   link?: string;
 }

@@ -45,7 +45,7 @@ export const CATEGORY_DROPDOWN_LIST = [
     value: "기타",
     label: "기타",
   },
-];
+] as const;
 
 export const DISTANCE_DROPDOWN_LIST = [
   {
@@ -72,4 +72,15 @@ export const DISTANCE_DROPDOWN_LIST = [
     value: 30,
     label: "30분 내",
   },
-];
+] as const;
+
+export const SORT_DROPDOWN_LIST = [
+  {
+    value: "name",
+    label: "이름순",
+  },
+  {
+    value: "distance",
+    label: "거리순",
+  },
+] as const;
