@@ -1,4 +1,4 @@
-function SelectField(name, selectItems) {
+function SelectField({ values, name }) {
   const selectElement = document.createElement("select");
   selectElement.id = name;
   selectElement.name = name;
@@ -6,7 +6,7 @@ function SelectField(name, selectItems) {
 
   selectElement.innerHTML = `
     <option value="">선택해 주세요</option>
-    ${selectItems.map((category) => `<option value="${category}">${category}</option>`).join("")}
+    ${values.map((category) => `<option value="${category}">${category}</option>`).join("")}
     `;
 
   return selectElement;

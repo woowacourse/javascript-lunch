@@ -1,6 +1,6 @@
 import { TEXTAREA } from "../constants/common.js";
 
-function TextareaField(name) {
+function TextareaField({ name }) {
   const textareaElement = document.createElement("textarea");
 
   textareaElement.name = name;

@@ -1,15 +1,17 @@
-import { MODAL_BUTTONS_PROPERTY } from "../../contants.js";
 import ButtonsField from "./ButtonsField.js";
 import FormItemField from "./FormItemField.js";
 
-function Form(formsProperty) {
+function Form({ formItems = [], buttons = [] }) {
   const formElement = document.createElement("form");
 
-  formsProperty.forEach((formProperty) => {
-    formElement.appendChild(FormItemField(formProperty));
-  });
-  formElement.appendChild(ButtonsField(MODAL_BUTTONS_PROPERTY));
-
+  if (formItems.length > 0) {
+    formItems.forEach((formItem) => {
+      formElement.appendChild(formItem);
+    });
+  }
+  if (buttons.length > 0) {
+    formElement.appendChild(ButtonsField(buttons));
+  }
   return formElement;
 }
 

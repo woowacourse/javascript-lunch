@@ -1,4 +1,4 @@
-function InputField(type, name, required = false) {
+function InputField({ type, name, required = false }) {
   const inputElement = document.createElement("input");
 
   inputElement.type = type;

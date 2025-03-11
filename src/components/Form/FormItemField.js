@@ -1,15 +1,20 @@
-function FormItemField({ label, formComponent, notice = "", required = false }) {
+function FormItemField({ item, component }) {
   const formItemElement = document.createElement("div");
+  const labelElement = document.createElement("label");
+
   formItemElement.classList.add("form-item");
 
-  if (required) {
+  if (item.required) {
     formItemElement.classList.add("form-item--required");
   }
 
-  formItemElement.innerHTML = `<label for="category text-caption">${label}</label>`;
-  formItemElement.appendChild(formComponent());
+  labelElement.setAttribute("for", item.name);
+  labelElement.textContent = item.label;
+  formItemElement.appendChild(labelElement);
 
-  if (notice) formItemElement.innerHTML += `<span class="help-text text-caption">${notice}</span>`;
+  formItemElement.appendChild(component);
+
+  if (item.notice) formItemElement.innerHTML += `<span class="help-text text-caption">${item.notice}</span>`;
 
   return formItemElement;
 }
