@@ -1,4 +1,10 @@
-export const CATEGORY = {
+export interface SelectField {
+  label: string;
+  name: string;
+  lists: Map<string, string>;
+}
+
+export const CATEGORY: SelectField = {
   label: '카테고리',
   name: 'category',
   lists: new Map([
@@ -11,7 +17,7 @@ export const CATEGORY = {
   ]),
 };
 
-export const DISTANCE = {
+export const DISTANCE: SelectField = {
   label: '거리(도보 이동 시간)',
   name: 'distance',
   lists: new Map([
@@ -23,43 +29,57 @@ export const DISTANCE = {
   ]),
 };
 
-export const NAME = {
+export interface FormField {
+  label: string;
+  name: string;
+  helpText: string;
+  required?: boolean;
+  type?: 'text' | 'url' | 'number';
+}
+
+export const NAME: FormField = {
   label: '이름',
   name: 'name',
   helpText: '',
-  requiredClass: 'form-item--required',
   required: true,
   type: 'text',
 };
 
-export const LINK = {
+export const LINK: FormField = {
   label: '참고 링크',
   name: 'link',
   helpText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
-  requiredClass: '',
   required: false,
   type: 'url',
 };
 
-export const DESCRIPTION = {
+export const DESCRIPTION: FormField = {
   label: '설명',
   name: 'description',
   helpText: '메뉴 등 추가 정보를 입력해 주세요.',
 };
 
-export const CANCEL_BUTTON = {
+export interface ButtonField {
+  type: 'button' | 'submit';
+  className: string;
+  content: string;
+}
+
+export const CANCEL_BUTTON: ButtonField = {
   type: 'button',
   className: 'button--secondary',
   content: '취소하기',
 };
 
-export const ADD_BUTTON = {
+export const ADD_BUTTON: ButtonField = {
   type: 'submit',
   className: 'button--primary',
   content: '추가하기',
 };
 
-export const IMAGE = new Map([
+type Category = '한식' | '중식' | '일식' | '양식' | '아시안' | '기타';
+
+export const IMAGE: Map<Category, string> = new Map([
   ['한식', 'category-korean.png'],
   ['중식', 'category-chinese.png'],
   ['일식', 'category-japanese.png'],
