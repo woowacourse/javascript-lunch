@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from "../settings/settings.ts";
-import restaurantList from "./RestaurantList.ts";
+import RestaurantList from "./RestaurantList.ts";
 import { INITIAL_RESTAURANT } from "../settings/settings.ts";
 
 describe("RestaurantList test", () => {
@@ -13,6 +13,7 @@ describe("RestaurantList test", () => {
       category: "양식",
       link: "https://italykitchen.co.kr",
     };
+    const restaurantList = new RestaurantList([...INITIAL_RESTAURANT]);
     expect(() => restaurantList.addRestaurant(newRestaurant)).toThrow(
       ERROR_MESSAGE.DUPLICATE_RESTAURANT
     );
@@ -27,6 +28,7 @@ describe("RestaurantList test", () => {
       category: "양식",
       link: "https://italykitchen.co.kr",
     };
+    const restaurantList = new RestaurantList([...INITIAL_RESTAURANT]);
     restaurantList.addRestaurant(newRestaurant);
     expect(restaurantList.List).toEqual([...INITIAL_RESTAURANT, newRestaurant]);
   });
