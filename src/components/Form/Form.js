@@ -1,5 +1,4 @@
 import ButtonsField from "./ButtonsField.js";
-import FormItemField from "./FormItemField.js";
 
 function Form({ formItems = [], buttons = [] }) {
   const formElement = document.createElement("form");
