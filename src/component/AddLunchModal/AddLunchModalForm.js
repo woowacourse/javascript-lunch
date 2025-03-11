@@ -88,6 +88,7 @@ const AddLunchModalForm = {
       this.addRestaurant({ category, name, distance, description });
       renderRestaurantList();
       Modal.close("addLunch");
+      Modal.reset("addLunch");
     } catch (e) {
       alert(e.message);
     }
