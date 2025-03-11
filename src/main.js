@@ -15,20 +15,21 @@ const restaurantListElement = document.querySelector(".restaurant-list");
 const restaurantFrom = createRestaurantForm();
 modalContainer.appendChild(restaurantFrom);
 const restaurantAddForm = document.querySelector(".restaurant-add-form");
-let restaurantList;
-if (localStorage.getItem("restaurantList")) {
-  restaurantList = new RestaurantList([
-    ...JSON.parse(localStorage.getItem("restaurantList")),
-  ]);
-} else {
-  restaurantList = new RestaurantList([...INITIAL_RESTAURANT]);
-  localStorage.setItem("restaurantList", JSON.stringify(restaurantList));
-}
 
+// localStorage에서 restaurantList를 가져옵니다. 없으면 INITIAL_RESTAURANT로 초기화
+let restaurantList = new RestaurantList(
+  JSON.parse(localStorage.getItem("restaurantList")) || [...INITIAL_RESTAURANT]
+);
+
+// restaurantList 데이터를 localStorage에 저장합니다.
+localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+
+// 로컬 데이터가 있다면 UI에 추가합니다.
 restaurantList.List.forEach((restaurantItem) =>
   restaurantListElement.appendChild(createRestaurantItem(restaurantItem))
 );
 
+// 모달 열기/닫기 토글 처리
 function handleBottomSheetToggle(event) {
   const modal = document.querySelector(".modal");
 
@@ -40,6 +41,8 @@ function handleBottomSheetToggle(event) {
     modal.close();
   }
 }
+
+// 좋아요 버튼 토글 처리
 function handleFavoriteToggle(event) {
   if (!event.target.classList.contains("favorite-icon")) return;
   const parent = event.target.parentElement;
@@ -54,6 +57,7 @@ function handleFavoriteToggle(event) {
   event.target.src = restaurant.isFavorite ? "./Star.png" : "./Un-star.png";
 }
 
+// 음식점 추가 폼 제출 처리
 function handleAddRestaurantFormSubmit(event) {
   event.preventDefault();
   try {
@@ -74,10 +78,12 @@ function handleAddRestaurantFormSubmit(event) {
   }
 }
 
+// 클릭 이벤트 리스너 등록
 document.body.addEventListener("click", (event) => {
   [handleBottomSheetToggle, handleFavoriteToggle].forEach((handler) =>
     handler(event)
   );
 });
 
+// 폼 제출 이벤트 리스너 등록
 restaurantAddForm.addEventListener("submit", handleAddRestaurantFormSubmit);
