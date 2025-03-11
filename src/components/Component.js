@@ -5,10 +5,10 @@ class Component {
   constructor($target, props) {
     this.$target = $target;
     this.props = props;
-    this.state = this.setUp();
+    this.state = this.initState();
     this.render();
   }
-  setUp() {}
+  initState() {}
   template() {
     return "";
   }

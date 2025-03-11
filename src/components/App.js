@@ -5,14 +5,15 @@ import Modal from "./Modal/Modal.js";
 import Restaurant from "./Restaurant/Restaurant.js";
 import { RestaurantData } from "../constants/RestaurantData.js";
 import getModalContent from "./Modal/getModalContent.js";
+import getRestaurant from "./Restaurant/Restaurant.js";
 class App extends Component {
   constructor($target) {
     super($target);
-    this.state = this.setUp();
+    this.state = this.initState();
     document.addEventListener("restaurantUpdated", this.addNewRestaurant);
   }
 
-  setUp() {
+  initState() {
     return { isModalOpen: false };
   }
 
@@ -40,7 +41,8 @@ class App extends Component {
     if (newRestaurant) {
       const restaurantItem = document.createElement("li");
       restaurantItem.classList.add("restaurant");
-      new Restaurant(restaurantItem, newRestaurant);
+      const restaurant = getRestaurant(newRestaurant);
+      restaurantItem.innerHTML = restaurant;
       restaurantList.appendChild(restaurantItem);
     }
   }
