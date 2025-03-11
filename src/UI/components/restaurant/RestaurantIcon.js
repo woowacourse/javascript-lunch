@@ -1,5 +1,5 @@
 import CATEGORY from '../../constant/category.js';
-import './Restaurant.css';
+
 class RestaurantIcon {
   constructor(category) {
     return this.#createRestaurantIcon(category);

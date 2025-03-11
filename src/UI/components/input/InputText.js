@@ -1,5 +1,3 @@
-import './Input.css';
-
 class InputText {
   constructor(title) {
     return this.#createInputFormItem(title);
