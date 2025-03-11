@@ -4,7 +4,7 @@ import Restaurant from "../../domain/Restaurant";
 import { clearError } from "../../utils/clearError";
 import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";
-import { getInfo } from "../../view/input";
+import { getInfo } from "./getInfo";
 import Button from "../common/button";
 import ErrorMessage from "../common/errorMessage";
 import createElement from "../../utils/createElement/createElement";
