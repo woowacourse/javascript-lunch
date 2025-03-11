@@ -23,7 +23,8 @@ describe("Modal Test", () => {
 
   it("모달의 모든 입력창에 값을 작성해서 추가하기 버튼을 누르면 새 식당이 등록되고, 목록에 식당이 보여진다", () => {
     cy.get(".gnb__button").click();
-    cy.get("#category").select("한식", { force: true });
+    cy.viewport(1024, 768);
+    cy.get("#category").select("한식");
     cy.get("#name").type("한식당");
     cy.get("#distance").select("5");
     cy.get("#description").type("맛있는 한식당입니다.");
@@ -35,7 +36,8 @@ describe("Modal Test", () => {
 
   it("모달의 필수 입력창에 값을 작성해서 추가하기 버튼을 누르면 새 식당이 등록되고, 목록에 식당이 보여진다", () => {
     cy.get(".gnb__button").click();
-    cy.get("#category").select("한식", { force: true });
+    cy.viewport(1024, 768);
+    cy.get("#category").select("한식");
     cy.get("#name").type("한식당");
     cy.get("#distance").select("5");
     cy.get("#add-restaurant-btn").click();
@@ -45,7 +47,8 @@ describe("Modal Test", () => {
 
   it("필수 사항을 입력하지 않고 추가하기 버튼을 클릭하면 에러가 발생한다.", () => {
     cy.get(".gnb__button").click();
-    cy.get("#category").select("", { force: true });
+    cy.viewport(1024, 768);
+    cy.get("#category").select("");
     cy.get("#name").type("한식당");
     cy.get("#distance").select("");
     cy.get("#add-restaurant-btn").click();
