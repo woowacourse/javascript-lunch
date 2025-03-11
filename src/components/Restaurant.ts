@@ -10,7 +10,7 @@ export default class Restaurant extends Component<null, RestaurantProps> {
       <li class="restaurant" data-id="${this.props?.id ?? ''}">
       <div class="restaurant__category">
         <img
-          src="./public/images/category-${CATEGORY_MAP[this.props?.category as keyof typeof CATEGORY_MAP]}.png"
+          src="images/category-${CATEGORY_MAP[this.props?.category as keyof typeof CATEGORY_MAP]}.png"
           alt="${this.props?.category ?? ''}"
           class="category-icon"
         />
@@ -23,12 +23,10 @@ export default class Restaurant extends Component<null, RestaurantProps> {
           </div>
           ${
             this.props?.isLike
-              ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-id="${
+              ? `<img src="images/star_filled.svg" alt="음식점 추가" id="like__button" data-id="${
                   this.props?.id ?? ''
                 }" />`
-              : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-id="${
-                  this.props?.id ?? ''
-                }" />`
+              : `<img src="images/star.svg" alt="음식점 추가" id="like__button" data-id="${this.props?.id ?? ''}" />`
           }
         </div>
         <p class="restaurant__description text-body">
