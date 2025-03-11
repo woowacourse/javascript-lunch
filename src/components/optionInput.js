@@ -13,7 +13,7 @@ const OptionInput = (name, options) => {
   formItem.classList.add("form-item", "form-item--required");
 
   formItem.innerHTML = `
-  <label for="category text-caption">${title[name]}</label>
+  <label for="${name} text-caption">${title[name]}</label>
                 <select name=${name} id=${name}>
                   <option value="">선택해 주세요</option>
                 ${options
