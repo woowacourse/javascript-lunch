@@ -7,6 +7,7 @@ import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
 import Restaurants from "../restaurants";
+import { createRestaurant } from "../../domain/createRestaurant";
 
 const ButtonContainer = (onSubmitFailed) => {
   const buttonContainer = document.createElement("div");
@@ -51,9 +52,7 @@ const registerRestaurant = (e) => {
   e.preventDefault();
 
   const info = getInfo();
-
-  const restaurant = new Restaurant(info);
-  restaurantList.push(restaurant);
+  const restaurant = createRestaurant(info);
 
   $(".modal-backdrop").classList.remove("open");
   Restaurants(restaurant);

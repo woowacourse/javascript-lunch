@@ -1,7 +1,6 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
-import createKeyValuePair from "../../utils/createKeyValuePair";
 import { $ } from "../../utils/dom";
 import ErrorMessage from "../common/errorMessage";
 import Input from "../common/input";
@@ -13,20 +12,20 @@ import ButtonContainer from "./buttonContainer";
 const RegisterForm = () => {
   const registerForm = document.createElement("form");
   registerForm.setAttribute("id", "register-form");
-
   registerForm.appendChild(
     InputField(
       "category",
       Select({
         name: "category",
         required: true,
-        options: createKeyValuePair(
-          Object.keys(FOOD_CATEGORY),
-          Object.keys(FOOD_CATEGORY)
-        ),
+        options: Object.keys(FOOD_CATEGORY).map((key) => ({
+          label: key,
+          value: FOOD_CATEGORY[key],
+        })),
       })
     )
   );
+
   registerForm.appendChild(
     InputField("name", Input({ name: "name", required: true }))
   );
@@ -36,10 +35,10 @@ const RegisterForm = () => {
       Select({
         name: "distance",
         required: true,
-        options: createKeyValuePair(
-          WALK_TIME_MINUTES,
-          WALK_TIME_MINUTES.map((minute) => minute + "분 내")
-        ),
+        options: WALK_TIME_MINUTES.map((key) => ({
+          label: `${key}분 내`,
+          value: `${key}`,
+        })),
       })
     )
   );
