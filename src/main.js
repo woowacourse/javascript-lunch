@@ -7,10 +7,12 @@ import { registerModalClose } from "./components/common/modal/handleCloseModal";
 import { restaurantList } from "./restaurantList";
 import Restaurants from "./components/restaurants";
 import CategoryAndSortFilter from "./components/categoryAndSortFilter";
+import FavoriteTabFilters from "./components/favoriteTabFilter";
 
 addEventListener("load", () => {
   $("#app").prepend(header());
   $("main").prepend(CategoryAndSortFilter());
+  $("main").prepend(FavoriteTabFilters());
 
   Restaurants(...restaurantList);
 
