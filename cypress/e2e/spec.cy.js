@@ -1,5 +1,3 @@
-import errorMessage from "../../src/constants/message.js";
-
 describe("점심 뭐 먹지", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5174/");
@@ -54,10 +52,7 @@ describe("점심 뭐 먹지", () => {
       cy.get("#description").type("해삐는 해삐합니다.");
       cy.get("#link").type("www.happy.com");
 
-      cy.get("#add-button").click();
-      cy.on("window:alert", (alertText) => {
-        expect(alertText).to.equal(errorMessage.NAME_LENGTH);
-      });
+      cy.get(".error-text").should("be.visible");
     });
 
     it("설명이 300자를 초과할 경우", () => {
@@ -70,10 +65,7 @@ describe("점심 뭐 먹지", () => {
       cy.get("#description").type("해삐는 해삐합니다.".repeat(50));
       cy.get("#link").type("www.happy.com");
 
-      cy.get("#add-button").click();
-      cy.on("window:alert", (alertText) => {
-        expect(alertText).to.equal(errorMessage.DESC_LENGTH);
-      });
+      cy.get(".error-text").should("be.visible");
     });
 
     it("참고 링크 형식이 잘못된 경우", () => {
@@ -86,10 +78,7 @@ describe("점심 뭐 먹지", () => {
       cy.get("#description").type("해삐는 해삐합니다.");
       cy.get("#link").type("www.happy");
 
-      cy.get("#add-button").click();
-      cy.on("window:alert", (alertText) => {
-        expect(alertText).to.equal(errorMessage.LINK_FORM);
-      });
+      cy.get(".error-text").should("be.visible");
     });
   });
 });
