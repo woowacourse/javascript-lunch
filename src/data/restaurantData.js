@@ -1,4 +1,4 @@
-import { CATEGORY } from './constants.js';
+import { CATEGORY } from '../constants.js';
 
 export const RESTAURANTS = [
   {

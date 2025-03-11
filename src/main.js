@@ -1,5 +1,5 @@
 import { CATEGORY, DISTANCE, NAME, LINK, DESCRIPTION, CANCEL_BUTTON, ADD_BUTTON } from './constants.js';
-import { RESTAURANTS } from './restaurantData.js';
+import { RESTAURANTS } from './data/restaurantData.js';
 import eventHandlers from './eventHandlers.js';
 import stateStore from './stateStore.js';
 import {
