@@ -22,13 +22,6 @@ class App extends Component {
 
   template() {
     return /*html*/ `
-        ${Header({
-          title: "점심 뭐 먹지",
-          ariaLabel: "음식점 추가",
-          dataTestId: "open-add-restaurant-modal-button",
-          iconImageSource: "./icons/add-button.png",
-          alt: "음식점 추가",
-        })}
         <main></main>
         <div id="modal"></div>
     `;
@@ -42,10 +35,23 @@ class App extends Component {
     const $modal = new AddRestaurantModal($("#modal"), {
       updateRestaurant: this.updateRestaurant.bind(this),
     });
-    const $gnbButton = $(".gnb__button");
 
-    $gnbButton.addEventListener("click", () => {
+    const openModal = () => {
+      if (!$modal) {
+        return;
+      }
       $modal.open();
+    };
+
+    const $header = new Header($("#app"), {
+      data: {
+        title: "점심 뭐 먹지",
+        ariaLabel: "음식점 추가",
+        dataTestId: "open-add-restaurant-modal-button",
+        iconImageSource: "./icons/add-button.png",
+        alt: "음식점 추가",
+      },
+      buttonCallback: { openModal },
     });
 
     this.renderRestaurantList();
