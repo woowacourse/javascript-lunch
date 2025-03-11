@@ -41,8 +41,8 @@ class AddRestaurantModal extends Modal {
   }
 
   #init = () => {
-    this.#cancelButton = new Button('button--secondary', '취소하기');
-    this.#addButton = new Button('button--primary', '추가하기');
+    this.#cancelButton = new Button('button', 'button--secondary', '취소하기');
+    this.#addButton = new Button('submit', 'button--primary', '추가하기');
     this.#categoryDropDown = new InputDropDown('카테고리', CATEGORY_LIST);
     this.#nameInput = new InputText('이름');
     this.#distanceDropDown = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
@@ -59,21 +59,26 @@ class AddRestaurantModal extends Modal {
 
     this.#modalForm = this.#createModalForm();  
     this.addElementToModalContainer(this.#modalForm);
-
-    const buttonContainer = this.#createButtonContainer();
-    this.addElementToModalContainer(buttonContainer);
   };
   
   #createModalForm = () => {
     const modalForm = document.createElement('form');
 
-    modalForm.appendChild(this.#categoryDropDown);
-    modalForm.appendChild(this.#nameInput);
-    modalForm.appendChild(this.#distanceDropDown);
-    modalForm.appendChild(this.#descriptionInput);
-    modalForm.appendChild(this.#linkInput);
+    modalForm.appendChild(this.#createModalFormScrollable());
+    modalForm.appendChild(this.#createButtonContainer());
 
     return modalForm;
+  };
+
+  #createModalFormScrollable = () => {
+    const modalFormScrollable = document.createElement('div');
+    modalFormScrollable.classList.add('modal-form-scrollable');
+    modalFormScrollable.appendChild(this.#categoryDropDown);
+    modalFormScrollable.appendChild(this.#nameInput);
+    modalFormScrollable.appendChild(this.#distanceDropDown);
+    modalFormScrollable.appendChild(this.#descriptionInput);
+    modalFormScrollable.appendChild(this.#linkInput);
+    return modalFormScrollable;
   };
 
   #createButtonContainer = () => {

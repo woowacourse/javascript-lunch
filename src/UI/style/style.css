@@ -209,8 +209,8 @@ body {
   margin-bottom: 36px;
 }
 
-form {
-  max-height: 70vh;
+.modal-form-scrollable {
+  max-height: 65vh;
   overflow-y: auto;
 }
 

@@ -1,14 +1,14 @@
 class Button {
   #button;
 
-  constructor(className, buttonText) {
-    this.#button = this.#createButton(className, buttonText);
+  constructor(type, className, buttonText) {
+    this.#button = this.#createButton(type, className, buttonText);
     return this.#button;
   }
 
-  #createButton = (className, buttonText) => {
+  #createButton = (type, className, buttonText) => {
     const button = document.createElement('button');
-    button.type = 'button';
+    button.type = type;
     button.classList.add('button', className);
     button.textContent = buttonText;
     return button;
