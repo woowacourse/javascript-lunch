@@ -12,7 +12,6 @@ export function Button(id, type, content, dataSet, styleType) {
 
   function render() {
     return `
-    <div>
         <button 
           ${id ? `id="${id}"` : ""}
           type="${type}" 
@@ -21,7 +20,6 @@ export function Button(id, type, content, dataSet, styleType) {
         >
           ${content}
         </button>
-      </div>
     `;
   }
   render();
