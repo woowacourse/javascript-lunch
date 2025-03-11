@@ -16,18 +16,11 @@ export function GetAllRestaurants() {
 }
 
 export function GetRestaurantFromStorage() {
-  if (!localStorage.getItem("restaurants")) {
-    return [];
-  }
-  return JSON.parse(localStorage.getItem("restaurants"));
+  return JSON.parse(localStorage.getItem("restaurants")) || [];
 }
 
 export function GetFavoriteRestaurant() {
-  if (!JSON.parse(localStorage.getItem("favorite"))) {
-    return [];
-  }
-
-  return JSON.parse(localStorage.getItem("favorite"));
+  return JSON.parse(localStorage.getItem("favorite")) || [];
 }
 
 export function SaveFavoriteRestaurantInStorage(favoriteRestaurant) {
@@ -41,4 +34,14 @@ export function SaveFavoriteRestaurantInStorage(favoriteRestaurant) {
 
   allFavoriteRestaurant.push(favoriteRestaurant);
   localStorage.setItem("favorite", JSON.stringify(allFavoriteRestaurant));
+}
+
+export function DeleteFavoriteRestaurantInStorage(favoriteRestaurant) {
+  let favoriteRestaurants = JSON.parse(localStorage.getItem("favorite")) || [];
+
+  const filteredRestaurants = favoriteRestaurants.filter(
+    (restaurant) => restaurant.nameValue !== favoriteRestaurant.nameValue
+  );
+
+  localStorage.setItem("favorite", JSON.stringify(filteredRestaurants));
 }
