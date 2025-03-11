@@ -71,10 +71,10 @@ class App extends Component {
       buttonCallback: { openModal },
     });
 
-    this.#renderRestaurantList();
+    this.renderRestaurantList();
   }
 
-  #renderRestaurantList() {
+  renderRestaurantList() {
     const $main = $("main");
     $main.insertAdjacentHTML(
       "afterbegin",
