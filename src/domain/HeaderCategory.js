@@ -8,13 +8,12 @@ export default function HeaderCategory() {
   const $restaurantList = document.querySelector(".restaurant-list");
 
   $allButton.addEventListener("click", (e) => {
-    location.reload();
-
     $allButton.classList.add("active");
     $favoriteButton.classList.remove("active");
 
     const restaurants = GetAllRestaurants();
-    createRestaurantList();
+    createRestaurantList(restaurants);
+    location.reload();
   });
 
   $favoriteButton.addEventListener("click", (e) => {
