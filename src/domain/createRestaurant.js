@@ -1,4 +1,4 @@
-import Restaurant from "../model/Restaurant";
+import Restaurant from "./Restaurant";
 
 const createRestaurant = (info) => {
   return new Restaurant(info);
