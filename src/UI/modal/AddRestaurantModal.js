@@ -90,23 +90,19 @@ class AddRestaurantModal extends Modal {
     return buttonContainer;
   };
 
-  #handleAddButton = (event) => {
-    event.preventDefault();
-    this.#handleAddRestaurant();
-    this.handleToggleModal();
-  };
-
   #handleCancelButton = () => {
     this.handleToggleModal();
   };
 
-  #handleAddRestaurant = () => {
+  #handleAddButton = (event) => {
+    event.preventDefault();
     const formData = Object.fromEntries(new FormData(this.#modalForm));
     
     try {
       const newRestaurant = addRestaurant(formData);
       const newRestaurantItem = new RestaurantItem(newRestaurant);
       DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
+      this.handleToggleModal();
     } catch (error) {
       alert(error.message);
     }
