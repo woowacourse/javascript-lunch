@@ -31,6 +31,7 @@ restaurantList.List.forEach((restaurantItem) =>
 
 if (localStorage.getItem("sort")) {
   handleSort(localStorage.getItem("sort"));
+
   document.getElementById("sorting-filter").value =
     localStorage.getItem("sort");
 }
@@ -58,7 +59,6 @@ function handleFavoriteToggle(event) {
 
   localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
 
-  console.log(JSON.parse(localStorage.getItem("restaurantList")));
   event.target.src = restaurant.isFavorite ? "./Star.png" : "./Un-star.png";
 }
 
@@ -83,7 +83,9 @@ function handleAddRestaurantFormSubmit(event) {
   }
 }
 
-// 정렬 함수
+// 정렬 리스트 2가지 경우 dataSet | array
+// 유닛 테스트 작성
+// 직접 넣고
 function sortList(list, sortOption) {
   return list.sort((a, b) => {
     const nameA = a.name || a.dataset.name;
@@ -111,24 +113,33 @@ function handleSort(sortFor) {
   sortedItems.forEach((item) => restaurantListElement.appendChild(item));
 }
 
-function handleFilter(event) {
+function handleCombinedFilter() {
   // 기존 리스트 초기화
   while (restaurantListElement.firstChild) {
     restaurantListElement.removeChild(restaurantListElement.firstChild);
   }
 
-  // 필터링된 리스트 가져오기
-  const filteredList =
-    event.target.value === "전체"
-      ? restaurantList.List
-      : restaurantList.List.filter(
-          ({ category }) => category === event.target.value
-        );
+  // 두 필터 요소의 값 가져오기
+  const categoryFilter = document.getElementById("category-filter").value;
+  const favoriteFilter = document.getElementById("favorite-filter").value; // 즐겨찾기 필터 요소가 있다고 가정
 
-  // 로컬 스토리지에서 정렬 기준 가져오기
+  // 전체 리스트에서 시작
+  let filteredList = restaurantList.List;
+
+  // 즐겨찾기 필터 적용 (예: "all"이 아니면 즐겨찾기만 필터링)
+  if (favoriteFilter !== "all") {
+    filteredList = filteredList.filter(({ isFavorite }) => isFavorite);
+  }
+
+  // 카테고리 필터 적용 (예: "전체"가 아니라면 해당 카테고리만 필터링)
+  if (categoryFilter !== "전체") {
+    filteredList = filteredList.filter(
+      ({ category }) => category === categoryFilter
+    );
+  }
+
+  // 정렬 옵션 가져오기 및 정렬
   const sortOption = localStorage.getItem("sort") || "name";
-
-  // 필터링된 리스트 정렬
   const sortedList = sortList(filteredList, sortOption);
 
   // 정렬된 리스트를 DOM에 추가
@@ -145,13 +156,15 @@ document.body.addEventListener("click", (event) => {
 });
 document
   .getElementById("category-filter")
-  .addEventListener("change", (event) => {
-    handleFilter(event);
-  });
+  .addEventListener("change", handleCombinedFilter);
+document
+  .getElementById("favorite-filter")
+  .addEventListener("change", handleCombinedFilter);
 document
   .getElementById("sorting-filter")
   .addEventListener("change", (event) => {
     handleSort(event.target.value);
   });
+
 // 폼 제출 이벤트 리스너 등록
 restaurantAddForm.addEventListener("submit", handleAddRestaurantFormSubmit);
