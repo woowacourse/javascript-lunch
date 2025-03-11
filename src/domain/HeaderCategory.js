@@ -1,11 +1,13 @@
 import { createRestaurantList } from "../components/createRestaurantList";
 import { DEFAULT_RESTAURANTS } from "../constants/options";
 import { GetAllRestaurants, GetFavoriteRestaurant } from "./RestaurantStorage";
+import OrderByValue from "./OrderByValue";
 
 export default function HeaderCategory() {
   const $allButton = document.getElementById("all-button");
   const $favoriteButton = document.getElementById("favorite-button");
   const $restaurantList = document.querySelector(".restaurant-list");
+  OrderByValue();
 
   $allButton.addEventListener("click", (e) => {
     $allButton.classList.add("active");

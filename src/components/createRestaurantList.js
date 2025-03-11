@@ -32,7 +32,7 @@ function createRestaurantItem(container, inputValue) {
               inputValue.nameValue
             }</h3>
             <span class="restaurant__distance text-body">
-            캠퍼스부터 ${inputValue.distanceValue}
+            캠퍼스부터 ${inputValue.distanceValue}분 내
             </span>
           </div>
           <button class="restaurant-favorite-star-button">
