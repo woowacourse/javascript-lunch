@@ -5,6 +5,7 @@
 @import "src/components/button/button.css";
 @import "src/components/textarea/textarea.css";
 @import "src/components/input/input.css";
+@import "src/components/input/radio.css";
 @import "src/components/dropdown/dropdown.css";
 @import "src/components/restaurant/form/form.css";
 @import "src/components/restaurant/item/item.css";
