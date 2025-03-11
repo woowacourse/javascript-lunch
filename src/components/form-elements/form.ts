@@ -1,12 +1,21 @@
-import { addRestaurant } from "../modal/modal.js";
+import { addRestaurant, RestaurantProps } from "../modal/modal.js";
 
 export const handleAddRestaurant = (e: Event) => {
   e.preventDefault();
 
   try {
-    const form = document.getElementById("add-restaurant-form") as HTMLFormElement;
+    const form = document.getElementById(
+      "add-restaurant-form"
+    ) as HTMLFormElement;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+
+    const data: RestaurantProps = {
+      category: formData.get("category") as string,
+      name: formData.get("name") as string,
+      distance: formData.get("distance") ? Number(formData.get("distance")) : 0,
+      description: formData.get("description") as string,
+    };
+
     validateForm(form);
     addRestaurant(data);
   } catch (error) {
@@ -19,9 +28,9 @@ export const handleAddRestaurant = (e: Event) => {
 };
 
 const validateForm = (form: HTMLFormElement) => {
-  const requiredFields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
-    "input[required], select[required], textarea[required]"
-  );
+  const requiredFields = form.querySelectorAll<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >("input[required], select[required], textarea[required]");
   requiredFields.forEach((requiredField) => {
     if (!requiredField.value.trim()) {
       const label = document.querySelector<HTMLLabelElement>(
@@ -33,17 +42,18 @@ const validateForm = (form: HTMLFormElement) => {
   });
 };
 
-const $form = (formFields: HTMLElement[]): HTMLFormElement => {
-  const form = document.createElement("form");
-  form.id = "add-restaurant-form";
+const $form = (form: HTMLElement): HTMLFormElement => {
+  const wrapper = document.createElement("form");
+  wrapper.id = "add-restaurant-form";
 
-  formFields.forEach((field) => {
-    form.appendChild(field);
-  });
+  if (Array.isArray(form)) {
+    form.forEach((element) => wrapper.appendChild(element));
+  } else {
+    wrapper.appendChild(form);
+  }
 
-  form.addEventListener("submit", handleAddRestaurant);
-
-  return form;
+  return wrapper;
 };
+
 
 export default $form;

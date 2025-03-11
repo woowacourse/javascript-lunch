@@ -32,5 +32,5 @@ addEventListener("load", () => {
     submitCancelButtons,
   ];
 
-  document.querySelector("main").appendChild($modal(restaurantAddForm));
+  document.querySelector("main").appendChild($modal({form: restaurantAddForm}));
 });

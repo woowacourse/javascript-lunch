@@ -1,8 +1,19 @@
-import $form from "../form-elements/form.js";
+import $form from "../form-elements/form.ts";
 import $restaurantItem from "../restaurant/restaurant-item.js";
 import { CATEGORY_ICON } from "../../constants/iconPath.js";
 
-export const addRestaurant = (data) => {
+export type RestaurantProps = {
+  category: string;
+  name: string;
+  distance: number;
+  description: string;
+};
+
+type ModalProps = {
+  form: HTMLElement;
+};
+
+export const addRestaurant = (data: RestaurantProps): void => {
   handleModalClose();
   const categoryIcon = CATEGORY_ICON[data.category];
   const newRestaurant = {
@@ -12,20 +23,24 @@ export const addRestaurant = (data) => {
     distance: `캠퍼스부터 ${data.distance}분 내`,
     description: data.description,
   };
-  document
-    .querySelector(".restaurant-list")
-    .appendChild($restaurantItem(newRestaurant));
+  const restaurantList = document.querySelector(".restaurant-list");
+  if (!restaurantList) return;
+  restaurantList.appendChild($restaurantItem(newRestaurant));
 };
 
-export const handleModalClose = () => {
-  document.querySelector(".modal").classList.remove("modal--open");
+export const handleModalClose = (): void => {
+  const modal = document.querySelector(".modal");
+  if (!modal) return;
+  modal.classList.remove("modal--open");
 };
 
-const handleModalOpen = () => {
-  document.querySelector(".modal").classList.add("modal--open");
+const handleModalOpen = (): void => {
+  const modal = document.querySelector(".modal");
+  if (!modal) return;
+  modal.classList.add("modal--open");
 };
 
-const $modal = (form) => {
+const $modal = ({ form }: ModalProps): HTMLDivElement => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("modal");
 
@@ -48,9 +63,9 @@ const $modal = (form) => {
   });
   background.addEventListener("click", handleModalClose);
 
-  document
-    .querySelector(".gnb__button")
-    .addEventListener("click", handleModalOpen);
+  const headerButton = document.querySelector(".gnb__button");
+  if (!headerButton) throw new Error("헤더에서 버튼을 찾을 수 없습니다.");
+  headerButton.addEventListener("click", handleModalOpen);
 
   return wrapper;
 };
