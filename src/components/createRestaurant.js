@@ -1,5 +1,5 @@
 import { RestaurantData } from "../constants/RestaurantData.js";
-import Restaurant from "./Restaurant/Restaurant.js";
+import getRestaurant from "./Restaurant/Restaurant.js";
 import "./restaurantList.css";
 const createRestaurant = () => {
   const restaurantList = document.querySelector(".restaurant-list");
@@ -7,7 +7,8 @@ const createRestaurant = () => {
     RestaurantData.forEach((data) => {
       const restaurantItem = document.createElement("li");
       restaurantItem.classList.add("restaurant");
-      new Restaurant(restaurantItem, data);
+      const restaurant = getRestaurant(data);
+      restaurantItem.innerHTML = restaurant;
       restaurantList.appendChild(restaurantItem);
     });
   }
