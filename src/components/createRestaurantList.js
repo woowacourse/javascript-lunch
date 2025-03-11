@@ -25,7 +25,7 @@ function createRestaurantItem(container, inputValue) {
       </div>
       <div class="restaurant__info">
         <div class="restaurant-info-header">
-          <div>
+          <div class="restaurant__name-distance">
             <h3 class="restaurant__name text-subtitle">${
               inputValue.nameValue
             }</h3>
@@ -33,11 +33,13 @@ function createRestaurantItem(container, inputValue) {
               inputValue.distanceValue
             }</span>
           </div>
-          <img class="restaurant-favorite-star" src=${
-            inputValue.favorite === false
-              ? "/favorite-icon-lined.png"
-              : "/favorite-icon-filled.png"
-          } alt="favorite star"/>
+          <button class="restaurant-favorite-star-button">
+            <img class="restaurant-favorite-star" src=${
+              inputValue.favorite === false
+                ? "/favorite-icon-lined.png"
+                : "/favorite-icon-filled.png"
+            } alt="favorite star"/>
+          </button>
         </div>
         <p class="restaurant__description text-body">${
           inputValue.descriptionValue
