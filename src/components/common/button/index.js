@@ -1,15 +1,16 @@
+ import createElement from "../../../utils/createElement/createElement";
+
 const Button = ({ text, style, onClick, type = "submit", id }) => {
-  const button = document.createElement("button");
 
-  button.textContent = text;
-  button.setAttribute("type", type);
-  button.setAttribute("id", id);
-  button.classList.add("button", "text-caption");
-  button.classList.add(style);
+  return createElement({
+    tagName: "button",
+    text: text,
+    classNames: ["button", "text-caption", style],
+    attributes: { type, id },
+    events: { click: onClick },
+  });
 
-  button.addEventListener("click", onClick);
 
-  return button;
 };
 
 export default Button;

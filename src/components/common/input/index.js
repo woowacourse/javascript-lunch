@@ -1,12 +1,15 @@
+import createElement from "../../../utils/createElement/createElement";
+
 const Input = (name, required = false) => {
-  const input = document.createElement("input");
-
-  input.setAttribute("type", "text");
-  input.setAttribute("name", name);
-  input.setAttribute("id", name);
-  input.toggleAttribute("required", required);
-
-  return input;
+  return createElement({
+    tagName: "input",
+    attributes: {
+      type: "text",
+      name,
+      id: name,
+      required,
+    },
+  });
 };
 
 export default Input;

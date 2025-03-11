@@ -1,11 +1,11 @@
-const setClasses = (element, classes) => {
-  if (typeof classes === "string") {
-    classes = classes.split(" ");
+const setClasses = (element, classNames) => {
+  if (!classNames || classNames.length === 0) return;
+
+  if (typeof classNames === "string") {
+    classNames = classNames.split(" ");
   }
 
-  if (classes.length > 0) {
-    element.classList.add(...classes);
-  }
+  element.classList.add(...classNames);
 };
 
 export default setClasses;

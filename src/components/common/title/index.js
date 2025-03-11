@@ -1,9 +1,11 @@
-const Title = (text, tagName, ...className) => {
-  const title = document.createElement(tagName);
-  title.classList.add(...className);
-  title.textContent = text;
+import createElement from "../../../utils/createElement/createElement";
 
-  return title;
+const Title = (text, tagName, ...className) => {
+  return createElement({
+    tagName,
+    classNames: [...className],
+    textContent: text,
+  });
 };
 
 export default Title;

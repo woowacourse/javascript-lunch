@@ -1,4 +1,5 @@
 import setAttributes from "./set/setAttributes";
+import setClasses from "./set/setClasses";
 import setEvents from "./set/setEvents";
 import setText from "./set/setText";
 

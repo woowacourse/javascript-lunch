@@ -1,6 +1,7 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
+import createElement from "../../utils/createElement/createElement";
 import createKeyValuePair from "../../utils/createKeyValuePair";
 import Input from "../common/input";
 import InputField from "../common/inputField";
@@ -9,8 +10,10 @@ import TextArea from "../common/textArea";
 import ButtonContainer from "./buttonContainer";
 
 const RegisterForm = () => {
-  const registerForm = document.createElement("form");
-  registerForm.setAttribute("id", "register-form");
+  const registerForm = createElement({
+    tagName: "form",
+    attributes: { id: "register-form" },
+  });
 
   registerForm.appendChild(
     InputField(
@@ -24,7 +27,9 @@ const RegisterForm = () => {
       )
     )
   );
+
   registerForm.appendChild(InputField(Input("name", true)));
+
   registerForm.appendChild(
     InputField(
       Select(
@@ -37,9 +42,11 @@ const RegisterForm = () => {
       )
     )
   );
+
   registerForm.appendChild(
     InputField(TextArea("description"), INPUT_HELP_TEXT.DESCRIPTION)
   );
+
   registerForm.appendChild(InputField(Input("link"), INPUT_HELP_TEXT.LINK));
 
   registerForm.appendChild(ButtonContainer());

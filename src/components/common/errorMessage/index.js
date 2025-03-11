@@ -1,9 +1,11 @@
-const ErrorMessage = (message) => {
-  const errorMessage = document.createElement("p");
-  errorMessage.classList.add("error-message", "text-caption");
-  errorMessage.textContent = message;
+import createElement from "../../../utils/createElement/createElement";
 
-  return errorMessage;
+const ErrorMessage = (message) => {
+  return createElement({
+    tagName: "p",
+    classNames: ["error-message", "text-caption"],
+    text: message,
+  });
 };
 
 export default ErrorMessage;

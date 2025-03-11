@@ -1,12 +1,10 @@
+import createElement from "../../../utils/createElement/createElement";
+
 const TextArea = (name, required = false) => {
-  const textArea = document.createElement("textarea");
-
-  textArea.setAttribute("type", "text");
-  textArea.setAttribute("name", name);
-  textArea.setAttribute("id", name);
-  textArea.toggleAttribute("required", required);
-
-  return textArea;
+  return (textArea = createElement({
+    tagName: "textarea",
+    attributes: { type: "text", name, id: name, required },
+  }));
 };
 
 export default TextArea;

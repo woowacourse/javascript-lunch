@@ -1,11 +1,18 @@
+import createElement from "../../../utils/createElement/createElement";
+
 const ModalContent = (contents) => {
-  const modalContent = document.createElement("div");
-  modalContent.addEventListener("click", (e) => e.stopPropagation());
-  modalContent.classList.add("modal-container");
+  const modalContent = createElement({
+    tagName: "div",
+    classNames: ["modal-container"],
+    events: {
+      click: (e) => e.stopPropagation(),
+    },
+  });
 
   contents.forEach((content) => {
     modalContent.appendChild(content);
   });
+
   return modalContent;
 };
 export default ModalContent;

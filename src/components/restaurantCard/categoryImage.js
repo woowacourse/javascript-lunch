@@ -1,9 +1,12 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
+import createElement from "../../utils/createElement/createElement";
 import Image from "../common/image";
 
 const CategoryImage = (category) => {
-  const categoryImage = document.createElement("div");
-  categoryImage.classList.add("restaurant__category");
+  const categoryImage = createElement({
+    tagName: "div",
+    classNames: ["restaurant__category"],
+  });
 
   const src = `./category-${FOOD_CATEGORY[category]}.png`;
 

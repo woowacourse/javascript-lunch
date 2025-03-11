@@ -8,10 +8,13 @@ import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
 import ErrorMessage from "../common/errorMessage";
+import createElement from "../../utils/createElement/createElement";
 
 const ButtonContainer = () => {
-  const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("button-container");
+  const buttonContainer = createElement({
+    tagName: "div",
+    classNames: ["button-container"],
+  });
 
   buttonContainer.appendChild(
     Button({
