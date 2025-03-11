@@ -337,3 +337,20 @@ input[name='link'] {
   font-size: 16px;
   font-weight: 700;
 }
+
+.items-controller {
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.items-controller > .form-item {
+  margin: 0;
+  width: 125px;
+}
+
+#category-filter,
+#items-sort {
+  color: var(--grey-500);
+}

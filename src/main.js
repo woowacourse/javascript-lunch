@@ -8,6 +8,8 @@ import {
   ADD_BUTTON,
   TOTAL_ITEMS_TAB,
   FREQUENT_ITEMS_TAB,
+  CATEGORY_FILTER,
+  ITEMS_SORT,
 } from './constants.js';
 import { RESTAURANTS } from './data/restaurantData.js';
 import eventHandlers from './eventHandlers.js';
@@ -25,12 +27,18 @@ import {
 addEventListener('load', () => {
   appendHeader();
   appendTabs();
+  appendItemsController();
   initRestaurantItems();
   appendModal();
   appendModalContents();
 
   const nameInputElement = document.querySelector('#name');
+  const categorySelectElement = document.querySelector('#category');
+  const distanceSelectElement = document.querySelector('#distance');
+
   setRequired(nameInputElement);
+  setRequired(categorySelectElement);
+  setRequired(distanceSelectElement);
 
   addEventHandlers();
 });
@@ -52,6 +60,19 @@ function appendTabs() {
   const tabContainer = document.querySelector('.tab-container');
   tabContainer.insertAdjacentHTML('beforeend', totalItemsTab);
   tabContainer.insertAdjacentHTML('beforeend', frequentItemsTab);
+}
+
+function appendItemsController() {
+  const previousSibling = document.querySelector('.tab-container');
+  const div = document.createElement('div');
+  div.classList.add('items-controller');
+  previousSibling.insertAdjacentElement('afterend', div);
+
+  const itemsController = document.querySelector('.items-controller');
+  const categoryFilter = createSelect(CATEGORY_FILTER);
+  const itemsSort = createSelect(ITEMS_SORT);
+  itemsController.insertAdjacentHTML('beforeend', categoryFilter);
+  itemsController.insertAdjacentHTML('beforeend', itemsSort);
 }
 
 function addNewRestaurantItem() {

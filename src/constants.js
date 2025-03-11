@@ -1,6 +1,8 @@
 export const CATEGORY = {
   label: '카테고리',
   name: 'category',
+  required: true,
+  default: '선택해주세요',
   lists: new Map([
     ['KOREAN', '한식'],
     ['CHINESE', '중식'],
@@ -14,6 +16,8 @@ export const CATEGORY = {
 export const DISTANCE = {
   label: '거리(도보 이동 시간)',
   name: 'distance',
+  required: true,
+  default: '선택해주세요',
   lists: new Map([
     ['FIVE_MIN', '5분 내'],
     ['TEN_MIN', '10분 내'],
@@ -76,4 +80,27 @@ export const FREQUENT_ITEMS_TAB = {
   type: 'button',
   className: 'tab--frequent-items',
   content: '자주 가는 음식점',
+};
+
+export const CATEGORY_FILTER = {
+  label: '',
+  name: 'category-filter',
+  required: false,
+  default: '전체',
+  lists: new Map([
+    ['KOREAN', '한식'],
+    ['CHINESE', '중식'],
+    ['JAPANESE', '일식'],
+    ['WESTERN', '양식'],
+    ['ASIAN', '아시안'],
+    ['ETC', '기타'],
+  ]),
+};
+
+export const ITEMS_SORT = {
+  label: '',
+  name: 'items-sort',
+  required: false,
+  default: '이름순',
+  lists: new Map([['distance', '거리순']]),
 };
