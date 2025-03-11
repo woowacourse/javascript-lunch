@@ -4,7 +4,7 @@ describe("The Home Page", () => {
   });
 });
 
-describe("Modal Test", () => {
+describe("restaurantAddModalTest", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
   });
