@@ -15,7 +15,7 @@ export default function RestaurantFilterContainer(restaurantItems) {
       options: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
       selectedValue: '한식',
     })
-  )
+  );
 
   $restaurantFilterContainer.append(
     Select({
@@ -25,7 +25,7 @@ export default function RestaurantFilterContainer(restaurantItems) {
       options: ["이름순", "거리순"],
       selectedValue: '이름순',
     })
-  )
+  );
 
   
   return $restaurantFilterContainer;
