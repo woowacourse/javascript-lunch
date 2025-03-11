@@ -1,4 +1,3 @@
-
 import Modal from "./Modal.js";
 import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
@@ -8,6 +7,8 @@ import { Validator } from "../validator/Validator.js";
 import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
+import MOCK_ITEM from "../mockItem.js";
+import RestaurantList from "./RestaurantList.js";
 
 const CATEGORY_ICON = {
   한식: "./category-korean.png",
@@ -18,7 +19,7 @@ const CATEGORY_ICON = {
   기타: "./category-etc.png",
 };
 
-function AddLunchModalForm(restaurantList, modalId) {
+function AddLunchModalForm(restaurantListId, modalId) {
   const $modalForm = toElement(`
     <form>
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -37,7 +38,15 @@ function AddLunchModalForm(restaurantList, modalId) {
       Validator.link(link);
       Validator.description(description);
 
-      restaurantList.add({
+      RestaurantList.add(restaurantListId, {
+        src: CATEGORY_ICON[category],
+        name: name,
+        distance: Number(distance),
+        description,
+        label: category,
+      });
+
+      MOCK_ITEM.restaurantList.push({
         src: CATEGORY_ICON[category],
         name: name,
         distance: Number(distance),

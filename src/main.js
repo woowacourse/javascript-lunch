@@ -19,8 +19,15 @@ $("body").prepend(
   )
 );
 
-const restaurantList = new RestaurantList(MOCK_ITEM.restaurantList);
+const restaurantList = new RestaurantList(
+  "toalRestaurantList",
+  MOCK_ITEM.restaurantList
+);
+
 restaurantList.$restaurantList;
 $("main").append(
-  new Modal("addLunchModal", AddLunchModalForm(restaurantList, "addLunchModal"))
+  new Modal(
+    "addLunchModal",
+    AddLunchModalForm("toalRestaurantList", "addLunchModal")
+  )
 );

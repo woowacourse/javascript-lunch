@@ -5,26 +5,21 @@ import LunchInfoCard from "./LunchInfoCard.js";
 import MOCK_ITEM from "../mockItem.js";
 
 class RestaurantList {
-  $restaurantList;
-  restaurantList;
-
-  constructor(restaurantList) {
-    this.$restaurantList = $(".restaurant-list");
-    this.restaurantList = restaurantList;
+  constructor(id, restaurantList) {
+    const $restaurantList = $(".restaurant-list");
+    $restaurantList.id = id;
 
     restaurantList.forEach(({ src, name, distance, description, label }) => {
       append(
-        this.$restaurantList,
+        $restaurantList,
         LunchInfoCard({ src, name, distance, description, label })
       );
     });
-
-    this.count = MOCK_ITEM.restaurantList.length;
   }
 
-  add(newRestaurant) {
-    this.restaurantList.push(newRestaurant);
-    append(this.$restaurantList, LunchInfoCard(newRestaurant));
+  static add(id, newRestaurant) {
+    const $targetList = document.getElementById(id);
+    append($targetList, LunchInfoCard(newRestaurant));
   }
 }
 
