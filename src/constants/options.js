@@ -26,6 +26,8 @@ export const DEFAULT_RESTAURANTS = [
       딸과 함께 운영하는 이곳에선 맷돌로 직접 간 콩만을 사용하며, 일체의 조미료를 넣지 않은 건강식을 선보인다. 
       콩비지와 피양 만두가 이곳의 대표 메뉴지만, 할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 
       반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
+    link: "",
+    favorite: false,
   },
   {
     category: "chinese",
@@ -34,6 +36,8 @@ export const DEFAULT_RESTAURANTS = [
     distanceValue: "5분 내",
     descriptionValue: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 
       정성으로 정통 중식의 세계를 펼쳐갑니다.`,
+    link: "",
+    favorite: false,
   },
   {
     category: "japanese",
@@ -42,6 +46,8 @@ export const DEFAULT_RESTAURANTS = [
     distanceValue: "10분 내",
     descriptionValue: `잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 
       기술은 정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다.`,
+    link: "",
+    favorite: false,
   },
   {
     category: "western",
@@ -49,6 +55,8 @@ export const DEFAULT_RESTAURANTS = [
     nameValue: "이태리키친",
     distanceValue: "20분 내",
     descriptionValue: "늘 변화를 추구하는 이태리키친입니다.",
+    link: "",
+    favorite: false,
   },
   {
     category: "asian",
@@ -56,6 +64,8 @@ export const DEFAULT_RESTAURANTS = [
     nameValue: "호아빈 삼성점",
     distanceValue: "15분 내",
     descriptionValue: "푸짐한 양에 국물이 일품인 쌀국수",
+    link: "",
+    favorite: false,
   },
   {
     category: "etc",
@@ -63,5 +73,7 @@ export const DEFAULT_RESTAURANTS = [
     nameValue: "도스타코스 선릉점",
     distanceValue: "5분 내",
     descriptionValue: "멕시칸 캐주얼 그릴",
+    link: "",
+    favorite: false,
   },
 ];
