@@ -1,3 +1,4 @@
+
 import Modal from "./Modal.js";
 import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
@@ -19,6 +20,7 @@ const CATEGORY_ICON = {
   기타: "./category-etc.png",
 };
 
+
 function AddLunchModalForm(restaurantListId, modalId) {
   const $modalForm = toElement(`
     <form>
@@ -37,7 +39,6 @@ function AddLunchModalForm(restaurantListId, modalId) {
       Validator.name(name);
       Validator.link(link);
       Validator.description(description);
-
       RestaurantList.add(restaurantListId, {
         src: CATEGORY_ICON[category],
         name: name,
@@ -180,7 +181,7 @@ function AddLunchModalForm(restaurantListId, modalId) {
       }),
     ])
   );
-
+  
   return $modalForm;
 }
 

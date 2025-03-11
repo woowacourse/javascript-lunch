@@ -6,7 +6,6 @@ import IconButton from "./component/IconButton.js";
 import append from "./utils/append.js";
 import RestaurantList from "./component/RestaurantList.js";
 import MOCK_ITEM from "./mockItem.js";
-
 import { $ } from "./utils/querySelectors.js";
 
 $("body").prepend(
