@@ -1,18 +1,12 @@
-import Component from "../Component.js";
+const getRestaurant = (data) => {
+  return `<div class="restaurant__category">
+                   <img src=${data.imgSrc} alt=${data.imgAlt} class="category-icon"/>
+                   </div>
+                   <div class="restaurant__info">
+                     <h3 class="restaurant__name text-subtitle">${data.name}</h3>
+                     <span class="restaurant__distance text-body">캠퍼스부터 ${data.distance}분 내</span>
+                     <p class="restaurant__description text-body">${data.description}</p>
+                   </div>`;
+};
 
-class Restaurant extends Component {
-  template() {
-    const { name, distance, description, imgSrc, imgAlt } = this.props;
-    return `    <div class="restaurant__category">
-                  <img src=${imgSrc} alt=${imgAlt} class="category-icon"/>
-                </div>
-                <div class="restaurant__info">
-                  <h3 class="restaurant__name text-subtitle">${name}</h3>
-                  <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-                  <p class="restaurant__description text-body">${description}</p>
-                </div>
-      `;
-  }
-}
-
-export default Restaurant;
+export default getRestaurant;
