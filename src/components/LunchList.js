@@ -1,7 +1,7 @@
 import { getHTML, createElement } from "../utils/utils.js";
 import { LunchItem } from "./LunchItem.js";
 
-export function LunchList({ targetID }) {
+export function LunchList(targetID) {
   const lunchItems = [
     LunchItem({
       category: "etc",
@@ -20,7 +20,7 @@ export function LunchList({ targetID }) {
   const ul = createElement("ul");
   ul.classList.add("restaurant-list");
 
-  function render() {
+  function template() {
     if (lunchItems.length > 0) {
       lunchItems.forEach((item) => {
         ul.appendChild(item);
@@ -28,19 +28,24 @@ export function LunchList({ targetID }) {
     } else {
       ul.innerHTML = `<p class="empty-message">목록이 없습니다.</p>`;
     }
+    return ul.outerHTML;
+  }
 
-    getHTML(targetID).appendChild(ul);
+  function render() {
+    getHTML(targetID).innerHTML = "";
+    getHTML(targetID).innerHTML = template();
   }
 
   function addRestaurantItem({ category, name, distance, description, link }) {
     const newItem = LunchItem({ category, name, distance, description, link });
     lunchItems.push(newItem);
     ul.appendChild(newItem);
+    render();
   }
 
-  render();
-
   return {
+    render,
     addRestaurantItem,
+    template,
   };
 }

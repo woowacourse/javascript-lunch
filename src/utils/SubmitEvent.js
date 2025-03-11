@@ -2,13 +2,13 @@ import { LunchItem } from "../components/LunchItem.js";
 import { LunchList } from "../components/LunchList.js";
 
 const getHTML = (id) => document.getElementById(id);
-const lunchList = LunchList({ targetID: "restaurantListSection" });
-class SubmitEvent {
-  constructor(elem) {
-    elem.addEventListener("submit", this.onSubmit.bind(this));
-  }
-
-  handleRestaurantSubmit(event, form) {
+function SubmitEvent(lunchList) {
+  // constructor(lunchList, elem) {
+  //   elem.addEventListener("submit", this.onSubmit.bind(this));
+  //   this.lunchList = lunchList;
+  // }
+  document.addEventListener("submit", onSubmit.bind(this));
+  function handleRestaurantSubmit(event, form) {
     event.preventDefault();
     const formData = new FormData(form);
     const category = formData.get("category");
@@ -17,6 +17,8 @@ class SubmitEvent {
     const description = formData.get("description");
     const link = formData.get("link");
 
+    console.log(lunchList);
+
     lunchList.addRestaurantItem({
       category,
       name,
@@ -24,24 +26,24 @@ class SubmitEvent {
       description,
       link,
     });
-    this.#closeModal();
+    closeModal();
   }
 
-  #closeModal() {
+  function closeModal() {
     const modalBackground = getHTML("modalBackground");
     modalBackground.classList.remove("show");
   }
 
-  onSubmit(event) {
+  function onSubmit(event) {
     event.preventDefault();
     const form = event.target.closest("form");
     if (!form) return;
 
     if (form.id === "restaurantForm") {
-      this.handleRestaurantSubmit(event, form);
+      handleRestaurantSubmit(event, form);
     }
     form.reset();
   }
 }
 
-new SubmitEvent(document);
+export default SubmitEvent;
