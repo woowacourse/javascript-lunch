@@ -1,4 +1,4 @@
-import { DISTANCES } from "../../constants/constants";
+import { DISTANCES } from "../../../constants/constants";
 
 const createDistance = () => {
   const addRestaurantForm = document.querySelector(".addRestaurantForm");

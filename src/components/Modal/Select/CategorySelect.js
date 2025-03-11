@@ -1,4 +1,4 @@
-import { CATEGORIES } from "../../constants/constants.js";
+import { CATEGORIES } from "../../../constants/constants.js";
 
 const createCategory = () => {
   const addRestaurantForm = document.querySelector(".addRestaurantForm");
