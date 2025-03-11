@@ -3,15 +3,18 @@ import addData from "./addData.js";
 import "./modal.css";
 class Modal extends Component {
   template() {
-    const { content } = this.props;
     return `<div class="modal-backdrop"></div>
     <div class="modal-container">
-      ${content}
+      ${this.props.content}
     </div>`;
   }
 
   render() {
     super.render();
+    this.onMount();
+  }
+
+  onMount() {
     if (this.props.isModalOpen) {
       this.$target.classList.add("modal--open");
     } else {
@@ -20,7 +23,6 @@ class Modal extends Component {
   }
 
   setEvent() {
-    const { toggleModal } = this.props;
     this.$target
       .querySelector(".modal-backdrop")
       .addEventListener("click", () => {
@@ -31,10 +33,10 @@ class Modal extends Component {
       .addEventListener("click", () => {
         this.props.toggleModal();
       });
-    this.submitForm();
+    this.addSubmitEvent();
   }
 
-  submitForm() {
+  addSubmitEvent() {
     document
       .getElementById("input-form")
       .addEventListener("submit", (event) => {
