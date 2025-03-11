@@ -1,4 +1,12 @@
-export const restaurantData = [
+type Restaurant = {
+  categoryIcon: string;
+  categoryTitle: string;
+  name: string;
+  distance: string;
+  description: string;
+};
+
+export const restaurantData: Restaurant[] = [
   {
     categoryIcon: "images/category-korean.png",
     categoryTitle: "한식",
