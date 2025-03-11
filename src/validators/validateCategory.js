@@ -9,8 +9,7 @@ const validateCategory = (category) => {
 
   toThrowNewError({
     condition: !RULES.CATEGORIES.includes(category),
-    message:
-      "카테고리는 한식, 중식, 일식, 양식, 아시안, 기타 중 하나여야 합니다.",
+    message: `카테고리는 ${RULES.CATEGORIES.join(", ")} 중 하나여야 합니다.`,
   });
 };
 
