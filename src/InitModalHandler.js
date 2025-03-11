@@ -1,5 +1,6 @@
-import { createRestaurantList } from "./components/createRestaurantList";
+import AddRestaurantModal from "./components/AddRestaurantModal";
 import { AddNewRestaurant } from "./domain/RestaurantStorage";
+import { categoryMapping } from "./utils/categoryMapping";
 import {
   validateDescriptionInput,
   validateNameInput,
@@ -58,7 +59,8 @@ function HandleAddRestaurant(e) {
 
     const $restaurantList = document.querySelector(".restaurant-list");
     AddNewRestaurant({ restaurant: inputValue });
-    createRestaurantList();
+
+    location.reload();
 
     CloseModal();
   } catch (error) {
