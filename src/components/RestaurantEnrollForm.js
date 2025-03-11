@@ -6,6 +6,7 @@ import createSectionContainer from './SectionContainer.js';
 import createSelectBox from './SelectBox.js';
 import createTextArea from './TextArea.js';
 import { updateRestaurantList } from './RestaurantList.js';
+import RestaurantValidator from '../validators/RestaurantValidator.js';
 
 const restaurantInput = {
   category: null,
@@ -90,10 +91,8 @@ function createRestaurantEnrollForm(onCancel) {
     onClick: (event) => {
       event.preventDefault();
 
-      if (!restaurantInput.category || !restaurantInput.name || !restaurantInput.distance) {
-        alert('카테고리, 이름, 거리 항목은 필수 입력입니다.');
-        return;
-      }
+      const isValidate = RestaurantValidator.validate(restaurantInput);
+      if (!isValidate) return;
 
       updateRestaurantList(restaurantInput);
       onCancel();
