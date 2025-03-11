@@ -1,13 +1,24 @@
-import { Restaurant } from "../../types/restaurantTypes";
+import { Restaurant, RestaurantForm } from "../../types/restaurantTypes";
 import { ERROR_MESSAGE, INITIAL_RESTAURANT } from "../settings/settings";
+import { restaurantFormValidation } from "../validation/restaurantFormValidation";
 
 class RestaurantList {
   readonly restaurantList: Restaurant[] = [];
   constructor(restaurantList: Restaurant[]) {
-    this.restaurantList = restaurantList;
+    //추가 검증작업.
+    for (const item of restaurantList) {
+      try {
+        this.addRestaurant(restaurantFormValidation(item));
+      } catch (error) {
+        console.error();
+      }
+    }
   }
   get List() {
     return this.restaurantList;
+  }
+  parseRestaurantForm(restaurantForm: RestaurantForm) {
+    return restaurantFormValidation(restaurantForm);
   }
   addRestaurant(restaurant: Restaurant) {
     if (this.searchRestaurant(restaurant.name))
@@ -16,6 +27,9 @@ class RestaurantList {
   }
   searchRestaurant(name: string): Restaurant | undefined {
     return this.restaurantList.find((item) => item.name === name);
+  }
+  toggleFavoriteRestaurant(restaurant: Restaurant) {
+    restaurant.isFavorite = !restaurant.isFavorite;
   }
 }
 export default new RestaurantList([...INITIAL_RESTAURANT]);
