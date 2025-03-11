@@ -10,7 +10,7 @@ export function LunchList(targetID) {
       description: "멕시칸 캐주얼 그릴",
     }),
     LunchItem({
-      category: "일식",
+      category: "japanese",
       name: "잇쇼우",
       distance: 10,
       description:

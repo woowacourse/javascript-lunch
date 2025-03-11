@@ -1,3 +1,5 @@
+import { openModal } from "../components/modal.js";
+
 class ClickEvent {
   constructor(elem) {
     elem.addEventListener("click", this.onClick.bind(this));
@@ -9,7 +11,8 @@ class ClickEvent {
 
   showModal(element) {
     if (!element) return;
-    document.getElementById("modalBackground")?.classList.add("show");
+    //document.getElementById("modalBackground")?.classList.add("show");
+    openModal();
   }
 
   removeModal(element) {

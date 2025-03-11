@@ -3,10 +3,6 @@ import { LunchList } from "../components/LunchList.js";
 
 const getHTML = (id) => document.getElementById(id);
 function SubmitEvent(lunchList) {
-  // constructor(lunchList, elem) {
-  //   elem.addEventListener("submit", this.onSubmit.bind(this));
-  //   this.lunchList = lunchList;
-  // }
   document.addEventListener("submit", onSubmit.bind(this));
   function handleRestaurantSubmit(event, form) {
     event.preventDefault();
@@ -16,8 +12,6 @@ function SubmitEvent(lunchList) {
     const distance = formData.get("distance");
     const description = formData.get("description");
     const link = formData.get("link");
-
-    console.log(lunchList);
 
     lunchList.addRestaurantItem({
       category,
