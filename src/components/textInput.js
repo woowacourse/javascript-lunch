@@ -6,7 +6,7 @@ const TextInput = (name, isRequired, helpText) => {
   if (isRequired) formItem.classList.add("form-item--required");
 
   formItem.innerHTML = `
-                <label for="${name} text-caption">${title[name]}</label>
+                <label for="${name}">${title[name]}</label>
                 <input type="text" name="${name}" id="${name}" />
   `;
 

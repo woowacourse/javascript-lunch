@@ -5,7 +5,7 @@ const TextArea = (name, helpText, colRow = { col: 30, row: 5 }) => {
   formItem.classList.add("form-item");
 
   formItem.innerHTML = `
-  <label for="${name} text-caption">${title[name]}</label>
+  <label for="${name}">${title[name]}</label>
                 <textarea
                   name="${name}"
                   id="${name}"
