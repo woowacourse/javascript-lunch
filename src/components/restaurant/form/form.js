@@ -84,7 +84,8 @@ export default function createRestaurantForm() {
       const restaurantForm = extractFormData(restaurantAddForm);
       const restaurant = restaurantFormValidation(restaurantForm);
       const restaurantListElement = document.querySelector(".restaurant-list");
-      restaurantList.addRestaurant(restaurantForm, restaurantList);
+
+      restaurantList.addRestaurant(restaurant);
       restaurantListElement.appendChild(createRestaurantItem(restaurantForm));
 
       Toast.showToast(`${restaurant.name} 음식점을 추가했습니다.`, "success");
