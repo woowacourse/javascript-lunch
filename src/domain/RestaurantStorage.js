@@ -7,7 +7,6 @@ export function AddNewRestaurant({ restaurant }) {
   }
   const restaurants = GetRestaurantFromStorage();
   restaurants.push(restaurant);
-  console.log(restaurants);
   localStorage.setItem("restaurants", JSON.stringify(restaurants));
 }
 
@@ -17,6 +16,9 @@ export function GetAllRestaurants() {
 }
 
 export function GetRestaurantFromStorage() {
+  if (!localStorage.getItem("restaurants")) {
+    return [];
+  }
   return JSON.parse(localStorage.getItem("restaurants"));
 }
 
@@ -28,6 +30,15 @@ export function GetFavoriteRestaurant() {
   return JSON.parse(localStorage.getItem("favorite"));
 }
 
-export function SaveFavoriteRestaurant({ favoriteRestaurant }) {
-  localStorage.setItem("favorite", JSON.stringify(favoriteRestaurant));
+export function SaveFavoriteRestaurantInStorage(favoriteRestaurant) {
+  if (!GetFavoriteRestaurant()) {
+    localStorage.setItem("favorite", JSON.stringify([favoriteRestaurant]));
+
+    return;
+  }
+
+  const allFavoriteRestaurant = GetFavoriteRestaurant();
+
+  allFavoriteRestaurant.push(favoriteRestaurant);
+  localStorage.setItem("favorite", JSON.stringify(allFavoriteRestaurant));
 }
