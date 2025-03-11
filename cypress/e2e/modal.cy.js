@@ -39,13 +39,13 @@ describe("modal E2E 테스트", () => {
     cy.get("header button").click();
     cy.get(".modal form button[type='button']").click();
 
-    cy.get(".modal--open").should("not.exist");
+    cy.get(".modal--open").should("not.be.visible");
   });
 
   it("모달에서 백드롭 클릭시, 모달 닫힘을 확인한다.", () => {
     cy.get("header button").click();
     cy.get(".modal-backdrop").click({ force: true });
 
-    cy.get(".modal--open").should("not.exist");
+    cy.get(".modal--open").should("not.be.visible");
   });
 });
