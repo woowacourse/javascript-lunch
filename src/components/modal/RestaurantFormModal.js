@@ -1,9 +1,9 @@
 import createElement from "../../util/createElement.js";
 import Select from "../util/Select.js";
-import RestaurantModalItem from "./RestaurantModalItem.js";
 import Input from "../util/Input.js";
 import TextArea from "../util/TextArea.js";
-import RestaurantModalButtonContainer from "./RestaurantModalButtonContainer.js";
+import RestaurantFormModalItem from "./RestaurantFormModalItem.js";
+import RestaurantFormModalButtonContainer from "./RestaurantFormModalButtonContainer.js";
 import restaurantDataList from "../../domain/RestaurantDataList.js";
 import reset from "../../util/reset.js";
 import { init } from "../../main.js";
@@ -40,7 +40,7 @@ export default function RestaurantFormModal() {
   $fragment.appendChild($h2);
   $fragment.appendChild($form);
   $form.appendChild(
-    RestaurantModalItem({
+    RestaurantFormModalItem({
       isRequired: true,
       name: "category",
       text: "카테고리",
@@ -54,7 +54,7 @@ export default function RestaurantFormModal() {
     })
   );
   $form.appendChild(
-    RestaurantModalItem({
+    RestaurantFormModalItem({
       isRequired: true,
       name: "name",
       text: "이름",
@@ -68,7 +68,7 @@ export default function RestaurantFormModal() {
     })
   );
   $form.appendChild(
-    RestaurantModalItem({
+    RestaurantFormModalItem({
       isRequired: true,
       name: "distance",
       text: "거리(도보 이동 시간)",
@@ -82,7 +82,7 @@ export default function RestaurantFormModal() {
     })
   );
   $form.appendChild(
-    RestaurantModalItem({
+    RestaurantFormModalItem({
       isRequired: false,
       name: "description",
       text: "설명",
@@ -98,7 +98,7 @@ export default function RestaurantFormModal() {
   );
 
   $form.appendChild(
-    RestaurantModalItem({
+    RestaurantFormModalItem({
       isRequired: false,
       name: "link",
       text: "참고 링크",
@@ -113,7 +113,7 @@ export default function RestaurantFormModal() {
     })
   );
 
-  $form.appendChild(RestaurantModalButtonContainer());
+  $form.appendChild(RestaurantFormModalButtonContainer());
 
   return $fragment;
 }

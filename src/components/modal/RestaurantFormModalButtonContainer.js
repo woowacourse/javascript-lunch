@@ -1,7 +1,7 @@
 import createElement from "../../util/createElement";
 import Button from "../util/Button";
 
-export default function RestaurantModalButtonContainer() {
+export default function RestaurantFormModalButtonContainer() {
   const $div = createElement({
     tag: "div",
     classNames: ["button-container"],
