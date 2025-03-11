@@ -1,4 +1,4 @@
-import { createRestaurantList } from "./components/createRestaurantItem";
+import { createRestaurantList } from "./components/createRestaurantList";
 import { AddNewRestaurant } from "./domain/RestaurantStorage";
 import {
   validateDescriptionInput,

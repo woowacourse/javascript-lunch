@@ -1,4 +1,4 @@
-import { createRestaurantList } from "./components/createRestaurantItem";
+import { createRestaurantList } from "./components/createRestaurantList";
 import { DEFAULT_RESTAURANTS } from "./constants/options";
 import HeaderCategory from "./domain/HeaderCategory";
 import { GetAllRestaurants } from "./domain/RestaurantStorage";
