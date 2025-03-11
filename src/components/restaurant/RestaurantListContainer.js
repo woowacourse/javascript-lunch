@@ -15,8 +15,16 @@ export default function RestaurantListContainer() {
 
   function render(restaurantDataList) {
     const restaurantElements = restaurantDataList.map(
-      ({ id, src, alt, name, distance, description }) =>
-        RestaurantItem({ id, src, alt, name, distance, description })
+      ({ id, src, alt, name, distance, description, isFavorite }) =>
+        RestaurantItem({
+          id,
+          src,
+          alt,
+          name,
+          distance,
+          description,
+          isFavorite,
+        })
     );
 
     $restaurantList.replaceChildren(...restaurantElements);

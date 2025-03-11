@@ -6,6 +6,18 @@
 
   border-bottom: 1px solid #e9eaed;
 }
+.restaurant__info {
+  width: 100%;
+}
+
+.restaurantItem__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.favorite__star {
+  cursor: pointer;
+}
 
 .restaurant__category {
   display: flex;
