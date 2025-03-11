@@ -1,10 +1,10 @@
 import { CAPTION_MESSAGE } from "../constants/Message.js";
+import { FoodInventory } from "../domain/FoodInventory.js";
 import { removeError } from "../util/errorHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
 import { FoodItem } from "./FoodItem.js";
-import { FoodList } from "./FoodList.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput.js";
@@ -28,18 +28,9 @@ const SELECT_OPTIONS = {
   ],
 };
 
-function addFoodItem() {
-  const foodItem = new FoodItem();
-  const foodInfo = foodItem.getFoodItem();
-  if (!foodInfo) return;
-
-  const foodList = new FoodList();
-  foodList.updateFoodList(foodInfo);
-  Modal.close();
-}
-
 export function FoodForm() {
   const container = document.createElement("form");
+  const foodInventory = new FoodInventory();
 
   container.appendChild(
     SelectInput({
@@ -96,7 +87,7 @@ export function FoodForm() {
         Button({
           cssType: "primary",
           innerText: "추가하기",
-          onClick: addFoodItem,
+          onClick: foodInventory.addFoodItem.bind(foodInventory),
         }),
       ],
     })

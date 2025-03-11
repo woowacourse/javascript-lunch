@@ -1,48 +1,15 @@
 import { getInput } from "../util/getInput";
-import { validateFoodItem } from "../validate/validateFoodItem";
 
-export class FoodItem {
-  foodItem;
-
-  constructor() {
-    this.foodItem = {
-      category: getInput("category"),
-      name: getInput("name"),
-      distance: getInput("distance"),
-      description: getInput("description"),
-      link: getInput("link"),
-    };
-  }
-
-  getFoodItem() {
-    try {
-      validateFoodItem(this.foodItem);
-      return this.#createFoodItem();
-    } catch (error) {
-      return;
-    }
-  }
-
-  #getImgSrcAlt(category) {
-    const categoryMap = {
-      한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },
-      중식: { imgAlt: "중식", imgSrc: "./category-chinese.png" },
-      일식: { imgAlt: "일식", imgSrc: "./category-japanese.png" },
-      양식: { imgAlt: "양식", imgSrc: "./category-western.png" },
-      아시안: { imgAlt: "아시안", imgSrc: "./category-asian.png" },
-    };
-
-    return (
-      categoryMap[category] || { imgAlt: "기타", imgSrc: "./category-etc.png" }
-    );
-  }
-
-  #createFoodItem() {
-    const container = document.createElement("div");
-    const { category, name, distance, description, link } = this.foodItem;
-
-    const { imgSrc, imgAlt } = this.#getImgSrcAlt(category);
-    container.innerHTML = `
+export function FoodItem({
+  imgSrc,
+  imgAlt,
+  name,
+  distance,
+  description,
+  link,
+}) {
+  const container = document.createElement("div");
+  container.innerHTML = `
      <li class="restaurant">
           <div class="restaurant__category">
             <img src=${imgSrc} alt=${imgAlt} class="category-icon">
@@ -54,6 +21,5 @@ export class FoodItem {
           </div>
         </li>`;
 
-    return container.firstElementChild;
-  }
+  return container.firstElementChild;
 }
