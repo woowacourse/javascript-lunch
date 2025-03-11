@@ -3,8 +3,8 @@ function createSelect(fieldName) {
     <label for="${fieldName.name} text-caption">${fieldName.label}</label>
     <select name="${fieldName.name}" id="${fieldName.name}">
       <option value="">${fieldName.default}</option>
-      ${Array.from(fieldName.lists.values()).map((list) => {
-        return `<option value="${list}">${list}</option>`;
+      ${Array.from(fieldName.lists).map(([key, name]) => {
+        return `<option value="${key}">${name}</option>`;
       })}
     </select>
   </div>`;
