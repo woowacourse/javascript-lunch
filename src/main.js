@@ -1,7 +1,8 @@
 import createHeader from "./components/Header.js";
 import createRestaurantItem from "./components/RestaurantItem.js";
+import { createModal } from "./components/Modal.js";
+import { restaurantsData } from "./restaurantsData.js";
 import validateRestaurant from "./validateRestaurant.js";
-import { restaurantsData } from "./restaurantsData";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
@@ -9,41 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
   body.prepend(header);
 
   const restaurantList = document.querySelector(".restaurant-list");
-
-  const addRestaurantModalButton = header.querySelector(".gnb__button");
-  const addNewRestaurantModal = document.getElementById(
-    "add-restaurant-dialog"
-  );
-  const closeModalButton = document.getElementById("cancel-dialog-btn");
-  const form = addNewRestaurantModal.querySelector("form");
-
-  restaurantsData.forEach((restaurantData) => {
-    const restaurantItem = createRestaurantItem(restaurantData);
+  restaurantsData.forEach((data) => {
+    const restaurantItem = createRestaurantItem(data);
     restaurantList.appendChild(restaurantItem);
   });
 
-  addRestaurantModalButton.addEventListener("click", () => {
-    addNewRestaurantModal.showModal();
-  });
+  const handleFormSubmit = (form, modal) => {
+    const nameInput = form.querySelector("#name");
+    const descriptionInput = form.querySelector("#description");
+    const categoryInput = form.querySelector("#category");
+    const distanceInput = form.querySelector("#distance");
+    const linkInput = form.querySelector("#link");
 
-  addNewRestaurantModal.addEventListener("click", (event) => {
-    if (!event.target.closest(".modal-container")) {
-      addNewRestaurantModal.close();
-    }
-  });
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const nameInput = document.getElementById("name");
-    const descriptionInput = document.getElementById("description");
-    const categoryInput = document.getElementById("category");
-    const distanceInput = document.getElementById("distance");
-    const linkInput = document.getElementById("link");
-
-    const restaurantsNameList = restaurantsData.map((restaurant) => {
-      return restaurant.name;
-    });
+    const restaurantsNameList = restaurantsData.map(
+      (restaurant) => restaurant.name
+    );
 
     const newRestaurant = {
       category: categoryInput.value,
@@ -63,11 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
     restaurantList.appendChild(restaurantItem);
 
     form.reset();
-    addNewRestaurantModal.close();
-  });
+    modal.close();
+  };
 
-  closeModalButton.addEventListener("click", () => {
-    form.reset();
-    addNewRestaurantModal.close();
+  const modal = createModal({
+    title: "새로운 음식점",
+    onSubmit: handleFormSubmit,
+  });
+  body.append(modal);
+
+  const addRestaurantModalButton = header.querySelector(".gnb__button");
+  addRestaurantModalButton.addEventListener("click", () => {
+    modal.showModal();
   });
 });
