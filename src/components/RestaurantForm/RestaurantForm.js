@@ -1,3 +1,4 @@
+import "./RestaurantForm.css";
 import validateRestaurant from "../../validateRestaurant.js";
 import renderRestaurantElement from "../RestaurantItem/RestaurantItem.js";
 import { restaurantsData } from "../../restaurantsMockData.js";
