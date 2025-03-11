@@ -1,5 +1,5 @@
 import "./RestaurantForm.css";
-import validateRestaurant from "../../validateRestaurant.js";
+import validateRestaurant from "../../validators/validateRestaurant.js";
 import renderRestaurantElement from "../RestaurantItem/RestaurantItem.js";
 import { restaurantsData } from "../../restaurantsMockData.js";
 
