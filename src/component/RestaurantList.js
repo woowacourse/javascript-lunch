@@ -1,4 +1,4 @@
-import { CATEGORY_ICON } from "../constants/constants.js";
+import { CATEGORY_ICON } from "../constants/constants.ts";
 import state from "../state.ts";
 import { $ } from "../utils/querySelectors.js";
 import LunchInfoCard from "./LunchInfoCard.js";

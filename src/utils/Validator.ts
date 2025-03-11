@@ -1,6 +1,7 @@
-import { RESTAURANT_NAME_LENGTH_MAX } from "../constants/constants.js";
-import { DESCRIPTION_LENGTH_MAX } from "../constants/constants.js";
-import { ERROR_MESSAGE } from "../constants/constants.js";
+import { RESTAURANT_NAME_LENGTH_MAX } from "../constants/constants.ts";
+import { DESCRIPTION_LENGTH_MAX } from "../constants/constants.ts";
+import { ERROR_MESSAGE } from "../constants/constants.ts";
+
 
 export const Validator = {
   name(name: string) {
