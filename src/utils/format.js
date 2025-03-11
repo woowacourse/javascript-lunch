@@ -14,3 +14,7 @@ export function formatCategory(categoryMap) {
 
   return categoryMap.map((category) => categoryNames[category] || "알 수 없음");
 }
+
+export function convertObjectToArray(object) {
+  return Object.values(object);
+}
