@@ -27,9 +27,10 @@ describe("음식점 추가 페이지 테스트", () => {
     cy.get("#register-button").click();
     //then
     const lastItem = cy.get(".restaurant-list").children().last();
-    lastItem.should("contain.text", info.name);
-    lastItem.should("contain.text", info.distance);
-    lastItem.should("contain.text", info.description);
+    lastItem
+      .should("contain.text", info.name)
+      .and("contain.text", info.category)
+      .and("contain.text", info.distance);
   });
 
   describe("각 입력 필드 유효성 검사시 적절한 오류 메시지가 표시된다.", () => {
