@@ -22,8 +22,6 @@ export default function HeaderCategory() {
     $allButton.classList.remove("active");
     const favoriteList = GetFavoriteRestaurant();
 
-    if (favoriteList.length > 0) {
-      createRestaurantItem($restaurantList, favoriteList);
-    }
+    createRestaurantList(favoriteList);
   });
 }

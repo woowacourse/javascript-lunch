@@ -27,3 +27,7 @@ export function GetFavoriteRestaurant() {
 
   return JSON.parse(localStorage.getItem("favorite"));
 }
+
+export function SaveFavoriteRestaurant({ favoriteRestaurant }) {
+  localStorage.setItem("favorite", JSON.stringify(favoriteRestaurant));
+}
