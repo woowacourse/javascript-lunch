@@ -6,12 +6,17 @@ interface RestaurantSortProps {
   setSort: (sort: SortType) => void;
 }
 
+const SORTS: SortType[] = ['이름순', '거리순'];
+
 export default class RestaurantSort extends Component<null, RestaurantSortProps> {
   template() {
     return `
-      <select name="sort" id="sort">
-        <option value="이름순" ${this.props?.sort === '이름순' ? 'selected' : ''}>이름순</option>
-        <option value="거리순" ${this.props?.sort === '거리순' ? 'selected' : ''}>거리순</option>
+      <select name="sort" id="sort" class="restaurant-sort">
+        ${SORTS.map(
+          (sort) => `
+          <option value="${sort}" ${this.props?.sort === sort ? 'selected' : ''}>${sort}</option>
+        `,
+        ).join('')}
       </select>
     `;
   }

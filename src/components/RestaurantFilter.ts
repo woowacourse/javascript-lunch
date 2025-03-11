@@ -6,17 +6,17 @@ interface RestaurantFilterProps {
   setFilter: (filter: CategoryType) => void;
 }
 
+const CATEGORIES: CategoryType[] = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
+
 export default class RestaurantFilter extends Component<null, RestaurantFilterProps> {
   template() {
     return `
       <select name="filter" id="filter" class="restaurant-filter">
-        <option value="전체" >전체</option>
-        <option value="한식" ${this.props?.filter === '한식' ? 'selected' : ''} >한식</option>
-        <option value="중식" ${this.props?.filter === '중식' ? 'selected' : ''} >중식</option>
-        <option value="일식" ${this.props?.filter === '일식' ? 'selected' : ''} >일식</option>
-        <option value="양식" ${this.props?.filter === '양식' ? 'selected' : ''} >양식</option>
-        <option value="아시안" ${this.props?.filter === '아시안' ? 'selected' : ''}>아시안</option>
-        <option value="기타" ${this.props?.filter === '기타' ? 'selected' : ''} >기타</option>
+        ${CATEGORIES.map(
+          (category) => `
+          <option value="${category}" ${this.props?.filter === category ? 'selected' : ''}>${category}</option>
+        `,
+        ).join('')}
       </select>
     `;
   }
