@@ -29,6 +29,8 @@ describe("점심 뭐 먹지", () => {
     cy.get(".gnb__button").click();
     cy.get(".modal-container").should("be.visible");
 
+    cy.get(".restaurant-list > li").should("have.length", 5);
+
     cy.get("#category").select("한식");
     cy.get("#name").type("해삐");
     cy.get("#distance").select("10");
@@ -38,7 +40,7 @@ describe("점심 뭐 먹지", () => {
     cy.get("#add-button").click();
     cy.get(".modal-container").should("not.be.visible");
 
-    cy.get(".restaurant-list").should("have.length", 1);
+    cy.get(".restaurant-list > li").should("have.length", 6);
   });
 
   describe("잘못된 값이 입력되면 경고 메시지가 나온다.", () => {
