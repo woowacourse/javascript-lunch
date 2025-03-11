@@ -1,8 +1,8 @@
-import { restaurants } from "../../../constants/restaurantData.js";
-import restaurantList from "./restaurantList.js";
-import { $ } from "../../../utils/domHelpers.js";
-import button from "../../../components/@common/button.js";
-import buttonHandler from "../../../eventHandler/button.js";
+import { restaurants } from "../../constants/restaurantData.js";
+import restaurantList from "../restaurantList/restaurantList.js";
+import { $ } from "../../utils/domHelpers.js";
+import button from "../@common/button.js";
+import buttonHandler from "./event/button.js";
 
 const buttonContainer = () => {
   const $buttonContainer = $(".button-container");

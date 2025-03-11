@@ -1,7 +1,7 @@
-import { restaurants } from "../constants/restaurantData";
-import { $ } from "../utils/domHelpers";
-import restaurantList from "../views/mainPage/components/restaurantList";
-import { ERROR } from "../constants/messages";
+import { restaurants } from "../../../constants/restaurantData";
+import { $ } from "../../../utils/domHelpers";
+import restaurantList from "../../restaurantList/restaurantList";
+import { ERROR } from "../../../constants/messages";
 
 const buttonHandler = (event) => {
   event.preventDefault();
