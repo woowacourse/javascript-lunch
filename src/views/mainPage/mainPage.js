@@ -1,3 +1,5 @@
+import errorContainer from "../../components/errorContainer.js";
+import fallbackComponent from "../../components/fallbackComponent.js";
 import buttonContainer from "./components/buttonContainer";
 import categorySelect from "./components/categorySelect";
 import description from "./components/description";
@@ -7,13 +9,13 @@ import nameInput from "./components/nameInput";
 import restaurantList from "./components/restaurantList";
 
 const renderMainPage = () => {
-  restaurantList();
-  buttonContainer();
-  nameInput();
-  linkInput();
-  distanceSelect();
-  categorySelect();
-  description();
+  errorContainer(() => restaurantList(), fallbackComponent);
+  errorContainer(() => buttonContainer(), fallbackComponent);
+  errorContainer(() => nameInput(), fallbackComponent);
+  errorContainer(() => linkInput(), fallbackComponent);
+  errorContainer(() => distanceSelect(), fallbackComponent);
+  errorContainer(() => categorySelect(), fallbackComponent);
+  errorContainer(() => description(), fallbackComponent);
 };
 
 export default renderMainPage;
