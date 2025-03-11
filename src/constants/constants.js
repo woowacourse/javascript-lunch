@@ -12,3 +12,8 @@ export const IMAGE_SRC_BY_RESTAURANTS_CATEGORY = {
   아시안: "images/category-asian.png",
   기타: "images/category-etc.png",
 };
+
+export const VALIDATE_SETTINGS = {
+  nameMaxLength: 20,
+  descriptionMaxLength: 500,
+};

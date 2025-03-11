@@ -1,16 +1,17 @@
-import { ERROR_MESSAGE } from "./constants/constants.js";
+import { ERROR_MESSAGE, VALIDATE_SETTINGS } from "./constants/constants.js";
 
 const validateRestaurant = (newRestaurant, restaurantNames) => {
-  if (newRestaurant.name.length > 20) {
+  if (newRestaurant.name.length > VALIDATE_SETTINGS.nameMaxLength) {
     return ERROR_MESSAGE.restaurantNameMaxLength;
   }
   if (restaurantNames.includes(newRestaurant.name)) {
     return ERROR_MESSAGE.duplicateRestaurantName;
   }
-  if (newRestaurant.description.length > 500) {
+  if (newRestaurant.description.length > VALIDATE_SETTINGS.descriptionMaxLength) {
     return ERROR_MESSAGE.descriptionMaxLength;
   }
   return null;
 };
 
 export default validateRestaurant;
+
