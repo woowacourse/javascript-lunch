@@ -1,6 +1,4 @@
-import { DOM } from "../utils/dom.js";
 import { $, $$ } from "../utils/querySelectors.js";
-import AddLunchModalForm from "./AddLunchModal/AddLunchModalForm.js";
 
 const Modal = {
   create(id, modalContent) {

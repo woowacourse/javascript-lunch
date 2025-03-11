@@ -1,5 +1,3 @@
-import { DOM } from "../utils/dom.js";
-
 const TextareaForm = {
   create({ id, bottomDescription, rows, label, isRequired }) {
     const TextareaFormElement = document.createElement("div");

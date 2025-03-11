@@ -1,5 +1,3 @@
-import { DOM } from "../utils/dom.js";
-
 const SelectForm = {
   create({ id, label, dropdownList, isRequired }) {
     const SelectFormElement = document.createElement("div");

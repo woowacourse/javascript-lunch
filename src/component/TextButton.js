@@ -1,5 +1,3 @@
-import { DOM } from "../utils/dom.js";
-
 const TextButton = {
   create({ title, onClick, id }) {
     const TextButtonElement = document.createElement("button");

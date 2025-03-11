@@ -1,11 +1,6 @@
 import { DOM } from "./utils/dom.js";
-import IconButton from "./component/IconButton.js";
 import Modal from "./component/Modal.js";
-import TextButton from "./component/TextButton.js";
 import LunchInfoCard from "./component/LunchInfoCard.js";
-import SelectForm from "./component/SelectForm.js";
-import TextareaForm from "./component/TextareaForm.js";
-import InputForm from "./component/InputForm.js";
 import Header from "./component/Header.js";
 import render from "./utils/render.js";
 import state from "./state.js";
