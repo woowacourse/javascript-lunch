@@ -1,6 +1,5 @@
 import { Header, RestaurantList } from './components';
 import Component from './core/Component';
-import { html } from './lib/utils';
 
 export default class Application extends Component {
   template() {
