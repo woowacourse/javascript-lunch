@@ -5,10 +5,10 @@ class Restaurant {
   #info;
   constructor({ category, name, distance, description, link }) {
     this.#info = { category, name, distance, description, link };
-    this.validate();
+    this.#validate();
   }
 
-  validate() {
+  #validate() {
     validateEmptyString(
       this.#info.category,
       ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED

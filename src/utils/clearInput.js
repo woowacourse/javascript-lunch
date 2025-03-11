@@ -1,5 +1,5 @@
 import { $ } from "./dom";
 
-export const clearInput = (formElement) => {
-  $(formElement).reset();
+export const clearInput = (formSelector) => {
+  $(formSelector).reset();
 };
