@@ -6,6 +6,7 @@ export default function Select({
   classNames = [],
   options,
   isRequired = false,
+  selectedValue = '',
 }) {
   const $select = createElement({
     tag: "select",
@@ -13,24 +14,32 @@ export default function Select({
     id,
     classNames,
     required: isRequired,
+    selectedValue,
   });
-  const $options = createOptions(options);
-
+  const $options = createOptions(options, selectedValue);
+  
   $select.appendChild($options);
   return $select;
 }
 
-function createOptions(options) {
+function createOptions(options, selectedValue) {
   const $fragment = document.createDocumentFragment();
-  const $defaultOption = createElement({
-    tag: "option",
-    value: "",
-  });
-  $defaultOption.textContent = "선택해 주세요.";
-  $fragment.appendChild($defaultOption);
+
+  if(!selectedValue) {
+    const $defaultOption = createElement({
+      tag: "option",
+      value: "",
+    });
+  
+    $defaultOption.textContent = '선택해 주세요.';
+    $fragment.appendChild($defaultOption);
+  }
 
   options.forEach((option) => {
     const $option = createElement({ tag: "option", value: option });
+    if(selectedValue && selectedValue === option) {
+      $option.selected = true;
+    }
     $option.textContent = option;
     $fragment.appendChild($option);
   });
