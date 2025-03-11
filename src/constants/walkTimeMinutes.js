@@ -1,1 +1,7 @@
-export const WALK_TIME_MINUTES = [5, 10, 15, 20, 30];
+export const WALK_TIME_MINUTES = {
+  FIVE: 5,
+  TEN: 10,
+  FIFTEEN: 15,
+  TWENTY: 20,
+  THIRTY: 30,
+};

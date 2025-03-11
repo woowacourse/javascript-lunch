@@ -37,8 +37,8 @@ const RegisterForm = (restaurantList) => {
         "distance",
         true,
         createKeyValuePair(
-          WALK_TIME_MINUTES,
-          WALK_TIME_MINUTES.map((minute) => minute + "분 내")
+          Object.values(WALK_TIME_MINUTES),
+          Object.values(WALK_TIME_MINUTES).map((minute) => minute + "분 내")
         )
       )
     )
