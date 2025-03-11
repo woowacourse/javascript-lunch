@@ -82,26 +82,26 @@ class AddRestaurantModal extends Modal {
   };
 
   #addNewRestaurant = () => {
-    const testData = Object.fromEntries(new FormData(this.#modalForm));
+    const formData = Object.fromEntries(new FormData(this.#modalForm));
     const newRestaurant = new Restaurant(
-      testData.name,
-      testData.distance,
-      testData.description,
-      testData.category,
-      testData.link,
+      formData.name,
+      formData.distance,
+      formData.description,
+      formData.category,
+      formData.link,
     );
     const newRestaurantItem = new RestaurantItem(newRestaurant);
     DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
   };
 
   #validateInputs = () => {
-    const testData = Object.fromEntries(new FormData(this.#modalForm));
+    const formData = Object.fromEntries(new FormData(this.#modalForm));
     try {
-      validateDropDown('카테고리', testData.category);
-      validateName(testData.name);
-      validateDropDown('거리', testData.distance);
-      validateDescription(testData.description);
-      validateLink(testData.link);
+      validateDropDown('카테고리', formData.category);
+      validateName(formData.name);
+      validateDropDown('거리', formData.distance);
+      validateDescription(formData.description);
+      validateLink(formData.link);
       return true;
     } catch (error) {
       alert(error.message);
