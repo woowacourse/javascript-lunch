@@ -1,6 +1,7 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
+import RestaurantList from "../../model/RestaurantList";
 import createElement from "../../utils/createElement/createElement";
 import createKeyValuePair from "../../utils/createKeyValuePair";
 import Input from "../common/input";
@@ -9,7 +10,7 @@ import Select from "../common/select";
 import TextArea from "../common/textArea";
 import ButtonContainer from "./buttonContainer";
 
-const RegisterForm = () => {
+const RegisterForm = (restaurantList) => {
   const registerForm = createElement({
     tagName: "form",
     attributes: { id: "register-form" },
@@ -49,7 +50,7 @@ const RegisterForm = () => {
 
   registerForm.appendChild(InputField(Input("link"), INPUT_HELP_TEXT.LINK));
 
-  registerForm.appendChild(ButtonContainer());
+  registerForm.appendChild(ButtonContainer(restaurantList));
 
   return registerForm;
 };

@@ -1,7 +1,7 @@
 import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
 import Restaurant from "./model/Restaurant";
 
-export const restaurantList = [
+export const restaurantListData = [
   new Restaurant({
     category: "한식",
     name: "피양콩할마니",

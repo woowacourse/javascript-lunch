@@ -1,6 +1,6 @@
 import { BUTTON_TEXT } from "../../constants/buttonText";
 import renderRestaurants from "../../domain/renderRestaurant";
-import { restaurantList } from "../../restaurantList";
+import restaurantList from "../../model/RestaurantList";
 import Restaurant from "../../model/Restaurant";
 import { clearError } from "../../utils/clearError";
 import { clearInput } from "../../utils/clearInput";
@@ -10,7 +10,7 @@ import Button from "../common/button";
 import ErrorMessage from "../common/errorMessage";
 import createElement from "../../utils/createElement/createElement";
 
-const ButtonContainer = () => {
+const ButtonContainer = (restaurantList) => {
   const buttonContainer = createElement({
     tagName: "div",
     classNames: ["button-container"],
@@ -30,7 +30,7 @@ const ButtonContainer = () => {
     Button({
       text: BUTTON_TEXT.ADD,
       style: "button--primary",
-      onClick: (e) => registerRestaurant(e),
+      onClick: (e) => registerRestaurant(e, restaurantList),
       id: "register-button",
     })
   );
@@ -45,13 +45,14 @@ const closeModal = () => {
   clearError();
 };
 
-const registerRestaurant = (e) => {
+const registerRestaurant = (e, restaurantList) => {
   e.preventDefault();
   try {
     const info = getInfo();
 
     const restaurant = new Restaurant(info);
-    restaurantList.push(restaurant);
+
+    restaurantList.add(restaurant);
 
     $(".modal-backdrop").classList.remove("open");
     renderRestaurants(restaurant);
