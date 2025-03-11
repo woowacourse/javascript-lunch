@@ -8,9 +8,9 @@ import {
   CATEGORY_ICON,
   DISTANCE_DROPDOWN_LIST,
 } from "../../constants/constants.js";
-import { renderRestaurantList } from "../../main.js";
 import state from "../../state.js";
 import { Validator } from "../../utils/Validator.js";
+import RestaurantList from "../RestaurantList.js";
 
 const AddLunchModalForm = {
   create() {
@@ -83,7 +83,7 @@ const AddLunchModalForm = {
     try {
       this.validateFormInputs({ name, link, description });
       this.addRestaurant({ category, name, distance, description });
-      renderRestaurantList();
+      RestaurantList.applyState();
       Modal.close("addLunch");
       Modal.reset("addLunch");
     } catch (e) {
