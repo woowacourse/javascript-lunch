@@ -1,26 +1,21 @@
-export function Button(id, type, content, dataSet, styleType) {
-  const buttonType =
+export function Button({ id, type, content, dataSet, styleType }) {
+  const classList =
     styleType === "primary"
-      ? {
-          classList: "button button--primary text-caption",
-        }
-      : {
-          classList: "button button--secondary text-caption",
-          id: "closeModalBtn",
-          dataAction: "removeModal",
-        };
+      ? "button button--primary text-caption"
+      : "button button--secondary text-caption";
 
-  function render() {
+  function template() {
     return `
         <button 
-          ${id ? `id="${id}"` : ""}
+          ${id ? `id="${id}"` : ""} 
           type="${type}" 
-          class="${buttonType}"
-          ${dataAction ? `data-action="${dataAction}"` : ""}
+          class="${classList}"
+          ${dataSet ? `data-action="${dataSet}"` : ""}
         >
           ${content}
         </button>
     `;
   }
-  render();
+
+  return template();
 }
