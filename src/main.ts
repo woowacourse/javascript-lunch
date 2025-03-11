@@ -1,17 +1,18 @@
 import $header from "./components/layout/header.ts";
-import $restaurantItem from "./components/restaurant/restaurant-item.js";
-import $inputItem from "./components/form-elements/input-item.js";
-import $modal from "./components/modal/modal.js";
-import $button from "./components/common/button.js";
-import $buttonContainer from "./components/layout/button-container.js";
-import { UI_CONFIG } from "./constants/uiConfig.js";
-import { restaurantData } from "./data/restaurant.js";
-import { FORM_FIELDS } from "./constants/formFields.js";
+import $restaurantItem from "./components/restaurant/restaurant-item.ts";
+import $inputItem from "./components/form-elements/input-item.ts";
+import $modal from "./components/modal/modal.ts";
+import $button from "./components/common/button.ts";
+import $buttonContainer from "./components/layout/button-container.ts";
+import { UI_CONFIG } from "./constants/uiConfig.ts";
+import { restaurantData } from "./data/restaurant.ts";
+import { FORM_FIELDS } from "./constants/formFields.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
 
   const restaurantList = document.querySelector(".restaurant-list");
+  if (!restaurantList) return;
   restaurantData.forEach((data) => {
     restaurantList.appendChild($restaurantItem(data));
   });
@@ -32,5 +33,7 @@ addEventListener("load", () => {
     submitCancelButtons,
   ];
 
-  document.querySelector("main").appendChild($modal({form: restaurantAddForm}));
+  const main = document.querySelector("main");
+  if (!main) return;
+  main.appendChild($modal({form: restaurantAddForm}));
 });

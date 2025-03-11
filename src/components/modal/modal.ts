@@ -1,6 +1,6 @@
 import $form from "../form-elements/form.ts";
-import $restaurantItem from "../restaurant/restaurant-item.js";
-import { CATEGORY_ICON } from "../../constants/iconPath.js";
+import $restaurantItem from "../restaurant/restaurant-item.ts";
+import { CATEGORY_ICON } from "../../constants/iconPath.ts";
 
 export type RestaurantProps = {
   category: string;
@@ -10,7 +10,7 @@ export type RestaurantProps = {
 };
 
 type ModalProps = {
-  form: HTMLElement;
+  form: HTMLElement | HTMLElement[];
 };
 
 export const addRestaurant = (data: RestaurantProps): void => {

@@ -1,5 +1,5 @@
-import { handleModalClose } from "../components/modal/modal.js";
-import { handleAddRestaurant } from "../components/form-elements/form.js";
+import { handleModalClose } from "../components/modal/modal.ts";
+import { handleAddRestaurant } from "../components/form-elements/form.ts";
 
 type HeaderConfig = {
   title: string;

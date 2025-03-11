@@ -1,4 +1,4 @@
-import { addRestaurant, RestaurantProps } from "../modal/modal.js";
+import { addRestaurant, RestaurantProps } from "../modal/modal.ts";
 
 export const handleAddRestaurant = (e: Event) => {
   e.preventDefault();
@@ -42,7 +42,7 @@ const validateForm = (form: HTMLFormElement) => {
   });
 };
 
-const $form = (form: HTMLElement): HTMLFormElement => {
+const $form = (form: HTMLElement | HTMLElement[]): HTMLFormElement => {
   const wrapper = document.createElement("form");
   wrapper.id = "add-restaurant-form";
 
