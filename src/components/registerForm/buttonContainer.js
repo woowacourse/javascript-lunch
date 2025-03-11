@@ -10,32 +10,30 @@ import ErrorMessage from "../common/errorMessage";
 import createElement from "../../utils/createElement/createElement";
 
 const ButtonContainer = (restaurantList) => {
+  const cancleButton = Button({
+    text: BUTTON_TEXT.CANCEL,
+    style: "button--secondary",
+    onClick: closeModal,
+    type: "button",
+    id: "cancel-button",
+  });
+
+  const addButton = Button({
+    text: BUTTON_TEXT.ADD,
+    style: "button--primary",
+    onClick: (e) => registerRestaurant(e, restaurantList),
+    id: "register-button",
+  });
+
   const buttonContainer = createElement({
     tagName: "div",
     classNames: ["button-container"],
+    children: [cancleButton, addButton],
   });
-
-  buttonContainer.appendChild(
-    Button({
-      text: BUTTON_TEXT.CANCEL,
-      style: "button--secondary",
-      onClick: closeModal,
-      type: "button",
-      id: "cancel-button",
-    })
-  );
-
-  buttonContainer.appendChild(
-    Button({
-      text: BUTTON_TEXT.ADD,
-      style: "button--primary",
-      onClick: (e) => registerRestaurant(e, restaurantList),
-      id: "register-button",
-    })
-  );
 
   return buttonContainer;
 };
+
 export default ButtonContainer;
 
 const BUTTON_TEXT = {

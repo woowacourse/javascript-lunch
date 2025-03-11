@@ -1,18 +1,13 @@
 import createElement from "../../../utils/createElement/createElement";
 
-const ModalContent = (contents) => {
-  const modalContent = createElement({
+const ModalContent = (contents) =>
+  createElement({
     tagName: "div",
     classNames: ["modal-container"],
     events: {
       click: (e) => e.stopPropagation(),
     },
+    children: [...contents],
   });
 
-  contents.forEach((content) => {
-    modalContent.appendChild(content);
-  });
-
-  return modalContent;
-};
 export default ModalContent;

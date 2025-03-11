@@ -2,16 +2,17 @@ import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import createElement from "../../utils/createElement/createElement";
 import Image from "../common/image";
 
-const CategoryImage = (category) => {
-  const categoryImage = createElement({
+const CategoryImage = (category) =>
+  createElement({
     tagName: "div",
     classNames: ["restaurant__category"],
+    children: [
+      Image(
+        `./category-${FOOD_CATEGORY[category]}.png`,
+        category,
+        "category-icon"
+      ),
+    ],
   });
-
-  const src = `./category-${FOOD_CATEGORY[category]}.png`;
-
-  categoryImage.appendChild(Image(src, category, "category-icon"));
-
-  return categoryImage;
-};
+  
 export default CategoryImage;

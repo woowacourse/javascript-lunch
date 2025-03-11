@@ -8,10 +8,8 @@ const RestaurantCard = (restaurant) => {
   const restaurantCard = createElement({
     tagName: "li",
     classNames: ["restaurant"],
+    children: [CategoryImage(category), RestaurantInfo(restaurant.info)],
   });
-
-  restaurantCard.prepend(CategoryImage(category));
-  restaurantCard.appendChild(RestaurantInfo({ name, distance, description }));
 
   return restaurantCard;
 };
