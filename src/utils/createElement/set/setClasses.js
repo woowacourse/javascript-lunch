@@ -5,7 +5,7 @@ const setClasses = (element, classNames) => {
     classNames = classNames.split(" ");
   }
 
-  element.classList.add(...classNames);
+  element.classList.add(...classNames.filter((className) => className));
 };
 
 export default setClasses;
