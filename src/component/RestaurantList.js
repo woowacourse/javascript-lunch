@@ -8,13 +8,9 @@ class RestaurantList {
   constructor(id, restaurantList) {
     const $restaurantList = $(".restaurant-list");
     $restaurantList.id = id;
-
-    restaurantList.forEach(({ src, name, distance, description, label }) => {
-      append(
-        $restaurantList,
-        LunchInfoCard({ src, name, distance, description, label })
-      );
-    });
+    this.$restaurantList.innerHTML = this.restuarantList
+      .map(LunchInfoCard)
+      .join("");
   }
 
   static add(id, newRestaurant) {
