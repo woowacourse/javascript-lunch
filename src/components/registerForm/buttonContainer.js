@@ -1,4 +1,3 @@
-import { BUTTON_TEXT } from "../../constants/buttonText";
 import renderRestaurants from "../../ui/renderRestaurant";
 import restaurantList from "../../domain/RestaurantList";
 import Restaurant from "../../domain/Restaurant";
@@ -38,6 +37,11 @@ const ButtonContainer = (restaurantList) => {
   return buttonContainer;
 };
 export default ButtonContainer;
+
+const BUTTON_TEXT = {
+  CANCEL: "취소하기",
+  ADD: "추가하기",
+};
 
 const closeModal = () => {
   $(".modal-backdrop").classList.remove("open");

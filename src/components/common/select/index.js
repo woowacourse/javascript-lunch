@@ -1,5 +1,6 @@
-import { INPUT_HELP_TEXT } from "../../../constants/inputHelpText";
 import createElement from "../../../utils/createElement/createElement";
+
+const SELECT_PLACEHOLDER = "선택해주세요.";
 
 const Select = (name, required, options) => {
   const select = createElement({
@@ -10,7 +11,7 @@ const Select = (name, required, options) => {
   const defaultOption = createElement({
     tagName: "option",
     attributes: { value: "" },
-    text: INPUT_HELP_TEXT.SELECT_PLACEHOLDER,
+    text: SELECT_PLACEHOLDER,
   });
 
   select.appendChild(defaultOption);

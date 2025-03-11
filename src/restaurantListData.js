@@ -1,4 +1,4 @@
-import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
+import { WALK_TIME_MINUTES } from "./components/registerForm/walkTimeMinutes";
 import Restaurant from "./domain/Restaurant";
 
 export const restaurantListData = [

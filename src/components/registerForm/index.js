@@ -1,6 +1,5 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
-import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
-import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
+import { WALK_TIME_MINUTES } from "./walkTimeMinutes";
 import RestaurantList from "../../domain/RestaurantList";
 import createElement from "../../utils/createElement/createElement";
 import createKeyValuePair from "../../utils/createKeyValuePair";
@@ -9,6 +8,11 @@ import InputField from "../common/inputField";
 import Select from "../common/select";
 import TextArea from "../common/textArea";
 import ButtonContainer from "./buttonContainer";
+
+const INPUT_HELP_TEXT = {
+  DESCRIPTION: "메뉴 등 추가 정보를 입력해 주세요.",
+  LINK: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
+};
 
 const RegisterForm = (restaurantList) => {
   const registerForm = createElement({
