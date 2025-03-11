@@ -27,7 +27,7 @@ describe("LunchInfoCard 테스트", () => {
     );
   });
 
-  it("초기 LunchInfoCard는 6개가 있다.", () => {
+  it("초기 LunchInfoCard는 1개가 있다.", () => {
     cy.get(".restaurant-list").children(".restaurant").should("have.length", 1);
   });
 
