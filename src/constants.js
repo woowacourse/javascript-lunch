@@ -51,13 +51,13 @@ export const DESCRIPTION = {
 
 export const CANCEL_BUTTON = {
   type: 'button',
-  className: 'button--secondary',
+  classNames: ['button--secondary'],
   content: '취소하기',
 };
 
 export const ADD_BUTTON = {
   type: 'submit',
-  className: 'button--primary',
+  classNames: ['button--primary'],
   content: '추가하기',
 };
 
@@ -72,13 +72,13 @@ export const IMAGE = new Map([
 
 export const TOTAL_ITEMS_TAB = {
   type: 'button',
-  className: 'tab--total-items',
+  classNames: ['tab', 'total-items'],
   content: '모든 음식점',
 };
 
 export const FREQUENT_ITEMS_TAB = {
   type: 'button',
-  className: 'tab--frequent-items',
+  classNames: ['tab', 'frequent-items'],
   content: '자주 가는 음식점',
 };
 

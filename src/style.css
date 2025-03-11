@@ -314,8 +314,7 @@ input[name='link'] {
   padding: 16px;
 }
 
-.tab--total-items,
-.tab--frequent-items {
+.tab {
   margin: 0;
 
   background-color: transparent;
