@@ -19,3 +19,11 @@ export function GetAllRestaurants() {
 export function GetRestaurantFromStorage() {
   return JSON.parse(localStorage.getItem("restaurants"));
 }
+
+export function GetFavoriteRestaurant() {
+  if (!JSON.parse(localStorage.getItem("favorite"))) {
+    return [];
+  }
+
+  return JSON.parse(localStorage.getItem("favorite"));
+}
