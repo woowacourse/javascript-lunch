@@ -5,7 +5,6 @@ const createRestaurantItem = ({
   name,
   distance,
   description,
-  imgSrc,
 }) => {
   const li = document.createElement("li");
   li.classList.add("restaurant");
