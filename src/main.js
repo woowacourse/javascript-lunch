@@ -1,8 +1,8 @@
 import { DOM } from './dom.js';
-import { RestaurantList } from './RestaurantList.js';
-import Header from './components/Header.js';
-import RestaurantItem from './components/RestaurantItem.js';
-import AddRestaurantModal from './modal/AddRestaurantModal.js';
+import { RestaurantList } from './Domain/RestaurantList.js';
+import Header from './UI/components/Header.js';
+import RestaurantItem from './UI/components/RestaurantItem.js';
+import AddRestaurantModal from './UI/modal/AddRestaurantModal.js';
 
 const addRestaurantModal = new AddRestaurantModal();
 new Header(addRestaurantModal);

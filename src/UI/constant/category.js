@@ -1,4 +1,4 @@
-import { CATEGORY_IMAGE_SRC } from '../../public/assets/imgaePaths.js';
+import { CATEGORY_IMAGE_SRC } from '../../../public/assets/imgaePaths.js';
 const CATEGORY = Object.freeze({
   KOREAN: {
     SRC: CATEGORY_IMAGE_SRC.KOREAN,

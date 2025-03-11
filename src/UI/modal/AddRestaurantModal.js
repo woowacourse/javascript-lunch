@@ -3,10 +3,10 @@ import InputDropDown from '../components/InputDropDown.js';
 import InputText from '../components/InputText.js';
 import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/RestaurantItem.js';
-import { DOM } from '../dom.js';
-import Restaurant from '../Restaurant.js';
-import { RestaurantList } from '../RestaurantList.js';
-import { validateDropDown, validateName, validateDescription, validateLink } from '../validation/validations.js';
+import { DOM } from '../../dom.js';
+import Restaurant from '../../Domain/Restaurant.js';
+import { RestaurantList } from '../../Domain/RestaurantList.js';
+import { validateDropDown, validateName, validateDescription, validateLink } from '../../Domain/validation/validations.js';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
