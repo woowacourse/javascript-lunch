@@ -1,4 +1,4 @@
-export const categoryOptions = {
+export const categoryOptions: Record<string, string> = {
   "선택해 주세요": "",
   한식: "한식",
   중식: "중식",
@@ -6,13 +6,13 @@ export const categoryOptions = {
   양식: "양식",
   아시안: "아시안",
   기타: "기타",
-};
+} as const;
 
-export const distanceOptions = {
+export const distanceOptions: Record<string, string | number> = {
   "선택해 주세요": "",
   "5분 이내": 5,
   "10분 이내": 10,
   "15분 이내": 15,
   "20분 이내": 20,
   "30분 이내": 30,
-};
+} as const;
