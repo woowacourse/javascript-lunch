@@ -345,6 +345,6 @@ input[name="link"] {
 }
 
 .header-category-button.active {
-  border-bottom: 2px solid red;
+  border-bottom: 3px solid red;
   color: red;
 }
