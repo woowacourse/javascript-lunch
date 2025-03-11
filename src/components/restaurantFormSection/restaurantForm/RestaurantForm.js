@@ -14,8 +14,9 @@ import {
 import { extractValuesByKey } from "../../utils/extractValuesByKey.js";
 
 export default class RestaurantForm {
-  constructor(addList) {
-    this.addList = addList;
+  constructor(updateList, list) {
+    this.updateList = updateList;
+    this.list = list;
   }
 
   render() {
@@ -104,7 +105,7 @@ export default class RestaurantForm {
 
     const newRestaurantInfo = extractValuesByKey(formQuery, "value");
 
-    this.addList(newRestaurantInfo);
+    this.updateList([...this.list, newRestaurantInfo]);
     this.#resetFormData(formQuery);
     this.#closeModal();
   }
