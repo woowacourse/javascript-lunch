@@ -10,16 +10,13 @@ const RestaurantList = {
     return restaurantListElement;
   },
 
-  applyState() {
+  applyElements(elements = this.getRestaurantElementList()) {
     $(".restaurant-list").replaceChildren();
-    const innerElements = this.getRestaurantElementList();
-    innerElements.forEach((element) =>
-      $(".restaurant-list").appendChild(element)
-    );
+    elements.forEach((element) => $(".restaurant-list").appendChild(element));
   },
 
-  getRestaurantElementList() {
-    return state.restaurantList.map(({ name, distance, description, label }) =>
+  getRestaurantElementList(restaurantList = state.restaurantList) {
+    return restaurantList.map(({ name, distance, description, label }) =>
       LunchInfoCard.create({
         src: CATEGORY_ICON[label],
         name,

@@ -82,7 +82,7 @@ const AddLunchModalForm = {
     try {
       this.validateFormInputs({ name, link, description });
       this.addRestaurant({ category, name, distance, description, link });
-      RestaurantList.applyState();
+      RestaurantList.applyElements();
       Modal.close("addLunch");
       Modal.reset("addLunch");
     } catch (e) {

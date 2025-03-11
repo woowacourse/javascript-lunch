@@ -1,3 +1,5 @@
+import { Restaurant } from "../types/global";
+
 interface State {
   restaurantList: Restaurant[];
 }
