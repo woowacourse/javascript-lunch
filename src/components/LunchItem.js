@@ -1,4 +1,6 @@
 import { getHTML, createElement } from "../utils/utils.js";
+import { CategoryIcon } from "./CategoryIcon.js";
+import { StoreInfo } from "./StoreInfo.js";
 
 function getCategoryImage(category) {
   switch (category) {
@@ -32,15 +34,15 @@ export function LunchItem({
 
   function render() {
     li.innerHTML = `
-    <div class="restaurant__category">
-      <img src="./images/category-${getCategoryImage(category)}.png" alt="${category}" class="category-icon">
-    </div>
-    <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
-      <p class="restaurant__description text-body">${description || "설명 없음"}</p>
-      ${link ? `<a href="${link}" target="_blank" class="restaurant__link">링크</a>` : ""}
-    </div>
+    ${CategoryIcon(category)}
+    ${StoreInfo({
+      category,
+      name,
+      distance,
+      description,
+      link,
+      type: "summary",
+    })}
   `;
     return li;
   }
