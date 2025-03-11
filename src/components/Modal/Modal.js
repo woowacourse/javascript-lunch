@@ -61,8 +61,10 @@ class Modal extends Component {
         event.preventDefault();
         const modalContainer = document.querySelector(".modal");
         modalContainer.classList.toggle("modal--open");
-        addData();
-        document.dispatchEvent(new CustomEvent("restaurantUpdated"));
+        const newData = addData();
+        document.dispatchEvent(
+          new CustomEvent("restaurantUpdated", { detail: newData }),
+        );
       });
   }
 }

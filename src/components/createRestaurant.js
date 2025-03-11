@@ -1,11 +1,20 @@
 import { RestaurantData } from "../data/RestaurantData.js";
 import Restaurant from "./Restaurant/Restaurant.js";
-const createRestaurant = () => {
+
+const createList = () => {
+  const restaurantItem = document.createElement("li");
+  restaurantItem.classList.add("restaurant");
+  document.querySelector(".restaurant-list").appendChild(restaurantItem);
+  return restaurantItem;
+};
+export const createRestaurant = () => {
   RestaurantData.forEach((data) => {
-    const restaurantItem = document.createElement("li");
-    restaurantItem.classList.add("restaurant");
-    document.querySelector(".restaurant-list").appendChild(restaurantItem);
+    const restaurantItem = createList();
     new Restaurant(restaurantItem, data);
   });
 };
-export default createRestaurant;
+
+export const updateRestaurant = (newData) => {
+  const restaurantItem = createList();
+  new Restaurant(restaurantItem, newData);
+};

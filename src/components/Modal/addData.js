@@ -12,6 +12,7 @@ const addData = () => {
     imgAlt: `${categoryValue[submittedData.category]}`,
   };
   RestaurantData.push(information);
+  return information;
 };
 
 export default addData;
