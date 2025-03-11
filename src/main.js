@@ -1,7 +1,6 @@
 import { IconButton } from "./component/button/IconButton.js";
 import { FoodForm } from "./component/FoodForm.js";
 import { Modal } from "./component/layout/Modal.js";
-import { foodItems } from "./mock/mockItem.js";
 import { FoodListPage } from "./pages/FoodListPage.js";
 
 addEventListener("load", () => {

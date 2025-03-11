@@ -1,6 +1,4 @@
 import { CAPTION } from "../constants/systemMessage.js";
-import { foodItems } from "../mock/mockItem.js";
-
 import { removeError } from "../util/errorHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
