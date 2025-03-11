@@ -5,10 +5,10 @@ import LunchInfoCard from "./LunchInfoCard.js";
 import MOCK_ITEM from "../mockItem.js";
 
 class RestaurantList {
-  constructor(id, restaurantList) {
-    const $restaurantList = $(".restaurant-list");
-    $restaurantList.id = id;
-    $restaurantList.innerHTML = restaurantList.map(LunchInfoCard).join("");
+  constructor(id, items) {
+    const $element = $(".restaurant-list");
+    $element.id = id;
+    $element.innerHTML = items.map(LunchInfoCard).join("");
   }
 
   static add(id, newRestaurant) {
