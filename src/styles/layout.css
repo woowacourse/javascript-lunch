@@ -1,0 +1,13 @@
+#app {
+  width: min(390px, 100%);
+  margin: auto;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+main {
+  flex: 1;
+  overflow-y: scroll;
+}
