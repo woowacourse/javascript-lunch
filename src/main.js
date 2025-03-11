@@ -11,7 +11,7 @@ import {
   CATEGORY_FILTER,
   ITEMS_SORT,
 } from './constants.js';
-import { RESTAURANTS } from './data/restaurantData.js';
+import { RESTAURANTS } from './database/restaurantData.js';
 import eventHandlers from './eventHandlers.js';
 import stateStore from './stateStore.js';
 import {
