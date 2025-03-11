@@ -1,7 +1,7 @@
-import Modal from "./components/Modal.js";
-import RestaurantForm from "./components/RestaurantForm.js";
-import createHeader from "./components/Header.js";
-import renderRestaurantElement from "./components/RestaurantItem.js";
+import Modal from "./components/Modal/Modal.js";
+import RestaurantForm from "./components/RestaurantForm/RestaurantForm.js";
+import createHeader from "./components/Header/Header.js";
+import renderRestaurantElement from "./components/RestaurantItem/RestaurantItem.js";
 import { restaurantsData } from "./restaurantsMockData.js";
 
 document.addEventListener("DOMContentLoaded", () => {
