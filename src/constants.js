@@ -19,11 +19,11 @@ export const DISTANCE = {
   required: true,
   default: '선택해주세요',
   lists: new Map([
-    ['FIVE_MIN', '5분 내'],
-    ['TEN_MIN', '10분 내'],
-    ['FIFTEEN_MIN', '15분 내'],
-    ['TWENTY_MIN', '20분 내'],
-    ['THIRTY_MIN', '30분 내'],
+    [5, '5분 내'],
+    [10, '10분 내'],
+    [15, '15분 내'],
+    [20, '20분 내'],
+    [30, '30분 내'],
   ]),
 };
 
@@ -62,12 +62,12 @@ export const ADD_BUTTON = {
 };
 
 export const IMAGE = new Map([
-  ['한식', 'category-korean.png'],
-  ['중식', 'category-chinese.png'],
-  ['일식', 'category-japanese.png'],
-  ['양식', 'category-western.png'],
-  ['아시안', 'category-asian.png'],
-  ['기타', 'category-etc.png'],
+  ['KOREAN', 'category-korean.png'],
+  ['CHINESE', 'category-chinese.png'],
+  ['JAPANESE', 'category-japanese.png'],
+  ['WESTERN', 'category-western.png'],
+  ['ASIAN', 'category-asian.png'],
+  ['ETC', 'category-etc.png'],
 ]);
 
 export const TOTAL_ITEMS_TAB = {

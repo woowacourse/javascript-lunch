@@ -2,7 +2,7 @@ import { CATEGORY } from '../constants.js';
 
 export const RESTAURANTS = [
   {
-    category: `${CATEGORY.lists.get('KOREAN')}`,
+    category: 'KOREAN',
     name: '피양콩할마니',
     distance: 10,
     description:
@@ -10,14 +10,14 @@ export const RESTAURANTS = [
     link: '',
   },
   {
-    category: `${CATEGORY.lists.get('CHINESE')}`,
+    category: 'CHINESE',
     name: '친친',
     distance: 5,
     description: 'Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다',
     link: '',
   },
   {
-    category: `${CATEGORY.lists.get('JAPANESE')}`,
+    category: 'JAPANESE',
     name: '잇쇼우',
     distance: 10,
     description:
@@ -25,21 +25,21 @@ export const RESTAURANTS = [
     link: '',
   },
   {
-    category: `${CATEGORY.lists.get('WESTERN')}`,
+    category: 'WESTERN',
     name: '이태리키친',
     distance: 20,
     description: '늘 변화를 추구하는 이태리키친입니다.',
     link: '',
   },
   {
-    category: `${CATEGORY.lists.get('ASIAN')}`,
+    category: 'ASIAN',
     name: '호아빈 삼성점',
     distance: 15,
     description: '푸짐한 양에 국물이 일품인 쌀국수',
     link: '',
   },
   {
-    category: `${CATEGORY.lists.get('ETC')}`,
+    category: 'ETC',
     name: '도스타코스 선릉점',
     distance: 5,
     description: '멕시칸 캐주얼 그릴',
