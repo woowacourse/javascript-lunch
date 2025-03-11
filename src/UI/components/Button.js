@@ -1,8 +1,9 @@
 class Button {
   #button;
 
-  constructor(type, className, buttonText) {
+  constructor(type, className, buttonText, listener) {
     this.#button = this.#createButton(type, className, buttonText);
+    this.#bindEvent(listener);
     return this.#button;
   }
 
@@ -14,8 +15,8 @@ class Button {
     return button;
   };
 
-  addEventListener = (type, listener) => {
-    this.#button.addEventListener(type, listener);
+  #bindEvent = (listener) => {
+    this.#button.addEventListener('click', listener);
   };
 }
 

@@ -37,12 +37,11 @@ class AddRestaurantModal extends Modal {
     super();
     this.#init();
     this.#createAddModal();
-    this.#bindEvent();
   }
 
   #init = () => {
-    this.#cancelButton = new Button('button', 'button--secondary', '취소하기');
-    this.#addButton = new Button('submit', 'button--primary', '추가하기');
+    this.#cancelButton = new Button('button', 'button--secondary', '취소하기', () => this.#handleAddButton());
+    this.#addButton = new Button('submit', 'button--primary', '추가하기', (event) => this.#handleAddButton(event));
     this.#categoryDropDown = new InputDropDown('카테고리', CATEGORY_LIST);
     this.#nameInput = new InputText('이름');
     this.#distanceDropDown = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
@@ -91,16 +90,14 @@ class AddRestaurantModal extends Modal {
     return buttonContainer;
   };
 
-  #bindEvent = () => {
-    this.#addButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      this.#handleAddRestaurant();
-      this.handleToggleModal();
-    });
+  #handleAddButton = (event) => {
+    event.preventDefault();
+    this.#handleAddRestaurant();
+    this.handleToggleModal();
+  };
 
-    this.#cancelButton.addEventListener('click', () => {
-      this.handleToggleModal();
-    });
+  #handleCancelButton = () => {
+    this.handleToggleModal();
   };
 
   #handleAddRestaurant = () => {
