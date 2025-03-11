@@ -11,6 +11,7 @@ renderRestaurantList();
 initAddLunchModal();
 
 export function renderRestaurantList() {
+  DOM.$restaurantList.replaceChildren();
   const restaurantElementList = state.restaurantList.map(
     ({ src, name, distance, description, label }) =>
       LunchInfoCard.create({ src, name, distance, description, label })
