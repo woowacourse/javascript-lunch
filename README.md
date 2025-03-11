@@ -96,3 +96,5 @@ src
 - [x] getImgSrcAlt switch문에서 객체로 바꾸기
 - [x] e2e 테스트 추가
 - [x] props로 컴포넌트가 들어가는 경우 변수명 변경 (대문자로 시작)
+- [x] FoodItem의 도메인 로직과 UI 로직 분리
+- [x] constants 하나의 message로 통합

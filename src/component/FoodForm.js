@@ -1,4 +1,4 @@
-import { CAPTION } from "../constants/systemMessage.js";
+import { CAPTION_MESSAGE } from "../constants/Message.js";
 import { removeError } from "../util/errorHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
@@ -71,7 +71,7 @@ export function FoodForm() {
     TextareaInput({
       isRequired: false,
       label: "설명",
-      caption: CAPTION.description,
+      caption: CAPTION_MESSAGE.description,
       name: "description",
     })
   );
@@ -81,7 +81,7 @@ export function FoodForm() {
       isRequired: false,
       label: "참고 링크",
       name: "link",
-      caption: CAPTION.link,
+      caption: CAPTION_MESSAGE.link,
     })
   );
 

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/errorMessage.js";
+import { ERROR_MESSAGE } from "../constants/Message.js";
 import { removeError, setError } from "../util/errorHandler.js";
 
 export class InputGuide {
