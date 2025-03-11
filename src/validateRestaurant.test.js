@@ -17,7 +17,9 @@ describe("음식점 이름 테스트", () => {
       description: "",
     };
 
-    expect(validateRestaurant(newRestaurant, restaurantsNameList)).toBe(null);
+    expect(validateRestaurant(newRestaurant, restaurantsNameList)).toBe(
+      ERROR_MESSAGE.restaurantNameMinLength
+    );
   });
 
   test("식당 이름이 20글자 초과면 오류가 발생한다.", () => {
@@ -33,13 +35,11 @@ describe("음식점 이름 테스트", () => {
 
   test("식당 이름이 1글자 이상, 20글자 이하면 정상 작동한다.", () => {
     const newRestaurant = {
-      name: "일이삼사오육칠팔구십일이삼사오육칠팔구십1",
+      name: "일이삼사오육칠팔구십일이삼사오육칠팔구십",
       description: "식당이름",
     };
 
-    expect(validateRestaurant(newRestaurant, restaurantsNameList)).toBe(
-      ERROR_MESSAGE.restaurantNameMaxLength
-    );
+    expect(validateRestaurant(newRestaurant, restaurantsNameList)).toBe(null);
   });
 
   test("식당 이름이 기존에 등록된 식당 이름과 중복될 경우 오류가 발생한다.", () => {

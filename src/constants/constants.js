@@ -1,4 +1,5 @@
 export const ERROR_MESSAGE = {
+  restaurantNameMinLength: "이름은 최소 1글자 이상 가능합니다.",
   restaurantNameMaxLength: "이름은 최대 20글자까지 가능합니다.",
   duplicateRestaurantName: "기존에 있는 식당과 중복된 이름입니다.",
   descriptionMaxLength: "설명은 최대 500글자까지 가능합니다.",
@@ -14,6 +15,7 @@ export const IMAGE_SRC_BY_RESTAURANTS_CATEGORY = {
 };
 
 export const VALIDATE_SETTINGS = {
+  nameMinLength: 1,
   nameMaxLength: 20,
   descriptionMaxLength: 500,
 };
