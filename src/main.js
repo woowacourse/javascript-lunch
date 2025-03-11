@@ -1,8 +1,7 @@
-import validateRestaurant from "./validateRestaurant.js";
-import { restaurantsData } from "./restaurantsData";
-import { ERROR_MESSAGE } from "./constants/constants.js";
 import createHeader from "./components/Header.js";
 import createRestaurantItem from "./components/RestaurantItem.js";
+import validateRestaurant from "./validateRestaurant.js";
+import { restaurantsData } from "./restaurantsData";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
