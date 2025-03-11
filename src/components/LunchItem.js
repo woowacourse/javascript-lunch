@@ -42,7 +42,8 @@ export function LunchItem({
       ${link ? `<a href="${link}" target="_blank" class="restaurant__link">링크</a>` : ""}
     </div>
   `;
+    return li;
   }
-  render();
-  getHTML(targetID).appendChild(li);
+
+  return render();
 }
