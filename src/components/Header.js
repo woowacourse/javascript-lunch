@@ -8,9 +8,9 @@ const HEADER_TEMPLATE = `
 `;
 
 class Header {
-  constructor(modalClickHandler) {
+  constructor({ onClickIcon }) {
     this.#createHeader();
-    this.#bindEvent(modalClickHandler);
+    this.#bindEvent(onClickIcon);
   }
 
   #createHeader = () => {
@@ -20,11 +20,9 @@ class Header {
     DOM.APP.prepend(header);
   };
 
-  #bindEvent = (modalClickHandler) => {
+  #bindEvent = (onClickIcon) => {
     const addButton = document.querySelector('.gnb__button');
-    addButton.addEventListener('click', () => {
-      modalClickHandler();
-    });
+    if (onClickIcon) addButton.addEventListener('click', onClickIcon);
   };
 }
 export default Header;

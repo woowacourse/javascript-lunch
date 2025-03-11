@@ -8,5 +8,6 @@ const addRestaurantModal = new AddRestaurantModal();
 const modalClickHandler = () => {
   addRestaurantModal.openModal();
 };
-new Header(modalClickHandler);
+
+new Header({ onClickIcon: modalClickHandler });
 new RestaurantList();
