@@ -1,4 +1,4 @@
-export const CATEGORY_ICON = {
+export const CATEGORY_ICON: Record<string, string> = {
   한식: "images/category-korean.png",
   중식: "images/category-chinese.png",
   일식: "images/category-japanese.png",
