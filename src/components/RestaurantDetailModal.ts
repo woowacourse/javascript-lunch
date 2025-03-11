@@ -41,8 +41,8 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
                 />
               </div>
               ${currentRestaurant?.isLike
-                ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-name="${currentRestaurant?.name}" />`
-                : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-name="${currentRestaurant?.name}" />`}
+                ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-id="${currentRestaurant?.id}" />`
+                : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-id="${currentRestaurant?.id}" />`}
             </div>
             <div class="restaurant__info">
               <div class="restaurant__info--inner">

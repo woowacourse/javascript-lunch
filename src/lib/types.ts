@@ -5,6 +5,7 @@ export type CategoryType = '전체' | '한식' | '중식' | '일식' | '양식' 
 export type DistanceType = 5 | 10 | 15 | 20 | 30;
 
 export type RestaurantType = {
+  id: string;
   name: string;
   description: string;
   distance: DistanceType;

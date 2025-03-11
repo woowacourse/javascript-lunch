@@ -1,7 +1,7 @@
 import Component from '../core/Component.ts';
 import { InputBox, Button, Modal } from './index.ts';
 import { RestaurantType } from '../lib/types.ts';
-import { html } from '../lib/utils.ts';
+import { html, generateId } from '../lib/utils.ts';
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
@@ -93,9 +93,10 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+      const id = generateId();
 
       const formData = new FormData(event.target as HTMLFormElement);
-      const modalInput = Object.fromEntries(formData);
+      const modalInput = { ...Object.fromEntries(formData), id };
 
       this.props?.addRestaurant(modalInput as unknown as RestaurantType);
     });

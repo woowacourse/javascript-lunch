@@ -7,7 +7,7 @@ interface RestaurantProps extends RestaurantType {}
 export default class Restaurant extends Component<null, RestaurantProps> {
   template() {
     return `
-      <li class="restaurant" data-name="${this.props?.name ?? ''}">
+      <li class="restaurant" data-id="${this.props?.id ?? ''}">
       <div class="restaurant__category">
         <img
           src="./public/images/category-${CATEGORY_MAP[this.props?.category as keyof typeof CATEGORY_MAP]}.png"
@@ -23,11 +23,11 @@ export default class Restaurant extends Component<null, RestaurantProps> {
           </div>
           ${
             this.props?.isLike
-              ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-name="${
-                  this.props?.name ?? ''
+              ? `<img src="./public/images/star_filled.svg" alt="음식점 추가" id="like__button" data-id="${
+                  this.props?.id ?? ''
                 }" />`
-              : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-name="${
-                  this.props?.name ?? ''
+              : `<img src="./public/images/star.svg" alt="음식점 추가" id="like__button" data-id="${
+                  this.props?.id ?? ''
                 }" />`
           }
         </div>

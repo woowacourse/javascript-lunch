@@ -61,15 +61,15 @@ export default class RestaurantList extends Component<RestaurantListState> {
         return;
       }
 
-      if (target.closest('#like__button') && target.dataset.name) {
-        this.#toggleLike(target.dataset.name);
+      if (target.closest('#like__button') && target.dataset.id) {
+        this.#toggleLike(target.dataset.id);
         return;
       }
 
       if (target.closest('.restaurant')) {
         this.setState({
           currentRestaurant: this.state.restaurants.find(
-            (restaurant) => restaurant.name === (target.closest('.restaurant') as HTMLElement).dataset.name,
+            (restaurant) => restaurant.id === (target.closest('.restaurant') as HTMLElement).dataset.id,
           ),
         });
         this.element.querySelector('#restaurant-detail-modal')?.classList.add('modal--open');
@@ -77,16 +77,16 @@ export default class RestaurantList extends Component<RestaurantListState> {
       }
 
       if (target.closest('#modal-delete')) {
-        this.#deleteRestaurant(this.state.currentRestaurant?.name ?? '');
+        this.#deleteRestaurant(this.state.currentRestaurant?.id ?? '');
         this.#removeModals();
         return;
       }
     });
   }
 
-  #deleteRestaurant(name: string) {
+  #deleteRestaurant(id: string) {
     this.setState({
-      restaurants: this.state.restaurants.filter((restaurant) => restaurant.name !== name),
+      restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
     });
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
   }
@@ -100,7 +100,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   #toggleLike(restaurantName: string) {
     const copiedRestaurants = [...this.state.restaurants];
 
-    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.name === restaurantName);
+    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.id === restaurantName);
     const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
 
     copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });

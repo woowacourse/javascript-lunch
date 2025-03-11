@@ -1,5 +1,6 @@
 import { concat, flat, map, pipe, reduce, zip } from '@fxts/core';
 import Component from '../core/Component';
+
 export function html(strings: TemplateStringsArray, ...values: any[]): string {
   return pipe(
     zip(
@@ -12,4 +13,8 @@ export function html(strings: TemplateStringsArray, ...values: any[]): string {
     flat,
     reduce((a, b) => a + b),
   );
+}
+
+export function generateId() {
+  return Math.random().toString(16).slice(2);
 }
