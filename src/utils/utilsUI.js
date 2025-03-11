@@ -136,12 +136,13 @@ export const storeUtils = {
   },
 
   createStore: (e) => {
+    const data = new FormData(e.target);
     return {
-      category: e.target[0].value,
-      name: e.target[1].value,
-      dist: e.target[2].value,
-      description: e.target[3].value,
-      link: e.target[4].value,
+      category: data.get("category"),
+      name: data.get("name"),
+      dist: data.get("distance"),
+      description: data.get("description"),
+      link: data.get("link"),
     };
   },
 };
