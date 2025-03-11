@@ -4,9 +4,7 @@ import InputText from '../components/InputText.js';
 import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/RestaurantItem.js';
 import { DOM } from '../../dom.js';
-import Restaurant from '../../Domain/Restaurant.js';
-import { RestaurantList } from '../../Domain/RestaurantList.js';
-import { validateDropDown, validateName, validateDescription, validateLink } from '../../Domain/validation/validations.js';
+import { addRestaurant } from '../../Domain/services/restaurantService.js';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
@@ -91,10 +89,8 @@ class AddRestaurantModal extends Modal {
   #bindEvent = () => {
     this.#addButton.addEventListener('click', (event) => {
       event.preventDefault();
-      if (this.#validateInputs()) {
-        this.#addHandler();
-        this.handleToggleModal();
-      }
+      this.#handleAddRestaurant();
+      this.handleToggleModal();
     });
 
     this.#cancelButton.addEventListener('click', () => {
@@ -102,22 +98,13 @@ class AddRestaurantModal extends Modal {
     });
   };
 
-  #addHandler = () => {
-    const modalFormData = Object.fromEntries(new FormData(this.#modalForm));
-    const newRestaurant = new Restaurant(modalFormData.name, modalFormData.distance, modalFormData.description, modalFormData.category);
-    const newRestaurantItem = new RestaurantItem(newRestaurant);
-    DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
-  };
-
-  #validateInputs = () => {
-    const modalFormData = Object.fromEntries(new FormData(this.#modalForm));
+  #handleAddRestaurant = () => {
+    const formData = Object.fromEntries(new FormData(this.#modalForm));
+    
     try {
-      validateDropDown('카테고리', modalFormData.category);
-      validateName(modalFormData.name);
-      validateDropDown('거리', modalFormData.distance);
-      validateDescription(modalFormData.description);
-      validateLink(modalFormData.link);
-      return true;
+      const newRestaurant = addRestaurant(formData);
+      const newRestaurantItem = new RestaurantItem(newRestaurant);
+      DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
     } catch (error) {
       alert(error.message);
     }
