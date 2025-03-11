@@ -36,12 +36,17 @@ export function SaveFavoriteRestaurantInStorage(favoriteRestaurant) {
   localStorage.setItem("favorite", JSON.stringify(allFavoriteRestaurant));
 }
 
-export function DeleteFavoriteRestaurantInStorage(favoriteRestaurant) {
-  let favoriteRestaurants = JSON.parse(localStorage.getItem("favorite")) || [];
+export function DeleteFavoriteRestaurantInStorage(restaurantName) {
+  const favoriteRestaurants =
+    JSON.parse(localStorage.getItem("favorite")) || [];
 
   const filteredRestaurants = favoriteRestaurants.filter(
-    (restaurant) => restaurant.nameValue !== favoriteRestaurant.nameValue
+    (restaurant) => restaurant.nameValue !== restaurantName
   );
 
   localStorage.setItem("favorite", JSON.stringify(filteredRestaurants));
+
+  return favoriteRestaurants.length === filteredRestaurants.length
+    ? false
+    : true;
 }

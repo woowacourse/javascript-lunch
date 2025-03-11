@@ -1,4 +1,5 @@
 import {
+  DeleteFavoriteRestaurantInStorage,
   GetAllRestaurants,
   SaveFavoriteRestaurantInStorage,
 } from "./RestaurantStorage";
@@ -17,6 +18,10 @@ export default function SaveFavoriteRestaurant() {
 
       const restaurantName =
         $restaurantItem.querySelector(".restaurant__name").textContent;
+
+      if (DeleteFavoriteRestaurantInStorage(restaurantName)) {
+        return;
+      }
 
       const restaurant = restaurants.find(
         (restaurant) => restaurant.nameValue === restaurantName
