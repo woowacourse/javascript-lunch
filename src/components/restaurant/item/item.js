@@ -6,6 +6,13 @@ const categoryIcon = {
   아시안: "./category-asian.png",
   기타: "./category-etc.png",
 };
+function setDataset(element, data) {
+  Object.keys(data).forEach((key) => {
+    element.dataset[key] = data[key];
+  });
+}
+
+//정리필요.
 
 export default function createRestaurantItem({
   category,
@@ -16,6 +23,13 @@ export default function createRestaurantItem({
   isFavorite,
 }) {
   const restaurantItem = createElement("li", { className: "restaurant" });
+
+  setDataset(restaurantItem, {
+    name: name,
+    distance: distance,
+    category: category,
+  });
+
   restaurantItem.innerHTML = `
   <div class="restaurant__category">
     <img
