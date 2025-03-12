@@ -1,4 +1,4 @@
-import { createRestaurantList } from "../components/createRestaurantList";
+import { CreateRestaurantList } from "../components/CreateRestaurantList";
 import { DEFAULT_RESTAURANTS } from "../constants/options";
 import { GetAllRestaurants, GetFavoriteRestaurant } from "./RestaurantStorage";
 import OrderByValue from "./OrderByValue";
@@ -16,7 +16,7 @@ export default function HeaderCategory() {
     $favoriteButton.classList.remove("active");
 
     const restaurants = GetAllRestaurants();
-    createRestaurantList(restaurants);
+    CreateRestaurantList(restaurants);
     location.reload();
   });
 
@@ -30,6 +30,6 @@ export default function HeaderCategory() {
     );
     $restaurantFilterContainer.classList.add("active");
 
-    createRestaurantList(favoriteList);
+    CreateRestaurantList(favoriteList);
   });
 }

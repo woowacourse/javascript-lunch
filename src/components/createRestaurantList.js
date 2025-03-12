@@ -1,7 +1,8 @@
 import { GetAllRestaurants } from "../domain/RestaurantStorage";
 import SaveFavoriteRestaurant from "../domain/SaveFavoriteRestaurant";
+import RestaurantDetailModal from "./RestaurantDetailModal";
 
-export function createRestaurantList(restaurants) {
+export function CreateRestaurantList(restaurants) {
   const $restaurantListContainer = document.querySelector(
     ".restaurant-list-container"
   );
@@ -15,6 +16,7 @@ export function createRestaurantList(restaurants) {
 
   $restaurantListContainer.innerHTML = restaurantList.outerHTML;
   SaveFavoriteRestaurant();
+  RestaurantDetailModal();
 }
 
 function createRestaurantItem(container, inputValue) {

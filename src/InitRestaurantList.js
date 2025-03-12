@@ -1,5 +1,4 @@
-import { createRestaurantList } from "./components/createRestaurantList";
-import { DEFAULT_RESTAURANTS } from "./constants/options";
+import { CreateRestaurantList } from "./components/CreateRestaurantList";
 import HeaderCategory from "./domain/HeaderCategory";
 import { GetAllRestaurants } from "./domain/RestaurantStorage";
 
@@ -8,7 +7,7 @@ export default function InitRestaurantList() {
   $allButton.classList.add("active");
 
   const restaurants = GetAllRestaurants();
-  createRestaurantList(restaurants);
+  CreateRestaurantList(restaurants);
 
   HeaderCategory();
 }
