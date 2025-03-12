@@ -1,20 +1,18 @@
 import { CATEGORY_OPTIONS, SORT_OPTIONS } from '../../public/restaurantData.js';
 import { createSelectBox } from './common/SelectBox.js';
 
-function createFilterGroup() {
+function createFilterGroup(onChangeCategory, onChangeFilter) {
   const fragment = new DocumentFragment();
   const categoryFilter = createSelectBox({
     options: CATEGORY_OPTIONS,
-    onChange: (event) => {
-      console.log(event.target.value);
-    },
+    type: 'category',
+    onChange: onChangeCategory,
   });
 
   const sortFilter = createSelectBox({
     options: SORT_OPTIONS,
-    onChange: (event) => {
-      console.log(event.target.value);
-    },
+    type: 'sorting',
+    onChange: onChangeFilter,
   });
 
   fragment.append(categoryFilter, sortFilter);
