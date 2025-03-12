@@ -9,6 +9,7 @@ import Toast from "./components/Toast/Toast.js";
 import { extractFormData } from "./utils/extract.js";
 import { restaurantFormValidation } from "./validation/restaurantFormValidation.js";
 import { INITIAL_RESTAURANT } from "./settings/settings.js";
+import createRestaurantDescription from "./components/restaurant/restaurantDesciption.js";
 const app = document.querySelector("#app");
 const modalContainer = document.querySelector(".modal-container");
 const restaurantListElement = document.querySelector(".restaurant-list");
@@ -57,6 +58,29 @@ function handleBottomSheetToggle(event) {
   }
 
   if (event.target.closest(".modal-backdrop")) {
+    modal.close();
+  }
+}
+function handleDescriptionModalToggle(event) {
+  if (event.target.classList.contains("favorite-icon")) return;
+  const modal = document.querySelector(".description-modal");
+  const descriptionContainer = document.querySelector(".description");
+
+  if (event.target.closest(".restaurant")) {
+    const parent = event.target.parentElement;
+    const name = parent.querySelector(".restaurant__name").textContent;
+    const descriptionDiv = createRestaurantDescription(
+      restaurantList.searchRestaurant(name)
+    );
+    descriptionContainer.appendChild(descriptionDiv);
+    modal.showModal();
+  }
+
+  // 모달 배경 클릭 시 모달 닫기
+  if (event.target.closest(".modal-backdrop")) {
+    while (descriptionContainer.firstChild) {
+      descriptionContainer.removeChild(descriptionContainer.firstChild);
+    }
     modal.close();
   }
 }
@@ -163,9 +187,11 @@ function handleCombinedFilter() {
 }
 
 document.body.addEventListener("click", (event) => {
-  [handleBottomSheetToggle, handleFavoriteToggle].forEach((handler) =>
-    handler(event)
-  );
+  [
+    handleBottomSheetToggle,
+    handleFavoriteToggle,
+    handleDescriptionModalToggle,
+  ].forEach((handler) => handler(event));
 });
 document
   .getElementById("category-filter")
@@ -182,3 +208,11 @@ document
 
 // 폼 제출 이벤트 리스너 등록
 restaurantAddForm.addEventListener("submit", handleAddRestaurantFormSubmit);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    const dialogs = document.getElementsByTagName("dialog");
+    if (dialogs.length > 0 && dialogs[0].open) {
+      dialogs[0].close(); // esc로 닫기
+    }
+  }
+});
