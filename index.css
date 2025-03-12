@@ -63,6 +63,3 @@ body {
   line-height: 20px;
   font-weight: 400;
 }
-dialog::backdrop {
-  z-index: 5000; /* dialog보다 낮게 설정 */
-}
