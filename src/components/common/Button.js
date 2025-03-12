@@ -4,8 +4,6 @@ export function Button({ id, type, content, dataSet, styleType }) {
       ? "button button--primary text-caption"
       : "button button--secondary text-caption";
 
-  console.log("test");
-
   function template() {
     return `
         <button 
