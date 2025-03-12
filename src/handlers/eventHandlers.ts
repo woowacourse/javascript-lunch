@@ -67,6 +67,14 @@ function resetFormAndState() {
   resetState();
 }
 
+function handleStarToggle(event: Event) {
+  const target = event.target;
+  if (target instanceof HTMLImageElement) {
+    const isActive = target.src.includes('favorite-icon-filled.png');
+    target.src = isActive ? 'favorite-icon-lined.png' : 'favorite-icon-filled.png';
+  }
+}
+
 let formSubmitHandler: (event: SubmitEvent) => void;
 
 function registerEventHandlers(addNewRestaurantItem: () => void) {
@@ -82,6 +90,11 @@ function registerEventHandlers(addNewRestaurantItem: () => void) {
   document.addEventListener('keydown', handleEscKey);
   formSubmitHandler = (event: SubmitEvent) => handleNewRestaurantSubmit(event, addNewRestaurantItem);
   form.addEventListener('submit', formSubmitHandler);
+
+  const restaurantList = document.querySelector('.restaurant-list');
+  if (restaurantList) {
+    restaurantList.addEventListener('click', handleStarToggle);
+  }
 }
 
 function removeEventHandlers() {
