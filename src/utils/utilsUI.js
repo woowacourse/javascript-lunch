@@ -46,8 +46,22 @@ export const modalUtils = {
   addButtons: () => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
-    buttonContainer.appendChild(Button("cancel"));
-    buttonContainer.appendChild(Button("add"));
+    buttonContainer.appendChild(
+      Button({
+        name: "취소하기",
+        type: "button",
+        class: "button--secondary",
+        id: "cancel-button",
+      })
+    );
+    buttonContainer.appendChild(
+      Button({
+        name: "추가하기",
+        type: "submit",
+        class: "button--primary",
+        id: "add-button",
+      })
+    );
 
     return buttonContainer;
   },
