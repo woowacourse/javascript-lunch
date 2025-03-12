@@ -48,7 +48,6 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   attachEventListener() {
     this.#attachClickEventListener();
-    this.#attachKeyDownEventListener();
   }
 
   #attachClickEventListener() {
@@ -56,11 +55,6 @@ export default class RestaurantList extends Component<RestaurantListState> {
       if (!event.target) return;
 
       const target = event.target as HTMLElement;
-
-      if (target.closest('#modal-cancel') || target.closest('.modal-backdrop')) {
-        this.#removeModals();
-        return;
-      }
 
       if (target.closest('#like__button') && target.dataset.id) {
         this.#toggleLike(target.dataset.id);
@@ -79,7 +73,6 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
       if (target.closest('#modal-delete')) {
         this.#deleteRestaurant(this.state.currentRestaurant?.id ?? '');
-        this.#removeModals();
         return;
       }
     });
@@ -90,12 +83,6 @@ export default class RestaurantList extends Component<RestaurantListState> {
       restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
     });
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
-  }
-
-  #attachKeyDownEventListener() {
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') this.#removeModals();
-    });
   }
 
   #toggleLike(restaurantName: string) {
@@ -194,11 +181,5 @@ export default class RestaurantList extends Component<RestaurantListState> {
     });
 
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
-  }
-
-  #removeModals() {
-    this.element.querySelectorAll('.modal').forEach((modal) => {
-      modal.classList.remove('modal--open');
-    });
   }
 }

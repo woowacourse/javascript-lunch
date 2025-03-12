@@ -10,10 +10,10 @@ interface RestaurantAddModalProps {
 
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
   template() {
-    return html` <section class="restaurant-add-modal"></section>`;
+    return html`<section class="restaurant-add-modal"></section>`;
   }
 
-  onRender(): void {
+  onRender() {
     this.#appendRestaurantAddModal();
   }
 
@@ -97,6 +97,10 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
   }
 
   attachEventListener() {
+    this.#attachFormSubmitEventListener();
+  }
+
+  #attachFormSubmitEventListener() {
     const form = this.element.querySelector('form');
     if (!form) return;
 

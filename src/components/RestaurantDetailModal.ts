@@ -9,6 +9,14 @@ interface RestaurantDetailModalProps extends RestaurantType {}
 
 export default class RestaurantDetailModal extends Component<null, RestaurantDetailModalProps | null> {
   template() {
+    return html`<section class="restaurant-add-modal"></section>`;
+  }
+
+  onRender(): void {
+    this.#appendRestaurantDetailModal();
+  }
+
+  #appendRestaurantDetailModal() {
     const currentRestaurant = this.props ?? null;
 
     const deleteButton = new Button({
@@ -25,8 +33,8 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
       message: '닫기',
     });
 
-    return html`
-      ${new Modal({
+    this.appendChild(
+      new Modal({
         id: 'restaurant-detail-modal',
         children: html`
           <div class="restaurant-detail-modal">
@@ -62,7 +70,7 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
             </div>
           </div>
         `,
-      })}
-    `;
+      }).render(),
+    );
   }
 }
