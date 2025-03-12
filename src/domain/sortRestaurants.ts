@@ -8,14 +8,23 @@ function sortRestaurants(sortKey: SortKey, restaurants: Restaurant[]) {
   switch (sortKey) {
     case 'name':
       sortedRestaurants.sort((prev, next) => {
-        return prev.name.localeCompare(next.name);
+        const nameOrder = prev.name.localeCompare(next.name);
+        if (nameOrder !== 0) {
+          return nameOrder;
+        }
+
+        return prev.distance - next.distance;
       });
 
       break;
 
     case 'distance':
       sortedRestaurants.sort((prev, next) => {
-        return prev.distance - next.distance;
+        if (prev.distance !== next.distance) {
+          return prev.distance - next.distance;
+        }
+
+        return prev.name.localeCompare(next.name);
       });
 
       break;
