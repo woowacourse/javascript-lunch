@@ -2,7 +2,7 @@ import Component from '../core/Component.ts';
 import { FILTERS, LOCAL_STORAGE_KEY_MAP, SORTS } from '../lib/constants.ts';
 import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { Select } from './common/index.ts';
-import { Restaurant, RestaurantAddModal, RestaurantDetailModal, RestaurantTab } from './index.ts';
+import { RestaurantItem, RestaurantAddModal, RestaurantDetailModal, RestaurantTab } from './index.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -172,7 +172,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
       );
 
     filteredRestaurants.forEach((restaurant) => {
-      this.appendChild(new Restaurant(restaurant).render(), '.restaurant-list');
+      this.appendChild(new RestaurantItem(restaurant).render(), '.restaurant-list');
     });
   }
 

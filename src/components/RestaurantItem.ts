@@ -4,7 +4,7 @@ import { RestaurantType } from '../lib/types.ts';
 
 interface RestaurantProps extends RestaurantType {}
 
-export default class Restaurant extends Component<null, RestaurantProps> {
+export default class RestaurantItem extends Component<null, RestaurantProps> {
   template() {
     return `
       <li class="restaurant" data-id="${this.props?.id ?? ''}">
