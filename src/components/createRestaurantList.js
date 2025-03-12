@@ -25,7 +25,7 @@ function createRestaurantItem(container, inputValue) {
       <div class="restaurant__category">
         <img src="./category-${inputValue.category}.png" alt="${
     inputValue.categoryValue
-  }" class="category-icon">
+  }" class="category-icon"/>
       </div>
       <div class="restaurant__info">
         <div class="restaurant-info-header">

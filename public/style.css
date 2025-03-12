@@ -133,6 +133,12 @@ body {
   border-bottom: 1px solid #e9eaed;
 }
 
+.restaurant:hover {
+  background-color: #e6e6e6;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
 .restaurant__category {
   display: flex;
   justify-content: center;
@@ -351,4 +357,26 @@ input[name="link"] {
 .header-category-button.active {
   border-bottom: 3px solid red;
   color: red;
+}
+
+.restaurant-detail-modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.restaurant-detail-modal {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 16px;
+  border-radius: 8px 8px 0 0;
 }
