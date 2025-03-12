@@ -2,7 +2,7 @@ import selectedFilterValue from "../../domain/SelectedFilterValue.js";
 import createElement from "../../util/createElement.js";
 import Select from "../util/Select.js";
 
-export default function RestaurantFilterContainer(restaurantItems) {
+export default function RestaurantFilterContainer() {
   const $restaurantFilterContainer = createElement({
     tag: "section",
     classNames: ["restaurant-filter-container"],
