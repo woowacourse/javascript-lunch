@@ -4,6 +4,7 @@ import createHeader from "./components/\bHeader/Header.js";
 import renderRestaurantElement from "./components/RestaurantItem/RestaurantItem.js";
 import { restaurantsData } from "./constants/restaurantsMockData.js";
 import createCategoryFilter from "./components/RestaurantForm/CategoryFilter.js";
+import createSortFilter from "./components/RestaurantForm/SortFilter.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   body.prepend(header);
 
   createCategoryFilter();
+  createSortFilter();
 
   const restaurantList = document.querySelector(".restaurant-list");
   const addRestaurantModalButton = header.querySelector(".gnb__button");
