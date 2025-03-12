@@ -1,4 +1,4 @@
-import { categoryValue } from "../../data/constants.js";
+import { categoryValue } from "../../data/constants.ts";
 import Dropdown from "../Dropdown/Dropdown.js";
 import Input from "../Input/Input.js";
 

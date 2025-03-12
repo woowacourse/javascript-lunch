@@ -1,4 +1,4 @@
-import { RestaurantData } from "../data/RestaurantMockData.js";
+import { RestaurantData } from "../data/RestaurantMockData.ts";
 import Restaurant from "./Restaurant/Restaurant.js";
 
 const createList = () => {
