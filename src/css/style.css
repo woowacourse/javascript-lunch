@@ -96,6 +96,16 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
+  width: 100%;
+}
+
+.restaurant__favorite-mark {
+  color: var(--primary-color);
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
 }
 
 .restaurant__name {

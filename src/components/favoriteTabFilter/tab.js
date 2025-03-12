@@ -1,14 +1,22 @@
 import { createElement } from "../../utils/createElement";
 
-const Tab = ({ text, active = false }) => {
+const Tab = ({ text, id, active = false, changeState }) => {
   const tab = createElement(/*html*/ `
-    <div class="favorite-filter-tab ${active ? "active" : ""}">${text}</div>
+    <div class="favorite-filter-tab ${
+      active ? "active" : ""
+    }" id=${id}>${text}</div>
   `);
 
   tab.addEventListener("click", (e) => {
     e.target.previousSibling?.classList.remove("active");
     e.target.nextSibling?.classList.remove("active");
     e.target.classList.add("active");
+
+    if (e.target.id === "favorite-all") {
+      changeState({ favorite: false });
+      return;
+    }
+    changeState({ favorite: true });
   });
 
   return tab;

@@ -1,10 +1,18 @@
 import { ERROR_MESSAGE } from "../constants/error";
+import { $ } from "../utils/dom";
 import { validateEmptyString } from "../validate/validateEmptyString";
 
 class Restaurant {
   #info;
   constructor({ category, name, distance, description, link }) {
-    this.#info = { category, name, distance, description, link };
+    this.#info = {
+      category,
+      name,
+      distance,
+      description,
+      link,
+      favorite: false,
+    };
     this.validate();
   }
 
@@ -19,6 +27,11 @@ class Restaurant {
       ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED
     );
   }
+
+  toggleFavoriteMark = () => {
+    this.#info.favorite = !this.#info.favorite;
+    return this.#info.favorite;
+  };
 
   get info() {
     return {
