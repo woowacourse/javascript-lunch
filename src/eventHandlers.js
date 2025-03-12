@@ -1,3 +1,4 @@
+import cache from './database/cache.js';
 import sortRestaurants from './domain/sortRestaurants.js';
 import stateStore from './stateStore.js';
 
@@ -94,14 +95,15 @@ function resetFormAndState() {
   resetState();
 }
 
-function sortRestaurantItems(restaurantItems, renderer) {
-  const sortSelector = document.querySelector('.sort-selector');
+function sortRestaurantItems(restaurantItems, callback) {
+  const sortSelector = document.querySelector('#sort-selector');
 
   sortSelector.addEventListener('change', (event) => {
     const sortKey = event.target.value;
     const sortedRestaurants = sortRestaurants(sortKey, restaurantItems);
+    cache.setRestaurants(sortedRestaurants);
 
-    stateStore.updateState(sortedRestaurants);
+    callback();
   });
 }
 
@@ -110,6 +112,7 @@ const eventHandlers = {
   closeModal,
   readNewRestaurant,
   switchTab,
+  sortRestaurantItems,
 };
 
 export default eventHandlers;
