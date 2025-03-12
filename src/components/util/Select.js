@@ -23,12 +23,12 @@ export default function Select({
   const $options = Options(options, selectedValue);
   
   $select.addEventListener("change", function() {
-    selectedFilterValue.updateSelectedFilterValue(name, this.value) 
-    console.log(this.value);
-    Restaurant({
-      isReRender: true
-    })
-
+    selectedFilterValue.updateSelectedFilterValue(id, this.value) 
+    if(id === 'category-filter' || id === 'sorting-filter') {
+      Restaurant({
+        isReRender: true
+      });
+    }
   });
 
   $select.appendChild($options);
