@@ -7,6 +7,7 @@ import {
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
 import RestaurantItem from "./components/RestaurantItem.js";
 import FilterBar from "./components/FilterBar.js";
+import TabBarView from "./components/TabBarView.js";
 
 class App {
   #restaurants;
@@ -19,19 +20,37 @@ class App {
     this.#restaurants = restaurants;
 
     this.#$target.insertAdjacentHTML("beforeend", this.#template());
+    this.#renderMainArea();
     this.#mount();
   }
 
   #template() {
     return /*html*/ `
       ${Header()}
+      ${TabBarView()}
       <main></main>
       <div id="modal"></div>
     `;
   }
 
   #mount() {
+    const $main = document.querySelector("main");
     const $gnbButton = this.#$target.querySelector(".gnb__button");
+    const $listTab = this.#$target.querySelector("#list-tab");
+    const $favoriteTab = this.#$target.querySelector("#favorite-tab");
+
+    $listTab.addEventListener("click", () => {
+      $listTab.classList.add("active");
+      $favoriteTab.classList.remove("active");
+      this.#renderMainArea();
+    });
+    $favoriteTab.addEventListener("click", () => {
+      $listTab.classList.remove("active");
+      $favoriteTab.classList.add("active");
+      $main.replaceChildren();
+      // TODO: 즐겨찾기 목록을 렌더링하는 코드 작성.
+    });
+
     const $modal = new AddRestaurantModal(
       document.querySelector("#modal"),
       this.#addRestaurant.bind(this)
@@ -40,8 +59,6 @@ class App {
     $gnbButton.addEventListener("click", () => {
       $modal.open();
     });
-
-    this.#renderMainArea();
   }
 
   #renderMainArea() {
