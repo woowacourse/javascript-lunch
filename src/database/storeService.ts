@@ -1,7 +1,8 @@
 import { Restaurant } from '../../types/domain';
 import store from './store.ts';
-import { parseJSON, stringifyJSON } from '../utils/data.ts';
+import { parseJSON, parseStorageKey, stringifyJSON } from '../utils/data.ts';
 import cache from './cache.ts';
+import { STORE } from '../constants.js';
 
 interface StoreService {
   getRestaurants(): Restaurant[];
@@ -18,15 +19,18 @@ const storeService: StoreService = {
       return cachedRestaurants;
     }
 
-    const keys = Object.keys(store.storage);
+    const keys = Object.keys(store.storage).filter((key) => {
+      return key.startsWith(STORE.keyPrefix);
+    });
+
     const restaurants = keys.map((key) => parseJSON(store.getData(key) ?? '[]'));
     cache.setRestaurants(restaurants);
-
     return restaurants;
   },
 
   findRestaurantByName(name) {
-    const target = store.getData(name) ?? '';
+    const parsedKey = parseStorageKey(STORE.keyPrefix, name);
+    const target = store.getData(parsedKey) ?? '';
     return parseJSON(target);
   },
 
@@ -38,14 +42,16 @@ const storeService: StoreService = {
   },
 
   updateRestaurantByName(name, data) {
+    const parsedKey = parseStorageKey(STORE.keyPrefix, name);
     const stringData = stringifyJSON(data);
-    store.setData(name, stringData);
+    store.setData(parsedKey, stringData);
 
     cache.clearRestaurants();
   },
 
   deleteRestaurantByName(name) {
-    store.removeData(name);
+    const parsedKey = parseStorageKey(STORE.keyPrefix, name);
+    store.removeData(parsedKey);
 
     cache.clearRestaurants();
   },

@@ -104,3 +104,7 @@ export const ITEMS_SORT = {
   default: '이름순',
   lists: new Map([['distance', '거리순']]),
 };
+
+export const STORE = {
+  keyPrefix: 'lunch_',
+};

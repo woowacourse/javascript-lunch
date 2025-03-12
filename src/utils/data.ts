@@ -5,3 +5,7 @@ export function parseJSON(data: string) {
 export function stringifyJSON<T>(data: T): string {
   return JSON.stringify(data);
 }
+
+export function parseStorageKey(prefix: string, key: string) {
+  return `${prefix}${key}`;
+}
