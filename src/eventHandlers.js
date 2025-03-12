@@ -39,7 +39,7 @@ function closeModal() {
   });
 }
 
-function readNewRestaurant(addNewRestaurantItem) {
+function readNewRestaurant() {
   const modal = document.querySelector('.modal');
   const form = document.querySelector('#new-restaurant-form');
   form.addEventListener('submit', (event) => {
@@ -52,10 +52,16 @@ function readNewRestaurant(addNewRestaurantItem) {
       link: document.querySelector('#link').value,
     };
 
-    stateStore.updateState(newRestaurantData);
-    addNewRestaurantItem();
+    storeService.updateRestaurantByName(newRestaurantData.name, newRestaurantData);
+    window.dispatchEvent(new Event('storage'));
     resetFormAndState();
     modal.classList.remove('modal--open');
+  });
+}
+
+function detectStorageEvent(callback) {
+  window.addEventListener('storage', () => {
+    callback();
   });
 }
 
@@ -95,11 +101,12 @@ function resetFormAndState() {
   resetState();
 }
 
-function sortRestaurantItems(restaurantItems, callback) {
+function sortRestaurantItems(callback) {
   const sortSelector = document.querySelector('#sort-selector');
 
   sortSelector.addEventListener('change', (event) => {
     const sortKey = event.target.value;
+    const restaurantItems = storeService.getRestaurants();
     const sortedRestaurants = sortRestaurants(sortKey, restaurantItems);
 
     callback(sortedRestaurants);
@@ -110,6 +117,7 @@ const eventHandlers = {
   openModal,
   closeModal,
   readNewRestaurant,
+  detectStorageEvent,
   switchTab,
   sortRestaurantItems,
 };

@@ -31,7 +31,7 @@ addEventListener('load', () => {
   appendTabs();
   appendItemsController();
   initRestaurantItems();
-  updateRestaurantItems();
+  updateRestaurantElements();
   appendModal();
   appendModalContents();
 
@@ -78,19 +78,20 @@ function appendItemsController() {
   itemsController.insertAdjacentHTML('beforeend', sortSelector);
 }
 
-function addNewRestaurantItem() {
-  const ul = document.querySelector('.restaurant-list');
-  const newRestaurantData = stateStore.getState();
-  const newItem = createRestaurantItem(newRestaurantData);
-  ul.insertAdjacentHTML('beforeend', newItem);
-}
+// function addNewRestaurantItem() {
+//   const ul = document.querySelector('.restaurant-list');
+//   const newRestaurantData = stateStore.getState();
+//   const newItem = createRestaurantItem(newRestaurantData);
+//   ul.insertAdjacentHTML('beforeend', newItem);
+// }
 
 function addEventHandlers() {
   eventHandlers.openModal();
-  eventHandlers.readNewRestaurant(addNewRestaurantItem);
+  eventHandlers.readNewRestaurant();
   eventHandlers.closeModal();
   eventHandlers.switchTab();
-  eventHandlers.sortRestaurantItems(storeService.getRestaurants(), appendRestaurantItems);
+  eventHandlers.sortRestaurantItems(appendRestaurantItems);
+  eventHandlers.detectStorageEvent(updateRestaurantElements);
 }
 
 function setRequired(element) {
@@ -140,7 +141,7 @@ function initRestaurantItems() {
   });
 }
 
-function updateRestaurantItems() {
+function updateRestaurantElements() {
   const data = storeService.getRestaurants();
   const sortedRestaurants = sortRestaurants(SORT_SELECTOR.default, data);
 
