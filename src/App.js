@@ -1,6 +1,9 @@
 import Header from "./components/Header.js";
 import RestaurantList from "./components/RestaurantList.js";
-import { restaurants } from "./domains/restaurants.ts";
+import {
+  filterAndSortRestaurants,
+  restaurants,
+} from "./domains/restaurants.ts";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
 import RestaurantItem from "./components/RestaurantItem.js";
 import FilterBar from "./components/FilterBar.js";
@@ -59,16 +62,11 @@ class App {
   }
 
   #renderRestaurantList() {
-    let filtered = [...this.#restaurants];
-    if (this.#selectedCategory !== "전체") {
-      filtered = filtered.filter(
-        (restaurant) => restaurant.category === this.#selectedCategory
-      );
-    }
-
-    this.#selectedSorting === "distance"
-      ? filtered.sort((a, b) => a.distance - b.distance)
-      : filtered.sort((a, b) => a.name.localeCompare(b.name));
+    const filtered = filterAndSortRestaurants(
+      this.#restaurants,
+      this.#selectedCategory,
+      this.#selectedSorting
+    );
 
     const $main = document.querySelector("main");
     const $oldContainer = $main.querySelector(".restaurant-list-container");
