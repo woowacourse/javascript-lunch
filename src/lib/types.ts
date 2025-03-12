@@ -1,7 +1,10 @@
+import { CATEGORIES, SORTS, FILTERS } from './constants';
+
 export type TabType = 'all' | 'like';
 
-export type SortType = '이름순' | '거리순';
-export type CategoryType = '전체' | '한식' | '중식' | '일식' | '양식' | '분식' | '기타' | '아시안';
+export type SortType = (typeof SORTS)[number];
+export type CategoryType = (typeof CATEGORIES)[number];
+export type FilterType = (typeof FILTERS)[number];
 export type DistanceType = 5 | 10 | 15 | 20 | 30;
 
 export type RestaurantType = {

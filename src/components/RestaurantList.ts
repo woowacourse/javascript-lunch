@@ -1,19 +1,13 @@
 import Component from '../core/Component.ts';
-import { LOCAL_STORAGE_KEY_MAP } from '../lib/constants.ts';
-import { CategoryType, RestaurantType, SortType, TabType } from '../lib/types.ts';
-import {
-  RestaurantAddModal,
-  RestaurantDetailModal,
-  RestaurantTab,
-  RestaurantFilterSelect,
-  RestaurantSortSelect,
-  Restaurant,
-} from './index.ts';
+import { FILTERS, LOCAL_STORAGE_KEY_MAP, SORTS } from '../lib/constants.ts';
+import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
+import { Select } from './common/index.ts';
+import { Restaurant, RestaurantAddModal, RestaurantDetailModal, RestaurantTab } from './index.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
   tab: TabType;
-  filter: CategoryType;
+  filter: FilterType;
   sort: SortType;
   currentRestaurant: RestaurantType | null;
 }
@@ -146,22 +140,24 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   #appendRestaurantFilterSelectSort() {
     this.appendChild(
-      new RestaurantFilterSelect({
-        filter: this.state.filter,
-        setFilter: (filter) =>
+      new Select({
+        options: FILTERS,
+        setValue: (filter) =>
           this.setState({
-            filter,
+            filter: filter as FilterType,
           }),
+        selected: this.state.filter,
       }).render(),
       '.restaurant-filter-sort',
     );
     this.appendChild(
-      new RestaurantSortSelect({
-        sort: this.state.sort,
-        setSort: (sort) =>
+      new Select({
+        options: SORTS,
+        setValue: (sort) =>
           this.setState({
-            sort,
+            sort: sort as SortType,
           }),
+        selected: this.state.sort,
       }).render(),
       '.restaurant-filter-sort',
     );
