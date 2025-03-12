@@ -5,6 +5,8 @@ const IMG_SRC = {
   양식: "./category-western.png",
   아시안: "./category-asian.png",
   기타: "./category-etc.png",
+
+  MODAL_ICON_SRC: "./public/add-button.png",
 };
 
 export default IMG_SRC;

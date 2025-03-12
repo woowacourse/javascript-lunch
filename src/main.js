@@ -2,9 +2,10 @@ import querySelector from "./utils/querySelector.js";
 import StoreList from "./StoreList.js";
 import storeData from "./storeData.js";
 import Modal from "./components/Modal.js";
-import { modalUtils, storeUtils } from "./utils/utilsUI.js";
+import { headerUtils, modalUtils, storeUtils } from "./utils/utilsUI.js";
 
 addEventListener("load", () => {
+  headerUtils.addHeader("오늘 뭐 먹지");
   const storeList = new StoreList(storeData);
   storeList.list.forEach((store) => {
     storeUtils.addStore(store);

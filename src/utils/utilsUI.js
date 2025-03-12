@@ -7,6 +7,14 @@ import options from "../constants/options.js";
 import textInput from "../components/TextInput.js";
 import textArea from "../components/TextArea.js";
 import helpText from "../constants/helpText.js";
+import Header from "../components/Header.js";
+
+export const headerUtils = {
+  addHeader: (title) => {
+    const header = querySelector(".header");
+    header.innerHTML = Header(title);
+  },
+};
 
 export const modalUtils = {
   closeModal: () => {
