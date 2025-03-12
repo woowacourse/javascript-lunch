@@ -2,15 +2,16 @@ import Component from '../core/Component.ts';
 
 interface HeaderProps {
   title: string;
+  alt: string;
 }
 
-export default class Header extends Component<null, HeaderProps> {
+export default class RestaurantHeader extends Component<null, HeaderProps> {
   template() {
     return `
       <header class="gnb">
         <h1 class="gnb__title text-title">${this.props?.title ?? ''}</h1>
-        <button type="button" class="gnb__button" aria-label="음식점 추가">
-          <img src="images/add-button.png" alt="음식점 추가" />
+        <button type="button" class="gnb__button" aria-label="${this.props?.alt ?? ''}">
+          <img src="images/add-button.png" alt="${this.props?.alt ?? ''}" />
         </button>
       </header>
     `;
