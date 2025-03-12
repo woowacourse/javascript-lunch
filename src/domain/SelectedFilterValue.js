@@ -7,12 +7,12 @@ class SelectedFilterValue {
         this.#sorting = "이름순";
     }
 
-    updateSelectedFilterValue(value, name) {
-        if(name === "category") {
+    updateSelectedFilterValue(id, value) {
+        if(id === "category-filter") {
             this.#category = value;
         }
 
-        if(name === "sorting") {
+        if(id === "sorting-filter") {
             this.#sorting = value;
         }
     }
