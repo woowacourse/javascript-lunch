@@ -2,9 +2,9 @@ export const CATEGORY = {
   label: '카테고리',
   name: 'category',
   required: true,
-  default: '선택해주세요',
   lists: new Map([
-    ['KOREAN', '한식'],
+    [null, '선택해주세요'],
+    [('KOREAN', '한식')],
     ['CHINESE', '중식'],
     ['JAPANESE', '일식'],
     ['WESTERN', '양식'],
@@ -17,8 +17,8 @@ export const DISTANCE = {
   label: '거리(도보 이동 시간)',
   name: 'distance',
   required: true,
-  default: '선택해주세요',
   lists: new Map([
+    [null, '선택해주세요'],
     [5, '5분 내'],
     [10, '10분 내'],
     [15, '15분 내'],
@@ -86,8 +86,8 @@ export const CATEGORY_FILTER = {
   label: '',
   name: 'category-filter',
   required: false,
-  default: '전체',
   lists: new Map([
+    [null, '전체'],
     ['KOREAN', '한식'],
     ['CHINESE', '중식'],
     ['JAPANESE', '일식'],
@@ -101,8 +101,10 @@ export const SORT_SELECTOR = {
   label: '',
   name: 'sort-selector',
   required: false,
-  default: '이름순',
-  lists: new Map([['distance', '거리순']]),
+  lists: new Map([
+    ['name', '이름순'],
+    ['distance', '거리순'],
+  ]),
 };
 
 export const STORE = {
