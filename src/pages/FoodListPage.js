@@ -19,8 +19,10 @@ export function FoodListPage() {
 
   const modal = new Modal({
     content: new FoodForm({
-      onModalClose: () => modal.close(),
-      onSubmit: foodList.addItem.bind(foodList),
+      onSubmit: (formData) => {
+        foodList.addItem(formData);
+        modal.close();
+      },
     }).element,
   });
 }

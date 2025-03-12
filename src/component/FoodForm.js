@@ -101,7 +101,6 @@ export default class FoodForm {
         onSubmit(formData);
 
         this.container.reset();
-        onModalClose();
       } catch (error) {
         alertError(error.message);
       }
