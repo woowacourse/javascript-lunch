@@ -24,6 +24,7 @@ import {
   createTextarea,
 } from './components/index.js';
 import storeService from './database/storeService.js';
+import sortRestaurants from './domain/sortRestaurants.js';
 
 addEventListener('load', () => {
   appendHeader();
@@ -136,13 +137,14 @@ function appendModalButton(form) {
 function initRestaurantItems() {
   RESTAURANTS.forEach((restaurant) => {
     storeService.updateRestaurantByName(restaurant.name, restaurant);
-    return createRestaurantItem(restaurant);
   });
 }
 
 function updateRestaurantItems() {
   const data = storeService.getRestaurants();
-  appendRestaurantItems(data);
+  const sortedRestaurants = sortRestaurants(SORT_SELECTOR.default, data);
+
+  appendRestaurantItems(sortedRestaurants);
 }
 
 function appendRestaurantItems(restaurants) {

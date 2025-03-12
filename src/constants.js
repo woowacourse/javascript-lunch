@@ -101,6 +101,7 @@ export const SORT_SELECTOR = {
   label: '',
   name: 'sort-selector',
   required: false,
+  default: 'name',
   lists: new Map([
     ['name', '이름순'],
     ['distance', '거리순'],
