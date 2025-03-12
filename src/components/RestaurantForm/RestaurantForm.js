@@ -32,7 +32,7 @@ export default class RestaurantForm {
     const newRestaurant = {
       category: categoryInput.value,
       name: nameInput.value,
-      distance: `${distanceInput.value}분 내`,
+      distance: distanceInput.value,
       description: descriptionInput.value,
       link: linkInput.value,
     };

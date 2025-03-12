@@ -21,7 +21,7 @@ const renderRestaurantElement = ({ category, name, distance, description }) => {
   li.querySelector(".category-icon").src = mappedImage;
   li.querySelector(".category-icon").alt = category;
   li.querySelector(".restaurant__name").textContent = name;
-  li.querySelector(".restaurant__distance").textContent = distance;
+  li.querySelector(".restaurant__distance").textContent = `${distance}분 내`;
   li.querySelector(".restaurant__description").textContent = description;
 
   return li;
