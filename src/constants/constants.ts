@@ -87,3 +87,9 @@ export const IMAGE: Map<Category, string> = new Map([
   ['아시안', 'category-asian.png'],
   ['기타', 'category-etc.png'],
 ]);
+
+export const FAV_STAR = {
+  className: 'favorite-star',
+  activeSrc: 'favorite-icon-filled.png',
+  inactiveSrc: 'favorite-icon-lined.png',
+};
