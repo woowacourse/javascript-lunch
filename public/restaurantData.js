@@ -40,6 +40,7 @@ const RESTAURANT_DATA = [
   },
 ];
 
+const SORT_OPTIONS = ['이름순', '거리순'];
 const CATEGORY_OPTIONS = ['한식', '중식', '일식', '양식', '아시안', '기타'];
 const DISTANCE_OPTIONS = [5, 10, 15, 20, 30];
 
@@ -61,4 +62,11 @@ const CATEGORY_KEY = {
   기타: 'etc',
 };
 
-export { RESTAURANT_DATA, CATEGORY_OPTIONS, DISTANCE_OPTIONS, CATEGORY_DISPLAY, CATEGORY_KEY };
+export {
+  RESTAURANT_DATA,
+  CATEGORY_OPTIONS,
+  DISTANCE_OPTIONS,
+  CATEGORY_DISPLAY,
+  CATEGORY_KEY,
+  SORT_OPTIONS,
+};

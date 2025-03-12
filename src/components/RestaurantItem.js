@@ -1,4 +1,4 @@
-import { CATEGORY_DISPLAY } from '../../public/restaurantData.js';
+import { CATEGORY_DISPLAY, CATEGORY_KEY } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 
 function createTags(data) {
@@ -7,7 +7,7 @@ function createTags(data) {
     className: 'category-icon',
     attributes: {
       src: `./category-${data.category}.png`,
-      alt: CATEGORY_DISPLAY[data.category],
+      alt: data.category,
     },
   });
   const nameHeading = createElement({

@@ -1,20 +1,23 @@
+import { CATEGORY_KEY } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 import RestaurantValidator from '../validators/RestaurantValidator.js';
 import Modal from './common/Modal.js';
 import createRestaurantEnrollForm from './RestaurantEnrollForm.js';
 import { updateRestaurantList } from './RestaurantList.js';
 
-function handleClose() {
+function handleClose(input) {
   document.querySelector('select#category').value = '';
   document.querySelector('input#name').value = '';
   document.querySelector('select#distance').value = '';
   document.querySelector('textarea#description').value = '';
   document.querySelector('input#link').value = '';
+
+  Object.keys(input).forEach((key) => {
+    input[key] = null;
+  });
 }
 
 function createRestaurantEnrollModal() {
-  const modal = new Modal(handleClose);
-
   const restaurantInput = {
     name: null,
     category: null,
@@ -22,6 +25,8 @@ function createRestaurantEnrollModal() {
     description: null,
     link: null,
   };
+
+  const modal = new Modal(() => handleClose(restaurantInput));
 
   const $modalTitle = createElement({
     tag: 'h2',

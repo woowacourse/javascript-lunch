@@ -1,5 +1,6 @@
 import { RESTAURANT_DATA } from '../../public/restaurantData.js';
 import createSectionContainer from '../components/common/SectionContainer.js';
+import createFilters from '../components/FilterGroup.js';
 import createRestaurantEnrollModal from '../components/RestaurantEnrollModal.js';
 import { createRestaurantList } from '../components/RestaurantList.js';
 import RestaurantList from '../domains/RestaurantList.js';
@@ -12,12 +13,15 @@ class RestaurantController {
 
     const $main = document.getElementsByTagName('main')[0];
 
+    const $filterContainer = createSectionContainer('restaurant-filter-container');
+    $filterContainer.appendChild(createFilters());
+
     const $listContainer = createSectionContainer('restaurant-list-container');
     $listContainer.appendChild(createRestaurantList(RESTAURANT_DATA));
 
     const $enrollRestaurantModal = createRestaurantEnrollModal();
 
-    $main.append($listContainer, $enrollRestaurantModal.getElement());
+    $main.append($filterContainer, $listContainer, $enrollRestaurantModal.getElement());
 
     const $openModalButton = document.querySelector('.gnb__button');
     const $backDrop = document.querySelector('.modal-backdrop');

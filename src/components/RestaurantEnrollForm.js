@@ -2,20 +2,21 @@ import { CATEGORY_KEY, CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../public/r
 import createElement from '../utils/createElement.js';
 import createButton from './common/Button.js';
 import createSectionContainer from './common/SectionContainer.js';
-import createSelectBox from './common/SelectBox.js';
 import createTextArea from './common/TextArea.js';
 import RestaurantValidator from '../validators/RestaurantValidator.js';
 import createInputBox from './common/InputBox.js';
+import { createLabeldSelectBox } from './common/SelectBox.js';
 
 function createRestaurantEnrollForm(restaurantInput, onEnroll, onCancel) {
   const $enrollForm = createElement({ tag: 'form' });
 
-  const $categoryBox = createSelectBox({
+  const $categoryBox = createLabeldSelectBox({
     options: CATEGORY_OPTIONS,
+    label: '카테고리',
     isRequired: true,
     type: 'category',
     onChange: (event) => {
-      restaurantInput.category = event.target.value;
+      restaurantInput.category = CATEGORY_KEY[event.target.value];
     },
   });
 
@@ -28,8 +29,9 @@ function createRestaurantEnrollForm(restaurantInput, onEnroll, onCancel) {
     },
   });
 
-  const $distanceBox = createSelectBox({
+  const $distanceBox = createLabeldSelectBox({
     options: DISTANCE_OPTIONS,
+    label: '거리(도보 이동 시간)',
     isRequired: true,
     type: 'distance',
     onChange: (event) => {
