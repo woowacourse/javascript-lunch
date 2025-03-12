@@ -2,12 +2,10 @@ import MOCK_ITEM from "../../src/mockItem.js";
 
 describe("LunchInfoCard 테스트", () => {
   beforeEach(() => {
-    cy.intercept("GET", "/api/restaurants", MOCK_ITEM).as("getRestaurants");
-
     cy.visit("http://localhost:5173/");
   });
 
-  it("초기 LunchInfoCard는 1개가 있다.", () => {
+  it("초기 LunchInfoCard는 6개가 있다.", () => {
     cy.get(".restaurant-list").children(".restaurant").should("have.length", 6);
   });
 
@@ -16,7 +14,7 @@ describe("LunchInfoCard 테스트", () => {
       .children(".restaurant")
       .eq(0)
       .find(".restaurant__name")
-      .should("have.text", "피양콩할마니");
+      .should("have.text", MOCK_ITEM.restaurantList[0].name);
   });
 
   it("LunchInfoCard에는 캠퍼스에서 음식점까지의 거리가 들어있다.", () => {
