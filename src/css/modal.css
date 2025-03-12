@@ -1,0 +1,28 @@
+/* 음식점 추가 모달 *****************************************/
+
+.modal-backdrop {
+  display: none;
+  margin: auto;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  width: var(--app-width);
+  height: var(--app-height);
+}
+
+.modal-backdrop.open {
+  display: block;
+}
+
+.modal-container {
+  border-radius: 8px 8px 0px 0px;
+  padding: 32px 16px;
+  background: var(--grey-100);
+  width: var(--app-width);
+  position: absolute;
+  bottom: 0;
+}
+
+.modal-title {
+  margin-bottom: 36px;
+}
