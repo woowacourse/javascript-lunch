@@ -1,6 +1,6 @@
 import createElement from "../../utils/createElement/createElement";
-import Title from "../common/title";
-import registerIcon from "./registerIcon";
+import Title from "../common/Title";
+import registerIcon from "./RegisterIcon";
 
 const header = () =>
   createElement({

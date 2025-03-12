@@ -1,6 +1,6 @@
-import Input from "../input";
-import Select from "../select";
-import TextArea from "../textArea";
+import Input from "../Input";
+import Select from "../Select";
+import TextArea from "../TextArea";
 
 const createFormSelectorByType = ({
   inputType,

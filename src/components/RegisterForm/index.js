@@ -3,11 +3,11 @@ import { WALK_TIME_MINUTES } from "./walkTimeMinutes";
 import RestaurantList from "../../domain/RestaurantList";
 import createElement from "../../utils/createElement/createElement";
 import createKeyValuePair from "../../utils/createKeyValuePair";
-import Input from "../common/input";
-import InputField from "../common/inputField";
-import Select from "../common/select";
-import TextArea from "../common/textArea";
-import ButtonContainer from "./buttonContainer";
+import Input from "../common/Input";
+import InputField from "../common/InputField";
+import Select from "../common/Select";
+import TextArea from "../common/TextArea";
+import ButtonContainer from "./ButtonContainer";
 
 const RegisterForm = (restaurantList) => {
   const foodCategoryField = InputField({

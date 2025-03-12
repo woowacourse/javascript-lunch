@@ -5,8 +5,8 @@ import { clearError } from "../../utils/clearError";
 import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";
 import { getInfo } from "./getInfo";
-import Button from "../common/button";
-import ErrorMessage from "../common/errorMessage";
+import Button from "../common/Button";
+import ErrorMessage from "../common/ErrorMessage";
 import createElement from "../../utils/createElement/createElement";
 
 const ButtonContainer = (restaurantList) => {

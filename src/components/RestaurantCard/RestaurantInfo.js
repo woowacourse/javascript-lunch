@@ -1,7 +1,7 @@
 import createElement from "../../utils/createElement/createElement";
-import Title from "../common/title";
-import Description from "./description";
-import Distance from "./distance";
+import Title from "../common/Title";
+import Description from "./Description";
+import Distance from "./Distance";
 
 const RestaurantInfo = ({ name, distance, description }) =>
   createElement({

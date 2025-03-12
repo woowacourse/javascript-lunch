@@ -1,6 +1,6 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import createElement from "../../utils/createElement/createElement";
-import Image from "../common/image";
+import Image from "../common/Image";
 
 const CategoryImage = (category) =>
   createElement({
@@ -14,5 +14,5 @@ const CategoryImage = (category) =>
       ),
     ],
   });
-  
+
 export default CategoryImage;

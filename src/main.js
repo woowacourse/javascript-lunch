@@ -1,10 +1,10 @@
 import { $ } from "./utils/dom";
-import header from "./components/header";
-import Modal from "./components/common/modal";
-import Title from "./components/common/title";
-import RegisterForm from "./components/registerForm";
+import header from "./components/Header";
+import Modal from "./components/common/Modal";
+import Title from "./components/common/Title";
+import RegisterForm from "./components/RegisterForm";
 import renderRestaurants from "./ui/renderRestaurant";
-import { registerModalClose } from "./components/common/modal/handleCloseModal";
+import { registerModalClose } from "./components/common/Modal/registerModalClose";
 import { restaurantListData } from "./restaurantListData";
 import Restaurant from "./domain/Restaurant";
 import RestaurantList from "./domain/RestaurantList";

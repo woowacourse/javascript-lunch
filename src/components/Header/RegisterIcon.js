@@ -1,8 +1,8 @@
 import createElement from "../../utils/createElement/createElement";
 import { $ } from "../../utils/dom";
-import Image from "../common/image";
+import Image from "../common/Image";
 
-const registerIcon = () =>
+const RegisterIcon = () =>
   createElement({
     tagName: "button",
     classNames: ["gnb__button"],
@@ -14,4 +14,4 @@ const registerIcon = () =>
     children: [Image("./add-button.png", "음식점 추가")],
   });
 
-export default registerIcon;
+export default RegisterIcon;

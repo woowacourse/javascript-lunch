@@ -1,6 +1,6 @@
 import createElement from "../../utils/createElement/createElement";
-import CategoryImage from "./categoryImage";
-import RestaurantInfo from "./restaurantInfo";
+import CategoryImage from "./CategoryImage";
+import RestaurantInfo from "./RestaurantInfo";
 
 const RestaurantCard = (restaurant) => {
   const { category, name, distance, description } = restaurant.value;
