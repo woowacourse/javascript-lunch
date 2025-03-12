@@ -1,6 +1,14 @@
-import { categoryValue, distanceValue } from "../../data/optionValue.js";
+import { categoryValue } from "../../data/constants.js";
 import Dropdown from "../Dropdown/Dropdown.js";
 import Input from "../Input/Input.js";
+
+const distanceValue = {
+  5: "5분 내",
+  10: "10분 내",
+  15: "15분 내",
+  20: "20분 내",
+  30: "30분 내",
+};
 
 const createModalInputs = () => {
   new Dropdown(document.getElementById("category"), categoryValue);

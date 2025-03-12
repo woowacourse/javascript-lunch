@@ -1,4 +1,4 @@
-import { label } from "../../data/optionValue.js";
+import { label } from "../../data/constants.js";
 import Component from "../Component.js";
 class Dropdown extends Component {
   template() {

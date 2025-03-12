@@ -6,13 +6,6 @@ export const categoryValue = {
   asian: "아시안",
   etc: "기타",
 };
-export const distanceValue = {
-  5: "5분 내",
-  10: "10분 내",
-  15: "15분 내",
-  20: "20분 내",
-  30: "30분 내",
-};
 
 export const label = {
   category: "카테고리",

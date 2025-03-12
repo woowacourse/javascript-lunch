@@ -1,5 +1,5 @@
-import { categoryValue } from "../../data/optionValue.js";
-import { RestaurantData } from "../../data/RestaurantData.js";
+import { categoryValue } from "../../data/constants.js";
+import { RestaurantData } from "../../data/RestaurantMockData.js";
 
 const addData = () => {
   const formData = new FormData(document.getElementById("input-form"));
