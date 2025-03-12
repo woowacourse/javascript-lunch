@@ -11,16 +11,10 @@ import {
 } from "./validation/validator.js";
 import removeModal from "./utils/removeModal.js";
 import { ERROR_TYPES } from "./constants/errors.js";
+import { initializeRestaurantList } from "./initialization/restaurantInitializer.js";
 
 addEventListener("load", () => {
-  const $restaurantListContainer = document.querySelector(
-    ".restaurant-list-container",
-  );
-  if ($restaurantListContainer) {
-    RestaurantList($restaurantListContainer);
-  } else {
-    console.warn("레스토랑 리스트 컨테이너를 DOM에서 찾을 수 없습니다.");
-  }
+  initializeRestaurantList();
 
   const $filterContainer = document.querySelector(
     ".restaurant-filter-container",
