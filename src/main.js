@@ -2,7 +2,7 @@ import Modal from "./components/Modal/Modal.js";
 import RestaurantForm from "./components/RestaurantForm/RestaurantForm.js";
 import createHeader from "./components/\bHeader/Header.js";
 import renderRestaurantElement from "./components/RestaurantItem/RestaurantItem.js";
-import { restaurantsData } from "./restaurantsMockData.js";
+import { restaurantsData } from "./constants/restaurantsMockData.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
