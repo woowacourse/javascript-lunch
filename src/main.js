@@ -1,5 +1,5 @@
 import { DOM } from './dom.js';
-import { RestaurantList } from './Domain/RestaurantList.js';
+import { getRestaurantList } from './Domain/services/RestaurantService.js';
 import Header from './UI/components/header/Header.js';
 import RestaurantItem from './UI/components/restaurant/RestaurantItem.js';
 import AddRestaurantModal from './UI/modal/AddRestaurantModal.js';
@@ -14,4 +14,4 @@ const createRestaurantList = (restaurantList) => {
   });
 };
 
-createRestaurantList(RestaurantList);
+createRestaurantList(getRestaurantList());
