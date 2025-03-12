@@ -1,4 +1,4 @@
-import { debounce } from './@common/debounce';
+import { debounce } from '../@common/debounce';
 
 interface Dispatch<T> {
   (value: T): void;
