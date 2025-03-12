@@ -1,7 +1,7 @@
 import $filter from "../components/common/filter.js";
-import { categoryFilterOptions } from "../data/filterOptions.js";
+import { categoryFilterOptions, sortFilterOptions } from "../data/filterOptions.js";
 
-type CategoryFilter = {
+type Filter = {
   attribute?: {
     id: string;
     name: string;
@@ -11,12 +11,13 @@ type CategoryFilter = {
 };
 
 export type FilterGroup = {
-  category: CategoryFilter;
-  create: (info: CategoryFilter) => HTMLSelectElement;
+  CATEGORY: Filter;
+  SORT: Filter;
+  create: (info: Filter) => HTMLSelectElement;
 };
 
 export const FILTERS: FilterGroup = Object.freeze({
-  category: {
+  CATEGORY: {
     options: categoryFilterOptions,
     attribute: {
       name: "category",
@@ -24,7 +25,15 @@ export const FILTERS: FilterGroup = Object.freeze({
       class: "restaurant-filter"
     },
   },
-  create: (info: CategoryFilter) => {
+  SORT: {
+    options: sortFilterOptions,
+    attribute: {
+      name: "sorting",
+      id: "sorting-filter",
+      class: "restaurant-filter"
+    },
+  },
+  create: (info: Filter) => {
     if ("options" in info) return $filter(info);
     throw new Error("filter에 옵션 값이 없습니다.");
   },

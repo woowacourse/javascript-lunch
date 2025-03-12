@@ -13,25 +13,26 @@ import { FILTERS } from "./constants/filters.ts";
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
 
-  // 여기에 카테고리 필터가 와야함
+  // 카테고리 / 정렬 필터
   const restaurantFilter = document.querySelector(".restaurant-filter-container");
   if (!restaurantFilter) return;
 
   const listFilters = [
-    $filter(FILTERS.category),
+    $filter(FILTERS.CATEGORY),
+    $filter(FILTERS.SORT),
   ];
 
   listFilters.forEach((data) => {
     restaurantFilter.appendChild(data);
   });
-  
 
+  
+  // 음식점 목록
   const restaurantList = document.querySelector(".restaurant-list");
   if (!restaurantList) return;
   restaurantData.forEach((data) => {
     restaurantList.appendChild($restaurantItem(data));
   });
-
 
   const submitCancelButtons = $buttonContainer({
     buttons: [
