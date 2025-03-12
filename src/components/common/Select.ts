@@ -1,4 +1,5 @@
 import Component from '../../core/Component.ts';
+import { html } from '../../lib/utils.ts';
 
 interface SelectProps {
   options: string[];
@@ -8,7 +9,7 @@ interface SelectProps {
 
 export default class Select extends Component<null, SelectProps> {
   template() {
-    return `
+    return html`
       <select name="select">
         ${this.props?.options
           .map(

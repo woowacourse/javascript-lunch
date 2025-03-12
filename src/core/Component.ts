@@ -1,3 +1,6 @@
+import { HTMLType } from 'src/lib/types';
+import { html } from '../lib/utils.ts';
+
 export default abstract class Component<State = Record<string, any>, Props = Record<string, any>> {
   #isRendered = false;
   state = {} as State;
@@ -31,7 +34,9 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
     else this.element.appendChild(element);
   }
 
-  abstract template(): string;
+  template(): HTMLType {
+    return html``;
+  }
 
   attachEventListener() {}
 

@@ -1,4 +1,5 @@
 import Component from '../core/Component.ts';
+import { html } from '../lib/utils.ts';
 
 interface InputBoxProps {
   label: string;
@@ -10,7 +11,7 @@ interface InputBoxProps {
 
 export default class InputBox extends Component<InputBoxProps> {
   template() {
-    return `
+    return html`
       <div class="form-item ${this.props?.isRequired ? 'form-item--required' : ''}">
         <label for="${this.props?.labelId}" class="text-caption">${this.props?.label ?? ''}</label>
         ${this.props?.input ?? ''}

@@ -4,6 +4,7 @@ import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { Select } from './common/index.ts';
 import { RestaurantItem, RestaurantAddModal, RestaurantDetailModal, RestaurantTab } from './index.ts';
 import { DEFAULT_RESTAURANT_LIST } from '../lib/constants.ts';
+import { html } from '../lib/utils.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -30,13 +31,11 @@ export default class RestaurantList extends Component<RestaurantListState> {
   }
 
   template() {
-    return `
+    return html`
       <section class="restaurant-tab"></section>
       <section class="restaurant-filter-sort"></section>
       <section class="restaurant-list-container">
-        <ul class="restaurant-list">
-
-        </ul>
+        <ul class="restaurant-list"></ul>
       </section>
       <section class="restaurant-add-modal"></section>
       <section class="restaurant-detail-modal"></section>

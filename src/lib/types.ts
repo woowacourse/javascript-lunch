@@ -16,3 +16,5 @@ export type RestaurantType = {
   isLike: boolean;
   url: string;
 };
+
+export type HTMLType = 'HTMLType';
