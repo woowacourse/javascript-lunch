@@ -92,6 +92,7 @@ function addEventHandlers() {
   eventHandlers.switchTab();
   eventHandlers.sortRestaurantItems(appendRestaurantItems);
   eventHandlers.detectStorageEvent(updateRestaurantElements);
+  eventHandlers.filteringRestaurantItems(appendRestaurantItems);
 }
 
 function setRequired(element) {

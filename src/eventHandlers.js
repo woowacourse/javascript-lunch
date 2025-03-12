@@ -1,4 +1,5 @@
 import storeService from './database/storeService.js';
+import filteringRestaurants from './domain/filteringRestaurants.js';
 import sortRestaurants from './domain/sortRestaurants.js';
 import stateStore from './stateStore.js';
 
@@ -113,6 +114,18 @@ function sortRestaurantItems(callback) {
   });
 }
 
+function filteringRestaurantItems(callback) {
+  const categoryFilter = document.querySelector('#category-filter');
+
+  categoryFilter.addEventListener('change', (event) => {
+    const filteringKey = event.target.value;
+    const restaurantItems = storeService.getRestaurants();
+    const filteredRestaurants = filteringRestaurants(filteringKey, restaurantItems);
+
+    callback(filteredRestaurants);
+  });
+}
+
 const eventHandlers = {
   openModal,
   closeModal,
@@ -120,6 +133,7 @@ const eventHandlers = {
   detectStorageEvent,
   switchTab,
   sortRestaurantItems,
+  filteringRestaurantItems,
 };
 
 export default eventHandlers;
