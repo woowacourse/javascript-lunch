@@ -29,8 +29,10 @@ function SubmitEvent(lunchList) {
   }
 
   function onSubmit(event) {
+    console.log("onSubmit 시ㄹ행");
     event.preventDefault();
-    const form = event.target.closest("form");
+    const form = event.target.closest(".modal-form");
+    console.log("form -> ", form);
     if (!form) return;
 
     if (form.id === "restaurantForm") {

@@ -15,7 +15,7 @@
 
           <header class="gnb">
             <h1 id="title-logo" class="gnb__title text-title" data-action="reload">점심 뭐 먹지</h1>
-            <button type="button" class="gnb__button" aria-label="음식점 추가" id="openModalBtn" data-action="showModal">
+            <button type="button" class="gnb__button" aria-label="음식점 추가" id="openStoreModalBtn" data-action="showStoreAddModal">
               <img src="./images/add-button.png" alt="음식점 추가">
             </button>
           </header>
@@ -27,43 +27,11 @@
           
           </div>
       </div>
-     
-
           <div id="modalBackground" data-action="removeModal">
-    
-  
         </div>
     </div>
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/utils/ClickEvent.js"></script>
     <script type="module" src="/src/utils/SubmitEvent.js"></script>
-    <script type="module" src="/src/components//Button.js"></script>
-    <script>
-    //   function openModal() {
-    //   const modalBackground = document.getElementById("modalBackground");
-
-    //   if (modalBackground.querySelector(".modal-container")) {
-    //     modalBackground.classList.add("show");
-    //     return;
-    //   }
-
-    //   const modalClone = document.getElementById("modalTemplate").content.cloneNode(true);
-    //   modalBackground.appendChild(modalClone);
-
-    //   modalBackground.classList.remove("show");
-    //   modalBackground.classList.add("hide"); 
-
-    //   setTimeout(() => {
-    //     modalBackground.classList.add("show");
-    //     modalBackground.classList.remove("hide"); 
-    //   }, 10);
-    // }
-
-
-    // document.getElementById('openModalBtn').addEventListener('click', () => {
-    //   openModal();
-    // });
-
-    </script>
   </body>
 </html>

@@ -9,10 +9,8 @@ class ClickEvent {
     location.reload();
   }
 
-  showModal(element) {
-    if (!element) return;
-    //document.getElementById("modalBackground")?.classList.add("show");
-    openModal();
+  showStoreAddModal() {
+    openModal("storeAdd");
   }
 
   removeModal(element) {

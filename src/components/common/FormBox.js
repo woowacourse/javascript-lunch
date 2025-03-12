@@ -8,7 +8,7 @@ export function FormBox({ id, formName, label }) {
   function template() {
     return `
         ${(label && `<h2 class="modal-title text-title">새로운 음식점</h2>`) || ""}
-        <form id="${id} class="modal-form">
+        <form id="${id}" class="modal-form">
           ${(formName === "storeAdd" && storeAddTemplate) || ""}
           ${(formName === "storeDelete" && storeDeleteTemplate) || ""}
           ${FormButtons({ formName })}

@@ -6,10 +6,10 @@ import { InputBox } from "./common/InputBox.js";
 import { SelectBox } from "./common/SelectBox.js";
 import { TextareaBox } from "./common/TextareaBox.js";
 
-export function openModal() {
+export function openModal(formName) {
   const modalHTML = `<div class="modal modal--open">
     <div class="modal-container">
-      ${FormBox({ id: "restaurantForm", formName: "storeAdd", label: "새로운 음식점" })}
+      ${FormBox({ id: "restaurantForm", formName, label: "새로운 음식점" })}
     </div>
   </div>`;
 
