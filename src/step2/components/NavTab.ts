@@ -12,6 +12,7 @@ function NavTab(props: NavTabProps) {
   const eventManager = new EventManager($('#app'));
   const { tab, setTabAll, setTabFavorite } = props;
 
+  /**@todo 왜 렌더링이 2번씩 될까? */
   eventManager.addEvent('click', '#nav-tab-1', () => {
     setTabAll();
   });
@@ -34,7 +35,9 @@ function NavTab(props: NavTabProps) {
         
         <label class="nav-tab-item-label" for="nav-tab-2">자주 가는 음식점</label>
       </div>
-
+      <div class="nav-tab-item-underline" data-selected-tab=${
+        tab === TAB.ALL ? '0' : '1'
+      }></div>
     </nav>
   `;
 }
