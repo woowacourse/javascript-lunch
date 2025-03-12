@@ -6,6 +6,7 @@ const Select = ({
   required = false,
   options,
   hasDefaultOption = false,
+  onChange,
 }) => {
   const select = createElement(/*html*/ `
     <select name=${name} id=${name} ${required ? "required" : ""}>
@@ -18,6 +19,7 @@ const Select = ({
     defaultOption.textContent = INPUT_HELP_TEXT.SELECT_PLACEHOLDER;
     select.appendChild(defaultOption);
   }
+
   options.forEach((option) => {
     const optionTag = document.createElement("option");
 
@@ -26,6 +28,8 @@ const Select = ({
 
     select.appendChild(optionTag);
   });
+
+  select.addEventListener("change", onChange);
 
   return select;
 };

@@ -1,9 +1,7 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
-import { restaurantList } from "../../restaurantList";
 import Select from "../common/select";
-import Restaurants from "../restaurants";
 
-const CategoryAndSortFilter = () => {
+const CategoryAndSortFilter = (restaurantList) => {
   const filterContainer = document.createElement("section");
   filterContainer.classList.add("restaurant-filter-container");
 
@@ -18,14 +16,7 @@ const CategoryAndSortFilter = () => {
           value: key,
         })),
       ],
-      onChange: (e) => {
-        console.log(restaurantList);
-        const filterdRestaurant = restaurantList.filter(
-          (restaurant) => restaurant.info.category === e.target.value
-        );
-        console.log(filterdRestaurant);
-        Restaurants(...filterdRestaurant);
-      },
+      onChange: (e) => restaurantList.changeState({ category: e.target.value }),
     })
   );
 
@@ -37,6 +28,7 @@ const CategoryAndSortFilter = () => {
         { label: "이름순", value: "name" },
         { label: "거리순", value: "distance" },
       ],
+      onChange: (e) => restaurantList.changeState({ option: e.target.value }),
     })
   );
   return filterContainer;

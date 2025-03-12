@@ -1,4 +1,3 @@
-import { createElement } from "../../utils/createElement";
 import Tab from "./tab";
 
 const FavoriteTabFilters = () => {

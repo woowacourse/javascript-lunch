@@ -4,17 +4,17 @@ import Modal from "./components/common/modal";
 import Title from "./components/common/title";
 import RegisterForm from "./components/registerForm";
 import { registerModalClose } from "./components/common/modal/handleCloseModal";
-import { restaurantList } from "./restaurantList";
-import Restaurants from "./components/restaurants";
 import CategoryAndSortFilter from "./components/categoryAndSortFilter";
 import FavoriteTabFilters from "./components/favoriteTabFilter";
+import Restaurants from "./model/Restaurants";
 
 addEventListener("load", () => {
   $("#app").prepend(header());
-  $("main").prepend(CategoryAndSortFilter());
-  $("main").prepend(FavoriteTabFilters());
 
-  Restaurants(...restaurantList);
+  const restaurantList = new Restaurants();
+
+  $("main").prepend(CategoryAndSortFilter(restaurantList));
+  $("main").prepend(FavoriteTabFilters());
 
   $("main").appendChild(
     Modal({
