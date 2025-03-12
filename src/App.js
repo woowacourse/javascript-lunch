@@ -19,7 +19,7 @@ class App {
     this.#restaurants = restaurants;
 
     this.#$target.insertAdjacentHTML("beforeend", this.#template());
-    this.#componentDidMount();
+    this.#mount();
   }
 
   #template() {
@@ -30,7 +30,7 @@ class App {
     `;
   }
 
-  #componentDidMount() {
+  #mount() {
     const $gnbButton = this.#$target.querySelector(".gnb__button");
     const $modal = new AddRestaurantModal(
       document.querySelector("#modal"),
