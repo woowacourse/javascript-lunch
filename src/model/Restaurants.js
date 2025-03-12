@@ -18,7 +18,7 @@ class Restaurants {
 
   pushList = (restaurant) => {
     this.#restaurants.push(restaurant);
-    $("select#category").value = "all";
+    $("select#category").value = "all"; // -> TODO: dom조작 view 영역 아닐까
     this.#filterType.category = "all";
     this.#filter();
   };
@@ -32,10 +32,28 @@ class Restaurants {
   };
 
   #filter() {
-    const filtered = this.#filterByCategory();
+    const filtered = this.#filterByCategory(this.#filterByFavorite());
     if (this.#filterType.option === "name") this.#sortByName(filtered);
     if (this.#filterType.option === "distance") this.#sortByDistance(filtered);
+
     this.#createRestaurant(filtered);
+  }
+
+  #filterByFavorite() {
+    if (this.#filterType.favorite) {
+      return [...this.#restaurants].filter(
+        (restaurant) => restaurant.info.favorite
+      );
+    }
+    return [...this.#restaurants];
+  }
+
+  #filterByCategory(restaurants) {
+    if (this.#filterType.category === "all") return restaurants;
+
+    return restaurants.filter(
+      (restaurant) => restaurant.info.category === this.#filterType.category
+    );
   }
 
   #sortByName(restaurants) {
@@ -44,16 +62,6 @@ class Restaurants {
 
   #sortByDistance(restaurants) {
     return restaurants.sort((a, b) => a.info.distance - b.info.distance);
-  }
-
-  #filterByCategory() {
-    if (this.#filterType.category === "all") {
-      return [...this.#restaurants];
-    }
-
-    return [...this.#restaurants].filter(
-      (restaurant) => restaurant.info.category === this.#filterType.category
-    );
   }
 
   #createRestaurant(restaurants) {

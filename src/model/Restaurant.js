@@ -1,5 +1,4 @@
 import { ERROR_MESSAGE } from "../constants/error";
-import { $ } from "../utils/dom";
 import { validateEmptyString } from "../validate/validateEmptyString";
 
 class Restaurant {
