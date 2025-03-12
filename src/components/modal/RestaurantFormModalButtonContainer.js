@@ -1,4 +1,5 @@
 import createElement from "../../util/createElement";
+import closeModal from "../../util/closeModal";
 import Button from "../util/Button";
 
 export default function RestaurantFormModalButtonContainer() {
@@ -6,10 +7,6 @@ export default function RestaurantFormModalButtonContainer() {
     tag: "div",
     classNames: ["button-container"],
   });
-
-  function closeModal() {
-    document.querySelector(".modal").remove();
-  }
 
   $div.appendChild(
     Button({

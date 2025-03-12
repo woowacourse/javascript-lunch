@@ -6,6 +6,7 @@ import RestaurantFormModalItem from "./RestaurantFormModalItem.js";
 import RestaurantFormModalButtonContainer from "./RestaurantFormModalButtonContainer.js";
 import restaurantDataList from "../../domain/RestaurantDataList.js";
 import Restaurant from "../restaurant/Restaurant.js";
+import closeModal from "../../util/closeModal.js";
 
 export default function RestaurantFormModal() {
 
@@ -15,9 +16,8 @@ export default function RestaurantFormModal() {
       const $form = document.querySelector(".form");
       const data = Object.fromEntries(new FormData($form));
       restaurantDataList.addData(data);
-      Restaurant({
-        isReRender: true
-      })
+      closeModal();
+      Restaurant({isReRender: true});
     } catch (e) {
       alert(e.message);
     }
