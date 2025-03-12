@@ -8,6 +8,8 @@ import FilterBar from "./components/FilterBar.js";
 class App {
   #restaurants;
   #$target;
+  #selectedCategory = "전체";
+  #selectedSorting = "name";
 
   constructor($target) {
     this.#$target = $target;
@@ -41,27 +43,47 @@ class App {
 
   #renderMainArea() {
     const $main = document.querySelector("main");
-    const $filterBar = new FilterBar($main, {
+
+    new FilterBar($main, {
       onCategoryChange: (selected) => {
-        console.log("카테고리 바뀜: ", selected);
-        // 여기에서 식당 리스트 필터링 로직 등등
+        this.#selectedCategory = selected;
+        this.#renderRestaurantList();
       },
       onSortingChange: (selected) => {
-        console.log("정렬 바뀜: ", selected);
-        // 여기서 정렬 로직 등등
+        this.#selectedSorting = selected;
+        this.#renderRestaurantList();
       },
     });
-    $main.insertAdjacentHTML("beforeend", RestaurantList(this.#restaurants));
+
+    this.#renderRestaurantList();
+  }
+
+  #renderRestaurantList() {
+    let filtered = [...this.#restaurants];
+    if (this.#selectedCategory !== "전체") {
+      filtered = filtered.filter(
+        (restaurant) => restaurant.category === this.#selectedCategory
+      );
+    }
+
+    this.#selectedSorting === "distance"
+      ? filtered.sort((a, b) => a.distance - b.distance)
+      : filtered.sort((a, b) => a.name.localeCompare(b.name));
+
+    const $main = document.querySelector("main");
+    const $oldContainer = $main.querySelector(".restaurant-list-container");
+    const $newList = RestaurantList(filtered);
+
+    if ($oldContainer) {
+      $main.replaceChild($newList, $oldContainer);
+      return;
+    }
+    $main.appendChild($newList);
   }
 
   #addRestaurant(newRestaurant) {
     this.#restaurants.push(newRestaurant);
-
-    const $restaurantList = document.querySelector("#restaurant-list");
-    $restaurantList.insertAdjacentHTML(
-      "afterbegin",
-      RestaurantItem(newRestaurant)
-    );
+    this.#renderRestaurantList();
   }
 }
 

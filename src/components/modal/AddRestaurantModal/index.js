@@ -60,9 +60,7 @@ class AddRestaurantModal extends Modal {
     try {
       const formData = new FormData(event.target);
       const data = Object.fromEntries(formData.entries());
-
       this.#validateData(data);
-
       this.#addRestaurant(data);
       this.close();
     } catch (error) {
