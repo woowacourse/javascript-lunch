@@ -43,7 +43,7 @@ addEventListener("load", () => {
   }
 
   categoryFilter.addEventListener("change", (e) => {
-    selectedCategory = (e.target as HTMLSelectElement)?.value || selectedCategory;
+    selectedCategory = (e.target as HTMLSelectElement)?.value || "";
     updateList();
   });
 
