@@ -33,6 +33,7 @@
   - [x] 속성(name, id, cols, rows)
 - [x] select 컴포넌트 생성
   - [x] 속성(option, 필수 여부, name)
+- [x] filter 컴포넌트 생성
 - [ ] tabBar 컴포넌트 생성
 - [ ] 자주 가는 음식점 리스트(FavoriteList) 컴포넌트 생성
 - [ ] 음식점 상세 정보(RestaurantDetail) 컴포넌트 생성

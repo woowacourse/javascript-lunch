@@ -4,18 +4,34 @@ import $inputItem from "./components/form-elements/input-item.ts";
 import $modal from "./components/modal/modal.ts";
 import $button from "./components/common/button.ts";
 import $buttonContainer from "./components/layout/button-container.ts";
+import $filter from "./components/common/filter.ts";
 import { UI_CONFIG } from "./constants/uiConfig.ts";
 import { restaurantData } from "./data/restaurant.ts";
 import { FORM_FIELDS } from "./constants/formFields.ts";
+import { FILTERS } from "./constants/filters.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
+
+  // 여기에 카테고리 필터가 와야함
+  const restaurantFilter = document.querySelector(".restaurant-filter-container");
+  if (!restaurantFilter) return;
+
+  const listFilters = [
+    $filter(FILTERS.category),
+  ];
+
+  listFilters.forEach((data) => {
+    restaurantFilter.appendChild(data);
+  });
+  
 
   const restaurantList = document.querySelector(".restaurant-list");
   if (!restaurantList) return;
   restaurantData.forEach((data) => {
     restaurantList.appendChild($restaurantItem(data));
   });
+
 
   const submitCancelButtons = $buttonContainer({
     buttons: [
