@@ -3,8 +3,6 @@ export default function OrderByValue() {
   $sortSelect.addEventListener("change", (e) => {
     const $restaurantList = document.querySelector(".restaurant-list");
     const $restaurantItems = document.querySelectorAll(".restaurant");
-    console.log($restaurantItems);
-    console.log(Array.from($restaurantItems));
     if (e.target.value === "name") {
       const sortedItems = Array.from($restaurantItems).sort((a, b) => {
         const aName = a.querySelector(".restaurant__name").textContent;
