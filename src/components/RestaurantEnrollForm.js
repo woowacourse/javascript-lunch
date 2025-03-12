@@ -1,34 +1,13 @@
 import { CATEGORY_KEY, CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
-import createButton from './Button.js';
-import createInputBox from './InputBox.js';
-import createSectionContainer from './SectionContainer.js';
-import createSelectBox from './SelectBox.js';
-import createTextArea from './TextArea.js';
-import { updateRestaurantList } from './RestaurantList.js';
+import createButton from './common/Button.js';
+import createSectionContainer from './common/SectionContainer.js';
+import createSelectBox from './common/SelectBox.js';
+import createTextArea from './common/TextArea.js';
 import RestaurantValidator from '../validators/RestaurantValidator.js';
+import createInputBox from './common/InputBox.js';
 
-const restaurantInput = {
-  category: null,
-  name: null,
-  distance: null,
-  description: null,
-  link: null,
-};
-
-function resetInput() {
-  document.querySelector('select#category').value = '';
-  document.querySelector('input#name').value = '';
-  document.querySelector('select#distance').value = '';
-  document.querySelector('textarea#description').value = '';
-  document.querySelector('input#link').value = '';
-
-  Object.keys(restaurantInput).forEach((key) => {
-    restaurantInput[key] = null;
-  });
-}
-
-function createRestaurantEnrollForm(onCancel) {
+function createRestaurantEnrollForm(restaurantInput, onEnroll, onCancel) {
   const $enrollForm = createElement({ tag: 'form' });
 
   const $categoryBox = createSelectBox({
@@ -36,11 +15,11 @@ function createRestaurantEnrollForm(onCancel) {
     isRequired: true,
     type: 'category',
     onChange: (event) => {
-      restaurantInput.category = CATEGORY_KEY[event.target.value];
+      restaurantInput.category = event.target.value;
     },
   });
 
-  const $$nameInputBox = createInputBox({
+  const $nameInputBox = createInputBox({
     label: '이름',
     isRequired: true,
     type: 'name',
@@ -67,7 +46,7 @@ function createRestaurantEnrollForm(onCancel) {
     },
   });
 
-  const $$linkInputBox = createInputBox({
+  const $linkInputBox = createInputBox({
     label: '참고 링크',
     isRequired: false,
     type: 'link',
@@ -90,26 +69,21 @@ function createRestaurantEnrollForm(onCancel) {
     textContent: '등록하기',
     onClick: (event) => {
       event.preventDefault();
-
-      const isValidate = RestaurantValidator.validate(restaurantInput);
-      if (!isValidate) return;
-
-      updateRestaurantList(restaurantInput);
-      onCancel();
+      onEnroll(event);
     },
   });
 
   $buttonContainer.append($cancelButton, $enrollButton);
   $enrollForm.append(
     $categoryBox,
-    $$nameInputBox,
+    $nameInputBox,
     $distanceBox,
     $descriptionTextArea,
-    $$linkInputBox,
+    $linkInputBox,
     $buttonContainer
   );
 
   return $enrollForm;
 }
 
-export { createRestaurantEnrollForm, resetInput };
+export default createRestaurantEnrollForm;

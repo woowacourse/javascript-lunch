@@ -1,12 +1,13 @@
-import createElement from '../utils/createElement.js';
-import { resetInput } from './RestaurantEnrollForm.js';
+import createElement from '../../utils/createElement.js';
 
 class Modal {
   #element;
   #modalDiv;
+  #onClose;
 
-  constructor() {
+  constructor(onClose) {
     this.#element = this.initModal();
+    this.#onClose = onClose;
   }
 
   initModal() {
@@ -27,7 +28,7 @@ class Modal {
     this.#element.classList.toggle('modal--open');
 
     if (!this.#element.classList.contains('modal--open')) {
-      resetInput();
+      this.#onClose();
     }
   }
 

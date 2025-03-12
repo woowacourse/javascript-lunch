@@ -1,4 +1,4 @@
-import createElement from '../utils/createElement.js';
+import createElement from '../../utils/createElement.js';
 
 function createButton({ className, textContent, buttonType, onClick }) {
   const button = createElement({

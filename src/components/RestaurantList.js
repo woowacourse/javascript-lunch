@@ -5,6 +5,7 @@ function createRestaurantList(datas) {
   const restaurantList = createElement({ tag: 'ul', className: 'restaurant-list' });
 
   const fragment = new DocumentFragment();
+
   datas.forEach((data) => {
     const restaurantItem = createRestaurantItem(data);
     fragment.appendChild(restaurantItem);

@@ -1,4 +1,4 @@
-import createElement from '../utils/createElement.js';
+import createElement from '../../utils/createElement.js';
 
 function createSelectBox({ options, isRequired, type, onChange }) {
   const selectBoxDiv = createElement({

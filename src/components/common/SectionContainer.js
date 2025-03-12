@@ -1,4 +1,4 @@
-import createElement from '../utils/createElement.js';
+import createElement from '../../utils/createElement.js';
 
 function createSectionContainer(className) {
   return createElement({ tag: 'section', className });
