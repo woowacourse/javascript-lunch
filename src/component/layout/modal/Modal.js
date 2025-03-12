@@ -1,19 +1,24 @@
 export default class Modal {
   #isOpen = false;
+  #content;
+  #container;
+
   constructor({ content }) {
-    this.content = content;
-    this.container = document.createElement("div");
-    this.container.classList.add("modal");
-    this.container.innerHTML = `
+    this.#content = content;
+    this.#container = document.createElement("div");
+    this.#container.classList.add("modal");
+    this.#container.innerHTML = `
       <div class="modal-backdrop"></div>
       <div class="modal-container">
       </div>
       
 `;
-    document.querySelector("body").appendChild(this.container);
+    document.querySelector("body").appendChild(this.#container);
 
-    this.container.querySelector(".modal-container").appendChild(this.content);
-    this.container
+    this.#container
+      .querySelector(".modal-container")
+      .appendChild(this.#content);
+    this.#container
       .querySelector(".modal-backdrop")
       .addEventListener("click", () => this.close());
 
@@ -21,11 +26,11 @@ export default class Modal {
   }
   open() {
     this.#isOpen = true;
-    this.container.classList.add("modal--open");
+    this.#container.classList.add("modal--open");
   }
   close() {
     this.#isOpen = false;
-    this.container.classList.remove("modal--open");
+    this.#container.classList.remove("modal--open");
   }
   get isOpen() {
     return this.#isOpen;

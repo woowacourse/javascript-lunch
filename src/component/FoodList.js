@@ -2,8 +2,11 @@ import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 import { FoodItem } from "./FoodItem.js";
 
 export default class FoodList {
+  #foodItems;
+  foodList;
+
   constructor({ foodItems }) {
-    this.foodItems = foodItems;
+    this.#foodItems = foodItems;
     this.foodList = document.createElement("ul");
     this.foodList.classList.add("restaurant-list");
 
@@ -12,7 +15,7 @@ export default class FoodList {
   render() {
     this.foodList.innerHTML = "";
     const foodFragment = document.createDocumentFragment();
-    this.foodItems.forEach((foodItem) => {
+    this.#foodItems.forEach((foodItem) => {
       foodFragment.appendChild(
         FoodItem({
           category: foodItem.category,
@@ -25,8 +28,8 @@ export default class FoodList {
     this.foodList.appendChild(foodFragment);
   }
   addItem(foodItem) {
-    this.foodItems = [...this.foodItems, foodItem];
-    localStorage.setItem("foodItem", JSON.stringify(this.foodItems));
+    this.#foodItems = [...this.#foodItems, foodItem];
+    localStorage.setItem("foodItem", JSON.stringify(this.#foodItems));
     this.render();
   }
   get element() {

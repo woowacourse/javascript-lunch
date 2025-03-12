@@ -17,6 +17,8 @@ import { TextareaInput } from "./input/TextareaInput";
 import { alertError } from "./layout/alert/alertError.js";
 
 export default class FoodForm {
+  container;
+
   constructor({ onModalClose = () => {}, onSubmit = () => {} }) {
     this.container = document.createElement("form");
     this.container.setAttribute("novalidate", "true");
