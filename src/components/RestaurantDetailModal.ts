@@ -1,6 +1,6 @@
 import Component from '../core/Component.ts';
 import Modal from './Modal.ts';
-import Button from './Button.ts';
+import { Button } from './common/index.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';
 import { RestaurantType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';

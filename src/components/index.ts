@@ -1,4 +1,3 @@
-export { default as Button } from './Button.ts';
 export { default as Header } from './Header.ts';
 export { default as InputBox } from './InputBox.ts';
 export { default as Modal } from './Modal.ts';

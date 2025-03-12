@@ -1,5 +1,5 @@
-import Component from '../core/Component.ts';
-import { html } from '../lib/utils.ts';
+import Component from '../../core/Component.ts';
+import { html } from '../../lib/utils.ts';
 
 interface ButtonProps {
   type: string;
