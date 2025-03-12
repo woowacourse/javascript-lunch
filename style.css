@@ -175,21 +175,19 @@ body {
 }
 
 /* 음식점 추가 모달 *****************************************/
-.modal {
-  display: none;
-}
-
-.modal--open {
-  display: block;
-}
-
-.modal-backdrop {
+dialog.modal {
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0;
+  margin: 0;
   position: fixed;
-  top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
+  width: 100%;
+  background: transparent; /* 내부 배경은 .modal-container에서 처리 */
+}
 
+dialog.modal::backdrop {
   background: rgba(0, 0, 0, 0.35);
 }
 
