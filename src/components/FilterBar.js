@@ -40,14 +40,26 @@ class FilterBar {
     const $categoryFilter = document.querySelector("#category-filter");
     const $sortingFilter = document.querySelector("#sorting-filter");
 
-    $categoryFilter.addEventListener("change", (e) => {
-      this.#props.onCategoryChange?.(e.target.value);
-    });
+    $categoryFilter.removeEventListener("change", this.#handleCategoryChange);
+    $sortingFilter.removeEventListener("change", this.#handleSortingChange);
 
-    $sortingFilter.addEventListener("change", (e) => {
-      this.#props.onSortingChange?.(e.target.value);
-    });
+    $categoryFilter.addEventListener("change", this.#handleCategoryChange);
+    $sortingFilter.addEventListener("change", this.#handleSortingChange);
   }
+
+  #handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    if (this.#props.onCategoryChange) {
+      this.#props.onCategoryChange(selectedCategory);
+    }
+  };
+
+  #handleSortingChange = (event) => {
+    const selectedSorting = event.target.value;
+    if (this.#props.onSortingChange) {
+      this.#props.onSortingChange(selectedSorting);
+    }
+  };
 }
 
 export default FilterBar;
