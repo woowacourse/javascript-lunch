@@ -1,14 +1,12 @@
 export default class Modal {
   #isOpen = false;
-  constructor({ title, content }) {
-    this.title = title;
+  constructor({ content }) {
     this.content = content;
     this.container = document.createElement("div");
     this.container.classList.add("modal");
     this.container.innerHTML = `
       <div class="modal-backdrop"></div>
       <div class="modal-container">
-        <h2 class="modal-title text-title">${title}</h2>
       </div>
       
 `;

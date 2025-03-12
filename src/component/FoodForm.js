@@ -21,6 +21,12 @@ export default class FoodForm {
     this.container = document.createElement("form");
     this.container.setAttribute("novalidate", "true");
 
+    const title = document.createElement("h2");
+    title.classList.add("modal-title", "text-title");
+    title.innerText = "새로운 음식점";
+
+    this.container.appendChild(title);
+
     this.container.appendChild(
       SelectInput({
         isRequired: true,
