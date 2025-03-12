@@ -155,11 +155,7 @@ body {
   justify-content: flex-start;
 }
 
-.restaurant__name {
-  margin: 0;
-}
-
-.restaurant__distance {
+.primary-color {
   color: var(--primary-color);
 }
 
