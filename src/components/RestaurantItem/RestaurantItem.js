@@ -1,4 +1,4 @@
-import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../../constants/constants";
+import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../../constants/constants.js";
 
 const renderRestaurantElement = ({ category, name, distance, description }) => {
   const li = document.createElement("li");

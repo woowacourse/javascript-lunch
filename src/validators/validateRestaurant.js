@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/constants";
+import { ERROR_MESSAGE } from "../constants/constants.js";
 
 const validateRestaurant = (newRestaurant, restaurantNames) => {
   if (newRestaurant.name.length > 20) {
