@@ -17,7 +17,7 @@ export const restaurantFilter = () => {
     tag: "select",
     name: "sorting",
     id: "sorting-filter",
-    class: ["restaurant-filter"],
+    classList: ["restaurant-filter"],
     options: options.sortFilter,
   });
 

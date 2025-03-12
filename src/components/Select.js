@@ -8,8 +8,9 @@ const Select = ({ tag, name = "", id = "", classList = [], options }) => {
     classList,
   });
 
-  select.innerHTML = `${options
-    .map((option) => `<option value="${option}">${option}</option>`)
+  select.innerHTML = `
+  ${Object.keys(options)
+    .map((key) => `<option value="${key}">${options[key]}</option>`)
     .join("")}`;
 
   return select;
