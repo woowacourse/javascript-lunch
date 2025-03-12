@@ -13,21 +13,14 @@ class Restaurants {
       option: "name",
       favorite: false,
     };
-    this.filter();
-  }
-
-  createRestaurant(restaurants) {
-    const ulTag = $(".restaurant-list");
-    ulTag.replaceChildren();
-
-    restaurants.forEach((restaurant) => {
-      ulTag.appendChild(RestaurantCard(restaurant));
-    });
+    this.#filter();
   }
 
   pushList(restaurant) {
     this.#restaurants.push(restaurant);
-    this.filter();
+    $("select#category").value = "all";
+    this.#filterType.category = "all";
+    this.#filter();
   }
 
   changeState(state) {
@@ -35,25 +28,25 @@ class Restaurants {
     const sortState = state[sortType];
 
     this.#filterType[sortType] = sortState;
-    this.filter();
+    this.#filter();
   }
 
-  filter() {
-    const filtered = this.filterByCategory();
-    if (this.#filterType.option === "name") this.sortByName(filtered);
-    if (this.#filterType.option === "distance") this.sortByDistance(filtered);
-    this.createRestaurant(filtered);
+  #filter() {
+    const filtered = this.#filterByCategory();
+    if (this.#filterType.option === "name") this.#sortByName(filtered);
+    if (this.#filterType.option === "distance") this.#sortByDistance(filtered);
+    this.#createRestaurant(filtered);
   }
 
-  sortByName(restaurants) {
+  #sortByName(restaurants) {
     return restaurants.sort((a, b) => a.info.name.localeCompare(b.info.name));
   }
 
-  sortByDistance(restaurants) {
+  #sortByDistance(restaurants) {
     return restaurants.sort((a, b) => a.info.distance - b.info.distance);
   }
 
-  filterByCategory() {
+  #filterByCategory() {
     if (this.#filterType.category === "all") {
       return [...this.#restaurants];
     }
@@ -61,6 +54,15 @@ class Restaurants {
     return [...this.#restaurants].filter(
       (restaurant) => restaurant.info.category === this.#filterType.category
     );
+  }
+
+  #createRestaurant(restaurants) {
+    const ulTag = $(".restaurant-list");
+    ulTag.replaceChildren();
+
+    restaurants.forEach((restaurant) => {
+      ulTag.appendChild(RestaurantCard(restaurant));
+    });
   }
 }
 

@@ -25,7 +25,7 @@ addEventListener("load", () => {
         "modal-title",
         "text-title"
       ),
-      bodyComponent: RegisterForm(),
+      bodyComponent: RegisterForm(restaurantList),
     })
   );
 });
