@@ -14,24 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const addNewRestaurantModal = document.getElementById(
     "add-restaurant-dialog"
   );
-  const closeModalButton = document.getElementById("cancel-dialog-btn");
+
   const formElement = addNewRestaurantModal.querySelector("form");
 
-  const modal = new Modal(
-    addNewRestaurantModal,
-    addRestaurantModalButton,
-    closeModalButton
-  );
+  const modal = new Modal(addNewRestaurantModal, addRestaurantModalButton);
 
   new RestaurantForm(formElement, restaurantList, modal);
 
   restaurantsData.forEach((restaurantData) => {
     const restaurantItem = renderRestaurantElement(restaurantData);
     restaurantList.appendChild(restaurantItem);
-  });
-
-  closeModalButton.addEventListener("click", () => {
-    formElement.reset();
-    addNewRestaurantModal.close();
   });
 });

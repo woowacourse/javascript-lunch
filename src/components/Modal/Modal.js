@@ -7,10 +7,9 @@ import createLink from "./Select/LinkInput.js";
 import modalButton from "./Button/Button.js";
 
 export default class Modal {
-  constructor(modalElement, openButton, closeButton) {
+  constructor(modalElement, openButton) {
     this.modalElement = modalElement;
     this.openButton = openButton;
-    //this.closeButton = closeButton;
     this.formElement = this.modalElement.querySelector("form");
 
     this.addFormFields();
@@ -30,6 +29,11 @@ export default class Modal {
   addEventListeners() {
     this.openButton.addEventListener("click", () => this.open());
     this.closeButton.addEventListener("click", () => this.close());
+
+    const formElement = document.querySelector("#add-restaurant-dialog form");
+    this.closeButton.addEventListener("click", () => {
+      formElement.reset();
+    });
 
     this.modalElement.addEventListener("click", (event) => {
       if (!event.target.closest(".modal-container")) {
