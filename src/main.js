@@ -32,4 +32,19 @@ addEventListener("load", () => {
   );
 
   restaurantFilter();
+  querySelector("#category-filter").addEventListener("change", (e) => {
+    storeList.filterStoreList(e.target.value);
+    storeUtils.removeStoreElements();
+    storeList.filteredList.forEach((store) => {
+      storeUtils.addStore(store);
+    });
+  });
+
+  querySelector("#sorting-filter").addEventListener("change", (e) => {
+    storeList.sortStoreList(e.target.value);
+    storeUtils.removeStoreElements();
+    storeList.filteredList.forEach((store) => {
+      storeUtils.addStore(store);
+    });
+  });
 });

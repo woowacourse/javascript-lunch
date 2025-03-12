@@ -167,4 +167,8 @@ export const storeUtils = {
       link: data.get("link"),
     };
   },
+
+  removeStoreElements: () => {
+    querySelector(".restaurant-list").replaceChildren();
+  },
 };
