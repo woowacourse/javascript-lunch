@@ -1,6 +1,7 @@
 import { Restaurant } from '../../types/domain';
 import store from './store.ts';
 import { parseJSON, stringifyJSON } from '../utils/data.ts';
+import cache from './cache.ts';
 
 interface StoreService {
   getRestaurants(): Restaurant[];
@@ -12,8 +13,16 @@ interface StoreService {
 
 const storeService: StoreService = {
   getRestaurants() {
+    const cachedRestaurants = cache.getRestaurants();
+    if (cachedRestaurants.length > 0) {
+      return cachedRestaurants;
+    }
+
     const keys = Object.keys(store.storage);
-    return keys.map((key) => parseJSON(store.getData(key) ?? '[]'));
+    const restaurants = keys.map((key) => parseJSON(store.getData(key) ?? '[]'));
+    cache.setRestaurants(restaurants);
+
+    return restaurants;
   },
 
   findRestaurantByName(name) {
@@ -31,10 +40,14 @@ const storeService: StoreService = {
   updateRestaurantByName(name, data) {
     const stringData = stringifyJSON(data);
     store.setData(name, stringData);
+
+    cache.clearRestaurants();
   },
 
   deleteRestaurantByName(name) {
     store.removeData(name);
+
+    cache.clearRestaurants();
   },
 };
 
