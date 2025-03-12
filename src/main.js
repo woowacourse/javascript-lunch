@@ -35,9 +35,22 @@ if (localStorage.getItem("sort")) {
   document.getElementById("sorting-filter").value =
     localStorage.getItem("sort");
 }
+
+// 이것을 주석 처리 해서... behavior 작동 멈출수 있음.
+
+// if (localStorage.getItem("favorite")) {
+//   handleCombinedFilter(localStorage.getItem("favorite"));
+//   document.getElementById("favorite-filter").value =
+//     localStorage.getItem("favortie");
+// }
+// if (localStorage.getItem("filter")) {
+//   handleCombinedFilter(localStorage.getItem("category"));
+//   document.getElementById("category-filter").value =
+//     localStorage.getItem("filter");
+// }
 // 모달 열기/닫기 토글 처리
 function handleBottomSheetToggle(event) {
-  const modal = document.querySelector(".modal");
+  const modal = document.querySelector(".form-modal");
 
   if (event.target.closest(".restaurant-add-button")) {
     modal.show();
@@ -84,9 +97,9 @@ function handleAddRestaurantFormSubmit(event) {
     restaurantListElement.appendChild(createRestaurantItem(restaurantForm));
 
     Toast.showToast(`${restaurant.name} 음식점을 추가했습니다.`, "success");
-    const modal = document.querySelector(".modal");
+    const formModal = document.querySelector(".form-modal");
     restaurantAddForm.reset();
-    modal.close();
+    formModal.close();
   } catch (error) {
     Toast.showToast(`${error.message}`, "error");
   }

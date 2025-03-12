@@ -66,7 +66,7 @@ export default function createRestaurantForm(restaurantList) {
         "cancel-button",
       ],
       textContent: "취소하기",
-      onclick: () => document.querySelector(".modal").close(),
+      onclick: () => document.querySelector(".form-modal").close(),
     }),
     createButton({
       type: "submit",
