@@ -1,5 +1,5 @@
 import { getHTML, createElement } from "../utils/utils.js";
-import { CategoryIcon } from "./CategoryIcon.js";
+import { CategoryIcon } from "./common/CategoryIcon.js";
 import { StoreInfo } from "./StoreInfo.js";
 
 function getCategoryImage(category) {

@@ -1,10 +1,10 @@
 import { getHTML } from "../utils/utils.js";
-import { Button } from "./Button.js";
-import { FormBox } from "./FormBox.js";
-import { FormButtons } from "./FormButtons.js";
-import { InputBox } from "./InputBox.js";
-import { SelectBox } from "./SelectBox.js";
-import { TextareaBox } from "./TextareaBox.js";
+import { Button } from "./common/Button.js";
+import { FormBox } from "./common/FormBox.js";
+import { FormButtons } from "./common/FormButtons.js";
+import { InputBox } from "./common/InputBox.js";
+import { SelectBox } from "./common/SelectBox.js";
+import { TextareaBox } from "./common/TextareaBox.js";
 
 export function openModal() {
   const modalHTML = `<div class="modal modal--open">

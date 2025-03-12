@@ -1,4 +1,4 @@
-import { SELECT_OPTIONS } from "../constants/SelectOption.js";
+import { SELECT_OPTIONS } from "../../constants/SelectOption.js";
 
 export function SelectBox({ id, name, label, optionName, required }) {
   const options = SELECT_OPTIONS[optionName] || [];

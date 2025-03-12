@@ -1,5 +1,3 @@
-import { SELECT_OPTIONS } from "../constants/SelectOption.js";
-
 export function InputBox({
   id,
   name,
