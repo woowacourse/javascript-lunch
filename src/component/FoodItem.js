@@ -1,4 +1,4 @@
-import { getInput } from "../util/getInput";
+import { getInput } from "../domain/getInput";
 
 export function FoodItem({
   imgSrc,

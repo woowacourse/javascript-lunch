@@ -1,5 +1,6 @@
 import { CAPTION_MESSAGE } from "../constants/Message.js";
 import { FoodInventory } from "../domain/FoodInventory.js";
+import { FoodItemHandler } from "../domain/FoodItemHandler.js";
 import { removeError } from "../util/errorHandler.js";
 import { validateFoodItem } from "../validate/validateFoodItem.js";
 import { Button } from "./button/Button.js";
@@ -30,7 +31,8 @@ const SELECT_OPTIONS = {
 
 export function FoodForm() {
   const container = document.createElement("form");
-  const foodInventory = new FoodInventory();
+  const foodItems = FoodItemHandler.getFoodItemList();
+  const foodInventory = new FoodInventory(foodItems);
 
   container.appendChild(
     SelectInput({

@@ -1,31 +1,19 @@
 import { FoodItem } from "../component/FoodItem";
 import { Modal } from "../component/layout/Modal";
-import { getInput } from "../util/getInput";
+import { getInput } from "./getInput";
 import { validateFoodItem } from "../validate/validateFoodItem";
+import { FoodItemHandler } from "./FoodItemHandler";
 
 export class FoodInventory {
   foodItems;
 
-  constructor() {
-    this.foodItems = this.#getPreviousFoodList();
+  constructor(foodItems) {
+    this.foodItems = foodItems;
   }
 
-  #getPreviousFoodList() {
-    const foodItems = document.querySelectorAll(".restaurant-list li");
-    return foodItems;
-  }
-
-  #getFoodItem() {
-    const foodItem = {
-      category: getInput("category"),
-      name: getInput("name"),
-      distance: getInput("distance"),
-      description: getInput("description"),
-      link: getInput("link"),
-    };
-
+  #createFoodItem() {
+    const foodItem = FoodItemHandler.getFoodItem();
     const { imgSrc, imgAlt } = this.#getImgSrcAlt(foodItem.category);
-
     try {
       validateFoodItem(foodItem);
       return FoodItem({
@@ -41,15 +29,6 @@ export class FoodInventory {
     }
   }
 
-  #updateFoodList(foodItem) {
-    this.foodItems = [...this.foodItems, foodItem];
-    const foodListContainer = document.querySelector(".restaurant-list");
-    foodListContainer.innerHTML = "";
-    this.foodItems.forEach((item) => {
-      foodListContainer.appendChild(item);
-    });
-  }
-
   #getImgSrcAlt(category) {
     const categoryMap = {
       한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },
@@ -58,16 +37,16 @@ export class FoodInventory {
       양식: { imgAlt: "양식", imgSrc: "./category-western.png" },
       아시안: { imgAlt: "아시안", imgSrc: "./category-asian.png" },
     };
-
     return (
       categoryMap[category] || { imgAlt: "기타", imgSrc: "./category-etc.png" }
     );
   }
 
   addFoodItem() {
-    const FoodItemComponent = this.#getFoodItem();
+    const FoodItemComponent = this.#createFoodItem();
     if (!FoodItemComponent) return;
-    this.#updateFoodList(FoodItemComponent);
+    this.foodItems = [...this.foodItems, FoodItemComponent];
+    FoodItemHandler.updateFoodList([...this.foodItems, FoodItemComponent]);
     Modal.close();
   }
 }
