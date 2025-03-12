@@ -1,6 +1,5 @@
 import {
   RESTAURANT_NAME_LENGTH_MAX,
-  DESCRIPTION_LENGTH_MAX,
   ERROR_MESSAGE,
 } from "../src/constants/constants.js";
 import { Validator } from "../src/validator/Validator.js";
