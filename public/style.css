@@ -407,11 +407,14 @@ input[name="link"] {
 }
 
 .restaurant-detail-modal-delete-button {
+  font-size: 16px;
+  font-weight: 700;
   background-color: white;
   color: #667085;
   border-color: #667085;
   padding: 15px 50px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .restaurant-detail-modal-delete-button:hover {
@@ -421,11 +424,14 @@ input[name="link"] {
 }
 
 .restaurant-detail-modal-close-button {
+  font-size: 16px;
+  font-weight: 700;
   background-color: red;
   color: white;
   padding: 15px 50px;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .restaurant-detail-modal-close-button:hover {
