@@ -224,7 +224,7 @@ body {
   padding-left: 4px;
 
   color: var(--primary-color);
-  content: "*";
+  content: '*';
 }
 
 .form-item .help-text {
@@ -258,8 +258,8 @@ body {
   color: var(--grey-300);
 }
 
-input[name="name"],
-input[name="link"] {
+input[name='name'],
+input[name='link'] {
   height: 44px;
 }
 
@@ -295,4 +295,65 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.nav-tab__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 16px;
+}
+
+.nav-tab-item {
+  position: absolute;
+
+  opacity: 0;
+}
+
+.nav-tab-item-label {
+  width: 50%;
+
+  margin-top: 20px;
+  padding: 10px 0;
+
+  border: none;
+  background-color: var(--grey-100);
+
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.nav-tab-item:checked + .nav-tab-item-label {
+  color: var(--primary-color);
+}
+
+.nav-tab-item-underline {
+  position: relative;
+
+  width: 100%;
+
+  border-bottom: 2px solid var(--grey-200);
+}
+
+[data-selected-tab='0'] {
+  --left: 0;
+}
+[data-selected-tab='1'] {
+  --left: 1;
+}
+
+.nav-tab-item-underline::after {
+  position: absolute;
+  left: calc(var(--left) * 50%);
+
+  width: 50%;
+
+  border-bottom: 2px solid var(--primary-color);
+
+  content: '';
 }
