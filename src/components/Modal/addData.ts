@@ -1,17 +1,20 @@
-import { categoryValue } from "../../constants/optionValue.js";
 import { RestaurantData } from "../../constants/RestaurantData.js";
+import type { Restaurant } from "../../../types/global.d.ts";
+import { categoryValue } from "../../constants/optionValue.js";
 
 const addData = () => {
-  const formData = new FormData(document.getElementById("input-form"));
+  const formData = new FormData(
+    document.getElementById("input-form") as HTMLFormElement,
+  );
   const submittedData = Object.fromEntries(formData);
   const information = {
     name: submittedData.name,
     distance: Number(submittedData.distance),
     description: submittedData.description,
     imgSrc: `./category-${submittedData.category}.png`,
-    imgAlt: `${categoryValue[submittedData.category]}`,
+    imgAlt: `${categoryValue[submittedData.category as string]}`,
   };
-  RestaurantData.push(information);
+  RestaurantData.push(information as Restaurant);
   document.dispatchEvent(new CustomEvent("restaurantUpdated"));
 };
 
