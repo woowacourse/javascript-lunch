@@ -1,4 +1,4 @@
-type Restaurant = {
+export type Restaurant = {
   categoryIcon: string;
   categoryTitle: string;
   name: string;

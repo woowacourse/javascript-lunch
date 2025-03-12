@@ -1,5 +1,4 @@
 import $header from "./components/layout/header.ts";
-import $restaurantItem from "./components/restaurant/restaurant-item.ts";
 import $inputItem from "./components/form-elements/input-item.ts";
 import $modal from "./components/modal/modal.ts";
 import $button from "./components/common/button.ts";
@@ -9,6 +8,8 @@ import { UI_CONFIG } from "./constants/uiConfig.ts";
 import { restaurantData } from "./data/restaurant.ts";
 import { FORM_FIELDS } from "./constants/formFields.ts";
 import { FILTERS } from "./constants/filters.ts";
+import { filterRestaurants } from "./utils/filterUtils.ts";
+import { renderRestaurants } from "./utils/renderUtils.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
@@ -26,13 +27,29 @@ addEventListener("load", () => {
     restaurantFilter.appendChild(data);
   });
 
+  const categoryFilter = document.querySelector("#category-filter");
+  const sortingFilter = document.querySelector("#sorting-filter");
+  const restaurantList = document.querySelector(".restaurant-list") as HTMLElement | null;
+
+  if (!categoryFilter || !sortingFilter || !restaurantList) return;
   
-  // 음식점 목록
-  const restaurantList = document.querySelector(".restaurant-list");
-  if (!restaurantList) return;
-  restaurantData.forEach((data) => {
-    restaurantList.appendChild($restaurantItem(data));
+  let selectedCategory = "";
+  let selectedSorting = "name";
+
+  const updateList = () => {
+    // 카테고리별 필터링
+    const filtered = filterRestaurants(restaurantData, selectedCategory);
+    // 정렬
+    // 렌더링
+    renderRestaurants(restaurantList, filtered);
+  }
+
+  categoryFilter.addEventListener("change", (e) => {
+    selectedCategory = (e.target as HTMLSelectElement)?.value || selectedCategory;
+    updateList();
   });
+
+  updateList();
 
   const submitCancelButtons = $buttonContainer({
     buttons: [
