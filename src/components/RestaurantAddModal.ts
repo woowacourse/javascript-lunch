@@ -1,6 +1,6 @@
 import Component from '../core/Component.ts';
-import { InputBox, Modal } from './index.ts';
-import { Button } from './common/index.ts';
+import { InputBox } from './index.ts';
+import { Button, Modal } from './common/index.ts';
 import { RestaurantType } from '../lib/types.ts';
 import { html, generateId } from '../lib/utils.ts';
 
