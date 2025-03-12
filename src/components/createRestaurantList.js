@@ -23,7 +23,7 @@ function createRestaurantItem(container, inputValue) {
   container.innerHTML += `
     <li class="restaurant">
       <div class="restaurant__category">
-        <img src="./category-${inputValue.category}.png" alt="${
+        <img src="/category-${inputValue.category}.png" alt="${
     inputValue.categoryValue
   }" class="category-icon"/>
       </div>

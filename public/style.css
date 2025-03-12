@@ -377,6 +377,59 @@ input[name="link"] {
   background-color: white;
   display: flex;
   flex-direction: column;
+  gap: 16px;
   padding: 32px 16px;
   border-radius: 8px 8px 0 0;
+}
+
+.restaurant-detail-modal-images {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant-detail-modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.restaurant__detail__modal__description {
+  padding-top: 8px;
+}
+
+.restaurant-detail-modal-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.restaurant-detail-modal-delete-button {
+  background-color: white;
+  color: #667085;
+  border-color: #667085;
+  padding: 15px 50px;
+  border-radius: 8px;
+}
+
+.restaurant-detail-modal-delete-button:hover {
+  background-color: #d4d4d4;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.restaurant-detail-modal-close-button {
+  background-color: red;
+  color: white;
+  padding: 15px 50px;
+  border: none;
+  border-radius: 8px;
+}
+
+.restaurant-detail-modal-close-button:hover {
+  background-color: #be0404;
+  color: white;
+  transition: background-color 0.3s ease;
 }
