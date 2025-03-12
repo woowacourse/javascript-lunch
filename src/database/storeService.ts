@@ -8,6 +8,7 @@ interface StoreService {
   findRestaurantByName(name: string): Restaurant;
   findRestaurantsByCategory(category: string): Restaurant[];
   updateRestaurantByName(name: string, data: Restaurant): void;
+  updateRestaurants(dataList: Restaurant[]): void;
   deleteRestaurantByName(name: string): void;
 }
 
@@ -38,6 +39,12 @@ const storeService: StoreService = {
     const parsedKey = parseStorageKey(STORE.keyPrefix, name);
     const stringData = stringifyJSON(data);
     store.setData(parsedKey, stringData);
+  },
+
+  updateRestaurants(dataList) {
+    dataList.forEach((data) => {
+      this.updateRestaurantByName(data.name, data);
+    });
   },
 
   deleteRestaurantByName(name) {

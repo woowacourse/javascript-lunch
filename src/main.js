@@ -30,7 +30,7 @@ addEventListener('load', () => {
   appendTabs();
   appendItemsController();
   initRestaurantItems();
-  appendRestaurantItems();
+  updateRestaurantItems();
   appendModal();
   appendModalContents();
 
@@ -140,10 +140,14 @@ function initRestaurantItems() {
   });
 }
 
-function appendRestaurantItems() {
-  const ul = document.querySelector('.restaurant-list');
+function updateRestaurantItems() {
   const data = storeService.getRestaurants();
-  const items = data.map((restaurant) => createRestaurantItem(restaurant)).join('');
+  appendRestaurantItems(data);
+}
+
+function appendRestaurantItems(restaurants) {
+  const ul = document.querySelector('.restaurant-list');
+  const items = restaurants.map((restaurant) => createRestaurantItem(restaurant)).join('');
 
   if (ul.hasChildNodes) {
     ul.replaceChildren();

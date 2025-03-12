@@ -1,4 +1,4 @@
-import cache from './database/cache.js';
+import storeService from './database/storeService.js';
 import sortRestaurants from './domain/sortRestaurants.js';
 import stateStore from './stateStore.js';
 
@@ -101,9 +101,8 @@ function sortRestaurantItems(restaurantItems, callback) {
   sortSelector.addEventListener('change', (event) => {
     const sortKey = event.target.value;
     const sortedRestaurants = sortRestaurants(sortKey, restaurantItems);
-    cache.setRestaurants(sortedRestaurants);
 
-    callback();
+    callback(sortedRestaurants);
   });
 }
 
