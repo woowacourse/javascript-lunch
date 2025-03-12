@@ -10,7 +10,7 @@ interface RestaurantAddModalProps {
 
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
   template() {
-    return html``;
+    return html` <section class="restaurant-add-modal"></section>`;
   }
 
   onRender(): void {
