@@ -6,7 +6,7 @@ function createTags(data) {
     tag: 'img',
     className: 'category-icon',
     attributes: {
-      src: `./category-${data.category}.png`,
+      src: `./images/category-${data.category}.png`,
       alt: data.category,
     },
   });
