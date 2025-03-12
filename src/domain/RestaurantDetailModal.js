@@ -1,5 +1,5 @@
 import DetailModal from "../components/DetailModal";
-import { GetAllRestaurants } from "./RestaurantStorage";
+import { DeleteRestaurant, GetAllRestaurants } from "./RestaurantStorage";
 
 export default function RestaurantDetailModal() {
   const $app = document.getElementById("app");
@@ -18,8 +18,25 @@ export default function RestaurantDetailModal() {
       );
 
       DetailModal($app, restaurantValues);
+      DeleteModalEvent();
       CloseModalEvent();
     });
+  });
+}
+
+function DeleteModalEvent() {
+  const $deleteButton = document.querySelector(
+    ".restaurant-detail-modal-delete-button"
+  );
+
+  $deleteButton.addEventListener("click", (e) => {
+    const $detailModal = e.target.closest(".restaurant-detail-modal");
+
+    const $restaurantName =
+      $detailModal.querySelector(".restaurant__name").textContent;
+
+    DeleteRestaurant($restaurantName);
+    location.reload();
   });
 }
 

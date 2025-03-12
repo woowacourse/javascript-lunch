@@ -1,76 +1,45 @@
-import { DEFAULT_RESTAURANTS } from "../constants/options";
-
 export function AddNewRestaurant({ restaurant }) {
-  if (!GetRestaurantFromStorage()) {
+  if (!GetAllRestaurants()) {
     localStorage.setItem("restaurants", JSON.stringify([restaurant]));
     return;
   }
-  const restaurants = GetRestaurantFromStorage();
+  const restaurants = GetAllRestaurants();
   restaurants.push(restaurant);
   localStorage.setItem("restaurants", JSON.stringify(restaurants));
 }
 
 export function GetAllRestaurants() {
-  const defaultRestaurants = [...DEFAULT_RESTAURANTS];
-
-  const restaurantsFromStorage = GetRestaurantFromStorage();
-  restaurantsFromStorage.forEach((restaurant) => {
-    defaultRestaurants.some((defaultRestaurant) => {
-      if (defaultRestaurant.nameValue === restaurant.nameValue) {
-        if (defaultRestaurant.favorite !== restaurant.favorite) {
-          defaultRestaurant.favorite = restaurant.favorite;
-        }
-      } else {
-        defaultRestaurants.push(restaurant);
-        return true;
-      }
-    });
-  });
-
-  const favoriteRestaurants = GetFavoriteRestaurant();
-  defaultRestaurants.forEach((restaurant) => {
-    favoriteRestaurants.forEach((favoriteRestaurant) => {
-      if (restaurant.nameValue === favoriteRestaurant.nameValue) {
-        restaurant.favorite = true;
-      }
-    });
-  });
-
-  return defaultRestaurants;
-}
-
-function GetRestaurantFromStorage() {
   return JSON.parse(localStorage.getItem("restaurants")) || [];
 }
 
-export function GetFavoriteRestaurant() {
-  return JSON.parse(localStorage.getItem("favorite")) || [];
-}
-
 export function SaveFavoriteRestaurantInStorage(favoriteRestaurant) {
-  if (!GetFavoriteRestaurant()) {
-    localStorage.setItem("favorite", JSON.stringify([favoriteRestaurant]));
+  const allRestaurants = GetAllRestaurants();
+  allRestaurants.forEach((restaurant) => {
+    if (restaurant.nameValue === favoriteRestaurant.nameValue) {
+      restaurant.favorite = favoriteRestaurant.favorite;
+    }
+  });
 
-    return;
-  }
-
-  const allFavoriteRestaurant = GetFavoriteRestaurant();
-
-  allFavoriteRestaurant.push(favoriteRestaurant);
-  localStorage.setItem("favorite", JSON.stringify(allFavoriteRestaurant));
+  localStorage.setItem("restaurants", JSON.stringify(allRestaurants));
 }
 
 export function DeleteFavoriteRestaurantInStorage(restaurantName) {
-  const favoriteRestaurants =
-    JSON.parse(localStorage.getItem("favorite")) || [];
+  const allRestaurants = GetAllRestaurants();
+  allRestaurants.forEach((restaurant) => {
+    if (restaurant.nameValue === restaurantName) {
+      restaurant.favorite = false;
+    }
+  });
 
-  const filteredRestaurants = favoriteRestaurants.filter(
+  localStorage.setItem("restaurants", JSON.stringify(allRestaurants));
+}
+
+export function DeleteRestaurant(restaurantName) {
+  const allRestaurants = GetAllRestaurants();
+
+  const filteredRestaurants = allRestaurants.filter(
     (restaurant) => restaurant.nameValue !== restaurantName
   );
 
-  localStorage.setItem("favorite", JSON.stringify(filteredRestaurants));
-
-  return favoriteRestaurants.length === filteredRestaurants.length
-    ? false
-    : true;
+  localStorage.setItem("restaurants", JSON.stringify(filteredRestaurants));
 }

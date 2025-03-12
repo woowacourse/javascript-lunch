@@ -18,11 +18,6 @@ export default function SaveFavoriteRestaurant() {
       const restaurantName =
         $restaurantItem.querySelector(".restaurant__name").textContent;
 
-      if (DeleteFavoriteRestaurantInStorage(restaurantName)) {
-        location.reload();
-        return;
-      }
-
       const restaurant = restaurants.find(
         (restaurant) => restaurant.nameValue === restaurantName
       );
