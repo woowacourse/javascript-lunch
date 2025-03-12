@@ -10,8 +10,8 @@ export function FormButtons({ formName }) {
   function template() {
     return `
     <div id="buttonContainer" class="button-container" >
-        ${(formName === "addStore" && storeAddBtns) || ""}
-        ${(formName === "deleteStore" && storeDeleteBtns) || ""}
+        ${(formName === "storeAdd" && storeAddBtns) || ""}
+        ${(formName === "storeDelete" && storeDeleteBtns) || ""}
     </div>
       `;
   }
