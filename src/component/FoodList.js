@@ -26,6 +26,7 @@ export default class FoodList {
   }
   addItem(foodItem) {
     this.foodItems = [...this.foodItems, foodItem];
+    localStorage.setItem("foodItem", JSON.stringify(this.foodItems));
     this.render();
   }
   get element() {
