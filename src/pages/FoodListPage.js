@@ -1,12 +1,29 @@
 import { Header } from "../component/layout/Header.js";
 import { Modal } from "../component/layout/Modal.js";
 
+const categoryFilter = [
+  { value: "전체", text: "전체" },
+  { value: "한식", text: "한식" },
+  { value: "중식", text: "중식" },
+  { value: "일식", text: "일식" },
+  { value: "양식", text: "양식" },
+  { value: "아시안", text: "아시안" },
+  { value: "기타", text: "기타" },
+];
+
+const orderFilter = [
+  { value: "이름순", text: "이름순" },
+  { value: "거리순", text: "거리순" },
+];
+
 export class FoodListPage {
   #body;
+  #main;
 
   constructor(title, iconButton = null) {
     this.loadHeader(title, iconButton);
     this.loadMain();
+    this.loadFilter();
     this.loadFoodList();
   }
 
@@ -20,17 +37,39 @@ export class FoodListPage {
   }
 
   loadMain() {
-    const main = document.createElement("main");
-    this.#body.appendChild(main);
+    this.#main = document.createElement("main");
+    this.#body.appendChild(this.#main);
+  }
+
+  loadFilter() {
+    const container = document.createElement("div");
+    container.innerHTML = `
+          <section class="restaurant-filter-container">
+          <select name="category" id="category-filter" class="restaurant-filter">
+          ${categoryFilter.map(
+            ({ value, text }) => `<option value=${value}>${text}</option>`
+          )}
+          </select>
+
+          <!-- 정렬 셀렉트 박스 -->
+          <select name="sorting" id="sorting-filter" class="restaurant-filter">
+          ${orderFilter.map(
+            ({ value, text }) => `<option value=${value}>${text}</option>`
+          )}
+          </select>
+        </section>
+    `;
+    this.#main.appendChild(container.firstElementChild);
   }
 
   loadFoodList() {
-    const main = document.querySelector("main");
-    main.innerHTML = `
+    const container = document.createElement("div");
+    container.innerHTML = `
     <section class="restaurant-list-container">
       <ul class="restaurant-list">
       </ul>
     </section>
     `;
+    this.#main.appendChild(container.firstElementChild);
   }
 }

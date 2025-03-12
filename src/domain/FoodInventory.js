@@ -1,8 +1,7 @@
 import { FoodItem } from "../component/FoodItem";
 import { Modal } from "../component/layout/Modal";
-import { getInput } from "./getInput";
 import { validateFoodItem } from "../validate/validateFoodItem";
-import { FoodItemHandler } from "./FoodItemHandler";
+import { getFoodItem, updateFoodList } from "./handler/FoodItemHandler";
 
 export class FoodInventory {
   foodItems;
@@ -12,7 +11,7 @@ export class FoodInventory {
   }
 
   #createFoodItem() {
-    const foodItem = FoodItemHandler.getFoodItem();
+    const foodItem = getFoodItem();
     const { imgSrc, imgAlt } = this.#getImgSrcAlt(foodItem.category);
     try {
       validateFoodItem(foodItem);
@@ -46,7 +45,7 @@ export class FoodInventory {
     const FoodItemComponent = this.#createFoodItem();
     if (!FoodItemComponent) return;
     this.foodItems = [...this.foodItems, FoodItemComponent];
-    FoodItemHandler.updateFoodList([...this.foodItems, FoodItemComponent]);
+    updateFoodList([...this.foodItems, FoodItemComponent]);
     Modal.close();
   }
 }
