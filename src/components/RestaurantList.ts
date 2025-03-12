@@ -3,6 +3,7 @@ import { FILTERS, LOCAL_STORAGE_KEY_MAP, SORTS } from '../lib/constants.ts';
 import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { Select } from './common/index.ts';
 import { RestaurantItem, RestaurantAddModal, RestaurantDetailModal, RestaurantTab } from './index.ts';
+import { DEFAULT_RESTAURANT_LIST } from '../lib/constants.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -17,7 +18,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
     super();
 
     const localStorageRestaurants = localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants);
-    const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : [];
+    const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : DEFAULT_RESTAURANT_LIST;
 
     this.state = {
       restaurants: initialRestaurants,
