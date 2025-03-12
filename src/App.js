@@ -79,21 +79,38 @@ class App {
   }
 
   #renderRestaurantList() {
+    // 1) 필터 + 정렬(도메인 로직)
     const filtered = filterAndSortRestaurants(
       this.#restaurants,
       this.#selectedCategory,
       this.#selectedSorting
     );
 
+    // 2) "즐겨찾기 토글" 콜백 정의
+    const onToggleFavorite = (clickedId) => {
+      // restaurants 배열에서 name이 clickedName인 녀석을 찾아서 isFavorite 토글
+      const target = this.#restaurants.find(
+        (restaurant) => restaurant.id === Number(clickedId)
+      );
+      if (!target) return;
+      target.isFavorite = !target.isFavorite;
+
+      // 다시 리스트 렌더링해서 UI 반영
+      this.#renderRestaurantList();
+    };
+
+    // 3) 새로운 RestaurantList DOM 생성 (filtered + onToggleFavorite)
+    const $newList = RestaurantList(filtered, onToggleFavorite);
+
+    // 4) 기존 리스트와 교체
     const $main = document.querySelector("main");
     const $oldContainer = $main.querySelector(".restaurant-list-container");
-    const $newList = RestaurantList(filtered);
 
     if ($oldContainer) {
       $main.replaceChild($newList, $oldContainer);
-      return;
+    } else {
+      $main.appendChild($newList);
     }
-    $main.appendChild($newList);
   }
 
   #addRestaurant(newRestaurant) {
