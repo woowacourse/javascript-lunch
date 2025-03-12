@@ -8,7 +8,7 @@ import { UI_CONFIG } from "./constants/uiConfig.ts";
 import { restaurantData } from "./data/restaurant.ts";
 import { FORM_FIELDS } from "./constants/formFields.ts";
 import { FILTERS } from "./constants/filters.ts";
-import { filterRestaurants } from "./utils/filterUtils.ts";
+import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
 import { renderRestaurants } from "./utils/renderUtils.ts";
 
 addEventListener("load", () => {
@@ -37,15 +37,18 @@ addEventListener("load", () => {
   let selectedSorting = "name";
 
   const updateList = () => {
-    // 카테고리별 필터링
     const filtered = filterRestaurants(restaurantData, selectedCategory);
-    // 정렬
-    // 렌더링
-    renderRestaurants(restaurantList, filtered);
+    const sorted = sortRestaurants(filtered, selectedSorting);
+    renderRestaurants(restaurantList, sorted);
   }
 
   categoryFilter.addEventListener("change", (e) => {
     selectedCategory = (e.target as HTMLSelectElement)?.value || selectedCategory;
+    updateList();
+  });
+
+  sortingFilter.addEventListener("change", (e) => {
+    selectedSorting = (e.target as HTMLSelectElement)?.value || selectedSorting;
     updateList();
   });
 

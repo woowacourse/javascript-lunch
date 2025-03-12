@@ -20,7 +20,8 @@ export const addRestaurant = (data: RestaurantProps): void => {
     categoryIcon,
     categoryTitle: data.category,
     name: data.name,
-    distance: `캠퍼스부터 ${data.distance}분 내`,
+    distance: data.distance,
+    distanceCaption: `캠퍼스부터 ${data.distance}분 내`,
     description: data.description,
   };
   const restaurantList = document.querySelector(".restaurant-list");

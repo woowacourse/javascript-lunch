@@ -2,11 +2,12 @@ type RestaurantItemProps = {
   categoryIcon: string;
   categoryTitle: string;
   name: string;
-  distance: string;
+  distance: number;
+  distanceCaption: string;
   description: string;
 }
 
-const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, description }: RestaurantItemProps): HTMLLIElement => {
+const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, distanceCaption, description }: RestaurantItemProps): HTMLLIElement => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
 
@@ -33,7 +34,7 @@ const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, descript
 
   const restaurantDistance = document.createElement("span");
   restaurantDistance.classList.add("restaurant__distance", "text-body");
-  restaurantDistance.innerText = distance;
+  restaurantDistance.innerText = distanceCaption;
   info.appendChild(restaurantDistance);
 
   const restaurantDescription = document.createElement("p");
