@@ -23,12 +23,14 @@ import {
   createSelect,
   createTextarea,
 } from './components/index.js';
+import storeService from './database/storeService.js';
 
 addEventListener('load', () => {
   appendHeader();
   appendTabs();
   appendItemsController();
   initRestaurantItems();
+  appendRestaurantItems();
   appendModal();
   appendModalContents();
 
@@ -131,10 +133,16 @@ function appendModalButton(form) {
 }
 
 function initRestaurantItems() {
-  const ul = document.querySelector('.restaurant-list');
-  const items = RESTAURANTS.map((restaurant) => {
+  RESTAURANTS.forEach((restaurant) => {
+    storeService.updateRestaurantByName(restaurant.name, restaurant);
     return createRestaurantItem(restaurant);
-  }).join('');
+  });
+}
+
+function appendRestaurantItems() {
+  const ul = document.querySelector('.restaurant-list');
+  const data = storeService.getRestaurants();
+  const items = data.map((restaurant) => createRestaurantItem(restaurant)).join('');
 
   ul.insertAdjacentHTML('beforeend', items);
 }
