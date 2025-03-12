@@ -2,15 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./public/favicon.png" />
-    <link rel="stylesheet" href="./src/styles/index.css">
-    <link rel="stylesheet" href="./src/styles/reset.css">
+    <link rel="stylesheet" href="./src/styles/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>점심 뭐 먹지</title>
   </head>
   <body>
-    <div id="app" class="flex justify-center items-center"></div>
-    <div id="bottom-sheet"></div>
+    <div id="app">
+          <!-- GNB -->
+      <div class="container">
+        <div class="layout">
+
+          <header class="gnb">
+            <h1 id="title-logo" class="gnb__title text-title" data-action="reload">점심 뭐 먹지</h1>
+            <button type="button" class="gnb__button" aria-label="음식점 추가" id="openStoreModalBtn" data-action="showStoreAddModal">
+              <img src="./public/images/add-button.png" alt="음식점 추가">
+            </button>
+          </header>
+          <main>
+              <!-- 음식점 목록 -->
+              <section id="restaurantListSection" class="restaurant-list-container"></section>
+              </section>
+            </main>
+          
+          </div>
+      </div>
+          <div id="modalBackground" data-action="removeModal">
+        </div>
+    </div>
     <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/utils/ClickEvent.js"></script>
+    <script type="module" src="./src/utils/SubmitEvent.js"></script>
   </body>
 </html>
