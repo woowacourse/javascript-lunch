@@ -1,8 +1,8 @@
 import createElement from "../utils/createElement";
 
-const Select = ({ tag, name = "", id = "", classList = [], options }) => {
+const Select = ({ name = "", id = "", classList = [], options }) => {
   const select = createElement({
-    tag,
+    tag: "select",
     name,
     id,
     classList,

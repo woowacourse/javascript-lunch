@@ -1,4 +1,5 @@
 import { title } from "../constants/inputTitle.js";
+import createElement from "../utils/createElement.js";
 
 const getOptionValue = (name, option) => {
   if (name === "distance") {
@@ -9,8 +10,10 @@ const getOptionValue = (name, option) => {
 };
 
 const OptionInput = (name, options) => {
-  const formItem = document.createElement("div");
-  formItem.classList.add("form-item", "form-item--required");
+  const formItem = createElement({
+    type: "div",
+    classList: ["form-item", "form-item--required"],
+  });
 
   formItem.innerHTML = `
   <label for="${name}">${title[name]}</label>

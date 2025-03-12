@@ -1,4 +1,5 @@
 import IMG_SRC from "../constants/imgSrc";
+import createElement from "../utils/createElement";
 
 const Header = (title) => {
   return `<h1 class="gnb__title text-title">${title}</h1>

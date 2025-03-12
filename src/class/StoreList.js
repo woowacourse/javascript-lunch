@@ -1,6 +1,8 @@
 class StoreList {
   #list;
   #filteredList;
+  #filterCategory;
+  #sortBy;
 
   constructor(data) {
     this.#list = data;
@@ -8,6 +10,8 @@ class StoreList {
       a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
     );
     this.#filteredList = data;
+    this.#filterCategory = "전체";
+    this.#sortBy = "name";
   }
 
   get list() {
@@ -20,11 +24,14 @@ class StoreList {
 
   updateList(store) {
     this.#list.push(store);
+    this.filterStoreList(this.#filterCategory);
+    this.sortStoreList(this.#sortBy);
   }
 
   filterStoreList(category) {
     if (category === "전체") this.#filteredList = this.#list;
     else this.#filteredList = this.#list.filter((l) => l.category === category);
+    this.#filterCategory = category;
   }
 
   sortStoreList(sortBy) {
@@ -32,9 +39,9 @@ class StoreList {
       this.#filteredList.sort((a, b) =>
         a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
       );
-    console.log(this.#filteredList);
     if (sortBy === "distance")
       this.#filteredList.sort((a, b) => a.dist - b.dist);
+    this.#sortBy = sortBy;
   }
 }
 

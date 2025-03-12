@@ -1,11 +1,15 @@
-const Modal = () => {
-  const modal = document.createElement("div");
-  const modalBackdrop = document.createElement("div");
-  const modalContainer = document.createElement("div");
+import createElement from "../utils/createElement.js";
 
-  modal.classList.add("modal");
-  modalBackdrop.classList.add("modal-backdrop");
-  modalContainer.classList.add("modal-container");
+const Modal = () => {
+  const modal = createElement({ tag: "div", classList: ["modal"] });
+  const modalBackdrop = createElement({
+    tag: "div",
+    classList: ["modal-backdrop"],
+  });
+  const modalContainer = createElement({
+    tag: "div",
+    classList: ["modal-container"],
+  });
 
   modal.appendChild(modalBackdrop);
   modal.appendChild(modalContainer);

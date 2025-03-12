@@ -1,0 +1,52 @@
+import Header from "../components/Header.js";
+import Modal from "../components/Modal.js";
+import Select from "../components/Select.js";
+import options from "../constants/options.js";
+import storeData from "../data/storeData.js";
+import StoreList from "../class/StoreList.js";
+import storeRederer from "./storeRenderer.js";
+import querySelector from "../utils/querySelector.js";
+
+const initRenderer = {
+  setHeader: (title) => {
+    const header = querySelector(".header");
+    header.innerHTML = Header(title);
+  },
+
+  setRestaurantFilter: () => {
+    const categorySelect = Select({
+      tag: "select",
+      name: "category",
+      id: "category-filter",
+      classList: ["restaurant-filter"],
+      options: options.sortCategory,
+    });
+
+    querySelector(".restaurant-filter-container").appendChild(categorySelect);
+
+    const sortSelect = Select({
+      tag: "select",
+      name: "sorting",
+      id: "sorting-filter",
+      classList: ["restaurant-filter"],
+      options: options.sortFilter,
+    });
+
+    querySelector(".restaurant-filter-container").appendChild(sortSelect);
+  },
+
+  setStoreList: () => {
+    const storeList = new StoreList(storeData);
+    storeList.list.forEach((store) => {
+      storeRederer.addStore(store);
+    });
+    return storeList;
+  },
+
+  setModal: () => {
+    const modal = Modal();
+    querySelector("main").appendChild(modal);
+  },
+};
+
+export default initRenderer;

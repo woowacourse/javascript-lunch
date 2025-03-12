@@ -1,50 +1,37 @@
 import querySelector from "./utils/querySelector.js";
-import StoreList from "./StoreList.js";
-import storeData from "./storeData.js";
+import StoreList from "./class/StoreList.js";
+import storeData from "./data/storeData.js";
 import Modal from "./components/Modal.js";
-import { headerUtils, modalUtils, storeUtils } from "./utils/utilsUI.js";
 import Select from "./components/Select.js";
 import options from "./constants/options.js";
-import { restaurantFilter } from "./setMain.js";
+import initRenderer from "./render/initRenderer.js";
+import storeRenderer from "./render/storeRenderer.js";
+import modalRenderer from "./render/modalRenderer.js";
 
 addEventListener("load", () => {
-  headerUtils.addHeader("오늘 뭐 먹지");
-
-  const storeList = new StoreList(storeData);
-  storeList.list.forEach((store) => {
-    storeUtils.addStore(store);
-  });
-  const modal = Modal();
-  querySelector("main").appendChild(modal);
+  initRenderer.setHeader("오늘 뭐 먹지");
+  initRenderer.setRestaurantFilter();
+  const storeList = initRenderer.setStoreList();
+  initRenderer.setModal();
 
   querySelector(".gnb__button").addEventListener("click", () => {
     querySelector(".modal").classList.add("modal--open");
-    modalUtils.addForm();
+    modalRenderer.addForm();
 
     querySelector(".modal-form").addEventListener("submit", (e) =>
-      storeUtils.updateStore(storeList, e)
+      storeRenderer.updateStore(storeList, e)
     );
   });
 
   querySelector(".modal-backdrop").addEventListener(
     "click",
-    modalUtils.closeModal
+    modalRenderer.closeModal
   );
 
-  restaurantFilter();
-  querySelector("#category-filter").addEventListener("change", (e) => {
-    storeList.filterStoreList(e.target.value);
-    storeUtils.removeStoreElements();
-    storeList.filteredList.forEach((store) => {
-      storeUtils.addStore(store);
-    });
-  });
-
-  querySelector("#sorting-filter").addEventListener("change", (e) => {
-    storeList.sortStoreList(e.target.value);
-    storeUtils.removeStoreElements();
-    storeList.filteredList.forEach((store) => {
-      storeUtils.addStore(store);
-    });
-  });
+  querySelector("#category-filter").addEventListener("change", (e) =>
+    storeRenderer.filterStore(storeList, e)
+  );
+  querySelector("#sorting-filter").addEventListener("change", (e) =>
+    storeRenderer.sortStore(storeList, e)
+  );
 });
