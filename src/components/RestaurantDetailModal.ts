@@ -1,8 +1,8 @@
+import { RestaurantType } from './../lib/types';
 import Component from '../core/Component.ts';
 import Modal from './common/Modal.ts';
 import { Button } from './common/index.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';
-import { RestaurantType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
 
 interface RestaurantDetailModalProps extends RestaurantType {}
@@ -38,9 +38,12 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
                   class="category-icon"
                 />
               </div>
-              ${currentRestaurant?.isLike
-                ? `<img src="images/star_filled.svg" alt="음식점 추가" id="like__button" data-id="${currentRestaurant?.id}" />`
-                : `<img src="images/star.svg" alt="음식점 추가" id="like__button" data-id="${currentRestaurant?.id}" />`}
+              <img
+                src="images/star${currentRestaurant?.isLike ? '_filled' : ''}.svg"
+                alt="음식점 추가"
+                id="like__button"
+                data-id="${currentRestaurant?.id ?? ''}"
+              />
             </div>
             <div class="restaurant__info">
               <div class="restaurant__info--inner">

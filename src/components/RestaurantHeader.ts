@@ -1,4 +1,5 @@
 import Component from '../core/Component.ts';
+import { html } from '../lib/utils.ts';
 
 interface HeaderProps {
   title: string;
@@ -7,7 +8,7 @@ interface HeaderProps {
 
 export default class RestaurantHeader extends Component<null, HeaderProps> {
   template() {
-    return `
+    return html`
       <header class="gnb">
         <h1 class="gnb__title text-title">${this.props?.title ?? ''}</h1>
         <button type="button" class="gnb__button" aria-label="${this.props?.alt ?? ''}">
