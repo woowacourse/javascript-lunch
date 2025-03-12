@@ -39,13 +39,13 @@ const dummy = [
   {
     category: "양식",
     name: "파스타",
-    distance: "캠퍼스부터 10분 내",
+    distance: "캠퍼스부터 5분 내",
     description: "레전드 파스타 맛집",
   },
   {
     category: "일식",
     name: "참치방어스시",
-    distance: "캠퍼스부터 10분 내",
+    distance: "캠퍼스부터 7분 내",
     description: "참치와 방어가 맛있는 참지입니다. 또 가고 싶어요",
   },
 ];
