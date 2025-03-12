@@ -16,20 +16,20 @@ class Restaurants {
     this.#filter();
   }
 
-  pushList(restaurant) {
+  pushList = (restaurant) => {
     this.#restaurants.push(restaurant);
     $("select#category").value = "all";
     this.#filterType.category = "all";
     this.#filter();
-  }
+  };
 
-  changeState(state) {
+  changeState = (state) => {
     const sortType = [...Object.keys(state)];
     const sortState = state[sortType];
 
     this.#filterType[sortType] = sortState;
     this.#filter();
-  }
+  };
 
   #filter() {
     const filtered = this.#filterByCategory();

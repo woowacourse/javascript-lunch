@@ -6,7 +6,7 @@ import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
 
-const ButtonContainer = (onSubmitFailed, restaurantList) => {
+const ButtonContainer = (onSubmitFailed, pushList) => {
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("button-container");
 
@@ -26,7 +26,7 @@ const ButtonContainer = (onSubmitFailed, restaurantList) => {
       style: "button--primary",
       onClick: (e) => {
         try {
-          registerRestaurant(e, restaurantList);
+          registerRestaurant(e, pushList);
         } catch (e) {
           onSubmitFailed(e);
         }
@@ -45,11 +45,11 @@ const closeModal = () => {
   clearError();
 };
 
-const registerRestaurant = (e, restaurantList) => {
+const registerRestaurant = (e, pushList) => {
   e.preventDefault();
 
   const info = getInfo();
-  restaurantList.pushList(new Restaurant(info));
+  pushList(new Restaurant(info));
   $(".modal-backdrop").classList.remove("open");
 
   clearInput("#register-form");

@@ -13,8 +13,8 @@ addEventListener("load", () => {
 
   const restaurantList = new Restaurants();
 
-  $("main").prepend(CategoryAndSortFilter(restaurantList));
-  $("main").prepend(FavoriteTabFilters());
+  $("main").prepend(CategoryAndSortFilter(restaurantList.changeState));
+  $("main").prepend(FavoriteTabFilters(restaurantList.changeState));
 
   $("main").appendChild(
     Modal({
@@ -25,7 +25,7 @@ addEventListener("load", () => {
         "modal-title",
         "text-title"
       ),
-      bodyComponent: RegisterForm(restaurantList),
+      bodyComponent: RegisterForm(restaurantList.pushList),
     })
   );
 });
