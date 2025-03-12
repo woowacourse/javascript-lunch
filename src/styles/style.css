@@ -266,7 +266,7 @@ main::-webkit-scrollbar-thumb:hover {
   margin-bottom: 36px;
 }
 
-.modal-container form {
+.modal-container .modal-form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
