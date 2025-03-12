@@ -97,9 +97,9 @@ export const CATEGORY_FILTER = {
   ]),
 };
 
-export const ITEMS_SORT = {
+export const SORT_SELECTOR = {
   label: '',
-  name: 'items-sort',
+  name: 'sort-selector',
   required: false,
   default: '이름순',
   lists: new Map([['distance', '거리순']]),

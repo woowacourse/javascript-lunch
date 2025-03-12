@@ -9,7 +9,7 @@ import {
   TOTAL_ITEMS_TAB,
   FREQUENT_ITEMS_TAB,
   CATEGORY_FILTER,
-  ITEMS_SORT,
+  SORT_SELECTOR,
 } from './constants.js';
 import { RESTAURANTS } from './database/restaurantData.js';
 import eventHandlers from './eventHandlers.js';
@@ -72,9 +72,9 @@ function appendItemsController() {
 
   const itemsController = document.querySelector('.items-controller');
   const categoryFilter = createSelect(CATEGORY_FILTER);
-  const itemsSort = createSelect(ITEMS_SORT);
+  const sortSelector = createSelect(SORT_SELECTOR);
   itemsController.insertAdjacentHTML('beforeend', categoryFilter);
-  itemsController.insertAdjacentHTML('beforeend', itemsSort);
+  itemsController.insertAdjacentHTML('beforeend', sortSelector);
 }
 
 function addNewRestaurantItem() {

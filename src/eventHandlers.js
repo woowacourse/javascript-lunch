@@ -95,9 +95,9 @@ function resetFormAndState() {
 }
 
 function sortRestaurantItems(restaurantItems, renderer) {
-  const itemsSort = document.querySelector('.items-sort');
+  const sortSelector = document.querySelector('.sort-selector');
 
-  itemsSort.addEventListener('change', (event) => {
+  sortSelector.addEventListener('change', (event) => {
     const sortKey = event.target.value;
     const sortedRestaurants = sortRestaurants(sortKey, restaurantItems);
 

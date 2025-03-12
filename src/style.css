@@ -344,6 +344,6 @@ input[name='link'] {
 }
 
 #category-filter,
-#items-sort {
+#sort-selector {
   color: var(--grey-500);
 }
