@@ -1,6 +1,13 @@
 import { categoryValue } from "../../data/constants.ts";
 import { RestaurantData } from "../../data/RestaurantMockData.ts";
-import { RestaurantInfo } from "../../data/RestaurantType";
+
+interface RestaurantInfo {
+  name: string;
+  distance: number;
+  description: string;
+  imgSrc: string;
+  imgAlt: string;
+}
 
 interface FormDataEntries {
   name: string;
@@ -9,10 +16,8 @@ interface FormDataEntries {
   category: string;
 }
 
-const addData = (): RestaurantInfo | null => {
+const addData = (): RestaurantInfo => {
   const formElement = document.getElementById("input-form") as HTMLFormElement;
-  if (!formElement) return null;
-
   const formData = new FormData(formElement);
   const submittedData = Object.fromEntries(
     formData,
