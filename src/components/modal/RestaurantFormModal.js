@@ -76,7 +76,7 @@ export default function RestaurantFormModal() {
         Select({
           name: "distance",
           id: "distance",
-          options: ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"],
+          options: [5, 10, 15, 20, 30],
           isRequired: true,
         }),
     })
