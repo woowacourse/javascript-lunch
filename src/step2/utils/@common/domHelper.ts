@@ -1,3 +1,8 @@
+export interface Attribute {
+  class: string;
+  [key: string]: string | boolean;
+}
+
 export function $<T extends HTMLElement = HTMLElement>(
   selector: string,
   scope: Document | HTMLElement = document
@@ -13,3 +18,15 @@ export function $$<T extends NodeListOf<Element>>(
   if (!selector) throw new Error('Selector is not selected');
   return scope.querySelectorAll(selector) as T;
 }
+
+export const parseAttribute = (attribute: Attribute) => {
+  return Object.entries(attribute)
+    .map(([key, value]) =>
+      typeof value === 'boolean'
+        ? value === true
+          ? `${key}`
+          : ''
+        : `${key}="${value}"`
+    )
+    .join(' ');
+};

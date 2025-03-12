@@ -1,26 +1,13 @@
-type ButtonStyle = 'primary' | 'secondary';
+import { Attribute, parseAttribute } from '../../utils/@common/domHelper';
 
 interface ButtonProps {
-  style?: ButtonStyle;
-  onClick?: () => void;
   children: string;
-  className?: string;
+  attribute: Attribute;
 }
 
-export const Button = ({
-  style = 'primary',
-  onClick,
-  children,
-  className = '',
-}: ButtonProps) => {
-  const buttonClass = `button button--${style} ${className}`;
-
+export const Button = ({ children, attribute }: ButtonProps) => {
   return `
-    <button 
-      type="button"
-      class="${buttonClass} text-caption"
-      onclick="${onClick}"
-    >${children}</button>
+    <button ${attribute ? parseAttribute(attribute) : ''}>${children}</button>
   `;
 };
 
