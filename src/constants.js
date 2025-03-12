@@ -4,7 +4,7 @@ export const CATEGORY = {
   required: true,
   lists: new Map([
     [null, '선택해주세요'],
-    [('KOREAN', '한식')],
+    ['KOREAN', '한식'],
     ['CHINESE', '중식'],
     ['JAPANESE', '일식'],
     ['WESTERN', '양식'],
