@@ -1,4 +1,4 @@
-import addRequired from "../utils/required.js";
+import { addRequired } from "./AddLunchModalForm.js";
 import toElement from "../utils/toElement.js";
 
 function InputForm({ id, label, required, bottomDescription }) {

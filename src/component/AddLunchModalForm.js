@@ -1,4 +1,3 @@
-
 import Modal from "./Modal.js";
 import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
@@ -8,6 +7,7 @@ import { Validator } from "../validator/Validator.js";
 import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
+import RestaurantList from "./RestaurantList.js";
 
 const CATEGORY_ICON = {
   한식: "./category-korean.png",
@@ -17,6 +17,10 @@ const CATEGORY_ICON = {
   아시안: "./category-asian.png",
   기타: "./category-etc.png",
 };
+
+export function addRequired(element, required) {
+  if (required) element.classList.add("form-item--required");
+}
 
 function AddLunchModalForm(restaurantList, modalId) {
   const $modalForm = toElement(`

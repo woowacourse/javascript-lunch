@@ -1,12 +1,9 @@
 import Modal from "./component/Modal.js";
-import LunchInfoCard from "./component/LunchInfoCard.js";
 import Header from "./component/Header.js";
 import AddLunchModalForm from "./component/AddLunchModalForm.js";
 import IconButton from "./component/IconButton.js";
-import append from "./utils/append.js";
 import RestaurantList from "./component/RestaurantList.js";
 import MOCK_ITEM from "./mockItem.js";
-
 import { $ } from "./utils/querySelectors.js";
 
 $("body").prepend(
@@ -19,8 +16,11 @@ $("body").prepend(
   )
 );
 
-const restaurantList = new RestaurantList(MOCK_ITEM.restaurantList);
-restaurantList.$restaurantList;
+const restaurantList = new RestaurantList(
+  "toalRestaurantList",
+  MOCK_ITEM.restaurantList
+);
+
 $("main").append(
   new Modal("addLunchModal", AddLunchModalForm(restaurantList, "addLunchModal"))
 );
