@@ -179,6 +179,10 @@ body {
   display: none;
 }
 
+.restaurant-detail-modal {
+  display: none;
+}
+
 .modal--open {
   display: block;
 }

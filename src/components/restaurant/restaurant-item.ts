@@ -1,4 +1,5 @@
 type RestaurantItemProps = {
+  dataId: number;
   categoryIcon: string;
   categoryTitle: string;
   name: string;
@@ -7,9 +8,10 @@ type RestaurantItemProps = {
   description: string;
 }
 
-const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, distanceCaption, description }: RestaurantItemProps): HTMLLIElement => {
+const $restaurantItem = ({ dataId, categoryIcon, categoryTitle, name, distance, distanceCaption, description }: RestaurantItemProps): HTMLLIElement => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
+  restaurantItem.setAttribute("data-id", dataId.toString());
 
   // 아이콘
   const category = document.createElement("div");

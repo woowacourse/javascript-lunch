@@ -1,5 +1,6 @@
 import $form from "../form-elements/form.ts";
 import $restaurantItem from "../restaurant/restaurant-item.ts";
+import { restaurantData } from "../../data/restaurant.ts";
 import { CATEGORY_ICON } from "../../constants/iconPath.ts";
 
 export type RestaurantProps = {
@@ -7,6 +8,7 @@ export type RestaurantProps = {
   name: string;
   distance: number;
   description: string;
+  link: string;
 };
 
 type ModalProps = {
@@ -15,14 +17,20 @@ type ModalProps = {
 
 export const addRestaurant = (data: RestaurantProps): void => {
   handleModalClose();
+  const lastId = restaurantData.length > 0 
+    ? Math.max(...restaurantData.map((r) => r.dataId)) 
+    : 0;
+  const newId = lastId + 1;
   const categoryIcon = CATEGORY_ICON[data.category];
   const newRestaurant = {
+    dataId: newId,
     categoryIcon,
     categoryTitle: data.category,
     name: data.name,
     distance: data.distance,
     distanceCaption: `캠퍼스부터 ${data.distance}분 내`,
     description: data.description,
+    link: data.link,
   };
   const restaurantList = document.querySelector(".restaurant-list");
   if (!restaurantList) return;

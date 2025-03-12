@@ -10,6 +10,8 @@ import { FORM_FIELDS } from "./constants/formFields.ts";
 import { FILTERS } from "./constants/filters.ts";
 import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
 import { renderRestaurants } from "./utils/renderUtils.ts";
+import $restaurantDetailModal from "./components/modal/restaurant-detail-modal.ts";
+import { handleRestaurantDetailModalOpen } from "./components/modal/restaurant-detail-modal.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
@@ -40,7 +42,22 @@ addEventListener("load", () => {
     const filtered = filterRestaurants(restaurantData, selectedCategory);
     const sorted = sortRestaurants(filtered, selectedSorting);
     renderRestaurants(restaurantList, sorted);
-  }
+  };
+
+  restaurantList.addEventListener("click", (e) => {
+    const target = (e.target as HTMLElement).closest(".restaurant");
+    if (!target) return;
+
+    const restaurantId = target.getAttribute("data-id");
+    if (!restaurantId) return;
+
+    const restaurant = restaurantData.find((r) => r.dataId.toString() === restaurantId);
+    if (!restaurant) return;
+
+    const modal = $restaurantDetailModal(restaurant);
+    document.body.appendChild(modal);
+    handleRestaurantDetailModalOpen();
+  });
 
   categoryFilter.addEventListener("change", (e) => {
     selectedCategory = (e.target as HTMLSelectElement)?.value || "";

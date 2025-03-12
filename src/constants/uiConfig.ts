@@ -1,4 +1,5 @@
 import { handleModalClose } from "../components/modal/modal.ts";
+import { handleRestaurantDetailModalClose } from "../components/modal/restaurant-detail-modal.ts";
 import { handleAddRestaurant } from "../components/form-elements/form.ts";
 
 type HeaderConfig = {
@@ -19,6 +20,8 @@ type UIConfig = {
   BUTTONS: {
     CANCEL: ButtonConfig,
     ADD: ButtonConfig,
+    DELETE: ButtonConfig,
+    CLOSE: ButtonConfig,
   };
 };
 
@@ -44,6 +47,23 @@ export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
       text: "추가하기",
       type: "submit" as const,
       event: handleAddRestaurant,
+      className: ["button", "button--primary", "text-caption", "add-button"],
+    },
+    DELETE: {
+      text: "삭제하기",
+      type: "button" as const,
+      event: handleRestaurantDetailModalClose,
+      className: [
+        "button",
+        "button--secondary",
+        "text-caption",
+        "cancel-button",
+      ],
+    },
+    CLOSE: {
+      text: "닫기",
+      type: "button" as const,
+      event: handleRestaurantDetailModalClose,
       className: ["button", "button--primary", "text-caption", "add-button"],
     },
   }),
