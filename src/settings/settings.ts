@@ -27,8 +27,11 @@ export const ERROR_MESSAGE = {
   INVALID_RESTAURANT_DISTANCE: "음식점 거리가 유효하지 않습니다.",
   INVALID_RESTAURANT_DESCRIPTION_LENGTH: `음식점 설명은 ${RESTAURANT_FIELD_LENGTH.description.max}이하만 가능합니다.`,
   INVALID_RESTAURANT_LINK_LENGTH: `움식점 링크는 ${RESTAURANT_FIELD_LENGTH.link.max}이하만 가능합니다.`,
-  DUPLICATE_RESTAURANT: `이미 동일한 이름의 음식점이 있습니다. 다른 음식점을 입력해주세요.`,
-  INVALID_DEFAULT_RESTAURANT: `초기 레스토랑 값이 올바르지 않습니다. 초기 레스토랑 값을 체크해보세요.`,
+  DUPLICATE_RESTAURANT:
+    "이미 동일한 이름의 음식점이 있습니다. 다른 음식점을 입력해주세요.",
+  INVALID_DEFAULT_RESTAURANT:
+    "초기 레스토랑 값이 올바르지 않습니다. 초기 레스토랑 값을 체크해보세요.",
+  NO_RESTAURANT_FOUND: "해당 레스토랑이 없습니다. 이미 지워진것 일수 있어요.",
 } as const;
 
 export const INITIAL_RESTAURANT = [
@@ -123,3 +126,17 @@ export const INITIAL_RESTAURANT = [
     link: "https://bbqchicken.com",
   },
 ] as const;
+export const DICTIONARY = {
+  name: "이름",
+  distance: "거리",
+  all: "모든 음식점",
+  favorite: "자주 가는 음식점",
+  전체: "전체",
+  ...FOOD_CATEGORY.reduce(
+    (acc, category) => ({
+      ...acc,
+      [category.value]: category.text,
+    }),
+    {}
+  ),
+} as const;
