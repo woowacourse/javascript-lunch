@@ -10,4 +10,5 @@ export const filterRestaurants = (category: string) => {
   }
   localStorage.setItem("selectedCategory", category);
   createRestaurant(filteredData);
+  return filteredData;
 };

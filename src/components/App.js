@@ -2,6 +2,7 @@ import Header from "./Header/Header.js";
 import { createRestaurant, updateRestaurant } from "./createRestaurant.js";
 import Component from "./Component.js";
 import { filterRestaurants } from "../domain/filterRestaurants.js";
+import { sortRestaurants } from "../domain/sortRestaurants.js";
 class App extends Component {
   constructor($target) {
     super($target);
@@ -20,8 +21,13 @@ class App extends Component {
     const categoryFilter = document.getElementById("category-filter");
     categoryFilter.addEventListener("change", (event) => {
       const selectedCategory = event.target.value;
-      console.log(selectedCategory);
       filterRestaurants(selectedCategory);
+    });
+
+    const sortingFilter = document.getElementById("sorting-filter");
+    sortingFilter.addEventListener("change", (event) => {
+      const selectedSort = event.target.value;
+      sortRestaurants(selectedSort);
     });
   }
 }

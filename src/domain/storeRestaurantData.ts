@@ -65,6 +65,8 @@ const RestaurantData: RestaurantInfo[] = [
 
 export function initializeRestaurantData(): void {
   const storedData = localStorage.getItem("restaurantData");
+  localStorage.setItem("selectedCategory", "전체");
+  localStorage.setItem("sortType", "name");
 
   if (!storedData) {
     localStorage.setItem("restaurantData", JSON.stringify(RestaurantData));
