@@ -7,28 +7,38 @@ import { TAB } from './constants/restaurantTypes';
 import useModal from './hooks/useModal';
 import useTab from './hooks/useTab';
 import RESTAURANT_INFO from './mocks/restaurantInfo';
-import { Category } from './types/restaurants';
+import { Category, Sorting } from './types/restaurants';
 import { useState } from './utils/core/Core';
 
 function App() {
   const [isModalOpen, openModal, closeModal] = useModal(false);
   const [tab, setTabAll, setTabFavorite] = useTab(TAB.ALL);
   const [category, setCategory] = useState<Category>('전체');
+  const [sorting, setSorting] = useState<Sorting>('name');
 
   const handleCategoryChange = (selectedCategory: Category) => {
     console.log('selectedCategory', selectedCategory);
     setCategory(selectedCategory);
   };
 
-  // 필터링된 레스토랑 목록 가져오기
+  const handleSortChange = (selectedSort: Sorting) => {
+    setSorting(selectedSort);
+  };
+
   const getFilteredRestaurants = () => {
-    console.log('category', category);
-    if (category === '전체') {
-      return RESTAURANT_INFO;
-    }
-    return RESTAURANT_INFO.filter(
-      (restaurant) => restaurant.category === category
-    );
+    let filtered =
+      category === '전체'
+        ? RESTAURANT_INFO
+        : RESTAURANT_INFO.filter(
+            (restaurant) => restaurant.category === category
+          );
+
+    return filtered.sort((a, b) => {
+      if (sorting === 'name') {
+        return a.name.localeCompare(b.name);
+      }
+      return a.distance - b.distance;
+    });
   };
 
   const filteredRestaurants = getFilteredRestaurants();
@@ -42,7 +52,10 @@ function App() {
           handleCategoryChange,
           category,
         })}
-        ${SortingSelect()}
+        ${SortingSelect({
+          handleSortChange,
+          sorting,
+        })}
       </section>
       ${filteredRestaurants
         .map((restaurant) => Restaurant(restaurant))
