@@ -1,4 +1,4 @@
-interface Restaurant {
+export interface Restaurant {
   id: string;
   category: string;
   name: string;
@@ -61,22 +61,3 @@ export const restaurants: Restaurant[] = [
     link: "https://naver.me/Gn0yLQ8K",
   },
 ];
-
-export function filterAndSortRestaurants(
-  baseRestaurants: Restaurant[],
-  category: string,
-  sorting: string
-): Restaurant[] {
-  let filtered = [...baseRestaurants];
-  if (category !== "전체") {
-    filtered = filtered.filter((r) => r.category === category);
-  }
-
-  if (sorting === "distance") {
-    filtered.sort((a, b) => a.distance - b.distance);
-  } else {
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  return filtered;
-}
