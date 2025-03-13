@@ -4,7 +4,7 @@ import { SaveFavoriteRestaurantInModal } from "./SaveFavoriteRestaurant";
 
 export default function RestaurantDetailModal() {
   const $app = document.getElementById("app");
-  const $restaurant = document.querySelectorAll(".restaurant");
+  const $restaurant = document.querySelectorAll(".restaurant__name-distance");
 
   $restaurant.forEach((restaurant) => {
     restaurant.addEventListener("click", (e) => {
