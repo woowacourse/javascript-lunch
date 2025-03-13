@@ -1,4 +1,4 @@
-import RULES from "../constants/rules";
+import RULES from "../../constants/rules";
 
 class FilterBar {
   #$target;
@@ -27,7 +27,7 @@ class FilterBar {
   #template() {
     return /*html*/ `
     <section class="restaurant-filter-container">
-      <select name="category" id="category-filter" class="restaurant-filter" data-testid="category">
+      <select name="category" id="category-filter" class="restaurant-filter" data-testid="category-filter">
         <option value="전체">전체</option>
         ${this.#options()}
       </select>
