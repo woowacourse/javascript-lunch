@@ -34,30 +34,42 @@ function openRestaurantInfoModal(callback) {
 }
 
 function closeModal() {
-  const closeButton = document.querySelector('.button--secondary');
-  const modalBackdrop = document.querySelector('.modal-backdrop');
+  const closeButtons = document.querySelectorAll('.button--secondary');
+  const modalBackdrops = document.querySelectorAll('.modal-backdrop');
 
-  closeButton.addEventListener('click', () => {
-    const modal = document.querySelector('.modal');
-
-    resetFormAndState();
-    modal.classList.remove('modal--open');
-  });
-
-  modalBackdrop.addEventListener('click', () => {
-    const modal = document.querySelector('.modal');
+  const handleCloseButtonClick = (event) => {
+    const targetModal = event.target.closest('.modal');
 
     resetFormAndState();
-    modal.classList.remove('modal--open');
-  });
+    targetModal.classList.remove('modal--open');
+  };
 
-  document.addEventListener('keydown', (event) => {
-    const modal = document.querySelector('.modal');
-    if (event.key === 'Escape' && modal.classList.contains('modal--open')) {
+  const handleBackdropClick = (event) => {
+    const targetModal = event.target.closest('.modal');
+
+    resetFormAndState();
+    targetModal.classList.remove('modal--open');
+  };
+
+  const handleEscapeKeydown = (event) => {
+    const openedModals = document.querySelectorAll('.modal--open');
+    if (event.key === 'Escape' && openedModals.length > 0) {
       resetFormAndState();
-      modal.classList.remove('modal--open');
+
+      const targetModal = openedModals.pop();
+      targetModal.classList.remove('modal--open');
     }
+  };
+
+  closeButtons.forEach((closeButton) => {
+    closeButton.addEventListener('click', handleCloseButtonClick);
   });
+
+  modalBackdrops.forEach((modalBackdrop) => {
+    modalBackdrop.addEventListener('click', handleBackdropClick);
+  });
+
+  document.addEventListener('keydown', handleEscapeKeydown);
 }
 
 function readNewRestaurant() {
