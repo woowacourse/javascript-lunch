@@ -18,4 +18,9 @@ function event() {
   $button.addEventListener("click", () => {
     Modal(RestaurantFormModal);
   });
+
+  const $restaurant = document.querySelector(".restaurant");
+  $restaurant.addEventListener("click", () => {
+    Modal();
+  })
 }
