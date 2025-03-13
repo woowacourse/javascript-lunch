@@ -1,4 +1,4 @@
-import FilterBar from "./FilterBar.js";
+import FilterBar from "./index.js";
 
 class FilterBarManager {
   #selectedCategory = "전체";

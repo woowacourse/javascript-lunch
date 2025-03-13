@@ -1,4 +1,4 @@
-import RestaurantList from "./RestaurantList.js";
+import RestaurantList from "./index.js";
 import {
   filterAndSortRestaurants,
   toggleFavorite,
