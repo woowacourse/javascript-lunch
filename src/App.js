@@ -3,6 +3,7 @@ import RestaurantList from "./components/restaurantListSection/restaurantList/Re
 import BottomSheetBase from "./components/common/bottomSheetBase/BottomSheetBase.js";
 import RestaurantForm from "./components/restaurantFormSection/restaurantForm/RestaurantForm.js";
 import RestaurantListModel from "./domain/RestaurantListModel.js";
+import RestaurantNavigator from "./components/restaurantListSection/restaurantNavigator/RestaurantNavigator.js";
 
 export default class App {
   constructor() {
@@ -20,9 +21,9 @@ export default class App {
     this.#resetForm();
   }
 
-  updateRestautantList(newRestaurantList) {
+  updateRestautantList = (newRestaurantList) => {
     this.restaurantListModel.updateRestautantList(newRestaurantList);
-  }
+  };
 
   #resetForm() {
     const $addButton = document.querySelector(".button--primary");
@@ -33,7 +34,8 @@ export default class App {
 
   #renderRestaurantList() {
     const $listContainer = document.querySelector(".restaurant-list-container");
-    this.$main.replaceChild(
+
+    this.$listSection.replaceChild(
       new RestaurantList(this.restaurantListModel.getRestaurantList()).render(),
       $listContainer
     );
@@ -43,19 +45,29 @@ export default class App {
     const $body = document.querySelector("body");
     $body.appendChild(new Header().render());
 
-    this.$main = document.createElement("main");
-    $body.appendChild(this.$main);
+    const $main = document.createElement("main");
+    $body.appendChild($main);
 
-    this.$main.appendChild(
+    this.$listSection = document.createElement("div");
+    this.$listSection.className = "list-section";
+
+    const $listHeader = new RestaurantNavigator(
+      this.restaurantListModel.getRestaurantList(),
+      this.#updateList
+    ).render();
+
+    this.$listSection.append(
+      $listHeader,
       new RestaurantList(this.restaurantListModel.getRestaurantList()).render()
     );
+    $main.appendChild(this.$listSection);
 
     const $restaurantForm = new RestaurantForm(
       this.#updateList,
       this.restaurantListModel.getRestaurantList()
     ).render();
 
-    this.$main.appendChild(
+    $main.appendChild(
       new BottomSheetBase({
         title: "새로운 음식점",
         $children: $restaurantForm,
