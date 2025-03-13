@@ -19,10 +19,12 @@ export default class FoodList {
     this.#foodItems.forEach((foodItem) => {
       foodFragment.appendChild(
         new FoodItem({
+          id: foodItem.id,
           category: foodItem.category,
           name: foodItem.name,
           distance: foodItem.distance,
           description: foodItem.description,
+          isFavorite: foodItem.isFavorite,
         }).element,
       );
     });

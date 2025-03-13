@@ -8,15 +8,6 @@ export function FoodListPage() {
   const body = document.querySelector("body");
   body.innerHTML = "";
 
-  body.appendChild(
-    Header({ title: "점심 뭐 먹지?", onAddClick: () => modal.open() }),
-  );
-
-  const foodItems = getStoredFoodItems();
-
-  const foodList = new FoodList({ foodItems: foodItems });
-  body.appendChild(foodList.element);
-
   const modal = new Modal({
     content: new FoodForm({
       onSubmit: (formData) => {
@@ -25,4 +16,14 @@ export function FoodListPage() {
       },
     }).element,
   });
+
+  body.appendChild(
+    Header({ title: "점심 뭐 먹지?", onAddClick: () => modal.open() }),
+  );
+
+  const foodItems = getStoredFoodItems();
+  console.log(foodItems);
+
+  const foodList = new FoodList({ foodItems: foodItems });
+  body.appendChild(foodList.element);
 }

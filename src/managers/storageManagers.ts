@@ -1,25 +1,24 @@
-export function storeFoodItems(foodItems: FoodItemProps) {
-  localStorage.setItem("foodItem", JSON.stringify(foodItems));
+export function storeFoodItems(foodItem: FoodItemProps) {
+  localStorage.setItem("foodItems", JSON.stringify(foodItem));
 }
 
 export function getStoredFoodItems() {
-  const storedItems = localStorage.getItem("foodItem");
-  if (storedItems) {
-    return JSON.parse(storedItems);
-  }
+  const storedItems = localStorage.getItem("foodItems");
+  if (storedItems) return JSON.parse(storedItems);
 
   return [];
 }
 
-export function storeFavoriteItems(foodItems: FoodItemProps) {
-  localStorage.setItem("favoriteItem", JSON.stringify(foodItems));
+export function getStoredCount() {
+  return getStoredFoodItems().length;
 }
 
-export function getStoredFavoriteItems() {
-  const storedItems = localStorage.getItem("favoriteItem");
-  if (storedItems) {
-    return JSON.parse(storedItems);
-  }
-
-  return [];
+export function toggleFavorite(id: number) {
+  const resultItems = getStoredFoodItems().map((foodItem: FoodItemProps) => {
+    if (foodItem.id === id) {
+      return { ...foodItem, isFavorite: !foodItem.isFavorite };
+    }
+    return foodItem;
+  });
+  storeFoodItems(resultItems);
 }

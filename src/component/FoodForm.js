@@ -108,8 +108,13 @@ export default class FoodForm {
   }
   getFormInputs() {
     const formData = new FormData(this.container);
+    const formObject = Object.fromEntries(formData.entries());
 
-    return Object.fromEntries(formData.entries());
+    return {
+      ...formObject,
+      id: crypto.randomUUID(),
+      isFavorite: false,
+    };
   }
   validateFoodForm(formData) {
     validateRequiredInput(formData.category);

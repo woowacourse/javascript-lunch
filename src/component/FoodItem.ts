@@ -1,27 +1,38 @@
+import { toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 
 export default class FoodItem {
   container!: HTMLElement;
 
-  #category;
-  #name;
-  #distance;
-  #description;
+  #id: number;
+  #category: Category;
+  #name: string;
+  #distance: Distance;
+  #description: string;
 
-  #isClick = false;
+  #isFavorite;
 
-  constructor({ category, name, distance, description }: FoodItemProps) {
+  constructor({
+    id,
+    category,
+    name,
+    distance,
+    description,
+    isFavorite,
+  }: FoodItemProps) {
+    this.#id = id;
     this.#category = category;
     this.#name = name;
     this.#distance = distance;
     this.#description = description;
+    this.#isFavorite = isFavorite;
 
     this.render();
     this.handleIsClick();
   }
 
   getBookmarkIconSrc() {
-    if (this.#isClick) {
+    if (this.#isFavorite) {
       return "/favorite-icon-filled.png";
     }
     return "/favorite-icon-lined.png";
@@ -32,8 +43,10 @@ export default class FoodItem {
     if (!bookmarkIcon) return;
 
     bookmarkIcon.addEventListener("click", () => {
-      this.#isClick = !this.#isClick;
+      this.#isFavorite = !this.#isFavorite;
       bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
+
+      toggleFavorite(this.#id);
     });
   }
 
