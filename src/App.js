@@ -68,7 +68,7 @@ class App extends Component {
         iconImageSource: "./icons/add-button.png",
         alt: "음식점 추가",
       },
-      buttonCallback: { openModal },
+      buttonCallback: openModal,
     });
 
     this.renderRestaurantList();

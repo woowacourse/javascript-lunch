@@ -17,7 +17,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    const { openModal } = this.props.buttonCallback;
+    const openModal = this.props.buttonCallback;
 
     const $gnbButton = $(".gnb__button");
     $gnbButton.addEventListener("click", openModal);
