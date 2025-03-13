@@ -1,6 +1,6 @@
 import { CATEGORIES } from "../../constants/constants";
 import { restaurantsData } from "../../constants/restaurantsMockData";
-import renderRestaurantElement from "../RestaurantItem/RestaurantItem";
+import renderRestaurantElement from "../../Restaurant/RestaurantItem";
 
 const createCategoryFilter = () => {
   const addrestaurant_filter_container = document.querySelector(

@@ -1,6 +1,6 @@
-import { restaurantsData } from "../../constants/restaurantsMockData.js";
-import validateRestaurant from "../../validators/validateRestaurant.js";
-import renderRestaurantElement from "../RestaurantItem/RestaurantItem.js";
+import { restaurantsData } from "../constants/restaurantsMockData.js";
+import validateRestaurant from "../validators/validateRestaurant.js";
+import renderRestaurantElement from "./RestaurantItem.js";
 import "./RestaurantForm.css";
 
 export default class RestaurantForm {

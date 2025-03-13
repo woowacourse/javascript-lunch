@@ -1,11 +1,11 @@
 import Modal from "./components/Modal/Modal.js";
-import RestaurantForm from "./components/RestaurantForm/RestaurantForm.js";
+import RestaurantForm from "./Restaurant/RestaurantForm.js";
 import createHeader from "./components/\bHeader/Header.js";
-import renderRestaurantElement from "./components/RestaurantItem/RestaurantItem.js";
+import renderRestaurantElement from "./Restaurant/RestaurantItem.js";
 import { restaurantsData } from "./constants/restaurantsMockData.js";
 import createCategoryFilter from "./components/Filter/CategoryFilter.js";
 import createSortFilter from "./components/Filter/SortFilter.js";
-import createRestaurantList from "./components/RestaurantList/RestaurantList.js";
+import createRestaurantList from "./Restaurant/RestaurantList.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
