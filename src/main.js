@@ -1,6 +1,7 @@
 import { IconButton } from "./component/button/IconButton.js";
 import { FoodForm } from "./component/FoodForm.js";
 import { Modal } from "./component/layout/Modal.js";
+import { Filter } from "./domain/Filter.js";
 import {
   getStorageFoodList,
   saveInitFoodList,
@@ -14,8 +15,13 @@ addEventListener("load", () => {
     onClick: Modal.open,
   });
 
-  const foodListPage = new FoodListPage("점심 뭐 먹지", AddFoodItemIcon);
+  const filter = new Filter();
+  const foodListPage = new FoodListPage(
+    "점심 뭐 먹지",
+    AddFoodItemIcon,
+    filter
+  );
   saveInitFoodList();
 
-  const modal = new Modal(FoodForm());
+  const modal = new Modal(FoodForm(filter));
 });

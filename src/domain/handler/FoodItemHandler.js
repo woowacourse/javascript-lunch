@@ -1,14 +1,16 @@
 import { FoodItem } from "../../component/FoodItem";
 import { Modal } from "../../component/layout/Modal";
 import { foodItems } from "../../mocks/foodItems";
+import { Filter } from "../Filter";
 import { getFormFoodItem } from "./FoodFormHandler";
 
 // CRUD - create : mock Data
 export function saveInitFoodList() {
+  const filter = new Filter();
   if (getStorageFoodList().length === 0) {
     localStorage.setItem("foodList", JSON.stringify(foodItems));
   }
-  const foodList = getStorageFoodList();
+  const foodList = getStorageFoodList().sort((a, b) => filter.sortBy(a, b));
   convertStorageToLocal(foodList);
 }
 
@@ -18,18 +20,19 @@ export function getStorageFoodList() {
 }
 
 // CRUD - update
-export function addFoodItem() {
+export function addFoodItem(filter) {
   const foodItem = getFormFoodItem();
   if (!foodItem) return;
-  updateFoodList(foodItem);
+  updateFoodList(foodItem, filter);
   Modal.close();
 }
 
-function updateFoodList(foodItem) {
+function updateFoodList(foodItem, filter) {
   const foodItems = getStorageFoodList();
   foodItems.push(foodItem);
   saveStorageFoodList(foodItems);
-  const foodList = getStorageFoodList();
+  const foodList = getStorageFoodList().sort((a, b) => filter.sortBy(a, b));
+  filter.reset();
   convertStorageToLocal(foodList);
 }
 
