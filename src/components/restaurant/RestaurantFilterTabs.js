@@ -1,0 +1,39 @@
+import selectedFilterValue from "../../domain/SelectedFilterValue";
+import createElement from "../../util/createElement";
+import Restaurant from "./Restaurant";
+
+export default function RestaurantFilterTabs() {
+    const $restaurantFilterContainer = createElement({
+        tag: "div",
+        classNames: ["restaurant-filter-tabs"],
+    });
+    
+    const $allTab = createElement({
+        tag: "button",
+        classNames: ["restaurant-tab", "all-tab"],
+    });
+
+    const $wishTab = createElement({
+        tag: "button",
+        classNames: ["restaurant-tab", "wish-tab"],
+    });
+
+    $allTab.textContent = "모든 음식점";
+    $wishTab.textContent = "자주 가는 음식점";
+
+    $restaurantFilterContainer.appendChild($allTab);
+    $restaurantFilterContainer.appendChild($wishTab);
+
+    $allTab.addEventListener("click", () => {
+        selectedFilterValue.updateSelectedFilterValue("restaurant-tab", false);
+        Restaurant({isReRender: true})
+    });
+
+    $wishTab.addEventListener("click", () => {
+        selectedFilterValue.updateSelectedFilterValue("restaurant-tab", true);
+        Restaurant({isReRender: true})
+
+    });
+
+    return $restaurantFilterContainer;
+}

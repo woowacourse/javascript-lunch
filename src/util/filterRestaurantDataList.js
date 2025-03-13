@@ -34,5 +34,5 @@ export default function filterRestaurantDataList({restaurantDataList, isWishList
   }
     
   function filterByStar(dataList) {
-    return dataList.filter((data) => data.isStar === true);
+    return dataList.filter((data) => data.isWish === true) || [];    
   }

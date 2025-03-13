@@ -18,8 +18,8 @@ class SelectedFilterValue {
             this.#sorting = value;
         }
 
-        if(id === "restaurant-star") {
-            this.#isWishList = value
+        if(id === "restaurant-tab") {
+            this.#isWishList = value;
         }
     }
 

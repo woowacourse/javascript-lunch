@@ -53,12 +53,11 @@ export default class RestaurantData {
   getId() {
     return this.#id;
   }
-
   
   toggleIsWish() {
     this.#isWish = !this.#isWish;
   }
-
+  
   isValidateOption(value) {
     return !value;
   }

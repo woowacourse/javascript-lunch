@@ -7,6 +7,7 @@ import selectedFilterValue from "../../domain/SelectedFilterValue.js";
 
 import filterRestaurantDataList from "../../util/filterRestaurantDataList.js";
 import reRenderRestaurantListContainer from "../../util/reRenderRestaurantListContainer.js";
+import RestaurantFilterTabs from "./RestaurantFilterTabs.js";
 
 export default function Restaurant({isReRender}) {
   const filteredRestaurantDataList = filterRestaurantDataList({
@@ -17,13 +18,17 @@ export default function Restaurant({isReRender}) {
   
   const $body = document.querySelector("body");
   const $restaurantHeader = RestaurantHeader("점심 뭐 먹지");
+  
+  const $restaurantFilterTabs = RestaurantFilterTabs();
   const $restaurantFilterContainer = RestaurantFilterContainer();
+
   const $restaurantListContainer = RestaurantListContainer(
     [...filteredRestaurantDataList]
   );
   
   if(!isReRender) {
     $body.appendChild($restaurantHeader);
+    $body.appendChild($restaurantFilterTabs);
     $body.appendChild($restaurantFilterContainer);
     $body.appendChild($restaurantListContainer)
   }
