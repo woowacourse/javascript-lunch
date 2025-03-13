@@ -1,8 +1,7 @@
 import toThrowNewError from "./toThrowNewError.js";
 import RULES from "../constants/rules.js";
-import { restaurants } from "../domains/restaurants.ts";
 
-const validateRestaurantName = (name) => {
+const validateRestaurantName = (name, restaurants) => {
   toThrowNewError({
     condition:
       name.trim().length < RULES.MIN_RESTAURANT_NAME ||
