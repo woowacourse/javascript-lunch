@@ -159,9 +159,16 @@ body {
 }
 
 .restaurant__info {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.restaurant__header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .restaurant__name {
@@ -170,6 +177,13 @@ body {
 
 .restaurant__distance {
   color: var(--primary-color);
+}
+
+.restaurant__favorite {
+  width: 32px !important;
+  height: 32px !important;
+
+  background: none;
 }
 
 .restaurant__description {
