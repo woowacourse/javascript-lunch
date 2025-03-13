@@ -8,6 +8,7 @@ export const RestaurantData = [
                 메뉴지만, 할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.`,
     imgSrc: "./category-korean.png",
     imgAlt: "한식",
+    category: "한식",
   },
   {
     name: "친친",
@@ -15,6 +16,7 @@ export const RestaurantData = [
     description: `Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다.`,
     imgSrc: "./category-chinese.png",
     imgAlt: "중식",
+    category: "중식",
   },
   {
     name: "잇쇼우",
@@ -24,6 +26,7 @@ export const RestaurantData = [
                 고객 한분 한분께 최선을 다하겠습니다.`,
     imgSrc: "./category-japanese.png",
     imgAlt: "일식",
+    category: "일식",
   },
   {
     name: "이태리키친",
@@ -31,6 +34,7 @@ export const RestaurantData = [
     description: `늘 변화를 추구하는 이태리키친입니다.`,
     imgSrc: "./category-western.png",
     imgAlt: "양식",
+    category: "양식",
   },
   {
     name: "호아빈 삼성점",
@@ -38,6 +42,7 @@ export const RestaurantData = [
     description: `푸짐한 양에 국물이 일품인 쌀국수`,
     imgSrc: "./category-asian.png",
     imgAlt: "아시안",
+    category: "아시안",
   },
   {
     name: "도스타코스 선릉점",
@@ -45,5 +50,6 @@ export const RestaurantData = [
     description: `멕시칸 캐주얼 그릴`,
     imgSrc: "./category-etc.png",
     imgAlt: "기타",
+    category: "기타",
   },
 ];
