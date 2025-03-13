@@ -1,4 +1,4 @@
-import { addRestaurant, RestaurantProps } from "../modal/modal.ts";
+import { addRestaurant, RestaurantProps } from "../modal/add-restaurant-modal.ts";
 
 export const handleAddRestaurant = (e: Event) => {
   e.preventDefault();
@@ -14,6 +14,7 @@ export const handleAddRestaurant = (e: Event) => {
       name: formData.get("name") as string,
       distance: formData.get("distance") ? Number(formData.get("distance")) : 0,
       description: formData.get("description") as string,
+      link: formData.get("link") as string,
     };
 
     validateForm(form);

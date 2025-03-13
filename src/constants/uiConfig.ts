@@ -1,4 +1,4 @@
-import { handleModalClose } from "../components/modal/modal.ts";
+import { handleModalClose } from "../components/modal/add-restaurant-modal.ts";
 import { handleRestaurantDetailModalClose } from "../components/modal/restaurant-detail-modal.ts";
 import { handleAddRestaurant } from "../components/form-elements/form.ts";
 

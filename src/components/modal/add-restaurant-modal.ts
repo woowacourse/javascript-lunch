@@ -49,7 +49,7 @@ const handleModalOpen = (): void => {
   modal.classList.add("modal--open");
 };
 
-const $modal = ({ form }: ModalProps): HTMLDivElement => {
+const $addRestaurantModal = ({ form }: ModalProps): HTMLDivElement => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("modal");
 
@@ -79,4 +79,4 @@ const $modal = ({ form }: ModalProps): HTMLDivElement => {
   return wrapper;
 };
 
-export default $modal;
+export default $addRestaurantModal;

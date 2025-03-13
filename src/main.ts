@@ -1,6 +1,6 @@
 import $header from "./components/layout/header.ts";
 import $inputItem from "./components/form-elements/input-item.ts";
-import $modal from "./components/modal/modal.ts";
+import $addRestaurantModal from "./components/modal/add-restaurant-modal.ts";
 import $button from "./components/common/button.ts";
 import $buttonContainer from "./components/layout/button-container.ts";
 import $filter from "./components/common/filter.ts";
@@ -55,7 +55,7 @@ addEventListener("load", () => {
     if (!restaurant) return;
 
     const modal = $restaurantDetailModal(restaurant);
-    document.body.appendChild(modal);
+    document.querySelector("main")?.appendChild(modal);
     handleRestaurantDetailModalOpen();
   });
 
@@ -89,5 +89,5 @@ addEventListener("load", () => {
 
   const main = document.querySelector("main");
   if (!main) return;
-  main.appendChild($modal({form: restaurantAddForm}));
+  main.appendChild($addRestaurantModal({form: restaurantAddForm}));
 });
