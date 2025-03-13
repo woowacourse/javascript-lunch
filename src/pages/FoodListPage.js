@@ -21,12 +21,11 @@ export class FoodListPage {
   #body;
   #main;
 
-  constructor(title, iconButton = null, filter) {
+  constructor(title, iconButton = null) {
     this.loadHeader(title, iconButton);
     this.loadMain();
     this.loadFilter();
     this.loadFoodList();
-    this.filter = filter;
   }
 
   loadHeader(title, iconButton) {
@@ -62,18 +61,6 @@ export class FoodListPage {
         </section>
     `;
     this.#main.appendChild(container.firstElementChild);
-
-    document
-      .querySelector("select[name=category]")
-      .addEventListener("change", () => {
-        this.filter.changeCategory();
-      });
-
-    document
-      .querySelector("select[name=sorting]")
-      .addEventListener("change", () => {
-        this.filter.changeSorting();
-      });
   }
 
   loadFoodList() {

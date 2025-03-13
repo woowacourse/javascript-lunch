@@ -12,19 +12,19 @@ export class Filter {
     this.#sortingFilter = "이름순";
   }
 
-  changeCategory() {
+  changeCategory(modal) {
     const filterOption = document.querySelector("select[name=category]").value;
     this.#categoryFilter = filterOption;
-    this.#updateFilterItem();
+    this.#updateFilterItem(modal);
   }
 
-  changeSorting() {
+  changeSorting(modal) {
     const filterOption = document.querySelector("select[name=sorting]").value;
     this.#sortingFilter = filterOption;
-    this.#updateFilterItem();
+    this.#updateFilterItem(modal);
   }
 
-  #updateFilterItem() {
+  #updateFilterItem(modal) {
     const FoodInventory = getStorageFoodList();
     const foodItems = [...FoodInventory];
     const filteredItems = foodItems
@@ -33,7 +33,7 @@ export class Filter {
         return foodItem.imgAlt === this.#categoryFilter;
       })
       .sort((a, b) => this.sortBy(a, b));
-    convertStorageToLocal(filteredItems);
+    convertStorageToLocal(filteredItems, modal);
     return filteredItems;
     // console.log(filteredItems);
   }

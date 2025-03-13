@@ -1,5 +1,9 @@
 export class Modal {
-  constructor(modalContent) {
+  constructor() {
+    this.setDefaultModal();
+  }
+
+  setDefaultModal() {
     const container = document.createElement("div");
     container.classList.add("modal");
     container.innerHTML = `
@@ -9,7 +13,12 @@ export class Modal {
         </div>
   `;
     document.querySelector("main").appendChild(container);
-    document.querySelector(".modal-container").appendChild(modalContent);
+  }
+
+  setModalContent(modalContent) {
+    const modalContainer = document.querySelector(".modal-container");
+    modalContainer.innerHTML = "";
+    modalContainer.appendChild(modalContent);
     document.querySelector(".modal-backdrop").addEventListener("click", () => {
       Modal.close();
     });
