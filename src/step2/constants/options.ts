@@ -1,4 +1,6 @@
-export const CATEGORIES = [
+import { SelectOption } from '../components/Select';
+
+export const CATEGORIES: SelectOption[] = [
   { value: '전체', label: '전체' },
   { value: '한식', label: '한식' },
   { value: '중식', label: '중식' },
