@@ -1,8 +1,29 @@
 import RestaurantData from "./RestaurantData";
 
+const VIEW_STATE = {
+  all: "모든 음식점",
+  favorite: "자주 가는 음식점",
+};
+
+const CATEGORY = {
+  all: "전체",
+  korean: "한식",
+  chinese: "중식",
+  japanese: "일식",
+  western: "양식",
+  asian: "아시안",
+  etc: "기타",
+};
+
+const SORTED = {
+  distance: "거리순",
+  favorite: "즐겨찾기순",
+};
+
 export class RestaurantDataList {
   #dataList;
   #subscribers = [];
+  #viewState = VIEW_STATE.all;
 
   constructor(dataList) {
     this.#dataList = dataList.map((data) => {
@@ -11,12 +32,16 @@ export class RestaurantDataList {
   }
 
   getDataList() {
+    this.#viewState = VIEW_STATE.all;
+
     this.notify(
       this.#dataList.map((restaurantData) => restaurantData.getData())
     );
   }
 
   getFavoriteDataList() {
+    this.#viewState = VIEW_STATE.favorite;
+
     const favoriteList = this.#dataList
       .map((restaurantData) => restaurantData.getData())
       .filter((restaurantData) => restaurantData.isFavorite);
@@ -24,8 +49,43 @@ export class RestaurantDataList {
     this.notify(favoriteList);
   }
 
+  getFilteredDataList(category) {
+    if (category === CATEGORY.all) {
+      this.getDataList();
+      return;
+    }
+
+    const filteredList = this.#dataList
+      .map((restaurantData) => restaurantData.getData())
+      .filter((restaurantData) => restaurantData.category === category);
+
+    this.notify(filteredList);
+  }
+
+  changeFavorite(id) {
+    const targetData = this.#dataList.find(
+      (restaurantData) => restaurantData.getData().id === id
+    );
+    targetData.changeFavorite();
+
+    if (this.#viewState === VIEW_STATE.favorite) {
+      this.getFavoriteDataList();
+      return;
+    }
+
+    this.notify(
+      this.#dataList.map((restaurantData) => restaurantData.getData())
+    );
+  }
+
   addData(data) {
     this.#dataList.push(this.createData(data));
+
+    if (this.#viewState === VIEW_STATE.favorite) {
+      this.getFavoriteDataList();
+      return;
+    }
+
     this.notify(
       this.#dataList.map((restaurantData) => restaurantData.getData())
     );

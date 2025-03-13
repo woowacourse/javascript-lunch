@@ -1,3 +1,4 @@
+import restaurantDataList from "../../domain/RestaurantDataList";
 import createElement from "../../util/createElement";
 
 export default function RestaurantItem({
@@ -28,13 +29,19 @@ export default function RestaurantItem({
               <div>
               ${
                 isFavorite
-                  ? '<img class="favorite__star" src="/public/fill-star.png" alt="좋아요한 별" />'
-                  : '<img class="favorite__star" src="/public/empty-star.png" alt="좋아요안한 별" />'
+                  ? '<img name="favorite__star" class="favorite__star" src="/public/fill-star.png" alt="좋아요한 별" />'
+                  : '<img name="favorite__star" class="favorite__star" src="/public/empty-star.png" alt="좋아요안한 별" />'
               }</div>
             </div>
        
             <p class="restaurant__description text-body">${description}</p>
         </div>`;
+
+  $restaurantItem.addEventListener("click", (event) => {
+    if (event.target.name === "favorite__star") {
+      restaurantDataList.changeFavorite(id);
+    }
+  });
 
   return $restaurantItem;
 }

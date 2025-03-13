@@ -68,6 +68,10 @@ export default class RestaurantData {
     return !value;
   }
 
+  changeFavorite() {
+    this.#isFavorite = !this.#isFavorite;
+  }
+
   hasInvalidNameChar(name) {
     return !/^[가-힣a-zA-Z0-9\s]+$/.test(name);
   }
