@@ -22,7 +22,10 @@ export default function createRestaurantItem({
   link,
   isFavorite,
 }) {
-  const restaurantItem = createElement("li", { className: "restaurant" });
+  const restaurantItem = createElement("li", {
+    className: "restaurant",
+    id: name,
+  });
 
   setDataset(restaurantItem, {
     name: name,
