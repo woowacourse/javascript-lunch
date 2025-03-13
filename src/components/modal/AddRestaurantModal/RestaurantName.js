@@ -7,7 +7,7 @@ const RestaurantName = () => {
   const required = true;
 
   const contents = /*html*/ `
-    <input type="text" name="name" id="name" required minlength="${RULES.MIN_RESTAURANT_NAME}" maxlength="${RULES.MAX_RESTAURANT_NAME}" data-testid="restaurant-name"/>
+    <input type="text" name="name" id="name" required minlength="${RULES.MIN_RESTAURANT_NAME}" maxlength="${RULES.MAX_RESTAURANT_NAME}" data-testid="restaurant-name" autocomplete="off" />
   `;
 
   return FormFieldContainer({ contents, required, label, name });
