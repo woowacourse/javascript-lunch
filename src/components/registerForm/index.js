@@ -14,7 +14,7 @@ import Select from "../common/select";
 import TextArea from "../common/textArea";
 import ButtonContainer from "../common/buttonContainer";
 
-const RegisterForm = (pushList) => {
+const RegisterForm = (addRestaurant) => {
   const registerForm = document.createElement("form");
   registerForm.setAttribute("id", "register-form");
   registerForm.appendChild(
@@ -73,7 +73,7 @@ const RegisterForm = (pushList) => {
         style: "button--primary",
         onClick: (e) => {
           try {
-            registerRestaurant(e, pushList);
+            registerRestaurant(e, addRestaurant);
           } catch (e) {
             onSubmitFailed(e);
           }
@@ -91,11 +91,12 @@ const onSubmitFailed = (e) => {
   currentInputField.appendChild(ErrorMessage(e.message));
 };
 
-const registerRestaurant = (e, pushList) => {
+const registerRestaurant = (e, addRestaurant) => {
   e.preventDefault();
 
   const info = getInfo();
-  pushList(new Restaurant(info));
+  addRestaurant(new Restaurant(info));
+  $("select#category").value = "all";
 
   modalClose();
 };
