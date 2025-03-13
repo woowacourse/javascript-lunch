@@ -1,12 +1,18 @@
 import toThrowNewError from "./toThrowNewError.js";
 import RULES from "../constants/rules.js";
+import { restaurants } from "../domains/restaurants.ts";
 
 const validateRestaurantName = (name) => {
   toThrowNewError({
     condition:
       name.trim().length < RULES.MIN_RESTAURANT_NAME ||
       name.trim().length > RULES.MAX_RESTAURANT_NAME,
-    message: `레스토랑 이름을 최소 ${RULES.MIN_RESTAURANT_NAME}글자 ~ 최대 ${RULES.MAX_RESTAURANT_NAME}글자 입력해주세요.`,
+    message: `음식점 이름을 최소 ${RULES.MIN_RESTAURANT_NAME}글자 ~ 최대 ${RULES.MAX_RESTAURANT_NAME}글자 입력해주세요.`,
+  });
+
+  toThrowNewError({
+    condition: restaurants.some((restaurant) => restaurant.name === name),
+    message: `음식점 이름은 중복될 수 없습니다.`,
   });
 };
 
