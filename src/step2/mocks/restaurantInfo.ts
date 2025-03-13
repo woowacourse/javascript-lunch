@@ -1,6 +1,6 @@
-import { Restaurant } from '../types/restaurants';
+import { RestaurantType } from '../types/restaurants';
 
-const RESTAURANT_INFO: Restaurant[] = [
+const RESTAURANT_INFO: RestaurantType[] = [
   {
     category: '한식',
     name: '피양콩할마니',
