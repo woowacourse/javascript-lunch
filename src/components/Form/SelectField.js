@@ -1,13 +1,24 @@
-function SelectField(name, selectItems) {
+function SelectField({ name, id = "", options, defaultOption = "", required = false, className = "" }) {
   const selectElement = document.createElement("select");
   selectElement.id = name;
+  if (id) selectElement.id = id;
   selectElement.name = name;
-  selectElement.required = true;
+  selectElement.required = required;
+  if (className) selectElement.classList.add(className);
 
   selectElement.innerHTML = `
     <option value="">선택해 주세요</option>
-    ${selectItems.map((category) => `<option value="${category}">${category}</option>`).join("")}
+    ${options.map((option) => `<option value="${option}">${option}</option>`).join("")}
     `;
+
+  if (defaultOption) {
+    selectElement.innerHTML = `
+    <option value="">${defaultOption}</option>
+    ${options.map((option) => `<option value="${option}">${option}</option>`).join("")}
+    `;
+  } else {
+    selectElement.innerHTML = options.map((option) => `<option value="${option}">${option}</option>`).join("");
+  }
 
   return selectElement;
 }
