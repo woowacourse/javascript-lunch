@@ -25,9 +25,13 @@ class App extends Component {
   }
 
   updateRestaurant(newRestaurant) {
+    const newRestaurantList = [...this.state.restaurants, newRestaurant];
+    setItemToLocalStorage(this.state.key, newRestaurantList);
+
     this.setState({
-      restaurants: [...this.state.restaurants, newRestaurant],
+      restaurants: newRestaurantList,
     });
+
     this.updateNewRestaurant(newRestaurant);
   }
 
