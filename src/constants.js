@@ -1,3 +1,7 @@
+export const ADD_RESTAURANT_MODAL = {
+  classNames: ['add-restaurant-modal'],
+};
+
 export const CATEGORY = {
   label: '카테고리',
   name: 'category',

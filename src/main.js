@@ -1,4 +1,5 @@
 import {
+  ADD_RESTAURANT_MODAL,
   CATEGORY,
   DISTANCE,
   NAME,
@@ -32,7 +33,7 @@ addEventListener('load', () => {
   appendItemsController();
   initRestaurantItems();
   updateRestaurantElements();
-  appendModal();
+  appendAddRestaurantModal();
   appendModalContents();
 
   const nameInputElement = document.querySelector('#name');
@@ -100,11 +101,21 @@ function setRequired(element) {
   element.required = true;
 }
 
-function appendModal() {
+function appendAddRestaurantModal() {
   const main = document.querySelector('main');
-  const modal = createModal();
+  const modal = createModal(ADD_RESTAURANT_MODAL);
 
   main.insertAdjacentHTML('beforeend', modal);
+
+  const h2 = document.createElement('h2');
+  const form = document.createElement('form');
+  h2.className = 'modal-title text-title';
+  h2.textContent = '새로운 음식점';
+  form.id = 'new-restaurant-form';
+
+  const targetModal = document.querySelector('.add-restaurant-modal');
+  targetModal.appendChild(h2);
+  targetModal.appendChild(form);
 }
 
 function appendModalContents() {
