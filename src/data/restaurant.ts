@@ -9,6 +9,15 @@ export type Restaurant = {
   link: string;
 };
 
+export const saveRestaurantsToLocalStorage = (restaurants: Restaurant[]) => {
+  localStorage.setItem("restaurants", JSON.stringify(restaurants));
+};
+
+export const getRestaurantsFromLocalStorage = () => {
+  const storedData = localStorage.getItem("restaurants");
+  return storedData ? JSON.parse(storedData) : [];
+};
+
 export const restaurantData: Restaurant[] = [
   {
     dataId: 1,

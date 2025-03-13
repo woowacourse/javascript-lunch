@@ -1,10 +1,8 @@
-import $button from "../common/button.ts";
-import $buttonContainer from "../layout/button-container.ts";
 import $restaurantDetailContent from "../restaurant/restaurant-detail-content.ts";
-import { UI_CONFIG } from "../../constants/uiConfig.ts";
 import { Restaurant } from "../../data/restaurant.ts";
 
 export const handleRestaurantDetailModalClose = (): void => {
+console.log('실행됐어여 ~');
   const modal = document.querySelector(".restaurant-detail-modal");
   if (!modal) return;
   modal.classList.remove("modal--open");
@@ -31,14 +29,6 @@ const $restaurantDetailModal = (restaurant: Restaurant): HTMLDivElement => {
   const info = $restaurantDetailContent(restaurant);
   container.appendChild(info);
 
-  const submitCancelButtons = $buttonContainer({
-    buttons: [
-      $button(UI_CONFIG.BUTTONS.DELETE),
-      $button(UI_CONFIG.BUTTONS.CLOSE),
-    ],
-  });
-
-  container.appendChild(submitCancelButtons);
   wrapper.appendChild(container);
 
   // 모달 닫기 이벤트

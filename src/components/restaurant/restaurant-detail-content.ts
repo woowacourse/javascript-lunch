@@ -1,4 +1,7 @@
+import $buttonContainer from "../layout/button-container.ts";
+import $button from "../common/button.ts";
 import { Restaurant } from "../../data/restaurant.ts";
+import { UI_CONFIG } from "../../constants/uiConfig.ts";
 
 const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   const info = document.createElement("div");
@@ -39,6 +42,15 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   link.href = restaurant.link;
   link.innerText = restaurant.link;
   info.appendChild(link);
+
+  const submitCancelButtons = $buttonContainer({
+    buttons: [
+      $button(UI_CONFIG.BUTTONS.DELETE),
+      $button(UI_CONFIG.BUTTONS.CLOSE),
+    ],
+  });
+
+  info.appendChild(submitCancelButtons);
 
   return info;
 };

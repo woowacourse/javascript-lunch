@@ -4,14 +4,18 @@ import $addRestaurantModal from "./components/modal/add-restaurant-modal.ts";
 import $button from "./components/common/button.ts";
 import $buttonContainer from "./components/layout/button-container.ts";
 import $filter from "./components/common/filter.ts";
+import $restaurantDetailModal from "./components/modal/restaurant-detail-modal.ts";
+import { handleModalClose } from "./components/modal/add-restaurant-modal.ts";
+import { handleAddRestaurant } from "./components/form-elements/form.ts";
+import { handleRestaurantDetailModalClose } from "./components/modal/restaurant-detail-modal.ts";
+import { handleRestaurantDetailModalOpen } from "./components/modal/restaurant-detail-modal.ts";
 import { UI_CONFIG } from "./constants/uiConfig.ts";
 import { restaurantData } from "./data/restaurant.ts";
 import { FORM_FIELDS } from "./constants/formFields.ts";
 import { FILTERS } from "./constants/filters.ts";
 import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
 import { renderRestaurants } from "./utils/renderUtils.ts";
-import $restaurantDetailModal from "./components/modal/restaurant-detail-modal.ts";
-import { handleRestaurantDetailModalOpen } from "./components/modal/restaurant-detail-modal.ts";
+import { saveRestaurantsToLocalStorage } from "./data/restaurant.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
@@ -42,6 +46,7 @@ addEventListener("load", () => {
     const filtered = filterRestaurants(restaurantData, selectedCategory);
     const sorted = sortRestaurants(filtered, selectedSorting);
     renderRestaurants(restaurantList, sorted);
+    saveRestaurantsToLocalStorage(restaurantData);
   };
 
   restaurantList.addEventListener("click", (e) => {
@@ -90,4 +95,23 @@ addEventListener("load", () => {
   const main = document.querySelector("main");
   if (!main) return;
   main.appendChild($addRestaurantModal({form: restaurantAddForm}));
+
+  const cancelButton = document.querySelector("#cancel-restaurant-add-button");
+  if (cancelButton) cancelButton.addEventListener("click", handleModalClose);
+
+  const addButton = document.querySelector("#restaurant-add-button");
+  if (addButton) addButton.addEventListener("click", handleAddRestaurant);
+});
+
+// 음식점 상세 정보 버튼 이벤트 처리
+document.body.addEventListener("click", (e) => {
+  const target = e.target as HTMLElement;
+
+  if (target.matches("#delete-restaurant-button")) {
+    handleRestaurantDetailModalClose();
+  }
+
+  if (target.matches("#close-restaurant-detail-button")) {
+    handleRestaurantDetailModalClose();
+  }
 });
