@@ -1,5 +1,6 @@
 import { Header } from "../component/layout/Header.js";
 import { Modal } from "../component/layout/Modal.js";
+import { Filter } from "../domain/Filter.js";
 
 const categoryFilter = [
   { value: "전체", text: "전체" },
@@ -11,7 +12,7 @@ const categoryFilter = [
   { value: "기타", text: "기타" },
 ];
 
-const orderFilter = [
+const sortingFilter = [
   { value: "이름순", text: "이름순" },
   { value: "거리순", text: "거리순" },
 ];
@@ -42,6 +43,8 @@ export class FoodListPage {
   }
 
   loadFilter() {
+    const filter = new Filter();
+
     const container = document.createElement("div");
     container.innerHTML = `
           <section class="restaurant-filter-container">
@@ -53,13 +56,25 @@ export class FoodListPage {
 
           <!-- 정렬 셀렉트 박스 -->
           <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          ${orderFilter.map(
+          ${sortingFilter.map(
             ({ value, text }) => `<option value=${value}>${text}</option>`
           )}
           </select>
         </section>
     `;
     this.#main.appendChild(container.firstElementChild);
+
+    document
+      .querySelector("select[name=category]")
+      .addEventListener("change", () => {
+        filter.changeCategory();
+      });
+
+    document
+      .querySelector("select[name=sorting]")
+      .addEventListener("change", () => {
+        filter.changeSorting();
+      });
   }
 
   loadFoodList() {

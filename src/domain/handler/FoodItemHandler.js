@@ -8,7 +8,8 @@ export function saveInitFoodList() {
   if (getStorageFoodList().length === 0) {
     localStorage.setItem("foodList", JSON.stringify(foodItems));
   }
-  convertStorageToLocal();
+  const foodList = getStorageFoodList();
+  convertStorageToLocal(foodList);
 }
 
 // CRUD - read
@@ -28,15 +29,18 @@ function updateFoodList(foodItem) {
   const foodItems = getStorageFoodList();
   foodItems.push(foodItem);
   saveStorageFoodList(foodItems);
-  convertStorageToLocal(foodItem);
+  const foodList = getStorageFoodList();
+  convertStorageToLocal(foodList);
 }
 
 function saveStorageFoodList(foodList) {
   localStorage.setItem("foodList", JSON.stringify(foodList));
 }
 
-function convertStorageToLocal() {
-  const FoodItemListComponent = getStorageFoodList().map((localFoodItem) =>
+// 화면에 출력하기
+
+export function convertStorageToLocal(foodList) {
+  const FoodItemListComponent = foodList.map((localFoodItem) =>
     FoodItem(localFoodItem)
   );
   const foodListContainer = document.querySelector(".restaurant-list");

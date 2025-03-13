@@ -75,8 +75,6 @@ export function FoodForm() {
     })
   );
 
-  console.log("14");
-
   container.appendChild(
     ButtonContainer({
       buttons: [
