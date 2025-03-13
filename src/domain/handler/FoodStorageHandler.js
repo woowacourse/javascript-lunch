@@ -14,7 +14,9 @@ export function updateStorageFoodList(newFoodItem) {
 // CRUD - delete
 export function deleteStorageFoodList(newFoodItem) {
   let foodItems = readStorageFoodList();
-  foodItems.filter((foodItem) => foodItem !== newFoodItem);
+  foodItems = foodItems.filter(
+    (foodItem) => JSON.stringify(foodItem) != JSON.stringify(newFoodItem)
+  );
   localStorage.setItem("foodList", JSON.stringify(foodItems));
   return foodItems;
 }

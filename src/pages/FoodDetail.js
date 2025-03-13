@@ -1,15 +1,10 @@
 import { Button } from "../component/button/Button";
 import { ButtonContainer } from "../component/button/ButtonContainer";
 import { Modal } from "../component/layout/Modal";
+import { deleteFoodItem } from "../domain/handler/FoodItemHandler";
 
-export function FoodDetail({
-  imgSrc,
-  imgAlt,
-  name,
-  distance,
-  description,
-  link,
-}) {
+export function FoodDetail(filter, foodItem, modal) {
+  const { imgSrc, imgAlt, name, distance, description, link } = foodItem;
   const container = document.createElement("div");
 
   container.className = "food-detail-container";
@@ -31,7 +26,7 @@ export function FoodDetail({
         Button({
           cssType: "secondary",
           innerText: "삭제하기",
-          onClick: Modal.close,
+          onClick: () => deleteFoodItem(filter, foodItem, modal),
         }),
         Button({
           cssType: "primary",

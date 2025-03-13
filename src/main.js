@@ -4,10 +4,9 @@ import { Modal } from "./component/layout/Modal.js";
 import { Filter } from "./domain/Filter.js";
 import {
   convertStorageToLocal,
-  saveInitFoodList,
+  readFoodList,
 } from "./domain/handler/FoodItemHandler.js";
 import { FoodListPage } from "./pages/FoodListPage.js";
-import { FoodDetail } from "./pages/FoodDetail.js";
 import { foodItems } from "./mocks/foodItems.js";
 
 addEventListener("load", () => {
@@ -25,7 +24,7 @@ addEventListener("load", () => {
   );
   const modal = new Modal();
 
-  saveInitFoodList(filter, modal); //mock 데이터 로딩
+  readFoodList(filter, modal); //mock 데이터 로딩
   setFoodFormMoal(filter, modal);
   setFilteredItems(filter, modal);
 });
@@ -42,13 +41,13 @@ function setFilteredItems(filter, modal) {
     .querySelector("select[name=category]")
     .addEventListener("change", () => {
       const filteredItems = filter.changeCategory();
-      convertStorageToLocal(modal, filteredItems);
+      convertStorageToLocal(modal, filter, filteredItems);
     });
 
   document
     .querySelector("select[name=sorting]")
     .addEventListener("change", () => {
       const filteredItems = filter.changeSorting();
-      convertStorageToLocal(modal, filteredItems);
+      convertStorageToLocal(modal, filter, filteredItems);
     });
 }
