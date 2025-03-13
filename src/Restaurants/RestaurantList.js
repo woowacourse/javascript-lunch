@@ -27,6 +27,8 @@ const restaurantDatas = [
   ),
   new Restaurant('이태리키친', '20', '늘 변화를 추구하는 이태리키친입니다.', 'western', ''),
   new Restaurant('호아빈 삼성점', '15', '푸짐한 양에 국물이 일품인 쌀국수', 'asian', ''),
+  new Restaurant('나아빈 삼성점', '30', '푸짐한 양에 국물이 일품인 쌀국수', 'asian', ''),
+  new Restaurant('가아빈 삼성점', '10', '푸짐한 양에 국물이 일품인 쌀국수', 'asian', ''),
   new Restaurant('도스타코스 선릉점', '5', '멕시칸 캐주얼 그릴', 'etc', ''),
 ];
 
@@ -35,14 +37,34 @@ class RestaurantList {
 
   constructor(restaurantListContainer) {
     this.#restaurantListContainer = restaurantListContainer;
-    this.#createRestaurantList(restaurantDatas);
+    this.#createRestaurantList(this.sortRestaurantList('', 'name'));
   }
 
   #createRestaurantList(restaurantList) {
     restaurantList.forEach((restaurant) => {
       const restaurantItem = new RestaurantItem(restaurant);
+
       this.#restaurantListContainer.appendChild(restaurantItem);
     });
+  }
+
+  sortRestaurantList(category, sorting) {
+    let filteredList = restaurantDatas;
+    if (category && category !== '') {
+      filteredList = restaurantDatas.filter((restaurant) => {
+        return restaurant.getCategory() === category;
+      });
+    }
+
+    if (sorting === 'name') {
+      filteredList = [...filteredList].sort((a, b) => a.getName().localeCompare(b.getName()));
+    } else if (sorting === 'distance') {
+      filteredList = [...filteredList].sort((a, b) => Number(a.getDistance()) - Number(b.getDistance()));
+    }
+
+    this.#restaurantListContainer.innerHTML = '';
+    this.#createRestaurantList(filteredList);
+    return filteredList;
   }
 }
 
