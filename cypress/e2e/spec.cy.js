@@ -137,7 +137,55 @@ describe("새로운 음식점 기능 테스트", () => {
   });
 });
 
-describe("모든 음식점 및 자주 음식점 카테고리 테스트", () => {
+describe("자주 가는 음식점 즐겨찾기 아이콘 클릭 시 자주 가는 음식점 으로 추가", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5173/");
+
+    cy.window().then((win) => {
+      win.localStorage.setItem(
+        "restaurants",
+        JSON.stringify([
+          {
+            category: "korean",
+            categoryValue: "한식",
+            nameValue: "한식집",
+            distanceValue: "5",
+            descriptionValue: "한식집입니다.",
+            link: "https://www.naver.com",
+            favorite: true,
+          },
+          {
+            category: "western",
+            categoryValue: "양식",
+            nameValue: "파스타 맛집",
+            distanceValue: "15",
+            descriptionValue: "이탈리아 파스타 레스토랑입니다.",
+            link: "https://www.google.com",
+            favorite: false,
+          },
+        ])
+      );
+    });
+
+    cy.reload();
+  });
+
+  it("음식점 즐겨찾기 아이콘 클릭 시 즐겨찾기로 추가되는지 확인한다.", () => {
+    cy.get(".restaurant-favorite-star").eq(1).click();
+    cy.get(".restaurant-favorite-star")
+      .eq(1)
+      .should("have.attr", "src", "/favorite-icon-filled.png");
+  });
+
+  it("음식점 즐겨찾기 아이콘 클릭 시 즐겨찾기 해제되는지 확인한다.", () => {
+    cy.get(".restaurant-favorite-star").eq(0).click();
+    cy.get(".restaurant-favorite-star")
+      .eq(0)
+      .should("have.attr", "src", "/favorite-icon-lined.png");
+  });
+});
+
+describe("모든 음식점 및 자주 가는 음식점 카테고리 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
 
