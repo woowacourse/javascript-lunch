@@ -6,15 +6,8 @@ import Select from "../../common/Select";
 const CategorySelector = (restaurantList) => {
   const events = {
     change: (e) => {
-      if (e.target.value === "") {
-        renderRestaurants(...restaurantList.list);
-        return;
-      }
-
-      const filteredRestaurantList = restaurantList.filterByCategory(
-        e.target.value
-      );
-      renderRestaurants(...filteredRestaurantList);
+      restaurantList.setCategory(e.target.value);
+      renderRestaurants(...restaurantList.filter());
     },
   };
 

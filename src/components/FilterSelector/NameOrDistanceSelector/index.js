@@ -5,13 +5,8 @@ import Select from "../../common/Select";
 const NameOrDistanceSelector = (restaurantList) => {
   const events = {
     change: (e) => {
-      if (e.target.value === "") {
-        renderRestaurants(...restaurantList.list);
-      } else if (e.target.value === "name") {
-        renderRestaurants(...restaurantList.filterByName());
-      } else if (e.target.value === "distance") {
-        renderRestaurants(...restaurantList.filterByDistance());
-      }
+      restaurantList.setNameOrDistance(e.target.value);
+      renderRestaurants(...restaurantList.filter());
     },
   };
 

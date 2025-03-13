@@ -1,5 +1,8 @@
 class RestaurantList {
   #restaurantList = [];
+  #currentCategory = "";
+  #nameOrDistance = "";
+
   constructor(restaurantList = []) {
     this.#restaurantList = restaurantList;
   }
@@ -8,26 +11,42 @@ class RestaurantList {
     this.#restaurantList.push(restaurant);
   }
 
-  filterByCategory(category) {
-    if (category === "") {
-      return this.#restaurantList;
+  filter() {
+    let filteredList = this.#restaurantList;
+    filteredList = this.filterByCategory(this.#currentCategory, filteredList);
+
+    if (this.#nameOrDistance === "name") {
+      return this.filterByName(filteredList);
+    }
+    if (this.#nameOrDistance === "distance") {
+      return this.filterByDistance(filteredList);
     }
 
-    return this.#restaurantList.filter(
-      (restaurant) => restaurant.value.category === category
-    );
+    return filteredList;
   }
 
-  filterByName() {
-    return [...this.#restaurantList].sort((a, b) =>
-      a.value.name.localeCompare(b.value.name)
-    );
+  filterByCategory(category, list) {
+    if (category === "") {
+      return list;
+    }
+
+    return list.filter((restaurant) => restaurant.value.category === category);
   }
 
-  filterByDistance() {
-    return [...this.#restaurantList].sort(
-      (a, b) => a.value.distance - b.value.distance
-    );
+  filterByName(list) {
+    return [...list].sort((a, b) => a.value.name.localeCompare(b.value.name));
+  }
+
+  filterByDistance(list) {
+    return [...list].sort((a, b) => a.value.distance - b.value.distance);
+  }
+
+  setCategory(category) {
+    this.#currentCategory = category;
+  }
+
+  setNameOrDistance(sortBy) {
+    this.#nameOrDistance = sortBy;
   }
 
   get list() {
