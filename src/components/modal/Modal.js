@@ -48,6 +48,8 @@ class Modal extends Component {
   }
 
   close() {
+    window.removeEventListener("keydown", this.closeModalByEscapeKey);
+
     if (this.state.isOpen) {
       this.setState({ isOpen: false });
       this.$target.replaceChildren();
