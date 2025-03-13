@@ -6,7 +6,7 @@ class InputText {
     this.#input.setAttribute('type', 'text');
     this.#input.setAttribute('name', name);
     this.#input.setAttribute('id', name);
-    if (required) this.#input.setAttribute('required', 'true');
+    if (required) this.#input.required = true;
   }
 
   reset() {

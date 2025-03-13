@@ -7,7 +7,7 @@ class InputTextArea {
     this.#textarea.setAttribute('id', name);
     this.#textarea.setAttribute('cols', cols);
     this.#textarea.setAttribute('rows', rows);
-    if (required) this.#textarea.setAttribute('required', 'true');
+    if (required) this.#textarea.required = true;
   }
 
   reset() {

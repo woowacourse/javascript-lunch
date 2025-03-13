@@ -1,8 +1,8 @@
 import Button from '../components/Button.js';
+import Input from '../components/Input.js';
 import InputDropDown from '../components/InputDropDown.js';
-import InputText from '../components/InputText.js';
 import Modal from '../components/Modal.js';
-import RestaurantItem from '../components/RestaurantItem.js';
+import RestaurantItem from '../components/Restaurant/RestaurantItem.js';
 import CATEGORY from '../constant/category.js';
 import DISTANCE from '../constant/distance.js';
 import Restaurant from '../Restaurant.js';
@@ -10,6 +10,8 @@ import { validateDescription } from '../validation/validateDescription.js';
 import { validateDropDown } from '../validation/validateDropDown.js';
 import { validateLink } from '../validation/validateLink.js';
 import { validateName } from '../validation/validateName.js';
+import InputText from './InputText.js';
+import InputTextArea from './InputTextArea.js';
 
 class AddRestaurantModal extends Modal {
   #cancelButton;
@@ -34,11 +36,26 @@ class AddRestaurantModal extends Modal {
   #init() {
     this.#cancelButton = new Button('button--secondary', '취소하기');
     this.#addButton = new Button('button--primary', '추가하기');
-    this.#divCategory = new InputDropDown('카테고리', CATEGORY);
-    this.#divName = new InputText('이름');
-    this.#divDistance = new InputDropDown('거리(도보 이동 시간)', DISTANCE);
-    this.#divDescription = new InputText('설명');
-    this.#divLink = new InputText('참조 링크');
+    this.#divCategory = new InputDropDown({ type: 'category', title: '카테고리', option: CATEGORY });
+    this.#divName = new Input({
+      name: 'name',
+      title: '이름',
+      required: true,
+      inputComponent: new InputText('name', true),
+    });
+    this.#divDistance = new InputDropDown({ type: 'distance', title: '거리(도보 이동 시간)', option: DISTANCE });
+    this.#divDescription = new Input({
+      name: 'description',
+      title: '설명',
+      spanText: '메뉴 등 추가 정보를 입력해 주세요.',
+      inputComponent: new InputTextArea('description', false, 30, 5),
+    });
+    this.#divLink = new Input({
+      name: 'link',
+      title: '참조 링크',
+      spanText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
+      inputComponent: new InputText('link', true),
+    });
     this.#modalForm = document.createElement('form');
   }
 

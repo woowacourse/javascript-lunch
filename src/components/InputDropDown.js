@@ -1,57 +1,54 @@
-import CATEGORY from '../constant/category.js';
-import { convertStringToElement } from '../utils/convertStringToElement.js';
-
-const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
-  return `
-    <label for=${tag} class="text-caption">${title}</label>
-    <select name=${tag} id="${tag}" class="select-input" required>
-      <option value="">선택해주세요</option>
-    </select>
-  `;
-};
+import { createFormItemLabel } from './createFormItemLabel.js';
 
 const OPTION_TEMPLATE = (value, innerValue) => {
   return `<option value="${innerValue}">${value}</option>`;
 };
 
 class InputDropDown {
-  #input;
-  #inputContainer;
+  #select;
+  #option;
 
-  constructor(title, option) {
-    this.#inputContainer = this.#createInputDropDown(title, option);
-    return this;
+  constructor({ name, id, required = false, option, optionDefault = '선택해주세요' }) {
+    this.#option = option;
+    this.#select = this.#createInputDropDown(name, id, required, optionDefault);
   }
 
-  #createInputDropDown = (title, option) => {
-    const inputDropDown = document.createElement('div');
-    inputDropDown.classList.add('form-item');
-    inputDropDown.classList.add('form-item--required');
-    const tag = title === '카테고리' ? 'category' : 'distance';
-    inputDropDown.innerHTML = INPUT_DROPDOWN_TEMPLATE(tag, title);
+  #createInputDropDown(name, id, required, optionDefault) {
+    const select = document.createElement('select');
+    select.setAttribute('name', name);
+    select.setAttribute('id', id);
+    if (required) select.required = true;
 
-    const select = inputDropDown.querySelector('select');
-    this.#input = select;
+    select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(optionDefault, ''));
 
-    Object.entries(option).forEach(([key, value]) => {
-      const optionHTML = this.#addTemplate(value, key);
-      select.insertAdjacentHTML('beforeend', optionHTML);
+    const sortedOptions = Object.entries(this.#option).sort(([keyA], [keyB]) => {
+      if (keyA === '') return -1;
+      if (keyB === '') return 1;
+      return Number(keyA) - Number(keyB);
     });
 
-    return inputDropDown;
-  };
+    sortedOptions.forEach(([key, value]) => {
+      select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(value, key));
+    });
 
-  #addTemplate = (value, innerValue) => {
-    return OPTION_TEMPLATE(value, innerValue);
-  };
+    // sortedOptions.forEach(([key, value]) => {
+    //   if (value !== optionDefault) {
+    //     select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(value, key));
+    //   } else {
+    //     select.insertAdjacentHTML('afterbegin', OPTION_TEMPLATE(value, key));
+    //   }
+    // });
 
-  reset = () => {
-    this.#input.selectedIndex = 0;
-  };
+    return select;
+  }
 
-  getElement = () => {
-    return this.#inputContainer;
-  };
+  reset() {
+    this.#select.selectedIndex = 0;
+  }
+
+  getElement() {
+    return this.#select;
+  }
 }
 
 export default InputDropDown;
