@@ -7,7 +7,7 @@ import Restaurants from "./model/Restaurants";
 
 addEventListener("load", () => {
   const restaurantList = new Restaurants();
-  $("#app").prepend(header(restaurantList.pushList));
+  $("#app").prepend(header(restaurantList.addRestaurant));
 
   $("main").prepend(CategoryAndSortFilter(restaurantList.changeState));
   $("main").prepend(FavoriteTabFilters(restaurantList.changeState));

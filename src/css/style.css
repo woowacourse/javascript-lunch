@@ -122,6 +122,12 @@
   padding-top: 8px;
 }
 
+.restaurant__link {
+  color: var(--grey--500);
+  display: block;
+  margin: 30px 0;
+}
+
 .text-ellipsis {
   display: -webkit-box;
 

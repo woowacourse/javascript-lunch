@@ -26,6 +26,10 @@ class Restaurants {
     this.filter();
   };
 
+  deleteRestaurant = (id) => {
+    this.#restaurants = this.#restaurants.filter((res) => res.info.id !== id);
+  };
+
   changeState = (state) => {
     const sortType = [...Object.keys(state)];
     const sortState = state[sortType];
@@ -80,7 +84,9 @@ class Restaurants {
     }
 
     restaurants.forEach((restaurant) => {
-      ulTag.appendChild(RestaurantCard(restaurant, () => this.filter()));
+      ulTag.appendChild(
+        RestaurantCard(restaurant, () => this.filter(), this.deleteRestaurant)
+      );
     });
   }
 }
