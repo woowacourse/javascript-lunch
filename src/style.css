@@ -218,6 +218,10 @@ body {
 }
 
 .modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
   position: fixed;
   bottom: 0;
   width: 390px;
@@ -229,7 +233,7 @@ body {
 }
 
 .modal-title {
-  margin-bottom: 36px;
+  margin-bottom: 4px;
 }
 
 .form-item {
@@ -360,4 +364,14 @@ input[name='link'] {
 #category-filter,
 #sort-selector {
   color: var(--grey-500);
+}
+
+.restaurant__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restaurant__info {
+  gap: 16px;
 }
