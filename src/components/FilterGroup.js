@@ -4,7 +4,7 @@ import { createSelectBox } from './common/SelectBox.js';
 function createFilterGroup(onChangeCategory, onChangeFilter) {
   const fragment = new DocumentFragment();
   const categoryFilter = createSelectBox({
-    options: CATEGORY_OPTIONS,
+    options: ['전체', ...CATEGORY_OPTIONS],
     type: 'category',
     onChange: onChangeCategory,
   });

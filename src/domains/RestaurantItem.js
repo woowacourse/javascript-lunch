@@ -1,9 +1,9 @@
 class RestaurantItem {
   #restaurantInfo = {};
 
-  constructor({ category, name, distance, description, link }) {
+  constructor({ id, category, name, distance, description, link }) {
     this.#restaurantInfo = {
-      id: this.#generateId(),
+      id: id || this.#generateId(),
       category,
       name,
       distance,
@@ -14,6 +14,18 @@ class RestaurantItem {
 
   getInfo() {
     return { ...this.#restaurantInfo };
+  }
+
+  get name() {
+    return this.#restaurantInfo.name;
+  }
+
+  get category() {
+    return this.#restaurantInfo.category;
+  }
+
+  get distance() {
+    return this.#restaurantInfo.distance;
   }
 
   getId() {

@@ -1,9 +1,11 @@
+import { RESTAURANT_DATA } from '../../public/restaurantData';
+
 class RestaurantStorage {
   #key;
   #restaurants;
 
   constructor() {
-    this.#key = 'restaurant_data';
+    this.#key = 'restaurant';
     this.#restaurants = this.#loadFromLocalStorage();
   }
 

@@ -7,7 +7,7 @@ function createRestaurantList(datas, handleClick) {
   const fragment = new DocumentFragment();
 
   datas.forEach((data) => {
-    const restaurantItem = createRestaurantItem(data, handleClick);
+    const restaurantItem = createRestaurantItem(data.getInfo(), handleClick);
     fragment.appendChild(restaurantItem);
   });
 
@@ -25,4 +25,22 @@ function updateRestaurantList(inputData) {
   return $restaurantList;
 }
 
-export { createRestaurantList, updateRestaurantList };
+function filterRestaurant(datas, handleClick) {
+  const $listContainer = document.querySelector('.restaurant-list-container');
+  $listContainer.replaceChildren();
+
+  const restaurantList = createElement({ tag: 'ul', className: 'restaurant-list' });
+  const fragment = new DocumentFragment();
+
+  datas.forEach((data) => {
+    const restaurantItem = createRestaurantItem(data.getInfo(), handleClick);
+    fragment.appendChild(restaurantItem);
+  });
+
+  restaurantList.appendChild(fragment);
+  $listContainer.appendChild(restaurantList);
+
+  return $listContainer;
+}
+
+export { createRestaurantList, updateRestaurantList, filterRestaurant };
