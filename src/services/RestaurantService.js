@@ -7,7 +7,11 @@ export default class RestaurantService {
     this.restaurantStore.addRestaurant(restaurantInfo);
   }
 
-  getRestaurants() {
-    return this.restaurantStore.getRestaurants();
+  getRestaurants(options = { filterType: "all" }) {
+    return this.restaurantStore.getRestaurants(options);
+  }
+
+  toggleFavorite(restaurantName) {
+    this.restaurantStore.toggleFavorite(restaurantName);
   }
 }

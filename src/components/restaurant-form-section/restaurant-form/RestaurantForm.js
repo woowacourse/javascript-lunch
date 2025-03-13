@@ -16,6 +16,7 @@ export default class RestaurantForm {
   constructor({ onSubmit, onCancel }) {
     this.onSubmit = onSubmit;
     this.onCancel = onCancel;
+
     this.formElements = {
       category: new SelectBox({
         label: "category",
@@ -59,7 +60,6 @@ export default class RestaurantForm {
     $buttonContainer.append($cancelButton, $addButton);
 
     $cancelButton.addEventListener(EVENT_TYPES.click, this.onCancel.bind(this));
-
     $form.addEventListener(EVENT_TYPES.submit, this.#handleSubmit.bind(this));
 
     return $form;

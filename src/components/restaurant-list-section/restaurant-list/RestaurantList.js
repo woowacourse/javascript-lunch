@@ -2,8 +2,9 @@ import RestaurantListItem from "../restaurant-list-item/RestaurantListItem.js";
 import "./restaurantList.css";
 
 export default class RestaurantList {
-  constructor(restaurantList) {
+  constructor(restaurantList, restaurantService) {
     this.restaurantList = restaurantList;
+    this.restaurantService = restaurantService;
     this.$listSection = document.createElement("section");
     this.$listSection.className = "restaurant-list-container";
     this.$list = document.createElement("ul");
@@ -13,14 +14,21 @@ export default class RestaurantList {
 
   render() {
     this.$list.innerHTML = "";
-    this.restaurantList.forEach((restaurantInfo) =>
-      this.$list.append(new RestaurantListItem(restaurantInfo).render())
-    );
+    this.restaurantList.forEach((restaurantInfo) => {
+      const $listItem = new RestaurantListItem(
+        restaurantInfo,
+        (restaurantId) => {
+          this.restaurantService.toggleFavorite(restaurantId);
+        }
+      );
+      this.$list.append($listItem.render());
+    });
+
     return this.$listSection;
   }
 
-  update(restaurantList) {
-    this.restaurantList = restaurantList;
+  update(options = { filterType: "all" }) {
+    this.restaurantList = this.restaurantService.getRestaurants(options);
     this.render();
   }
 }

@@ -6,13 +6,18 @@ import {
 import "./restaurantListItem.css";
 
 export default class RestaurantListItem {
-  constructor({ name, category, description, distance, link, isFavorite }) {
+  constructor(
+    { id, name, category, description, distance, link, isFavorite },
+    onToggleFavorite
+  ) {
+    this.id = id;
     this.name = name;
     this.category = category;
     this.description = description;
     this.distance = distance;
     this.link = link;
     this.isFavorite = isFavorite;
+    this.onToggleFavorite = onToggleFavorite;
   }
 
   render() {
@@ -58,16 +63,11 @@ export default class RestaurantListItem {
     $item.append($category, $info, $favoriteButton);
     $category.append($categoryImg);
     $info.append($name, $distance, $description);
-
     $favoriteButton.append($favoriteImg);
-    $favoriteButton.addEventListener(EVENT_TYPES.click, () => {
-      this.isFavorite = !this.isFavorite;
-      $favoriteImg.setAttribute(
-        "src",
-        this.isFavorite ? FAVORITE_ASSETS.filled : FAVORITE_ASSETS.lined
-      );
-      // TODO: Store에 변경사항 반영, 자주가는 음식점 추가를 위한 classList.add 필요
-    });
+
+    $favoriteButton.addEventListener(EVENT_TYPES.click, () =>
+      this.onToggleFavorite(this.id)
+    );
 
     return $item;
   }
