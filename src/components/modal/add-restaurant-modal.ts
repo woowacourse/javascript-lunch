@@ -1,7 +1,8 @@
 import $form from "../form-elements/form.ts";
 import $restaurantItem from "../restaurant/restaurant-item.ts";
-import { restaurantData } from "../../data/restaurant.ts";
+import { currentRestaurantData } from "../../data/restaurant.ts";
 import { CATEGORY_ICON } from "../../constants/iconPath.ts";
+import { saveRestaurantsToLocalStorage } from "../../data/restaurant.ts";
 
 export type RestaurantProps = {
   category: string;
@@ -17,8 +18,8 @@ type ModalProps = {
 
 export const addRestaurant = (data: RestaurantProps): void => {
   handleModalClose();
-  const lastId = restaurantData.length > 0 
-    ? Math.max(...restaurantData.map((r) => r.dataId)) 
+  const lastId = currentRestaurantData.length > 0 
+    ? Math.max(...currentRestaurantData.map((r) => r.dataId)) 
     : 0;
   const newId = lastId + 1;
   const categoryIcon = CATEGORY_ICON[data.category];
@@ -32,9 +33,16 @@ export const addRestaurant = (data: RestaurantProps): void => {
     description: data.description,
     link: data.link,
   };
+
+  console.log('기존 음식점 목록: ', currentRestaurantData);
+  currentRestaurantData.push(newRestaurant);
+  saveRestaurantsToLocalStorage(currentRestaurantData);
+  console.log('현재 음식점 목록: ', currentRestaurantData);
+
   const restaurantList = document.querySelector(".restaurant-list");
   if (!restaurantList) return;
   restaurantList.appendChild($restaurantItem(newRestaurant));
+  location.reload();
 };
 
 export const handleModalClose = (): void => {

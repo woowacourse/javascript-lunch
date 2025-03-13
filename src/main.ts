@@ -10,7 +10,7 @@ import { handleAddRestaurant } from "./components/form-elements/form.ts";
 import { handleRestaurantDetailModalClose } from "./components/modal/restaurant-detail-modal.ts";
 import { handleRestaurantDetailModalOpen } from "./components/modal/restaurant-detail-modal.ts";
 import { UI_CONFIG } from "./constants/uiConfig.ts";
-import { restaurantData } from "./data/restaurant.ts";
+import { currentRestaurantData } from "./data/restaurant.ts";
 import { FORM_FIELDS } from "./constants/formFields.ts";
 import { FILTERS } from "./constants/filters.ts";
 import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
@@ -43,10 +43,10 @@ addEventListener("load", () => {
   let selectedSorting = "name";
 
   const updateList = () => {
-    const filtered = filterRestaurants(restaurantData, selectedCategory);
+    const filtered = filterRestaurants(currentRestaurantData, selectedCategory);
     const sorted = sortRestaurants(filtered, selectedSorting);
     renderRestaurants(restaurantList, sorted);
-    saveRestaurantsToLocalStorage(restaurantData);
+    saveRestaurantsToLocalStorage(currentRestaurantData);
   };
 
   restaurantList.addEventListener("click", (e) => {
@@ -56,7 +56,7 @@ addEventListener("load", () => {
     const restaurantId = target.getAttribute("data-id");
     if (!restaurantId) return;
 
-    const restaurant = restaurantData.find((r) => r.dataId.toString() === restaurantId);
+    const restaurant = currentRestaurantData.find((r) => r.dataId.toString() === restaurantId);
     if (!restaurant) return;
 
     const modal = $restaurantDetailModal(restaurant);

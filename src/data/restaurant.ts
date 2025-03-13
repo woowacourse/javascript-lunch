@@ -18,6 +18,8 @@ export const getRestaurantsFromLocalStorage = () => {
   return storedData ? JSON.parse(storedData) : [];
 };
 
+export let currentRestaurantData: Restaurant[] = getRestaurantsFromLocalStorage();
+
 export const restaurantData: Restaurant[] = [
   {
     dataId: 1,
