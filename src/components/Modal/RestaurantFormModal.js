@@ -5,15 +5,17 @@ import createDistance from "./Select/DistanceSelect.js";
 import createDescription from "./Select/DescriptionLink.js";
 import createLink from "./Select/LinkInput.js";
 import modalButton from "./Button/Button.js";
+import { restaurantsData } from "../../constants/restaurantsMockData.js";
+import validateRestaurant from "../../validators/validateRestaurant.js";
 
-export default class Modal {
-  constructor(modalElement, openButton) {
-    this.modalElement = modalElement;
+export default class RestaurantFormModal {
+  constructor(restaurantList, openButton) {
+    this.modalElement = document.getElementById("add-restaurant-dialog");
+    this.restaurantList = restaurantList;
+    this.addFormFields();
     this.openButton = openButton;
     this.formElement = this.modalElement.querySelector("form");
-
-    this.addFormFields();
-    this.closeButton = this.modalElement.querySelector("#cancel-dialog-btn");
+    this.closeButton = document.querySelector("#cancel-dialog-btn");
     this.addEventListeners();
   }
 
@@ -30,16 +32,45 @@ export default class Modal {
     this.openButton.addEventListener("click", () => this.open());
     this.closeButton.addEventListener("click", () => this.close());
 
-    const formElement = document.querySelector("#add-restaurant-dialog form");
-    this.closeButton.addEventListener("click", () => {
-      formElement.reset();
-    });
-
     this.modalElement.addEventListener("click", (event) => {
       if (!event.target.closest(".modal-container")) {
         this.close();
       }
     });
+    this.formElement.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this.handleSubmit();
+    });
+  }
+
+  handleSubmit() {
+    const nameInput = document.getElementById("name");
+    const descriptionInput = document.getElementById("description");
+    const categoryInput = document.getElementById("category");
+    const distanceInput = document.getElementById("distance");
+    const linkInput = document.getElementById("link");
+
+    const restaurantsNameList = restaurantsData.map(
+      (restaurant) => restaurant.name
+    );
+
+    const newRestaurant = {
+      category: categoryInput.value,
+      name: nameInput.value,
+      distance: distanceInput.value,
+      description: descriptionInput.value,
+      link: linkInput.value,
+    };
+
+    const errorMessage = validateRestaurant(newRestaurant, restaurantsNameList);
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
+    this.restaurantList.addRestaurant(newRestaurant);
+
+    this.formElement.reset();
+    this.close();
   }
 
   open() {

@@ -1,3 +1,4 @@
+import "./RestaurantList.css";
 import { restaurantsData } from "../constants/restaurantsMockData";
 import renderRestaurantElement from "./RestaurantItem";
 

@@ -1,4 +1,4 @@
-import Modal from "./components/Modal/Modal.js";
+import RestaurantFormModal from "./components/Modal/RestaurantFormModal.js";
 import createHeader from "./components/Header/Header.js";
 import renderRestaurantElement from "./Restaurant/RestaurantItem.js";
 import { restaurantsData } from "./constants/restaurantsMockData.js";
@@ -19,10 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
   restaurantList.createRestaurantList();
 
   const addRestaurantModalButton = header.querySelector(".gnb__button");
-  const addNewRestaurantModal = document.getElementById(
-    "add-restaurant-dialog"
-  );
 
-  const formElement = addNewRestaurantModal.querySelector("form");
-  const modal = new Modal(addNewRestaurantModal, addRestaurantModalButton);
+  const modal = new RestaurantFormModal(
+    restaurantList,
+    addRestaurantModalButton
+  );
 });
