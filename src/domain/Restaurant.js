@@ -3,8 +3,16 @@ import { validateEmptyString } from "../validate/validateEmptyString";
 
 class Restaurant {
   #value;
-  constructor({ category, name, distance, description, link }) {
-    this.#value = { category, name, distance, description, link };
+
+  constructor({
+    category,
+    name,
+    distance,
+    description,
+    link,
+    isFavorite = false,
+  }) {
+    this.#value = { category, name, distance, description, link, isFavorite };
     this.#validate();
   }
 
@@ -18,6 +26,10 @@ class Restaurant {
       this.#value.distance,
       ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED
     );
+  }
+
+  toggleFavorite() {
+    this.#value.isFavorite = !this.#value.isFavorite;
   }
 
   get value() {

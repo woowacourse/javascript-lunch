@@ -13,7 +13,7 @@ const RestaurantCard = (restaurant) => {
     children: [
       CategoryImage(category),
       RestaurantInfo(restaurant.value),
-      FavoriteIcon(),
+      FavoriteIcon(restaurant),
     ],
   });
 
