@@ -5,7 +5,6 @@ import {
   restaurants,
 } from "./domains/restaurants.ts";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
-import RestaurantItem from "./components/RestaurantItem.js";
 import FilterBar from "./components/FilterBar.js";
 import TabBarView from "./components/TabBarView.js";
 
@@ -20,7 +19,6 @@ class App {
     this.#restaurants = restaurants;
 
     this.#$target.insertAdjacentHTML("beforeend", this.#template());
-    this.#renderMainArea();
     this.#mount();
   }
 
@@ -34,30 +32,37 @@ class App {
   }
 
   #mount() {
-    const $main = document.querySelector("main");
     const $gnbButton = this.#$target.querySelector(".gnb__button");
     const $listTab = this.#$target.querySelector("#list-tab");
     const $favoriteTab = this.#$target.querySelector("#favorite-tab");
 
-    $listTab.addEventListener("click", () => {
-      $listTab.classList.add("active");
-      $favoriteTab.classList.remove("active");
-      this.#renderMainArea();
-    });
-    $favoriteTab.addEventListener("click", () => {
-      $listTab.classList.remove("active");
-      $favoriteTab.classList.add("active");
-      this.#renderFavoriteList();
-    });
+    $listTab.addEventListener("click", () => this.#switchTab("list"));
+    $favoriteTab.addEventListener("click", () => this.#switchTab("favorite"));
 
     const $addModal = new AddRestaurantModal(
       document.querySelector("#modal"),
       this.#addRestaurant.bind(this)
     );
 
-    $gnbButton.addEventListener("click", () => {
-      $addModal.open();
-    });
+    $gnbButton.addEventListener("click", () => $addModal.open());
+
+    this.#renderMainArea();
+  }
+
+  #switchTab(type) {
+    const $listTab = this.#$target.querySelector("#list-tab");
+    const $favoriteTab = this.#$target.querySelector("#favorite-tab");
+
+    if (type === "list") {
+      $listTab.classList.add("active");
+      $favoriteTab.classList.remove("active");
+      this.#renderMainArea();
+      return;
+    }
+
+    $listTab.classList.remove("active");
+    $favoriteTab.classList.add("active");
+    this.#renderFavoriteList();
   }
 
   #renderMainArea() {
@@ -85,81 +90,72 @@ class App {
     const favorites = this.#restaurants.filter(
       (restaurant) => restaurant.isFavorite
     );
-
-    const onToggleFavorite = (clickedId) => {
-      const target = this.#restaurants.find(
-        (restaurant) => restaurant.id === clickedId
-      );
-      if (!target) return;
-      target.isFavorite = !target.isFavorite;
-
-      // 다시 즐겨찾기 목록 새로 렌더
-      this.#renderFavoriteList();
-    };
-
-    const onDeleteRestaurant = (clickedId) => {
-      const targetIndex = this.#restaurants.findIndex(
-        (restaurant) => restaurant.id === clickedId
-      );
-      if (targetIndex === -1) return;
-
-      this.#restaurants.splice(targetIndex, 1);
-      this.#renderFavoriteList();
-    };
-
-    const $favoriteList = RestaurantList(favorites, {
-      onToggleFavorite,
-      onDeleteRestaurant,
-    });
-    $main.appendChild($favoriteList);
+    this.#renderList(favorites);
   }
 
   #renderRestaurantList() {
-    // 1) 필터 + 정렬(도메인 로직)
     const filtered = filterAndSortRestaurants(
       this.#restaurants,
       this.#selectedCategory,
       this.#selectedSorting
     );
+    this.#renderList(filtered);
+  }
 
-    // 2) "즐겨찾기 토글" 콜백 정의
-    const onToggleFavorite = (clickedId) => {
-      // restaurants 배열에서 name이 clickedName인 녀석을 찾아서 isFavorite 토글
-      const target = this.#restaurants.find(
-        (restaurant) => restaurant.id === clickedId
-      );
-      if (!target) return;
-      target.isFavorite = !target.isFavorite;
-
-      // 다시 리스트 렌더링해서 UI 반영
-      this.#renderRestaurantList();
-    };
-
-    const onDeleteRestaurant = (clickedId) => {
-      const targetIndex = this.#restaurants.findIndex(
-        (restaurant) => restaurant.id === clickedId
-      );
-      if (targetIndex === -1) return;
-
-      this.#restaurants.splice(targetIndex, 1);
-      this.#renderRestaurantList();
-    };
-
-    // 3) 새로운 RestaurantList DOM 생성 (filtered + onToggleFavorite)
-    const $newList = RestaurantList(filtered, {
-      onToggleFavorite,
-      onDeleteRestaurant,
-    });
-
-    // 4) 기존 리스트와 교체
+  #renderList(restaurants) {
     const $main = document.querySelector("main");
     const $oldContainer = $main.querySelector(".restaurant-list-container");
+
+    const $newList = RestaurantList(restaurants, {
+      onToggleFavorite: this.#toggleFavorite.bind(this),
+      onDeleteRestaurant: this.#deleteRestaurant.bind(this),
+    });
 
     if ($oldContainer) {
       $main.replaceChild($newList, $oldContainer);
     } else {
       $main.appendChild($newList);
     }
+  }
+
+  #toggleFavorite(clickedId) {
+    const target = this.#restaurants.find(
+      (restaurant) => restaurant.id === clickedId
+    );
+    if (!target) return;
+
+    target.isFavorite = !target.isFavorite;
+
+    this.#renderList(
+      this.#isFavoriteTabActive()
+        ? this.#restaurants.filter((r) => r.isFavorite)
+        : filterAndSortRestaurants(
+            this.#restaurants,
+            this.#selectedCategory,
+            this.#selectedSorting
+          )
+    );
+  }
+
+  #deleteRestaurant(clickedId) {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.id !== clickedId
+    );
+    this.#renderList(
+      this.#isFavoriteTabActive()
+        ? this.#restaurants.filter((r) => r.isFavorite)
+        : filterAndSortRestaurants(
+            this.#restaurants,
+            this.#selectedCategory,
+            this.#selectedSorting
+          )
+    );
+  }
+
+  #isFavoriteTabActive() {
+    return this.#$target
+      .querySelector("#favorite-tab")
+      .classList.contains("active");
   }
 
   #addRestaurant(newRestaurant) {
