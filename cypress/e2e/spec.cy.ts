@@ -1,79 +1,100 @@
 const localURL = 'http://localhost:5173';
+import { LOCAL_STORAGE_KEY_MAP } from '../../src/lib/constants';
+import { DEFAULT_RESTAURANT_LIST } from '../../src/lib/constants';
 
 describe('애플리케이션 테스트', () => {
   beforeEach(() => {
     cy.visit(localURL);
+    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(DEFAULT_RESTAURANT_LIST));
   });
 
-  describe('식당 목록', () => {
-    it('첫 화면에서 식당 리스트가 보인다.', () => {
-      cy.get('.restaurant-list');
+  describe('음식점 목록을 확인할 수 있다.', () => {
+    describe('카테고리별로 필터링해서 확인할 수 있다.', () => {
+      it('카테고리에서 한식을 필터링하면 한식만 확인할 수 있다.', () => {
+        cy.get('.restaurant-filter-sort > :nth-child(1) > select').select('한식');
+
+        cy.contains('피양콩할마니').should('exist');
+        cy.contains('친친').should('not.exist');
+      });
+      it('카테고리에서 일식을 필터링하면 일식만 확인할 수 있다.', () => {
+        cy.get('.restaurant-filter-sort > :nth-child(1) > select').select('일식');
+
+        cy.contains('잇쇼우').should('exist');
+        cy.contains('피양콩할마니').should('not.exist');
+      });
+      it('카테고리에서 중식을 필터링하면 중식만 확인할 수 있다.', () => {
+        cy.get('.restaurant-filter-sort > :nth-child(1) > select').select('중식');
+
+        cy.contains('친친').should('exist');
+        cy.contains('피양콩할마니').should('not.exist');
+      });
+      it('카테고리에서 양식을 필터링하면 양식만 확인할 수 있다.', () => {
+        cy.get('.restaurant-filter-sort > :nth-child(1) > select').select('양식');
+
+        cy.contains('이태리키친').should('exist');
+        cy.contains('피양콩할마니').should('not.exist');
+      });
+    });
+
+    describe('이름순/거리순으로 정렬해서 확인할 수 있다.', () => {
+      it('거리순으로 정렬하면 친친 식당이 첫 번째에 위치한다.', () => {
+        cy.get(':nth-child(2) > select').select('거리순');
+
+        cy.get(':first-child > .restaurant').contains('친친');
+      });
+      it('이름순으로 정렬하면 "각" 식당이 첫 번째에, "힣" 식당이 마지막에 위치한다.', () => {
+        cy.get(':nth-child(2) > select').select('이름순');
+
+        cy.addRestaurant({ name: '각', category: '일식', distance: 20 });
+        cy.addRestaurant({ name: '힣', category: '일식', distance: 10 });
+
+        cy.get(':first-child > .restaurant').contains('각');
+        cy.get(':last-child > .restaurant').contains('힣');
+      });
     });
   });
 
-  describe('식당 추가', () => {
-    it('식당 추가 버튼을 누르면 모달이 보인다.', () => {
-      cy.get('.gnb__button').click();
+  describe('음식점 상세 정보를 확인할 수 있다.', () => {
+    it('카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다.', () => {
+      cy.get(':first-child > .restaurant').click();
 
-      cy.contains('새로운 음식점');
+      cy.get('.restaurant-detail-modal img[alt="기타"]').should('exist');
+      cy.get('.restaurant-detail-modal').contains('도스타코스 선릉점').should('exist');
+      cy.get('.restaurant-detail-modal').contains('캠퍼스부터 5분 내').should('exist');
+      cy.get('.restaurant-detail-modal').contains('멕시칸 캐주얼 그릴').should('exist');
+      cy.get('.restaurant-detail-modal').contains('https://naver.me/G6DyD9tg').should('exist');
     });
+    it('음식점을 삭제할 수 있다.', () => {
+      cy.get(':first-child > .restaurant').click();
+      cy.get('.restaurant-detail-modal').contains('삭제하기').click();
 
-    it('모달을 열어 각 값을 입력하여 ‘추가하기’ 버튼을 누르면 식당 리스트가 추가된다.', () => {
-      cy.addRestaurant('이름입니다', '일식', 10);
-
-      cy.contains('이름입니다');
-      cy.contains('10분 내');
+      cy.get('.restaurant-list').contains('도스타코스 선릉점').should('not.exist');
     });
   });
+  describe('자주 가는 음식점을 추가하고 목록으로 확인할 수 있다.', () => {
+    it('음식점 목록에서 자주 가는 음식점을 추가할 수 있다.', () => {
+      cy.get(':first-child > .restaurant #like__button').click();
+      cy.get('#tab-like').click();
+      cy.get(':first-child > .restaurant > .restaurant__info > .restaurant__info--inner').click();
 
-  describe('식당 저장', () => {
+      cy.get('.restaurant-list').contains('도스타코스 선릉점').should('exist');
+    });
+    it('음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.', () => {
+      cy.get(':first-child > .restaurant').click();
+      cy.get('.restaurant-detail-modal #like__button').click();
+      cy.get('#tab-like').click();
+
+      cy.get('.restaurant-list').contains('도스타코스 선릉점').should('exist');
+    });
+  });
+  describe('새로고침해도 추가한 정보들이 유지되어야 한다.', () => {
     it('새로고침을 했을 때 이전에 추가한 식당이 보인다.', () => {
-      cy.addRestaurant('이름입니다', '일식', 10);
+      cy.addRestaurant({ name: '이름입니다', category: '일식', distance: 10 });
 
       cy.reload();
 
       cy.contains('이름입니다');
       cy.contains('10분 내');
-    });
-  });
-
-  describe('식당 상세히 보기', () => {
-    it('식당을 누르면 식당의 상세 정보가 보인다.', () => {
-      cy.addRestaurant('이름입니다', '일식', 10);
-      cy.get('.restaurant-list').find('.restaurant').first().click();
-
-      cy.contains('삭제하기');
-      cy.contains('닫기');
-    });
-  });
-
-  describe('식당 삭제', () => {
-    it('식당 상세 정보에서 식당을 제거하면 식당이 제거된다.', () => {
-      cy.addRestaurant('이름입니다', '일식', 10);
-      cy.get('.restaurant-list').find('.restaurant').first().click();
-
-      cy.get('#modal-delete').click();
-
-      cy.get('.restaurant').should('not.exist');
-    });
-  });
-
-  describe('필터링', () => {
-    it('자주 가는 음식점을 누르면 자주 가는 음식점만 필터링해 보여준다.', () => {
-      cy.addRestaurant('이름입니다', '일식', 10);
-      cy.get('#tab-like').click();
-
-      cy.get('.restaurant').should('not.exist');
-    });
-    it('한식을 선택하면 한식만 보여준다.', () => {
-      cy.addRestaurant('이름입니다', '일식', 10);
-      cy.get('#filter').select('한식');
-      cy.get('.restaurant').should('not.exist');
-    });
-    it('일식을 선택하면 일식만 보여준다.', () => {
-      cy.addRestaurant('이름입니다', '일식', 10);
-      cy.get('#filter').select('일식');
-      cy.get('.restaurant').should('exist');
     });
   });
 });
