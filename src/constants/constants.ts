@@ -77,7 +77,7 @@ export const ADD_BUTTON: ButtonField = {
   content: '추가하기',
 };
 
-type Category = '한식' | '중식' | '일식' | '양식' | '아시안' | '기타';
+type Category = '한식' | '중식' | '일식' | '양식' | '아시안' | '기타' | '전체';
 
 export const IMAGE: Map<Category, string> = new Map([
   ['한식', 'category-korean.png'],
@@ -92,4 +92,25 @@ export const FAV_STAR = {
   className: 'favorite-star',
   activeSrc: 'favorite-icon-filled.png',
   inactiveSrc: 'favorite-icon-lined.png',
+};
+
+export interface multiSelect {
+  name: string;
+  id: string;
+  class: string;
+  options: string[];
+}
+
+export const CATEGORY_FILTER_SELECT: multiSelect = {
+  name: 'category',
+  id: 'category-filter',
+  class: 'restaurant-filter',
+  options: ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'],
+};
+
+export const SORTING_FILTER_SELECT: multiSelect = {
+  name: 'sorting',
+  id: 'sorting-filter',
+  class: 'restaurant-filter',
+  options: ['이름순', '거리순'],
 };
