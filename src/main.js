@@ -16,7 +16,9 @@ addEventListener("load", () => {
   `;
 
   const restaurantDetailModalContent = document.createElement("div");
-  restaurantDetailModalContent.append(createRestaurantItem(RESTAURANTS[0]));
+  const modalDetailItem = createRestaurantItem(RESTAURANTS[0]);
+  modalDetailItem.classList.add("flex-column");
+  restaurantDetailModalContent.append(modalDetailItem);
 
   const modal = new Modal({ element: innerModalContent });
   main.append(modal.rendered);
