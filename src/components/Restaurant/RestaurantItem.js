@@ -1,4 +1,4 @@
-import CATEGORY from '../constant/category.js';
+import CATEGORY from '../../constant/category.js';
 import RestaurantIcon from './RestaurantIcon.js';
 import RestaurantInfo from './RestaurantInfo.js';
 

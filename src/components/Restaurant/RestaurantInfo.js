@@ -1,4 +1,4 @@
-import CATEGORY from '../constant/category.js';
+import CATEGORY from '../../constant/category.js';
 
 const RESTAURANT_INFO_TEMPLATE = (name, distance, description) => {
   return `
