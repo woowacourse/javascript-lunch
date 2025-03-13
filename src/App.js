@@ -8,10 +8,19 @@ import Component from "./components/core/Component.js";
 import { $ } from "./utils/selector.js";
 import RestaurantItem from "./components/RestaurantItem.js";
 
+import {
+  setItemToLocalStorage,
+  getItemFromLocalStorage,
+} from "./database/localStorage.js";
+
 class App extends Component {
   setup() {
+    const key = "restaurantList";
+    setItemToLocalStorage(key, restaurants);
+
     this.state = {
-      restaurants: restaurants,
+      restaurants: getItemFromLocalStorage(key),
+      key,
     };
   }
 
