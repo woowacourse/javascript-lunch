@@ -57,7 +57,7 @@ const registerRestaurant = (e, restaurantList) => {
     restaurantList.add(restaurant);
 
     $(".modal-backdrop").classList.remove("open");
-    renderRestaurants(restaurant);
+    renderRestaurants(...restaurantList.list);
 
     clearInput("#register-form");
   } catch (e) {

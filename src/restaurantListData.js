@@ -11,6 +11,13 @@ export const restaurantListData = [
     link: "http//localhost:30000",
   }),
   new Restaurant({
+    category: "일식",
+    name: "잇쇼우",
+    distance: WALK_TIME_MINUTES.FIFTEEN,
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
     category: "중식",
     name: "친친",
     distance: WALK_TIME_MINUTES.TEN,
@@ -18,9 +25,16 @@ export const restaurantListData = [
     link: "http//localhost:30000",
   }),
   new Restaurant({
-    category: "일식",
-    name: "잇쇼우",
+    category: "중식",
+    name: "친친친친",
     distance: WALK_TIME_MINUTES.FIFTEEN,
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    category: "중식",
+    name: "친친clssls",
+    distance: WALK_TIME_MINUTES.FIVE,
     description: "설명입니다",
     link: "http//localhost:30000",
   }),

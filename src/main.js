@@ -12,14 +12,14 @@ import CategorySelector from "./components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "./components/FilterSelector/NameOrDistanceSelector";
 
 addEventListener("load", () => {
+  const restaurantList = new RestaurantList(restaurantListData);
+  renderRestaurants(...restaurantList.list);
+
   const app = $("#app");
   app.prepend(header());
   const filter = $(".restaurant-filter-container");
-  filter.appendChild(CategorySelector());
-  filter.appendChild(NameOrDistanceSelector());
-
-  const restaurantList = new RestaurantList(restaurantListData);
-  renderRestaurants(...restaurantList.list);
+  filter.appendChild(CategorySelector(restaurantList));
+  filter.appendChild(NameOrDistanceSelector(restaurantList));
 
   $("main").appendChild(
     Modal(
