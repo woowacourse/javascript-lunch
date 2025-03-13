@@ -1,8 +1,14 @@
 {
-  "rules": {},
+  "rules": {
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-restricted-globals": ["error", "event"]
+  },
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "browser": true,
+    "es2021": true
   },
   "parserOptions": {
     "ecmaVersion": "latest"

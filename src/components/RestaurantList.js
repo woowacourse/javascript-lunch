@@ -1,4 +1,3 @@
-// components/RestaurantList.js
 import { initialRestaurants } from "../data/initialRestaurants.js";
 
 export default function RestaurantList(
@@ -8,7 +7,7 @@ export default function RestaurantList(
   const restaurantItemsHTML = restaurants
     .map(
       (restaurant) => `
-      <li class="restaurant">
+      <li class="restaurant" data-category="${restaurant.category}">
         <div class="restaurant__category">
           <img src="./category-${restaurant.category}.png" alt="${restaurant.categoryName}" class="category-icon" />
         </div>

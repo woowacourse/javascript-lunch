@@ -15,6 +15,7 @@ export default function RestaurantFilterContainer(container) {
     })),
     required: false,
     selectFirst: true,
+    type: "filter", // 필터용임을 명시
   });
 
   const sortingDropdown = CustomDropdown({
@@ -27,16 +28,15 @@ export default function RestaurantFilterContainer(container) {
     })),
     required: false,
     selectFirst: true,
+    type: "filter",
   });
 
   container.innerHTML += `
-
       <div class="filter-dropdown">
         ${categoryDropdown}
       </div>
       <div class="filter-dropdown">
         ${sortingDropdown}
       </div>
-
   `;
 }

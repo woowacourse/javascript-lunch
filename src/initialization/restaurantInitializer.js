@@ -1,13 +1,13 @@
 import RestaurantList from "../components/RestaurantList.js";
 
 export function initializeRestaurantList() {
-  const $restaurantListContainer = document.querySelector(
+  const $restaurantContainer = document.querySelector(
     ".restaurant-list-container",
   );
 
-  if ($restaurantListContainer) {
-    RestaurantList($restaurantListContainer);
+  if ($restaurantContainer) {
+    RestaurantList($restaurantContainer);
   } else {
-    console.warn("레스토랑 리스트 컨테이너를 DOM에서 찾을 수 없습니다.");
+    console.error("레스토랑 컨테이너 요소를 찾을 수 없습니다.");
   }
 }

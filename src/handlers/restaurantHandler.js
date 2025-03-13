@@ -1,4 +1,3 @@
-import RestaurantItem from "../components/RestaurantItem.js";
 import { categoryMapping } from "../utils/categoryMapping.js";
 import {
   validateDescriptiontInput,
@@ -37,6 +36,7 @@ export function handleAddRestaurant(e) {
 
     const inputValue = {
       categoryCode,
+      categoryValue,
       nameValue,
       distanceValue,
       descriptionValue,
@@ -44,14 +44,28 @@ export function handleAddRestaurant(e) {
 
     const $restaurantList = document.querySelector(".restaurant-list");
     if ($restaurantList) {
-      RestaurantItem($restaurantList, inputValue);
+      // dataset.category 속성을 추가한 HTML을 생성하여 추가
+      const restaurantItemHTML = `
+        <li class="restaurant" data-category="${categoryCode}">
+          <div class="restaurant__category">
+            <img src="./category-${categoryCode}.png" alt="${categoryValue}" class="category-icon">
+          </div>
+          <div class="restaurant__info">
+            <h3 class="restaurant__name text-subtitle">${nameValue}</h3>
+            <span class="restaurant__distance text-body">캠퍼스부터 ${distanceValue}분 내</span>
+            <p class="restaurant__description text-body">${descriptionValue}</p>
+          </div>
+        </li>
+      `;
+      $restaurantList.innerHTML += restaurantItemHTML;
     } else {
       console.warn("레스토랑 목록을 DOM에서 찾을 수 없습니다.");
       alert("레스토랑 목록을 찾을 수 없습니다.");
       return;
     }
+
+    removeModal();
   } catch (error) {
     alert(error.message);
   }
-  removeModal();
 }
