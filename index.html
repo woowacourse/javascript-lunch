@@ -19,12 +19,21 @@
         <section class="restaurant-list-container">
           <ul class="restaurant-list"></ul>
         </section>
-        <template id="modal-template">
-          <div class="modal">
+        <template id="new-restaurant-modal-template">
+          <div class="modal new-restaurant-modal">
             <div class="modal-backdrop"></div>
             <div class="modal-container">
               <h2 class="modal-title text-title">새로운 음식점</h2>
               <form id="new-restaurant-form"></form>
+            </div>
+          </div>
+        </template>
+
+        <template id="restaurant-detail-modal-template">
+          <div class="modal restaurant-detail-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-container">
+              <div id="restaurant-detail-content"></div>
             </div>
           </div>
         </template>
