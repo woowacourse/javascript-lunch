@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const mainTab = tab.querySelector(".tab__title");
   const subTab = tab.querySelector(".tab__subTitle");
+  const restaurantFilterContainer = document.querySelector(
+    ".restaurant-filter-container"
+  );
 
   mainTab.classList.add("active");
 
@@ -25,12 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
     mainTab.classList.add("active");
     subTab.classList.remove("active");
     // TODO '모든 음식점' 목록을 렌더링
+    restaurantFilterContainer.classList.remove("hidden");
   });
 
   subTab.addEventListener("click", () => {
     subTab.classList.add("active");
     mainTab.classList.remove("active");
     // TODO '자주 가는 음식점' 목록을 렌더링
+    restaurantFilterContainer.classList.add("hidden");
   });
 
   const restaurantList = document.querySelector(".restaurant-list");
