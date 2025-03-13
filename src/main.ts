@@ -9,6 +9,9 @@ import {
   multiSelect,
   CATEGORY_FILTER_SELECT,
   SORTING_FILTER_SELECT,
+  filterTab,
+  ALL_RESTAURANT_TAB,
+  FAVORITE_RESTAURANT_TAB,
 } from './constants/constants.ts';
 import { RESTAURANTS } from './data/restaurantData.ts';
 import eventHandlers from './handlers/eventHandlers.ts';
@@ -23,6 +26,7 @@ import {
   createSelect,
   createTextarea,
   createMultiSelect,
+  createFilterTab,
 } from './components/index.js';
 
 addEventListener('load', () => {
@@ -32,6 +36,8 @@ addEventListener('load', () => {
   appendModalContents();
   appendCategoryFilterSelect(CATEGORY_FILTER_SELECT);
   appendCategoryFilterSelect(SORTING_FILTER_SELECT);
+  appendFilterTab(ALL_RESTAURANT_TAB);
+  appendFilterTab(FAVORITE_RESTAURANT_TAB);
 
   const nameInputElement = document.querySelector('#name');
   if (nameInputElement instanceof HTMLInputElement) {
@@ -115,4 +121,11 @@ function appendCategoryFilterSelect(fieldName: multiSelect) {
   if (!filterContainer) return;
   const categoryFilterSelect = createMultiSelect(fieldName);
   filterContainer.insertAdjacentHTML('beforeend', categoryFilterSelect);
+}
+
+function appendFilterTab(fieldName: filterTab) {
+  const tabContainer = document.querySelector('.tab-container');
+  if (!tabContainer) return;
+  const tab = createFilterTab(fieldName);
+  tabContainer.insertAdjacentHTML('beforeend', tab);
 }

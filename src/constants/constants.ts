@@ -114,3 +114,24 @@ export const SORTING_FILTER_SELECT: multiSelect = {
   class: 'restaurant-filter',
   options: ['이름순', '거리순'],
 };
+
+export interface filterTab {
+  class: string;
+  active: boolean;
+  dataTab: string;
+  text: string;
+}
+
+export const ALL_RESTAURANT_TAB: filterTab = {
+  class: 'tab',
+  active: true,
+  dataTab: 'all',
+  text: '모든 음식점',
+};
+
+export const FAVORITE_RESTAURANT_TAB: filterTab = {
+  class: 'tab',
+  active: false,
+  dataTab: 'favorites',
+  text: '자주 가는 음식점',
+};
