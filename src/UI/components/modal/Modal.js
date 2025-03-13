@@ -27,15 +27,15 @@ class Modal {
 
   #bindEvents = () => {
     this.#modalBackdrop.addEventListener('click', () => {
-      this.handleToggleModal();
+      this.#handleToggleModal();
     });
 
     document.addEventListener('keyup', (event) => {
-      if (event.key === 'Escape' && this.checkModalOpen()) {
-        this.handleToggleModal();
+      if (event.key === 'Escape' && this.#checkModalOpen()) {
+        this.#handleToggleModal();
       }
     });
-  }
+  };
 
   addElementToModalContainer = (element) => {
     this.#modalContainer.appendChild(element);
@@ -46,13 +46,13 @@ class Modal {
     document.body.style.overflow = this.#modal.classList.contains('modal--open') ? 'hidden' : '';
   };
 
-  checkModalOpen = () => {
+  #checkModalOpen = () => {
     return this.#modal.classList.contains('modal--open');
-  }
+  };
 
-  handleToggleModal = () => {
+  #handleToggleModal = () => {
     this.toggleModal();
-  }
+  };
 }
 
 export default Modal;

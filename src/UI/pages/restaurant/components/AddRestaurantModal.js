@@ -23,7 +23,8 @@ const DISTANCE_LIST = [
   ['30', '30분 내'],
 ];
 
-class AddRestaurantModal extends Modal {
+class AddRestaurantModal {
+  #modal;
   #modalForm;
   #cancelButton;
   #addButton;
@@ -34,7 +35,7 @@ class AddRestaurantModal extends Modal {
   #linkInput;
 
   constructor() {
-    super();
+    this.#modal = new Modal();
     this.#init();
     this.#createAddModal();
   }
@@ -54,10 +55,10 @@ class AddRestaurantModal extends Modal {
     const modalTitle = document.createElement('h2');
     modalTitle.classList.add('modal-title', 'text-title');
     modalTitle.innerText = '새로운 음식점';
-    this.addElementToModalContainer(modalTitle);
+    this.#modal.addElementToModalContainer(modalTitle);
 
     this.#modalForm = this.#createModalForm();
-    this.addElementToModalContainer(this.#modalForm);
+    this.#modal.addElementToModalContainer(this.#modalForm);
   };
 
   #createModalForm = () => {
@@ -109,7 +110,7 @@ class AddRestaurantModal extends Modal {
   };
 
   handleToggleModal = () => {
-    this.toggleModal();
+    this.#modal.toggleModal();
     this.#modalForm.reset();
   };
 }
