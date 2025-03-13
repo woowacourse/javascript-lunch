@@ -1,7 +1,6 @@
 import { Button } from "../component/button/Button";
 import { ButtonContainer } from "../component/button/ButtonContainer";
 import { Modal } from "../component/layout/Modal";
-import { addFoodItem } from "../domain/handler/FoodItemHandler";
 
 export function FoodDetail({
   imgSrc,
@@ -38,7 +37,6 @@ export function FoodDetail({
           cssType: "primary",
           innerText: "닫기",
           onClick: Modal.close,
-          //   onClick: () => addFoodItem(filter),
         }),
       ],
     })

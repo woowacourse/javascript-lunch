@@ -1,6 +1,6 @@
 import { CAPTION_MESSAGE } from "../constants/Message.js";
 import { getFormFoodItem } from "../domain/handler/FoodFormHandler.js";
-import { addFoodItem } from "../domain/handler/FoodItemHandler.js";
+import { addFoodFormItem } from "../domain/handler/FoodItemHandler.js";
 import { Button } from "../component/button/Button.js";
 import { ButtonContainer } from "../component/button/ButtonContainer.js";
 import { Input } from "../component/input/Input.js";
@@ -86,7 +86,7 @@ export function FoodForm(filter, modal) {
         Button({
           cssType: "primary",
           innerText: "추가하기",
-          onClick: () => addFoodItem(filter, modal),
+          onClick: () => addFoodFormItem(filter, modal),
         }),
       ],
     })

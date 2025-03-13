@@ -1,7 +1,4 @@
-import {
-  convertStorageToLocal,
-  getStorageFoodList,
-} from "./handler/FoodItemHandler";
+import { readStorageFoodList } from "./handler/FoodStorageHandler";
 
 export class Filter {
   #categoryFilter;
@@ -12,20 +9,20 @@ export class Filter {
     this.#sortingFilter = "이름순";
   }
 
-  changeCategory(modal) {
+  changeCategory() {
     const filterOption = document.querySelector("select[name=category]").value;
     this.#categoryFilter = filterOption;
-    this.#updateFilterItem(modal);
+    return this.#updateFilterItem();
   }
 
-  changeSorting(modal) {
+  changeSorting() {
     const filterOption = document.querySelector("select[name=sorting]").value;
     this.#sortingFilter = filterOption;
-    this.#updateFilterItem(modal);
+    return this.#updateFilterItem();
   }
 
-  #updateFilterItem(modal) {
-    const FoodInventory = getStorageFoodList();
+  #updateFilterItem() {
+    const FoodInventory = readStorageFoodList();
     const foodItems = [...FoodInventory];
     const filteredItems = foodItems
       .filter((foodItem) => {
@@ -33,19 +30,17 @@ export class Filter {
         return foodItem.imgAlt === this.#categoryFilter;
       })
       .sort((a, b) => this.sortBy(a, b));
-    convertStorageToLocal(filteredItems, modal);
     return filteredItems;
-    // console.log(filteredItems);
   }
 
   sortBy(a, b) {
     if (this.#sortingFilter === "이름순") {
-      return a.name.localeCompare(b.name, "ko"); // 문자열 비교 (한글 정렬 지원)
+      return a.name.localeCompare(b.name, "ko");
     }
     if (this.#sortingFilter === "거리순") {
-      return Number(a.distance) - Number(b.distance); // 숫자 정렬
+      return Number(a.distance) - Number(b.distance);
     }
-    return 0; // 기본적으로 변화 없음
+    return 0;
   }
 
   reset() {
