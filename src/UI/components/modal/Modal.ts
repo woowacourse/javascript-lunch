@@ -1,14 +1,16 @@
 import { DOM } from '../../../dom';
+
 class Modal {
-  #modal;
-  #modalContainer;
-  #modalBackdrop;
+  #modal: HTMLDivElement;
+  #modalContainer!: HTMLDivElement;
+  #modalBackdrop!: HTMLDivElement;
+
   constructor() {
     this.#modal = this.#createModal();
     this.#bindEvents();
   }
 
-  #createModal() {
+  #createModal(): HTMLDivElement {
     const modal = document.createElement('div');
     modal.classList.add('modal', 'modal--open');
     modal.classList.toggle('modal--open');
@@ -21,36 +23,42 @@ class Modal {
 
     modal.appendChild(this.#modalBackdrop);
     modal.appendChild(this.#modalContainer);
-    DOM.APP.appendChild(modal);
+
+    if (DOM.APP) {
+      DOM.APP.appendChild(modal);
+    } else {
+      console.error('DOM.APP element not found');
+    }
+
     return modal;
   }
 
-  #bindEvents() {
+  #bindEvents(): void {
     this.#modalBackdrop.addEventListener('click', () => {
       this.#handleToggleModal();
     });
 
-    document.addEventListener('keyup', (event) => {
+    document.addEventListener('keyup', (event: KeyboardEvent) => {
       if (event.key === 'Escape' && this.#checkModalOpen()) {
         this.#handleToggleModal();
       }
     });
   }
 
-  addElementToModalContainer(element) {
+  addElementToModalContainer(element: HTMLElement): void {
     this.#modalContainer.appendChild(element);
   }
 
-  toggleModal() {
+  toggleModal(): void {
     this.#modal.classList.toggle('modal--open');
     document.body.style.overflow = this.#modal.classList.contains('modal--open') ? 'hidden' : '';
   }
 
-  #checkModalOpen() {
+  #checkModalOpen(): boolean {
     return this.#modal.classList.contains('modal--open');
   }
 
-  #handleToggleModal() {
+  #handleToggleModal(): void {
     this.toggleModal();
   }
 }
