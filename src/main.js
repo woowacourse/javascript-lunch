@@ -38,9 +38,11 @@ addEventListener("load", () => {
     storeRenderer.sortStore(storeList, e)
   );
 
-  querySelector(".restaurant-list").addEventListener("click", (e) =>
-    storeRenderer.toggleFavorite(storeList, e)
-  );
+  querySelector(".restaurant-list").addEventListener("click", (e) => {
+    storeRenderer.toggleFavorite(storeList, e);
+    // const storeElement = e.target.closest(".restaurant__info");
+    // initRenderer.setModal();
+  });
 
   querySelector(".restaurant-menuBar-container").addEventListener(
     "click",

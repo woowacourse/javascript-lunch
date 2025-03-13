@@ -191,6 +191,8 @@ body {
   justify-content: flex-start;
 
   flex-grow: 1;
+
+  cursor: pointer;
 }
 
 .restaurant__name {
