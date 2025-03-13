@@ -54,7 +54,7 @@ function readNewRestaurant() {
     };
 
     const id = storeService.getNewRestaurantId();
-    storeService.updateRestaurantByName(newRestaurantData.name, { ...newRestaurantData, id });
+    storeService.updateRestaurantById(newRestaurantData.name, { ...newRestaurantData, id });
     window.dispatchEvent(new Event('storage'));
     resetFormAndState();
     modal.classList.remove('modal--open');
@@ -127,6 +127,27 @@ function filteringRestaurantItems(callback) {
   });
 }
 
+function toggleFavoriteRestaurant(callback) {
+  const handleFavoriteClick = (event) => {
+    const { target } = event;
+
+    if (!target.closest('.restaurant__favorite')) {
+      return;
+    }
+
+    const restaurantItem = target.closest('.restaurant');
+    const id = Number(restaurantItem.dataset.id);
+    const targetData = storeService.findRestaurantById(id);
+    const updateData = { ...targetData, favorite: !targetData.favorite };
+    storeService.updateRestaurantById(id, updateData);
+
+    callback();
+  };
+
+  const restaurantItems = document.querySelector('.restaurant-list');
+  restaurantItems.addEventListener('click', handleFavoriteClick);
+}
+
 const eventHandlers = {
   openModal,
   closeModal,
@@ -135,6 +156,7 @@ const eventHandlers = {
   switchTab,
   sortRestaurantItems,
   filteringRestaurantItems,
+  toggleFavoriteRestaurant,
 };
 
 export default eventHandlers;

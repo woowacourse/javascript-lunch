@@ -93,6 +93,7 @@ function addEventHandlers() {
   eventHandlers.sortRestaurantItems(appendRestaurantItems);
   eventHandlers.detectStorageEvent(updateRestaurantElements);
   eventHandlers.filteringRestaurantItems(appendRestaurantItems);
+  eventHandlers.toggleFavoriteRestaurant(updateRestaurantElements);
 }
 
 function setRequired(element) {
