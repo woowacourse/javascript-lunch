@@ -12,5 +12,5 @@ addEventListener("load", () => {
   $("main").prepend(CategoryAndSortFilter(restaurantList.changeState));
   $("main").prepend(FavoriteTabFilters(restaurantList.changeState));
 
-  $("main").appendChild(Modal());
+  $("main").appendChild(Modal(restaurantList.filter));
 });

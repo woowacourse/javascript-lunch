@@ -4,7 +4,7 @@ import ModalContent from "../common/modal/modalContent";
 import CategoryImage from "./categoryImage";
 import RestaurantInfo from "./restaurantInfo";
 
-const RestaurantCard = (restaurant) => {
+const RestaurantCard = (restaurant, filter) => {
   const { category, name, distance, description, favorite } = restaurant.info;
 
   const restaurantCard = document.createElement("li");
@@ -17,14 +17,16 @@ const RestaurantCard = (restaurant) => {
       distance,
       description: [description, true],
       favorite,
-      toggleFavoriteMark: restaurant.toggleFavoriteMark,
+      toggleFavoriteMark: () => {
+        restaurant.toggleFavoriteMark();
+        filter();
+      },
       handleClickTitle,
     })
   );
 
   function handleClickTitle() {
     $(".modal-backdrop").classList.add("open");
-
     ModalContent([
       CategoryImage(category),
       createElement(`<div class="space"></div>`),

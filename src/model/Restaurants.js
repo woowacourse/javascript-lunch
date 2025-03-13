@@ -14,14 +14,14 @@ class Restaurants {
       option: "name",
       favorite: false,
     };
-    this.#filter();
+    this.filter();
   }
 
   pushList = (restaurant) => {
     this.#restaurants.push(restaurant);
     $("select#category").value = "all"; // -> TODO: dom조작 view 영역 아닐까
     this.#filterType.category = "all";
-    this.#filter();
+    this.filter();
   };
 
   changeState = (state) => {
@@ -29,16 +29,16 @@ class Restaurants {
     const sortState = state[sortType];
 
     this.#filterType[sortType] = sortState;
-    this.#filter();
+    this.filter();
   };
 
-  #filter() {
+  filter = () => {
     const filtered = this.#filterByCategory(this.#filterByFavorite());
     if (this.#filterType.option === "name") this.#sortByName(filtered);
     if (this.#filterType.option === "distance") this.#sortByDistance(filtered);
 
     this.#renderRestaurants(filtered);
-  }
+  };
 
   #filterByFavorite() {
     if (this.#filterType.favorite) {
@@ -78,7 +78,7 @@ class Restaurants {
     }
 
     restaurants.forEach((restaurant) => {
-      ulTag.appendChild(RestaurantCard(restaurant));
+      ulTag.appendChild(RestaurantCard(restaurant, () => this.filter()));
     });
   }
 }
