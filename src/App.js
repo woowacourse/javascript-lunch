@@ -2,6 +2,7 @@ import Header from "./components/header/Header.js";
 import BottomSheetBase from "./components/common/bottom-sheet-base/BottomSheetBase.js";
 import RestaurantForm from "./components/restaurant-form-section/restaurant-form/RestaurantForm.js";
 import RestaurantList from "./components/restaurant-list-section/restaurant-list/RestaurantList.js";
+import RestaurantFilter from "./components/restaurant-filter-section/restaurantFilter.js";
 
 export default class App {
   constructor(restaurantStore, restaurantService) {
@@ -27,8 +28,14 @@ export default class App {
     this.$main = document.createElement("main");
     this.$body.append(this.$main);
 
+    this.#renderRestaurantFilter();
     this.#renderRestaurantList();
     this.#renderBottomSheet();
+  }
+
+  #renderRestaurantFilter() {
+    this.$restaurantFilter = new RestaurantFilter();
+    this.$main.append(this.$restaurantFilter.render());
   }
 
   #renderRestaurantList() {
