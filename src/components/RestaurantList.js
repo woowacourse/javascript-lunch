@@ -1,7 +1,10 @@
 import RestaurantDetailModal from "./modal/RestaurantDetailModal/index.js";
 import RestaurantItem from "./RestaurantItem.js";
 
-const RestaurantList = (restaurants, onToggleFavorite) => {
+const RestaurantList = (
+  restaurants,
+  { onToggleFavorite, onDeleteRestaurant }
+) => {
   // 1) 템플릿 문자열을 만들되, map으로 각 아이템을 HTML화
   const htmlString = /* html */ `
     <section class="restaurant-list-container">
@@ -41,7 +44,13 @@ const RestaurantList = (restaurants, onToggleFavorite) => {
 
     const $detailModal = new RestaurantDetailModal(
       document.querySelector("#modal"),
-      restaurants.find((restaurant) => restaurant.id === $li.dataset.id)
+      {
+        restaurant: restaurants.find(
+          (restaurant) => restaurant.id === $li.dataset.id
+        ),
+        onToggleFavorite,
+        onDeleteRestaurant,
+      }
     );
 
     $detailModal.open();

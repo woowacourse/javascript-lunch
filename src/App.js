@@ -97,7 +97,20 @@ class App {
       this.#renderFavoriteList();
     };
 
-    const $favoriteList = RestaurantList(favorites, onToggleFavorite);
+    const onDeleteRestaurant = (clickedId) => {
+      const targetIndex = this.#restaurants.findIndex(
+        (restaurant) => restaurant.id === clickedId
+      );
+      if (targetIndex === -1) return;
+
+      this.#restaurants.splice(targetIndex, 1);
+      this.#renderFavoriteList();
+    };
+
+    const $favoriteList = RestaurantList(favorites, {
+      onToggleFavorite,
+      onDeleteRestaurant,
+    });
     $main.appendChild($favoriteList);
   }
 
@@ -122,8 +135,21 @@ class App {
       this.#renderRestaurantList();
     };
 
+    const onDeleteRestaurant = (clickedId) => {
+      const targetIndex = this.#restaurants.findIndex(
+        (restaurant) => restaurant.id === clickedId
+      );
+      if (targetIndex === -1) return;
+
+      this.#restaurants.splice(targetIndex, 1);
+      this.#renderRestaurantList();
+    };
+
     // 3) 새로운 RestaurantList DOM 생성 (filtered + onToggleFavorite)
-    const $newList = RestaurantList(filtered, onToggleFavorite);
+    const $newList = RestaurantList(filtered, {
+      onToggleFavorite,
+      onDeleteRestaurant,
+    });
 
     // 4) 기존 리스트와 교체
     const $main = document.querySelector("main");
