@@ -30,7 +30,8 @@
   - [x] 도메인 데이터 분리 (MODAL_FORM_CONFIG -> html element 필드 데이터)
   - [x] MODAL_FORM_CONFIG 데이터 -> 컴포넌트 함께 주입
   - [x] FormItem 컴포넌트 강결합 분리
-  - [ ] components/Form/ ~Form -> Field 파일 명 및 함수명 변경
+  - [x] components/Form/ ~Form -> Field 파일 명 및 함수명 변경
+  - [x] EventHandler 파일 위치 이동, formUtils 분리 (form 내부 컴포넌트 제작)
 
 - [ ] 2단계 기능
   - [ ] 음식점 목록 카테고리 필터링

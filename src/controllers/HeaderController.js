@@ -1,6 +1,6 @@
 import Header from "../components/Header.js";
 import { HEADER_CONTENTS } from "../constants/listData.js";
-import EventHandler from "./EventHandler.js";
+import EventHandler from "../utils/EventHandler.js";
 
 export function HeaderController(app) {
   app.prepend(Header(HEADER_CONTENTS));
