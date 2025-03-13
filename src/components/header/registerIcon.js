@@ -8,7 +8,7 @@ const registerIcon = () => {
   registerIcon.appendChild(Image("./add-button.png", "음식점 추가"));
 
   registerIcon.addEventListener("click", () => {
-    $(".modal-backdrop").classList.add("open");
+    $("#register-form-modal").classList.add("open");
   });
 
   return registerIcon;

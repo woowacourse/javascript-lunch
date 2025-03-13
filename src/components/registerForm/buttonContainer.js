@@ -5,6 +5,7 @@ import { clearInput } from "../../utils/clearInput";
 import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
+import { registerModalClose } from "../common/modal/handleCloseModal";
 
 const ButtonContainer = (onSubmitFailed, pushList) => {
   const buttonContainer = document.createElement("div");
@@ -14,7 +15,7 @@ const ButtonContainer = (onSubmitFailed, pushList) => {
     Button({
       text: BUTTON_TEXT.CANCEL,
       style: "button--secondary",
-      onClick: closeModal,
+      onClick: registerModalClose,
       type: "button",
       id: "cancel-button",
     })
@@ -38,12 +39,6 @@ const ButtonContainer = (onSubmitFailed, pushList) => {
   return buttonContainer;
 };
 export default ButtonContainer;
-
-const closeModal = () => {
-  $(".modal-backdrop").classList.remove("open");
-  clearInput("#register-form");
-  clearError();
-};
 
 const registerRestaurant = (e, pushList) => {
   e.preventDefault();
