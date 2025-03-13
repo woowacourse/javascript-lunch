@@ -9,6 +9,10 @@ class InputText {
     if (required) this.#input.setAttribute('required', 'true');
   }
 
+  reset() {
+    this.#input.value = '';
+  }
+
   getElement() {
     return this.#input;
   }

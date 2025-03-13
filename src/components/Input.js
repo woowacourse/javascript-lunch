@@ -2,14 +2,17 @@ import { createFormItemLabel } from './createFormItemLabel.js';
 
 class Input {
   #inputContainer;
+  #inputComponent;
 
-  constructor({ name, title, spanText = '', inputComponent }) {
-    this.#inputContainer = this.#createInput(name, title, spanText, inputComponent);
+  constructor({ name, title, required = false, spanText = '', inputComponent }) {
+    this.#inputComponent = inputComponent;
+    this.#inputContainer = this.#createInput(name, title, required, spanText, inputComponent);
   }
 
-  #createInput(name, title, spanText, inputComponent) {
+  #createInput(name, title, required, spanText, inputComponent) {
     const formItem = document.createElement('div');
     formItem.classList.add('form-item');
+    if (required) formItem.classList.add('form-item--required');
 
     const label = createFormItemLabel(name, title);
     formItem.appendChild(label);
@@ -23,6 +26,10 @@ class Input {
     }
 
     return formItem;
+  }
+
+  reset() {
+    this.#inputComponent.reset();
   }
 
   getElement() {

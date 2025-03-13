@@ -10,6 +10,10 @@ class InputTextArea {
     if (required) this.#textarea.setAttribute('required', 'true');
   }
 
+  reset() {
+    this.#textarea.value = '';
+  }
+
   getElement() {
     return this.#textarea;
   }
