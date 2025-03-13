@@ -14,7 +14,7 @@ class Modal extends Component {
   }
 
   componentDidMount() {
-    this.$backdrop = $(".modal-backdrop");
+    this.$backdrop = $(document, ".modal-backdrop");
     if (this.$backdrop) {
       this.$backdrop.removeEventListener("click", this.closeModalByClick);
       this.$backdrop.addEventListener("click", this.closeModalByClick);

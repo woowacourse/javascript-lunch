@@ -38,8 +38,8 @@ class AddRestaurantModal extends Modal {
   }
 
   addEventListeners() {
-    const $cancelButton = $("#cancel-add-restaurant-form");
-    const $addForm = $("#add-restaurant-form");
+    const $cancelButton = $(document, "#cancel-add-restaurant-form");
+    const $addForm = $(document, "#add-restaurant-form");
 
     $cancelButton.removeEventListener("click", this.closeModalByClick);
     $addForm.removeEventListener("submit", this.updateRestaurantList);

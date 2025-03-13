@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   updateNewRestaurant(newRestaurant) {
-    const $restaurantList = $(".restaurant-list");
+    const $restaurantList = $(document, ".restaurant-list");
 
     $restaurantList.insertAdjacentHTML(
       "afterbegin",
@@ -41,7 +41,7 @@ class App extends Component {
   componentDidUpdate() {}
 
   componentDidMount() {
-    const $modal = new AddRestaurantModal($("#modal"), {
+    const $modal = new AddRestaurantModal($(document, "#modal"), {
       updateRestaurant: this.updateRestaurant.bind(this),
     });
 
@@ -60,7 +60,7 @@ class App extends Component {
 
     window.addEventListener("keydown", closeModalByEscapeKey);
 
-    const $header = new Header($("#app"), {
+    const $header = new Header($(document, "#app"), {
       data: {
         title: "점심 뭐 먹지",
         ariaLabel: "음식점 추가",
@@ -75,7 +75,7 @@ class App extends Component {
   }
 
   renderRestaurantList() {
-    const $main = $("main");
+    const $main = $(document, "main");
     $main.insertAdjacentHTML(
       "afterbegin",
       RestaurantList(this.state.restaurants)
@@ -83,5 +83,5 @@ class App extends Component {
   }
 }
 
-const app = $("#app");
+const app = $(document, "#app");
 new App(app);
