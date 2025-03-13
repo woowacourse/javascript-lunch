@@ -2,6 +2,8 @@ import Restaurant from "./Restaurant.js";
 
 class RestaurantList {
   #restaurants;
+  #filteredRestaurants;
+
   constructor(listItemContents) {
     const storedRestaurants = localStorage.getItem("restaurants");
     if (storedRestaurants) {
@@ -25,8 +27,30 @@ class RestaurantList {
 
   // 카테고리 필터링
   filterByCategory(category) {
-    if (category === "전체") return [...this.#restaurants];
-    return this.#restaurants.filter(({ information }) => information.category === category);
+    if (category === "전체") {
+      this.#filteredRestaurants = [...this.#restaurants];
+    } else {
+      this.#filteredRestaurants = this.#restaurants.filter(({ information }) => information.category === category);
+    }
+  }
+
+  // 정렬 필터링
+  sortByOption(sortOption) {
+    if (sortOption === "이름순") {
+      this.#filteredRestaurants.sort((a, b) => a.information.name.localeCompare(b.information.name));
+    } else if (sortOption === "거리순") {
+      this.#filteredRestaurants.sort((a, b) => {
+        const distanceA = parseInt(a.information.distance.match(/\d+/)[0]);
+        const distanceB = parseInt(b.information.distance.match(/\d+/)[0]);
+        return distanceA - distanceB;
+      });
+    }
+  }
+
+  filterAndSort(category, sortOption) {
+    this.filterByCategory(category);
+    this.sortByOption(sortOption);
+    return [...this.#filteredRestaurants];
   }
 
   updateLocalStorage() {

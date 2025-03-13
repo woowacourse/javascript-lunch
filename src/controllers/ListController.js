@@ -5,11 +5,11 @@ import RestaurantList from "../domain/RestaurantList.js";
 
 function ListController(listContainerElement, category) {
   const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS);
-  let listElement = List(restaurantList.filterByCategory("전체"));
+  let listElement = List(restaurantList.filterAndSort("전체", "이름순"));
   listContainerElement.appendChild(listElement);
 
-  function updateList(category) {
-    const filteredRestaurants = restaurantList.filterByCategory(category);
+  function updateList(category, sortOption) {
+    const filteredRestaurants = restaurantList.filterAndSort(category, sortOption);
     listElement.innerHTML = "";
     filteredRestaurants.forEach(({ information }) => {
       listElement.appendChild(ListItem(information));

@@ -16,10 +16,11 @@ function CategoryFilterController(mainElement, updateList) {
 
   categoryFilterElement.addEventListener("change", (event) => {
     const category = event.target.value;
-    updateList(category);
+    updateList(category, sortingFilterElement.value);
   });
   sortingFilterElement.addEventListener("change", (event) => {
-    console.log(event.target.value);
+    const sortOption = event.target.value;
+    updateList(categoryFilterElement.value, sortOption);
   });
   return categoryFilterElement.value;
 }
