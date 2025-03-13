@@ -32,8 +32,8 @@ class Modal extends Component {
       .querySelector(".button.button--secondary.text-caption")
       .addEventListener("click", () => {
         this.props.toggleModal();
+        this.addSubmitEvent();
       });
-    this.addSubmitEvent();
   }
 
   addSubmitEvent() {
