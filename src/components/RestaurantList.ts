@@ -47,11 +47,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
    */
 
   attachEventListener() {
-    this.#attachClickEventListener();
-  }
-
-  #attachClickEventListener() {
-    window.addEventListener('click', (event) => {
+    this.element.addEventListener('click', (event) => {
       if (!event.target) return;
 
       const target = event.target as HTMLElement;

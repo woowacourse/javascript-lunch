@@ -89,14 +89,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
   }
 
   attachEventListener() {
-    this.#attachFormSubmitEventListener();
-  }
-
-  #attachFormSubmitEventListener() {
-    const form = this.element.querySelector('form');
-    if (!form) return;
-
-    form.addEventListener('submit', (event) => {
+    this.element?.querySelector('form')?.addEventListener('submit', (event) => {
       event.preventDefault();
       const id = generateId();
 
