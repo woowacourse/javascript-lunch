@@ -43,11 +43,6 @@
   justify-content: flex-start;
 }
 
-.restaurant__wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
 .restaurant__like {
   width: 32px;
   height: 32px;
