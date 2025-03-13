@@ -13,7 +13,10 @@ class App extends Component {
 
   render() {
     new Header(document.querySelector(".gnb"));
-    createRestaurant();
+    filterRestaurants(
+      localStorage.getItem("selectedCategory"),
+      localStorage.getItem("sortType"),
+    );
     this.setEvent();
   }
 
