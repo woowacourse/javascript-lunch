@@ -1,0 +1,23 @@
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+.gap-16 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.space-between {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.link {
+  color: var(--grey-500);
+}
