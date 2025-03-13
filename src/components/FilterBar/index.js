@@ -1,4 +1,4 @@
-import RULES from "../../constants/rules";
+import RULES from "../../constants/rules.js";
 
 class FilterBar {
   #$target;
@@ -34,7 +34,7 @@ class FilterBar {
 
       <select name="sorting" id="sorting-filter" class="restaurant-filter" data-testid="sorting">
         <option value="${RULES.SORTING[0]}">이름순</option>
-        <option value="${RULES.SORTING[0]}">거리순</option>
+        <option value="${RULES.SORTING[1]}">거리순</option>
       </select>
     </section>
   `;

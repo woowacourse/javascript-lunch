@@ -7,7 +7,7 @@ export function filterAndSortRestaurants(
 ): Restaurant[] {
   let filtered = [...restaurants];
 
-  if (category !== RULES.CATEGORIES[0]) {
+  if (category !== RULES.ALL_CATEGORY) {
     filtered = filtered.filter((r) => r.category === category);
   }
 

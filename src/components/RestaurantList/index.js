@@ -33,7 +33,7 @@ const handleRestaurantClick = (
   onDeleteRestaurant
 ) => {
   const $target = event.target;
-  if ($target.classList.contains("favorite-icon")) return; // 즐겨찾기 클릭은 무시
+  if ($target.classList.contains("favorite-icon")) return;
 
   const $li = $target.closest(".restaurant");
   if (!$li) return;
