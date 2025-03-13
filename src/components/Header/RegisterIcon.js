@@ -11,7 +11,7 @@ const RegisterIcon = () =>
         $(".modal-backdrop").classList.add("open");
       },
     },
-    children: [Image("./add-button.png", "음식점 추가")],
+    children: [Image({ src: "./add-button.png", alt: "음식점 추가" })],
   });
 
 export default RegisterIcon;

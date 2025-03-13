@@ -7,11 +7,11 @@ const CategoryImage = (category) =>
     tagName: "div",
     classNames: ["restaurant__category"],
     children: [
-      Image(
-        `./category-${FOOD_CATEGORY[category]}.png`,
-        category,
-        "category-icon"
-      ),
+      Image({
+        src: `./category-${FOOD_CATEGORY[category]}.png`,
+        alt: category,
+        classNames: ["category-icon"],
+      }),
     ],
   });
 
