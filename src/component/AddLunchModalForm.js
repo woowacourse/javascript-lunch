@@ -3,20 +3,10 @@ import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
 import ButtonContainer from "./ButtonContainer.js";
 import TextareaForm from "./TextareaForm.js";
-import { Validator } from "../validator/Validator.js";
+import { Validator } from "../validator/Validator.ts";
 import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
-import RestaurantList from "./RestaurantList.js";
-
-const CATEGORY_ICON = {
-  한식: "./category-korean.png",
-  중식: "./category-chinese.png",
-  일식: "./category-japanese.png",
-  양식: "./category-western.png",
-  아시안: "./category-asian.png",
-  기타: "./category-etc.png",
-};
 
 export function requiredClassName(required) {
   if (required) "form-item--required";
@@ -42,11 +32,10 @@ function AddLunchModalForm(restaurantList, modalId) {
       Validator.description(description);
 
       restaurantList.add({
-        src: CATEGORY_ICON[category],
+        category: category,
         name: name,
         distance: Number(distance),
         description,
-        label: category,
       });
 
       event.target.reset();

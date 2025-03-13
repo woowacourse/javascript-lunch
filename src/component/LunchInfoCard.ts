@@ -1,10 +1,19 @@
-import toElement from "../utils/toElement.js";
+import { Restaurant } from "../../types/RestaurantType.js";
 
-function LunchInfoCard({ src, name, label, distance, description }) {
+const CATEGORY_ICON = {
+  한식: "./category-korean.png",
+  중식: "./category-chinese.png",
+  일식: "./category-japanese.png",
+  양식: "./category-western.png",
+  아시안: "./category-asian.png",
+  기타: "./category-etc.png",
+};
+
+function LunchInfoCard({ category, name, distance, description }: Restaurant) {
   return `
         <li class="restaurant">
           <div class="restaurant__category">
-              <img src=${src} alt=${label} />
+              <img src=${CATEGORY_ICON[category]} alt=${category} />
           </div>
           <div class="restaurant__info">
               <h3 class="restaurant__name text-subtitle">${name}</h3>

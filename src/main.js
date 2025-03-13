@@ -2,7 +2,7 @@ import Modal from "./component/Modal.js";
 import Header from "./component/Header.js";
 import AddLunchModalForm from "./component/AddLunchModalForm.js";
 import IconButton from "./component/IconButton.js";
-import RestaurantList from "./component/RestaurantList.js";
+import RestaurantList from "./component/RestaurantList.ts";
 import MOCK_ITEM from "./mockItem.js";
 import { $ } from "./utils/querySelectors.js";
 
