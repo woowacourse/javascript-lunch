@@ -8,9 +8,16 @@ import { registerModalClose } from "./components/common/Modal/registerModalClose
 import { restaurantListData } from "./restaurantListData";
 import Restaurant from "./domain/Restaurant";
 import RestaurantList from "./domain/RestaurantList";
+import CategorySelector from "./components/FilterSelector/CategorySelector";
+import NameOrDistanceSelector from "./components/FilterSelector/NameOrDistanceSelector";
 
 addEventListener("load", () => {
-  $("#app").prepend(header());
+  const app = $("#app");
+  app.prepend(header());
+  const filter = $(".restaurant-filter-container");
+  filter.appendChild(CategorySelector());
+  filter.appendChild(NameOrDistanceSelector());
+
   const restaurantList = new RestaurantList(restaurantListData);
   renderRestaurants(...restaurantList.list);
 
