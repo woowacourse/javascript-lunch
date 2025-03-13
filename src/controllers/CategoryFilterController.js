@@ -1,4 +1,5 @@
 import CategoryFilterWrapper from "../components/CategoryFilterWrapper.js";
+import List from "../components/List.js";
 import { SELECT_CATEGORY, SELECT_SORTING } from "../constants/constant.js";
 
 const CATEGORY_FILTER_DATA = [
@@ -6,7 +7,7 @@ const CATEGORY_FILTER_DATA = [
   { name: "sorting", id: "sorting-filter", options: SELECT_SORTING, className: "restaurant-filter" },
 ];
 
-function CategoryFilterController(mainElement) {
+function CategoryFilterController(mainElement, updateList) {
   const categoryFilterContainer = CategoryFilterWrapper(CATEGORY_FILTER_DATA);
   mainElement.prepend(categoryFilterContainer);
 
@@ -14,11 +15,13 @@ function CategoryFilterController(mainElement) {
   const sortingFilterElement = categoryFilterContainer.querySelector("#sorting-filter");
 
   categoryFilterElement.addEventListener("change", (event) => {
-    console.log(event.target.value);
+    const category = event.target.value;
+    updateList(category);
   });
   sortingFilterElement.addEventListener("change", (event) => {
     console.log(event.target.value);
   });
+  return categoryFilterElement.value;
 }
 
 export default CategoryFilterController;

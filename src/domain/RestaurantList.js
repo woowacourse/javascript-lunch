@@ -23,6 +23,12 @@ class RestaurantList {
     return newRestaurant;
   }
 
+  // 카테고리 필터링
+  filterByCategory(category) {
+    if (category === "전체") return [...this.#restaurants];
+    return this.#restaurants.filter(({ information }) => information.category === category);
+  }
+
   updateLocalStorage() {
     localStorage.setItem("restaurants", JSON.stringify(this.#restaurants));
   }
