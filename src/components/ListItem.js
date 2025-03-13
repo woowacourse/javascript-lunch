@@ -7,7 +7,7 @@ const CATRGORY_IMAGE_PATH = {
   기타: "./public/category-etc.png",
 };
 
-function ListItem({ category, name, distance, description }) {
+function ListItem({ category, name, distance, description, favoriteStar }) {
   const listElement = document.createElement("li");
   listElement.classList.add("restaurant");
   listElement.innerHTML = `
@@ -15,8 +15,20 @@ function ListItem({ category, name, distance, description }) {
       <img src=${CATRGORY_IMAGE_PATH[category]} alt=${category} class="category-icon" />
     </div>
     <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${distance}</span>
+      <div class="restaurant__top">
+        <div>
+          <h3 class="restaurant__name text-subtitle">${name}</h3>
+          <span class="restaurant__distance text-body">캠퍼스부터 ${distance}</span>
+        </div>
+        <img 
+          class="favorite-star" 
+          src=${favoriteStar ? "./public/full-star.svg" : "./public/empty-star.svg"} 
+          alt="즐겨찾기" 
+          width="32" 
+          height="32" 
+          data-name="${name}"
+        />
+      </div>
       <p class="restaurant__description text-body">
         ${description}
       </p>
