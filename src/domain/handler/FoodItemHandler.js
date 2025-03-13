@@ -1,25 +1,47 @@
-import { getInput } from "../../util/getInput";
+import { FoodItem } from "../../component/FoodItem";
+import { Modal } from "../../component/layout/Modal";
+import { foodItems } from "../../mocks/foodItems";
+import { getFormFoodItem } from "./FoodFormHandler";
 
-function getFoodItemList() {
-  return document.querySelectorAll(".restaurant-list li");
+// CRUD - create : mock Data
+export function saveInitFoodList() {
+  if (getStorageFoodList().length === 0) {
+    localStorage.setItem("foodList", JSON.stringify(foodItems));
+  }
+  convertStorageToLocal();
 }
 
-function getFoodItem() {
-  return {
-    category: getInput("category"),
-    name: getInput("name"),
-    distance: getInput("distance"),
-    description: getInput("description"),
-    link: getInput("link"),
-  };
+// CRUD - read
+export function getStorageFoodList() {
+  return JSON.parse(localStorage.getItem("foodList")) || [];
 }
 
-function updateFoodList(foodItems) {
+// CRUD - update
+export function addFoodItem() {
+  const foodItem = getFormFoodItem();
+  if (!foodItem) return;
+  updateFoodList(foodItem);
+  Modal.close();
+}
+
+function updateFoodList(foodItem) {
+  const foodItems = getStorageFoodList();
+  foodItems.push(foodItem);
+  saveStorageFoodList(foodItems);
+  convertStorageToLocal(foodItem);
+}
+
+function saveStorageFoodList(foodList) {
+  localStorage.setItem("foodList", JSON.stringify(foodList));
+}
+
+function convertStorageToLocal() {
+  const FoodItemListComponent = getStorageFoodList().map((localFoodItem) =>
+    FoodItem(localFoodItem)
+  );
   const foodListContainer = document.querySelector(".restaurant-list");
   foodListContainer.innerHTML = "";
-  foodItems.forEach((item) => {
+  [...FoodItemListComponent].forEach((item) => {
     foodListContainer.appendChild(item);
   });
 }
-
-export { getFoodItem, getFoodItemList, updateFoodList };

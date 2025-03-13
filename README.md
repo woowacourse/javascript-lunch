@@ -57,8 +57,8 @@
 
 - [x] FoodInventory domain 로직과 ui 로직 분리하기
 - [x] 음식점 목록을 확인할 수 있다. (ui)
-  - [ ] 음식점 목록을 localStorage에 저장한다. (doamin)
-  - [ ] localStorage에 저장된 음식점 목록을 불러온다. (domain)
+  - [x] 음식점 목록을 localStorage에 저장한다. (doamin)
+  - [x] localStorage에 저장된 음식점 목록을 불러온다. (domain)
   - [x] 카테코리 목록을 확인할 수 있다 (ui)
   - [ ] 카테고리별로 필터링 가능하다 (domain)
   - [ ] 필터링 된 목록들을 확인할 수 있다. (ui)

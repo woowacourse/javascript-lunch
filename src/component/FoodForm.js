@@ -1,12 +1,8 @@
 import { CAPTION_MESSAGE } from "../constants/Message.js";
-import { FoodInventory } from "../domain/FoodInventory.js";
-import { getFoodItemList } from "../domain/handler/FoodItemHandler.js";
-
-import { removeError } from "../util/errorHandler.js";
-import { validateFoodItem } from "../validate/validateFoodItem.js";
+import { getFormFoodItem } from "../domain/handler/FoodFormHandler.js";
+import { addFoodItem } from "../domain/handler/FoodItemHandler.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
-import { FoodItem } from "./FoodItem.js";
 import { Input } from "./input/Input.js";
 import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput.js";
@@ -14,6 +10,7 @@ import { Modal } from "./layout/Modal.js";
 
 const SELECT_OPTIONS = {
   category: [
+    { value: "", label: "선택해 주세요" },
     { value: "한식", label: "한식" },
     { value: "중식", label: "중식" },
     { value: "일식", label: "일식" },
@@ -22,6 +19,7 @@ const SELECT_OPTIONS = {
     { value: "기타", label: "기타" },
   ],
   distance: [
+    { value: "", label: "선택해 주세요" },
     { value: "5", label: "5분 내" },
     { value: "10", label: "10분 내" },
     { value: "15", label: "15분 내" },
@@ -32,8 +30,6 @@ const SELECT_OPTIONS = {
 
 export function FoodForm() {
   const container = document.createElement("form");
-  const foodItems = getFoodItemList();
-  const foodInventory = new FoodInventory(foodItems);
 
   container.appendChild(
     SelectInput({
@@ -79,6 +75,8 @@ export function FoodForm() {
     })
   );
 
+  console.log("14");
+
   container.appendChild(
     ButtonContainer({
       buttons: [
@@ -90,7 +88,7 @@ export function FoodForm() {
         Button({
           cssType: "primary",
           innerText: "추가하기",
-          onClick: foodInventory.addFoodItem.bind(foodInventory),
+          onClick: addFoodItem,
         }),
       ],
     })
