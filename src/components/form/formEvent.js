@@ -2,6 +2,8 @@ import $restaurantItem from "../restaurant/restaurant-item.js";
 import { CATEGORY_ICON } from "../../constants/iconPath.js";
 import { validateRestaurantForm } from "../../validation/validationForm.js";
 import { handleModalClose } from "../modal/modal.js";
+import { storageHandler } from "../../utils/storageHandler.js";
+import { STORAGE_KEY_NAME } from "../../constants/storage.js";
 
 export const restaurantFormReset = () => {
   handleModalClose();
@@ -10,17 +12,24 @@ export const restaurantFormReset = () => {
 };
 
 const addRestaurant = (data) => {
-  const categoryIcon = CATEGORY_ICON[data.category];
   const newRestaurant = {
-    categoryIcon,
+    categoryIcon: CATEGORY_ICON[data.category],
     categoryTitle: data.category,
     name: data.name,
     distance: `캠퍼스부터 ${data.distance}분 내`,
     description: data.description,
+    link: data.link,
+    id: new Date(),
   };
   document
     .querySelector(".restaurant-list")
     .appendChild($restaurantItem(newRestaurant));
+
+  const current = storageHandler.getItem(STORAGE_KEY_NAME);
+  storageHandler.setItem(STORAGE_KEY_NAME, [...current, newRestaurant]);
+
+  const noRestaurant = document.getElementById("noRestaurant");
+  if (noRestaurant) noRestaurant.remove();
 };
 
 export const handleAddRestaurant = (e) => {
