@@ -2,7 +2,7 @@ import Header from "./Header/Header.js";
 import { createRestaurant, updateRestaurant } from "./createRestaurant.js";
 import Component from "./Component.js";
 import { filterRestaurants } from "../domain/filterRestaurants.js";
-import { sortRestaurants } from "../domain/sortRestaurants.js";
+import { getStoredRestaurantData } from "../domain/storeRestaurantData.js";
 class App extends Component {
   constructor($target) {
     super($target);
@@ -18,16 +18,20 @@ class App extends Component {
   }
 
   setEvent() {
-    const categoryFilter = document.getElementById("category-filter");
-    categoryFilter.addEventListener("change", (event) => {
-      const selectedCategory = event.target.value;
-      filterRestaurants(selectedCategory);
-    });
+    const filtersContainer = document.querySelector(
+      ".restaurant-filter-container",
+    );
 
-    const sortingFilter = document.getElementById("sorting-filter");
-    sortingFilter.addEventListener("change", (event) => {
-      const selectedSort = event.target.value;
-      sortRestaurants(selectedSort);
+    filtersContainer.addEventListener("change", (event) => {
+      const target = event.target;
+
+      if (target.id === "category-filter") {
+        const currentSortType = localStorage.getItem("sortType");
+        filterRestaurants(target.value, currentSortType);
+      } else if (target.id === "sorting-filter") {
+        const currentCategory = localStorage.getItem("selectedCategory");
+        filterRestaurants(currentCategory, target.value);
+      }
     });
   }
 }
