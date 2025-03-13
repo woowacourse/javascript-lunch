@@ -2,6 +2,7 @@ import RestaurantCard from "../components/restaurantCard";
 import { $ } from "../utils/dom";
 import { defaultRestaurants } from "../defaultRestaurants";
 import { createElement } from "../utils/createElement";
+import Restaurant from "./Restaurant";
 
 class Restaurants {
   #restaurants;
@@ -14,13 +15,32 @@ class Restaurants {
       option: "name",
       favorite: false,
     };
+    this.#getFromLocalStorage();
     this.filter();
+  }
+
+  #setToLocalStorage() {
+    const stringifyData = JSON.stringify(
+      this.#restaurants.map((restaurant) => restaurant.toJSON())
+    );
+
+    localStorage.setItem("restaurants", stringifyData);
+  }
+
+  #getFromLocalStorage() {
+    const storedDataString = localStorage.getItem("restaurants");
+    const parsedData = JSON.parse(storedDataString);
+
+    this.#restaurants = parsedData.map(
+      (data) => new Restaurant({ ...data, favorite: data.favorite })
+    );
   }
 
   addRestaurant = (restaurant) => {
     restaurant.grantId(this.#restaurants.length + 1);
     this.#restaurants.push(restaurant);
     this.#filterType.category = "all";
+
     this.filter();
   };
 
@@ -69,7 +89,6 @@ class Restaurants {
     return restaurants.sort((a, b) => a.info.distance - b.info.distance);
   }
 
-  // TODO: view 로직으로 빼기
   #renderRestaurants(restaurants) {
     const ulTag = $(".restaurant-list");
     ulTag.replaceChildren();
@@ -80,7 +99,7 @@ class Restaurants {
       );
       return;
     }
-
+    this.#setToLocalStorage();
     restaurants.forEach((restaurant) => {
       ulTag.appendChild(
         RestaurantCard(restaurant, () => this.filter(), this.deleteRestaurant)

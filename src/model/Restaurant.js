@@ -3,7 +3,16 @@ import { validateEmptyString } from "../validate/validateEmptyString";
 
 class Restaurant {
   #info;
-  constructor({ id, category, name, distance, description, link }) {
+
+  constructor({
+    id,
+    category,
+    name,
+    distance,
+    description,
+    link,
+    favorite = false,
+  }) {
     this.#info = {
       id,
       category,
@@ -11,21 +20,9 @@ class Restaurant {
       distance,
       description,
       link,
-      favorite: false,
+      favorite,
     };
-    this.validate();
-  }
-
-  validate() {
-    validateEmptyString(
-      this.#info.category,
-      ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED
-    );
-    validateEmptyString(this.#info.name, ERROR_MESSAGE.NAME_FIELD_REQUIRED);
-    validateEmptyString(
-      this.#info.distance,
-      ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED
-    );
+    this.#validate();
   }
 
   toggleFavoriteMark = () => {
@@ -35,6 +32,22 @@ class Restaurant {
 
   grantId(id) {
     this.#info.id = id;
+  }
+
+  toJSON() {
+    return this.#info;
+  }
+
+  #validate() {
+    validateEmptyString(
+      this.#info.category,
+      ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED
+    );
+    validateEmptyString(this.#info.name, ERROR_MESSAGE.NAME_FIELD_REQUIRED);
+    validateEmptyString(
+      this.#info.distance,
+      ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED
+    );
   }
 
   get info() {
