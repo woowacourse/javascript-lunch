@@ -11,19 +11,19 @@ describe("즐겨찾기 테스트", () => {
       ":nth-child(1) > .restaurant__info > .restaurant__header > .favorite-icon"
     )
       .click()
-      .should("have.attr", "src", "./Star.png");
+      .should("have.attr", "src", "Star.png");
   });
   it("정상적으로 즐겨찾기를 제거 할수 있어야 한다.", () => {
     cy.get(
       ":nth-child(1) > .restaurant__info > .restaurant__header > .favorite-icon"
     )
       .click()
-      .should("have.attr", "src", "./Star.png");
+      .should("have.attr", "src", "Star.png");
     cy.get(
       ":nth-child(1) > .restaurant__info > .restaurant__header > .favorite-icon"
     )
       .click()
-      .should("have.attr", "src", "./Un-star.png");
+      .should("have.attr", "src", "Un-star.png");
   });
   it("새로 온 항목에도 정상적으로 즐겨찾기를 추가/제거 할수 있어야 한다.", () => {
     cy.get(".gnb__button").click();
@@ -41,12 +41,12 @@ describe("즐겨찾기 테스트", () => {
       ":nth-child(11) > .restaurant__info > .restaurant__header > .favorite-icon"
     )
       .click()
-      .should("have.attr", "src", "./Star.png");
+      .should("have.attr", "src", "Star.png");
 
     cy.get(
       ":nth-child(11) > .restaurant__info > .restaurant__header > .favorite-icon"
     )
       .click()
-      .should("have.attr", "src", "./Un-star.png");
+      .should("have.attr", "src", "Un-star.png");
   });
 });
