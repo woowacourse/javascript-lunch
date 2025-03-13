@@ -39,6 +39,12 @@ jobs:
         run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
 
+      - name: E2E
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm run preview
+
       - name: Build
         run: npm run build
       - name: Setup Pages
