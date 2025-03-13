@@ -1,4 +1,4 @@
-const TabBarView = () => {
+const TabBar = () => {
   return /*html*/ `
     <section class="tab-bar">
       <button class="tab-bar__button active" id="list-tab" data-testid="list-tab">모든 음식점</button>
@@ -7,4 +7,4 @@ const TabBarView = () => {
   `;
 };
 
-export default TabBarView;
+export default TabBar;
