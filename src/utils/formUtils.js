@@ -18,12 +18,12 @@ export function generateFormItems(MODAL_FORM_CONFIG) {
   return { formItems, buttonsFormItems: ButtonsForm(formButtons) };
 }
 
-function matchFieldComponent({ type, name, inputType, options, required }) {
+function matchFieldComponent({ type, name, inputType, options, defaultOption, required }) {
   switch (type) {
     case "select":
-      return SelectField(name, options);
+      return SelectField({ name, options, defaultOption, required });
     case "input":
-      return InputField(inputType, name, required);
+      return InputField({ inputType, name, required });
     case "textarea":
       return TextareaField(name);
     default:
