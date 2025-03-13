@@ -2,6 +2,18 @@ export const ADD_RESTAURANT_MODAL = {
   classNames: ['add-restaurant-modal'],
 };
 
+export const DELETE_INFO_BUTTON = {
+  type: 'button',
+  classNames: ['button--secondary', 'close-modal-button', 'delete-item-button'],
+  content: '삭제하기',
+};
+
+export const CLOSE_INFO_BUTTON = {
+  type: 'submit',
+  classNames: ['button--primary', 'close-modal-button'],
+  content: '닫기',
+};
+
 export const RESTAURANT_INFO_MODAL = {
   classNames: ['restaurant-info-modal'],
 };

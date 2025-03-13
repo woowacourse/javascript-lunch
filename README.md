@@ -44,8 +44,8 @@
   - [x] 설명 (input, type: text)
   - [x] 참고 링크 (input, type: text)
   - [x] 자주 가는 음식점 추가/해제 버튼 (button)
-  - [] 삭제하기 버튼 (button)
-  - [] 닫기 버튼 (button)
+  - [x] 삭제하기 버튼 (button)
+  - [x] 닫기 버튼 (button)
 
 - 음식점 아이템 삭제 경고창 Modal
   - [] 삭제 안내 메시지

@@ -12,6 +12,8 @@ import {
   CATEGORY_FILTER,
   SORT_SELECTOR,
   RESTAURANT_INFO_MODAL,
+  CLOSE_INFO_BUTTON,
+  DELETE_INFO_BUTTON,
 } from './constants.js';
 import { RESTAURANTS } from './database/restaurantData.js';
 import eventHandlers from './eventHandlers/eventHandlers.js';
@@ -139,10 +141,10 @@ function appendModalContents() {
   appendModalButton(form);
 }
 
-function appendModalButton(form) {
+function appendModalButton(parent) {
   const buttonDiv = document.createElement('div');
   buttonDiv.classList.add('button-container');
-  form.appendChild(buttonDiv);
+  parent.appendChild(buttonDiv);
 
   const addButton = createButton(ADD_BUTTON);
   const cancelButton = createButton(CANCEL_BUTTON);
@@ -194,4 +196,18 @@ function appendRestaurantInfoContents(id) {
   }
 
   targetModal.insertAdjacentHTML('beforeend', contents);
+
+  appendInfoModalButton(targetModal);
+}
+
+function appendInfoModalButton(parent) {
+  const buttonDiv = document.createElement('div');
+  buttonDiv.classList.add('button-container');
+  parent.appendChild(buttonDiv);
+
+  const closeInfoButton = createButton(CLOSE_INFO_BUTTON);
+  const deleteInfoButton = createButton(DELETE_INFO_BUTTON);
+
+  buttonDiv.insertAdjacentHTML('beforeend', deleteInfoButton);
+  buttonDiv.insertAdjacentHTML('beforeend', closeInfoButton);
 }
