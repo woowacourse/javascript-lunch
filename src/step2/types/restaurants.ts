@@ -16,3 +16,5 @@ export interface RestaurantType {
   link?: string;
   isFavorite?: boolean;
 }
+
+export type Sorting = 'name' | 'distance';
