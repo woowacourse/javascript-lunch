@@ -25,8 +25,8 @@ const addRestaurant = (data) => {
     .querySelector(".restaurant-list")
     .appendChild($restaurantItem(newRestaurant));
 
-  const current = storageHandler.getItem(STORAGE_KEY_NAME);
-  storageHandler.setItem(STORAGE_KEY_NAME, [...current, newRestaurant]);
+  const currentItem = storageHandler.getItem(STORAGE_KEY_NAME);
+  storageHandler.setItem(STORAGE_KEY_NAME, [...currentItem, newRestaurant]);
 
   const noRestaurant = document.getElementById("noRestaurant");
   if (noRestaurant) noRestaurant.remove();
