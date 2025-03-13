@@ -45,6 +45,7 @@ function DeleteModalEvent() {
     )?.textContent;
 
     DeleteRestaurant($restaurantName);
+    alert(`${$restaurantName} 음식점이 삭제되었습니다.`);
     location.reload();
   });
 }
