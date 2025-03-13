@@ -1,0 +1,12 @@
+import { getHTML } from "../utils/utils";
+import { TabMenu } from "./common/TabMenu";
+
+export function RestaurantTabMenu(targetID) {
+  function render() {
+    getHTML(targetID).innerHTML = "";
+    getHTML(targetID).innerHTML = `
+            ${TabMenu()}
+        `;
+  }
+  return render();
+}
