@@ -81,9 +81,9 @@ function MainController() {
   const titleElement = Title({ type: "modal", text: "새로운 음식점" });
   const formItems = createFormItems(INPUT_ITEMS);
   const formElement = Form({ formItems, buttons: MODAL_BUTTONS_PROPERTY });
-  const { listElement, restaurantList } = ListController(listContainerElement);
 
   HeaderController(app);
+  const { listElement, restaurantList } = ListController(listContainerElement);
   ModalController({ listElement, restaurantList, children: { titleElement, formElement } });
 }
 
