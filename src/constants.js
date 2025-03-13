@@ -59,13 +59,13 @@ export const DESCRIPTION = {
 
 export const CANCEL_BUTTON = {
   type: 'button',
-  classNames: ['button--secondary'],
+  classNames: ['button--secondary', 'close-modal-button'],
   content: '취소하기',
 };
 
 export const ADD_BUTTON = {
   type: 'submit',
-  classNames: ['button--primary'],
+  classNames: ['button--primary', 'add-item-button'],
   content: '추가하기',
 };
 

@@ -34,7 +34,7 @@ function openRestaurantInfoModal(callback) {
 }
 
 function closeModal() {
-  const closeButtons = document.querySelectorAll('.button--secondary');
+  const closeButtons = document.querySelectorAll('.close-modal-button');
   const modalBackdrops = document.querySelectorAll('.modal-backdrop');
 
   const handleCloseButtonClick = (event) => {
