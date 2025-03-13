@@ -6,7 +6,7 @@ class Modal extends Component {
     this.state = {
       isOpen: false,
     };
-    this.closeModalByClick = this.close.bind(this);
+    this.closeModal = this.close.bind(this);
   }
 
   contents() {
@@ -16,8 +16,8 @@ class Modal extends Component {
   componentDidMount() {
     this.$backdrop = $(document, ".modal-backdrop");
     if (this.$backdrop) {
-      this.$backdrop.removeEventListener("click", this.closeModalByClick);
-      this.$backdrop.addEventListener("click", this.closeModalByClick);
+      this.$backdrop.removeEventListener("click", this.closeModal);
+      this.$backdrop.addEventListener("click", this.closeModal);
     }
   }
 
