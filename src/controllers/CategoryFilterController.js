@@ -7,9 +7,9 @@ const CATEGORY_FILTER_DATA = [
   { name: "sorting", id: "sorting-filter", options: SELECT_SORTING, className: "restaurant-filter" },
 ];
 
-function CategoryFilterController(mainElement, updateList) {
+function CategoryFilterController(allListContainerElement, updateList) {
   const categoryFilterContainer = CategoryFilterWrapper(CATEGORY_FILTER_DATA);
-  mainElement.prepend(categoryFilterContainer);
+  allListContainerElement.prepend(categoryFilterContainer);
 
   const categoryFilterElement = categoryFilterContainer.querySelector("#category-filter");
   const sortingFilterElement = categoryFilterContainer.querySelector("#sorting-filter");

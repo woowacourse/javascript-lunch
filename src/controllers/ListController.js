@@ -3,10 +3,10 @@ import ListItem from "../components/ListItem.js";
 import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
 
-function ListController(listContainerElement, category) {
+function ListController(allListContainerElement, category) {
   const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS);
   let listElement = List(restaurantList.filterAndSort("전체", "이름순"));
-  listContainerElement.appendChild(listElement);
+  allListContainerElement.appendChild(listElement);
 
   function updateList(category, sortOption) {
     const filteredRestaurants = restaurantList.filterAndSort(category, sortOption);
