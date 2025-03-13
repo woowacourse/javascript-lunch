@@ -9,6 +9,7 @@ export interface Restaurant {
   name: string;
   distance: number;
   description: string;
+  category: string;
 }
 
 export type isModalOpen = boolean;
