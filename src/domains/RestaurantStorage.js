@@ -1,3 +1,5 @@
+import { RESTAURANT_DATA } from '../../public/restaurantData.js';
+
 class RestaurantStorage {
   #key;
   #restaurants;
@@ -5,23 +7,20 @@ class RestaurantStorage {
   constructor() {
     this.#key = 'restaurant';
     this.#restaurants = this.#loadFromLocalStorage();
+    this.saveToStorage();
   }
 
   saveToStorage() {
     localStorage.setItem(this.#key, JSON.stringify(this.#restaurants));
+    // localStorage.setItem(this.#key, JSON.stringify(RESTAURANT_DATA));
   }
 
   getAllRestaurants() {
     return [...this.#restaurants];
   }
 
-  addRestaurant(data) {
-    this.#restaurants.push(data);
-    this.saveToStorage();
-  }
-
-  deleteRestaurant(id) {
-    this.#restaurants = this.#restaurants.filter((data) => id !== data.id);
+  updateStorage(data) {
+    this.#restaurants = [...data].map((data) => data.getInfo());
     this.saveToStorage();
   }
 

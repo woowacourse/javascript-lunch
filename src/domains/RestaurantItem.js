@@ -33,7 +33,11 @@ class RestaurantItem {
     return this.#restaurantInfo.isFavorite;
   }
 
-  getId() {
+  set isFavorite(flag) {
+    this.#restaurantInfo.isFavorite = flag;
+  }
+
+  get id() {
     return this.#restaurantInfo.id;
   }
 

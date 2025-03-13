@@ -43,6 +43,21 @@ class RestaurantList {
   filterFavorite() {
     return [...this.#restaurants].filter((data) => data.isFavorite);
   }
+
+  toggleFavorite(id) {
+    this.#restaurants = [...this.#restaurants].map((data) => {
+      if (data.id === id) {
+        return new RestaurantItem({
+          ...data.getInfo(),
+          isFavorite: !data.isFavorite,
+        });
+      }
+
+      return data;
+    });
+
+    return [...this.#restaurants];
+  }
 }
 
 export default RestaurantList;

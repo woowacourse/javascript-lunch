@@ -65,7 +65,9 @@ class RestaurantController {
     return { $enrollRestaurantModal };
   }
 
-  #handleClickStar = (event) => {
+  #handleClickStar = (event, id) => {
+    const updatedRestaurantList = this.#restaurantList.toggleFavorite(id);
+    this.#restaurantStorage.updateStorage(updatedRestaurantList);
     event.target.classList.toggle('restaurant__star--clicked');
   };
 
