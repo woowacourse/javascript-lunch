@@ -2,13 +2,13 @@ import { CreateRestaurantList } from "../components/CreateRestaurantList";
 import { GetAllRestaurants } from "./RestaurantStorage";
 import FilterByValue from "./FilterByValue";
 import OrderByValue from "./OrderByValue";
-import { AllRestaurant } from "../shared/types";
+import { Restaurant } from "../shared/types";
 
 interface ButtonProps {
   $allButton: HTMLButtonElement;
   $favoriteButton: HTMLButtonElement;
-  restaurants?: AllRestaurant[];
-  favoriteList?: AllRestaurant[];
+  restaurants?: Restaurant[];
+  favoriteList?: Restaurant[];
 }
 
 export default function HeaderCategory() {
@@ -20,7 +20,7 @@ export default function HeaderCategory() {
   FilterByValue();
   OrderByValue();
 
-  const restaurants: AllRestaurant[] = GetAllRestaurants();
+  const restaurants: Restaurant[] = GetAllRestaurants();
   const favoriteList = restaurants.filter(
     (restaurant) => restaurant.favorite === true
   );

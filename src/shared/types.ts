@@ -1,7 +1,9 @@
-export interface AllRestaurant {
-  id: number;
-  name: string;
-  distance: string;
+export interface Restaurant {
   category: string;
+  categoryValue: string;
+  nameValue: string;
+  distanceValue: number;
+  descriptionValue: string;
+  link: string;
   favorite: boolean;
 }

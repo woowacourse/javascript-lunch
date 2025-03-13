@@ -1,21 +1,25 @@
 import DetailModal from "../components/DetailModal";
+import { Restaurant } from "../shared/types";
 import { DeleteRestaurant, GetAllRestaurants } from "./RestaurantStorage";
 import { SaveFavoriteRestaurantInModal } from "./SaveFavoriteRestaurant";
 
 export default function RestaurantDetailModal() {
-  const $app = document.getElementById("app");
-  const $restaurant = document.querySelectorAll(".restaurant__name-distance");
+  const $app = document.getElementById("app") as HTMLElement;
+  const $restaurant: NodeListOf<Element> = document.querySelectorAll(
+    ".restaurant__name-distance"
+  );
 
   $restaurant.forEach((restaurant) => {
-    restaurant.addEventListener("click", (e) => {
-      const $restaurant = e.target.closest(".restaurant");
+    restaurant.addEventListener("click", (e: Event) => {
+      const $restaurant = (e.target as HTMLElement).closest(".restaurant");
 
       const restaurants = GetAllRestaurants();
-      const restaurantName =
-        $restaurant.querySelector(".restaurant__name").textContent;
+      const restaurantName = (
+        $restaurant?.querySelector(".restaurant__name") as HTMLElement
+      )?.textContent;
 
       const restaurantValues = restaurants.find(
-        (restaurant) => restaurant.nameValue === restaurantName
+        (restaurant: Restaurant) => restaurant.nameValue === restaurantName
       );
 
       DetailModal($app, restaurantValues);
@@ -31,11 +35,14 @@ function DeleteModalEvent() {
     ".restaurant-detail-modal-delete-button"
   );
 
-  $deleteButton.addEventListener("click", (e) => {
-    const $detailModal = e.target.closest(".restaurant-detail-modal");
+  $deleteButton?.addEventListener("click", (e) => {
+    const $detailModal = (e.target as HTMLElement).closest(
+      ".restaurant-detail-modal"
+    );
 
-    const $restaurantName =
-      $detailModal.querySelector(".restaurant__name").textContent;
+    const $restaurantName = (
+      $detailModal?.querySelector(".restaurant__name") as HTMLElement
+    )?.textContent;
 
     DeleteRestaurant($restaurantName);
     location.reload();
@@ -47,12 +54,12 @@ function CloseModalEvent() {
     ".restaurant-detail-modal-close-button"
   );
 
-  $closeModalButton.addEventListener("click", () => {
+  $closeModalButton?.addEventListener("click", () => {
     const $modal = document.querySelector(
       ".restaurant-detail-modal-background"
     );
 
-    $modal.remove();
+    $modal?.remove();
     location.reload();
   });
 }
