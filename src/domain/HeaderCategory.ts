@@ -47,7 +47,6 @@ function AllButtonEvent({
   $favoriteButton.classList.remove("active");
 
   CreateRestaurantList(restaurants);
-  location.reload();
 }
 
 function FavoriteButtonEvent({

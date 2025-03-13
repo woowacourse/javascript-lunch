@@ -16,12 +16,34 @@ describe("헤더 테스트", () => {
 describe("Body 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
+
+    cy.window().then((win) => {
+      win.localStorage.setItem(
+        "restaurants",
+        JSON.stringify([
+          {
+            category: "korean",
+            categoryValue: "한식",
+            nameValue: "한식집",
+            distanceValue: "5",
+            descriptionValue: "한식집입니다.",
+            link: "https://www.naver.com",
+            favorite: true,
+          },
+        ])
+      );
+    });
+
+    cy.reload();
   });
+
   it("Body에 레스토랑 아이콘이 표시되는지 확인한다.", () => {
+    cy.wait(500);
     cy.get(".restaurant__category").should("exist");
   });
 
   it("Body에 레스토랑 title이 표시되는지 확인한다.", () => {
+    cy.wait(500);
     cy.get(".restaurant__name").should("exist");
   });
 
@@ -34,7 +56,7 @@ describe("Body 테스트", () => {
   });
 });
 
-describe("모달 테스트", () => {
+describe("새로운 음식점 모달 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
   });
@@ -96,7 +118,7 @@ describe("모달 테스트", () => {
     cy.get(".button--primary").should("contain", "추가하기");
   });
 });
-describe("기능 테스트", () => {
+describe("새로운 음식점 기능 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
   });
@@ -112,5 +134,117 @@ describe("기능 테스트", () => {
     cy.get(".button--primary").click();
 
     cy.get(".restaurant").should("contain", "tester");
+  });
+});
+
+describe("모든 음식점 및 자주 음식점 카테고리 테스트", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5173/");
+
+    cy.window().then((win) => {
+      win.localStorage.setItem(
+        "restaurants",
+        JSON.stringify([
+          {
+            category: "korean",
+            categoryValue: "한식",
+            nameValue: "한식집",
+            distanceValue: "5",
+            descriptionValue: "한식집입니다.",
+            link: "https://www.naver.com",
+            favorite: true,
+          },
+          {
+            category: "western",
+            categoryValue: "양식",
+            nameValue: "파스타 맛집",
+            distanceValue: "15",
+            descriptionValue: "이탈리아 파스타 레스토랑입니다.",
+            link: "https://www.google.com",
+            favorite: false,
+          },
+        ])
+      );
+    });
+
+    cy.reload();
+  });
+
+  it("모든 음식점 버튼을 클릭하면 모든 음식점이 표시된다.", () => {
+    cy.get("#all-button").click();
+    cy.get(".restaurant").should("exist");
+
+    cy.get(".restaurant-favorite-star")
+      .eq(0) // 첫 번째 요소
+      .should("have.attr", "src", "/favorite-icon-filled.png");
+
+    cy.get(".restaurant-favorite-star")
+      .eq(1) // 두 번째 요소
+      .should("have.attr", "src", "/favorite-icon-lined.png");
+  });
+
+  it("자주 가는 음식점 버튼을 클릭하면 자주 가는 음식점이 표시된다.", () => {
+    cy.get("#favorite-button").click();
+    cy.get(".restaurant").should("exist");
+    cy.get(".restaurant").should("length", 1);
+
+    cy.get(".restaurant-favorite-star").should(
+      "have.attr",
+      "src",
+      "/favorite-icon-filled.png"
+    );
+  });
+});
+
+describe("레스토랑 상세 정보 모달 테스트", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5173/");
+
+    cy.window().then((win) => {
+      win.localStorage.setItem(
+        "restaurants",
+        JSON.stringify([
+          {
+            category: "korean",
+            categoryValue: "한식",
+            nameValue: "한식집",
+            distanceValue: "5",
+            descriptionValue: "한식집입니다.",
+            link: "https://www.naver.com",
+            favorite: true,
+          },
+          {
+            category: "western",
+            categoryValue: "양식",
+            nameValue: "파스타 맛집",
+            distanceValue: "15",
+            descriptionValue: "이탈리아 파스타 레스토랑입니다.",
+            link: "https://www.google.com",
+            favorite: false,
+          },
+        ])
+      );
+    });
+
+    cy.reload();
+  });
+
+  it("한 레스토랑 선택 시 레스토랑 상세 정보 모달이 띄어진다.", () => {
+    cy.get(".restaurant-info-header").eq(0).should("exist").click();
+    cy.get(".restaurant-detail-modal").should("exist");
+    cy.get(".restaurant-detail-modal-info").should("exist");
+  });
+
+  it("레스토랑 상세 정보 모달에서 close버튼을 누르면 모달이 꺼진다.", () => {
+    cy.get(".restaurant-info-header").eq(0).should("exist").click();
+    cy.get(".restaurant-detail-modal-close-button").click();
+    cy.get(".restaurant-detail-modal").should("not.exist");
+  });
+
+  it("레스토랑 상세 정보 모달에서 delete버튼을 누르면 모달이 꺼지고 해당 레스토랑이 제거된다.", () => {
+    cy.get(".restaurant-info-header").eq(0).should("exist").click();
+    cy.get(".restaurant-detail-modal-delete-button").click();
+    cy.get(".restaurant-detail-modal").should("not.exist");
+    cy.get(".restaurant").should("length", 1);
   });
 });

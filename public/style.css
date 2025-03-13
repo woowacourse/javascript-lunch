@@ -431,6 +431,7 @@ input[name="link"] {
   padding: 15px 50px;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .restaurant-detail-modal-close-button:hover {
