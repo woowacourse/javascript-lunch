@@ -1,6 +1,11 @@
 import Component from "../Component.js";
 import addData from "../../domain/addData.js";
 import createModalInputs from "./createModalInputs.js";
+import {
+  getStoredRestaurantData,
+  setStoredRestaurantData,
+} from "../../domain/storeRestaurantData.js";
+import { filterRestaurants } from "../../domain/filterRestaurants.js";
 class Modal extends Component {
   constructor($target, props) {
     super($target, props);
@@ -39,7 +44,7 @@ class Modal extends Component {
         <div class="restaurant__category">
             <img src=${this.props.data.imgSrc} alt=${this.props.data.imgAlt} class="category-icon"/>
         </div>
-        <img src="/filledStar.png" class="restaurant__like"/>
+        <img src="/unFilledStar.png" class="restaurant__like"/>
       </div>
       <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${this.props.data.name}</h3>
@@ -48,7 +53,7 @@ class Modal extends Component {
            <a href="${this.props.data.link}" class="restaurant__link text-body">${this.props.data.name} 홈페이지</a>
       </div>
         <div class="button-container">
-          <button type="button" class="button button--secondary text-caption">삭제하기</button>
+          <button id="delete_button" type="button" class="button button--secondary text-caption">삭제하기</button>
           <button id="close_button" class="button button--primary text-caption">닫기</button>
         </div>
     </div>
@@ -76,6 +81,13 @@ class Modal extends Component {
       .addEventListener("click", () => {
         modalContainer.classList.toggle("modal--open");
       });
+    this.$target
+      .querySelector("#delete_button")
+      .addEventListener("click", () => {
+        console.log("클릭");
+        this.deleteRestaurant(this.props.data.name);
+        modalContainer.classList.toggle("modal--open");
+      });
     if (this.props.mode === "add") {
       this.submitForm();
     }
@@ -93,6 +105,16 @@ class Modal extends Component {
           new CustomEvent("restaurantUpdated", { detail: newData }),
         );
       });
+  }
+
+  deleteRestaurant(name) {
+    let updatedData = getStoredRestaurantData().filter(
+      (restaurant) => restaurant.name !== name,
+    );
+    setStoredRestaurantData(updatedData);
+    const currentCategory = localStorage.getItem("selectedCategory") || "전체";
+    const currentSort = localStorage.getItem("sortType") || "name";
+    filterRestaurants(currentCategory, currentSort);
   }
 }
 
