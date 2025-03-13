@@ -1,4 +1,5 @@
-import { FoodItem } from "./FoodItem.js";
+import { storeFoodItems } from "../managers/storageManagers.ts";
+import FoodItem from "./FoodItem.ts";
 
 export default class FoodList {
   #foodItems;
@@ -11,26 +12,29 @@ export default class FoodList {
 
     this.render();
   }
+
   render() {
     this.foodList.innerHTML = "";
     const foodFragment = document.createDocumentFragment();
     this.#foodItems.forEach((foodItem) => {
       foodFragment.appendChild(
-        FoodItem({
+        new FoodItem({
           category: foodItem.category,
           name: foodItem.name,
           distance: foodItem.distance,
           description: foodItem.description,
-        }),
+        }).element,
       );
     });
     this.foodList.appendChild(foodFragment);
   }
+
   addItem(foodItem) {
     this.#foodItems = [...this.#foodItems, foodItem];
-    localStorage.setItem("foodItem", JSON.stringify(this.#foodItems));
+    storeFoodItems(this.#foodItems);
     this.render();
   }
+
   get element() {
     return this.foodList;
   }
