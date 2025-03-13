@@ -36,7 +36,7 @@ class RestaurantDetailModal extends Modal {
             : "./icons/favorite-icon-lined.png"
         }" alt="${
       this.#restaurant.isFavorite ? "favorite" : "not-favorite"
-    }" class="favorite-icon" />
+    }" class="favorite-icon" data-testid="favorite-button" />
       </div>
       ${RestaurantContent({ restaurant: this.#restaurant })}
       <div class="button-container">
