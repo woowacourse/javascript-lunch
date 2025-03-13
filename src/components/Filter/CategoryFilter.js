@@ -1,6 +1,4 @@
 import { CATEGORIES } from "../../constants/constants";
-import { restaurantsData } from "../../constants/restaurantsMockData";
-import renderRestaurantElement from "../../Restaurant/RestaurantItem";
 
 const createCategoryFilter = () => {
   const addrestaurant_filter_container = document.querySelector(
@@ -40,17 +38,3 @@ function showSelectedCategoryRestaurantList(selectedCategory) {
 }
 
 export default createCategoryFilter;
-
-// function handleOnChange(selectedCategory) {
-//   const restaurantList = document.querySelector(".restaurant-list");
-//   restaurantList.innerHTML = "";
-
-//   const filteredData = selectedCategory === "전체"
-//     ? restaurantsData // "전체"를 선택하면 모든 데이터를 표시
-//     : restaurantsData.filter((restaurant) => restaurant.category === selectedCategory);
-
-//   filteredData.forEach((restaurantData) => {
-//     const restaurantItem = renderRestaurantElement(restaurantData);
-//     restaurantList.appendChild(restaurantItem);
-//   });
-// }
