@@ -23,12 +23,12 @@ class FilterBar {
   #template() {
     return /*html*/ `
     <section class="restaurant-filter-container">
-      <select name="category" id="category-filter" class="restaurant-filter">
+      <select name="category" id="category-filter" class="restaurant-filter" data-testid="category">
         <option value="전체">전체</option>
         ${this.#options()}
       </select>
 
-      <select name="sorting" id="sorting-filter" class="restaurant-filter">
+      <select name="sorting" id="sorting-filter" class="restaurant-filter" data-testid="sorting">
         <option value="name">이름순</option>
         <option value="distance">거리순</option>
       </select>
