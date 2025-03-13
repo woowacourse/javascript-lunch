@@ -1,8 +1,8 @@
 import { createElement } from "../../../utils/createElement";
 
-const BackDrop = (id, handleCloseModal) => {
+const BackDrop = (handleCloseModal) => {
   const backDrop = createElement(/*html*/ `
-    <div class="modal-backdrop" id=${id}></div>
+    <div class="modal-backdrop"></div>
   `);
 
   backDrop.addEventListener("click", handleCloseModal);
