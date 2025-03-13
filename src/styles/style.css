@@ -310,4 +310,5 @@ input[name='link'] {
 
 .tab-container {
   display: flex;
+  padding: 0px 16px 0px 16px;
 }
