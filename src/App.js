@@ -47,22 +47,22 @@ class App {
     $favoriteTab.addEventListener("click", () => {
       $listTab.classList.remove("active");
       $favoriteTab.classList.add("active");
-      $main.replaceChildren();
-      // TODO: 즐겨찾기 목록을 렌더링하는 코드 작성.
+      this.#renderFavoriteList();
     });
 
-    const $modal = new AddRestaurantModal(
+    const $addModal = new AddRestaurantModal(
       document.querySelector("#modal"),
       this.#addRestaurant.bind(this)
     );
 
     $gnbButton.addEventListener("click", () => {
-      $modal.open();
+      $addModal.open();
     });
   }
 
   #renderMainArea() {
     const $main = document.querySelector("main");
+    $main.replaceChildren();
 
     new FilterBar($main, {
       onCategoryChange: (selected) => {
@@ -78,6 +78,29 @@ class App {
     this.#renderRestaurantList();
   }
 
+  #renderFavoriteList() {
+    const $main = document.querySelector("main");
+    $main.replaceChildren();
+
+    const favorites = this.#restaurants.filter(
+      (restaurant) => restaurant.isFavorite
+    );
+
+    const onToggleFavorite = (clickedId) => {
+      const target = this.#restaurants.find(
+        (restaurant) => restaurant.id === clickedId
+      );
+      if (!target) return;
+      target.isFavorite = !target.isFavorite;
+
+      // 다시 즐겨찾기 목록 새로 렌더
+      this.#renderFavoriteList();
+    };
+
+    const $favoriteList = RestaurantList(favorites, onToggleFavorite);
+    $main.appendChild($favoriteList);
+  }
+
   #renderRestaurantList() {
     // 1) 필터 + 정렬(도메인 로직)
     const filtered = filterAndSortRestaurants(
@@ -90,7 +113,7 @@ class App {
     const onToggleFavorite = (clickedId) => {
       // restaurants 배열에서 name이 clickedName인 녀석을 찾아서 isFavorite 토글
       const target = this.#restaurants.find(
-        (restaurant) => restaurant.id === Number(clickedId)
+        (restaurant) => restaurant.id === clickedId
       );
       if (!target) return;
       target.isFavorite = !target.isFavorite;
