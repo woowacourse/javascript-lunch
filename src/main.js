@@ -15,21 +15,21 @@ addEventListener("load", () => {
   initRenderer.setRestaurantFilter();
   MenuBar();
   const storeList = initRenderer.setStoreList();
-  initRenderer.setModal();
 
   querySelector(".gnb__button").addEventListener("click", () => {
+    initRenderer.setModal();
     querySelector(".modal").classList.add("modal--open");
     modalRenderer.addForm();
 
     querySelector(".modal-form").addEventListener("submit", (e) =>
       storeRenderer.updateStore(storeList, e)
     );
-  });
 
-  querySelector(".modal-backdrop").addEventListener(
-    "click",
-    modalRenderer.closeModal
-  );
+    querySelector(".modal-backdrop").addEventListener(
+      "click",
+      modalRenderer.closeModal
+    );
+  });
 
   querySelector("#category-filter").addEventListener("change", (e) =>
     storeRenderer.filterStore(storeList, e)
@@ -40,8 +40,9 @@ addEventListener("load", () => {
 
   querySelector(".restaurant-list").addEventListener("click", (e) => {
     storeRenderer.toggleFavorite(storeList, e);
-    // const storeElement = e.target.closest(".restaurant__info");
-    // initRenderer.setModal();
+    initRenderer.setModal();
+    querySelector(".modal").classList.add("modal--open");
+    modalRenderer.setStoreInfoModal();
   });
 
   querySelector(".restaurant-menuBar-container").addEventListener(

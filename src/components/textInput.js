@@ -2,7 +2,7 @@ import { title } from "../constants/inputTitle.js";
 import createElement from "../utils/createElement.js";
 
 const TextInput = (name, isRequired, helpText) => {
-  const formItem = createElement({ type: "div", classList: ["form-item"] });
+  const formItem = createElement({ tag: "div", classList: ["form-item"] });
 
   if (isRequired) formItem.classList.add("form-item--required");
 
@@ -13,7 +13,7 @@ const TextInput = (name, isRequired, helpText) => {
 
   if (helpText) {
     const span = createElement({
-      type: "span",
+      tag: "span",
       classList: ["help-text", "text-caption"],
     });
     span.innerText = helpText;

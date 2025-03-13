@@ -2,7 +2,7 @@ import { title } from "../constants/inputTitle.js";
 import createElement from "../utils/createElement.js";
 
 const TextArea = (name, helpText, colRow = { col: 30, row: 5 }) => {
-  const formItem = createElement({ type: "div", classList: ["form-item"] });
+  const formItem = createElement({ tag: "div", classList: ["form-item"] });
 
   formItem.innerHTML = `
   <label for="${name}">${title[name]}</label>

@@ -11,7 +11,7 @@ const getOptionValue = (name, option) => {
 
 const OptionInput = (name, options) => {
   const formItem = createElement({
-    type: "div",
+    tag: "div",
     classList: ["form-item", "form-item--required"],
   });
 

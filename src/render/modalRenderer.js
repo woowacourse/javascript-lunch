@@ -1,16 +1,19 @@
 import Button from "../components/Button.js";
 import OptionInput from "../components/OptionInput.js";
+import StoreDetail from "../components/StoreDetail.js";
 import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
 import helpText from "../constants/helpText.js";
 import options from "../constants/options.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
+import initRenderer from "./initRenderer.js";
 
 const modalRenderer = {
   closeModal: () => {
     const modal = querySelector(".modal");
-    modal.classList.remove("modal--open");
+    modal.remove();
+    // modal.classList.remove("modal--open");
   },
 
   //------------------
@@ -26,7 +29,22 @@ const modalRenderer = {
     modalForm.appendChild(TextArea("description", helpText.description));
     modalForm.appendChild(TextInput("link", false, helpText.link));
 
-    modalForm.appendChild(modalRenderer.addButtons());
+    modalForm.appendChild(
+      modalRenderer.addButtons([
+        {
+          name: "취소하기",
+          type: "button",
+          class: "button--secondary",
+          id: "cancel-button",
+        },
+        {
+          name: "추가하기",
+          type: "submit",
+          class: "button--primary",
+          id: "add-button",
+        },
+      ])
+    );
     modalRenderer.addFormCheck();
 
     querySelector("#cancel-button").addEventListener(
@@ -35,25 +53,12 @@ const modalRenderer = {
     );
   },
 
-  addButtons: () => {
+  addButtons: (buttonProps) => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
-    buttonContainer.appendChild(
-      Button({
-        name: "취소하기",
-        type: "button",
-        class: "button--secondary",
-        id: "cancel-button",
-      })
-    );
-    buttonContainer.appendChild(
-      Button({
-        name: "추가하기",
-        type: "submit",
-        class: "button--primary",
-        id: "add-button",
-      })
-    );
+    buttonProps.forEach((props) => {
+      buttonContainer.appendChild(Button(props));
+    });
 
     return buttonContainer;
   },
@@ -107,6 +112,27 @@ const modalRenderer = {
         input.parentNode.querySelector(".error-text")
       );
     }
+  },
+
+  setStoreInfoModal: () => {
+    const modalContainer = querySelector(".modal-container");
+    modalContainer.innerHTML = StoreDetail();
+    modalContainer.appendChild(
+      modalRenderer.addButtons([
+        {
+          name: "삭제하기",
+          type: "button",
+          class: "button--secondary",
+          id: "delete-button",
+        },
+        {
+          name: "닫기",
+          type: "button",
+          class: "button--primary",
+          id: "close-button",
+        },
+      ])
+    );
   },
 };
 
