@@ -1,5 +1,5 @@
 import { DOM } from '../../../dom';
-import { BUTTON_IMAGE_SRC } from '../../../../public/assets/imgaePaths.js';
+import { BUTTON_IMAGE_SRC } from '../../../../public/assets/imagePaths';
 
 class Header {
   #onButtonClick;
