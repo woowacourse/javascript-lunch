@@ -6,7 +6,7 @@ import LunchInfoCard from "./LunchInfoCard.js";
 class RestaurantList {
   #el;
 
-  constructor(id, items) {
+  constructor(items) {
     this.#el = $(".restaurant-list");
     this.#el.innerHTML = items.map(LunchInfoCard).join("");
   }
