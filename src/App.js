@@ -3,6 +3,7 @@ import BottomSheetBase from "./components/common/bottom-sheet-base/BottomSheetBa
 import RestaurantForm from "./components/restaurant-form-section/restaurant-form/RestaurantForm.js";
 import RestaurantList from "./components/restaurant-list-section/restaurant-list/RestaurantList.js";
 import RestaurantFilter from "./components/restaurant-filter-section/RestaurantFilter.js";
+import RestaurantNavBar from "./components/restaurant-nav-bar/RestaurantNavBar.js";
 
 export default class App {
   constructor(restaurantStore, restaurantService) {
@@ -28,9 +29,15 @@ export default class App {
     this.$main = document.createElement("main");
     this.$body.append(this.$main);
 
+    this.#renderRestaurantNavBar();
     this.#renderRestaurantFilter();
     this.#renderRestaurantList();
     this.#renderBottomSheet();
+  }
+
+  #renderRestaurantNavBar() {
+    this.$restaurantNavBar = new RestaurantNavBar();
+    this.$main.append(this.$restaurantNavBar.render());
   }
 
   #renderRestaurantFilter() {
@@ -39,9 +46,8 @@ export default class App {
   }
 
   #renderRestaurantList() {
-    this.$restaurantList = new RestaurantList(
-      this.restaurantService.getRestaurants()
-    );
+    const restaurantList = this.restaurantService.getRestaurants();
+    this.$restaurantList = new RestaurantList(restaurantList);
     this.$main.append(this.$restaurantList.render());
   }
 

@@ -6,6 +6,16 @@ export const LABEL_NAMES = Object.freeze({
   link: "참고 링크",
 });
 
+export const NAV_BAR_KEYS = Object.freeze({
+  all: "all",
+  favorite: "favorite",
+});
+
+export const NAV_BAR_OPTIONS = Object.freeze({
+  [NAV_BAR_KEYS.all]: "모든 음식점",
+  [NAV_BAR_KEYS.favorite]: "자주 가는 음식점",
+});
+
 export const DISTANCE = ["5", "10", "15", "20", "30"];
 export const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
 export const SORT_OPTIONS = ["이름순", "거리순"];

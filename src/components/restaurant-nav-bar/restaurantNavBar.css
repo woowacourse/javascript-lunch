@@ -1,0 +1,27 @@
+.restaurant-tab-menu {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 16px 32px 16px;
+}
+
+.restaurant-tab-menu li {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}
+
+.restaurant-all-menu,
+.restaurant-favorite-menu {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  border-bottom: 2px solid var(--grey-200);
+  padding: 10px 0;
+  color: var(--grey-300);
+}
+
+.active-tab-menu {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
