@@ -29,6 +29,11 @@ export const CATEGORY_ASSETS = Object.freeze({
   기타: "./assets/category-etc.png",
 });
 
+export const FAVORITE_ASSETS = Object.freeze({
+  filled: "./assets/favorite-icon-filled.png",
+  lined: "./assets/favorite-icon-lined.png",
+});
+
 export const EVENT_TYPES = Object.freeze({
   click: "click",
   submit: "submit",
