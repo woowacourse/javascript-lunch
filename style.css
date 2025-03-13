@@ -15,6 +15,10 @@ body {
   font-size: 16px;
 }
 
+body {
+  min-width: 300px;
+}
+
 select {
   outline: none;
   cursor: pointer;
