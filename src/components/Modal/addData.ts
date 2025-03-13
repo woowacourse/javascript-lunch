@@ -1,14 +1,9 @@
 import { categoryValue } from "../../data/constants.ts";
-import { RestaurantData } from "../../data/RestaurantMockData.ts";
-
-export interface RestaurantInfo {
-  name: string;
-  distance: number;
-  description: string;
-  imgSrc: string;
-  imgAlt: string;
-  link: string;
-}
+import {
+  getStoredRestaurantData,
+  RestaurantInfo,
+  setStoredRestaurantData,
+} from "../../data/storeRestaurantData.ts";
 
 interface FormDataEntries {
   name: string;
@@ -36,7 +31,9 @@ const addData = (): RestaurantInfo => {
     link: submittedData.link,
   };
 
-  RestaurantData.push(information);
+  const currentData = getStoredRestaurantData();
+  currentData.push(information);
+  setStoredRestaurantData(currentData);
   return information;
 };
 

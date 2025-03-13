@@ -1,4 +1,4 @@
-import { RestaurantData } from "../data/RestaurantMockData.ts";
+import { getStoredRestaurantData } from "../data/storeRestaurantData.js";
 import Restaurant from "./Restaurant/Restaurant.js";
 
 const createList = () => {
@@ -8,7 +8,7 @@ const createList = () => {
   return restaurantItem;
 };
 export const createRestaurant = () => {
-  RestaurantData.forEach((data) => {
+  getStoredRestaurantData().forEach((data) => {
     const restaurantItem = createList();
     new Restaurant(restaurantItem, data);
   });
