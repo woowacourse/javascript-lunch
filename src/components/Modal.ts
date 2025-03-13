@@ -1,5 +1,5 @@
-import createDOMElement from '../util/createDomElement.js';
-import { $ } from '../util/selector.js';
+import createDOMElement from '../util/createDomElement';
+import { $ } from '../util/selector';
 
 function Modal({ content }: { content: HTMLElement }): { modal: HTMLElement; open: () => void; close: () => void } {
   const modal = createDOMElement({

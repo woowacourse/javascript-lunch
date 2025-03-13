@@ -1,6 +1,6 @@
-import RestaurantAddModal from '../components/modal/RestaurantAddModal.js';
-import { Restaurant } from '../types/types.js';
-import { $ } from '../util/selector.js';
+import RestaurantAddModal from '../components/modal/RestaurantAddModal';
+import { Restaurant } from '../types/types';
+import { $ } from '../util/selector';
 
 class ModalController {
   modal;

@@ -1,4 +1,4 @@
-import createDOMElement from '../util/createDomElement.js';
+import createDOMElement from '../util/createDomElement';
 
 function Header({ title, right }: { title: string; right: HTMLElement }) {
   return createDOMElement({

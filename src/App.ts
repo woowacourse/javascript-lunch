@@ -1,11 +1,11 @@
-import PlusButton from './components/button/PlusButton.js';
-import Header from './components/Header.js';
-import RestaurantIcon from './components/restaurant/RestaurantIcon.js';
-import RestaurantItem from './components/restaurant/RestaurantItem.js';
-import RestaurantList from './components/restaurant/RestaurantList.js';
-import ModalController from './controller/modalController.js';
-import { Restaurant } from './types/types.js';
-import { $ } from './util/selector.js';
+import PlusButton from './components/button/PlusButton';
+import Header from './components/Header';
+import RestaurantIcon from './components/restaurant/RestaurantIcon';
+import RestaurantItem from './components/restaurant/RestaurantItem';
+import RestaurantList from './components/restaurant/RestaurantList';
+import ModalController from './controller/modalController';
+import { Restaurant } from './types/types';
+import { $ } from './util/selector';
 
 class App {
   modalController;

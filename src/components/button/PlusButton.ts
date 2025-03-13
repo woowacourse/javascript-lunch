@@ -1,5 +1,5 @@
-import { AttributeWithoutChildren } from '../../types/typeUtils.js';
-import createDOMElement from '../../util/createDomElement.js';
+import { AttributeWithoutChildren } from '../../types/typeUtils';
+import createDOMElement from '../../util/createDomElement';
 
 interface PlusButtonProps extends AttributeWithoutChildren<'button'> {
   onclick?: () => void;

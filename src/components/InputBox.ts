@@ -1,6 +1,6 @@
-import { SelectOptions } from '../types/types.js';
-import { AttributeWithoutChildren } from '../types/typeUtils.js';
-import createDOMElement from '../util/createDomElement.js';
+import { SelectOptions } from '../types/types';
+import { AttributeWithoutChildren } from '../types/typeUtils';
+import createDOMElement from '../util/createDomElement';
 
 function Root({ label, input, caption }: { label: HTMLElement; input: HTMLElement; caption?: HTMLElement }) {
   return createDOMElement({
