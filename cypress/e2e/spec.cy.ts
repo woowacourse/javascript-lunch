@@ -1,13 +1,16 @@
 import { LOCAL_STORAGE_KEY_MAP } from '../../src/lib/constants';
 import { DEFAULT_RESTAURANT_LIST } from '../../src/lib/constants';
-import { LOCAL_HOST_URL, PREVIEW_URL } from './constants';
+import { LOCAL_HOST_URL, PREVIEW_URL, ERROR_MESSAGES } from './constants';
+import { type LanguageType } from './types';
 
 const URL = process.env.CI ? PREVIEW_URL : LOCAL_HOST_URL;
+let language: LanguageType;
 
 describe('애플리케이션 테스트 케이스', () => {
   beforeEach(() => {
     cy.visit(URL);
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(DEFAULT_RESTAURANT_LIST));
+    language = (window.navigator.language ?? 'en') as LanguageType;
   });
   describe('정상적인 경우', () => {
     describe('음식점 목록을 확인할 수 있다.', () => {
@@ -111,7 +114,7 @@ describe('애플리케이션 테스트 케이스', () => {
 
       cy.get('select[name="category"]')
         .invoke('prop', 'validationMessage')
-        .should('equal', 'Please select an item in the list.');
+        .should('equal', ERROR_MESSAGES.selectInvalid[language]);
     });
     it('이름을 입력하지 않으면 음식점을 추가할 수 없다.', () => {
       cy.get('.gnb__button').click();
@@ -120,7 +123,7 @@ describe('애플리케이션 테스트 케이스', () => {
 
       cy.get('#modal-add').click();
 
-      cy.get('input[name="name"]').invoke('prop', 'validationMessage').should('equal', 'Please fill out this field.');
+      cy.get('input[name="name"]').invoke('prop', 'validationMessage').should('equal', ERROR_MESSAGES.input[language]);
     });
     it('거리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
       cy.get('.gnb__button').click();
@@ -131,7 +134,7 @@ describe('애플리케이션 테스트 케이스', () => {
 
       cy.get('select[name="distance"]')
         .invoke('prop', 'validationMessage')
-        .should('equal', 'Please select an item in the list.');
+        .should('equal', ERROR_MESSAGES.selectInvalid[language]);
     });
   });
 });
