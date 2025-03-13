@@ -138,4 +138,26 @@ describe("즐겨찾기 탭에 대한 E2E 테스트", () => {
         );
       });
   });
+
+  it("즐겨찾기 탭에서 즐겨찾기 버튼을 클릭하면, 즐겨찾기 탭에서 사라진다.", () => {
+    cy.get('[data-testid="restaurant-list"]')
+      .children()
+      .first()
+      .within(() => {
+        cy.get(".favorite-icon").click();
+      });
+
+    cy.get('[data-testid="favorite-tab"]').click();
+
+    cy.get('[data-testid="restaurant-list"]')
+      .children()
+      .first()
+      .within(() => {
+        cy.get(".favorite-icon").click();
+      });
+
+    cy.get('[data-testid="restaurant-list"]')
+      .children()
+      .should("have.length", 0);
+  });
 });

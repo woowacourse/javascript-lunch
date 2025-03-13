@@ -58,7 +58,7 @@ describe("음식점 필터링에 대한 E2E 테스트", () => {
   });
 
   it("음식점 카테고리 필터링/정렬 전체 선택, 이름 순으로 화면에 출력한다.", () => {
-    cy.get('[data-testid="category"]').select("전체");
+    cy.get('[data-testid="category-filter"]').select("전체");
     cy.get('[data-testid="sorting"]').select("name");
 
     cy.get('[data-testid="restaurant-list"]')
@@ -76,7 +76,7 @@ describe("음식점 필터링에 대한 E2E 테스트", () => {
 
   expectedRestaurants.forEach((restaurant) => {
     it(`"${restaurant.category}" 선택 시, 이름순으로 "${restaurant.name}" 이(가) 렌더링된다.`, () => {
-      cy.get('[data-testid="category"]').select(restaurant.category);
+      cy.get('[data-testid="category-filter"]').select(restaurant.category);
       cy.get('[data-testid="sorting"]').select("name");
 
       cy.get('[data-testid="restaurant-list"]')
@@ -88,7 +88,7 @@ describe("음식점 필터링에 대한 E2E 테스트", () => {
   });
 
   it("음식점 카테고리 필터링/정렬 전체 선택, 거리 순으로 화면에 출력한다.", () => {
-    cy.get('[data-testid="category"]').select("전체");
+    cy.get('[data-testid="category-filter"]').select("전체");
     cy.get('[data-testid="sorting"]').select("distance");
 
     cy.get('[data-testid="restaurant-list"]')
@@ -97,15 +97,16 @@ describe("음식점 필터링에 대한 E2E 테스트", () => {
       .each((item, index) => {
         cy.wrap(item).should(
           "contain.text",
-          [...expectedRestaurants].sort((a, b) => a.distance - b.distance)[index]
-            .name
+          [...expectedRestaurants].sort((a, b) => a.distance - b.distance)[
+            index
+          ].name
         );
       });
   });
 
   expectedRestaurants.forEach((restaurant) => {
     it(`"${restaurant.category}" 선택 시, 거리순으로 "${restaurant.name}" 이(가) 렌더링된다.`, () => {
-      cy.get('[data-testid="category"]').select(restaurant.category);
+      cy.get('[data-testid="category-filter"]').select(restaurant.category);
       cy.get('[data-testid="sorting"]').select("distance");
 
       cy.get('[data-testid="restaurant-list"]')
