@@ -81,13 +81,15 @@ class Modal extends Component {
       .addEventListener("click", () => {
         modalContainer.classList.toggle("modal--open");
       });
-    this.$target
-      .querySelector("#delete_button")
-      .addEventListener("click", () => {
-        console.log("클릭");
-        this.deleteRestaurant(this.props.data.name);
-        modalContainer.classList.toggle("modal--open");
-      });
+    if (this.props.mode === "detail") {
+      this.$target
+        .querySelector("#delete_button")
+        .addEventListener("click", () => {
+          console.log("클릭");
+          this.deleteRestaurant(this.props.data.name);
+          modalContainer.classList.toggle("modal--open");
+        });
+    }
     if (this.props.mode === "add") {
       this.submitForm();
     }
