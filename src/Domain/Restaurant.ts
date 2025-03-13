@@ -1,29 +1,29 @@
 class Restaurant {
-  #name;
-  #distance;
-  #description;
-  #category;
+  #name: string;
+  #distance: string;
+  #description: string;
+  #category: string;
 
-  constructor(name, distance, description, category) {
+  constructor(name: string, distance: string, description: string, category: string) {
     this.#name = name;
     this.#distance = distance;
     this.#description = description;
     this.#category = category;
   }
 
-  getName() {
+  getName(): string {
     return String(this.#name);
   }
 
-  getDistance() {
+  getDistance(): string {
     return String(this.#distance);
   }
 
-  getDescription() {
+  getDescription(): string {
     return String(this.#description);
   }
 
-  getCategory() {
+  getCategory(): string {
     return String(this.#category);
   }
 }

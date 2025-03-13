@@ -1,5 +1,5 @@
 export const ERROR_MESSAGES = Object.freeze({
-  NOT_SELECTED: (title) => {
+  NOT_SELECTED: (title: string): string => {
     return `${title}이(가) 선택되지 않았어요.`;
   },
   IS_BLANK: '이름이 작성되지 않았어요',
@@ -8,25 +8,28 @@ export const ERROR_MESSAGES = Object.freeze({
   INVALID_LINK_FORMAT: '링크는 프로토콜(https:// or http://)이 접두사로 붙어야 해요.',
 });
 
-const isNotSelected = (input) => {
+const isNotSelected = (input: string): boolean => {
   if (input === '선택해주세요') return true;
+  return false;
 };
 
-const isBlank = (name) => {
+const isBlank = (name: string | undefined): boolean => {
   if (!name || name.trim() === '') return true;
+  return false;
 };
 
-export const validateDropDown = (title, input) => {
+export const validateDropDown = (title: string, input: string): void => {
   if (isBlank(input)) {
     throw new Error(ERROR_MESSAGES.NOT_SELECTED(title));
   }
 };
 
-const isInvalidLength = (name, length) => {
+const isInvalidLength = (name: string, length: number): boolean => {
   if (name.length > length) return true;
+  return false;
 };
 
-export const validateName = (name) => {
+export const validateName = (name: string): void => {
   if (isBlank(name)) {
     throw new Error(ERROR_MESSAGES.IS_BLANK);
   }
@@ -36,17 +39,18 @@ export const validateName = (name) => {
   }
 };
 
-export const validateDescription = (description) => {
+export const validateDescription = (description: string): void => {
   if (isInvalidLength(description, 200)) {
     throw new Error(ERROR_MESSAGES.INVALID_DESCRIPTION_LENGTH);
   }
 };
 
-const hasNotPrefixProtocol = (input) => {
+const hasNotPrefixProtocol = (input: string): boolean => {
   if (!input.match(/https?:\/\/[\w\-\.]+/g)) return true;
+  return false;
 };
 
-export const validateLink = (input) => {
+export const validateLink = (input: string): void => {
   if (isBlank(input)) return;
   if (hasNotPrefixProtocol(input)) {
     throw new Error(ERROR_MESSAGES.INVALID_LINK_FORMAT);
