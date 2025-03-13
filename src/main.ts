@@ -1,4 +1,15 @@
-import { CATEGORY, DISTANCE, NAME, LINK, DESCRIPTION, CANCEL_BUTTON, ADD_BUTTON } from './constants/constants.ts';
+import {
+  CATEGORY,
+  DISTANCE,
+  NAME,
+  LINK,
+  DESCRIPTION,
+  CANCEL_BUTTON,
+  ADD_BUTTON,
+  multiSelect,
+  CATEGORY_FILTER_SELECT,
+  SORTING_FILTER_SELECT,
+} from './constants/constants.ts';
 import { RESTAURANTS } from './data/restaurantData.ts';
 import eventHandlers from './handlers/eventHandlers.ts';
 import stateStore from './store/stateStore.ts';
@@ -11,6 +22,7 @@ import {
   createRestaurantItem,
   createSelect,
   createTextarea,
+  createMultiSelect,
 } from './components/index.js';
 
 addEventListener('load', () => {
@@ -18,6 +30,8 @@ addEventListener('load', () => {
   initRestaurantItems();
   appendModal();
   appendModalContents();
+  appendCategoryFilterSelect(CATEGORY_FILTER_SELECT);
+  appendCategoryFilterSelect(SORTING_FILTER_SELECT);
 
   const nameInputElement = document.querySelector('#name');
   if (nameInputElement instanceof HTMLInputElement) {
@@ -94,4 +108,11 @@ function initRestaurantItems() {
   }).join('');
 
   ul.insertAdjacentHTML('beforeend', items);
+}
+
+function appendCategoryFilterSelect(fieldName: multiSelect) {
+  const filterContainer = document.querySelector('.restaurant-filter-container');
+  if (!filterContainer) return;
+  const categoryFilterSelect = createMultiSelect(fieldName);
+  filterContainer.insertAdjacentHTML('beforeend', categoryFilterSelect);
 }
