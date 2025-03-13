@@ -57,9 +57,9 @@ function App() {
           sorting,
         })}
       </section>
-      ${filteredRestaurants
-        .map((restaurant) => Restaurant(restaurant))
-        .join('')}
+        ${filteredRestaurants
+          .map((restaurant) => Restaurant(restaurant))
+          .join('')}
     </div>
   `;
 }
