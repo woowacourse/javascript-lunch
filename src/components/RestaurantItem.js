@@ -22,7 +22,7 @@ function createTags(data) {
   });
   const starImg = createElement({
     tag: 'div',
-    className: 'restaurant__star',
+    className: `restaurant__star${data.isFavorite ? ' restaurant__star--clicked' : ''}`,
   });
   const descriptionPara = createElement({
     tag: 'p',

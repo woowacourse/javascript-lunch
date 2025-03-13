@@ -39,6 +39,10 @@ class RestaurantList {
 
     return filteredRestaurants;
   }
+
+  filterFavorite() {
+    return [...this.#restaurants].filter((data) => data.isFavorite);
+  }
 }
 
 export default RestaurantList;
