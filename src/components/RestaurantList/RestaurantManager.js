@@ -8,12 +8,14 @@ import {
 } from "../../domains/restaurantService.ts";
 
 class RestaurantManager {
-  constructor(filterBarManager) {
+  constructor(filterBarManager, restaurants) {
     this.filterBarManager = filterBarManager;
+    this.restaurants = restaurants;
   }
 
   renderRestaurantList($main) {
     const filtered = filterAndSortRestaurants(
+      this.restaurants,
       this.filterBarManager.getSelectedCategory(),
       this.filterBarManager.getSelectedSorting()
     );
@@ -23,7 +25,7 @@ class RestaurantManager {
   renderFavoriteList() {
     const $main = document.querySelector("main");
     $main.replaceChildren();
-    const favorites = getFavoriteRestaurants();
+    const favorites = getFavoriteRestaurants(this.restaurants);
     this.#renderList($main, favorites);
   }
 
@@ -31,12 +33,13 @@ class RestaurantManager {
     const $main = document.querySelector("main");
 
     if (this.#isFavoriteTabActive()) {
-      const favorites = getFavoriteRestaurants();
+      const favorites = getFavoriteRestaurants(this.restaurants);
       this.#renderList($main, favorites);
       return;
     }
 
     const filtered = filterAndSortRestaurants(
+      this.restaurants,
       this.filterBarManager.getSelectedCategory(),
       this.filterBarManager.getSelectedSorting()
     );
@@ -49,28 +52,28 @@ class RestaurantManager {
     const $newList = RestaurantList(restaurants, {
       onToggleFavorite: this.handleToggleFavorite.bind(this),
       onDeleteRestaurant: this.handleDeleteRestaurant.bind(this),
+      updateList: this.updateList.bind(this),
     });
 
     if ($oldContainer) {
       $main.replaceChild($newList, $oldContainer);
       return;
     }
-
     $main.appendChild($newList);
   }
 
-  handleToggleFavorite(clickedId) {
-    toggleFavorite(clickedId);
+  async handleAddRestaurant(newRestaurant) {
+    this.restaurants = await addRestaurant(this.restaurants, newRestaurant);
     this.updateList();
   }
 
-  handleDeleteRestaurant(clickedId) {
-    deleteRestaurant(clickedId);
+  async handleDeleteRestaurant(clickedId) {
+    this.restaurants = await deleteRestaurant(this.restaurants, clickedId);
     this.updateList();
   }
 
-  handleAddRestaurant(newRestaurant) {
-    addRestaurant(newRestaurant);
+  async handleToggleFavorite(clickedId) {
+    this.restaurants = await toggleFavorite(this.restaurants, clickedId);
     this.updateList();
   }
 

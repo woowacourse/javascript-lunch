@@ -15,7 +15,12 @@ const createTemplateElement = (restaurants) => {
   return $template.content.firstElementChild;
 };
 
-const handleFavoriteClick = (event, onToggleFavorite) => {
+const handleFavoriteClick = (
+  event,
+  onToggleFavorite,
+  restaurants,
+  updateList
+) => {
   const $target = event.target;
   if (!$target.classList.contains("favorite-icon")) return;
 
@@ -24,6 +29,13 @@ const handleFavoriteClick = (event, onToggleFavorite) => {
 
   const id = $li.dataset.id;
   onToggleFavorite?.(id);
+
+  const targetRestaurant = restaurants.find(
+    (restaurant) => restaurant.id === id
+  );
+  if (targetRestaurant) {
+    updateList();
+  }
 };
 
 const handleRestaurantClick = (
@@ -38,7 +50,9 @@ const handleRestaurantClick = (
   const $li = $target.closest(".restaurant");
   if (!$li) return;
 
-  const restaurant = restaurants.find((r) => r.id === $li.dataset.id);
+  const restaurant = restaurants.find(
+    (restaurant) => restaurant.id === $li.dataset.id
+  );
   if (!restaurant) return;
 
   const $detailModal = new RestaurantDetailModal(
@@ -55,13 +69,13 @@ const handleRestaurantClick = (
 
 const RestaurantList = (
   restaurants,
-  { onToggleFavorite, onDeleteRestaurant }
+  { onToggleFavorite, onDeleteRestaurant, updateList }
 ) => {
   const $element = createTemplateElement(restaurants);
   const $ul = $element.querySelector("#restaurant-list");
 
   $ul.addEventListener("click", (event) => {
-    handleFavoriteClick(event, onToggleFavorite);
+    handleFavoriteClick(event, onToggleFavorite, restaurants, updateList);
     handleRestaurantClick(
       event,
       restaurants,
