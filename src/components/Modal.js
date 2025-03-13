@@ -102,7 +102,7 @@ class Modal extends Component {
     $modalBackdrop.addEventListener("click", function () {
       $modal.classList.add("hidden");
     });
-    document.addEventListener("keydown", function () {
+    document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") $modal.classList.add("hidden");
     });
 
