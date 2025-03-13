@@ -1,13 +1,18 @@
+import { BUTTON_TEXT } from "../../constants/buttonText";
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
+import Restaurant from "../../model/Restaurant";
 import { $ } from "../../utils/dom";
+import { getInfo } from "../../view/input";
+import Button from "../common/button";
 import ErrorMessage from "../common/errorMessage";
 import Input from "../common/input";
 import InputField from "../common/inputField";
+import { modalClose } from "../common/modal/handleCloseModal";
 import Select from "../common/select";
 import TextArea from "../common/textArea";
-import ButtonContainer from "./buttonContainer";
+import ButtonContainer from "../common/buttonContainer";
 
 const RegisterForm = (pushList) => {
   const registerForm = document.createElement("form");
@@ -53,7 +58,30 @@ const RegisterForm = (pushList) => {
     InputField("link", Input({ name: "link" }), INPUT_HELP_TEXT.LINK)
   );
 
-  registerForm.appendChild(ButtonContainer(onSubmitFailed, pushList));
+  registerForm.appendChild(
+    ButtonContainer([
+      Button({
+        text: BUTTON_TEXT.CANCEL,
+        style: "button--secondary",
+        onClick: modalClose,
+        type: "button",
+        id: "cancel-button",
+      }),
+      ,
+      Button({
+        text: BUTTON_TEXT.ADD,
+        style: "button--primary",
+        onClick: (e) => {
+          try {
+            registerRestaurant(e, pushList);
+          } catch (e) {
+            onSubmitFailed(e);
+          }
+        },
+        id: "register-button",
+      }),
+    ])
+  );
 
   return registerForm;
 };
@@ -61,6 +89,15 @@ const RegisterForm = (pushList) => {
 const onSubmitFailed = (e) => {
   const currentInputField = $(`#${e.cause}-form-item`);
   currentInputField.appendChild(ErrorMessage(e.message));
+};
+
+const registerRestaurant = (e, pushList) => {
+  e.preventDefault();
+
+  const info = getInfo();
+  pushList(new Restaurant(info));
+
+  modalClose();
 };
 
 export default RegisterForm;
