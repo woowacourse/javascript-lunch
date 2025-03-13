@@ -80,7 +80,7 @@ class Modal extends Component {
         <div class="modal-backdrop"></div>
         <div class="modal-container">
           <h2 class="modal-title text-title">${this.props.modalTitle}</h2>
-          <form>
+          <form class="modal-form">
             ${inputBoxList.map((input) => input.template()).join("")}
             <div class="button-container">
               ${cancelButton.template()}
@@ -111,9 +111,9 @@ class Modal extends Component {
       if (event.key === "Escape") $modal.classList.add("hidden");
     });
 
-    const form = this.element.querySelector("form");
+    const $modalForm = this.element.querySelector(".modal-form");
 
-    form.addEventListener("submit", (event) => {
+    $modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
       const $categoryInput = this.element.querySelector("#category");
