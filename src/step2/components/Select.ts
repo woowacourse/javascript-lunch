@@ -1,25 +1,49 @@
-import { CATEGORIES, SORTING } from '../constants/options';
+import { Attribute, parseAttribute } from '../utils/@common/domHelper';
 
-function Select() {
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface SelectProps {
+  attribute: Attribute;
+  children?: string;
+}
+
+interface OptionProps {
+  options: SelectOption[];
+  selectedValue: string;
+}
+
+function Select(props: SelectProps) {
+  const { attribute, children } = props;
+
   return `
-    <!-- 카테고리/정렬 필터 -->
-      <section class="restaurant-filter-container">
-        <select name="category" id="category-filter" class="restaurant-filter">
-          ${CATEGORIES.map(
-            (category) =>
-              `<option value="${category.value}">${category.label}</option>`
-          ).join('')}
-        </select>
-
-        <!-- 정렬 셀렉트 박스 -->
-        <select name="sorting" id="sorting-filter" class="restaurant-filter">
-          ${SORTING.map(
-            (sorting) =>
-              `<option value="${sorting.value}">${sorting.label}</option>`
-          ).join('')}
-        </select>
-      </section>
+    <select ${parseAttribute(attribute)}>
+      ${children}
+    </select>
   `;
 }
+
+function Option(props: OptionProps) {
+  const { options, selectedValue } = props;
+  console.log(
+    'options.values',
+    options.map((option) => option.value)
+  );
+  return `
+    ${options
+      .map(
+        (option) => `
+        <option value="${option.value}" ${
+          option.value === selectedValue ? 'selected' : ''
+        }>${option.label}</option>
+      `
+      )
+      .join('')}
+  `;
+}
+
+Select.Option = Option;
 
 export default Select;
