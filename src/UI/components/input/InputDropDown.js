@@ -1,4 +1,4 @@
-import CATEGORY from '../../constant/category.js';
+import CATEGORY from '../../constant/category';
 
 const TAG_MAP = {
   카테고리: 'category',

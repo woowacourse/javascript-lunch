@@ -1,4 +1,4 @@
-import CATEGORY from '../../constant/category.js';
+import CATEGORY from '../../constant/category';
 
 class RestaurantIcon {
   constructor(category) {

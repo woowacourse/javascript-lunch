@@ -1,5 +1,3 @@
-import CATEGORY from '../../constant/category.js';
-
 class RestaurantInfo {
   constructor(name, distance, description) {
     return this.#createRestaurantInfo(name, distance, description);
