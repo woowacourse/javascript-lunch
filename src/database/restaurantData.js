@@ -2,6 +2,7 @@ import { CATEGORY } from '../constants.js';
 
 export const RESTAURANTS = [
   {
+    id: 0,
     category: 'KOREAN',
     name: '피양콩할마니',
     distance: 10,
@@ -11,6 +12,7 @@ export const RESTAURANTS = [
     favorite: false,
   },
   {
+    id: 1,
     category: 'CHINESE',
     name: '친친',
     distance: 5,
@@ -19,6 +21,7 @@ export const RESTAURANTS = [
     favorite: false,
   },
   {
+    id: 2,
     category: 'JAPANESE',
     name: '잇쇼우',
     distance: 10,
@@ -28,6 +31,7 @@ export const RESTAURANTS = [
     favorite: false,
   },
   {
+    id: 3,
     category: 'WESTERN',
     name: '이태리키친',
     distance: 20,
@@ -36,6 +40,7 @@ export const RESTAURANTS = [
     favorite: false,
   },
   {
+    id: 4,
     category: 'ASIAN',
     name: '호아빈 삼성점',
     distance: 15,
@@ -44,6 +49,7 @@ export const RESTAURANTS = [
     favorite: false,
   },
   {
+    id: 5,
     category: 'ETC',
     name: '도스타코스 선릉점',
     distance: 5,

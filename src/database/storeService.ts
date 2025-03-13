@@ -10,6 +10,7 @@ interface StoreService {
   updateRestaurantByName(name: string, data: Restaurant): void;
   updateRestaurants(dataList: Restaurant[]): void;
   deleteRestaurantByName(name: string): void;
+  getNewRestaurantId(): number;
 }
 
 const storeService: StoreService = {
@@ -50,6 +51,14 @@ const storeService: StoreService = {
   deleteRestaurantByName(name) {
     const parsedKey = parseStorageKey(STORE.keyPrefix, name);
     store.removeData(parsedKey);
+  },
+
+  getNewRestaurantId() {
+    const keys = Object.keys(store.storage).filter((key) => {
+      return key.startsWith(STORE.keyPrefix);
+    });
+
+    return keys.length;
   },
 };
 

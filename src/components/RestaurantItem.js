@@ -1,7 +1,7 @@
 import { IMAGE } from '../constants.js';
 
-function createRestaurantItem({ category, name, distance, description, favorite }) {
-  const item = `<li class="restaurant">
+function createRestaurantItem({ id, category, name, distance, description, favorite }) {
+  const item = `<li class="restaurant" data-id="${id}">
               <div class="restaurant__category">
                 <img src="${IMAGE.get(category)}" alt="${category}" class="category-icon" />
               </div>
