@@ -7,10 +7,30 @@ function openAddRestaurantModal() {
   const gnbButton = document.querySelector('.gnb__button');
 
   gnbButton.addEventListener('click', () => {
-    const modal = document.querySelector('.modal');
+    const modal = document.querySelector('.add-restaurant-modal');
 
     modal.classList.add('modal--open');
   });
+}
+
+function openRestaurantInfoModal(callback) {
+  const handleRestaurantClick = (event) => {
+    const { target } = event;
+
+    if (!target.closest('.restaurant-list') || target.closest('.restaurant__favorite')) {
+      return;
+    }
+
+    const targetModal = document.querySelector('.restaurant-info-modal');
+    targetModal.classList.add('modal--open');
+
+    const restaurantItem = target.closest('.restaurant');
+    const id = Number(restaurantItem.dataset.id);
+    callback(id);
+  };
+
+  const restaurantList = document.querySelector('.restaurant-list');
+  restaurantList.addEventListener('click', handleRestaurantClick);
 }
 
 function closeModal() {
@@ -150,6 +170,7 @@ function toggleFavoriteRestaurant(callback) {
 
 const eventHandlers = {
   openAddRestaurantModal,
+  openRestaurantInfoModal,
   closeModal,
   readNewRestaurant,
   detectStorageEvent,

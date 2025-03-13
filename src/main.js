@@ -37,6 +37,7 @@ addEventListener('load', () => {
   updateRestaurantElements();
   appendAddRestaurantModal();
   appendModalContents();
+  appendRestaurantInfo();
 
   const nameInputElement = document.querySelector('#name');
   const categorySelectElement = document.querySelector('#category');
@@ -90,6 +91,7 @@ function appendItemsController() {
 
 function addEventHandlers() {
   eventHandlers.openAddRestaurantModal();
+  eventHandlers.openRestaurantInfoModal(appendRestaurantInfoContents);
   eventHandlers.readNewRestaurant();
   eventHandlers.closeModal();
   eventHandlers.switchTab();
@@ -174,12 +176,14 @@ function appendRestaurantItems(restaurants) {
   ul.insertAdjacentHTML('beforeend', items);
 }
 
-function appendRestaurantInfo(id) {
+function appendRestaurantInfo() {
   const main = document.querySelector('main');
   const modal = createModal(RESTAURANT_INFO_MODAL);
 
   main.insertAdjacentHTML('beforeend', modal);
+}
 
+function appendRestaurantInfoContents(id) {
   const targetData = storeService.findRestaurantById(id);
   const contents = createRestaurantInfo(targetData);
 
