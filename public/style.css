@@ -193,7 +193,7 @@ body {
 }
 
 .restaurant__name-distance:hover {
-  background-color: #e6e6e6;
+  background-color: #e8e8e8;
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
@@ -352,6 +352,11 @@ input[name="link"] {
   color: #667085;
   padding: 20px;
   cursor: pointer;
+}
+
+.header-category-button:hover {
+  background-color: #e8e8e8;
+  transition: background-color 0.3s ease;
 }
 
 .header-category-button.active {
