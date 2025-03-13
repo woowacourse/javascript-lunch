@@ -9,6 +9,7 @@ export const RestaurantData = [
     imgSrc: "./category-korean.png",
     imgAlt: "한식",
     category: "한식",
+    link: "https://naver.me/xFLMsS9n",
   },
   {
     name: "친친",
@@ -17,6 +18,7 @@ export const RestaurantData = [
     imgSrc: "./category-chinese.png",
     imgAlt: "중식",
     category: "중식",
+    link: "https://naver.me/FV7Y4RTm",
   },
   {
     name: "잇쇼우",
@@ -27,6 +29,7 @@ export const RestaurantData = [
     imgSrc: "./category-japanese.png",
     imgAlt: "일식",
     category: "일식",
+    link: "https://naver.me/FLyTJ4dC",
   },
   {
     name: "이태리키친",
@@ -35,6 +38,7 @@ export const RestaurantData = [
     imgSrc: "./category-western.png",
     imgAlt: "양식",
     category: "양식",
+    link: "https://naver.me/5huapW2k",
   },
   {
     name: "호아빈 삼성점",
@@ -43,6 +47,7 @@ export const RestaurantData = [
     imgSrc: "./category-asian.png",
     imgAlt: "아시안",
     category: "아시안",
+    link: "https://naver.me/5WOQLjn6",
   },
   {
     name: "도스타코스 선릉점",
@@ -51,5 +56,15 @@ export const RestaurantData = [
     imgSrc: "./category-etc.png",
     imgAlt: "기타",
     category: "기타",
+    link: "https://naver.me/Gn0yLQ8K",
   },
 ];
+
+export const mappedRestaurantData = RestaurantData.map(
+  (restaurantInfo, index) => {
+    return {
+      id: index,
+      info: { ...restaurantInfo },
+    };
+  },
+);
