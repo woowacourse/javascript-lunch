@@ -7,7 +7,7 @@ export interface RestaurantInfo {
   link: string;
 }
 
-export const RestaurantData: RestaurantInfo[] = [
+const RestaurantData: RestaurantInfo[] = [
   {
     name: "피양콩할마니",
     distance: 10,

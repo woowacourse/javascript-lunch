@@ -1,4 +1,4 @@
-import { getStoredRestaurantData } from "../data/storeRestaurantData.js";
+import { getStoredRestaurantData } from "../domain/storeRestaurantData.js";
 import Restaurant from "./Restaurant/Restaurant.js";
 
 const createList = () => {
@@ -7,10 +7,14 @@ const createList = () => {
   document.querySelector(".restaurant-list").appendChild(restaurantItem);
   return restaurantItem;
 };
-export const createRestaurant = () => {
-  getStoredRestaurantData().forEach((data) => {
+export const createRestaurant = (filteredData) => {
+  const restaurants = filteredData || getStoredRestaurantData();
+
+  document.querySelector(".restaurant-list").innerHTML = "";
+
+  restaurants.forEach((restaurant) => {
     const restaurantItem = createList();
-    new Restaurant(restaurantItem, data);
+    new Restaurant(restaurantItem, restaurant);
   });
 };
 

@@ -1,9 +1,9 @@
-import { categoryValue } from "../../data/constants.ts";
+import { categoryValue } from "../data/constants.ts";
 import {
   getStoredRestaurantData,
   RestaurantInfo,
   setStoredRestaurantData,
-} from "../../data/storeRestaurantData.ts";
+} from "./storeRestaurantData.ts";
 
 interface FormDataEntries {
   name: string;

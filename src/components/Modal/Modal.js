@@ -1,5 +1,5 @@
 import Component from "../Component.js";
-import addData from "./addData.js";
+import addData from "../../domain/addData.js";
 import createModalInputs from "./createModalInputs.js";
 class Modal extends Component {
   constructor($target, props) {
