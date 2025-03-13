@@ -1,5 +1,5 @@
 import { RestaurantData } from "../data/RestaurantMockData.ts";
-import Restaurant from "./Restaurant/Restaurant.ts";
+import Restaurant from "./Restaurant/Restaurant.js";
 
 const createList = () => {
   const restaurantItem = document.createElement("li");

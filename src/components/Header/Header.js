@@ -16,7 +16,7 @@ class Header extends Component {
   setEvent() {
     this.$target.querySelector(".gnb__button").addEventListener("click", () => {
       const modalContainer = document.querySelector(".modal");
-      new Modal(modalContainer);
+      new Modal(modalContainer, { mode: "add" });
       modalContainer.classList.toggle("modal--open");
     });
   }

@@ -1,7 +1,7 @@
 import Component from "../Component.js";
-import { RestaurantInfo } from "../Modal/addData.js";
+import Modal from "../Modal/Modal.js";
 class Restaurant extends Component {
-  constructor($target: HTMLElement, props: RestaurantInfo) {
+  constructor($target, props) {
     super($target, props);
   }
 
@@ -16,16 +16,26 @@ class Restaurant extends Component {
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description text-body">${description}</p>
       </div>
-      <img src="/filledStar.png" class="restaurant__like"/>
+      <img src="/unFilledStar.png" class="restaurant__like"/>
     `;
   }
 
   setEvent() {
     this.$target
       .querySelector(".restaurant__info")
-      ?.addEventListener("click", () => {
+      .addEventListener("click", () => {
         console.log(`클릭된 음식점: ${this.props.name}`);
+        this.handleDetailModal();
       });
+  }
+
+  handleDetailModal() {
+    const modalContainer = document.querySelector(".modal");
+    modalContainer.classList.toggle("modal--open");
+    new Modal(modalContainer, {
+      mode: "detail",
+      data: this.props,
+    });
   }
 }
 

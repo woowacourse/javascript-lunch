@@ -7,6 +7,7 @@ export interface RestaurantInfo {
   description: string;
   imgSrc: string;
   imgAlt: string;
+  link: string;
 }
 
 interface FormDataEntries {
@@ -14,6 +15,7 @@ interface FormDataEntries {
   distance: string;
   description: string;
   category: string;
+  link: string;
 }
 
 const addData = (): RestaurantInfo => {
@@ -31,6 +33,7 @@ const addData = (): RestaurantInfo => {
     imgAlt:
       categoryValue[submittedData.category as keyof typeof categoryValue] ||
       "카테고리 없음",
+    link: submittedData.link,
   };
 
   RestaurantData.push(information);
