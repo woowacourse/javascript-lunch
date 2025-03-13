@@ -174,6 +174,28 @@ body {
   -webkit-box-orient: vertical;
 }
 
+/* 헤일리 작성 부분 */
+.restaurant-star { 
+  color: #ffffff;
+  -webkit-text-stroke: 1.5px #f6a889;
+  transition: color 0.3s;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.restaurant-star.active {
+  color: #ec4a0a;
+}
+
+.restaurant-list {
+  position: relative;
+}
+
+.restaurant-wish {
+  position: absolute;
+  right: 10px;
+}
+
 /* 음식점 추가 모달 *****************************************/
 .modal {
   display: none;

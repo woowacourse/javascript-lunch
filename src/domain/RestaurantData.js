@@ -18,7 +18,9 @@ export default class RestaurantData {
   #description;
   #link;
   #category;
-  constructor({ id, name, distance, description = "", link = "", category }) {
+  #isWish;
+
+  constructor({ id, name, distance, description = "", link = "", category, isWish}) {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
@@ -31,6 +33,7 @@ export default class RestaurantData {
     this.#description = description;
     this.#link = link;
     this.#category = category;
+    this.#isWish = isWish;
   }
 
   getData() {
@@ -43,7 +46,17 @@ export default class RestaurantData {
       description: this.#description,
       link: this.#link,
       category: this.#category,
+      isWish: this.#isWish
     };
+  }
+
+  getId() {
+    return this.#id;
+  }
+
+  
+  toggleIsWish() {
+    this.#isWish = !this.#isWish;
   }
 
   isValidateOption(value) {

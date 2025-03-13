@@ -1,15 +1,19 @@
 import RestaurantHeader from "./RestaurantHeader.js";
-import RestaurantItem from "./RestaurantItem.js";
 import RestaurantListContainer from "./RestaurantListContainer.js";
 import RestaurantFilterContainer from "./RestaurantFilterContainer.js";
 
 import restaurantDataList from "../../domain/RestaurantDataList.js";
+import selectedFilterValue from "../../domain/SelectedFilterValue.js";
 
 import filterRestaurantDataList from "../../util/filterRestaurantDataList.js";
 import reRenderRestaurantListContainer from "../../util/reRenderRestaurantListContainer.js";
 
 export default function Restaurant({isReRender}) {
-  const filteredRestaurantDataList = filterRestaurantDataList([...restaurantDataList.getDataList()]);
+  const filteredRestaurantDataList = filterRestaurantDataList({
+    restaurantDataList: [...restaurantDataList.getDataList()],
+    isWishList: selectedFilterValue.getIsWishList()
+  },
+);
   
   const $body = document.querySelector("body");
   const $restaurantHeader = RestaurantHeader("점심 뭐 먹지");

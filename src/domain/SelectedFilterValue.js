@@ -1,10 +1,12 @@
 class SelectedFilterValue {
     #category
     #sorting
+    #isWishList
 
     constructor() {
         this.#category = "한식";
         this.#sorting = "이름순";
+        this.#isWishList = false;
     }
 
     updateSelectedFilterValue(id, value) {
@@ -15,6 +17,10 @@ class SelectedFilterValue {
         if(id === "sorting-filter") {
             this.#sorting = value;
         }
+
+        if(id === "restaurant-star") {
+            this.#isWishList = value
+        }
     }
 
     getSelectedFilterCategoryValue() {
@@ -23,6 +29,10 @@ class SelectedFilterValue {
 
     getSelectedFilterCategorySorting() {
         return this.#sorting;
+    }
+
+    getIsWishList() {
+        return this.#isWishList;
     }
 }
 

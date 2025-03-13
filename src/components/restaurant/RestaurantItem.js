@@ -1,26 +1,94 @@
+import Restaurant from "./Restaurant";
+
+import restaurantDataList from "../../domain/RestaurantDataList";
+import selectedFilterValue from "../../domain/SelectedFilterValue";
+
 import createElement from "../../util/createElement";
+import reRenderRestaurantListContainer from "../../util/reRenderRestaurantListContainer";
 
 export default function RestaurantItem({
+  id,
   src,
   alt,
   name,
   distance,
   description,
+  isWish,
 }) {
   const $restaurantItem = createElement({
     tag: "li",
     classNames: ["restaurant"],
   });
 
-  $restaurantItem.innerHTML = `
-        <div class="restaurant__category">
-            <img src=${src} alt=${alt} class="category-icon">
-          </div>
-          <div class="restaurant__info">
-            <h3 class="restaurant__name text-subtitle">${name}</h3>
-            <span class="restaurant__distance text-body">캠퍼스로부터 ${distance}분 내</span>
-            <p class="restaurant__description text-body">${description}</p>
-        </div>`;
+  const $restaurantCategory = createElement({
+    tag: "div",
+    classNames: ["restaurant__category"],
+  });
 
+  const $categoryIcon = createElement({
+    tag: 'img',
+    src,
+    alt,
+    classNames: ["category-icon"],
+  });
+
+  const $restaurantInfo = createElement({
+    tag: "div",
+    classNames: ["restaurant__info"],
+  });
+
+  const $restaurantName = createElement({
+    tag: "h3",
+    classNames: ["restaurant__name", "text-subtitle"],
+  });
+
+  const $restaurantDistance = createElement({
+    tag: "span",
+    classNames: ["restaurant__distance", "text-body"],
+  });
+
+  const $restaurantDescription = createElement({
+      tag: "p",
+      classNames: ["restaurant__description", "text-body"],
+  });
+
+  const $restaurantWish = createElement({
+    tag: "div",
+    classNames: ["restaurant-wish", "text-body"],
+  });
+
+  const $restaurantStar = createElement({
+    tag: "span",
+    classNames: ["restaurant-star", `${isWish && 'active'}`],
+    id,
+  });
+
+
+  $restaurantStar.addEventListener("click", (event) => {
+    toggleStar(event.target);
+  })
+
+  function toggleStar(element) {
+    const isWish = restaurantDataList.updateIsWish(id);
+    Restaurant({isReRender: true});
+  }
+
+  $restaurantCategory.append($categoryIcon);
+
+  $restaurantInfo.append($restaurantName);
+  $restaurantInfo.append($restaurantDistance);
+  $restaurantInfo.append($restaurantDescription);
+
+  $restaurantWish.append($restaurantStar);
+
+  $restaurantItem.append($restaurantCategory);
+  $restaurantItem.append($restaurantInfo);
+  $restaurantItem.append($restaurantWish);
+
+  $restaurantName.textContent = name;
+  $restaurantDistance.textContent = `캠퍼스로부터 ${distance}분 내`;
+  $restaurantDescription.textContent = description;
+  $restaurantStar.textContent = "★"
+  
   return $restaurantItem;
 }

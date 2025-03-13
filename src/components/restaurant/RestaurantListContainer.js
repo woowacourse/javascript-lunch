@@ -15,8 +15,8 @@ export default function RestaurantListContainer(restaurantItems) {
   });
 
   const restaurantElements = restaurantItems.map(
-    ({ src, alt, name, distance, description }) =>
-      RestaurantItem({ src, alt, name, distance, description })
+    ({ id, src, alt, name, distance, description, isWish }) =>
+      RestaurantItem({ id, src, alt, name, distance, description, isWish })
   );
 
   $restaurantList.append(...restaurantElements);

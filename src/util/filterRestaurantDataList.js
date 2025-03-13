@@ -1,9 +1,11 @@
 import selectedFilterValue from "../domain/SelectedFilterValue";
 
-export default function filterRestaurantDataList(restaurantDataList) {
+export default function filterRestaurantDataList({restaurantDataList, isWishList}) {
     const filteredRestaurantDataList = filterByCategory(restaurantDataList);
     const sortedRestaurantDataList = sortByCategory(filteredRestaurantDataList);
-    return sortedRestaurantDataList;
+
+    const filteredByStar = isWishList ? filterByStar(sortedRestaurantDataList) : sortedRestaurantDataList;
+    return filteredByStar;
   }
   
   function filterByCategory(dataList) {
@@ -27,6 +29,10 @@ export default function filterRestaurantDataList(restaurantDataList) {
         return 0;
       });
     }
-  
+
     return dataList
+  }
+    
+  function filterByStar(dataList) {
+    return dataList.filter((data) => data.isStar === true);
   }
