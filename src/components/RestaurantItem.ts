@@ -9,13 +9,14 @@ const CATEGORY_IMAGE = {
   기타: "./category-etc.png",
 };
 
-export function createRestaurantItem({
-  category,
-  name,
-  distance,
-  description,
-}: IRestaurant) {
+export function createRestaurantItem(
+  restaurant: IRestaurant,
+  onClick: Function
+) {
   const restaurantItem = document.createElement("li");
+  restaurantItem.addEventListener("click", () => onClick?.(restaurant));
+
+  const { category, name, distance, description } = restaurant;
   restaurantItem.classList.add("restaurant");
   restaurantItem.innerHTML = /*html*/ `
     <div class="restaurant__category">

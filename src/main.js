@@ -32,6 +32,7 @@ addEventListener("load", () => {
   const toggleModal = () => {
     modal.toggle();
   };
+
   const header = createHeader({ title: "점심 뭐 먹지", onClick: toggleModal });
   header.classList.add("gnb");
   body.prepend(header);
@@ -41,7 +42,11 @@ addEventListener("load", () => {
   const restaurantItems = document.createDocumentFragment();
 
   RESTAURANTS.forEach((restaurant) => {
-    restaurantItems.append(createRestaurantItem(restaurant));
+    restaurantItems.append(
+      createRestaurantItem(restaurant, (restaurant) => {
+        console.log(restaurant);
+      })
+    );
   });
 
   restaurantList.append(restaurantItems);
