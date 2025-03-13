@@ -4,13 +4,6 @@ import FilterByValue from "./FilterByValue";
 import OrderByValue from "./OrderByValue";
 import { Restaurant } from "../shared/types";
 
-interface ButtonProps {
-  $allButton: HTMLButtonElement;
-  $favoriteButton: HTMLButtonElement;
-  restaurants?: Restaurant[];
-  favoriteList?: Restaurant[];
-}
-
 export default function HeaderCategory() {
   const $allButton = document.getElementById("all-button") as HTMLButtonElement;
   const $favoriteButton = document.getElementById(
@@ -21,46 +14,47 @@ export default function HeaderCategory() {
   OrderByValue();
 
   const restaurants: Restaurant[] = GetAllRestaurants();
-  const favoriteList = restaurants.filter(
-    (restaurant) => restaurant.favorite === true
-  );
+  const favoriteList = restaurants.filter((restaurant) => restaurant.favorite);
 
-  $allButton.addEventListener("click", () =>
-    AllButtonEvent({ $allButton, $favoriteButton, restaurants })
-  );
+  $allButton.addEventListener("click", () => {
+    updateUI({ $allButton, $favoriteButton, restaurants, isFavorite: false });
+  });
 
-  $favoriteButton.addEventListener("click", () =>
-    FavoriteButtonEvent({
+  $favoriteButton.addEventListener("click", () => {
+    updateUI({
       $allButton,
       $favoriteButton,
-      favoriteList,
-    })
-  );
+      restaurants: favoriteList,
+      isFavorite: true,
+    });
+  });
 }
 
-function AllButtonEvent({
+function updateUI({
   $allButton,
   $favoriteButton,
   restaurants,
-}: ButtonProps) {
-  $allButton.classList.add("active");
-  $favoriteButton.classList.remove("active");
-
-  CreateRestaurantList(restaurants);
-}
-
-function FavoriteButtonEvent({
-  $allButton,
-  $favoriteButton,
-  favoriteList,
-}: ButtonProps) {
-  $favoriteButton.classList.add("active");
-  $allButton.classList.remove("active");
+  isFavorite,
+}: {
+  $allButton: HTMLButtonElement;
+  $favoriteButton: HTMLButtonElement;
+  restaurants: Restaurant[];
+  isFavorite: boolean;
+}) {
+  if (isFavorite) {
+    $favoriteButton.classList.add("active");
+    $allButton.classList.remove("active");
+  } else {
+    $allButton.classList.add("active");
+    $favoriteButton.classList.remove("active");
+  }
 
   const $restaurantFilterContainer = document.querySelector(
     ".restaurant-filter-container"
   ) as HTMLDivElement;
-  $restaurantFilterContainer.classList.add("active");
+  if ($restaurantFilterContainer) {
+    $restaurantFilterContainer.classList.toggle("active", isFavorite);
+  }
 
-  CreateRestaurantList(favoriteList);
+  CreateRestaurantList(restaurants);
 }
