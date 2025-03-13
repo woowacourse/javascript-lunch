@@ -1,7 +1,7 @@
 import { CreateRestaurantList } from "../components/CreateRestaurantList";
 import { GetAllRestaurants } from "./RestaurantStorage";
-import OrderByValue from "./OrderByValue";
 import FilterByValue from "./FilterByValue";
+import OrderByValue from "./OrderByValue";
 
 export default function HeaderCategory() {
   const $allButton = document.getElementById("all-button");

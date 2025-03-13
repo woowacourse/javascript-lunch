@@ -1,3 +1,9 @@
+interface FilterProps {
+  e: Event;
+  allRestaurants: HTMLElement[];
+  $restaurantList: HTMLDivElement;
+}
+
 export default function FilterByValue() {
   const $categorySelect = document.getElementById(
     "category-filter"
@@ -10,24 +16,31 @@ export default function FilterByValue() {
   );
 
   $categorySelect.addEventListener("change", (e: Event) => {
-    const target = e.target as HTMLSelectElement;
-    if (!target) return;
-    if (target.value === "전체") {
-      $restaurantList.innerHTML = "";
-      allRestaurants.forEach((item) => {
-        $restaurantList.appendChild(item);
-      });
-      return;
-    }
-    const filteredItems = allRestaurants.filter((item) => {
-      const category = item.querySelector(".category-icon") as HTMLImageElement;
+    FilterByValueEvent({ e, allRestaurants, $restaurantList });
+  });
+}
 
-      return category?.alt === target.value;
-    });
-
+function FilterByValueEvent({
+  e,
+  allRestaurants,
+  $restaurantList,
+}: FilterProps) {
+  const target = e.target as HTMLSelectElement;
+  if (target.value === "전체") {
     $restaurantList.innerHTML = "";
-    filteredItems.forEach((item) => {
+    allRestaurants.forEach((item) => {
       $restaurantList.appendChild(item);
     });
+    return;
+  }
+  const filteredItems = allRestaurants.filter((item) => {
+    const category = item.querySelector(".category-icon") as HTMLImageElement;
+
+    return category?.alt === target.value;
+  });
+
+  $restaurantList.innerHTML = "";
+  filteredItems.forEach((item) => {
+    $restaurantList.appendChild(item);
   });
 }
