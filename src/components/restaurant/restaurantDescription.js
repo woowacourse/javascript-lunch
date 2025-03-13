@@ -37,20 +37,23 @@ export default function createRestaurantDescription({
         </div>
          <img src="${
            isFavorite ? "./Star.png" : "./Un-star.png"
-         }" class="favorite-icon"/>
+         }" class="favorite-icon" id="description-favorite"/>
       </div>
      
     
       <p class="restaurant__description text-body">
         ${description}
       </p>
-      <p class="restaurant__description text-body">
+       <p class="restaurant__description text-body">
          ${link}
       </p>
-      
+     
+      <div class="button-container">
+        <button type="button" class="button button--secondary text-caption" id="delete-button">삭제하기</button>
+        <button type="button" class="button button--primary text-caption" id="close-button">닫기</button>
+      </div>
       
     </div>
     `;
-
   return restaurantItem;
 }
