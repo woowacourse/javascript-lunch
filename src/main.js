@@ -14,8 +14,18 @@ addEventListener("load", () => {
         이름: <input type="text" >
         닉네임: <input type="text" >
   `;
+
+  const restaurantDetailModalContent = document.createElement("div");
+  restaurantDetailModalContent.append(createRestaurantItem(RESTAURANTS[0]));
+
   const modal = new Modal({ element: innerModalContent });
   main.append(modal.rendered);
+
+  const restaurantDetailModal = new Modal({
+    element: restaurantDetailModalContent,
+  });
+  restaurantDetailModal.toggle();
+  main.append(restaurantDetailModal.rendered);
 
   const toggleModal = () => {
     modal.toggle();
