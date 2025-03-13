@@ -44,6 +44,10 @@ export default function createRestaurantDescription({
       <p class="restaurant__description text-body">
         ${description}
       </p>
+      <p class="restaurant__description text-body">
+         ${link}
+      </p>
+      
       
     </div>
     `;
