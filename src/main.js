@@ -13,13 +13,12 @@ import { STORAGE_KEY_NAME } from "./constants/storage.js";
 
 const initialRestaurantData = () => {
   const restaurantList = document.querySelector(".restaurant-list");
-  const restaurantItem = storageHandler.getItem(STORAGE_KEY_NAME);
+  const restaurantItems = storageHandler.getItem(STORAGE_KEY_NAME);
 
-  if (restaurantItem.length > 0) {
-    for (let i = 0; i < list.length; i++) {
-      restaurantList.appendChild($restaurantItem(restaurantItem[i]));
-    }
-    return;
+  if (restaurantItems.length > 0) {
+    return restaurantItems.forEach((item) => {
+      restaurantList.appendChild($restaurantItem(item));
+    });
   }
 
   const noRestaurant = document.createElement("p");
