@@ -3,7 +3,7 @@ import ModalContent from "./ModalContent";
 
 const Modal = (handleCloseModal, ...content) => {
   const backDrop = BackDrop(handleCloseModal);
-  backDrop.appendChild(ModalContent(content));
+  backDrop.appendChild(ModalContent(content, ["register-modal"]));
 
   return backDrop;
 };
