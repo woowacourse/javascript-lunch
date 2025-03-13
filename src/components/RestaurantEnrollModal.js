@@ -3,7 +3,7 @@ import createElement from '../utils/createElement.js';
 import RestaurantValidator from '../validators/RestaurantValidator.js';
 import Modal from './common/Modal.js';
 import createRestaurantEnrollForm from './RestaurantEnrollForm.js';
-import { updateRestaurantList } from './RestaurantList.js';
+import { addRestaurantList } from './RestaurantList.js';
 
 function handleClose(input) {
   document.querySelector('select#category').value = '';
@@ -40,7 +40,7 @@ function createRestaurantEnrollModal() {
       const isValidate = RestaurantValidator.validate(restaurantInput);
       if (!isValidate) return;
 
-      updateRestaurantList(restaurantInput);
+      addRestaurantList(restaurantInput);
       modal.toggle();
     },
     () => modal.toggle()

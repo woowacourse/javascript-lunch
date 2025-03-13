@@ -16,16 +16,16 @@ function createRestaurantList(datas, handleClick) {
   return restaurantList;
 }
 
-function updateRestaurantList(inputData) {
+function addRestaurantList(inputData, handleClick) {
   const $restaurantList = document.querySelector('.restaurant-list');
-  const $restaurantItem = createRestaurantItem(inputData);
+  const $restaurantItem = createRestaurantItem(inputData, handleClick);
 
   $restaurantList.appendChild($restaurantItem);
 
   return $restaurantList;
 }
 
-function filterRestaurant(datas, handleClick) {
+function updateRestaurantList(datas, handleClick) {
   const $listContainer = document.querySelector('.restaurant-list-container');
   $listContainer.replaceChildren();
 
@@ -43,4 +43,4 @@ function filterRestaurant(datas, handleClick) {
   return $listContainer;
 }
 
-export { createRestaurantList, updateRestaurantList, filterRestaurant };
+export { createRestaurantList, updateRestaurantList, addRestaurantList };
