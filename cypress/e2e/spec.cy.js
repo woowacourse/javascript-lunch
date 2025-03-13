@@ -171,17 +171,17 @@ describe("자주 가는 음식점 즐겨찾기 아이콘 클릭 시 자주 가�
   });
 
   it("음식점 즐겨찾기 아이콘 클릭 시 즐겨찾기로 추가되는지 확인한다.", () => {
-    cy.get(".restaurant-favorite-star").eq(1).click();
-    cy.get(".restaurant-favorite-star")
-      .eq(1)
-      .should("have.attr", "src", "/favorite-icon-filled.png");
-  });
-
-  it("음식점 즐겨찾기 아이콘 클릭 시 즐겨찾기 해제되는지 확인한다.", () => {
     cy.get(".restaurant-favorite-star").eq(0).click();
     cy.get(".restaurant-favorite-star")
       .eq(0)
-      .should("have.attr", "src", "/favorite-icon-lined.png");
+      .should("have.attr", "src", "./favorite-icon-filled.png");
+  });
+
+  it("음식점 즐겨찾기 아이콘 클릭 시 즐겨찾기 해제되는지 확인한다.", () => {
+    cy.get(".restaurant-favorite-star").eq(1).click();
+    cy.get(".restaurant-favorite-star")
+      .eq(1)
+      .should("have.attr", "src", "./favorite-icon-lined.png");
   });
 });
 
@@ -223,15 +223,15 @@ describe("모든 음식점 및 자주 가는 음식점 카테고리 테스트", 
     cy.get(".restaurant").should("exist");
 
     cy.get(".restaurant-favorite-star")
-      .eq(0) // 첫 번째 요소
-      .should("have.attr", "src", "/favorite-icon-filled.png");
+      .eq(0)
+      .should("have.attr", "src", "./favorite-icon-lined.png");
 
     cy.get(".restaurant-favorite-star")
-      .eq(1) // 두 번째 요소
-      .should("have.attr", "src", "/favorite-icon-lined.png");
+      .eq(1)
+      .should("have.attr", "src", "./favorite-icon-filled.png");
   });
 
-  it("자주 가는 음식점 버튼을 클릭하면 자주 가는 음식점이 표시된다.", () => {
+  it("자주가는 음식점 카테고리에서 즐겨찾기 버튼을 누르면 즐겨찾기가 해제된다.", () => {
     cy.get("#favorite-button").click();
     cy.get(".restaurant").should("exist");
     cy.get(".restaurant").should("length", 1);
@@ -239,7 +239,7 @@ describe("모든 음식점 및 자주 가는 음식점 카테고리 테스트", 
     cy.get(".restaurant-favorite-star").should(
       "have.attr",
       "src",
-      "/favorite-icon-filled.png"
+      "./favorite-icon-filled.png"
     );
   });
 });
