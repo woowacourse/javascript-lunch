@@ -3,6 +3,7 @@ import { InputBox } from './index.ts';
 import { Button, Modal } from './common/index.ts';
 import { RestaurantType } from '../lib/types.ts';
 import { html, generateId } from '../lib/utils.ts';
+import { CATEGORIES, DISTANCES } from '../lib/constants.ts';
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
@@ -22,12 +23,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       new InputBox({
         input: html` <select name="category" id="category" required>
           <option value="">선택해 주세요</option>
-          <option value="한식">한식</option>
-          <option value="중식">중식</option>
-          <option value="일식">일식</option>
-          <option value="양식">양식</option>
-          <option value="아시안">아시안</option>
-          <option value="기타">기타</option>
+          ${[...CATEGORIES].map((category) => `<option value="${category}">${category}</option>`).join('')}
         </select>`,
         label: '카테고리',
         isRequired: true,
@@ -42,11 +38,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       new InputBox({
         input: html` <select name="distance" id="distance" required>
           <option value="">선택해 주세요</option>
-          <option value="5">5분 내</option>
-          <option value="10">10분 내</option>
-          <option value="15">15분 내</option>
-          <option value="20">20분 내</option>
-          <option value="30">30분 내</option>
+          ${[...DISTANCES].map((distance) => `<option value="${distance}">${distance}분 내</option>`).join('')}
         </select>`,
         label: '거리(도보 이동 시간)',
         isRequired: true,
