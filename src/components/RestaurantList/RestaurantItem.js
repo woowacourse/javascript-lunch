@@ -34,7 +34,7 @@ const RestaurantItem = ({
               : "./icons/favorite-icon-lined.png"
           }" alt="${
     isFavorite ? "favorite" : "not-favorite"
-  }" class="favorite-icon" />
+  }" class="favorite-icon" data-testid="favorite-icon" />
         </div>
         <p class="restaurant__description text-body">${description}</p>
       </div>
