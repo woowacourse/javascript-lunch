@@ -2,6 +2,11 @@ describe("음식점 정보 입력하는 모달에 대한 E2E 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
 
+    cy.get('[data-testid="restaurant-list"]')
+      .should("exist")
+      .children()
+      .should("have.length.greaterThan", 0);
+
     cy.get('[data-testid="open-add-restaurant-modal-button"]').click();
   });
 
