@@ -12,7 +12,7 @@ import {
   SORT_SELECTOR,
 } from './constants.js';
 import { RESTAURANTS } from './database/restaurantData.js';
-import eventHandlers from './eventHandlers.js';
+import eventHandlers from './eventHandlers/eventHandlers.js';
 import stateStore from './stateStore.js';
 import {
   createButton,
