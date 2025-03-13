@@ -3,16 +3,17 @@ import { initialRestaurants } from "../data/initialRestaurants.js";
 // 저장된 필터
 const currentFilter = {
   category: null,
+  sortBy: "distance", // 기본 정렬은 거리순
 };
 
 function applyFilter() {
   const $restaurantItems = document.querySelectorAll(".restaurant");
-
   if ($restaurantItems.length === 0) {
     console.warn("필터링할 레스토랑 항목이 없습니다.");
     return;
   }
 
+  // 카테고리 필터 적용
   $restaurantItems.forEach((item) => {
     item.style.display = "flex";
 
@@ -24,6 +25,38 @@ function applyFilter() {
       }
     }
   });
+
+  // 정렬 적용
+  if (currentFilter.sortBy !== null) {
+    const $restaurantList = document.querySelector(".restaurant-list");
+    if (!$restaurantList) return;
+
+    // 목록의 모든 요소를 배열로 변환
+    const visibleItems = Array.from($restaurantList.children);
+
+    visibleItems.sort((a, b) => {
+      if (currentFilter.sortBy === "distance") {
+        const distanceA = parseInt(
+          a.querySelector(".restaurant__distance").textContent.match(/\d+/)[0],
+        );
+        const distanceB = parseInt(
+          b.querySelector(".restaurant__distance").textContent.match(/\d+/)[0],
+        );
+        return distanceA - distanceB;
+      }
+      if (currentFilter.sortBy === "name") {
+        const nameA = a.querySelector(".restaurant__name").textContent;
+        const nameB = b.querySelector(".restaurant__name").textContent;
+        return nameA.localeCompare(nameB, "ko");
+      }
+      return 0;
+    });
+
+    // 정렬된 순서대로 DOM에 추가
+    visibleItems.forEach((item) => {
+      $restaurantList.appendChild(item);
+    });
+  }
 }
 
 export function handleCategoryFilter(e) {
@@ -32,20 +65,15 @@ export function handleCategoryFilter(e) {
   applyFilter();
 }
 
-export function resetAllFilters() {
-  currentFilter.category = null;
-
-  const $categoryFilter = document.getElementById("category-filter");
-  if ($categoryFilter) {
-    $categoryFilter.value = "all";
-  }
-
+export function handleSortingFilter(e) {
+  const selectedSorting = e.target.value;
+  currentFilter.sortBy = selectedSorting;
   applyFilter();
 }
 
 export function setupFilterEventListeners() {
   const $categoryFilter = document.getElementById("category-filter");
-  const $resetButton = document.querySelector(".filter-reset-button");
+  const $sortingFilter = document.getElementById("sorting-filter");
 
   if ($categoryFilter) {
     $categoryFilter.addEventListener("change", handleCategoryFilter);
@@ -53,9 +81,9 @@ export function setupFilterEventListeners() {
     console.warn("카테고리 필터 요소를 찾을 수 없습니다.");
   }
 
-  if ($resetButton) {
-    $resetButton.addEventListener("click", resetAllFilters);
+  if ($sortingFilter) {
+    $sortingFilter.addEventListener("change", handleSortingFilter);
   } else {
-    console.warn("필터 초기화 버튼을 찾을 수 없습니다.");
+    console.warn("정렬 필터 요소를 찾을 수 없습니다.");
   }
 }
