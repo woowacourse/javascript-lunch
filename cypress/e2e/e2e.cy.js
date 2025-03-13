@@ -1,6 +1,6 @@
 import { TEST_CONSTANT } from './constants/testConstant';
 import { VISIT_URL_CONSTANT } from './constants/visitUrl';
-import { ERROR_MESSAGES } from '../../src/Domain/validation/validations.js';
+import { ERROR_MESSAGES } from '../../src/Domain/validation/validations';
 
 describe('사용자가 음식점 목록 페이지에서 음식점 추가 기능을 사용할 수 있다.', () => {
   beforeEach(() => {

@@ -14,7 +14,15 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      // 여기에 커스텀 명령어 타입을 추가할 수 있습니다
+    }
+  }
+}
