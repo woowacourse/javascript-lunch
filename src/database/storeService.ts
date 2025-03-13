@@ -5,11 +5,11 @@ import { STORE } from '../constants.js';
 
 interface StoreService {
   getRestaurants(): Restaurant[];
-  findRestaurantByName(name: string): Restaurant;
+  findRestaurantById(id: number): Restaurant;
   findRestaurantsByCategory(category: string): Restaurant[];
-  updateRestaurantByName(name: string, data: Restaurant): void;
+  updateRestaurantById(id: number, data: Restaurant): void;
   updateRestaurants(dataList: Restaurant[]): void;
-  deleteRestaurantByName(name: string): void;
+  deleteRestaurantById(id: number): void;
   getNewRestaurantId(): number;
 }
 
@@ -23,8 +23,8 @@ const storeService: StoreService = {
     return restaurants;
   },
 
-  findRestaurantByName(name) {
-    const parsedKey = parseStorageKey(STORE.keyPrefix, name);
+  findRestaurantById(id) {
+    const parsedKey = parseStorageKey(STORE.keyPrefix, id);
     const target = store.getData(parsedKey) ?? '';
     return parseJSON(target);
   },
@@ -36,20 +36,20 @@ const storeService: StoreService = {
     });
   },
 
-  updateRestaurantByName(name, data) {
-    const parsedKey = parseStorageKey(STORE.keyPrefix, name);
+  updateRestaurantById(id, data) {
+    const parsedKey = parseStorageKey(STORE.keyPrefix, id);
     const stringData = stringifyJSON(data);
     store.setData(parsedKey, stringData);
   },
 
   updateRestaurants(dataList) {
     dataList.forEach((data) => {
-      this.updateRestaurantByName(data.name, data);
+      this.updateRestaurantById(data.id, data);
     });
   },
 
-  deleteRestaurantByName(name) {
-    const parsedKey = parseStorageKey(STORE.keyPrefix, name);
+  deleteRestaurantById(id) {
+    const parsedKey = parseStorageKey(STORE.keyPrefix, id);
     store.removeData(parsedKey);
   },
 

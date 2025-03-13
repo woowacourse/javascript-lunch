@@ -138,7 +138,7 @@ function appendModalButton(form) {
 
 function initRestaurantItems() {
   RESTAURANTS.forEach((restaurant) => {
-    storeService.updateRestaurantByName(restaurant.name, restaurant);
+    storeService.updateRestaurantById(restaurant.id, restaurant);
   });
 }
 
