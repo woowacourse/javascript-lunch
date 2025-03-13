@@ -188,5 +188,10 @@ function appendRestaurantInfoContents(id) {
   const contents = createRestaurantInfo(targetData);
 
   const targetModal = document.querySelector('.restaurant-info-modal > .modal-container');
+
+  if (targetModal.hasChildNodes) {
+    targetModal.replaceChildren();
+  }
+
   targetModal.insertAdjacentHTML('beforeend', contents);
 }
