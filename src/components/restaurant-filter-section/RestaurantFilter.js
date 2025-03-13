@@ -9,7 +9,7 @@ export default class RestaurantFilter {
     const $filterCategory = document.createElement("select");
     $filterCategory.className = "restaurant-filter";
     $filterCategory.id = "category-filter";
-    $filterCategory.setAttribute("name", "filter-category");
+    $filterCategory.setAttribute("name", "category-filter");
 
     $filterContainer.append($filterCategory);
 
@@ -31,7 +31,7 @@ export default class RestaurantFilter {
     const $filterSort = document.createElement("select");
     $filterSort.className = "restaurant-filter";
     $filterSort.id = "sorting-filter";
-    $filterSort.setAttribute("name", "filter-sort");
+    $filterSort.setAttribute("name", "sorting-filter");
 
     $filterContainer.append($filterSort);
 
