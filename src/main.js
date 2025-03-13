@@ -1,9 +1,9 @@
-import { $ } from "./utils/dom.js";
-import header from "./components/header.js";
-import Modal from "./components/common/modal.js";
-import CategoryAndSortFilter from "./components/categoryAndSortFilter.js";
-import FavoriteTabFilters from "./components/favoriteTabFilter.js";
-import Restaurants from "./model/Restaurants.js";
+import { $ } from "./utils/dom";
+import header from "./components/header";
+import Modal from "./components/common/modal";
+import CategoryAndSortFilter from "./components/categoryAndSortFilter";
+import FavoriteTabFilters from "./components/favoriteTabFilter";
+import Restaurants from "./model/Restaurants";
 
 addEventListener("load", () => {
   const restaurantList = new Restaurants();
