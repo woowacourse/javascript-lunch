@@ -1,8 +1,9 @@
+import RULES from "../../constants/rules.js";
 import FilterBar from "./index.js";
 
 class FilterBarManager {
-  #selectedCategory = "전체";
-  #selectedSorting = "name";
+  #selectedCategory = RULES.ALL_CATEGORY;
+  #selectedSorting = RULES.SORTING[0];
 
   render($main, onFilterChange) {
     new FilterBar($main, {

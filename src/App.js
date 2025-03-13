@@ -27,7 +27,7 @@ class App {
   }
 
   #template() {
-    return `
+    return /*html*/ `
       ${Header()}
       ${TabBar()}
       <main></main>

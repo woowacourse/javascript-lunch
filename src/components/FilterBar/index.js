@@ -28,13 +28,13 @@ class FilterBar {
     return /*html*/ `
     <section class="restaurant-filter-container">
       <select name="category" id="category-filter" class="restaurant-filter" data-testid="category-filter">
-        <option value="전체">전체</option>
+        <option value="${RULES.ALL_CATEGORY}">전체</option>
         ${this.#options()}
       </select>
 
       <select name="sorting" id="sorting-filter" class="restaurant-filter" data-testid="sorting">
-        <option value="name">이름순</option>
-        <option value="distance">거리순</option>
+        <option value="${RULES.SORTING[0]}">이름순</option>
+        <option value="${RULES.SORTING[0]}">거리순</option>
       </select>
     </section>
   `;

@@ -1,3 +1,4 @@
+import RULES from "../constants/rules.js";
 import { Restaurant, restaurants } from "./restaurants.ts";
 
 export function filterAndSortRestaurants(
@@ -6,11 +7,11 @@ export function filterAndSortRestaurants(
 ): Restaurant[] {
   let filtered = [...restaurants];
 
-  if (category !== "전체") {
+  if (category !== RULES.CATEGORIES[0]) {
     filtered = filtered.filter((r) => r.category === category);
   }
 
-  if (sorting === "distance") {
+  if (sorting === RULES.SORTING[1]) {
     filtered.sort((a, b) => a.distance - b.distance);
     return filtered;
   }
