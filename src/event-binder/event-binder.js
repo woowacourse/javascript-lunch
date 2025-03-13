@@ -4,6 +4,7 @@ import {
 } from "../event-handler/modalHandler.js";
 import {
   handleAddRestaurantFormSubmit,
+  handleDeleteRestaurant,
   handleFavoriteToggle,
 } from "../event-handler/restaurantHandlers.js";
 
@@ -19,8 +20,8 @@ export default function bindEventHandlers(
   document.body.addEventListener("click", (event) => {
     const target = event.target;
 
-    if (target.closest("#category-filter, #favorite-filter")) {
-      handleCombinedFilter(restaurantListElement, restaurantList);
+    if (target.closest("#delete-button")) {
+      handleDeleteRestaurant(event, restaurantList, restaurantListElement);
     }
 
     handleFormModalToggle(event);
@@ -28,30 +29,32 @@ export default function bindEventHandlers(
     handleFavoriteToggle(event, restaurantList, restaurantListElement);
   });
 
-  // 필터 요소에 대한 change 이벤트 리스너 추가
   const filterElements = document.querySelectorAll(
     "#category-filter, #favorite-filter"
   );
 
   filterElements.forEach((el) => {
-    el.addEventListener("change", () => {
-      handleCombinedFilter(restaurantListElement, restaurantList);
+    el.addEventListener("change", (event) => {
+      handleCombinedFilter(event, restaurantListElement, restaurantList);
     });
   });
 
-  // 소팅 필터는 change 이벤트로 처리
   document
     .getElementById("sorting-filter")
     .addEventListener("change", (event) => {
       handleSort(event.target.value, restaurantList, restaurantListElement);
     });
 
-  // 레스토랑 추가 폼 제출 이벤트
   restaurantAddForm.addEventListener("submit", (event) =>
     handleAddRestaurantFormSubmit(event, restaurantList, restaurantAddForm)
   );
 
   // Escape 키로 다이얼로그 닫기
+  // showModal()를 쓰면 Toast가 가려지는 이슈가 있습니다.
+  // 해당 문제를 해결하기 위해, show()를 하였고,
+  // 다만, 이경우에는, dialog를 esc로 닫을수 없습니다.
+  // 그러기에, fallback으로 집어 넣은 코드입니다.
+
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       const dialogs = document.getElementsByTagName("dialog");
