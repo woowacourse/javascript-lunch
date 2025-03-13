@@ -17,7 +17,7 @@ function createRestaurantItem({ category, name, distance, description, link }) {
                 <p class="restaurant__description text-body">
                   ${description}
                 </p>
-                <a href="${link}"></a>
+                <a href="${link}" class="restaurant__link"></a>
               </div>
             </li>`;
 
