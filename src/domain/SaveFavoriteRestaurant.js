@@ -34,8 +34,6 @@ export function SaveFavoriteRestaurant() {
 export function SaveFavoriteRestaurantInModal() {
   const $favoriteButtons = document.querySelector(".restaurant-detail-modal");
 
-  console.log("@@@@@", $favoriteButtons);
-
   const $favoriteButton = $favoriteButtons.querySelector(
     ".restaurant-favorite-star-button"
   );
