@@ -24,7 +24,7 @@ function createRestaurantItem(container, inputValue) {
   container.innerHTML += `
     <li class="restaurant">
       <div class="restaurant__category">
-        <img src="/category-${inputValue.category}.png" alt="${
+        <img src="./category-${inputValue.category}.png" alt="${
     inputValue.categoryValue
   }" class="category-icon"/>
       </div>
@@ -41,8 +41,8 @@ function createRestaurantItem(container, inputValue) {
           <button class="restaurant-favorite-star-button">
             <img class="restaurant-favorite-star" src=${
               inputValue.favorite === false
-                ? "/favorite-icon-lined.png"
-                : "/favorite-icon-filled.png"
+                ? "./favorite-icon-lined.png"
+                : "./favorite-icon-filled.png"
             } alt="favorite star"/>
           </button>
         </div>
