@@ -1,4 +1,4 @@
-import RestaurantFormModal from "./components/Modal/RestaurantFormModal.js";
+import RestaurantFormModal from "./components/Modal/Modal/RestaurantFormModal.js";
 import createHeader from "./components/Header/Header.js";
 import createCategoryFilter from "./components/Filter/CategoryFilter.js";
 import createSortFilter from "./components/Filter/SortFilter.js";

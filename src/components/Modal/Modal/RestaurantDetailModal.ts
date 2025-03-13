@@ -1,6 +1,6 @@
 import "./RestaurantDetailModal.css";
-import { Restaurant } from "../../../types/restaurant";
-import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../../constants/constants";
+import { Restaurant } from "../../../../types/restaurant";
+import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../../../constants/constants";
 
 export default class RestaurantDetailModal {
   restaurant;

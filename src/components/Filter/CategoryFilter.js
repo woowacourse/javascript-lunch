@@ -29,11 +29,12 @@ function handleOnChange(selectedCategory) {
   const text = selectedCategory.options[selectedCategory.selectedIndex].text;
   const selectedCategoryResult = document.getElementById("result");
   showSelectedCategoryRestaurantList(text);
+  console.log("전체0000");
 }
 
 function showSelectedCategoryRestaurantList(selectedCategory) {
   if (selectedCategory === "전체") {
-    console.log(selectedCategory);
+    console.log("전체");
   }
 }
 
