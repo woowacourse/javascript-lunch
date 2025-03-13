@@ -7,10 +7,13 @@ import options from "./constants/options.js";
 import initRenderer from "./render/initRenderer.js";
 import storeRenderer from "./render/storeRenderer.js";
 import modalRenderer from "./render/modalRenderer.js";
+import IMG_SRC from "./constants/imgSrc.js";
+import MenuBar from "./components/MenuBar.js";
 
 addEventListener("load", () => {
   initRenderer.setHeader("오늘 뭐 먹지");
   initRenderer.setRestaurantFilter();
+  MenuBar();
   const storeList = initRenderer.setStoreList();
   initRenderer.setModal();
 
@@ -33,5 +36,16 @@ addEventListener("load", () => {
   );
   querySelector("#sorting-filter").addEventListener("change", (e) =>
     storeRenderer.sortStore(storeList, e)
+  );
+
+  querySelector(".restaurant-list").addEventListener("click", (e) =>
+    storeRenderer.toggleFavorite(storeList, e)
+  );
+
+  querySelector(".restaurant-menuBar-container").addEventListener(
+    "click",
+    (e) => {
+      storeRenderer.setMenuBar(storeList, e);
+    }
   );
 });

@@ -1,4 +1,5 @@
 import Store from "../components/Store.js";
+import IMG_SRC from "../constants/imgSrc.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
 import modalRenderer from "./modalRenderer.js";
@@ -25,7 +26,10 @@ const storeRenderer = {
       validate.linkForm(newStore.link);
 
       storeList.updateList(newStore);
-      storeRenderer.addStore(newStore);
+      storeRenderer.removeStoreElements();
+      storeList.filteredList.forEach((store) => {
+        storeRenderer.addStore(store);
+      });
 
       modalRenderer.closeModal();
     } catch (error) {
@@ -50,6 +54,7 @@ const storeRenderer = {
       dist: data.get("distance"),
       description: data.get("description"),
       link: data.get("link"),
+      isFavorite: false,
     };
   },
 
@@ -69,6 +74,43 @@ const storeRenderer = {
     storeList.sortStoreList(e.target.value);
     storeRenderer.removeStoreElements();
     storeList.filteredList.forEach((store) => {
+      storeRenderer.addStore(store);
+    });
+  },
+
+  toggleFavorite: (storeList, e) => {
+    const starIcon = e.target.closest(".star-icon");
+
+    if (!starIcon) return;
+
+    const store = e.target.closest(".restaurant");
+    const storeName = store.querySelector(".restaurant__name").textContent;
+    const storeInfo = storeList.list.find((store) => store.name === storeName);
+    storeInfo.isFavorite = !storeInfo.isFavorite;
+
+    starIcon.setAttribute(
+      "src",
+      storeInfo.isFavorite ? IMG_SRC.STAR_ICON_FILLED : IMG_SRC.STAR_ICON_LINED
+    );
+  },
+
+  setMenuBar: (storeList, e) => {
+    const button = e.target.closest(".menuBar-button");
+
+    const buttonText = button.querySelector(".button-text").textContent;
+    let filteredList = [];
+    if (buttonText === "모든 음식점")
+      filteredList = storeList.filterByMenuBar(false);
+    if (buttonText === "자주 가는 음식점")
+      filteredList = storeList.filterByMenuBar(true);
+
+    document.querySelectorAll(".menuBar-button").forEach((button) => {
+      button.classList.toggle("onMenuBar");
+    });
+
+    storeRenderer.removeStoreElements();
+
+    filteredList.forEach((store) => {
       storeRenderer.addStore(store);
     });
   },

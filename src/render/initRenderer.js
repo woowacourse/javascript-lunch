@@ -4,7 +4,7 @@ import Select from "../components/Select.js";
 import options from "../constants/options.js";
 import storeData from "../data/storeData.js";
 import StoreList from "../class/StoreList.js";
-import storeRederer from "./storeRenderer.js";
+import storeRenderer from "./storeRenderer.js";
 import querySelector from "../utils/querySelector.js";
 
 const initRenderer = {
@@ -38,7 +38,7 @@ const initRenderer = {
   setStoreList: () => {
     const storeList = new StoreList(storeData);
     storeList.list.forEach((store) => {
-      storeRederer.addStore(store);
+      storeRenderer.addStore(store);
     });
     return storeList;
   },

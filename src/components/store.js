@@ -9,11 +9,21 @@ const Store = (storeProps) => {
     </div>
     <div class="restaurant__info">
       <h3 class="restaurant__name text-subtitle">${storeProps.name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${storeProps.dist}분 내</span>
+      <span class="restaurant__distance text-body">캠퍼스부터 ${
+        storeProps.dist
+      }분 내</span>
       <p class="restaurant__description text-body">
         ${storeProps.description}
       </p>
-    </div>`;
+    </div>
+    <div>
+      <img src=${
+        storeProps.isFavorite
+          ? IMG_SRC.STAR_ICON_FILLED
+          : IMG_SRC.STAR_ICON_LINED
+      } alt="star-icon" class="star-icon">
+    </div>
+`;
 };
 
 const getImgSrc = (category) => {

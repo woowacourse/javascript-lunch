@@ -87,6 +87,38 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 음식점 목록 메뉴바 */
+.restaurant-menuBar-container {
+  width: 100%;
+  display: flex;
+  padding: 0 20px;
+}
+
+.all-restaurant-button,
+.favorite-restaurant-button {
+  width: 50%;
+  display: inline-block;
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+  outline: none;
+  padding: 30px 0px 15px 0px;
+  cursor: pointer;
+}
+
+.all-restaurant-button-text,
+.favorite-restaurant-button-text {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.onMenuBar {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -149,10 +181,16 @@ body {
   height: 36px;
 }
 
+.star-icon {
+  cursor: pointer;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  flex-grow: 1;
 }
 
 .restaurant__name {

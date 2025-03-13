@@ -28,6 +28,11 @@ class StoreList {
     this.sortStoreList(this.#sortBy);
   }
 
+  filterByMenuBar(isFavorite) {
+    if (!isFavorite) return this.#list;
+    return this.#list.filter((store) => store.isFavorite === true);
+  }
+
   filterStoreList(category) {
     if (category === "전체") this.#filteredList = this.#list;
     else this.#filteredList = this.#list.filter((l) => l.category === category);
