@@ -2,15 +2,15 @@ import { DOM } from '../../../dom';
 import { BUTTON_IMAGE_SRC } from '../../../../public/assets/imagePaths';
 
 class Header {
-  #onButtonClick;
+  #onButtonClick: () => void;
 
-  constructor(onButtonClick) {
+  constructor(onButtonClick: () => void) {
     this.#onButtonClick = onButtonClick;
     this.#createHeader();
     this.#bindEvent();
   }
 
-  #createHeader() {
+  #createHeader(): void {
     const header = document.createElement('header');
     header.classList.add('gnb');
 
@@ -20,17 +20,21 @@ class Header {
     header.appendChild(title);
     header.appendChild(addButton);
 
-    DOM.APP.prepend(header);
+    if (DOM.APP) {
+      DOM.APP!.prepend(header);
+    } else {
+      console.error('DOM.APP element not found');
+    }
   }
 
-  #createTitle(titleText) {
+  #createTitle(titleText: string): HTMLHeadingElement {
     const title = document.createElement('h1');
     title.classList.add('gnb__title', 'text-title');
     title.textContent = titleText;
     return title;
   }
 
-  #createButton(buttonImageSrc, buttonImageAlt) {
+  #createButton(buttonImageSrc: string, buttonImageAlt: string): HTMLButtonElement {
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('gnb__button');
@@ -44,9 +48,13 @@ class Header {
     return button;
   }
 
-  #bindEvent() {
+  #bindEvent(): void {
     const addButton = document.querySelector('.gnb__button');
-    addButton.addEventListener('click', this.#onButtonClick);
+    if (addButton) {
+      addButton.addEventListener('click', this.#onButtonClick);
+    } else {
+      console.error('Add button element not found');
+    }
   }
 }
 
