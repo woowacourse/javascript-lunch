@@ -1,7 +1,8 @@
+import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";
 import Image from "../common/Image";
 
-const FavoriteIcon = (restaurant) =>
+const FavoriteIcon = (restaurant, restaurantList) =>
   createElement({
     tagName: "div",
     classNames: ["restaurant__favorite"],
@@ -16,13 +17,11 @@ const FavoriteIcon = (restaurant) =>
     ],
     events: {
       click: (e) => {
+        e.stopPropagation();
         restaurant.toggleFavorite();
         e.target.src = restaurant.value.isFavorite
           ? "./public/favorite-icon-filled.png"
           : "./public/favorite-icon-lined.png";
-        if (!restaurant.value.isFavorite) {
-          e.target.closest(".restaurant").remove();
-        }
       },
     },
   });
