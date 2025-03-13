@@ -18,8 +18,8 @@ const CATEGORY_ICON = {
   기타: "./category-etc.png",
 };
 
-export function addRequired(element, required) {
-  if (required) element.classList.add("form-item--required");
+export function requiredClassName(required) {
+  if (required) "form-item--required";
 }
 
 function AddLunchModalForm(restaurantList, modalId) {

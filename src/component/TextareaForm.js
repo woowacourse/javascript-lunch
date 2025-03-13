@@ -1,10 +1,10 @@
-import { addRequired } from "./AddLunchModalForm.js";
+import { requiredClassName } from "./AddLunchModalForm.js";
 import toElement from "../utils/toElement.js";
 
 function TextareaForm({ id, bottomDescription, rows, label, required }) {
   const $textareaForm = toElement(
     `
-      <div class="form-item">
+      <div class="form-item" ${requiredClassName(required)}">
         <label for="${id} text-caption" >${label}</label>
         <Textarea
           name=${id}
@@ -19,7 +19,6 @@ function TextareaForm({ id, bottomDescription, rows, label, required }) {
       </div>
     `
   );
-  addRequired($textareaForm, required);
 
   return $textareaForm;
 }
