@@ -1,27 +1,29 @@
 import {
-  DeleteFavoriteRestaurantInStorage,
   GetAllRestaurants,
   SaveFavoriteRestaurantInStorage,
 } from "./RestaurantStorage";
 
 export function SaveFavoriteRestaurant() {
-  const $favoriteButtons = document.querySelectorAll(
+  const $favoriteButtons: NodeListOf<Element> = document.querySelectorAll(
     ".restaurant-favorite-star-button"
   );
 
   $favoriteButtons.forEach((favoriteButton) => {
-    favoriteButton.addEventListener("click", (e) => {
-      const $restaurantItem = e.target.closest(".restaurant");
+    favoriteButton.addEventListener("click", (e: Event) => {
+      const $restaurantItem = (e.target as HTMLElement).closest(
+        ".restaurant"
+      ) as HTMLElement;
 
       const restaurants = GetAllRestaurants();
 
       const restaurantName =
-        $restaurantItem.querySelector(".restaurant__name").textContent;
+        $restaurantItem?.querySelector(".restaurant__name")?.textContent;
 
       const restaurant = restaurants.find(
         (restaurant) => restaurant.nameValue === restaurantName
       );
 
+      if (!restaurant) return;
       SaveFavoriteRestaurantInStorage({
         ...restaurant,
         favorite: !restaurant.favorite,
@@ -34,19 +36,20 @@ export function SaveFavoriteRestaurant() {
 export function SaveFavoriteRestaurantInModal() {
   const $favoriteButtons = document.querySelector(".restaurant-detail-modal");
 
-  const $favoriteButton = $favoriteButtons.querySelector(
+  const $favoriteButton = $favoriteButtons?.querySelector(
     ".restaurant-favorite-star-button"
   );
 
   const $restaurantName =
-    $favoriteButtons.querySelector(".restaurant__name").textContent;
+    $favoriteButtons?.querySelector(".restaurant__name")?.textContent;
 
-  $favoriteButton.addEventListener("click", (e) => {
+  $favoriteButton?.addEventListener("click", () => {
     const restaurants = GetAllRestaurants();
     const filteredRestaurant = restaurants.find(
       (restaurant) => restaurant.nameValue === $restaurantName
     );
 
+    if (!filteredRestaurant) return;
     SaveFavoriteRestaurantInStorage({
       ...filteredRestaurant,
       favorite: !filteredRestaurant.favorite,

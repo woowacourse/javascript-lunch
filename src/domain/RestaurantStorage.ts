@@ -1,4 +1,6 @@
-export function AddNewRestaurant({ restaurant }) {
+import { Restaurant } from "../shared/types";
+
+export function AddNewRestaurant({ restaurant }: { restaurant: Restaurant }) {
   if (!GetAllRestaurants()) {
     localStorage.setItem("restaurants", JSON.stringify([restaurant]));
     return;
@@ -9,12 +11,15 @@ export function AddNewRestaurant({ restaurant }) {
 }
 
 export function GetAllRestaurants() {
-  return JSON.parse(localStorage.getItem("restaurants")) || [];
+  const data = localStorage.getItem("restaurants") || "[]";
+  return JSON.parse(data) as Restaurant[];
 }
 
-export function SaveFavoriteRestaurantInStorage(favoriteRestaurant) {
+export function SaveFavoriteRestaurantInStorage(
+  favoriteRestaurant: Restaurant
+) {
   const allRestaurants = GetAllRestaurants();
-  allRestaurants.forEach((restaurant) => {
+  allRestaurants.forEach((restaurant: Restaurant) => {
     if (restaurant.nameValue === favoriteRestaurant.nameValue) {
       restaurant.favorite = favoriteRestaurant.favorite;
     }
@@ -23,9 +28,9 @@ export function SaveFavoriteRestaurantInStorage(favoriteRestaurant) {
   localStorage.setItem("restaurants", JSON.stringify(allRestaurants));
 }
 
-export function DeleteFavoriteRestaurantInStorage(restaurantName) {
+export function DeleteFavoriteRestaurantInStorage(restaurantName: string) {
   const allRestaurants = GetAllRestaurants();
-  allRestaurants.forEach((restaurant) => {
+  allRestaurants.forEach((restaurant: Restaurant) => {
     if (restaurant.nameValue === restaurantName) {
       restaurant.favorite = false;
     }
@@ -34,11 +39,11 @@ export function DeleteFavoriteRestaurantInStorage(restaurantName) {
   localStorage.setItem("restaurants", JSON.stringify(allRestaurants));
 }
 
-export function DeleteRestaurant(restaurantName) {
+export function DeleteRestaurant(restaurantName: string | null) {
   const allRestaurants = GetAllRestaurants();
 
   const filteredRestaurants = allRestaurants.filter(
-    (restaurant) => restaurant.nameValue !== restaurantName
+    (restaurant: Restaurant) => restaurant.nameValue !== restaurantName
   );
 
   localStorage.setItem("restaurants", JSON.stringify(filteredRestaurants));
