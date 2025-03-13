@@ -18,6 +18,10 @@ class RestaurantList {
     return listItemContents.map((listItemContent) => new Restaurant(listItemContent));
   }
 
+  getRestaurantByName(restaurantName) {
+    return this.#restaurants.find(({ information }) => information.name === restaurantName);
+  }
+
   addRestaurant(restaurantInformation) {
     const newRestaurant = new Restaurant(restaurantInformation);
     this.#restaurants.push(newRestaurant);
@@ -53,6 +57,7 @@ class RestaurantList {
     return [...this.#filteredRestaurants];
   }
 
+  // 로컬스토리지 업데이트
   updateLocalStorage() {
     localStorage.setItem("restaurants", JSON.stringify(this.#restaurants));
   }

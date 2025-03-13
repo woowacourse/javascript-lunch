@@ -22,7 +22,11 @@ function CategoryFilterController(allListContainerElement, updateList) {
     const sortOption = event.target.value;
     updateList(categoryFilterElement.value, sortOption);
   });
-  return { category: categoryFilterElement.value, sortOption: sortingFilterElement.value };
+
+  return {
+    categoryFilterElement,
+    sortingFilterElement,
+  };
 }
 
 export default CategoryFilterController;
