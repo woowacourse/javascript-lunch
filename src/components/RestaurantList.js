@@ -1,3 +1,4 @@
+import RestaurantDetailModal from "./modal/RestaurantDetailModal/index.js";
 import RestaurantItem from "./RestaurantItem.js";
 
 const RestaurantList = (restaurants, onToggleFavorite) => {
@@ -32,7 +33,18 @@ const RestaurantList = (restaurants, onToggleFavorite) => {
 
       // 부모(App) 쪽에 "이 name인 레스토랑의 favorite를 토글해줘!"라고 콜백
       onToggleFavorite?.(id);
+      return;
     }
+
+    const $li = $target.closest(".restaurant");
+    if (!$li) return;
+
+    const $detailModal = new RestaurantDetailModal(
+      document.querySelector("#modal"),
+      restaurants.find((restaurant) => restaurant.id === $li.dataset.id)
+    );
+
+    $detailModal.open();
   });
 
   return $element;
