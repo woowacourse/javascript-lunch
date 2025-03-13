@@ -1,5 +1,13 @@
-import { CATEGORY_IMAGE_SRC } from '../../../public/assets/imgaePaths.js';
-const CATEGORY = Object.freeze({
+import { CATEGORY_IMAGE_SRC } from '../../../public/assets/imagePaths';
+
+interface Category {
+  readonly [key: string]: {
+    SRC: string;
+    ALT: string;
+  };
+}
+
+const CATEGORY: Category = Object.freeze({
   KOREAN: {
     SRC: CATEGORY_IMAGE_SRC.KOREAN,
     ALT: '한식',
