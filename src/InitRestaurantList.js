@@ -1,6 +1,6 @@
 import { CreateRestaurantList } from "./components/CreateRestaurantList";
-import HeaderCategory from "./domain/HeaderCategory";
 import { GetAllRestaurants } from "./domain/RestaurantStorage";
+import HeaderCategory from "./domain/HeaderCategory";
 
 export default function InitRestaurantList() {
   const $allButton = document.getElementById("all-button");
