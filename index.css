@@ -63,3 +63,6 @@ body {
   line-height: 20px;
   font-weight: 400;
 }
+.hidden {
+  display: none;
+}
