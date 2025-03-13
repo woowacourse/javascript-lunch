@@ -40,7 +40,7 @@ class AddRestaurantModal {
     this.#createAddModal();
   }
 
-  #init = () => {
+  #init() {
     this.#cancelButton = new Button('button', 'button--secondary', '취소하기', () => this.#handleCancelButton());
     this.#addButton = new Button('submit', 'button--primary', '추가하기', (event) => this.#handleAddButton(event));
     this.#categoryDropDown = new InputDropDown('카테고리', CATEGORY_LIST);
@@ -49,9 +49,9 @@ class AddRestaurantModal {
     this.#descriptionInput = new InputText('설명');
     this.#linkInput = new InputText('참조 링크');
     this.#modalForm = document.createElement('form');
-  };
+  }
 
-  #createAddModal = () => {
+  #createAddModal() {
     const modalTitle = document.createElement('h2');
     modalTitle.classList.add('modal-title', 'text-title');
     modalTitle.innerText = '새로운 음식점';
@@ -59,18 +59,18 @@ class AddRestaurantModal {
 
     this.#modalForm = this.#createModalForm();
     this.#modal.addElementToModalContainer(this.#modalForm);
-  };
+  }
 
-  #createModalForm = () => {
+  #createModalForm() {
     const modalForm = document.createElement('form');
 
     modalForm.appendChild(this.#createModalFormScrollable());
     modalForm.appendChild(this.#createButtonContainer());
 
     return modalForm;
-  };
+  }
 
-  #createModalFormScrollable = () => {
+  #createModalFormScrollable() {
     const modalFormScrollable = document.createElement('div');
     modalFormScrollable.classList.add('modal-form-scrollable');
     modalFormScrollable.appendChild(this.#categoryDropDown);
@@ -79,9 +79,9 @@ class AddRestaurantModal {
     modalFormScrollable.appendChild(this.#descriptionInput);
     modalFormScrollable.appendChild(this.#linkInput);
     return modalFormScrollable;
-  };
+  }
 
-  #createButtonContainer = () => {
+  #createButtonContainer() {
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
@@ -89,13 +89,13 @@ class AddRestaurantModal {
     buttonContainer.appendChild(this.#addButton);
 
     return buttonContainer;
-  };
+  }
 
-  #handleCancelButton = () => {
+  #handleCancelButton() {
     this.handleToggleModal();
-  };
+  }
 
-  #handleAddButton = (event) => {
+  #handleAddButton(event) {
     event.preventDefault();
     const formData = Object.fromEntries(new FormData(this.#modalForm));
 
@@ -107,12 +107,12 @@ class AddRestaurantModal {
     } catch (error) {
       alert(error.message);
     }
-  };
+  }
 
-  handleToggleModal = () => {
+  handleToggleModal() {
     this.#modal.toggleModal();
     this.#modalForm.reset();
-  };
+  }
 }
 
 export default AddRestaurantModal;

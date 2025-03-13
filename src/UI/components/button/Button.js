@@ -7,17 +7,17 @@ class Button {
     return this.#button;
   }
 
-  #createButton = (type, className, buttonText) => {
+  #createButton(type, className, buttonText) {
     const button = document.createElement('button');
     button.type = type;
     button.classList.add('button', className);
     button.textContent = buttonText;
     return button;
-  };
+  }
 
-  #bindEvent = (onClick) => {
+  #bindEvent(onClick) {
     this.#button.addEventListener('click', onClick);
-  };
+  }
 }
 
 export default Button;

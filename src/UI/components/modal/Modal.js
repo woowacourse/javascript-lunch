@@ -8,7 +8,7 @@ class Modal {
     this.#bindEvents();
   }
 
-  #createModal = () => {
+  #createModal() {
     const modal = document.createElement('div');
     modal.classList.add('modal', 'modal--open');
     modal.classList.toggle('modal--open');
@@ -23,9 +23,9 @@ class Modal {
     modal.appendChild(this.#modalContainer);
     DOM.APP.appendChild(modal);
     return modal;
-  };
+  }
 
-  #bindEvents = () => {
+  #bindEvents() {
     this.#modalBackdrop.addEventListener('click', () => {
       this.#handleToggleModal();
     });
@@ -35,24 +35,24 @@ class Modal {
         this.#handleToggleModal();
       }
     });
-  };
+  }
 
-  addElementToModalContainer = (element) => {
+  addElementToModalContainer(element) {
     this.#modalContainer.appendChild(element);
-  };
+  }
 
-  toggleModal = () => {
+  toggleModal() {
     this.#modal.classList.toggle('modal--open');
     document.body.style.overflow = this.#modal.classList.contains('modal--open') ? 'hidden' : '';
-  };
+  }
 
-  #checkModalOpen = () => {
+  #checkModalOpen() {
     return this.#modal.classList.contains('modal--open');
-  };
+  }
 
-  #handleToggleModal = () => {
+  #handleToggleModal() {
     this.toggleModal();
-  };
+  }
 }
 
 export default Modal;

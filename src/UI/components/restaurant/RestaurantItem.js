@@ -7,7 +7,7 @@ class RestaurantItem {
     return this.#createRestaurantItem(restaurant);
   }
 
-  #createRestaurantItem = (restaurant) => {
+  #createRestaurantItem(restaurant) {
     const li = document.createElement('li');
 
     const icon = new RestaurantIcon(restaurant.getCategory());
@@ -18,6 +18,6 @@ class RestaurantItem {
     li.appendChild(info);
 
     return li;
-  };
+  }
 }
 export default RestaurantItem;

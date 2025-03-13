@@ -10,7 +10,7 @@ class Header {
     this.#bindEvent();
   }
 
-  #createHeader = () => {
+  #createHeader() {
     const header = document.createElement('header');
     header.classList.add('gnb');
 
@@ -19,18 +19,18 @@ class Header {
 
     header.appendChild(title);
     header.appendChild(addButton);
-    
-    DOM.APP.prepend(header);
-  };
 
-  #createTitle = (titleText) => {
+    DOM.APP.prepend(header);
+  }
+
+  #createTitle(titleText) {
     const title = document.createElement('h1');
     title.classList.add('gnb__title', 'text-title');
     title.textContent = titleText;
     return title;
-  };
+  }
 
-  #createButton = (buttonImageSrc, buttonImageAlt) => {
+  #createButton(buttonImageSrc, buttonImageAlt) {
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add('gnb__button');
@@ -42,13 +42,12 @@ class Header {
 
     button.appendChild(buttonImage);
     return button;
-  };
-  
+  }
 
-  #bindEvent = () => {
+  #bindEvent() {
     const addButton = document.querySelector('.gnb__button');
     addButton.addEventListener('click', this.#onButtonClick);
-  };
+  }
 }
 
 export default Header;

@@ -1,8 +1,8 @@
 import CATEGORY from '../../constant/category.js';
 
 const TAG_MAP = {
-  '카테고리': 'category',
-  '거리(도보 이동 시간)': 'distance'
+  카테고리: 'category',
+  '거리(도보 이동 시간)': 'distance',
 };
 
 class InputDropDown {
@@ -10,14 +10,14 @@ class InputDropDown {
     return this.#createInputDropDown(title, List);
   }
 
-  #createOption = (value, textContent) => {
+  #createOption(value, textContent) {
     const option = document.createElement('option');
     option.value = value;
     option.textContent = textContent;
     return option;
-  };
+  }
 
-  #createInputDropDown = (title, optionList) => {
+  #createInputDropDown(title, optionList) {
     const inputDropDown = document.createElement('div');
     inputDropDown.classList.add('form-item');
     inputDropDown.classList.add('form-item--required');
@@ -36,7 +36,7 @@ class InputDropDown {
 
     const defaultOption = this.#createOption('', '선택해주세요');
     select.appendChild(defaultOption);
-    
+
     optionList.forEach(([value, textContent]) => {
       const option = this.#createOption(value, textContent);
       select.appendChild(option);
@@ -46,7 +46,7 @@ class InputDropDown {
     inputDropDown.appendChild(select);
 
     return inputDropDown;
-  };
+  }
 }
 
 export default InputDropDown;

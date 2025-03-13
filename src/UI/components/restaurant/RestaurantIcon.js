@@ -5,7 +5,7 @@ class RestaurantIcon {
     return this.#createRestaurantIcon(category);
   }
 
-  #createRestaurantIcon = (category) => {
+  #createRestaurantIcon(category) {
     const divIcon = document.createElement('div');
     divIcon.classList = 'restaurant__category';
 
@@ -16,16 +16,16 @@ class RestaurantIcon {
 
     divIcon.appendChild(img);
     return divIcon;
-  };
+  }
 
-  #getImageSrc = (category) => {
+  #getImageSrc(category) {
     if (category === CATEGORY.KOREAN.ALT) return CATEGORY.KOREAN.SRC;
     if (category === CATEGORY.CHINESE.ALT) return CATEGORY.CHINESE.SRC;
     if (category === CATEGORY.JAPANESE.ALT) return CATEGORY.JAPANESE.SRC;
     if (category === CATEGORY.WESTERN.ALT) return CATEGORY.WESTERN.SRC;
     if (category === CATEGORY.ASIAN.ALT) return CATEGORY.ASIAN.SRC;
     if (category === CATEGORY.ETC.ALT) return CATEGORY.ETC.SRC;
-  };
+  }
 
   getElement() {
     return this.element;
