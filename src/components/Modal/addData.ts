@@ -1,7 +1,7 @@
 import { categoryValue } from "../../data/constants.ts";
 import { RestaurantData } from "../../data/RestaurantMockData.ts";
 
-interface RestaurantInfo {
+export interface RestaurantInfo {
   name: string;
   distance: number;
   description: string;
