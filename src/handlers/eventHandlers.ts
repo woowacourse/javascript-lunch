@@ -6,8 +6,9 @@ function handleOpenModal() {
   modal.classList.add('modal--open');
 }
 
-function handleCloseModal() {
-  const modal = document.querySelector('.modal');
+function handleCloseModal(event: Event) {
+  const target = event.target as HTMLElement;
+  const modal = target.closest('.modal');
   resetFormAndState();
   if (!modal) return;
   modal.classList.remove('modal--open');
@@ -17,7 +18,7 @@ function handleEscKey(event: KeyboardEvent) {
   const modal = document.querySelector('.modal');
   if (!modal) return;
   if (event.key === 'Escape' && modal.classList.contains('modal--open')) {
-    handleCloseModal();
+    handleCloseModal(event);
   }
 }
 
@@ -47,7 +48,7 @@ function handleNewRestaurantSubmit(event: SubmitEvent, addNewRestaurantItem: () 
 
     stateStore.updateState(newRestaurantData);
     addNewRestaurantItem();
-    handleCloseModal();
+    handleCloseModal(event);
   }
 }
 
@@ -75,25 +76,84 @@ function handleStarToggle(event: Event) {
   }
 }
 
+function handleRestaurantClick(
+  event: Event,
+  openModal: (data: {
+    name: string;
+    distance: string;
+    description: string;
+    image: string;
+    isFavorite: boolean;
+    link: string;
+  }) => void,
+) {
+  const target = event.target as HTMLElement;
+  const restaurantItem = target.closest('.restaurant');
+
+  if (!restaurantItem) return;
+
+  const restaurantName = restaurantItem.querySelector('.restaurant__name')?.textContent || '';
+  const restaurantDistance = restaurantItem.querySelector('.restaurant__distance')?.textContent || '';
+  const restaurantDescription = restaurantItem.querySelector('.restaurant__description')?.textContent || '';
+  const restaurantImage = restaurantItem.querySelector('.category-icon')?.getAttribute('src') || '';
+
+  const favoriteStar = restaurantItem.querySelector('.favorite-star') as HTMLImageElement;
+  const isFavorite = favoriteStar?.getAttribute('src')?.includes('favorite-icon-filled.png') || false;
+
+  const restaurantLink = restaurantItem.querySelector('.restaurant__link')?.getAttribute('href') || '';
+
+  openModal({
+    name: restaurantName,
+    distance: restaurantDistance,
+    description: restaurantDescription,
+    image: restaurantImage,
+    isFavorite: isFavorite,
+    link: restaurantLink,
+  });
+}
+
 let formSubmitHandler: (event: SubmitEvent) => void;
 
-function registerEventHandlers(addNewRestaurantItem: () => void) {
+function registerEventHandlers(
+  addNewRestaurantItem: () => void,
+  openRestaurantModal: (data: {
+    name: string;
+    distance: string;
+    description: string;
+    image: string;
+    isFavorite: boolean;
+    link: string;
+  }) => void,
+) {
   const gnbButton = document.querySelector('.gnb__button');
   const closeButton = document.querySelector('.button--secondary');
-  const modalBackdrop = document.querySelector('.modal-backdrop');
+  const modalBackdrop = document.querySelectorAll('.modal-backdrop');
   const form = document.querySelector('#new-restaurant-form');
   if (!gnbButton || !closeButton || !modalBackdrop || !(form instanceof HTMLFormElement)) return;
 
   gnbButton.addEventListener('click', handleOpenModal);
   closeButton.addEventListener('click', handleCloseModal);
-  modalBackdrop.addEventListener('click', handleCloseModal);
+  modalBackdrop.forEach((backdrop) => backdrop.addEventListener('click', handleCloseModal));
   document.addEventListener('keydown', handleEscKey);
   formSubmitHandler = (event: SubmitEvent) => handleNewRestaurantSubmit(event, addNewRestaurantItem);
   form.addEventListener('submit', formSubmitHandler);
 
   const restaurantList = document.querySelector('.restaurant-list');
+
   if (restaurantList) {
-    restaurantList.addEventListener('click', handleStarToggle);
+    restaurantList.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+
+      if (target.classList.contains('favorite-star')) {
+        handleStarToggle(event);
+        return;
+      }
+
+      const restaurantItem = target.closest('.restaurant');
+      if (restaurantItem) {
+        handleRestaurantClick(event, openRestaurantModal);
+      }
+    });
   }
 }
 

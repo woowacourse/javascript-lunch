@@ -27,6 +27,7 @@ import {
   createTextarea,
   createMultiSelect,
   createFilterTab,
+  createModalContent,
 } from './components/index.js';
 
 addEventListener('load', () => {
@@ -44,7 +45,7 @@ addEventListener('load', () => {
     setRequired(nameInputElement);
   }
 
-  eventHandlers.registerEventHandlers(addNewRestaurantItem);
+  eventHandlers.registerEventHandlers(addNewRestaurantItem, openRestaurantModal);
 });
 
 function appendHeader() {
@@ -69,9 +70,12 @@ function setRequired(element: HTMLInputElement | HTMLSelectElement | HTMLTextAre
 function appendModal() {
   const main = document.querySelector('main');
   if (!main) return;
-  const modal = createModal();
 
-  main.appendChild(modal);
+  const newRestaurantModal = createModal('new-restaurant');
+  if (newRestaurantModal) main.appendChild(newRestaurantModal);
+
+  const restaurantDetailModal = createModal('restaurant-detail');
+  if (restaurantDetailModal) main.appendChild(restaurantDetailModal);
 }
 
 function appendModalContents() {
@@ -128,4 +132,30 @@ function appendFilterTab(fieldName: filterTab) {
   if (!tabContainer) return;
   const tab = createFilterTab(fieldName);
   tabContainer.insertAdjacentHTML('beforeend', tab);
+}
+
+function openRestaurantModal({
+  name,
+  distance,
+  description,
+  image,
+  isFavorite,
+  link,
+}: {
+  name: string;
+  distance: string;
+  description: string;
+  image: string;
+  isFavorite: boolean;
+  link: string;
+}) {
+  const modal = document.querySelector('.restaurant-detail-modal');
+  const modalContent = modal?.querySelector('#restaurant-detail-content');
+
+  if (!modal || !modalContent) return;
+
+  const restaurantModalContent = createModalContent({ name, distance, description, image, isFavorite, link });
+  modalContent.innerHTML = restaurantModalContent;
+
+  modal.classList.add('modal--open');
 }
