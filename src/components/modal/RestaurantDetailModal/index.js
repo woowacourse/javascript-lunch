@@ -1,11 +1,16 @@
 import Modal from "../common/Modal.js";
+import RestaurantContent from "./RestaurantContent.js";
 
 class RestaurantDetailModal extends Modal {
   #restaurant;
+  #onToggleFavorite;
+  #onDeleteRestaurant;
 
-  constructor($target, restaurant) {
+  constructor($target, { restaurant, onToggleFavorite, onDeleteRestaurant }) {
     super($target);
     this.#restaurant = restaurant;
+    this.#onToggleFavorite = onToggleFavorite;
+    this.#onDeleteRestaurant = onDeleteRestaurant;
   }
 
   contents() {
@@ -33,18 +38,7 @@ class RestaurantDetailModal extends Modal {
       this.#restaurant.isFavorite ? "favorite" : "not-favorite"
     }" class="favorite-icon" />
       </div>
-      <div class="mt-16 gap-16 mb-32">
-        <h3 class="restaurant__name text-subtitle">${this.#restaurant.name}</h3>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${
-          this.#restaurant.distance
-        }분 내</span>
-        <p class="text-body">${this.#restaurant.description}</p>
-        <a href="${
-          this.#restaurant.link
-        }" class="text-caption link" target="_blank" rel="noopener noreferrer">${
-      this.#restaurant.link
-    }</a>
-      </div>
+      ${RestaurantContent({ restaurant: this.#restaurant })}
       <div class="button-container">
         <button type="button" id="delete-restaurant" class="button button--secondary text-caption" data-testid="delete-restaurant">삭제하기</button>
         <button id="close-modal" class="button button--primary text-caption" data-testid="close-modal">닫기</button>
@@ -60,26 +54,45 @@ class RestaurantDetailModal extends Modal {
   }
 
   #addEventListeners() {
-    const $deleteButton = document.querySelector("#delete-restaurant");
-    const $closeButton = document.querySelector("#close-modal");
+    const $deleteButton = this.$target.querySelector("#delete-restaurant");
+    const $closeButton = this.$target.querySelector("#close-modal");
+    const $favoriteIcon = this.$target.querySelector(".favorite-icon"); // 즐겨찾기 아이콘 가져오기
 
     $deleteButton.removeEventListener("click", this.#handleDelete);
     $closeButton.removeEventListener("click", this.handleClose);
+    $favoriteIcon.removeEventListener("click", this.#handleFavoriteToggle); // 기존 이벤트 제거
 
     $deleteButton.addEventListener("click", this.#handleDelete);
     $closeButton.addEventListener("click", this.handleClose);
+    $favoriteIcon.addEventListener("click", this.#handleFavoriteToggle); // 새 이벤트 추가
   }
 
   #handleDelete = (event) => {
-    event.preventDefault();
-
     try {
-      const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData.entries());
+      if (!confirm("정말 삭제하시겠습니까?")) return;
+
+      if (this.#onDeleteRestaurant) {
+        this.#onDeleteRestaurant(this.#restaurant.id);
+      }
+
       this.close();
     } catch (error) {
       alert(error.message);
     }
+  };
+
+  #handleFavoriteToggle = () => {
+    if (this.#onToggleFavorite) {
+      this.#onToggleFavorite(this.#restaurant.id);
+    }
+
+    const $favoriteIcon = this.$target.querySelector(".favorite-icon");
+    $favoriteIcon.src = this.#restaurant.isFavorite
+      ? "./icons/favorite-icon-filled.png"
+      : "./icons/favorite-icon-lined.png";
+    $favoriteIcon.alt = this.#restaurant.isFavorite
+      ? "favorite"
+      : "not-favorite";
   };
 }
 

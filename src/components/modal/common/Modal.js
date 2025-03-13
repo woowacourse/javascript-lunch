@@ -49,6 +49,10 @@ class Modal {
   get isOpen() {
     return this.#isOpen;
   }
+
+  get $target() {
+    return this.#$target;
+  }
 }
 
 export default Modal;
