@@ -2,6 +2,7 @@ class TabManager {
   constructor(restaurantManager, renderMainArea) {
     this.restaurantManager = restaurantManager;
     this.renderMainArea = renderMainArea;
+    this.activeTab = "list";
     this.#setupTabListeners();
   }
 
@@ -14,6 +15,9 @@ class TabManager {
   }
 
   #switchTab(type) {
+    if (this.activeTab === type) return;
+
+    this.activeTab = type;
     const $listTab = document.querySelector("#list-tab");
     const $favoriteTab = document.querySelector("#favorite-tab");
 
