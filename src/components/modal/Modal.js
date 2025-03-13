@@ -18,6 +18,8 @@ class Modal extends Component {
     if (this.$backdrop) {
       this.$backdrop.removeEventListener("click", this.closeModal);
       this.$backdrop.addEventListener("click", this.closeModal);
+
+      window.addEventListener("keydown", this.closeModalByEscapeKey);
     }
   }
 
@@ -51,6 +53,12 @@ class Modal extends Component {
       this.$target.replaceChildren();
     }
   }
+
+  closeModalByEscapeKey = (event) => {
+    if (event.key === "Escape") {
+      this.close();
+    }
+  };
 }
 
 export default Modal;

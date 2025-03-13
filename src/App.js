@@ -52,14 +52,6 @@ class App extends Component {
       $modal.open();
     };
 
-    const closeModalByEscapeKey = (event) => {
-      if ($modal && event.key === "Escape") {
-        $modal.close();
-      }
-    };
-
-    window.addEventListener("keydown", closeModalByEscapeKey);
-
     const $header = new Header($(document, "#app"), {
       data: {
         title: "점심 뭐 먹지",
