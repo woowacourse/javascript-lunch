@@ -72,15 +72,6 @@ const SORT_OPTIONS = ['이름순', '거리순'];
 const CATEGORY_OPTIONS = ['한식', '중식', '일식', '양식', '아시안', '기타'];
 const DISTANCE_OPTIONS = [5, 10, 15, 20, 30];
 
-const CATEGORY_DISPLAY = {
-  korean: '한식',
-  chinese: '중식',
-  japanese: '일식',
-  western: '양식',
-  asian: '아시안',
-  etc: '기타',
-};
-
 const CATEGORY_KEY = {
   한식: 'korean',
   중식: 'chinese',
@@ -90,11 +81,4 @@ const CATEGORY_KEY = {
   기타: 'etc',
 };
 
-export {
-  RESTAURANT_DATA,
-  CATEGORY_OPTIONS,
-  DISTANCE_OPTIONS,
-  CATEGORY_DISPLAY,
-  CATEGORY_KEY,
-  SORT_OPTIONS,
-};
+export { RESTAURANT_DATA, CATEGORY_OPTIONS, DISTANCE_OPTIONS, CATEGORY_KEY, SORT_OPTIONS };

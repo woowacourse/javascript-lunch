@@ -1,4 +1,4 @@
-import { CATEGORY_DISPLAY, CATEGORY_KEY } from '../../public/restaurantData.js';
+import { CATEGORY_KEY } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 
 function createTags(data) {
@@ -42,7 +42,9 @@ function createRestaurantItem(data, handleClick) {
 
   const { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara } = createTags(data);
 
-  starImg.addEventListener('click', handleClick);
+  starImg.addEventListener('click', (event) => {
+    handleClick(event, data.id);
+  });
 
   categoryDiv.append(categoryImg);
   titleDiv.append(nameHeading, distanceSpan);
