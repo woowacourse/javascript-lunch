@@ -1,7 +1,12 @@
 import $select from "../components/common/select.js";
 import $input from "../components/common/input.js";
 import $textarea from "../components/common/textarea.js";
-import { categoryOptions, distanceOptions } from "./selectOptions.js";
+import {
+  categoryOptions,
+  distanceOptions,
+  categoryFilterOptions,
+  sortingFilterOptions,
+} from "./selectOptions.js";
 import { validateRestaurantForm } from "../validation/validationForm.js";
 import { deepFreeze } from "../utils/deepFreeze.js";
 
@@ -70,6 +75,24 @@ export const FORM_FIELDS = deepFreeze({
         required: true,
         id: "distance",
         name: "distance",
+      },
+    },
+    categoryFilter: {
+      options: categoryFilterOptions,
+      eventType: "change",
+      event: null,
+      attribute: {
+        id: "category-filter",
+        name: "restaurant-filter",
+      },
+    },
+    sortingFilter: {
+      options: sortingFilterOptions,
+      eventType: "change",
+      event: null,
+      attribute: {
+        id: "sorting-filter",
+        name: "restaurant-filter",
       },
     },
     create: (info) => $select(info),

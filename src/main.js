@@ -7,9 +7,17 @@ import $buttonContainer from "./components/layout/button-container.js";
 import { UI_CONFIG } from "./constants/uiConfig.js";
 import { restaurantData } from "./data/restaurant.js";
 import { FORM_FIELDS } from "./constants/formFields.js";
+import $select from "./components/common/select.js";
+import $filterContainer from "./components/layout/filter-container.js";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
+
+  const filterSelects = [
+    FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.categoryFilter),
+    FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.sortingFilter),
+  ];
+  document.querySelector("main").prepend($filterContainer(filterSelects));
 
   const restaurantList = document.querySelector(".restaurant-list");
   restaurantData.forEach((data) => {

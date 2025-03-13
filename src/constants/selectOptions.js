@@ -16,3 +16,18 @@ export const distanceOptions = {
   "20분 이내": 20,
   "30분 이내": 30,
 };
+
+export const categoryFilterOptions = {
+  전체: "",
+  한식: "한식",
+  중식: "중식",
+  일식: "일식",
+  양식: "양식",
+  아시안: "아시안",
+  기타: "기타",
+};
+
+export const sortingFilterOptions = {
+  이름순: "name",
+  거리순: "distance",
+};
