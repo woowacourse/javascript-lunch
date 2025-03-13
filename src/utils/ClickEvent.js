@@ -9,6 +9,21 @@ class ClickEvent {
     location.reload();
   }
 
+  selectTab(target) {
+    const tabs = document.querySelectorAll(".tab-item");
+    const indicator = document.querySelector(".tab-indicator");
+
+    tabs.forEach((tab) => {
+      tab.classList.remove("active");
+    });
+
+    target.classList.add("active");
+
+    const selectedTab = target;
+    indicator.style.left = `${selectedTab.offsetLeft}px`;
+    indicator.style.width = `${selectedTab.offsetWidth}px`;
+  }
+
   showStoreAddModal() {
     openModal("storeAdd");
   }
@@ -18,19 +33,6 @@ class ClickEvent {
       document.getElementById("modalBackground")?.classList.remove("show");
       return;
     }
-  }
-
-  copyContent(element) {
-    const textCopy = element.querySelector("p").textContent;
-    if (!textCopy) {
-      alert("복사할 내용이 없습니다.");
-      return;
-    }
-
-    navigator.clipboard
-      .writeText(textCopy)
-      .then(() => alert("해당 로또 번호가 복사되었습니다."))
-      .catch(() => alert("로또 번호 복사에 실패하였습니다."));
   }
 
   onClick(event) {
