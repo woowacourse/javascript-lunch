@@ -1,5 +1,6 @@
 import Header from './components/Header';
 import NavTab from './components/NavTab';
+import Select from './components/Select';
 import { TAB } from './constants/restaurantTypes';
 import useModal from './hooks/useModal';
 import useTab from './hooks/useTab';
@@ -16,6 +17,7 @@ function App() {
     <div>
       ${Header({ openModal })}
       ${NavTab({ tab, setTabAll, setTabFavorite })}
+      ${Select()}
     </div>
   `;
 }
