@@ -8,11 +8,13 @@ export default function DetailModal(container, inputValue) {
     inputValue.categoryValue
   }" class="category-icon"/>
                   </div>
-                  <img class="restaurant-favorite-star" src=${
-                    inputValue.favorite === false
-                      ? "/favorite-icon-lined.png"
-                      : "/favorite-icon-filled.png"
-                  } alt="favorite star"/>
+                  <button class="restaurant-favorite-star-button">
+                    <img class="restaurant-favorite-star" src=${
+                      inputValue.favorite === false
+                        ? "/favorite-icon-lined.png"
+                        : "/favorite-icon-filled.png"
+                    } alt="favorite star"/>
+                  </button>
               </div>
               <div class="restaurant-detail-modal-info">
                   <h3 class="restaurant__name text-subtitle">${

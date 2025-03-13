@@ -1,5 +1,6 @@
 import DetailModal from "../components/DetailModal";
 import { DeleteRestaurant, GetAllRestaurants } from "./RestaurantStorage";
+import { SaveFavoriteRestaurantInModal } from "./SaveFavoriteRestaurant";
 
 export default function RestaurantDetailModal() {
   const $app = document.getElementById("app");
@@ -18,6 +19,7 @@ export default function RestaurantDetailModal() {
       );
 
       DetailModal($app, restaurantValues);
+      SaveFavoriteRestaurantInModal();
       DeleteModalEvent();
       CloseModalEvent();
     });
