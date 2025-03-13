@@ -13,7 +13,11 @@ const registerIcon = (pushList) => {
   registerIcon.addEventListener("click", () => {
     $(".modal-backdrop").classList.add("open");
     ModalContent([
-      Title("새로운 음식점", "h2", "modal-title", "text-title"),
+      Title({
+        text: "새로운 음식점",
+        tagName: "h2",
+        className: ["modal-title", "text-title"],
+      }),
       RegisterForm(pushList),
     ]);
   });

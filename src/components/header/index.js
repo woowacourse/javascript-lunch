@@ -5,7 +5,13 @@ const header = (pushList) => {
   const header = document.createElement("header");
   header.classList.add("gnb");
 
-  header.appendChild(Title("점심 뭐 먹지", "h1", "gnb__title", "text-title"));
+  header.appendChild(
+    Title({
+      text: "점심 뭐 먹지",
+      tagName: "h1",
+      className: ["gnb__title", "text-title"],
+    })
+  );
 
   header.appendChild(registerIcon(pushList));
 
