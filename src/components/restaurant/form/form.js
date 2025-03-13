@@ -10,6 +10,7 @@ import { restaurantFormValidation } from "../../../validation/restaurantFormVali
 
 import createRestaurantItem from "../item/item.js";
 import Toast from "../../Toast/Toast.js";
+import { createElement } from "../../../utils/dom.ts";
 
 export default function createRestaurantForm(restaurantList) {
   const restaurantAddForm = createElement("form", {
