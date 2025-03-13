@@ -1,5 +1,6 @@
-import { CATEGORY_IMAGES } from '../assets/images';
+import { CATEGORY_IMAGES, ICON_IMAGES } from '../assets/images';
 import { RestaurantType } from '../types/restaurants';
+import Button from './@common/Button';
 
 interface RestaurantProps extends RestaurantType {}
 
@@ -7,6 +8,7 @@ const Restaurant = (props: RestaurantProps) => {
   const { category, name, distance, description, isFavorite } = props;
   return `
     <li class="restaurant">
+      <div class="restaurant__container">
       <div class="restaurant__category">
         <img
           src="${CATEGORY_IMAGES[category]}"
@@ -15,7 +17,10 @@ const Restaurant = (props: RestaurantProps) => {
         />
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${name}</h3>
+        <div class="restaurant__favorite-container">
+          <h3 class="restaurant__name text-subtitle">${name}</h3>
+          
+        </div>
         <span class="restaurant__distance text-body">
           캠퍼스부터 ${distance}분 내
         </span>
@@ -23,6 +28,15 @@ const Restaurant = (props: RestaurantProps) => {
           ${description}
         </p>
       </div>
+      </div>
+      ${Button({
+        attribute: {
+          class: 'restaurant__favorite-button',
+        },
+        children: `<img src="${
+          isFavorite ? ICON_IMAGES.FAVORITE : ICON_IMAGES.UNFAVORITE
+        }" alt="favorite" />`,
+      })}
     </li>
   `;
 };

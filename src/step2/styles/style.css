@@ -122,13 +122,17 @@ body {
 
 .restaurant {
   display: flex;
-  align-items: flex-start;
-
+  justify-content: space-between;
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
 
   cursor: pointer;
+}
+
+.restaurant__container {
+  display: flex;
+  align-items: center;
 }
 
 .restaurant__category {
@@ -155,6 +159,23 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.restaurant__favorite-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant__favorite-button {
+  width: 32px;
+  height: 32px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
 }
 
 .restaurant__name {
