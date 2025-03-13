@@ -17,8 +17,10 @@ class Restaurants {
     this.filter();
   }
 
-  pushList = (restaurant) => {
+  addRestaurant = (restaurant) => {
+    restaurant.grantId(this.#restaurants.length + 1);
     this.#restaurants.push(restaurant);
+
     $("select#category").value = "all"; // -> TODO: dom조작 view 영역 아닐까
     this.#filterType.category = "all";
     this.filter();

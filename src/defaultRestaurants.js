@@ -3,6 +3,7 @@ import Restaurant from "./model/Restaurant";
 
 export const defaultRestaurants = [
   new Restaurant({
+    id: 1,
     category: "korean",
     name: "피양콩할마니",
     distance: WALK_TIME_MINUTES[0],
@@ -11,6 +12,7 @@ export const defaultRestaurants = [
     link: "http//localhost:30000",
   }),
   new Restaurant({
+    id: 2,
     category: "chinese",
     name: "친친",
     distance: WALK_TIME_MINUTES[2],
@@ -18,6 +20,7 @@ export const defaultRestaurants = [
     link: "http//localhost:30000",
   }),
   new Restaurant({
+    id: 3,
     category: "japanese",
     name: "잇쇼우",
     distance: WALK_TIME_MINUTES[1],
@@ -25,6 +28,7 @@ export const defaultRestaurants = [
     link: "http//localhost:30000",
   }),
   new Restaurant({
+    id: 4,
     category: "japanese",
     name: "한나",
     distance: WALK_TIME_MINUTES[0],

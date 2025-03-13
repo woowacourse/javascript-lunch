@@ -3,8 +3,9 @@ import { validateEmptyString } from "../validate/validateEmptyString";
 
 class Restaurant {
   #info;
-  constructor({ category, name, distance, description, link }) {
+  constructor({ id, category, name, distance, description, link }) {
     this.#info = {
+      id,
       category,
       name,
       distance,
@@ -31,6 +32,10 @@ class Restaurant {
     this.#info.favorite = !this.#info.favorite;
     return this.#info.favorite;
   };
+
+  grantId(id) {
+    this.#info.id = id;
+  }
 
   get info() {
     return {
