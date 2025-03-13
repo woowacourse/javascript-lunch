@@ -15,6 +15,15 @@ body {
   font-size: 16px;
 }
 
+span {
+  display: inline-block;
+}
+
+a {
+  color: var(--grey-500);
+  display: inline-block;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -183,6 +192,8 @@ body {
 
 .star-icon {
   cursor: pointer;
+  width: 32px;
+  height: 32px;
 }
 
 .restaurant__info {
@@ -349,4 +360,20 @@ input[name="link"] {
 .disabled-button {
   background: var(--grey-200);
   color: var(--grey-300);
+}
+
+/* 음식점 상세 정보 모달 */
+.category-favorite-icon-container {
+  display: flex;
+  justify-content: space-between;
+
+  padding-bottom: 20px;
+}
+
+.info-distance {
+  margin: 20px 0;
+}
+
+.info-link {
+  margin: 20px 0;
 }
