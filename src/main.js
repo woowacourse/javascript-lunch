@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const addRestaurantModalButton = header.querySelector(".gnb__button");
 
-  const modal = new RestaurantFormModal(
+  const restaurantFormModal = new RestaurantFormModal(
     restaurantList,
     addRestaurantModalButton
   );

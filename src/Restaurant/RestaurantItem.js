@@ -1,8 +1,19 @@
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.js";
-
-const renderRestaurantElement = ({ category, name, distance, description }) => {
+import RestaurantDetailModal from "../components/Modal/RestaurantDetailModal.js";
+const renderRestaurantElement = ({
+  category,
+  name,
+  distance,
+  description,
+  link,
+}) => {
   const li = document.createElement("li");
   li.classList.add("restaurant");
+  const restaurant = { category, name, distance, description, link };
+  li.addEventListener("click", () => {
+    const restaurantDetailModal = new RestaurantDetailModal(restaurant);
+    restaurantDetailModal.open();
+  });
 
   const mappedImage =
     IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category] || "images/default.png";
@@ -21,7 +32,9 @@ const renderRestaurantElement = ({ category, name, distance, description }) => {
   li.querySelector(".category-icon").src = mappedImage;
   li.querySelector(".category-icon").alt = category;
   li.querySelector(".restaurant__name").textContent = name;
-  li.querySelector(".restaurant__distance").textContent = `${distance}분 내`;
+  li.querySelector(
+    ".restaurant__distance"
+  ).textContent = `캠퍼스로부터 ${distance}분 내`;
   li.querySelector(".restaurant__description").textContent = description;
 
   return li;

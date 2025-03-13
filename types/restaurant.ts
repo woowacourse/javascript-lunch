@@ -5,7 +5,7 @@ export type UrlString = `http://${string}` | `https://${string}`;
 export interface Restaurant {
   category: Category;
   name: string;
-  distance: Distance | string;
+  distance: Distance;
   description?: string;
   link?: UrlString;
 }
