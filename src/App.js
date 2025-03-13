@@ -51,8 +51,7 @@ class App {
 
     const $addModal = new AddRestaurantModal(
       document.querySelector("#modal"),
-      this.#restaurantManager.handleAddRestaurant.bind(this.#restaurantManager),
-      this.#restaurants
+      this.#restaurantManager.handleAddRestaurant.bind(this.#restaurantManager)
     );
 
     $gnbButton.addEventListener("click", () => $addModal.open());

@@ -13,10 +13,9 @@ import validateLink from "../../../validators/validateLink.js";
 class AddRestaurantModal extends Modal {
   #addRestaurant;
 
-  constructor($target, addRestaurant, restaurants) {
+  constructor($target, addRestaurant) {
     super($target);
     this.#addRestaurant = addRestaurant;
-    this.restaurants = restaurants;
   }
 
   contents() {
@@ -61,7 +60,7 @@ class AddRestaurantModal extends Modal {
       const formData = new FormData(event.target);
       const data = Object.fromEntries(formData.entries());
       data["isFavorite"] = false;
-      this.#validateData(data, this.restaurants);
+      this.#validateData(data);
       this.#addRestaurant(data);
       this.close();
     } catch (error) {
@@ -69,10 +68,10 @@ class AddRestaurantModal extends Modal {
     }
   };
 
-  #validateData(data, restaurants) {
+  #validateData(data) {
     const { category, name, distance, description, link } = data;
     validateCategory(category);
-    validateRestaurantName(name, restaurants);
+    validateRestaurantName(name);
     validateDistance(distance);
     validateDescription(description);
     validateLink(link);
