@@ -23,7 +23,7 @@ const addRestaurant = (data) => {
   };
   document
     .querySelector(".restaurant-list")
-    .appendChild($restaurantItem(newRestaurant));
+    .prepend($restaurantItem(newRestaurant));
 
   const currentItem = storageHandler.getItem(STORAGE_KEY_NAME);
   storageHandler.setItem(STORAGE_KEY_NAME, [...currentItem, newRestaurant]);
