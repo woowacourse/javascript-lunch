@@ -1,3 +1,5 @@
+import { IRestaurant } from "../types/Restaurant";
+
 const CATEGORY_IMAGE = {
   한식: "./category-korean.png",
   중식: "./category-chinese.png",
@@ -9,10 +11,10 @@ const CATEGORY_IMAGE = {
 
 export function createRestaurantItem({
   category,
-  restaurantName,
+  name,
   distance,
   description,
-}) {
+}: IRestaurant) {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
   restaurantItem.innerHTML = /*html*/ `
@@ -24,7 +26,7 @@ export function createRestaurantItem({
       />
     </div>
     <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${restaurantName}</h3>
+      <h3 class="restaurant__name text-subtitle">${name}</h3>
       <span class="restaurant__distance text-body"
         >캠퍼스부터 ${distance}분 내</span
       >
