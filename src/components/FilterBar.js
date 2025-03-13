@@ -9,6 +9,10 @@ class FilterBar {
     this.#props = props;
 
     this.#$target.insertAdjacentHTML("beforeend", this.#template());
+    this.#$target.querySelector("#category-filter").value =
+      this.#props.selectedCategory;
+    this.#$target.querySelector("#sorting-filter").value =
+      this.#props.selectedSorting;
     this.#bindEvents();
   }
 
