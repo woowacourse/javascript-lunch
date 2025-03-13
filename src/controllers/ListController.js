@@ -1,5 +1,5 @@
 import List from "../components/List.js";
-import { LIST_ITEM_CONTENTS } from "../contants.js";
+import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
 
 function ListController(listContainerElement) {

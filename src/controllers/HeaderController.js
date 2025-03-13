@@ -1,5 +1,5 @@
 import Header from "../components/Header.js";
-import { HEADER_CONTENTS } from "../contants.js";
+import { HEADER_CONTENTS } from "../constants/listData.js";
 import EventHandler from "./EventHandler.js";
 
 export function HeaderController(app) {

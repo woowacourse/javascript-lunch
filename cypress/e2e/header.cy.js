@@ -1,4 +1,4 @@
-import { HEADER_CONTENTS } from "../../src/contants.js";
+import { HEADER_CONTENTS } from "../../src/contants/listData.js";
 
 describe("header 태그 E2E 테스트", () => {
   beforeEach(() => {

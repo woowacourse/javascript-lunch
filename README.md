@@ -27,7 +27,7 @@
 
 - [ ] 1단계 리팩토링
 
-  - [ ] 도메인 데이터 분리 (MODAL_FORM_CONFIG -> html element 필드 데이터)
+  - [x] 도메인 데이터 분리 (MODAL_FORM_CONFIG -> html element 필드 데이터)
   - [ ] MODAL_FORM_CONFIG 데이터 -> 컴포넌트 함께 주입
   - [ ] FormItem 컴포넌트 강결합 분리
   - [ ] components/Form/ ~Form -> Field 파일 명 및 함수명 변경

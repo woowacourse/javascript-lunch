@@ -43,28 +43,3 @@ export const LIST_ITEM_CONTENTS = [
     description: "멕시칸 캐주얼 그릴.",
   },
 ];
-
-export const SELECT_CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
-
-export const SELECT_DISTANCE = ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"];
-
-export const MODAL_TITLE = { type: "modal", text: "새로운 음식점" };
-
-export const MODAL_FORM_CONFIG = {
-  fields: [
-    { type: "select", name: "category", options: SELECT_CATEGORY, required: true },
-    { type: "input", name: "name", inputType: "text", required: true },
-    { type: "select", name: "distance", options: SELECT_DISTANCE, required: true },
-    { type: "textarea", name: "description", notice: "메뉴 등 추가 정보를 입력해 주세요." },
-    {
-      type: "input",
-      name: "link",
-      inputType: "text",
-      notice: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
-    },
-  ],
-  buttons: [
-    { type: "button", stylingBased: "secondary", text: "취소하기" },
-    { type: "submit", stylingBased: "primary", text: "등록하기" },
-  ],
-};
