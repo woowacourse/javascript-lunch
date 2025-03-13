@@ -5,8 +5,10 @@ import FilterBarManager from "./components/FilterBar/FilterBarManager.js";
 import TabManager from "./components/TabBar/TabManager.js";
 import RestaurantManager from "./components/RestaurantList/RestaurantManager.js";
 import TabBar from "./components/TabBar/index.js";
+import { fetchRestaurants } from "./domains/restaurants.ts";
 
 class App {
+  #restaurants = [];
   #$target;
   #filterBarManager;
   #tabManager;
@@ -17,13 +19,8 @@ class App {
     this.#$target.insertAdjacentHTML("beforeend", this.#template());
 
     this.#filterBarManager = new FilterBarManager();
-    this.#restaurantManager = new RestaurantManager(this.#filterBarManager);
-    this.#tabManager = new TabManager(
-      this.#restaurantManager,
-      this.#renderMainArea.bind(this)
-    );
 
-    this.#mount();
+    this.#init();
   }
 
   #template() {
@@ -35,16 +32,30 @@ class App {
     `;
   }
 
+  async #init() {
+    this.#restaurants = await fetchRestaurants();
+    this.#restaurantManager = new RestaurantManager(
+      this.#filterBarManager,
+      this.#restaurants
+    );
+    this.#tabManager = new TabManager(
+      this.#restaurantManager,
+      this.#renderMainArea.bind(this)
+    );
+    this.#mount();
+    this.#renderMainArea();
+  }
+
   #mount() {
     const $gnbButton = this.#$target.querySelector(".gnb__button");
 
     const $addModal = new AddRestaurantModal(
       document.querySelector("#modal"),
-      this.#restaurantManager.handleAddRestaurant.bind(this.#restaurantManager)
+      this.#restaurantManager.handleAddRestaurant.bind(this.#restaurantManager),
+      this.#restaurants
     );
 
     $gnbButton.addEventListener("click", () => $addModal.open());
-    this.#renderMainArea();
   }
 
   #renderMainArea() {
@@ -55,6 +66,7 @@ class App {
       $main,
       this.#restaurantManager.updateList.bind(this.#restaurantManager)
     );
+
     this.#restaurantManager.renderRestaurantList($main);
   }
 }
