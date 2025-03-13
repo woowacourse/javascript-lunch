@@ -25,7 +25,7 @@ export default function OrderByValue() {
   });
 }
 
-function SortByName({ $restaurantList, $restaurantItems }: SortProps) {
+export function SortByName({ $restaurantList, $restaurantItems }: SortProps) {
   const sortedItems: HTMLElement[] = $restaurantItems.sort((a, b) => {
     const aName =
       (a.querySelector(".restaurant__name") as HTMLElement)?.textContent ?? "";

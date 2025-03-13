@@ -10,6 +10,10 @@ export function CreateRestaurantList(restaurants) {
   const restaurantList = document.createElement("ul");
   restaurantList.className = "restaurant-list";
 
+  restaurants.sort((a, b) => {
+    return a.nameValue.localeCompare(b.nameValue);
+  });
+
   restaurants.forEach((restaurant) => {
     createRestaurantItem(restaurantList, restaurant);
   });
