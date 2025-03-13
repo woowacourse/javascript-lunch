@@ -1,11 +1,20 @@
 {
-  "rules": {},
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "warn",
+    "prefer-template": "error",
+    "jsx-quotes": ["error", "prefer-double"],
+    "import/prefer-default-export": "off",
+    "newline-before-return": "error"
+  },
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"]
 }

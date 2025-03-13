@@ -1,4 +1,3 @@
-import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 import { FoodItem } from "./FoodItem.js";
 
 export default class FoodList {
@@ -22,7 +21,7 @@ export default class FoodList {
           name: foodItem.name,
           distance: foodItem.distance,
           description: foodItem.description,
-        })
+        }),
       );
     });
     this.foodList.appendChild(foodFragment);

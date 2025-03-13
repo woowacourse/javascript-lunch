@@ -35,7 +35,7 @@ export default class FoodForm {
         name: "category",
         label: "카테고리",
         optionList: SELECT_OPTIONS.category,
-      })
+      }),
     );
 
     this.container.appendChild(
@@ -43,7 +43,7 @@ export default class FoodForm {
         isRequired: true,
         name: "name",
         label: "이름",
-      })
+      }),
     );
 
     this.container.appendChild(
@@ -52,7 +52,7 @@ export default class FoodForm {
         name: "distance",
         label: "거리(도보 이동 시간)",
         optionList: SELECT_OPTIONS.distance,
-      })
+      }),
     );
 
     this.container.appendChild(
@@ -61,7 +61,7 @@ export default class FoodForm {
         label: "설명",
         name: "description",
         caption: CAPTION.description,
-      })
+      }),
     );
 
     this.container.appendChild(
@@ -70,7 +70,7 @@ export default class FoodForm {
         label: "참고 링크",
         name: "link",
         caption: CAPTION.link,
-      })
+      }),
     );
 
     this.container.appendChild(
@@ -89,7 +89,7 @@ export default class FoodForm {
             innerText: "추가하기",
           }),
         ],
-      })
+      }),
     );
 
     this.container.onsubmit = (e) => {
@@ -108,6 +108,7 @@ export default class FoodForm {
   }
   getFormInputs() {
     const formData = new FormData(this.container);
+
     return Object.fromEntries(formData.entries());
   }
   validateFoodForm(formData) {

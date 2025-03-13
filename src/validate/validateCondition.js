@@ -17,7 +17,7 @@ export function validateURL(input) {
     return;
   }
   try {
-    const url = new URL(input);
+    new URL(input);
   } catch (error) {
     throw new Error(ERROR_MESSAGE.url);
   }
