@@ -1,12 +1,11 @@
-import Form from "../components/Form/Form.js";
-import ListItem from "../components/ListItem.js";
 import Modal from "../components/Modal.js";
 import Title from "../components/Title.js";
 import { MODAL_FORM_CONFIG, MODAL_TITLE } from "../constants/modalFormData.js";
 import { generateFormItems } from "../utils/formUtils.js";
 import EventHandler from "../utils/EventHandler.js";
+import Form from "../components/Form/Form.js";
 
-export function ModalController(mainElement, { listElement, restaurantList }) {
+export function ModalController(mainElement, { updateList, restaurantList }) {
   const titleElement = Title(MODAL_TITLE);
   const { formItems, buttonsFormItems } = generateFormItems(MODAL_FORM_CONFIG);
   const formElement = Form(formItems, buttonsFormItems);
@@ -18,8 +17,9 @@ export function ModalController(mainElement, { listElement, restaurantList }) {
   modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(mainElement, formElement));
   formElement.addEventListener("submit", (event) => {
     const values = EventHandler.formDataParsing(event);
-    const restaurant = restaurantList.addRestaurant(values);
-    listElement.appendChild(ListItem(restaurant.information));
+    restaurantList.addRestaurant(values);
+    // List 재렌더링
+    updateList();
     EventHandler.modalToggle(mainElement, formElement);
   });
 

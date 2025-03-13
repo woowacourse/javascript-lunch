@@ -21,8 +21,8 @@ class RestaurantList {
   addRestaurant(restaurantInformation) {
     const newRestaurant = new Restaurant(restaurantInformation);
     this.#restaurants.push(newRestaurant);
+    this.#filteredRestaurants = [...this.#restaurants];
     this.updateLocalStorage();
-    return newRestaurant;
   }
 
   // 카테고리 필터링

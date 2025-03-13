@@ -22,7 +22,7 @@ function CategoryFilterController(mainElement, updateList) {
     const sortOption = event.target.value;
     updateList(categoryFilterElement.value, sortOption);
   });
-  return categoryFilterElement.value;
+  return { category: categoryFilterElement.value, sortOption: sortingFilterElement.value };
 }
 
 export default CategoryFilterController;

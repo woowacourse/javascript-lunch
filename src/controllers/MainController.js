@@ -9,9 +9,12 @@ function MainController() {
   const listContainerElement = mainElement.querySelector(".restaurant-list-container");
 
   const { listElement, restaurantList, updateList } = ListController(listContainerElement);
-  CategoryFilterController(mainElement, updateList);
+  const { category, sortOption } = CategoryFilterController(mainElement, updateList);
   HeaderController(app);
-  ModalController(mainElement, { listElement, restaurantList });
+  ModalController(mainElement, {
+    updateList: () => updateList(category, sortOption),
+    restaurantList,
+  });
 }
 
 export default MainController;
