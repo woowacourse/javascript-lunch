@@ -1,6 +1,7 @@
 import RestaurantCard from "../components/restaurantCard";
 import { $ } from "../utils/dom";
 import { defaultRestaurants } from "../defaultRestaurants";
+import { createElement } from "../utils/createElement";
 
 class Restaurants {
   #restaurants;
@@ -36,7 +37,7 @@ class Restaurants {
     if (this.#filterType.option === "name") this.#sortByName(filtered);
     if (this.#filterType.option === "distance") this.#sortByDistance(filtered);
 
-    this.#createRestaurant(filtered);
+    this.#renderRestaurants(filtered);
   }
 
   #filterByFavorite() {
@@ -64,9 +65,17 @@ class Restaurants {
     return restaurants.sort((a, b) => a.info.distance - b.info.distance);
   }
 
-  #createRestaurant(restaurants) {
+  // TODO: view 로직으로 빼기
+  #renderRestaurants(restaurants) {
     const ulTag = $(".restaurant-list");
     ulTag.replaceChildren();
+
+    if (restaurants.length === 0) {
+      ulTag.appendChild(
+        createElement(`<div>등록된 식당이 존재하지 않습니다.</div>`)
+      );
+      return;
+    }
 
     restaurants.forEach((restaurant) => {
       ulTag.appendChild(RestaurantCard(restaurant));

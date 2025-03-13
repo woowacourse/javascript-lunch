@@ -1,13 +1,13 @@
 import Title from "../common/title";
 import registerIcon from "./registerIcon";
 
-const header = () => {
+const header = (pushList) => {
   const header = document.createElement("header");
   header.classList.add("gnb");
 
   header.appendChild(Title("점심 뭐 먹지", "h1", "gnb__title", "text-title"));
 
-  header.appendChild(registerIcon());
+  header.appendChild(registerIcon(pushList));
 
   return header;
 };

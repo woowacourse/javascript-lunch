@@ -3,7 +3,7 @@ import Restaurant from "../../model/Restaurant";
 import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
-import { registerModalClose } from "../common/modal/handleCloseModal";
+import { modalClose } from "../common/modal/handleCloseModal";
 
 const ButtonContainer = (onSubmitFailed, pushList) => {
   const buttonContainer = document.createElement("div");
@@ -13,7 +13,7 @@ const ButtonContainer = (onSubmitFailed, pushList) => {
     Button({
       text: BUTTON_TEXT.CANCEL,
       style: "button--secondary",
-      onClick: registerModalClose,
+      onClick: modalClose,
       type: "button",
       id: "cancel-button",
     })
