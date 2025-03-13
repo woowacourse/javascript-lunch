@@ -10,7 +10,7 @@ function RestaurantAddModal() {
       children: [
         createDOMElement({
           tag: 'h2',
-          class: ['modal-title', 'text-title'],
+          class: 'modal-title text-title',
           textContent: '새로운 음식점',
         }),
         RestaurantAddModalForm(),

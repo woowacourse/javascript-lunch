@@ -1,6 +1,7 @@
 import createDOMElement from '../util/createDomElement.js';
+import { $ } from '../util/selector.js';
 
-function Modal({ content }) {
+function Modal({ content }: { content: HTMLElement }): { modal: HTMLElement; open: () => void; close: () => void } {
   const modal = createDOMElement({
     tag: 'div',
     class: 'modal',
@@ -25,13 +26,13 @@ function Modal({ content }) {
     document.removeEventListener('keydown', handleEscKey);
   }
 
-  function handleEscKey(event) {
+  function handleEscKey(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       close();
     }
   }
 
-  modal.querySelector('.modal-backdrop').addEventListener('click', close);
+  $('.modal-backdrop')?.addEventListener('click', close);
 
   return { modal, open, close };
 }

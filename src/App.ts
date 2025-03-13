@@ -4,9 +4,12 @@ import RestaurantIcon from './components/restaurant/RestaurantIcon.js';
 import RestaurantItem from './components/restaurant/RestaurantItem.js';
 import RestaurantList from './components/restaurant/RestaurantList.js';
 import ModalController from './controller/modalController.js';
+import { Restaurant } from './types/types.js';
 import { $ } from './util/selector.js';
 
 class App {
+  modalController;
+
   constructor() {
     this.modalController = new ModalController();
   }
@@ -21,23 +24,26 @@ class App {
     const body = $('body');
 
     const header = Header({ title: '점심 뭐 먹지', right: PlusButton({ onclick: this.modalController.open }) });
-    body.prepend(header);
+    body?.prepend(header);
   }
 
   renderRestaurantList() {
     const main = $('main');
 
-    main.appendChild(RestaurantList());
+    main?.appendChild(RestaurantList());
   }
 
   renderModal() {
     const main = $('main');
-    this.modalController.attachTo(main);
-    this.modalController.attachModalEvents();
-    this.modalController.attachFormSubmitEvent(this.addRestaurantItem);
+
+    if (main) {
+      this.modalController.attachTo(main);
+      this.modalController.attachModalEvents();
+      this.modalController.attachFormSubmitEvent(this.addRestaurantItem);
+    }
   }
 
-  addRestaurantItem({ name, distance, description, category }) {
+  addRestaurantItem({ name, distance, description, category }: Restaurant) {
     const item = RestaurantItem({
       name,
       distance,
@@ -45,7 +51,7 @@ class App {
       icon: RestaurantIcon({ src: `images/category-${category}.png`, alt: category }),
     });
 
-    $('.restaurant-list').appendChild(item);
+    $('.restaurant-list')?.appendChild(item);
   }
 }
 

@@ -1,6 +1,6 @@
 import createDOMElement from '../../util/createDomElement.js';
 
-function RestaurantIcon({ src, alt }) {
+function RestaurantIcon({ src, alt }: { src: string; alt: string }) {
   return createDOMElement({
     tag: 'img',
     src,

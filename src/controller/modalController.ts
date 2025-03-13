@@ -1,7 +1,12 @@
 import RestaurantAddModal from '../components/modal/RestaurantAddModal.js';
+import { Restaurant } from '../types/types.js';
 import { $ } from '../util/selector.js';
 
 class ModalController {
+  modal;
+  open;
+  close;
+
   constructor() {
     const { modal, open, close } = RestaurantAddModal();
     this.modal = modal;
@@ -9,25 +14,27 @@ class ModalController {
     this.close = close;
   }
 
-  attachTo(parent) {
+  attachTo(parent: Element): void {
     parent.appendChild(this.modal);
   }
 
   attachModalEvents() {
     const closeButton = $('.button--secondary');
-    closeButton.addEventListener('click', this.close);
+
+    closeButton?.addEventListener('click', this.close);
   }
 
-  attachFormSubmitEvent(addRestaurantItem) {
+  attachFormSubmitEvent(addRestaurantItem: (data: Restaurant) => void): void {
     const form = $('form');
-    form.addEventListener('submit', (e) => {
+    form?.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const formData = new FormData(form);
+      const formElement = form as HTMLFormElement;
+      const formData = new FormData(formElement);
       const data = Object.fromEntries(formData.entries());
-      addRestaurantItem(data);
+      addRestaurantItem(data as unknown as Restaurant);
 
-      form.reset();
+      formElement.reset();
       this.close();
     });
   }

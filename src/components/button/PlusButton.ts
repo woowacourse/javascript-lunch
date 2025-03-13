@@ -1,10 +1,16 @@
+import { AttributeWithoutChildren } from '../../types/typeUtils.js';
 import createDOMElement from '../../util/createDomElement.js';
 
-function PlusButton({ ...attribute }) {
+interface PlusButtonProps extends AttributeWithoutChildren<'button'> {
+  onclick?: () => void;
+}
+
+function PlusButton({ onclick, ...attribute }: PlusButtonProps) {
   return createDOMElement({
     tag: 'button',
     type: 'button',
     class: 'gnb__button',
+    onclick,
     ...attribute,
     'aria-label': '음식점 추가',
     children: [

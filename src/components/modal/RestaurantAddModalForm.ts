@@ -35,8 +35,8 @@ function RestaurantAddModalForm() {
         input: InputBox.TextArea({
           name: 'description',
           id: 'description',
-          cols: '30',
-          rows: '5',
+          cols: 30,
+          rows: 5,
         }),
         caption: InputBox.Caption({
           text: '메뉴 등 추가 정보를 입력해 주세요.',
