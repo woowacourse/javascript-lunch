@@ -1,6 +1,6 @@
 import RestaurantData from "./RestaurantData";
 
-const VIEW_STATE = {
+export const VIEW_STATE = {
   all: "모든 음식점",
   favorite: "자주 가는 음식점",
 };
@@ -16,14 +16,16 @@ const CATEGORY = {
 };
 
 const SORTED = {
-  distance: "거리순",
-  favorite: "즐겨찾기순",
+  name: "name",
+  distance: "distance",
 };
 
 export class RestaurantDataList {
   #dataList;
   #subscribers = [];
   #viewState = VIEW_STATE.all;
+  #sortedFlag = SORTED.favorite;
+  #category = CATEGORY.all;
 
   constructor(dataList) {
     this.#dataList = dataList.map((data) => {
@@ -32,34 +34,57 @@ export class RestaurantDataList {
   }
 
   getDataList() {
-    this.#viewState = VIEW_STATE.all;
-
-    this.notify(
-      this.#dataList.map((restaurantData) => restaurantData.getData())
-    );
+    return this.#dataList.map((restaurantData) => restaurantData.getData());
   }
 
   getFavoriteDataList() {
-    this.#viewState = VIEW_STATE.favorite;
+    const favoriteList = this.getDataList().filter(
+      (restaurantData) => restaurantData.isFavorite
+    );
 
-    const favoriteList = this.#dataList
-      .map((restaurantData) => restaurantData.getData())
-      .filter((restaurantData) => restaurantData.isFavorite);
-
-    this.notify(favoriteList);
+    return favoriteList;
   }
 
-  getFilteredDataList(category) {
-    if (category === CATEGORY.all) {
-      this.getDataList();
+  getFilteredDataList() {
+    const restaurantDataList =
+      this.#viewState === VIEW_STATE.favorite
+        ? this.getFavoriteDataList()
+        : this.getDataList();
+
+    if (this.#category === CATEGORY.all) {
+      this.notify(this.sortedDataList(restaurantDataList));
       return;
     }
 
-    const filteredList = this.#dataList
-      .map((restaurantData) => restaurantData.getData())
-      .filter((restaurantData) => restaurantData.category === category);
+    const filteredList = restaurantDataList.filter(
+      (restaurantData) => restaurantData.category === this.#category
+    );
 
-    this.notify(filteredList);
+    const sortedFilteredList = this.sortedDataList(filteredList);
+    this.notify(sortedFilteredList);
+  }
+
+  setViewState(viewState) {
+    this.#viewState = viewState;
+  }
+
+  setCategory(category) {
+    this.#category = category;
+  }
+
+  setSortedFlag(sortedFlag) {
+    this.#sortedFlag = sortedFlag;
+  }
+
+  sortedDataList(dataList) {
+    if (this.#sortedFlag === SORTED.distance) {
+      dataList.sort((a, b) => a.distance - b.distance);
+    } else {
+      dataList.sort((a, b) => (a.name > b.name ? 1 : -1));
+    }
+    console.log(dataList);
+
+    return dataList;
   }
 
   changeFavorite(id) {
@@ -68,27 +93,13 @@ export class RestaurantDataList {
     );
     targetData.changeFavorite();
 
-    if (this.#viewState === VIEW_STATE.favorite) {
-      this.getFavoriteDataList();
-      return;
-    }
-
-    this.notify(
-      this.#dataList.map((restaurantData) => restaurantData.getData())
-    );
+    this.getFilteredDataList();
   }
 
   addData(data) {
     this.#dataList.push(this.createData(data));
 
-    if (this.#viewState === VIEW_STATE.favorite) {
-      this.getFavoriteDataList();
-      return;
-    }
-
-    this.notify(
-      this.#dataList.map((restaurantData) => restaurantData.getData())
-    );
+    this.getFilteredDataList();
   }
 
   createData(data) {
@@ -99,7 +110,7 @@ export class RestaurantDataList {
       description: data.description,
       link: data.link,
       category: data.category,
-      isFavorite: data.isFavorite,
+      isFavorite: data.isFavorite ?? false,
     });
   }
 

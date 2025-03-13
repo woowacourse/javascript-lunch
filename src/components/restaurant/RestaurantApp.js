@@ -10,9 +10,7 @@ export default function RestaurantApp() {
 
   const $restaurantFilters = RestaurantFilters();
 
-  const $restaurantListContainer = RestaurantListContainer(
-    restaurantDataList.getDataList()
-  );
+  const $restaurantListContainer = RestaurantListContainer();
 
   const $restaurantNav = RestaurantNav();
 

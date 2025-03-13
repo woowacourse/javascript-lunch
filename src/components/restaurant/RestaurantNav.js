@@ -1,4 +1,6 @@
-import restaurantDataList from "../../domain/RestaurantDataList";
+import restaurantDataList, {
+  VIEW_STATE,
+} from "../../domain/RestaurantDataList";
 import createElement from "../../util/createElement";
 
 export default function RestaurantNav() {
@@ -21,7 +23,8 @@ export default function RestaurantNav() {
     $allRestaurant.classList.add("select");
     $favoriteRestaurant.classList.remove("select");
     // 모든 음식점 가져와서 render 함수 호출
-    restaurantDataList.getDataList();
+    restaurantDataList.setViewState(VIEW_STATE.all);
+    restaurantDataList.getFilteredDataList();
   });
 
   $favoriteRestaurant.addEventListener("click", (e) => {
@@ -29,10 +32,11 @@ export default function RestaurantNav() {
     $allRestaurant.classList.remove("select");
     $favoriteRestaurant.classList.add("select");
     // 좋아요 음식점 가져와서 render 함수 호출
-    restaurantDataList.getFavoriteDataList();
+    restaurantDataList.setViewState(VIEW_STATE.favorite);
+    restaurantDataList.getFilteredDataList();
   });
 
-  restaurantDataList.getDataList();
+  restaurantDataList.getFilteredDataList();
   $nav.append($allRestaurant, $favoriteRestaurant);
   return $nav;
 }

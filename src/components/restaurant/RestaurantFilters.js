@@ -1,4 +1,6 @@
+import restaurantDataList from "../../domain/RestaurantDataList";
 import createElement from "../../util/createElement";
+import { $ } from "../../util/querySelector";
 import Select from "../common/Select";
 
 export default function RestaurantFilters() {
@@ -22,6 +24,18 @@ export default function RestaurantFilters() {
     options: ["이름순", "거리순"],
     values: ["name", "distance"],
     isDefaultOption: false,
+  });
+
+  $categoryFilter.addEventListener("change", (event) => {
+    const selectedCategory = event.target.value;
+    restaurantDataList.setCategory(selectedCategory);
+    restaurantDataList.getFilteredDataList();
+  });
+
+  $sortingFilter.addEventListener("change", (event) => {
+    const selectedSorting = event.target.value;
+    restaurantDataList.setSortedFlag(selectedSorting);
+    restaurantDataList.getFilteredDataList();
   });
 
   $filterContainer.append($categoryFilter, $sortingFilter);
