@@ -1,10 +1,10 @@
-import Button from '../components/button/Button.js';
-import InputDropDown from '../components/input/InputDropDown.js';
-import InputText from '../components/input/InputText.js';
-import Modal from '../components/modal/Modal.js';
-import RestaurantItem from '../components/restaurant/RestaurantItem.js';
-import { DOM } from '../../dom.js';
-import { addRestaurant } from '../../Domain/services/RestaurantService.js';
+import Button from '../../../components/button/Button.js';
+import InputDropDown from '../../../components/input/InputDropDown.js';
+import InputText from '../../../components/input/InputText.js';
+import Modal from '../../../components/modal/Modal.js';
+import RestaurantItem from '../../../components/restaurant/RestaurantItem.js';
+import { DOM } from '../../../../dom.js';
+import { addRestaurant } from '../../../../Domain/services/RestaurantService.js';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
@@ -56,10 +56,10 @@ class AddRestaurantModal extends Modal {
     modalTitle.innerText = '새로운 음식점';
     this.addElementToModalContainer(modalTitle);
 
-    this.#modalForm = this.#createModalForm();  
+    this.#modalForm = this.#createModalForm();
     this.addElementToModalContainer(this.#modalForm);
   };
-  
+
   #createModalForm = () => {
     const modalForm = document.createElement('form');
 
@@ -97,7 +97,7 @@ class AddRestaurantModal extends Modal {
   #handleAddButton = (event) => {
     event.preventDefault();
     const formData = Object.fromEntries(new FormData(this.#modalForm));
-    
+
     try {
       const newRestaurant = addRestaurant(formData);
       const newRestaurantItem = new RestaurantItem(newRestaurant);
@@ -111,7 +111,7 @@ class AddRestaurantModal extends Modal {
   handleToggleModal = () => {
     this.toggleModal();
     this.#modalForm.reset();
-  }
+  };
 }
 
 export default AddRestaurantModal;
