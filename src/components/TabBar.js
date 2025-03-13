@@ -10,7 +10,7 @@ function createTabBar(onClick) {
     className: 'tab-item tab-item-selected',
     textContent: '모든 음식점',
     attributes: {
-      value: 'all',
+      id: 'all',
     },
   });
   const favoriteTabDiv = createElement({
@@ -18,16 +18,33 @@ function createTabBar(onClick) {
     className: 'tab-item',
     textContent: '자주 가는 음식점',
     attributes: {
-      value: 'favorite',
+      id: 'favorite',
     },
   });
 
   allTabDiv.addEventListener('click', (event) => {
+    const id = event.target.id;
+
+    if (
+      (id === 'all' && allTabDiv.classList.contains('tab-item-selected')) ||
+      (id === 'favorite' && favoriteTabDiv.classList.contains('tab-item-selected'))
+    ) {
+      return;
+    }
+
     toggleTab(allTabDiv, favoriteTabDiv);
     onClick(event);
   });
 
   favoriteTabDiv.addEventListener('click', (event) => {
+    const id = event.target.id;
+    if (
+      (id === 'all' && allTabDiv.classList.contains('tab-item-selected')) ||
+      (id === 'favorite' && favoriteTabDiv.classList.contains('tab-item-selected'))
+    ) {
+      return;
+    }
+
     toggleTab(allTabDiv, favoriteTabDiv);
     onClick(event);
   });
