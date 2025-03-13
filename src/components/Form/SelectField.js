@@ -6,11 +6,6 @@ function SelectField({ name, id = "", options, defaultOption = "", required = fa
   selectElement.required = required;
   if (className) selectElement.classList.add(className);
 
-  selectElement.innerHTML = `
-    <option value="">선택해 주세요</option>
-    ${options.map((option) => `<option value="${option}">${option}</option>`).join("")}
-    `;
-
   if (defaultOption) {
     selectElement.innerHTML = `
     <option value="">${defaultOption}</option>
