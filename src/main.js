@@ -16,7 +16,7 @@ const initialRestaurantData = () => {
   const restaurantItems = storageHandler.getItem(STORAGE_KEY_NAME);
 
   if (restaurantItems.length > 0) {
-    return restaurantItems.forEach((item) => {
+    return restaurantItems.reverse().forEach((item) => {
       restaurantList.appendChild($restaurantItem(item));
     });
   }
@@ -38,19 +38,5 @@ addEventListener("load", () => {
 
   initialRestaurantData();
 
-  const submitCancelButtons = $buttonContainer([
-    $button(UI_CONFIG.BUTTONS.CANCEL),
-    $button(UI_CONFIG.BUTTONS.ADD),
-  ]);
-
-  const restaurantAddForm = [
-    $inputItem(FORM_FIELDS.SELECTS, "category"),
-    $inputItem(FORM_FIELDS.INPUTS, "name"),
-    $inputItem(FORM_FIELDS.SELECTS, "distance"),
-    $inputItem(FORM_FIELDS.TEXTAREAS, "description"),
-    $inputItem(FORM_FIELDS.INPUTS, "link"),
-    submitCancelButtons,
-  ];
-
-  document.querySelector("main").appendChild($modal(restaurantAddForm));
+  document.querySelector("main").appendChild($modal("restaurantForm"));
 });

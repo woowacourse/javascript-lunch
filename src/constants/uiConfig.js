@@ -1,4 +1,3 @@
-import { handleModalClose } from "../components/modal/modal.js";
 import {
   restaurantFormReset,
   handleAddRestaurant,

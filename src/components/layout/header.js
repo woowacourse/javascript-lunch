@@ -1,3 +1,5 @@
+import { handleModalOpen } from "../modal/modal.js";
+
 const $headerTitle = ({ title }) => {
   const headerTitle = document.createElement("h1");
   headerTitle.classList.add("gnb__title", "text-title");
@@ -11,6 +13,7 @@ const $headerModalButton = ({ buttonImage, buttonTitle }) => {
   modalButton.type = "button";
   modalButton.classList.add("gnb__button");
   modalButton.ariaLabel = buttonTitle;
+  modalButton.addEventListener("click", handleModalOpen);
 
   const modalButtonImage = document.createElement("img");
   modalButtonImage.src = buttonImage;
