@@ -372,6 +372,12 @@ input[name='link'] {
   gap: 16px;
 }
 
-.restaurant__info {
+.restaurant__info__details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
   gap: 16px;
 }
