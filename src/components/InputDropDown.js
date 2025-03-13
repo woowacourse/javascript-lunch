@@ -8,18 +8,18 @@ class InputDropDown {
   #select;
   #option;
 
-  constructor({ name, id, required = false, option, optionDefault = '선택해주세요' }) {
+  constructor({ name, id, required = false, option, addDefaultOption = false, optionDefault = '선택해주세요' }) {
     this.#option = option;
-    this.#select = this.#createInputDropDown(name, id, required, optionDefault);
+    this.#select = this.#createInputDropDown(name, id, required, addDefaultOption, optionDefault);
   }
 
-  #createInputDropDown(name, id, required, optionDefault) {
+  #createInputDropDown(name, id, required, addDefaultOption, optionDefault) {
     const select = document.createElement('select');
     select.setAttribute('name', name);
     select.setAttribute('id', id);
     if (required) select.required = true;
 
-    select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(optionDefault, ''));
+    if (addDefaultOption) select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(optionDefault, ''));
 
     const sortedOptions = Object.entries(this.#option).sort(([keyA], [keyB]) => {
       if (keyA === '') return -1;
@@ -30,14 +30,6 @@ class InputDropDown {
     sortedOptions.forEach(([key, value]) => {
       select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(value, key));
     });
-
-    // sortedOptions.forEach(([key, value]) => {
-    //   if (value !== optionDefault) {
-    //     select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(value, key));
-    //   } else {
-    //     select.insertAdjacentHTML('afterbegin', OPTION_TEMPLATE(value, key));
-    //   }
-    // });
 
     return select;
   }

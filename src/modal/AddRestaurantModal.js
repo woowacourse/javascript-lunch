@@ -10,8 +10,8 @@ import { validateDescription } from '../validation/validateDescription.js';
 import { validateDropDown } from '../validation/validateDropDown.js';
 import { validateLink } from '../validation/validateLink.js';
 import { validateName } from '../validation/validateName.js';
-import InputText from './InputText.js';
-import InputTextArea from './InputTextArea.js';
+import InputText from '../components/Text/InputText.js';
+import InputTextArea from '../components/Text/InputTextArea.js';
 
 class AddRestaurantModal extends Modal {
   #cancelButton;
@@ -36,14 +36,36 @@ class AddRestaurantModal extends Modal {
   #init() {
     this.#cancelButton = new Button('button--secondary', '취소하기');
     this.#addButton = new Button('button--primary', '추가하기');
-    this.#divCategory = new InputDropDown({ type: 'category', title: '카테고리', option: CATEGORY });
+    this.#divCategory = new Input({
+      name: 'category',
+      title: '카테고리',
+      required: true,
+      inputComponent: new InputDropDown({
+        name: 'category',
+        id: 'category',
+        required: true,
+        option: CATEGORY,
+        addDefaultOption: true,
+      }),
+    });
     this.#divName = new Input({
       name: 'name',
       title: '이름',
       required: true,
       inputComponent: new InputText('name', true),
     });
-    this.#divDistance = new InputDropDown({ type: 'distance', title: '거리(도보 이동 시간)', option: DISTANCE });
+    this.#divDistance = new Input({
+      name: 'distance',
+      title: '거리(도보 이동 시간)',
+      required: true,
+      inputComponent: new InputDropDown({
+        name: 'distance',
+        id: 'distance',
+        required: true,
+        option: DISTANCE,
+        addDefaultOption: true,
+      }),
+    });
     this.#divDescription = new Input({
       name: 'description',
       title: '설명',
