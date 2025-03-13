@@ -1,14 +1,16 @@
-import $button from "../common/button";
-import $buttonContainer from "../layout/button-container";
-import $inputItem from "./input-item";
-import $form from "./form";
-import { FORM_EVENT } from "./formEvent";
-import { UI_CONFIG } from "../../constants/uiConfig";
-import { FORM_FIELDS } from "../../constants/formFields";
+import $button from "../common/button.js";
+import $buttonContainer from "../layout/button-container.js";
+import $inputItem from "./input-item.js";
+import $form from "./form.js";
+import { addRestaurant } from "./formEvent.js";
+import { UI_CONFIG } from "../../constants/uiConfig.js";
+import { FORM_FIELDS } from "../../constants/formFields.js";
+import { handleModalOpen } from "../modal/modal.js";
 
 const $createRestaurantForm = () => {
-  const container = document.createElement("div");
-  container.classList.add("modal-container");
+  const container = document.querySelector(".modal-container");
+  container.replaceChildren();
+
   const submitCancelButtons = $buttonContainer([
     $button(UI_CONFIG.BUTTONS.CANCEL),
     $button(UI_CONFIG.BUTTONS.ADD),
@@ -22,13 +24,15 @@ const $createRestaurantForm = () => {
     $inputItem(FORM_FIELDS.INPUTS, "link"),
     submitCancelButtons,
   ];
+
   const title = document.createElement("h2");
   title.classList.add("modal-title", "text-title");
   title.textContent = "새로운 음식점";
-  container.appendChild(title);
-  container.appendChild($form(restaurantAddForm, FORM_EVENT.addRestaurant));
 
-  return container;
+  container.appendChild(title);
+  container.appendChild($form(restaurantAddForm, addRestaurant));
+
+  handleModalOpen();
 };
 
 export default $createRestaurantForm;

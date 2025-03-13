@@ -35,8 +35,7 @@ addEventListener("load", () => {
     FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.sortingFilter),
   ];
   document.querySelector("main").prepend($filterContainer(filterSelects));
+  document.querySelector("main").appendChild($modal());
 
   initialRestaurantData();
-
-  document.querySelector("main").appendChild($modal("restaurantForm"));
 });

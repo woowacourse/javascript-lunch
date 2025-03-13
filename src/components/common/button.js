@@ -3,6 +3,7 @@ const $button = ({ attribute, text, eventType, event }) => {
 
   Object.assign(button, attribute);
   button.textContent = text;
+
   if (eventType && event) {
     button.addEventListener(eventType, event);
   }

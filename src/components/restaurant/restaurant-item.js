@@ -1,3 +1,5 @@
+import $createRestaurantInfo from "../modal/createRestaurantInfo";
+
 const $restaurantCategory = ({ categoryIcon, categoryTitle }) => {
   const category = document.createElement("div");
   category.classList.add("restaurant__category");
@@ -36,10 +38,13 @@ const $restaurantInfo = ({ name, distance, description }) => {
 const $restaurantItem = (restaurantInfo) => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
+  restaurantItem.dataset.id = restaurantInfo.id;
 
   restaurantItem.appendChild($restaurantCategory(restaurantInfo));
   restaurantItem.appendChild($restaurantInfo(restaurantInfo));
-
+  restaurantItem.addEventListener("click", () =>
+    $createRestaurantInfo(restaurantInfo)
+  );
   return restaurantItem;
 };
 

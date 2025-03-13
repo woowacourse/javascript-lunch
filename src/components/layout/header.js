@@ -1,3 +1,4 @@
+import $createRestaurantForm from "../form/createRestaurantForm.js";
 import { handleModalOpen } from "../modal/modal.js";
 
 const $headerTitle = ({ title }) => {
@@ -13,7 +14,7 @@ const $headerModalButton = ({ buttonImage, buttonTitle }) => {
   modalButton.type = "button";
   modalButton.classList.add("gnb__button");
   modalButton.ariaLabel = buttonTitle;
-  modalButton.addEventListener("click", handleModalOpen);
+  modalButton.addEventListener("click", $createRestaurantForm);
 
   const modalButtonImage = document.createElement("img");
   modalButtonImage.src = buttonImage;
