@@ -3,8 +3,8 @@ import InputDropDown from '../../../components/input/InputDropDown.js';
 import InputText from '../../../components/input/InputText.js';
 import Modal from '../../../components/modal/Modal.js';
 import RestaurantItem from '../../../components/restaurant/RestaurantItem.js';
-import { DOM } from '../../../../dom.js';
-import { addRestaurant } from '../../../../Domain/services/RestaurantService.js';
+import { DOM } from '../../../../dom';
+import { addRestaurant } from '../../../../Domain/services/RestaurantService';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],

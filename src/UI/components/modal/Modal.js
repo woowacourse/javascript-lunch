@@ -1,4 +1,4 @@
-import { DOM } from '../../../dom.js';
+import { DOM } from '../../../dom';
 class Modal {
   #modal;
   #modalContainer;

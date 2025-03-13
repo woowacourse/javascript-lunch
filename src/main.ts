@@ -1,4 +1,4 @@
-import { DOM } from './dom.js';
+import { DOM } from './dom';
 import { getRestaurantList } from './Domain/services/RestaurantService';
 import Restaurant from './Domain/Restaurant';
 import Header from './UI/components/header/Header';

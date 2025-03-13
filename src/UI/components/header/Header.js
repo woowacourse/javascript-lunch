@@ -1,4 +1,4 @@
-import { DOM } from '../../../dom.js';
+import { DOM } from '../../../dom';
 import { BUTTON_IMAGE_SRC } from '../../../../public/assets/imgaePaths.js';
 
 class Header {
