@@ -1,5 +1,5 @@
-function append(dom, element) {
-  dom.append(element);
+function append(dom, ...elements) {
+  elements.forEach((element) => dom.append(element));
 }
 
 export default append;

@@ -21,8 +21,7 @@ function Modal(id, modalContent) {
   }
 
   const $modal = toElement(`<div id="${id}" class="modal" />`);
-  append($modal, createModalBackdrop(id));
-  append($modal, createModalContainer(modalContent));
+  append($modal, createModalBackdrop(id), createModalContainer(modalContent));
 
   return $modal;
 }

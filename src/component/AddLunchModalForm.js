@@ -92,21 +92,15 @@ function AddLunchModalForm(restaurantList, modalId) {
         },
       ],
       required: true,
-    })
-  );
+    }),
 
-  append(
-    $modalForm,
     InputForm({
       id: "name",
       label: "이름",
       required: true,
       bottomDescription: "",
-    })
-  );
+    }),
 
-  append(
-    $modalForm,
     SelectForm({
       id: "distance",
       label: "거리(도보 이동 시간)",
@@ -137,32 +131,23 @@ function AddLunchModalForm(restaurantList, modalId) {
         },
       ],
       required: true,
-    })
-  );
+    }),
 
-  append(
-    $modalForm,
     TextareaForm({
       id: "description",
       bottomDescription: "메뉴 등 추가 정보를 입력해 주세요.",
       rows: "5",
       label: "설명",
       required: false,
-    })
-  );
+    }),
 
-  append(
-    $modalForm,
     InputForm({
       id: "link",
       label: "참고 링크",
       required: false,
       bottomDescription: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
-    })
-  );
+    }),
 
-  append(
-    $modalForm,
     ButtonContainer([
       TextButton({
         id: "cancel__button",
