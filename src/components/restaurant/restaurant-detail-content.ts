@@ -6,7 +6,7 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
 
   // 카테고리 아이콘
   const iconContainer = document.createElement("div");
-  iconContainer.classList.add("restaurant__category");
+  iconContainer.classList.add("restaurant_datail_category");
 
   const categoryIcon = document.createElement("img");
   categoryIcon.src = restaurant.categoryIcon;
@@ -23,18 +23,19 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
 
   // 거리 정보
   const distance = document.createElement("span");
-  distance.classList.add("restaurant__distance", "text-body");
+  distance.classList.add("restaurant_detail_distance", "text-body");
   distance.innerText = `캠퍼스로부터 ${restaurant.distance}분 내`;
   info.appendChild(distance);
 
   // 설명
   const description = document.createElement("p");
-  description.classList.add("restaurant__description", "text-body");
+  description.classList.add("restaurant_detail_description", "text-body");
   description.innerText = restaurant.description;
   info.appendChild(description);
 
   // 링크
   const link = document.createElement("a");
+  link.classList.add("restaurant_detail_link", "text-body");
   link.href = restaurant.link;
   link.innerText = restaurant.link;
   info.appendChild(link);

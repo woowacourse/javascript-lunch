@@ -28,9 +28,7 @@ const $restaurantDetailModal = (restaurant: Restaurant): HTMLDivElement => {
   const container = document.createElement("div");
   container.classList.add("modal-container");
 
-  // 콘텐츠 한 번에 담는 div
   const info = $restaurantDetailContent(restaurant);
-
   container.appendChild(info);
 
   const submitCancelButtons = $buttonContainer({
@@ -43,7 +41,7 @@ const $restaurantDetailModal = (restaurant: Restaurant): HTMLDivElement => {
   container.appendChild(submitCancelButtons);
   wrapper.appendChild(container);
 
-  // 모달 닫기 이벤트 추가
+  // 모달 닫기 이벤트
   background.addEventListener("click", () => {
     handleRestaurantDetailModalClose();
   });
