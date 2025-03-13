@@ -12,21 +12,28 @@ export function handleFormModalToggle(event) {
   }
 }
 export function handleDescriptionModalToggle(event, restaurantList) {
+  const modal = document.querySelector(".description-modal");
+  const descriptionContainer = document.querySelector(".description");
+
   // favorite-icon 클릭은 무시
   if (event.target.classList.contains("favorite-icon")) return;
+  const closeButton = document.querySelector("#close-button");
 
-  // 모달 내부(모달 배경 제외) 클릭 시 아무 동작도 하지 않도록 처리
+  if (event.target === closeButton) {
+    modal.close();
+    return;
+  }
   if (
     event.target.closest(".description-modal") &&
     !event.target.closest(".modal-backdrop")
   ) {
+    // 모달 내부(모달 배경 제외) 클릭 시 아무 동작도 하지 않도록 처리
     return;
   }
 
-  const modal = document.querySelector(".description-modal");
-  const descriptionContainer = document.querySelector(".description");
-
   descriptionContainer.innerHTML = "";
+
+  // close-button 클릭 시 모달 닫기
 
   const restaurantElement = event.target.closest(".restaurant");
 
