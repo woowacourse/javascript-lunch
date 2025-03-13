@@ -22,7 +22,7 @@ const Tab = (restaurantList) => {
   });
 
   const favoritesTab = TabItem({
-    text: "즐겨찾기",
+    text: "자주 가는 음식점",
     selected: false,
     classNames: ["tab__item--favorites"],
     events: {

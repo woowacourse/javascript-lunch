@@ -42,3 +42,19 @@ main {
   height: 40px;
   object-fit: contain;
 }
+
+/* TAB ********************************************/
+
+.tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.tab--selected {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}

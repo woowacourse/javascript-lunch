@@ -10,17 +10,16 @@ import Restaurant from "./domain/Restaurant";
 import RestaurantList from "./domain/RestaurantList";
 import CategorySelector from "./components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "./components/FilterSelector/NameOrDistanceSelector";
+import Tab from "./components/Tab";
+import renderAllpage from "./ui/renderAllpage";
 
 addEventListener("load", () => {
   const restaurantList = new RestaurantList(restaurantListData);
-  renderRestaurants(...restaurantList.list);
 
   const app = $("#app");
   app.prepend(header());
-  const filter = $(".restaurant-filter-container");
-  filter.appendChild(CategorySelector(restaurantList));
-  filter.appendChild(NameOrDistanceSelector(restaurantList));
 
+  $("nav").appendChild(Tab(restaurantList));
   $("main").appendChild(
     Modal(
       registerModalClose,
@@ -28,4 +27,5 @@ addEventListener("load", () => {
       RegisterForm(restaurantList)
     )
   );
+  renderAllpage(restaurantList);
 });
