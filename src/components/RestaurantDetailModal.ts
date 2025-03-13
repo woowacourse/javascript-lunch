@@ -1,4 +1,4 @@
-import { RestaurantType } from './../lib/types';
+import type { RestaurantType } from './../lib/types';
 import Component from '../core/Component.ts';
 import Modal from './common/Modal.ts';
 import { Button } from './common/index.ts';

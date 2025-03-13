@@ -1,6 +1,6 @@
 import Component from '../core/Component.ts';
 import { FILTERS, LOCAL_STORAGE_KEY_MAP, SORTS } from '../lib/constants.ts';
-import { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
+import type { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { Select } from './common/index.ts';
 import { RestaurantItem, RestaurantAddModal, RestaurantDetailModal, RestaurantTab } from './index.ts';
 import { DEFAULT_RESTAURANT_LIST } from '../lib/constants.ts';

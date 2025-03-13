@@ -1,6 +1,6 @@
 import Component from '../core/Component.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';
-import { RestaurantType } from '../lib/types.ts';
+import type { RestaurantType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
 
 interface RestaurantProps extends RestaurantType {}
