@@ -21,8 +21,6 @@ export default class Select extends Component<null, SelectProps> {
     `;
   }
 
-  //  <option value="${category}" ${this.props?.filter === category ? 'selected' : ''}>${category}</option>
-
   attachEventListener() {
     this.element?.querySelector('select')?.addEventListener('change', (event) => {
       this.props?.setValue((event?.target as HTMLSelectElement)?.value);
