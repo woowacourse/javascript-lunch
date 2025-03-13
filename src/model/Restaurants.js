@@ -29,11 +29,13 @@ class Restaurants {
 
   #getFromLocalStorage() {
     const storedDataString = localStorage.getItem("restaurants");
-    const parsedData = JSON.parse(storedDataString);
+    if (storedDataString) {
+      const parsedData = JSON.parse(storedDataString);
 
-    this.#restaurants = parsedData.map(
-      (data) => new Restaurant({ ...data, favorite: data.favorite })
-    );
+      this.#restaurants = parsedData.map(
+        (data) => new Restaurant({ ...data, favorite: data.favorite })
+      );
+    }
   }
 
   addRestaurant = (restaurant) => {
