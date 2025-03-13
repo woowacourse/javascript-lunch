@@ -1,3 +1,6 @@
+import { createElement } from "../../utils/createElement";
+import { $ } from "../../utils/dom";
+import ModalContent from "../common/modal/modalContent";
 import CategoryImage from "./categoryImage";
 import RestaurantInfo from "./restaurantInfo";
 
@@ -12,12 +15,28 @@ const RestaurantCard = (restaurant) => {
     RestaurantInfo({
       name,
       distance,
-      description,
+      description: [description, true],
       favorite,
       toggleFavoriteMark: restaurant.toggleFavoriteMark,
+      handleClickTitle,
     })
   );
 
+  function handleClickTitle() {
+    $(".modal-backdrop").classList.add("open");
+
+    ModalContent([
+      CategoryImage(category),
+      createElement(`<div class="space"></div>`),
+      RestaurantInfo({
+        name,
+        distance,
+        description: [description, false],
+        favorite,
+        toggleFavoriteMark: restaurant.toggleFavoriteMark,
+      }),
+    ]);
+  }
   return restaurantCard;
 };
 

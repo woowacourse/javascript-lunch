@@ -109,6 +109,8 @@
 }
 
 .restaurant__name {
+  cursor: pointer;
+  max-width: 300px;
   margin: 0;
 }
 

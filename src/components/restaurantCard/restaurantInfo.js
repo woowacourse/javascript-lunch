@@ -9,15 +9,21 @@ const RestaurantInfo = ({
   description,
   favorite,
   toggleFavoriteMark,
+  handleClickTitle,
 }) => {
   const restaurantInfo = document.createElement("div");
   restaurantInfo.classList.add("restaurant__info");
 
   restaurantInfo.appendChild(
-    Title(name, "h3", "restaurant__name", "text-subtitle")
+    Title({
+      text: name,
+      tagName: "h3",
+      className: ["restaurant__name", "text-subtitle"],
+      handleClickTitle: handleClickTitle,
+    })
   );
   restaurantInfo.appendChild(Distance(distance));
-  restaurantInfo.appendChild(Description(description, true));
+  restaurantInfo.appendChild(Description(description[0], description[1]));
 
   const favoriteMark = createElement(/*html*/ `
       <div class="restaurant__favorite-mark">${favorite ? "★" : "☆"}</div>
