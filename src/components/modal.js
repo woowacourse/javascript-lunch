@@ -13,7 +13,7 @@ export function openModal(formName) {
     </div>
   </div>`;
 
-  getHTML("modalBackground").innerHTML = "";
-  getHTML("modalBackground").innerHTML = modalHTML;
+  getHTML("modalLayout").innerHTML = "";
+  getHTML("modalLayout").innerHTML = modalHTML;
   getHTML("modalBackground").classList.add("show");
 }

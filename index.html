@@ -12,7 +12,8 @@
           <!-- GNB -->
       <div class="container">
         <div class="layout">
-
+          <div class="safe-zone-top"></div>
+          <div class="camera-shape"></div>
           <header class="gnb">
             <h1 id="title-logo" class="gnb__title text-title" data-action="reload">점심 뭐 먹지</h1>
             <button type="button" class="gnb__button" aria-label="음식점 추가" id="openStoreModalBtn" data-action="showStoreAddModal">
@@ -21,13 +22,15 @@
           </header>
           <main>
               <!-- 음식점 목록 -->
+              <section id="restaurantMenuSection" class="restaurant-menu-container"></section>
               <section id="restaurantListSection" class="restaurant-list-container"></section>
           </main>
           
           </div>
       </div>
           <div id="modalBackground" data-action="removeModal">
-        </div>
+            <div id="modalLayout" class="modal-layout"></div>
+          </div>
     </div>
     <script type="module" src="./src/main.js"></script>
     <script type="module" src="./src/utils/ClickEvent.js"></script>
