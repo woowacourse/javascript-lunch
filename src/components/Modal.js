@@ -1,7 +1,7 @@
 function createModal({ classNames }) {
-  const modal = `<div class="modal">
+  const modal = `<div class="modal ${classNames.join(' ')}">
       <div class="modal-backdrop"></div>
-      <div class="modal-container ${classNames.join(' ')}">
+      <div class="modal-container">
       </div>
     </div>`;
 

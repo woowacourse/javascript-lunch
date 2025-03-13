@@ -3,7 +3,7 @@ import filteringRestaurants from '../domain/filteringRestaurants.js';
 import sortRestaurants from '../domain/sortRestaurants.js';
 import stateStore from '../stateStore.js';
 
-function openModal() {
+function openAddRestaurantModal() {
   const gnbButton = document.querySelector('.gnb__button');
 
   gnbButton.addEventListener('click', () => {
@@ -149,7 +149,7 @@ function toggleFavoriteRestaurant(callback) {
 }
 
 const eventHandlers = {
-  openModal,
+  openAddRestaurantModal,
   closeModal,
   readNewRestaurant,
   detectStorageEvent,

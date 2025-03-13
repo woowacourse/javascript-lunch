@@ -89,7 +89,7 @@ function appendItemsController() {
 // }
 
 function addEventHandlers() {
-  eventHandlers.openModal();
+  eventHandlers.openAddRestaurantModal();
   eventHandlers.readNewRestaurant();
   eventHandlers.closeModal();
   eventHandlers.switchTab();
@@ -115,7 +115,7 @@ function appendAddRestaurantModal() {
   h2.textContent = '새로운 음식점';
   form.id = 'new-restaurant-form';
 
-  const targetModal = document.querySelector('.add-restaurant-modal');
+  const targetModal = document.querySelector('.add-restaurant-modal > .modal-container');
   targetModal.appendChild(h2);
   targetModal.appendChild(form);
 }
@@ -183,6 +183,6 @@ function appendRestaurantInfo(id) {
   const targetData = storeService.findRestaurantById(id);
   const contents = createRestaurantInfo(targetData);
 
-  const targetModal = document.querySelector('.restaurant-info-modal');
+  const targetModal = document.querySelector('.restaurant-info-modal > .modal-container');
   targetModal.insertAdjacentHTML('beforeend', contents);
 }
