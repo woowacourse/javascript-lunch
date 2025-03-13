@@ -2,33 +2,61 @@ import { extractFormData } from "../utils/extract";
 import { restaurantFormValidation } from "../validation/restaurantFormValidation";
 import createRestaurantItem from "../components/restaurant/item/item";
 import Toast from "../components/Toast/Toast";
+function toggleRestaurantVisibility(restaurantName, isVisible) {
+  const restaurant = document.getElementById(restaurantName);
+  if (!restaurant) return;
+
+  restaurant.classList.toggle("hidden", !isVisible);
+}
+
+function toggleFavoriteRestaurantByName(restaurantName) {
+  const restaurant = document.getElementById(restaurantName);
+  if (!restaurant) return;
+  const favoriteIcon = restaurant.querySelector(".favorite-icon");
+  const descriptionFavorite = document.getElementById("description-favorite");
+
+  if (favoriteIcon.src.includes("Un-star.png")) {
+    favoriteIcon.src = "Star.png";
+  } else {
+    favoriteIcon.src = "Un-star.png";
+  }
+  if (!descriptionFavorite) return;
+  if (descriptionFavorite.src.includes("Un-star.png")) {
+    descriptionFavorite.src = "Star.png";
+  } else {
+    descriptionFavorite.src = "Un-star.png";
+  }
+}
 export function handleFavoriteToggle(
   event,
   restaurantList,
   restaurantListElement
 ) {
   if (!event.target.classList.contains("favorite-icon")) return;
-  const parent = event.target.parentElement;
 
+  const parent = event.target.parentElement;
   const name = parent.querySelector(".restaurant__name").textContent;
   const restaurant = restaurantList.searchRestaurant(name);
   if (!restaurant) return;
+
   restaurantList.toggleFavoriteRestaurant(restaurant);
-
   localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+  toggleFavoriteRestaurantByName(name);
 
-  if (
-    !restaurant.isFavorite &&
+  const isFavoriteFilterOn =
     document.querySelector('input[name="favoriteFilter"]:checked').value ===
-      "favorite"
-  ) {
-    restaurantListElement.removeChild(parent.parentElement.parentElement);
-  }
+    "favorite";
 
-  event.target.src = restaurant.isFavorite ? "./Star.png" : "./Un-star.png";
+  if (isFavoriteFilterOn) {
+    toggleRestaurantVisibility(name, restaurant.isFavorite);
+  }
 }
 
-// 음식점 추가 폼 제출 처리
+function deleteRestaurantElementByName(restaurantName) {
+  const restaurant = document.getElementById(restaurantName);
+  restaurant.remove();
+}
+
 export function handleAddRestaurantFormSubmit(
   event,
   restaurantList,
@@ -37,7 +65,6 @@ export function handleAddRestaurantFormSubmit(
   event.preventDefault();
 
   try {
-    console.log(restaurantAddForm);
     const restaurantForm = extractFormData(restaurantAddForm);
 
     const restaurant = restaurantFormValidation(restaurantForm);
@@ -52,6 +79,25 @@ export function handleAddRestaurantFormSubmit(
     const formModal = document.querySelector(".form-modal");
     restaurantAddForm.reset();
     formModal.close();
+  } catch (error) {
+    Toast.showToast(`${error.message}`, "error");
+  }
+}
+
+export function handleDeleteRestaurant(
+  event,
+  restaurantList,
+  restaurantListElement
+) {
+  try {
+    const parent = event.target.parentElement.parentElement;
+    const name = parent.querySelector(".restaurant__name").textContent;
+    restaurantList.deleteRestaurant(name);
+    localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+    deleteRestaurantElementByName(name);
+    const descriptionModal = document.querySelector(".description-modal");
+    descriptionModal.close();
+    Toast.showToast(`${name} 레스토랑을 삭제했습니다.`, "success");
   } catch (error) {
     Toast.showToast(`${error.message}`, "error");
   }
