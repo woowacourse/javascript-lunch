@@ -2,6 +2,10 @@ export const ADD_RESTAURANT_MODAL = {
   classNames: ['add-restaurant-modal'],
 };
 
+export const RESTAURANT_INFO_MODAL = {
+  classNames: ['restaurant-info-modal'],
+};
+
 export const CATEGORY = {
   label: '카테고리',
   name: 'category',

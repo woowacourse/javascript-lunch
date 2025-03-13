@@ -11,6 +11,7 @@ import {
   FREQUENT_ITEMS_TAB,
   CATEGORY_FILTER,
   SORT_SELECTOR,
+  RESTAURANT_INFO_MODAL,
 } from './constants.js';
 import { RESTAURANTS } from './database/restaurantData.js';
 import eventHandlers from './eventHandlers/eventHandlers.js';
@@ -26,6 +27,7 @@ import {
 } from './components/index.js';
 import storeService from './database/storeService.js';
 import sortRestaurants from './domain/sortRestaurants.js';
+import createRestaurantInfo from './components/RestaurantInfo.js';
 
 addEventListener('load', () => {
   appendHeader();
@@ -170,4 +172,17 @@ function appendRestaurantItems(restaurants) {
   }
 
   ul.insertAdjacentHTML('beforeend', items);
+}
+
+function appendRestaurantInfo(id) {
+  const main = document.querySelector('main');
+  const modal = createModal(RESTAURANT_INFO_MODAL);
+
+  main.insertAdjacentHTML('beforeend', modal);
+
+  const targetData = storeService.findRestaurantById(id);
+  const contents = createRestaurantInfo(targetData);
+
+  const targetModal = document.querySelector('.restaurant-info-modal');
+  targetModal.insertAdjacentHTML('beforeend', contents);
 }
