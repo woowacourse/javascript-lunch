@@ -1,39 +1,76 @@
 import { createForm } from "./Form.js";
+import { createButton } from "./Button.js";
 
-const createModal = ({ title, onSubmit }) => {
+const createModal = ({ title, isForm, onSubmit, content, onClose }) => {
   const modal = document.createElement("dialog");
   modal.classList.add("modal");
-  modal.id = "add-restaurant-dialog";
 
   const modalContainer = document.createElement("div");
   modalContainer.classList.add("modal-container");
 
-  const modalTitle = document.createElement("h2");
-  modalTitle.classList.add("modal-title", "text-title");
-  modalTitle.textContent = title;
+  if (title) {
+    const modalTitle = document.createElement("h2");
+    modalTitle.classList.add("modal-title", "text-title");
+    modalTitle.textContent = title;
+    modalContainer.appendChild(modalTitle);
+  }
 
-  const form = createForm();
+  if (isForm) {
+    modal.id = "add-restaurant-dialog";
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    onSubmit(form, modal);
-  });
+    const form = createForm();
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      onSubmit?.(form, modal);
+    });
 
-  modalContainer.appendChild(modalTitle);
-  modalContainer.appendChild(form);
+    modalContainer.appendChild(form);
+
+    const cancelButton = form.querySelector("#cancel-dialog-btn");
+    cancelButton.addEventListener("click", () => {
+      form.reset();
+      modal.close();
+    });
+  }
+
+  if (!isForm) {
+    if (typeof content === "string") {
+      const div = document.createElement("div");
+      div.innerHTML = content;
+      modalContainer.appendChild(div);
+    } else if (content instanceof HTMLElement) {
+      modalContainer.appendChild(content);
+    }
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
+
+    const deleteButton = createButton({
+      type: "button",
+      id: "cancel-dialog-btn",
+      className: "button button--secondary text-caption",
+      text: "삭제하기",
+    });
+
+    const closeButton = createButton({
+      type: "button",
+      id: "add-restaurant-btn",
+      className: "button button--primary text-caption",
+      text: "닫기",
+    });
+
+    buttonContainer.appendChild(deleteButton);
+    buttonContainer.appendChild(closeButton);
+    modalContainer.appendChild(buttonContainer);
+  }
+
   modal.appendChild(modalContainer);
 
   modal.addEventListener("click", (event) => {
     if (!event.target.closest(".modal-container")) {
       modal.close();
+      onClose?.();
     }
-  });
-
-  const cancelButton = form.querySelector("#cancel-dialog-btn");
-
-  cancelButton.addEventListener("click", () => {
-    form.reset();
-    modal.close();
   });
 
   return modal;

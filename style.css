@@ -342,3 +342,81 @@ input[name="link"] {
     background: var(--primary-color);
     color: var(--grey-100);
 }
+
+/* 음식점 상세 모달 *****************************************/
+.detail-modal-content {
+    margin: 0 0 32px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-modal-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .favorite-icon {
+        position: absolute;
+        right: 16px;
+    }
+
+    h3 {
+        margin: 16px 0 0 0;
+    }
+
+    span {
+        margin: 16px 0 0 0;
+
+    }
+}
+
+.detail-modal-category {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #F6A88A;
+}
+
+.detail-modal-category img {
+    width: 36px;
+    height: 36px;
+}
+
+.detail-modal-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-modal-title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+}
+
+.detail-modal-distance {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #EC4A0A;
+}
+
+.detail-modal-description {
+    margin: 16px 0 0 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.detail-modal-link a {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: 0;
+}
