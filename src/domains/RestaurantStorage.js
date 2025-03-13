@@ -1,5 +1,3 @@
-import { RESTAURANT_DATA } from '../../public/restaurantData';
-
 class RestaurantStorage {
   #key;
   #restaurants;
