@@ -1,6 +1,9 @@
 import { RESTAURANTS } from "./types/Constant";
 import { createHeader } from "./components/Header";
-import { createRestaurantItem } from "./components/RestaurantItem";
+import {
+  createRestaurantItem,
+  updateRestaurantItem,
+} from "./components/RestaurantItem";
 import Modal from "./components/Modal";
 
 const body = document.querySelector("body");
@@ -19,7 +22,6 @@ const modal = new Modal({ element: innerModalContent });
 main.append(modal.rendered);
 
 // 식당 아이템을 클릭하면 보여야 할 상세 정보
-const activatedRestaurantItem = {}; // 활성화된 식당 아이템 목록 정보
 const restaurantDetailModalContent = document.createElement("div");
 const modalDetailItem = createRestaurantItem(RESTAURANTS[0]);
 modalDetailItem.classList.add("flex-column");
@@ -29,7 +31,6 @@ addEventListener("load", () => {
   const restaurantDetailModal = new Modal({
     element: restaurantDetailModalContent,
   });
-  restaurantDetailModal.toggle();
   main.append(restaurantDetailModal.rendered);
 
   // 식당 아이템 불러오기 마이그레이션 완료
@@ -40,6 +41,8 @@ addEventListener("load", () => {
     restaurantItems.append(
       createRestaurantItem(restaurant, (restaurant) => {
         console.log(restaurant);
+        updateRestaurantItem(restaurantDetailModalContent, restaurant);
+        restaurantDetailModal.toggle();
       })
     );
   });
