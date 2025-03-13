@@ -1,3 +1,5 @@
+import { createButton } from "./Button.js";
+
 const createForm = () => {
   const form = document.createElement("form");
 
@@ -43,16 +45,28 @@ const createForm = () => {
       <input type="url" name="link" id="link" />
       <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
     </div>
-
-    <div class="button-container">
-      <button type="button" class="button button--secondary text-caption" id="cancel-dialog-btn">
-        취소하기
-      </button>
-      <button type="submit" id="add-restaurant-btn" class="button button--primary text-caption">
-        추가하기
-      </button>
-    </div>
   `;
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("button-container");
+
+  const cancelButton = createButton({
+    type: "button",
+    id: "cancel-dialog-btn",
+    className: "button button--secondary text-caption",
+    text: "취소하기",
+  });
+
+  const submitButton = createButton({
+    type: "submit",
+    id: "add-restaurant-btn",
+    className: "button button--primary text-caption",
+    text: "추가하기",
+  });
+
+  buttonContainer.appendChild(cancelButton);
+  buttonContainer.appendChild(submitButton);
+  form.appendChild(buttonContainer);
 
   return form;
 };
