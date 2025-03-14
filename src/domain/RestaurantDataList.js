@@ -1,5 +1,5 @@
 import RestaurantData from "./RestaurantData";
-import { getAllData } from "../util/dataRepository";
+import { postData, getAllData } from "../util/dataRepository";
 
 export const VIEW_STATE = {
   all: "모든 음식점",
@@ -91,6 +91,8 @@ export class RestaurantDataList {
     );
 
     targetData.isFavorite = !targetData.isFavorite;
+
+    postData(this.#dataList);
   }
 
   getDataById(id) {
@@ -101,13 +103,16 @@ export class RestaurantDataList {
     const restaurantData = new RestaurantData(data);
 
     this.#dataList.push(restaurantData.getData());
-    // 로컬 스토리지에도 추가하기(post 요청)
+
+    postData(this.#dataList);
   }
 
   removeDataById(id) {
     this.#dataList = this.#dataList.filter(
       (restaurant) => restaurant.id !== id
     );
+
+    postData(this.#dataList);
   }
 
   subscribe(callback) {
