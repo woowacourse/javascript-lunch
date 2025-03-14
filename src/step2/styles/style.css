@@ -213,7 +213,7 @@ body {
   bottom: 0;
   left: 0;
 
-  background: rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .modal-container {
@@ -379,4 +379,37 @@ input[name='link'] {
   border-bottom: 2px solid var(--primary-color);
 
   content: '';
+}
+
+.bottom-sheet-layout {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bottom-sheet-restaurant-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bottom-sheet-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-sheet-restaurant__link {
+  color: var(--grey-500);
+}
+
+.bottom-sheet-restaurant-button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bottom-sheet-restaurant-description {
+  height: 400px;
+  margin-top: 16px;
 }

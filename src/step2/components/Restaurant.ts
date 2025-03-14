@@ -1,22 +1,35 @@
 import { CATEGORY_IMAGES, ICON_IMAGES } from '../assets/images';
-import { STORAGE_KEY } from '../constants/key';
+import useModal from '../hooks/useModal';
 import { RestaurantType } from '../types/restaurants';
 import { $ } from '../utils/@common/domHelper';
 import EventManager from '../utils/@common/EventManager';
 import { getStorage, saveStorage } from '../utils/@common/localStorage';
-import { useState } from '../utils/core/Core';
 import Button from './@common/Button';
+import BottomSheet from './BottomSheet';
 
-interface RestaurantProps extends RestaurantType {}
+interface RestaurantProps extends Omit<RestaurantType, 'isFavorite'> {
+  favorite: boolean;
+  setFavorite: (favorite: boolean) => void;
+  isModalOpen: boolean;
+  closeModal: () => void;
+}
 
 const Restaurant = (props: RestaurantProps) => {
-  const { category, name, distance, description, isFavorite } = props;
-  const [favorite, setFavorite] = useState(isFavorite);
+  const { category, name, distance, description, link, favorite, setFavorite } =
+    props;
+
+  const [isModalOpen, openModal, closeModal] = useModal(false);
   const eventManager = new EventManager($('#app'));
-
   const buttonId = `favorite-${crypto.randomUUID()}`;
+  const restaurantId = `restaurant-${crypto.randomUUID()}`;
 
-  eventManager.addEvent('click', `#${buttonId}`, () => {
+  eventManager.addEvent('click', `#${restaurantId}`, () => {
+    console.log(isModalOpen);
+    openModal();
+  });
+
+  const handleFavoriteToggle = () => {
+    console.log('handleFavoriteToggle');
     setFavorite(!favorite);
 
     const storedRestaurants = getStorage() || [];
@@ -29,11 +42,15 @@ const Restaurant = (props: RestaurantProps) => {
     );
 
     saveStorage(updatedRestaurants);
+  };
+
+  eventManager.addEvent('click', `#${buttonId}`, () => {
+    handleFavoriteToggle();
   });
 
   return `
     <li class="restaurant">
-      <div class="restaurant__container">
+      <div id="${restaurantId}" class="restaurant__container">
       <div class="restaurant__category">
         <img
           src="${CATEGORY_IMAGES[category]}"
@@ -64,6 +81,23 @@ const Restaurant = (props: RestaurantProps) => {
         }" alt="favorite" />`,
       })}
     </li>
+    ${
+      isModalOpen
+        ? BottomSheet({
+            favorite,
+            category,
+            name,
+            distance,
+            description,
+            link,
+            onClose: () => {
+              closeModal();
+            },
+            handleFavoriteToggle,
+            buttonId,
+          })
+        : ''
+    }
   `;
 };
 
