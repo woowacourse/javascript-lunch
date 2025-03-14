@@ -102,7 +102,11 @@ export default class App {
 
     this.$listSection.append(
       $listHeader,
-      new RestaurantList(restaurantList).render()
+      new RestaurantList(
+        restaurantList.sort((a, b) =>
+          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        )
+      ).render()
     );
     $main.appendChild(this.$listSection);
 
