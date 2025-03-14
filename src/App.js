@@ -14,6 +14,7 @@ import {
 } from "./database/localStorage.js";
 import RestaurantInfoModal from "./components/modal/RestaurantInfoModal/index.js";
 import { makeUniqueId } from "./utils/makeUniqueId.js";
+import CategoryFilter from "./components/CategoryFilter.js";
 
 class App extends Component {
   setup() {
@@ -29,6 +30,11 @@ class App extends Component {
     this.setState({
       restaurants: newRestaurantList,
     });
+
+    const $categoryFilter = $(document, "#category-filter");
+    if ($categoryFilter.value !== newRestaurant.category) {
+      return;
+    }
 
     this.updateNewRestaurant(newRestaurant);
   }
@@ -63,7 +69,9 @@ class App extends Component {
 
   template() {
     return /*html*/ `
-        <main></main>
+        <main>
+          <section class="restaurant-filter-container"></section>
+        </main>
         <div id="modal"></div>
     `;
   }
@@ -93,15 +101,46 @@ class App extends Component {
       buttonCallback: openModal,
     });
 
-    this.renderRestaurantList();
+    this.renderRestaurantList(this.state.restaurants);
+
+    const $restaurantFilterContainer = $(
+      document,
+      ".restaurant-filter-container"
+    );
+    $restaurantFilterContainer.insertAdjacentHTML(
+      "afterbegin",
+      CategoryFilter()
+    );
+
+    const $categoryFilter = $($restaurantFilterContainer, "#category-filter");
+
+    $categoryFilter.addEventListener("change", (event) => {
+      const restaurantSection = $(document, ".restaurant-list-container");
+      restaurantSection.remove();
+
+      const restaurantList = this.state.restaurants;
+      if (event.target.value === "전체") {
+        this.renderRestaurantList(restaurantList);
+        return;
+      }
+
+      const filterByCategory = (restaurantList, category) => {
+        return restaurantList.filter(
+          (restaurant) => restaurant.category === category
+        );
+      };
+
+      const filteredRestaurant = filterByCategory(
+        restaurantList,
+        event.target.value
+      );
+      this.renderRestaurantList(filteredRestaurant);
+    });
   }
 
-  renderRestaurantList() {
+  renderRestaurantList(restaurants) {
     const $main = $(document, "main");
-    $main.insertAdjacentHTML(
-      "afterbegin",
-      RestaurantList(this.state.restaurants)
-    );
+    $main.insertAdjacentHTML("beforeend", RestaurantList(restaurants));
 
     $(document, "#restaurant-list").addEventListener("click", (event) => {
       const restaurantItem = event.target.closest("li");
