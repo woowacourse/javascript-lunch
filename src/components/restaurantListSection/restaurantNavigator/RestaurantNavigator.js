@@ -1,14 +1,17 @@
 import "./restaurantNavigator.css";
 
 export default class RestaurantNavigator {
-  #selected;
+  #selectedTab;
+  #updateSelected;
   #list;
   #updateList;
 
-  constructor(list, updateList) {
-    this.#selected = "all";
+  constructor(selectedTab, updateSelected, list, updateList) {
+    this.#selectedTab = selectedTab;
+    this.#updateSelected = updateSelected;
     this.#list = list;
     this.#updateList = updateList;
+
     this.$restaurantLitsHeader = document.createElement("div");
   }
 
@@ -26,12 +29,12 @@ export default class RestaurantNavigator {
     $rightButton.textContent = "자주 가는 음식점";
     $rightButton.id = "bookmark";
 
-    if (this.#selected === "all") {
+    if (this.#selectedTab === "all") {
       $leftButton.classList.add("selected");
       $rightButton.classList.remove("selected");
     }
 
-    if (this.#selected === "bookmark") {
+    if (this.#selectedTab === "bookmark") {
       $rightButton.classList.add("selected");
       $leftButton.classList.remove("selected");
     }
@@ -41,11 +44,6 @@ export default class RestaurantNavigator {
     this.$restaurantLitsHeader.addEventListener("click", this.#handleClick);
 
     return this.$restaurantLitsHeader;
-  }
-
-  #updateSelected(selected) {
-    this.#selected = selected;
-    this.render();
   }
 
   #handleClick = (e) => {

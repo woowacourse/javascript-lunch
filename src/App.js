@@ -4,12 +4,33 @@ import BottomSheetBase from "./components/common/bottomSheetBase/BottomSheetBase
 import RestaurantForm from "./components/restaurantFormSection/restaurantForm/RestaurantForm.js";
 import RestaurantListModel from "./domain/RestaurantListModel.js";
 import RestaurantNavigator from "./components/restaurantListSection/restaurantNavigator/RestaurantNavigator.js";
+import RestaurantFilterSection from "./components/restaurantListSection/restaurantFilterSection/RestaurantFilterSection.js";
 
 export default class App {
+  #selectedTab;
+
   constructor() {
     this.restaurantListModel = new RestaurantListModel();
+    this.#selectedTab = "all";
     this.#initElement();
   }
+
+  #updateSelected = (selected) => {
+    this.#selectedTab = selected;
+
+    const $tap = document.querySelector(".restaurant-list-header");
+
+    const restaurantList = this.restaurantListModel.getRestaurantList();
+
+    $tap.replaceWith(
+      new RestaurantNavigator(
+        this.#selectedTab,
+        this.#updateSelected,
+        restaurantList,
+        this.#updateList
+      ).render()
+    );
+  };
 
   #updateList = (newRestaurantList) => {
     this.updateRestautantList(newRestaurantList);
@@ -51,20 +72,28 @@ export default class App {
     this.$listSection = document.createElement("div");
     this.$listSection.className = "list-section";
 
+    const restaurantList = this.restaurantListModel.getRestaurantList();
+
     const $listHeader = new RestaurantNavigator(
-      this.restaurantListModel.getRestaurantList(),
+      this.#selectedTab,
+      this.#updateSelected,
+      restaurantList,
       this.#updateList
     ).render();
 
+    this.$listSection.appendChild(
+      new RestaurantFilterSection(restaurantList, this.#updateList).render()
+    );
+
     this.$listSection.append(
       $listHeader,
-      new RestaurantList(this.restaurantListModel.getRestaurantList()).render()
+      new RestaurantList(restaurantList).render()
     );
     $main.appendChild(this.$listSection);
 
     const $restaurantForm = new RestaurantForm(
       this.#updateList,
-      this.restaurantListModel.getRestaurantList()
+      restaurantList
     ).render();
 
     $main.appendChild(
