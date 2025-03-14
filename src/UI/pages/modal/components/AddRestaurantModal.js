@@ -1,4 +1,4 @@
-import Button from '../../../components/button/Button.js';
+import Button from '../../../components/button/Button';
 import InputDropDown from '../../../components/input/InputDropDown.js';
 import InputText from '../../../components/input/InputText.js';
 import Modal from '../../../components/modal/Modal';
@@ -85,8 +85,8 @@ class AddRestaurantModal {
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
-    buttonContainer.appendChild(this.#cancelButton);
-    buttonContainer.appendChild(this.#addButton);
+    buttonContainer.appendChild(this.#cancelButton.getElement());
+    buttonContainer.appendChild(this.#addButton.getElement());
 
     return buttonContainer;
   }
@@ -102,7 +102,9 @@ class AddRestaurantModal {
     try {
       const newRestaurant = addRestaurant(formData);
       const newRestaurantItem = new RestaurantItem(newRestaurant);
+
       DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
+
       this.handleToggleModal();
     } catch (error) {
       alert(error.message);
