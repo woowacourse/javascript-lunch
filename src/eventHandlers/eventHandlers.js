@@ -1,5 +1,5 @@
 import storeService from '../database/storeService.js';
-import filteringRestaurants from '../domain/filteringRestaurants.js';
+import filterByCategory from '../domain/filterByCategory.js';
 import sortRestaurants from '../domain/sortRestaurants.js';
 import stateStore from '../domain/stateStore.ts';
 
@@ -155,7 +155,7 @@ function filteringRestaurantItems(callback) {
   categoryFilter.addEventListener('change', (event) => {
     const filteringKey = event.target.value;
     const restaurantItems = storeService.getRestaurants();
-    const filteredRestaurants = filteringRestaurants(filteringKey, restaurantItems);
+    const filteredRestaurants = filterByCategory(filteringKey, restaurantItems);
 
     callback(filteredRestaurants);
   });
