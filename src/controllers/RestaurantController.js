@@ -1,6 +1,8 @@
 import { CATEGORY_KEY, RESTAURANT_DATA } from '../../public/restaurantData.js';
 import createSectionContainer from '../components/common/SectionContainer.js';
 import createFilterGroup from '../components/FilterGroup.js';
+import RestaurantDetailModal from '../components/RestaurantDetailModal.js';
+import createRestaurantDetailModal from '../components/RestaurantDetailModal.js';
 import createRestaurantEnrollModal from '../components/RestaurantEnrollModal.js';
 import {
   createRestaurantList,
@@ -18,6 +20,8 @@ class RestaurantController {
   #category = null;
   #order = '이름순';
   #tab = 'all';
+  #enrollModal = null;
+  #detailModal = null;
 
   constructor() {
     this.#restaurantStorage = new RestaurantStorage();
@@ -25,17 +29,11 @@ class RestaurantController {
   }
 
   start() {
-    const { $enrollRestaurantModal } = this.#createLayout();
+    this.#createLayout();
+    this.#appendModal();
 
-    const $openModalButton = document.querySelector('.gnb__button');
-    const $backDrop = document.querySelector('.modal-backdrop');
-
-    $openModalButton.addEventListener('click', () => {
-      $enrollRestaurantModal.toggle();
-    });
-
-    $backDrop.addEventListener('click', () => {
-      $enrollRestaurantModal.toggle();
+    document.querySelector('.gnb__button').addEventListener('click', () => {
+      this.#enrollModal.toggle();
     });
   }
 
@@ -50,19 +48,22 @@ class RestaurantController {
     $listContainer.appendChild(
       createRestaurantList(
         this.#restaurantList.getOrderedRestaurantList(this.#order),
+        this.#handleClickItem,
         this.#handleClickStar
       )
     );
 
-    const $enrollRestaurantModal = createRestaurantEnrollModal();
-    this.#main.append(
-      $tabBar,
-      $filterContainer,
-      $listContainer,
-      $enrollRestaurantModal.getElement()
-    );
+    this.#main.append($tabBar, $filterContainer, $listContainer);
+  }
 
-    return { $enrollRestaurantModal };
+  #appendModal() {
+    const $enrollModal = createRestaurantEnrollModal();
+    const $detailModal = new RestaurantDetailModal();
+
+    this.#main.append($enrollModal.getElement(), $detailModal.modal.getElement());
+
+    this.#enrollModal = $enrollModal;
+    this.#detailModal = $detailModal;
   }
 
   #handleClickStar = (event, id) => {
@@ -74,34 +75,50 @@ class RestaurantController {
   #handleChangeCategory = (event) => {
     this.#category = event.target.value;
     const restaurantList = this.#restaurantList.filterRestaurant(this.#category, this.#order);
-    const $filteredRestaurants = updateRestaurantList(restaurantList, this.#handleClickStar);
-    this.#main.appendChild($filteredRestaurants);
+    const $filteredRestaurants = this.#updateRestaurantUI(restaurantList);
   };
 
   #handleChangeFilter = (event) => {
     this.#order = event.target.value;
     const restaurantList = this.#restaurantList.filterRestaurant(this.#category, this.#order);
-    const $filteredRestaurants = updateRestaurantList(restaurantList, this.#handleClickStar);
-    this.#main.appendChild($filteredRestaurants);
+    const $filteredRestaurants = this.#updateRestaurantUI(restaurantList);
   };
 
   #handleTabBar = (event) => {
     document.querySelector('.restaurant-filter-container').classList.toggle('hidden');
 
-    if (event.target.value === 'favorite') {
+    if (event.target.id === 'favorite') {
       const favoriteRestaurantList = this.#restaurantList.filterFavorite();
-      const $favoriteRestaurants = updateRestaurantList(
-        favoriteRestaurantList,
-        this.#handleClickStar
-      );
-      this.#main.appendChild($favoriteRestaurants);
+      const $favoriteRestaurants = this.#updateRestaurantUI(favoriteRestaurantList);
       document.querySelector('select#category-filter').value = '전체';
-    } else if (event.target.value === 'all') {
+    } else if (event.target.id === 'all') {
       const allRestaurants = this.#restaurantList.getOrderedRestaurantList(this.#order);
-      const $allRestaurants = updateRestaurantList(allRestaurants, this.#handleClickStar);
-      this.#main.appendChild($allRestaurants);
+      const $allRestaurants = this.#updateRestaurantUI(allRestaurants);
     }
   };
+
+  #handleDelete = (event) => {
+    console.log(event.target);
+  };
+
+  #handleClickItem = (event, data) => {
+    this.#detailModal.updateModalContent({
+      data,
+      onClickStar: this.#handleClickStar,
+      onDelete: this.#handleDelete,
+      onClose: () => {},
+    });
+    this.#detailModal.modal.toggle();
+  };
+
+  #updateRestaurantUI(restaurantList) {
+    const $restaurants = updateRestaurantList(
+      restaurantList,
+      this.#handleClickItem,
+      this.#handleClickStar
+    );
+    this.#main.appendChild($restaurants);
+  }
 }
 
 export default RestaurantController;

@@ -211,6 +211,10 @@ select {
   background-image: url('public/images/star_fill.png');
 }
 
+.restaurant__column {
+  flex-direction: column;
+}
+
 .restaurant__name {
   margin: 0;
 }
@@ -228,6 +232,13 @@ select {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__detail__description {
+  padding: 20px 0;
+}
+
+.restaurant__link {
 }
 
 /* 음식점 추가 모달 *****************************************/

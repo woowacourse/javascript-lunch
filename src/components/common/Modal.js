@@ -15,19 +15,24 @@ class Modal {
     const modalBackdrop = createElement({ tag: 'div', className: 'modal-backdrop' });
     this.#modalDiv = createElement({ tag: 'div', className: 'modal-container' });
 
+    modalBackdrop.addEventListener('click', () => {
+      this.toggle();
+    });
+
     modalContainer.append(modalBackdrop, this.#modalDiv);
 
     return modalContainer;
   }
 
   appendModalContent(content) {
+    this.#modalDiv.replaceChildren();
     this.#modalDiv.appendChild(content);
   }
 
   toggle() {
     this.#element.classList.toggle('modal--open');
 
-    if (!this.#element.classList.contains('modal--open')) {
+    if (!this.#element.classList.contains('modal--open') && this.#onClose) {
       this.#onClose();
     }
   }

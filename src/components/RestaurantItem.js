@@ -33,7 +33,7 @@ function createTags(data) {
   return { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara };
 }
 
-function createRestaurantItem(data, handleClick) {
+function createRestaurantItem(data, onClickItem, onClickStar, detail = false) {
   const restaurantItem = createElement({ tag: 'li', className: 'restaurant' });
   const categoryDiv = createElement({ tag: 'div', className: 'restaurant__category' });
   const infoDiv = createElement({ tag: 'div', className: 'restaurant__info' });
@@ -42,9 +42,22 @@ function createRestaurantItem(data, handleClick) {
 
   const { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara } = createTags(data);
 
-  starImg.addEventListener('click', (event) => {
-    handleClick(event, data.id);
-  });
+  if (onClickItem) {
+    restaurantItem.addEventListener('click', (event) => {
+      onClickItem(event, data);
+    });
+  }
+
+  if (onClickStar) {
+    starImg.addEventListener('click', (event) => {
+      onClickStar(event, data.id);
+    });
+  }
+
+  if (detail) {
+    descriptionPara.classList.remove('restaurant__description');
+    descriptionPara.classList.add('restaurant__detail__description');
+  }
 
   categoryDiv.append(categoryImg);
   titleDiv.append(nameHeading, distanceSpan);
