@@ -137,27 +137,21 @@ function resetFormAndState() {
   resetState();
 }
 
-function sortRestaurantItems(callback) {
+function sortRestaurantItems() {
   const sortSelector = document.querySelector('#sort-selector');
 
   sortSelector.addEventListener('change', (event) => {
     const sortKey = event.target.value;
-    const restaurantItems = storeService.getRestaurants();
-    const sortedRestaurants = sortRestaurants(sortKey, restaurantItems);
-
-    callback(sortedRestaurants);
+    stateStore.updateState('sort', sortKey);
   });
 }
 
-function filteringRestaurantItems(callback) {
+function filteringRestaurantItems() {
   const categoryFilter = document.querySelector('#category-filter');
 
   categoryFilter.addEventListener('change', (event) => {
     const filteringKey = event.target.value;
-    const restaurantItems = storeService.getRestaurants();
-    const filteredRestaurants = filterByCategory(filteringKey, restaurantItems);
-
-    callback(filteredRestaurants);
+    stateStore.updateState('category', filteringKey);
   });
 }
 
