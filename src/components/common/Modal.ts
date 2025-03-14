@@ -35,7 +35,7 @@ export default class Modal extends Component<ModalProps> {
   }
 
   #attachKeyDownEventListener() {
-    this.element.addEventListener('keydown', (event) => {
+    window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') this.#removeModal();
     });
   }
