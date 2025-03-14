@@ -10,7 +10,7 @@
 @import "src/components/restaurant/form/form.css";
 @import "src/components/restaurant/item/item.css";
 @import "src/components/toast/toast.css";
-
+@import "src/components/restaurant/restaurantDescription.css";
 * {
   padding: 0;
   margin: 0;
