@@ -16,7 +16,7 @@ addEventListener("load", () => {
   querySelector("main").appendChild(modal);
 
   querySelector(".gnb__button").addEventListener("click", () => {
-    querySelector(".modal").classList.add("modal--open");
+    modalHandler.openModal();
     modalHandler.addForm();
 
     querySelector(".modal-form").addEventListener("submit", (e: Event) =>
