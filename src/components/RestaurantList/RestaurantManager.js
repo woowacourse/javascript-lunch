@@ -8,16 +8,16 @@ import {
 } from "../../domains/restaurantService.ts";
 
 class RestaurantManager {
-  constructor(filterBarManager, restaurants) {
-    this.filterBarManager = filterBarManager;
+  constructor(filterManager, restaurants) {
+    this.filterManager = filterManager;
     this.restaurants = restaurants;
   }
 
   renderRestaurantList($main) {
     const filtered = filterAndSortRestaurants(
       this.restaurants,
-      this.filterBarManager.getSelectedCategory(),
-      this.filterBarManager.getSelectedSorting()
+      this.filterManager.getSelectedCategory(),
+      this.filterManager.getSelectedSorting()
     );
     this.#renderList($main, filtered);
   }
@@ -40,8 +40,8 @@ class RestaurantManager {
 
     const filtered = filterAndSortRestaurants(
       this.restaurants,
-      this.filterBarManager.getSelectedCategory(),
-      this.filterBarManager.getSelectedSorting()
+      this.filterManager.getSelectedCategory(),
+      this.filterManager.getSelectedSorting()
     );
     this.#renderList($main, filtered);
   }
