@@ -8,7 +8,7 @@ const RegisterIcon = () =>
     classNames: ["gnb__button"],
     events: {
       click: () => {
-        $(".modal-backdrop").classList.add("open");
+        $("#register-modal-backdrop").classList.add("open");
       },
     },
     children: [Image({ src: "./add-button.png", alt: "음식점 추가" })],

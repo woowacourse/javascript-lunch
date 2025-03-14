@@ -21,11 +21,14 @@ addEventListener("load", () => {
 
   $("nav").appendChild(Tab(restaurantList));
   $("main").appendChild(
-    Modal(
-      registerModalClose,
-      Title("새로운 음식점", "h2", "modal-title", "text-title"),
-      RegisterForm(restaurantList)
-    )
+    Modal({
+      handleCloseModal: registerModalClose,
+      id: "register-modal-backdrop",
+      contents: [
+        Title("새로운 음식점", "h2", "modal-title", "text-title"),
+        RegisterForm(restaurantList),
+      ],
+    })
   );
 
   renderAllpage(restaurantList);

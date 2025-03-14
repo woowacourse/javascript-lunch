@@ -11,7 +11,7 @@ import createElement from "../../utils/createElement/createElement";
 import createRestaurantCards from "../../service/createRestaurantCards";
 
 const ButtonContainer = (restaurantList) => {
-  const cancleButton = Button({
+  const cancelButton = Button({
     text: BUTTON_TEXT.CANCEL,
     style: "button--secondary",
     onClick: closeModal,
@@ -29,7 +29,7 @@ const ButtonContainer = (restaurantList) => {
   const buttonContainer = createElement({
     tagName: "div",
     classNames: ["button-container"],
-    children: [cancleButton, addButton],
+    children: [cancelButton, addButton],
   });
 
   return buttonContainer;
@@ -43,7 +43,7 @@ const BUTTON_TEXT = {
 };
 
 const closeModal = () => {
-  $(".modal-backdrop").classList.remove("open");
+  $("#register-modal-backdrop").classList.remove("open");
   clearInput("#register-form");
   clearError();
 };
@@ -57,11 +57,12 @@ const registerRestaurant = (e, restaurantList) => {
 
     restaurantList.add(restaurant);
 
-    $(".modal-backdrop").classList.remove("open");
+    $("#register-modal-backdrop").classList.remove("open");
     renderRestaurants(createRestaurantCards(restaurantList.filter()));
 
     clearInput("#register-form");
   } catch (e) {
+    console.log(e.message);
     const currentInputField = $(`#${e.cause}-form-item`);
     currentInputField.appendChild(ErrorMessage(e.message));
   }

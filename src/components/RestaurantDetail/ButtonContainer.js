@@ -15,7 +15,7 @@ const ButtonContainer = () => {
     onClick: () => {
       console.log("삭제하기 클릭");
 
-      $(".modal-backdrop").classList.remove("open");
+      $("#register-modal-backdrop").classList.remove("open");
     },
   });
 
@@ -24,7 +24,7 @@ const ButtonContainer = () => {
     style: "button--primary",
     onClick: () => {
       console.log("닫기 클릭");
-      $(".modal-backdrop").classList.remove("open");
+      $("#register-modal-backdrop").classList.remove("open");
     },
   });
 
