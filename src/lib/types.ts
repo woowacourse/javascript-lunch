@@ -1,4 +1,4 @@
-import { CATEGORIES, SORTS, FILTERS } from './constants';
+import { CATEGORIES, SORTS, FILTERS, LOCAL_STORAGE_KEY_MAP } from './constants';
 
 export type TabType = 'all' | 'like';
 
@@ -18,3 +18,5 @@ export type RestaurantType = {
 };
 
 export type HTMLType = 'HTMLType';
+
+export type LocalStorageKeyType = keyof typeof LOCAL_STORAGE_KEY_MAP;

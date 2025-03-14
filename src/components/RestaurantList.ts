@@ -1,10 +1,10 @@
 import Component from '../core/Component.ts';
-import { FILTERS, LOCAL_STORAGE_KEY_MAP, SORTS } from '../lib/constants.ts';
+import { DEFAULT_RESTAURANT_LIST, FILTERS, SORTS } from '../lib/constants.ts';
+import LocalStorage from '../lib/LocalStorage.ts';
 import type { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
-import { Select } from './common/index.ts';
-import { RestaurantItem, RestaurantAddModal, RestaurantDetailModal, RestaurantTab } from './index.ts';
-import { DEFAULT_RESTAURANT_LIST } from '../lib/constants.ts';
 import { html } from '../lib/utils.ts';
+import { Select } from './common/index.ts';
+import { RestaurantAddModal, RestaurantDetailModal, RestaurantItem, RestaurantTab } from './index.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -18,7 +18,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   constructor() {
     super();
 
-    const localStorageRestaurants = localStorage.getItem(LOCAL_STORAGE_KEY_MAP.restaurants);
+    const localStorageRestaurants = LocalStorage.get('restaurants');
     const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : DEFAULT_RESTAURANT_LIST;
 
     this.state = {
@@ -126,7 +126,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
       restaurants: [...this.state.restaurants, restaurant],
     });
 
-    this.#saveRestaurantsInLocalStorage();
+    LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
   }
 
   /**
@@ -165,7 +165,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
     this.setState({
       restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
     });
-    this.#saveRestaurantsInLocalStorage();
+    LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
   }
 
   #toggleLike(restaurantName: string) {
@@ -180,10 +180,6 @@ export default class RestaurantList extends Component<RestaurantListState> {
       restaurants: copiedRestaurants,
     });
 
-    this.#saveRestaurantsInLocalStorage();
-  }
-
-  #saveRestaurantsInLocalStorage() {
-    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
+    LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
   }
 }
