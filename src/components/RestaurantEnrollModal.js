@@ -19,7 +19,7 @@ class RestaurantEnrollModal {
       link: null,
     };
 
-    this.#enrollModal = new Modal(() => this.handleClose());
+    this.#enrollModal = new Modal();
     this.initModalContent();
     this.#onAdd = onAdd;
   }
@@ -46,6 +46,7 @@ class RestaurantEnrollModal {
     const isValidate = RestaurantValidator.validate(this.#restaurantInput);
     if (!isValidate) return;
 
+    console.log(this.#onAdd);
     this.#onAdd(this.#restaurantInput);
   }
 

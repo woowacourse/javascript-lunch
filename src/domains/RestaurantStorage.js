@@ -11,7 +11,6 @@ class RestaurantStorage {
 
   saveToStorage() {
     localStorage.setItem(this.#key, JSON.stringify(this.#restaurants));
-    // localStorage.setItem(this.#key, JSON.stringify(RESTAURANT_DATA));
   }
 
   getAllRestaurants() {
