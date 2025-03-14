@@ -1,4 +1,4 @@
-import { getHTML } from "../utils/utils";
+import { getHTML } from "../utils/utils.ts";
 import { TabMenu } from "./common/TabMenu";
 
 export function RestaurantTabMenu(targetID) {

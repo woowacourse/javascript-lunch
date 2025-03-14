@@ -1,17 +1,16 @@
-import { getHTML, createElement } from "../utils/utils.js";
+import { ILunchItem } from "../type.ts";
+import { createElement } from "../utils/utils.ts";
 import { CategoryIcon } from "./common/CategoryIcon.js";
-import { StoreInfo } from "./StoreInfo.js";
+import { StoreInfo } from "./StoreInfo.ts";
 
-export function LunchItem({
-  category,
-  name,
-  distance,
-  description,
-  link,
-  isFavorite,
-}) {
+export function LunchItem(
+  { category, name, distance, description, link, isFavorite }: ILunchItem,
+  index: string
+) {
   const li = createElement("li");
   li.classList.add("restaurant");
+  li.setAttribute("data-action", "showStoreDeleteModal");
+  li.setAttribute("data-index", index);
 
   function render() {
     li.innerHTML = `

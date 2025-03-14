@@ -1,5 +1,5 @@
-import { LunchItem } from "../components/LunchItem.js";
-import { LunchList } from "../components/LunchList.js";
+import { LunchItem } from "../components/LunchItem.ts";
+import { LunchList } from "../components/LunchList.ts";
 
 const getHTML = (id) => document.getElementById(id);
 function SubmitEvent(lunchList) {

@@ -1,20 +1,20 @@
-import { createElement } from "../utils/utils.js";
 import { StarButton } from "./common/StarButton.js";
+import type { ILunchItem } from "../type.ts";
 
-export function StoreInfo({
-  name,
-  distance,
-  description,
-  link,
-  type,
-  isFavorite,
-}) {
+interface StoreInfoProps extends ILunchItem {
+  type: string;
+}
+
+export function StoreInfo(
+  { name, distance, description, link, isFavorite }: StoreInfoProps,
+  type = "summary"
+) {
   function template() {
     return `
             ${
               type === "summary"
                 ? `<div class="restaurant__info">`
-                : `<div class="restaurant__info__full">`
+                : `<div class="restaurant__info full">`
             }
             <div class="restaurant__title-box">
               <div class="restaurant__title">

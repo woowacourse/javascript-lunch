@@ -1,15 +1,30 @@
-import { getHTML } from "../utils/utils.js";
+import { getHTML } from "../utils/utils.ts";
 import { Button } from "./common/Button.js";
-import { FormBox } from "./common/FormBox.js";
+import { StoreAddForm } from "./common/StoreAddForm.js";
 import { FormButtons } from "./common/FormButtons.js";
 import { InputBox } from "./common/InputBox.js";
 import { SelectBox } from "./common/SelectBox.js";
 import { TextareaBox } from "./common/TextareaBox.js";
+import { StoreDeleteForm } from "./common/StoreDeleteForm.js";
 
-export function openModal(formName) {
+export function openModal(formName, target) {
   const modalHTML = `<div class="modal modal--open">
     <div class="modal-container">
-      ${FormBox({ id: "restaurantForm", formName, label: "새로운 음식점" })}
+      ${
+        (formName === "storeAdd" &&
+          StoreAddForm({
+            id: "restaurantForm",
+            formName,
+            label: "새로운 음식점",
+          })) ||
+        ""
+      }
+
+      ${
+        (formName === "storeDelete" &&
+          StoreDeleteForm(Number(target.dataset.index))) ||
+        ""
+      }
     </div>
   </div>`;
 
