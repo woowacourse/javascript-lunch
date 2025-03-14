@@ -24,9 +24,17 @@ describe("식당 상세보기 모달창 테스트", () => {
   it("각 식당의 식당명을을 누르면 해당 식당의 디테일 정보 모달창이 열린다.", () => {
     // given
     const index = 4;
+
     // when
     cy.get(`#restaurant__info__${index} .restaurant__name`).click();
+
     // then
+    cy.get(`#restaurant__info__${index} .restaurant__name`)
+      .invoke("text")
+      .then((text) => {
+        cy.get(".modal-container").should("contain.text", text);
+      });
+
     cy.get(`#restaurant__info__${index} .restaurant__distance`)
       .invoke("text")
       .then((text) => {
