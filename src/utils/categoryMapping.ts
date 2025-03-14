@@ -1,4 +1,8 @@
-export const categoryMapping = {
+interface ICategoryMappping {
+  [key: string]: string;
+}
+
+export const categoryMapping: ICategoryMappping = {
   한식: "korean",
   중식: "chinese",
   일식: "japanese",

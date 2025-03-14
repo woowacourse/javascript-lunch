@@ -1,4 +1,9 @@
-export function createRestaurantItem(container, inputValue) {
+import { Restaurant } from "../shared/types";
+
+export function createRestaurantItem(
+  container: HTMLElement,
+  inputValue: Restaurant
+): void {
   container.innerHTML += `
     <li class="restaurant">
       <div class="restaurant__category">

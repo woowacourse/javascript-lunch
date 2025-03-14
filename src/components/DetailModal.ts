@@ -1,4 +1,9 @@
-export default function DetailModal(container, inputValue) {
+import { Restaurant } from "../shared/types";
+
+export default function DetailModal(
+  container: HTMLElement,
+  inputValue: Restaurant
+): void {
   container.innerHTML += `
       <div class="restaurant-detail-modal-background">
           <div class="restaurant-detail-modal">

@@ -3,7 +3,7 @@ import CustomDropdown from "../shared/CustomDropdown.js";
 import CustomInput from "../shared/CustomInput.js";
 import CustomButton from "../shared/CustomButton.js";
 
-export default function AddRestaurantModal(container) {
+export default function AddRestaurantModal(container: HTMLElement): void {
   container.innerHTML += `
         <div class="modal modal--open">
         <div class="modal-backdrop"></div>

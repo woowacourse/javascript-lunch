@@ -1,11 +1,11 @@
 import RestaurantDetailModal from "../domain/RestaurantDetailModal";
-import { GetAllRestaurants } from "../domain/RestaurantStorage";
 import { SaveFavoriteRestaurant } from "../domain/SaveFavoriteRestaurant";
+import { Restaurant } from "../shared/types";
 
-export function CreateRestaurantList(restaurants) {
+export function CreateRestaurantList(restaurants: Restaurant[]) {
   const $restaurantListContainer = document.querySelector(
     ".restaurant-list-container"
-  );
+  ) as HTMLElement;
 
   const restaurantList = document.createElement("ul");
   restaurantList.className = "restaurant-list";
@@ -24,7 +24,7 @@ export function CreateRestaurantList(restaurants) {
   SaveFavoriteRestaurant();
 }
 
-function createRestaurantItem(container, inputValue) {
+function createRestaurantItem(container: HTMLElement, inputValue: Restaurant) {
   container.innerHTML += `
     <li class="restaurant">
       <div class="restaurant__category">

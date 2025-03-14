@@ -8,8 +8,10 @@ import {
 } from "./validation/validator";
 
 export default function InitModalHandler() {
-  const $modalButton = document.getElementById("gnb-button");
-  const $appContainer = document.getElementById("app");
+  const $modalButton = document.getElementById(
+    "gnb-button"
+  ) as HTMLButtonElement;
+  const $appContainer = document.getElementById("app") as HTMLElement;
 
   $modalButton.addEventListener("click", () => {
     AddRestaurantModal($appContainer);
@@ -18,22 +20,28 @@ export default function InitModalHandler() {
 }
 
 function InitModalEvents() {
-  const $addRestaurantButton = document.querySelector(".button--primary");
-  const $closeModalButton = document.getElementById("close-modal");
+  const $addRestaurantButton = document.querySelector(
+    ".button--primary"
+  ) as HTMLButtonElement;
+  const $closeModalButton = document.getElementById(
+    "close-modal"
+  ) as HTMLButtonElement;
 
   $addRestaurantButton.addEventListener("click", HandleAddRestaurant);
 
   $closeModalButton.addEventListener("click", CloseModal);
 }
 
-function HandleAddRestaurant(e) {
+function HandleAddRestaurant(e: Event) {
   e.preventDefault();
 
-  const $category = document.getElementById("category");
-  const $name = document.getElementById("name");
-  const $distance = document.getElementById("distance");
-  const $description = document.getElementById("description");
-  const $link = document.getElementById("link");
+  const $category = document.getElementById("category") as HTMLSelectElement;
+  const $name = document.getElementById("name") as HTMLInputElement;
+  const $distance = document.getElementById("distance") as HTMLSelectElement;
+  const $description = document.getElementById(
+    "description"
+  ) as HTMLTextAreaElement;
+  const $link = document.getElementById("link") as HTMLInputElement;
 
   try {
     const categoryValue = $category.value;
@@ -51,20 +59,24 @@ function HandleAddRestaurant(e) {
       category,
       categoryValue,
       nameValue,
-      distanceValue,
+      distanceValue: Number(distanceValue),
       descriptionValue,
       link,
       favorite: false,
     };
 
-    const $restaurantList = document.querySelector(".restaurant-list");
     AddNewRestaurant({ restaurant: inputValue });
 
     location.reload();
 
     CloseModal();
   } catch (error) {
-    alert(error.message);
+    if (error instanceof Error) {
+      alert(
+        error.message ||
+          "알 수 없는 오류로 인해 새로운 음식점 추가를 실패했습니다."
+      );
+    }
   }
 }
 
