@@ -25,7 +25,7 @@ function App() {
   return `
     <div>
       ${Header()}
-      ${NavTab({ onTabChange: setCurrentTab })}
+      ${NavTab({ setCurrentTab })}
       ${
         currentTab === TAB.ALL
           ? `
@@ -38,7 +38,9 @@ function App() {
           `
           : `
             ${RestaurantList({
-              restaurants: getStorage()?.filter((r) => r.isFavorite) ?? [],
+              restaurants:
+                getStorage()?.filter((restaurant) => restaurant.isFavorite) ??
+                [],
             })}
           `
       }
