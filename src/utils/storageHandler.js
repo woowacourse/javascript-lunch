@@ -9,6 +9,10 @@ export const storageHandler = {
     localStorage.setItem(key, JSON.stringify(newData));
   },
   filterItem: (key, value) => {
+    if (!value) {
+      return JSON.parse(localStorage.getItem(key));
+    }
+
     const newData = JSON.parse(localStorage.getItem(key)).filter(
       (item) => item.categoryTitle === value
     );

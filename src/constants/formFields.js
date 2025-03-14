@@ -1,6 +1,7 @@
 import $select from "../components/common/select.js";
 import $input from "../components/common/input.js";
 import $textarea from "../components/common/textarea.js";
+import $restaurantItem from "../components/restaurant/restaurant-item.js";
 import {
   categoryOptions,
   distanceOptions,
@@ -11,7 +12,6 @@ import { validateRestaurantForm } from "../validation/validationForm.js";
 import { deepFreeze } from "../utils/deepFreeze.js";
 import { storageHandler } from "../utils/storageHandler.js";
 import { STORAGE_KEY_NAME } from "./storage.js";
-import $restaurantItem from "../components/restaurant/restaurant-item.js";
 
 const senseChangeRestaurantFormValue = () => {
   try {
@@ -29,7 +29,7 @@ const senseChangeRestaurantFormValue = () => {
 };
 
 const handleFilterItem = () => {
-  const category = document.getElementById("category-filter").value ?? "";
+  const category = document.getElementById("category-filter").value || null;
   const filterList = storageHandler.filterItem(STORAGE_KEY_NAME, category);
 
   const restaurantList = document.querySelector(".restaurant-list");
