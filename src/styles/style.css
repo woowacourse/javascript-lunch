@@ -284,8 +284,6 @@ input[name='link'] {
 
   padding: 16px 8px;
   gap: 16px;
-
-  border-bottom: 1px solid #e9eaed;
 }
 .restaurant-detail-modal__header {
   display: flex;
