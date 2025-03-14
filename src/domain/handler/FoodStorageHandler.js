@@ -7,7 +7,6 @@ export function readStorageFoodList() {
 export function updateStorageFoodList(newFoodItem) {
   let foodItems = readStorageFoodList(); // 기존 배열 가져오기
 
-  // 배열에서 같은 name을 가진 아이템 찾기
   const index = foodItems.findIndex((item) => item.name === newFoodItem.name);
 
   if (index !== -1) {
