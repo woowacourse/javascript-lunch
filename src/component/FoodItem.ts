@@ -1,5 +1,7 @@
 import { toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
+import { Button } from "./button/Button.js";
+import { ButtonContainer } from "./button/ButtonContainer.js";
 import Modal from "./layout/modal/Modal.js";
 
 type CssTypeProps = "row" | "column";
@@ -12,17 +14,20 @@ interface FoodItemOptions {
 export default class FoodItem {
   container: HTMLElement;
 
+  #data: FoodItemProps;
   #id: string;
   #category: Category;
   #name: string;
   #distance: Distance;
   #description: string;
+  #link: string;
 
   #isFavorite;
 
   #cssType: CssTypeProps;
 
   constructor({ data, cssType }: FoodItemOptions) {
+    this.#data = data;
     this.#cssType = cssType;
 
     this.#id = data.id;
@@ -31,13 +36,14 @@ export default class FoodItem {
     this.#distance = data.distance;
     this.#description = data.description;
     this.#isFavorite = data.isFavorite;
+    this.#link = data.link;
 
     this.container = document.createElement("div");
 
     this.render();
     this.setUpFavoriteToggle();
-    this.showDetail();
     this.setCss();
+    this.showDetail();
   }
 
   getBookmarkIconSrc() {
@@ -64,9 +70,26 @@ export default class FoodItem {
 
   showDetail() {
     this.container.querySelector("li")?.addEventListener("click", () => {
-      const detailModalContent = document.createElement("div");
+      const fragment = document.createDocumentFragment();
 
-      const detailModal = new Modal({ content: detailModalContent });
+      const detailFoodItem = new FoodItem({
+        data: this.#data,
+        cssType: "column",
+      });
+      if (!detailFoodItem.element) return;
+
+      fragment.appendChild(detailFoodItem.element);
+
+      const buttonContainer = ButtonContainer({
+        buttons: [
+          Button({ name: "delete", innerText: "삭제하기", cssType: "secondary" }),
+          Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
+        ],
+      });
+      fragment.appendChild(buttonContainer);
+
+      const detailModal = new Modal({ content: fragment });
+
       detailModal.open();
       document.querySelector("body")?.appendChild(detailModal.element);
     });
@@ -98,6 +121,7 @@ export default class FoodItem {
               <p class="restaurant__description text-body">
                ${this.#description}
               </p>
+              ${this.#cssType === "column" && this.#link ? `<p>${this.#link}</p>` : ""}
               <img src=${this.getBookmarkIconSrc()} alt="즐겨찾기" class="favorite-icon">
             </div>
           </li>

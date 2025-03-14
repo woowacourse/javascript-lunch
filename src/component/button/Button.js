@@ -1,10 +1,4 @@
-export function Button({
-  name,
-  type = "button",
-  cssType = "primary",
-  innerText,
-  onClick = () => {},
-}) {
+export function Button({ name, type = "button", cssType = "primary", innerText, onClick = () => {} }) {
   const button = document.createElement("button");
   button.name = name;
   button.type = type;
