@@ -23,7 +23,7 @@ class Restaurant extends Component {
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description text-body">${description}</p>
       </div>
-      <img src="${starImg}" class="restaurant__like"/>
+      <img src="${starImg}" id="list__star" class="restaurant__like"/>
     `;
   }
 
@@ -31,28 +31,24 @@ class Restaurant extends Component {
     this.$target
       .querySelector(".restaurant__info")
       .addEventListener("click", () => {
-        console.log(`클릭된 음식점: ${this.props.name}`);
         this.handleDetailModal();
       });
 
-    this.$target
-      .querySelector(".restaurant__like")
-      .addEventListener("click", () => {
-        this.handleLike();
-      });
+    this.$target.querySelector("#list__star").addEventListener("click", () => {
+      this.handleLike();
+    });
   }
   handleLike() {
     this.props.like = !this.props.like;
     let storedData = getStoredRestaurantData();
-    storedData = storedData.map((restaurant) => {
+    storedData = storedData.map((restaurant) =>
       restaurant.name === this.props.name
         ? { ...restaurant, like: this.props.like }
-        : restaurant;
-    });
-
+        : restaurant,
+    );
     setStoredRestaurantData(storedData);
     const starImg = this.props.like ? "/filledStar.png" : "/unFilledStar.png";
-    this.$target.querySelector(".restaurant__like").src = starImg;
+    this.$target.querySelector("#list__star").src = starImg;
   }
 
   handleDetailModal() {

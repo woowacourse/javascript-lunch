@@ -12,7 +12,9 @@ class Modal extends Component {
   }
 
   template() {
-    console.log(this.props.mode);
+    const starImg = this.props.data.like
+      ? "/filledStar.png"
+      : "unFilledStar.png";
     if (this.props.mode === "add") {
       return `<div class="modal-backdrop"></div>
     <div class="modal-container">
@@ -44,7 +46,7 @@ class Modal extends Component {
         <div class="restaurant__category">
             <img src=${this.props.data.imgSrc} alt=${this.props.data.imgAlt} class="category-icon"/>
         </div>
-        <img src="/unFilledStar.png" class="restaurant__like"/>
+        <img src="${starImg}" id="modal__star" class="restaurant__like"/>
       </div>
       <div class="restaurant__info">
           <h3 class="restaurant__name text-subtitle">${this.props.data.name}</h3>
@@ -85,9 +87,13 @@ class Modal extends Component {
       this.$target
         .querySelector("#delete_button")
         .addEventListener("click", () => {
-          console.log("클릭");
           this.deleteRestaurant(this.props.data.name);
           modalContainer.classList.toggle("modal--open");
+        });
+      this.$target
+        .querySelector("#modal__star")
+        .addEventListener("click", () => {
+          this.handleLike();
         });
     }
     if (this.props.mode === "add") {
@@ -107,6 +113,30 @@ class Modal extends Component {
           new CustomEvent("restaurantUpdated", { detail: newData }),
         );
       });
+  }
+
+  handleLike() {
+    const restaurantItem = document.querySelector(".restaurant");
+    this.props.data.like = !this.props.data.like;
+    let storedData = getStoredRestaurantData();
+    storedData = storedData.map((restaurant) =>
+      restaurant.name === this.props.data.name
+        ? { ...restaurant, like: this.props.data.like }
+        : restaurant,
+    );
+    setStoredRestaurantData(storedData);
+    const starImg = this.props.data.like
+      ? "/filledStar.png"
+      : "/unFilledStar.png";
+    this.$target.querySelector("#modal__star").src = starImg;
+
+    const restaurantItems = document.querySelectorAll(".restaurant");
+    restaurantItems.forEach((item) => {
+      const title = item.querySelector(".restaurant__name").innerText;
+      if (title === this.props.data.name) {
+        item.querySelector("#list__star").src = starImg;
+      }
+    });
   }
 
   deleteRestaurant(name) {
