@@ -12,6 +12,7 @@ import { Validator } from "../../utils/Validator.ts";
 import RestaurantList from "../RestaurantList.js";
 import data from "../../data.ts";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
+import FilterSelect from "../FilterSelect.js";
 
 const AddLunchModalForm = {
   create() {
@@ -84,7 +85,7 @@ const AddLunchModalForm = {
     try {
       this.validateFormInputs({ name, link, description });
       this.addRestaurant({ category, name, distance, description, link });
-      RestaurantList.applyData();
+      FilterSelect.applyFilter();
       Modal.close("addLunch");
       Modal.reset("addLunch");
     } catch (e) {

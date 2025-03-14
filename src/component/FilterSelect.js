@@ -1,5 +1,6 @@
 import data from "../data.ts";
 import state from "../state.ts";
+import { $ } from "../utils/querySelectors.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
 import RestaurantList from "./RestaurantList.js";
 
@@ -15,24 +16,36 @@ const FilterSelect = {
       .join("\n")}
     `;
 
-    filterElement.addEventListener("change", (e) => {
-      if (id === "category-filter") this.onChangeCategory(e.target.value);
-      if (id === "sorting-filter") this.onChangeSorting(e.target.value);
-    });
+    filterElement.addEventListener("change", (e) => this.applyFilter());
 
     return filterElement;
   },
 
-  onChangeCategory(category) {
-    const filteredList = RestaurantListUtils.filterByCategory(
+  applyFilter() {
+    const category = $("#category-filter").value;
+    const sortingRule = $("#sorting-filter").value;
+    const filteredListByCategory = this.getFilteredListByCategory(
       data.restaurantList,
       category
     );
-    RestaurantList.applyList(filteredList);
+    const filteredListByBoth = this.getFilteredListBySorting(
+      filteredListByCategory,
+      sortingRule
+    );
+    RestaurantList.applyList(filteredListByBoth);
   },
 
-  onChangeSorting(sortingRule) {
-    let filteredList = state.currentRestaurantList;
+  getFilteredListByCategory(restaurantList, category) {
+    const filteredList = RestaurantListUtils.filterByCategory(
+      restaurantList,
+      category
+    );
+
+    return filteredList;
+  },
+
+  getFilteredListBySorting(restaurantList, sortingRule) {
+    let filteredList = [...restaurantList];
     if (sortingRule === "id")
       filteredList = RestaurantListUtils.sortById(filteredList);
     if (sortingRule === "name")
@@ -40,7 +53,7 @@ const FilterSelect = {
     if (sortingRule === "distance")
       filteredList = RestaurantListUtils.sortByDistance(filteredList);
 
-    RestaurantList.applyList(filteredList);
+    return filteredList;
   },
 };
 
