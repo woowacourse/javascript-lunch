@@ -1,8 +1,8 @@
 import { DEFAULT_RESTAURANT_LIST, LOCAL_STORAGE_KEY_MAP } from '../../src/lib/constants';
-import { ERROR_MESSAGES, LOCAL_HOST_URL } from './constants';
+import { ERROR_MESSAGES, PREVIEW_URL } from './constants';
 import { type LanguageType } from './types';
 
-const URL = LOCAL_HOST_URL; // TODO: 환경에 따라 다른 URL 사용
+const URL = PREVIEW_URL; // TODO: 환경에 따라 다른 URL 사용
 let language: LanguageType;
 
 describe('애플리케이션 테스트 케이스', () => {
