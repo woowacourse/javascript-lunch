@@ -12,7 +12,7 @@ function NavTab(props: NavTabProps) {
   const eventManager = new EventManager($('#app'));
   const { tab, setTabAll, setTabFavorite } = props;
 
-  /**@todo 왜 렌더링이 2번씩 될까? */
+  /**@todo 왜 렌더링이 2번씩 될까? 그리고 탭 클릭할 때마다 렌더링이 되는데 최적화방법 찾아보자 */
   eventManager.addEvent('click', '#nav-tab-1', () => {
     setTabAll();
   });
