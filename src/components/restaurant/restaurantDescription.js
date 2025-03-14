@@ -1,11 +1,4 @@
-const categoryIcon = {
-  한식: "./category-korean.png",
-  중식: "./category-chinese.png",
-  일식: "./category-japanese.png",
-  양식: "./category-western.png",
-  아시안: "./category-asian.png",
-  기타: "./category-etc.png",
-};
+import { CATEGORY_ICON } from "../../settings/settings";
 export default function createRestaurantDescription({
   category,
   name,
@@ -21,7 +14,7 @@ export default function createRestaurantDescription({
   restaurantItem.innerHTML = `
     <div class="restaurant__category">
       <img
-        src="${categoryIcon[category]}"
+        src="${CATEGORY_ICON[category]}"
         alt="${category}"
         class="category-icon"
       />

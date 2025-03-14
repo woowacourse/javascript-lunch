@@ -11,6 +11,7 @@ import { restaurantFormValidation } from "../../../validation/restaurantFormVali
 import createRestaurantItem from "../item/item.js";
 import Toast from "../../Toast/Toast.js";
 import { createElement } from "../../../utils/dom.ts";
+import { RESTAURANT_FIELD_LENGTH } from "../../../settings/settings.ts";
 
 export default function createRestaurantForm(restaurantList) {
   const restaurantAddForm = createElement("form", {
@@ -42,14 +43,14 @@ export default function createRestaurantForm(restaurantList) {
       labelText: "설명",
       id: "description",
       textCaption: "메뉴 등 추가 정보를 입력해 주세요.",
-      placeholder: "설명은 300자 이하여야 합니다. 맛있는 설명을 곁들여 주세요!",
+      placeholder: `설명은 ${RESTAURANT_FIELD_LENGTH.name.max}자 이하여야 합니다. 맛있는 설명을 곁들여 주세요!`,
     }),
     createInputBox({
       labelText: "참고 링크",
       type: "text",
       id: "link",
       textCaption: "메장 정보를 확인할 수 있는 링크를 입력해 주세요.",
-      placeholder: "https://example.com 링크는 300자 이하여야 합니다.",
+      placeholder: `https://example.com 링크는 ${RESTAURANT_FIELD_LENGTH.link.max}자 이하여야 합니다.`,
     })
   );
 
