@@ -1,5 +1,5 @@
 import { DEFAULT_RESTAURANT_LIST, LOCAL_STORAGE_KEY_MAP } from '../../src/lib/constants';
-import { ERROR_MESSAGES, PREVIEW_URL } from './constants';
+import { PREVIEW_URL } from './constants';
 import { type LanguageType } from './types';
 
 const URL = PREVIEW_URL; // TODO: 환경에 따라 다른 URL 사용
