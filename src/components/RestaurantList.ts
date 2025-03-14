@@ -43,60 +43,6 @@ export default class RestaurantList extends Component<RestaurantListState> {
   }
 
   /**
-   * 이벤트 리스너
-   */
-
-  attachEventListener() {
-    this.element.addEventListener('click', (event) => {
-      if (!event.target) return;
-
-      const target = event.target as HTMLElement;
-
-      if (target.closest('#like__button') && target.dataset.id) {
-        this.#toggleLike(target.dataset.id);
-        return;
-      }
-
-      if (target.closest('.restaurant')) {
-        this.setState({
-          currentRestaurant: this.state.restaurants.find(
-            (restaurant) => restaurant.id === (target.closest('.restaurant') as HTMLElement).dataset.id,
-          ),
-        });
-        this.element.querySelector('#restaurant-detail-modal')?.classList.add('modal--open');
-        return;
-      }
-
-      if (target.closest('#modal-delete')) {
-        this.#deleteRestaurant(this.state.currentRestaurant?.id ?? '');
-        return;
-      }
-    });
-  }
-
-  #deleteRestaurant(id: string) {
-    this.setState({
-      restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
-    });
-    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
-  }
-
-  #toggleLike(restaurantName: string) {
-    const copiedRestaurants = [...this.state.restaurants];
-
-    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.id === restaurantName);
-    const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
-
-    copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });
-
-    this.setState({
-      restaurants: copiedRestaurants,
-    });
-
-    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
-  }
-
-  /**
    * 자식 컴포넌트 렌더링
    */
 
@@ -174,6 +120,60 @@ export default class RestaurantList extends Component<RestaurantListState> {
   #addRestaurant(restaurant: RestaurantType) {
     this.setState({
       restaurants: [...this.state.restaurants, restaurant],
+    });
+
+    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
+  }
+
+  /**
+   * 이벤트 리스너
+   */
+
+  attachEventListener() {
+    this.element.addEventListener('click', (event) => {
+      if (!event.target) return;
+
+      const target = event.target as HTMLElement;
+
+      if (target.closest('#like__button') && target.dataset.id) {
+        this.#toggleLike(target.dataset.id);
+        return;
+      }
+
+      if (target.closest('.restaurant')) {
+        this.setState({
+          currentRestaurant: this.state.restaurants.find(
+            (restaurant) => restaurant.id === (target.closest('.restaurant') as HTMLElement).dataset.id,
+          ),
+        });
+        this.element.querySelector('#restaurant-detail-modal')?.classList.add('modal--open');
+        return;
+      }
+
+      if (target.closest('#modal-delete')) {
+        this.#deleteRestaurant(this.state.currentRestaurant?.id ?? '');
+        return;
+      }
+    });
+  }
+
+  #deleteRestaurant(id: string) {
+    this.setState({
+      restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
+  }
+
+  #toggleLike(restaurantName: string) {
+    const copiedRestaurants = [...this.state.restaurants];
+
+    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.id === restaurantName);
+    const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
+
+    copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });
+
+    this.setState({
+      restaurants: copiedRestaurants,
     });
 
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
