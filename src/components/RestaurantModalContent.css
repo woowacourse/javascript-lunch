@@ -1,0 +1,23 @@
+.restaurant__detail .restaurant {
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant__detail .restaurant__description {
+  display: flex;
+}
+
+.restaurant__detail .restaurant__link {
+  display: flex;
+}
+
+.restaurant__detail .favorite-star {
+  display: flex;
+}
+
+.restaurant__detail .titleStar__box .favorite-star {
+  position: absolute;
+  top: 50px;
+  right: 16px;
+}

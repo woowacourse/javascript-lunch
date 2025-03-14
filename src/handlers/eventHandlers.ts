@@ -68,7 +68,7 @@ function resetFormAndState() {
   resetState();
 }
 
-function handleStarToggle(event: Event) {
+export function handleStarToggle(event: Event) {
   const target = event.target;
   if (target instanceof HTMLImageElement) {
     const isActive = target.src.includes('favorite-icon-filled.png');
@@ -79,6 +79,7 @@ function handleStarToggle(event: Event) {
 function handleRestaurantClick(
   event: Event,
   openModal: (data: {
+    category: string;
     name: string;
     distance: string;
     description: string;
@@ -92,8 +93,11 @@ function handleRestaurantClick(
 
   if (!restaurantItem) return;
 
+  const altValue = restaurantItem.querySelector('.category-icon')?.getAttribute('alt') || '';
+  console.log(altValue);
   const restaurantName = restaurantItem.querySelector('.restaurant__name')?.textContent || '';
   const restaurantDistance = restaurantItem.querySelector('.restaurant__distance')?.textContent || '';
+  const numericValue = restaurantDistance.match(/\d+/)?.[0] || '';
   const restaurantDescription = restaurantItem.querySelector('.restaurant__description')?.textContent || '';
   const restaurantImage = restaurantItem.querySelector('.category-icon')?.getAttribute('src') || '';
 
@@ -103,13 +107,19 @@ function handleRestaurantClick(
   const restaurantLink = restaurantItem.querySelector('.restaurant__link')?.getAttribute('href') || '';
 
   openModal({
+    category: altValue,
     name: restaurantName,
-    distance: restaurantDistance,
+    distance: numericValue,
     description: restaurantDescription,
     image: restaurantImage,
     isFavorite: isFavorite,
     link: restaurantLink,
   });
+
+  const closeBtn = document.querySelector('.close-button');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', handleCloseModal);
+  }
 }
 
 let formSubmitHandler: (event: SubmitEvent) => void;
@@ -117,6 +127,7 @@ let formSubmitHandler: (event: SubmitEvent) => void;
 function registerEventHandlers(
   addNewRestaurantItem: () => void,
   openRestaurantModal: (data: {
+    category: string;
     name: string;
     distance: string;
     description: string;

@@ -12,9 +12,11 @@ import {
   filterTab,
   ALL_RESTAURANT_TAB,
   FAVORITE_RESTAURANT_TAB,
+  DELETE_BUTTON,
+  CLOSE_BUTTON,
 } from './constants/constants.ts';
 import { RESTAURANTS } from './data/restaurantData.ts';
-import eventHandlers from './handlers/eventHandlers.ts';
+import eventHandlers, { handleStarToggle } from './handlers/eventHandlers.ts';
 import stateStore from './store/stateStore.ts';
 
 import {
@@ -59,7 +61,7 @@ function addNewRestaurantItem() {
   const ul = document.querySelector('.restaurant-list');
   if (!ul) return;
   const newRestaurantData = stateStore.getState();
-  const newItem = createRestaurantItem(newRestaurantData);
+  const newItem = createRestaurantItem(newRestaurantData, false);
   ul.insertAdjacentHTML('beforeend', newItem);
 }
 
@@ -135,6 +137,7 @@ function appendFilterTab(fieldName: filterTab) {
 }
 
 function openRestaurantModal({
+  category,
   name,
   distance,
   description,
@@ -142,6 +145,7 @@ function openRestaurantModal({
   isFavorite,
   link,
 }: {
+  category: string;
   name: string;
   distance: string;
   description: string;
@@ -154,8 +158,27 @@ function openRestaurantModal({
 
   if (!modal || !modalContent) return;
 
-  const restaurantModalContent = createModalContent({ name, distance, description, image, isFavorite, link });
+  const restaurantModalContent = createModalContent({ category, name, distance, description, image, isFavorite, link });
   modalContent.innerHTML = restaurantModalContent;
 
+  appendRestaurantDetailModalButton(modalContent);
+
+  const modalStar = modalContent.querySelector('.favorite-star');
+  if (modalStar) {
+    modalStar.addEventListener('click', handleStarToggle);
+  }
+
   modal.classList.add('modal--open');
+}
+
+function appendRestaurantDetailModalButton(modalContent: Element) {
+  const buttonDiv = document.createElement('div');
+  buttonDiv.classList.add('button-container');
+
+  modalContent.appendChild(buttonDiv);
+
+  const deleteButton = createButton(DELETE_BUTTON);
+  const closeButton = createButton(CLOSE_BUTTON);
+  buttonDiv.insertAdjacentHTML('beforeend', deleteButton);
+  buttonDiv.insertAdjacentHTML('beforeend', closeButton);
 }

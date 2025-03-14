@@ -1,15 +1,13 @@
-function createModalContent({ name, distance, description, image, isFavorite, link }) {
-  const favoriteIcon = isFavorite ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png';
+// RestaurantModalContent.js
+import { FAV_STAR, IMAGE } from '../constants/constants.ts';
+import createFavoriteStar from './FavoriteStar.js';
+import createRestaurantItem from './RestaurantItem.js';
 
+function createModalContent({ category, name, distance, description, image, isFavorite, link }) {
   return `
-    <div class="modal-header">
-      <img src="${image}" alt="카테고리 아이콘" class="category-icon">
-      <h2 class="modal-title text-title">${name}</h2>
-      <img src="${favoriteIcon}" alt="즐겨찾기 아이콘" class="favorite-star">
+    <div class="modal-header restaurant__detail">
+      ${createRestaurantItem({ category, name, distance, description, image, link }, isFavorite)}
     </div>
-    <p><strong>거리:</strong> ${distance}</p>
-    <p><strong>설명:</strong> ${description}</p>
-    <p><a href="${link}" target="_blank" class="restaurant-modal-link">🔗 매장 정보 보기</a></p>
   `;
 }
 

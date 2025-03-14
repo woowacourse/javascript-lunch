@@ -77,6 +77,18 @@ export const ADD_BUTTON: ButtonField = {
   content: '추가하기',
 };
 
+export const DELETE_BUTTON: ButtonField = {
+  type: 'button',
+  className: 'delete-button button--secondary',
+  content: '삭제하기',
+};
+
+export const CLOSE_BUTTON: ButtonField = {
+  type: 'button',
+  className: 'close-button button--primary',
+  content: '닫기',
+};
+
 type Category = '한식' | '중식' | '일식' | '양식' | '아시안' | '기타' | '전체';
 
 export const IMAGE: Map<Category, string> = new Map([
