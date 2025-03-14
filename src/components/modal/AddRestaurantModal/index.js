@@ -10,6 +10,7 @@ import validateDistance from "../../../validators/validateDistance.js";
 import validateDescription from "../../../validators/validateDescription.js";
 import validateLink from "../../../validators/validateLink.js";
 import { $ } from "../../../utils/selector.js";
+import { makeUniqueId } from "../../../utils/makeUniqueId.js";
 
 class AddRestaurantModal extends Modal {
   contents() {
@@ -57,7 +58,7 @@ class AddRestaurantModal extends Modal {
 
       this.validateData(data);
 
-      this.props.updateRestaurant(data);
+      this.props.updateRestaurant({ ...data, id: makeUniqueId(data.name) });
       this.close();
     } catch (error) {
       alert(error.message);

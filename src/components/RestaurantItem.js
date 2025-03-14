@@ -11,9 +11,9 @@ const imageSource = (category) => {
   return CATEGORY_IMAGES[category];
 };
 
-const RestaurantItem = ({ category, name, distance, description }) => {
+const RestaurantItem = ({ category, name, distance, description, id }) => {
   return /* html */ `
-    <li id="${name}" class="restaurant">
+    <li id="${id}" class="restaurant">
       <div class="restaurant__category">
         <img src="./icons/${imageSource(
           category

@@ -13,6 +13,7 @@ import {
   getItemFromLocalStorage,
 } from "./database/localStorage.js";
 import RestaurantInfoModal from "./components/modal/RestaurantInfoModal/index.js";
+import { makeUniqueId } from "./utils/makeUniqueId.js";
 
 class App extends Component {
   setup() {
@@ -43,7 +44,7 @@ class App extends Component {
 
   deleteRestaurant(targetRestaurant) {
     const newRestaurantList = [...this.state.restaurants].filter(
-      ({ name }) => name !== targetRestaurant.name
+      ({ id }) => id !== targetRestaurant.id
     );
     this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
 
@@ -55,8 +56,8 @@ class App extends Component {
   }
 
   renderDeleteRestaurant(targetRestaurant) {
-    const { name } = targetRestaurant;
-    const $targetRestaurant = $(document, `#${name}`);
+    const { id } = targetRestaurant;
+    const $targetRestaurant = $(document, `#${id}`);
     $targetRestaurant.remove();
   }
 
@@ -107,7 +108,7 @@ class App extends Component {
       const restaurantList = this.props.getItemFromLocalStorage(this.props.KEY);
 
       const restaurant = restaurantList.find(
-        ({ name }) => name === restaurantItem.id
+        ({ id }) => id === restaurantItem.id
       );
 
       const restaurantInfoModal = new RestaurantInfoModal(
@@ -122,8 +123,17 @@ class App extends Component {
 
 const KEY = "restaurantList";
 
-const initialList = getItemFromLocalStorage(KEY) ?? restaurants;
-setItemToLocalStorage(KEY, initialList);
+const initializeRestaurantList = (restaurants) => {
+  return restaurants.map((restaurant) => ({
+    ...restaurant,
+    id: makeUniqueId(restaurant.name), // id 추가
+  }));
+};
+
+const initialList = initializeRestaurantList(restaurants);
+const restaurantList = getItemFromLocalStorage(KEY) ?? initialList;
+
+setItemToLocalStorage(KEY, restaurantList);
 
 const app = $(document, "#app");
 new App(app, { setItemToLocalStorage, getItemFromLocalStorage, KEY });
