@@ -6,6 +6,7 @@ const addData = () => {
   const formData = new FormData(
     document.getElementById("input-form") as HTMLFormElement,
   );
+
   const submittedData = Object.fromEntries(formData);
   const information = {
     name: submittedData.name,
@@ -13,8 +14,10 @@ const addData = () => {
     description: submittedData.description,
     imgSrc: `./category-${submittedData.category}.png`,
     imgAlt: `${categoryValue[submittedData.category as string]}`,
+    category: `${categoryValue[submittedData.category as string]}`,
   };
   RestaurantData.push(information as Restaurant);
+  localStorage.setItem("restaurantList", JSON.stringify([...RestaurantData]));
   document.dispatchEvent(new CustomEvent("restaurantUpdated"));
 };
 
