@@ -59,8 +59,20 @@ class RestaurantList {
     return [...this.#restaurants];
   }
 
-  deleteRestaurant(id) {
-    return (this.#restaurants = this.#restaurants.filter((data) => data.id !== id));
+  deleteRestaurant({ id, tab, order, category }) {
+    this.#restaurants = this.#restaurants.filter((data) => data.id !== id);
+
+    if (tab === 'all') {
+      return {
+        originalList: this.#restaurants,
+        deletedRestaurantList: this.filterRestaurant(category, order),
+      };
+    } else if (tab === 'favorite') {
+      return {
+        originalList: this.#restaurants,
+        deletedRestaurantList: this.filterFavorite(),
+      };
+    }
   }
 }
 

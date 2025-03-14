@@ -100,10 +100,17 @@ class RestaurantController {
   };
 
   #handleDelete = (event, id) => {
-    const deletedRestaurantList = this.#restaurantList.deleteRestaurant(id);
-    this.#restaurantStorage.updateStorage(deletedRestaurantList);
-    this.#updateRestaurantUI(deletedRestaurantList);
-    this.#detailModal.modal.toggle();
+    if (window.confirm('해당 식당을 삭제하시겠습니까?')) {
+      const { originalList, deletedRestaurantList } = this.#restaurantList.deleteRestaurant({
+        id,
+        tab: this.#tab,
+        order: this.#order,
+        category: this.#category,
+      });
+      this.#restaurantStorage.updateStorage(originalList);
+      this.#updateRestaurantUI(deletedRestaurantList);
+      this.#detailModal.modal.toggle();
+    }
   };
 
   #handleClickItem = (event, data) => {

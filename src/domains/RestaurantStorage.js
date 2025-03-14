@@ -7,7 +7,6 @@ class RestaurantStorage {
   constructor() {
     this.#key = 'restaurant';
     this.#restaurants = this.#loadFromLocalStorage();
-    this.saveToStorage();
   }
 
   saveToStorage() {
