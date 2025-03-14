@@ -26,14 +26,26 @@ export default function RestaurantFilterTabs() {
 
     $allTab.addEventListener("click", () => {
         selectedFilterValue.updateSelectedFilterValue("restaurant-tab", false);
-        Restaurant({isReRender: true})
+        wishListClassToggle();
+        Restaurant({isReRender: true});
     });
 
     $wishTab.addEventListener("click", () => {
         selectedFilterValue.updateSelectedFilterValue("restaurant-tab", true);
-        Restaurant({isReRender: true})
-
+        wishListClassToggle();
+        Restaurant({isReRender: true});
     });
+
+    function wishListClassToggle() {
+        console.log("야!")
+        if(selectedFilterValue.getIsWishList()) {
+            $wishTab.classList.add("active");
+            $allTab.classList.remove("active");
+        } else {
+            $allTab.classList.add("active");
+            $wishTab.classList.remove("active");
+        }
+    }
 
     return $restaurantFilterContainer;
 }

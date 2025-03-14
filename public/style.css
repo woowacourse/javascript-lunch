@@ -211,6 +211,25 @@ select {
   -webkit-box-orient: horizontal;
 }
 
+.restaurant-filter-tabs {
+  display: flex;
+  
+}
+
+.restaurant-tab {
+  flex-grow: 1;
+  font-weight: 600;
+  color: #667085;
+  border: none;
+  border-bottom: 2px solid #D0D5DD;
+  height: 40px;
+}
+
+.restaurant-tab.active {
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
+}
+
 /* 음식점 추가 모달 *****************************************/
 .modal {
   display: none;
