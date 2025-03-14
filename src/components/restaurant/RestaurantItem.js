@@ -1,5 +1,7 @@
 import restaurantDataList from "../../domain/RestaurantDataList";
 import createElement from "../../util/createElement";
+import Modal from "../modal/Modal";
+import RestaurantDetailModal from "../modal/restaurant-detail/RestaurantDetailModal";
 
 export default function RestaurantItem({
   id,
@@ -40,6 +42,10 @@ export default function RestaurantItem({
   $restaurantItem.addEventListener("click", (event) => {
     if (event.target.name === "favorite__star") {
       restaurantDataList.changeFavorite(id);
+    } else {
+      const dataById = restaurantDataList.getDataById(id);
+      console.log(dataById);
+      Modal(() => RestaurantDetailModal({ ...dataById }));
     }
   });
 

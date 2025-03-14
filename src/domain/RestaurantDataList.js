@@ -96,6 +96,12 @@ export class RestaurantDataList {
     this.getFilteredDataList();
   }
 
+  getDataById(id) {
+    return this.#dataList
+      .find((restaurantData) => restaurantData.getData().id === id)
+      .getData();
+  }
+
   addData(data) {
     this.#dataList.push(this.createData(data));
 
