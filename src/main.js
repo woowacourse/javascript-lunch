@@ -161,8 +161,12 @@ function initRestaurantItems() {
 }
 
 function updateRestaurantElements() {
-  const data = storeService.getRestaurants();
-  const sortedRestaurants = sortRestaurants(SORT_SELECTOR.default, data);
+  const { sort, category, isFavoriteTab } = stateStore.getState();
+  const allRestaurants = storeService.getRestaurants();
+
+  const favoriteFiltered = filterByFavorite(isFavoriteTab, allRestaurants);
+  const categoryFiltered = filterByCategory(category, favoriteFiltered);
+  const sortedRestaurants = sortRestaurants(sort, categoryFiltered);
 
   appendRestaurantItems(sortedRestaurants);
 }
