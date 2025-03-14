@@ -1,5 +1,4 @@
 import FoodForm from "../component/FoodForm.js";
-import FoodItem from "../component/FoodItem.js";
 import FoodList from "../component/FoodList.js";
 import { Header } from "../component/layout/Header.js";
 import Modal from "../component/layout/modal/Modal.js";
@@ -57,7 +56,7 @@ export default class MainPage {
     this.container.appendChild(this.getFoodListElement());
   }
 
-  handleSubmit(formData: FoodItemProps) {
+  handleSubmit(formData: FoodItemType) {
     this.foodList.addItem(formData);
     this.modal.close();
   }

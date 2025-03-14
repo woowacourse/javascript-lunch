@@ -25,6 +25,7 @@
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+  z-index: 100;
 }
 
 .modal-title {

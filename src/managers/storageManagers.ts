@@ -1,7 +1,7 @@
 import { notifyFavoriteChange } from "./eventManagers";
 
-export function storeFoodItems(foodItem: FoodItemProps) {
-  localStorage.setItem("foodItems", JSON.stringify(foodItem));
+export function storeFoodItems(foodItems: FoodItemType[]) {
+  localStorage.setItem("foodItems", JSON.stringify(foodItems));
 }
 
 export function getStoredFoodItems() {
@@ -12,12 +12,12 @@ export function getStoredFoodItems() {
 }
 
 export function removeStoredFoodItem(id: string) {
-  const filteredItems = getStoredFoodItems().filter((item: FoodItemProps) => item.id !== id);
+  const filteredItems = getStoredFoodItems().filter((item: FoodItemType) => item.id !== id);
   localStorage.setItem("foodItems", JSON.stringify(filteredItems));
 }
 
 export function toggleFavorite(id: string) {
-  const resultItems = getStoredFoodItems().map((foodItem: FoodItemProps) => {
+  const resultItems = getStoredFoodItems().map((foodItem: FoodItemType) => {
     if (foodItem.id === id) {
       return { ...foodItem, isFavorite: !foodItem.isFavorite };
     }

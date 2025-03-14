@@ -9,15 +9,15 @@ import Modal from "./layout/modal/Modal.js";
 type CssTypeProps = "row" | "column";
 
 interface FoodItemOptions {
-  data: FoodItemProps;
+  data: FoodItemType;
   cssType: CssTypeProps;
-  isModalFoodItem: boolean;
+  isModalFoodItem?: boolean;
 }
 
 export default class FoodItem {
   container: HTMLElement;
 
-  #data: FoodItemProps;
+  #data: FoodItemType;
   #id: string;
   #category: Category;
   #name: string;

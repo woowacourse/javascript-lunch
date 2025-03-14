@@ -8,15 +8,15 @@ import { SelectInput } from "./input/SelectInput.js";
 import { TextareaInput } from "./input/TextareaInput";
 import { alertError } from "./layout/alert/alertError.js";
 
-interface FoodFormProps {
+interface FoodFormOptions {
   onModalClose: () => void;
-  onSubmit: (formData: FoodItemProps) => void;
+  onSubmit: (formData: FoodItemType) => void;
 }
 
 export default class FoodForm {
   container: HTMLFormElement;
 
-  constructor({ onModalClose = () => {}, onSubmit = () => {} }: FoodFormProps) {
+  constructor({ onModalClose = () => {}, onSubmit = () => {} }: FoodFormOptions) {
     this.container = document.createElement("form");
     this.container.setAttribute("novalidate", "true");
 
@@ -112,9 +112,9 @@ export default class FoodForm {
       ...formObject,
       id: crypto.randomUUID(),
       isFavorite: false,
-    } as FoodItemProps;
+    } as FoodItemType;
   }
-  validateFoodForm(formData: FoodItemProps) {
+  validateFoodForm(formData: FoodItemType) {
     validateRequiredInput(formData.category);
     validateRequiredInput(formData.name);
     validateLength(formData.name, NAME_MAX_LENGTH);

@@ -1,3 +1,5 @@
+type CategoryType = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+
 const categoryMap = {
   한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },
   중식: { imgAlt: "중식", imgSrc: "./category-chinese.png" },
@@ -7,6 +9,6 @@ const categoryMap = {
   기타: { imgAlt: "기타", imgSrc: "./category-etc.png" },
 };
 
-export function getImgSrcAlt(category) {
+export function getImgSrcAlt(category: CategoryType) {
   return categoryMap[category] || categoryMap["기타"];
 }
