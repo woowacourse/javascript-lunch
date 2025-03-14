@@ -4,16 +4,19 @@ import RestaurantInfo from './RestaurantInfo.js';
 import Star from './star.js';
 
 class RestaurantItem {
-  constructor(restaurant) {
-    const div = this.#createRestaurantItem(restaurant);
-    return div;
+  #restaurant;
+  #onRestaurantUpdate;
+
+  constructor(restaurant, onRestaurantUpdate) {
+    this.#onRestaurantUpdate = onRestaurantUpdate;
+    this.#restaurant = this.#createRestaurantItem(restaurant);
   }
 
   #createRestaurantItem = (restaurant) => {
     const li = document.createElement('li');
 
     const icon = new RestaurantIcon(restaurant.getCategory());
-    const star = new Star(restaurant).getElement();
+    const star = new Star(restaurant, this.#onRestaurantUpdate).getElement();
     const info = new RestaurantInfo(restaurant.getName(), restaurant.getDistance(), restaurant.getDescription());
 
     li.classList = 'restaurant';
@@ -23,5 +26,9 @@ class RestaurantItem {
 
     return li;
   };
+
+  getElement() {
+    return this.#restaurant;
+  }
 }
 export default RestaurantItem;

@@ -1,10 +1,12 @@
 class Star {
   #star;
   #like;
+  #onRestaurantUpdate;
   restaurant;
 
-  constructor(restaurant) {
+  constructor(restaurant, onRestaurantUpdate) {
     this.restaurant = restaurant;
+    this.#onRestaurantUpdate = onRestaurantUpdate;
     this.#like = restaurant.getLike();
     this.#createStar();
     this.#bindEvent();
@@ -29,10 +31,12 @@ class Star {
 
   #bindEvent = () => {
     this.#star.addEventListener('click', () => {
-      console.log('here', this.#like);
       this.#like = !this.#like;
       this.restaurant.setLike(this.#like);
       this.#toggle(this.#like);
+      if (this.#onRestaurantUpdate) {
+        this.#onRestaurantUpdate();
+      }
     });
   };
 
