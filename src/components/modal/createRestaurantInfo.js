@@ -1,7 +1,7 @@
 import $button from "../common/button.js";
 import $buttonContainer from "../layout/button-container.js";
 import { UI_CONFIG } from "../../constants/uiConfig.js";
-import { handleModalOpen } from "./modal.js";
+import { handleModalClose, handleModalOpen } from "./modal.js";
 
 const $createRestaurantInfo = ({
   categoryIcon,
@@ -51,9 +51,11 @@ const $createRestaurantInfo = ({
     container.appendChild(InfoLink);
   }
 
+  const deleteEvent = { eventType: null, eventHandler: null };
+  const closeEvent = { eventType: "click", eventHandler: handleModalClose };
   const deleteCloseButtons = $buttonContainer([
-    $button(UI_CONFIG.BUTTONS.DELETE),
-    $button(UI_CONFIG.BUTTONS.CLOSE),
+    $button(UI_CONFIG.BUTTONS.DELETE, deleteEvent),
+    $button(UI_CONFIG.BUTTONS.CLOSE, closeEvent),
   ]);
 
   container.appendChild(deleteCloseButtons);

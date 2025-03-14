@@ -1,4 +1,5 @@
-const $form = (formFields, { eventType, eventHandler }) => {
+const $form = (formFields, formEvent) => {
+  const { eventType, eventHandler } = formEvent;
   const form = document.createElement("form");
   form.id = "add-restaurant-form";
 
@@ -6,7 +7,9 @@ const $form = (formFields, { eventType, eventHandler }) => {
     form.appendChild(field);
   });
 
-  form.addEventListener(eventType, eventHandler);
+  if (eventType && eventHandler) {
+    form.addEventListener(eventType, eventHandler);
+  }
 
   return form;
 };
