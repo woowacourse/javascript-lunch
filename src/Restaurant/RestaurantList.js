@@ -3,9 +3,10 @@ import { restaurantsData } from "../constants/restaurantsMockData";
 import renderRestaurantElement from "./RestaurantItem";
 
 class RestaurantList {
-  constructor() {
+  constructor(selectedCategory = "전체") {
     this.restaurants = [...restaurantsData];
     this.restaurantListElement = null;
+    this.selectedCategory = selectedCategory;
   }
 
   createRestaurantList() {
@@ -21,10 +22,19 @@ class RestaurantList {
   }
 
   render() {
-    if (!this.restaurantListElement) return;
-
     this.restaurantListElement.innerHTML = "";
-    this.restaurants.forEach((restaurant) => {
+
+    let filteredData;
+
+    if (this.selectedCategory === "전체") {
+      filteredData = this.restaurants;
+    } else {
+      filteredData = this.restaurants.filter(
+        (restaurant) => restaurant.category == this.selectedCategory
+      );
+    }
+
+    filteredData.forEach((restaurant) => {
       const restaurantItem = renderRestaurantElement(restaurant);
       this.restaurantListElement.appendChild(restaurantItem);
     });

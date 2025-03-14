@@ -1,4 +1,6 @@
 import { CATEGORIES } from "../../constants/constants";
+import { restaurantsData } from "../../constants/restaurantsMockData";
+import RestaurantList from "../../Restaurant/RestaurantList";
 
 const createCategoryFilter = () => {
   const addrestaurant_filter_container = document.querySelector(
@@ -29,13 +31,13 @@ function handleOnChange(selectedCategory) {
   const text = selectedCategory.options[selectedCategory.selectedIndex].text;
   const selectedCategoryResult = document.getElementById("result");
   showSelectedCategoryRestaurantList(text);
-  console.log("전체0000");
 }
 
 function showSelectedCategoryRestaurantList(selectedCategory) {
-  if (selectedCategory === "전체") {
-    console.log("전체");
-  }
+  const restaurantList = new RestaurantList(selectedCategory);
+  restaurantList.createRestaurantList();
 }
 
 export default createCategoryFilter;
+
+// const newArray = array.filter((element) => 조건);
