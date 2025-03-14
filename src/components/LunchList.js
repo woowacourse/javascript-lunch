@@ -8,6 +8,7 @@ export function LunchList(targetID) {
       name: "도스타코스 선릉점",
       distance: 5,
       description: "멕시칸 캐주얼 그릴",
+      isFavorite: true,
     }),
     LunchItem({
       category: "japanese",
@@ -15,6 +16,7 @@ export function LunchList(targetID) {
       distance: 10,
       description:
         "잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다",
+      isFavorite: false,
     }),
   ];
   const ul = createElement("ul");
