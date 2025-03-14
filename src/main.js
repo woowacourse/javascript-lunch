@@ -43,6 +43,11 @@ addEventListener("load", () => {
     initRenderer.setModal();
     querySelector(".modal").classList.add("modal--open");
     modalRenderer.setStoreInfoModal();
+
+    querySelector("#close-button").addEventListener(
+      "click",
+      modalRenderer.closeModal
+    );
   });
 
   querySelector(".restaurant-menuBar-container").addEventListener(
