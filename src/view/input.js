@@ -1,5 +1,4 @@
 import { ERROR_MESSAGE } from "../constants/error";
-import addIdToError from "../utils/attachError";
 import { $ } from "../utils/dom";
 import validateInfo from "../validate/validateRestaurantInfo";
 
