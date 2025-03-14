@@ -89,12 +89,13 @@ class App {
     this.#onChangedSorting();
   };
 
+  #modalClickHandler = () => {
+    this.addRestaurantModal.openModal();
+  };
+
   #initAppUI() {
     this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.restaurantListContainer);
-    const modalClickHandler = () => {
-      this.addRestaurantModal.openModal();
-    };
-    new Header({ appContainer: this.appContainer, onClickIcon: modalClickHandler });
+    new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
     this.#restaurantList = new RestaurantList(this.restaurantListContainer);
   }
 }
