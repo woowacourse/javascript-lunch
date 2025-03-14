@@ -8,4 +8,11 @@ export const storageHandler = {
 
     localStorage.setItem(key, JSON.stringify(newData));
   },
+  filterItem: (key, value) => {
+    const newData = JSON.parse(localStorage.getItem(key)).filter(
+      (item) => item.categoryTitle === value
+    );
+
+    return newData;
+  },
 };

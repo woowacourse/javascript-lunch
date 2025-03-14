@@ -9,6 +9,9 @@ import {
 } from "./selectOptions.js";
 import { validateRestaurantForm } from "../validation/validationForm.js";
 import { deepFreeze } from "../utils/deepFreeze.js";
+import { storageHandler } from "../utils/storageHandler.js";
+import { STORAGE_KEY_NAME } from "./storage.js";
+import $restaurantItem from "../components/restaurant/restaurant-item.js";
 
 const senseChangeRestaurantFormValue = () => {
   try {
@@ -23,6 +26,18 @@ const senseChangeRestaurantFormValue = () => {
     submitButton.classList.add("button--disabled");
     submitButton.disabled = true;
   }
+};
+
+const handleFilterItem = () => {
+  const category = document.getElementById("category-filter").value ?? "";
+  const filterList = storageHandler.filterItem(STORAGE_KEY_NAME, category);
+
+  const restaurantList = document.querySelector(".restaurant-list");
+  restaurantList.replaceChildren();
+
+  filterList.forEach((item) => {
+    restaurantList.appendChild($restaurantItem(item));
+  });
 };
 
 export const FORM_FIELDS = deepFreeze({
@@ -80,7 +95,7 @@ export const FORM_FIELDS = deepFreeze({
     categoryFilter: {
       options: categoryFilterOptions,
       eventType: "change",
-      event: null,
+      event: handleFilterItem,
       attribute: {
         id: "category-filter",
         name: "restaurant-filter",
