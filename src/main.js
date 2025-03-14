@@ -1,5 +1,5 @@
-import { FoodListPage } from "./pages/FoodListPage.js";
+import MainPage from "./pages/MainPage.ts";
 
 window.addEventListener("load", () => {
-  FoodListPage();
+  new MainPage();
 });
