@@ -20,8 +20,6 @@ function App() {
     filterOptions.sorting
   );
 
-  const filteredRestaurants = getFilteredRestaurants();
-
   return `
     <div>
       ${Header()}
@@ -30,10 +28,10 @@ function App() {
         currentTab === TAB.ALL
           ? `
             ${FilterSection({
-              onFilterChange: setFilterOptions,
+              setFilterOptions,
             })}
             ${RestaurantList({
-              restaurants: filteredRestaurants ?? [],
+              restaurants: getFilteredRestaurants() ?? [],
             })}
           `
           : `

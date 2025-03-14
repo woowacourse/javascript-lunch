@@ -1,9 +1,9 @@
 import { CATEGORY_IMAGES, ICON_IMAGES } from '../assets/images';
+import useFavorite from '../hooks/useFavorite';
 import useModal from '../hooks/useModal';
 import { RestaurantType } from '../types/restaurants';
 import { $ } from '../utils/@common/domHelper';
 import EventManager from '../utils/@common/EventManager';
-import { getStorage, saveStorage } from '../utils/@common/localStorage';
 import { useState } from '../utils/core/Core';
 import Button from './@common/Button';
 import BottomSheet from './BottomSheet';
@@ -12,11 +12,11 @@ interface RestaurantProps extends Omit<RestaurantType, 'isFavorite'> {}
 
 const Restaurant = (props: RestaurantProps) => {
   const { category, name, distance, description, link } = props;
-
   const [favorite, setFavorite] = useState(false);
-
   const [isModalOpen, openModal, closeModal] = useModal(false);
+  const { handleFavoriteToggle } = useFavorite();
   const eventManager = new EventManager($('#app'));
+
   const buttonId = `favorite-${crypto.randomUUID()}`;
   const restaurantId = `restaurant-${crypto.randomUUID()}`;
 
@@ -24,23 +24,8 @@ const Restaurant = (props: RestaurantProps) => {
     openModal();
   });
 
-  const handleFavoriteToggle = () => {
-    setFavorite(!favorite);
-
-    const storedRestaurants = getStorage() || [];
-
-    const updatedRestaurants = storedRestaurants.map(
-      (restaurant: RestaurantType) =>
-        restaurant.name === name
-          ? { ...restaurant, isFavorite: !favorite }
-          : restaurant
-    );
-
-    saveStorage(updatedRestaurants);
-  };
-
   eventManager.addEvent('click', `#${buttonId}`, () => {
-    handleFavoriteToggle();
+    handleFavoriteToggle(name, favorite, setFavorite);
   });
 
   return `
@@ -88,8 +73,11 @@ const Restaurant = (props: RestaurantProps) => {
             onClose: () => {
               closeModal();
             },
-            handleFavoriteToggle,
+            handleFavoriteToggle: () => {
+              handleFavoriteToggle(name, favorite, setFavorite);
+            },
             buttonId,
+            setFavorite,
           })
         : ''
     }

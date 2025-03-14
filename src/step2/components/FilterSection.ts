@@ -4,22 +4,21 @@ import { CategorySelect } from './CategorySelect';
 import { SortingSelect } from './SortingSelect';
 
 interface FilterSectionProps {
-  onFilterChange: (filter: { category: Category; sorting: Sorting }) => void;
+  setFilterOptions: (filter: { category: Category; sorting: Sorting }) => void;
 }
 
-const FilterSection = ({ onFilterChange }: FilterSectionProps) => {
+const FilterSection = ({ setFilterOptions }: FilterSectionProps) => {
   const [category, setCategory] = useState<Category>('전체');
   const [sorting, setSorting] = useState<Sorting>('name');
 
-  // 상태 변경시 상위 컴포넌트에 알림
   const handleCategoryChange = (newCategory: Category) => {
     setCategory(newCategory);
-    onFilterChange({ category: newCategory, sorting });
+    setFilterOptions({ category: newCategory, sorting });
   };
 
   const handleSortChange = (newSorting: Sorting) => {
     setSorting(newSorting);
-    onFilterChange({ category, sorting: newSorting });
+    setFilterOptions({ category, sorting: newSorting });
   };
 
   return `

@@ -3,13 +3,19 @@ import { RestaurantType } from '../types/restaurants';
 import { $ } from '../utils/@common/domHelper';
 import EventManager from '../utils/@common/EventManager';
 import { getStorage, saveStorage } from '../utils/@common/localStorage';
+import { Dispatch } from '../utils/core/Core';
 import Button from './@common/Button';
 
 interface BottomSheetProps extends Omit<RestaurantType, 'isFavorite'> {
   favorite: boolean;
   onClose: () => void;
-  handleFavoriteToggle: () => void;
+  handleFavoriteToggle: (
+    name: string,
+    favorite: boolean,
+    setFavorite: Dispatch<boolean>
+  ) => void;
   buttonId: string;
+  setFavorite: Dispatch<boolean>;
 }
 
 const BottomSheet = (props: BottomSheetProps) => {
@@ -23,6 +29,7 @@ const BottomSheet = (props: BottomSheetProps) => {
     onClose,
     handleFavoriteToggle,
     buttonId,
+    setFavorite,
   } = props;
   const eventManager = new EventManager($('#app'));
 
@@ -55,7 +62,7 @@ const BottomSheet = (props: BottomSheetProps) => {
   );
 
   eventManager.addEvent('click', `#${buttonId}`, () => {
-    handleFavoriteToggle();
+    handleFavoriteToggle(name, favorite, setFavorite);
   });
 
   return `
