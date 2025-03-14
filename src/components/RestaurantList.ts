@@ -150,7 +150,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
         return;
       }
 
-      if (target.closest('#modal-delete')) {
+      if (target.closest('#delete-restaurant')) {
         this.#deleteRestaurant(this.state.currentRestaurant?.id ?? '');
         return;
       }

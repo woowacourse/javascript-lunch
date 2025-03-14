@@ -22,7 +22,7 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
     const deleteButton = new Button({
       type: 'button',
       class: 'button--secondary',
-      id: 'modal-delete',
+      id: 'delete-restaurant',
       message: '삭제하기',
     });
 
