@@ -10,6 +10,7 @@ export default class FoodList {
   constructor({ foodItems }) {
     this.#originFoodItems = foodItems;
     this.#filteredFoodItems = foodItems;
+
     this.foodList = document.createElement("ul");
     this.foodList.classList.add("restaurant-list");
 
@@ -56,7 +57,6 @@ export default class FoodList {
 
   filterFavoriteItem() {
     this.#filteredFoodItems = this.#originFoodItems.filter((foodItem) => foodItem.isFavorite);
-
     this.render();
   }
 

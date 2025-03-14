@@ -1,5 +1,6 @@
 import { toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
+import Modal from "./layout/modal/Modal.js";
 
 export default class FoodItem {
   container: HTMLElement;
@@ -24,6 +25,7 @@ export default class FoodItem {
 
     this.render();
     this.setUpFavoriteToggle();
+    this.showDetail();
   }
 
   getBookmarkIconSrc() {
@@ -43,6 +45,16 @@ export default class FoodItem {
 
       toggleFavorite(this.#id);
       this.render();
+    });
+  }
+
+  showDetail() {
+    this.container.querySelector("li")?.addEventListener("click", () => {
+      const detailModalContent = document.createElement("div");
+
+      const detailModal = new Modal({ content: detailModalContent });
+      detailModal.open();
+      document.querySelector("body")?.appendChild(detailModal.element);
     });
   }
 
