@@ -6,6 +6,22 @@ export const UI_CONFIG = deepFreeze({
     buttonTitle: "음식점 추가",
     buttonImage: "images/add-button.png",
   },
+  TABS: {
+    ALL: {
+      text: "모든 음식점",
+      attribute: {
+        type: "button",
+        className: "button button--secondary text-caption cancel-button",
+      },
+    },
+    FAVORITE: {
+      text: "자주 가는 음식점",
+      attribute: {
+        type: "button",
+        className: "button button--secondary text-caption cancel-button",
+      },
+    },
+  },
   BUTTONS: {
     CANCEL: {
       text: "취소하기",
