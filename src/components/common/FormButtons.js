@@ -1,6 +1,6 @@
 import { Button } from "./Button.js";
 
-export function FormButtons(formName) {
+export function FormButtons(formName, buttonValue) {
   const storeAddBtns = `${Button({
     id: "closeModalBtn",
     type: "button",
@@ -18,7 +18,8 @@ export function FormButtons(formName) {
     id: "storeDeleteBtn",
     type: "submit",
     content: "삭제하기",
-    dataSet: "storeDelete",
+    dataSet: "deleteStore",
+    buttonValue,
   })}
 
   ${Button({
