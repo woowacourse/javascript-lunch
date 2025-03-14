@@ -28,12 +28,12 @@ function initFilterSelect() {
     dropdownList: SORT_FILTER_DROPDOWN_LIST,
   });
 
-  $(".restaurant-filter-container").append(categoryFilter);
-  $(".restaurant-filter-container").append(sortingFilter);
+  DOM.$filterContainer.append(categoryFilter);
+  DOM.$filterContainer.append(sortingFilter);
 }
 
 function initRestaurantList() {
-  DOM.$body.append(RestaurantList.create());
+  DOM.$restaurantContainer.append(RestaurantList.create());
   RestaurantList.applyData();
 }
 
