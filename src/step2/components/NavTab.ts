@@ -1,24 +1,34 @@
 import { Tab, TAB } from '../constants/restaurantTypes';
+import useTab from '../hooks/useTab';
 import { $ } from '../utils/@common/domHelper';
 import EventManager from '../utils/@common/EventManager';
+import { Dispatch } from '../utils/core/Core';
 
 interface NavTabProps {
-  tab: Tab;
-  setTabAll: () => void;
-  setTabFavorite: () => void;
+  onTabChange: Dispatch<Tab>;
 }
 
-function NavTab(props: NavTabProps) {
+function NavTab({ onTabChange }: NavTabProps) {
+  const [tab, setTabAll, setTabFavorite] = useTab(TAB.ALL);
+
+  const handleTabChange = (newTab: Tab) => {
+    if (newTab === TAB.ALL) {
+      setTabAll();
+    } else {
+      setTabFavorite();
+    }
+    onTabChange(newTab);
+  };
+
   const eventManager = new EventManager($('#app'));
-  const { tab, setTabAll, setTabFavorite } = props;
 
   /**@todo 왜 렌더링이 2번씩 될까? 그리고 탭 클릭할 때마다 렌더링이 되는데 최적화방법 찾아보자 */
   eventManager.addEvent('click', '#nav-tab-1', () => {
-    setTabAll();
+    handleTabChange(TAB.ALL);
   });
 
   eventManager.addEvent('click', '#nav-tab-2', () => {
-    setTabFavorite();
+    handleTabChange(TAB.FAVORITE);
   });
 
   return `

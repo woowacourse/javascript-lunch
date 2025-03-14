@@ -1,15 +1,11 @@
+import useModal from '../hooks/useModal';
 import { $ } from '../utils/@common/domHelper';
 import EventManager from '../utils/@common/EventManager';
 import Button from './@common/Button';
 import Modal from './@common/Modal';
 
-interface HeaderProps {
-  isModalOpen: boolean;
-  openModal: () => void;
-}
-
-function Header(props: HeaderProps) {
-  const { isModalOpen, openModal } = props;
+function Header() {
+  const [isModalOpen, openModal] = useModal(false);
   const eventManager = new EventManager($('#app'));
 
   eventManager.addEvent('click', '.gnb__button', () => {

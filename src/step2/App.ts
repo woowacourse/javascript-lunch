@@ -1,8 +1,6 @@
 import Header from './components/Header';
 import NavTab from './components/NavTab';
-import { TAB } from './constants/restaurantTypes';
-import useModal from './hooks/useModal';
-import useTab from './hooks/useTab';
+import { Tab, TAB } from './constants/restaurantTypes';
 import { Category, Sorting } from './types/restaurants';
 import { useState } from './utils/core/Core';
 import { getStorage } from './utils/@common/localStorage';
@@ -11,38 +9,36 @@ import RestaurantList from './components/RestaurantList';
 import FilterSection from './components/FilterSection';
 
 function App() {
-  const [isModalOpen, openModal, closeModal] = useModal(false);
-  const [tab, setTabAll, setTabFavorite] = useTab(TAB.ALL);
-  const [category, setCategory] = useState<Category>('전체');
-  const [sorting, setSorting] = useState<Sorting>('name');
-  const { getFilteredRestaurants } = useRestaurants(category, sorting);
+  const [currentTab, setCurrentTab] = useState<Tab>(TAB.ALL);
+  const [filterOptions, setFilterOptions] = useState({
+    category: '전체' as Category,
+    sorting: 'name' as Sorting,
+  });
+
+  const { getFilteredRestaurants } = useRestaurants(
+    filterOptions.category,
+    filterOptions.sorting
+  );
 
   const filteredRestaurants = getFilteredRestaurants();
 
   return `
     <div>
-      ${Header({ isModalOpen, openModal })}
-      ${NavTab({ tab, setTabAll, setTabFavorite })}
+      ${Header()}
+      ${NavTab({ onTabChange: setCurrentTab })}
       ${
-        tab === TAB.ALL
+        currentTab === TAB.ALL
           ? `
             ${FilterSection({
-              category,
-              setCategory,
-              sorting,
-              setSorting,
+              onFilterChange: setFilterOptions,
             })}
             ${RestaurantList({
               restaurants: filteredRestaurants ?? [],
-              isModalOpen,
-              closeModal,
             })}
           `
           : `
             ${RestaurantList({
               restaurants: getStorage()?.filter((r) => r.isFavorite) ?? [],
-              isModalOpen,
-              closeModal,
             })}
           `
       }
