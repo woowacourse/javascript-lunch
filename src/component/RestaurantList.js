@@ -32,14 +32,17 @@ const RestaurantList = {
   },
 
   getRestaurantElementList(restaurantList) {
-    return restaurantList.map(({ name, distance, description, label }) =>
-      LunchInfoCard.create({
-        src: CATEGORY_ICON[label],
-        name,
-        distance,
-        description,
-        label,
-      })
+    return restaurantList.map(
+      ({ id, name, distance, description, label, favorite }) =>
+        LunchInfoCard.create({
+          id,
+          src: CATEGORY_ICON[label],
+          name,
+          distance,
+          description,
+          label,
+          favorite,
+        })
     );
   },
 };

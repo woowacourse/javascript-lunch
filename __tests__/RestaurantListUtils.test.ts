@@ -4,10 +4,10 @@ import { Restaurant } from "../types/global";
 
 describe("RestaurantList 유틸 함수 테스트", () => {
   const restaurantList: Restaurant[] = [
-    { id: 0, label: "한식", name: "한식집", distance: 10 },
-    { id: 1, label: "일식", name: "초밥집", distance: 5 },
-    { id: 2, label: "양식", name: "돈가스집", distance: 15 },
-    { id: 3, label: "한식", name: "국밥집", distance: 20 },
+    { id: 0, label: "한식", name: "한식집", distance: 10, favorite: false },
+    { id: 1, label: "일식", name: "초밥집", distance: 5, favorite: false },
+    { id: 2, label: "양식", name: "돈가스집", distance: 15, favorite: false },
+    { id: 3, label: "한식", name: "국밥집", distance: 20, favorite: false },
   ];
 
   test("음식점 정보를 주면 음식점을 새로 추가한 List를 반환한다.", () => {
@@ -16,6 +16,7 @@ describe("RestaurantList 유틸 함수 테스트", () => {
       label: "아시안",
       name: "쌀국수집",
       distance: 20,
+      favorite: false,
     };
     expect(RestaurantListUtils.add(restaurantList, newRestaurant).length).toBe(
       5
@@ -30,22 +31,22 @@ describe("RestaurantList 유틸 함수 테스트", () => {
 
   test("음식점 정렬순서에 따라 정렬된 List를 반환한다.", () => {
     const restaurantListSortedById: Restaurant[] = [
-      { id: 0, label: "한식", name: "한식집", distance: 10 },
-      { id: 1, label: "일식", name: "초밥집", distance: 5 },
-      { id: 2, label: "양식", name: "돈가스집", distance: 15 },
-      { id: 3, label: "한식", name: "국밥집", distance: 20 },
+      { id: 0, label: "한식", name: "한식집", distance: 10, favorite: false },
+      { id: 1, label: "일식", name: "초밥집", distance: 5, favorite: false },
+      { id: 2, label: "양식", name: "돈가스집", distance: 15, favorite: false },
+      { id: 3, label: "한식", name: "국밥집", distance: 20, favorite: false },
     ];
     const restaurantListSortedByName: Restaurant[] = [
-      { id: 3, label: "한식", name: "국밥집", distance: 20 },
-      { id: 2, label: "양식", name: "돈가스집", distance: 15 },
-      { id: 1, label: "일식", name: "초밥집", distance: 5 },
-      { id: 0, label: "한식", name: "한식집", distance: 10 },
+      { id: 3, label: "한식", name: "국밥집", distance: 20, favorite: false },
+      { id: 2, label: "양식", name: "돈가스집", distance: 15, favorite: false },
+      { id: 1, label: "일식", name: "초밥집", distance: 5, favorite: false },
+      { id: 0, label: "한식", name: "한식집", distance: 10, favorite: false },
     ];
     const restaurantListSortedByDistance: Restaurant[] = [
-      { id: 1, label: "일식", name: "초밥집", distance: 5 },
-      { id: 0, label: "한식", name: "한식집", distance: 10 },
-      { id: 2, label: "양식", name: "돈가스집", distance: 15 },
-      { id: 3, label: "한식", name: "국밥집", distance: 20 },
+      { id: 1, label: "일식", name: "초밥집", distance: 5, favorite: false },
+      { id: 0, label: "한식", name: "한식집", distance: 10, favorite: false },
+      { id: 2, label: "양식", name: "돈가스집", distance: 15, favorite: false },
+      { id: 3, label: "한식", name: "국밥집", distance: 20, favorite: false },
     ];
 
     expect(RestaurantListUtils.sortById(restaurantList)).toEqual(

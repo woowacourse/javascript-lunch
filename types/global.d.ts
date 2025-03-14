@@ -18,6 +18,7 @@ interface Restaurant {
   label: Label;
   name: string;
   distance: Distance;
+  favorite: boolean;
   description?: string;
   link?: string;
 }
