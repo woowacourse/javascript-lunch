@@ -97,7 +97,7 @@ const AddLunchModalForm = {
   },
 
   addRestaurant({ category, name, distance, description, link }) {
-    state.restaurantList.push({
+    state.currentRestaurantList.push({
       label: category,
       name: name,
       distance: Number(distance),

@@ -15,7 +15,7 @@ const RestaurantList = {
     elements.forEach((element) => $(".restaurant-list").appendChild(element));
   },
 
-  getRestaurantElementList(restaurantList = state.restaurantList) {
+  getRestaurantElementList(restaurantList = state.currentRestaurantList) {
     return restaurantList.map(({ name, distance, description, label }) =>
       LunchInfoCard.create({
         src: CATEGORY_ICON[label],

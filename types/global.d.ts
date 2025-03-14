@@ -13,6 +13,7 @@ type Label = keyof typeof CATEGORY_ICON;
 type Distance = (typeof DISTANCE_DROPDOWN_LIST)[number]["value"] & number;
 
 interface Restaurant {
+  id: number;
   label: Label;
   name: string;
   distance: Distance;
