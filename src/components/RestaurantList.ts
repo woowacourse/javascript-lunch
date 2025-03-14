@@ -49,7 +49,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   onRender() {
     this.#appendRestaurantTab();
     this.#appendRestaurantFilterSelectSort();
-    this.#appendRestaurantList();
+    this.#appendRestaurants();
     this.#appendRestaurantAddModal();
     this.#appendRestaurantDetailModal();
   }
@@ -92,17 +92,21 @@ export default class RestaurantList extends Component<RestaurantListState> {
     );
   }
 
-  #appendRestaurantList() {
-    const filteredRestaurants = [...this.state.restaurants]
+  #appendRestaurants() {
+    const filteredRestaurants = this.#getFilteredRestaurants();
+
+    filteredRestaurants.forEach((restaurant) => {
+      this.appendChild(new RestaurantItem(restaurant).render(), '.restaurant-list');
+    });
+  }
+
+  #getFilteredRestaurants() {
+    return [...this.state.restaurants]
       .filter((restaurant) => this.state.tab === 'all' || restaurant.isLike)
       .filter((restaurant) => this.state.filter === '전체' || restaurant.category === this.state.filter)
       .sort((a, b) =>
         this.state.sort === '이름순' ? (a.name < b.name ? -1 : a.name > b.name ? 1 : 0) : a.distance - b.distance,
       );
-
-    filteredRestaurants.forEach((restaurant) => {
-      this.appendChild(new RestaurantItem(restaurant).render(), '.restaurant-list');
-    });
   }
 
   #appendRestaurantAddModal() {
