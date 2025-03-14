@@ -42,6 +42,7 @@ export default function RestaurantItem({
   $restaurantItem.addEventListener("click", (event) => {
     if (event.target.name === "favorite__star") {
       restaurantDataList.changeFavorite(id);
+      restaurantDataList.getFilteredDataList();
       return;
     }
 

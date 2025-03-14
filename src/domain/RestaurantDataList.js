@@ -91,8 +91,6 @@ export class RestaurantDataList {
     );
 
     targetData.isFavorite = !targetData.isFavorite;
-
-    this.getFilteredDataList();
   }
 
   getDataById(id) {
@@ -104,8 +102,6 @@ export class RestaurantDataList {
 
     this.#dataList.push(restaurantData.getData());
     // 로컬 스토리지에도 추가하기(post 요청)
-
-    this.getFilteredDataList();
   }
 
   removeDataById(id) {

@@ -41,6 +41,7 @@ function createRestaurantItem(event) {
 
     const restaurantData = Object.fromEntries(new FormData(event.target));
     restaurantDataList.addData(restaurantData);
+    restaurantDataList.getFilteredDataList();
 
     removeModal();
   } catch (e) {
