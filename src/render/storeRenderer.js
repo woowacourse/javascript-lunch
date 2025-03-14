@@ -3,12 +3,14 @@ import IMG_SRC from "../constants/imgSrc.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
 import modalRenderer from "./modalRenderer.js";
+import { v4 as uuidv4 } from "uuid";
 
 const storeRenderer = {
   addStore: (storeProps) => {
     const list = document.createElement("li");
     list.classList.add("restaurant");
-    const store = Store(storeProps);
+    const starIconId = uuidv4();
+    const store = Store(storeProps, starIconId);
     list.innerHTML = store;
     querySelector(".restaurant-list").appendChild(list);
   },
@@ -111,6 +113,16 @@ const storeRenderer = {
     storeRenderer.removeStoreElements();
 
     filteredList.forEach((store) => {
+      storeRenderer.addStore(store);
+    });
+  },
+
+  deleteStore: (storeList) => {
+    const storeName = querySelector(".restaurant__name").textContent;
+    storeList.deleteStore(storeName);
+    modalRenderer.closeModal();
+    storeRenderer.removeStoreElements();
+    storeList.list.forEach((store) => {
       storeRenderer.addStore(store);
     });
   },

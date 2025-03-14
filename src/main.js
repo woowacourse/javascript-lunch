@@ -9,8 +9,12 @@ import storeRenderer from "./render/storeRenderer.js";
 import modalRenderer from "./render/modalRenderer.js";
 import IMG_SRC from "./constants/imgSrc.js";
 import MenuBar from "./components/MenuBar.js";
+import LocalStorage from "./class/LocalStorage.js";
 
 addEventListener("load", () => {
+  const myStorage = new LocalStorage();
+  console.log(myStorage);
+
   initRenderer.setHeader("오늘 뭐 먹지");
   initRenderer.setRestaurantFilter();
   MenuBar();
@@ -42,6 +46,7 @@ addEventListener("load", () => {
     storeRenderer.toggleFavorite(storeList, e);
 
     const storeInfo = e.target.closest(".restaurant__info");
+    if (!storeInfo) return;
     const storeName = storeInfo.querySelector(".restaurant__name").textContent;
     const store = storeList.filterByStoreName(storeName);
 
@@ -53,6 +58,10 @@ addEventListener("load", () => {
       "click",
       modalRenderer.closeModal
     );
+
+    querySelector("#delete-button").addEventListener("click", () => {
+      storeRenderer.deleteStore(storeList);
+    });
   });
 
   querySelector(".restaurant-menuBar-container").addEventListener(

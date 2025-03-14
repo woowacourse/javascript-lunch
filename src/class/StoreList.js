@@ -28,6 +28,10 @@ class StoreList {
     this.sortStoreList(this.#sortBy);
   }
 
+  deleteStore(name) {
+    this.#list = this.#list.filter((store) => store.name !== name);
+  }
+
   filterByMenuBar(isFavorite) {
     if (!isFavorite) return this.#list;
     return this.#list.filter((store) => store.isFavorite === true);

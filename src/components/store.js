@@ -1,6 +1,6 @@
 import IMG_SRC from "../constants/imgSrc";
 
-const Store = (storeProps) => {
+const Store = (storeProps, starIconId) => {
   const imgSrc = getImgSrc(storeProps.category);
 
   return `
@@ -21,7 +21,7 @@ const Store = (storeProps) => {
         storeProps.isFavorite
           ? IMG_SRC.STAR_ICON_FILLED
           : IMG_SRC.STAR_ICON_LINED
-      } alt="star-icon" class="star-icon">
+      } alt="star-icon" class="star-icon" id=${starIconId}>
     </div>
 `;
 };
