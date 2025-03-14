@@ -3,7 +3,7 @@ import header from "./components/header";
 import Modal from "./components/common/modal";
 import CategoryAndSortFilter from "./components/categoryAndSortFilter";
 import FavoriteTabFilters from "./components/favoriteTabFilter";
-import Restaurants from "./model/Restaurants";
+import Restaurants from "./model/Restaurants.ts";
 
 addEventListener("load", () => {
   const restaurantList = new Restaurants();

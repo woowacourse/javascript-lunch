@@ -1,12 +1,19 @@
-import RestaurantCard from "../components/restaurantCard";
-import { $ } from "../utils/dom";
-import { defaultRestaurants } from "../defaultRestaurants";
-import { createElement } from "../utils/createElement";
-import Restaurant from "./Restaurant";
+import RestaurantCard from "../components/restaurantCard/index.js";
+import { $ } from "../utils/dom.js";
+import { defaultRestaurants } from "../defaultRestaurants.ts";
+import { createElement } from "../utils/createElement.js";
+import Restaurant from "./Restaurant.ts";
+import { Category, RestaurantInfo } from "../../types/restaurant";
+
+interface FilterType {
+  category: Category | "all";
+  option: "name" | "distance";
+  favorite: boolean;
+}
 
 class Restaurants {
-  #restaurants;
-  #filterType;
+  #restaurants: Restaurant[];
+  #filterType: FilterType;
 
   constructor() {
     this.#restaurants = [...defaultRestaurants];
@@ -33,12 +40,12 @@ class Restaurants {
       const parsedData = JSON.parse(storedDataString);
 
       this.#restaurants = parsedData.map(
-        (data) => new Restaurant({ ...data, favorite: data.favorite })
+        (data: RestaurantInfo) => new Restaurant(data)
       );
     }
   }
 
-  addRestaurant = (restaurant) => {
+  addRestaurant = (restaurant: Restaurant) => {
     restaurant.grantId(this.#restaurants.length + 1);
     this.#restaurants.push(restaurant);
     this.#filterType.category = "all";
@@ -46,15 +53,22 @@ class Restaurants {
     this.filter();
   };
 
-  deleteRestaurant = (id) => {
+  deleteRestaurant = (id: number) => {
     this.#restaurants = this.#restaurants.filter((res) => res.info.id !== id);
   };
 
-  changeState = (state) => {
-    const sortType = [...Object.keys(state)];
-    const sortState = state[sortType];
+  changeState = (state: Partial<FilterType>) => {
+    const sortType = Object.keys(state)[0];
+    const sortState = state[sortType as keyof FilterType];
 
-    this.#filterType[sortType] = sortState;
+    if (sortType === "category") {
+      this.#filterType.category = sortState as Category | "all";
+    } else if (sortType === "option") {
+      this.#filterType.option = sortState as "name" | "distance";
+    } else if (sortType === "favorite") {
+      this.#filterType.favorite = sortState as boolean;
+    }
+
     this.filter();
   };
 
@@ -75,7 +89,7 @@ class Restaurants {
     return [...this.#restaurants];
   }
 
-  #filterByCategory(restaurants) {
+  #filterByCategory(restaurants: Restaurant[]) {
     if (this.#filterType.category === "all") return restaurants;
 
     return restaurants.filter(
@@ -83,15 +97,15 @@ class Restaurants {
     );
   }
 
-  #sortByName(restaurants) {
+  #sortByName(restaurants: Restaurant[]) {
     return restaurants.sort((a, b) => a.info.name.localeCompare(b.info.name));
   }
 
-  #sortByDistance(restaurants) {
+  #sortByDistance(restaurants: Restaurant[]) {
     return restaurants.sort((a, b) => a.info.distance - b.info.distance);
   }
 
-  #renderRestaurants(restaurants) {
+  #renderRestaurants(restaurants: Restaurant[]) {
     const ulTag = $(".restaurant-list");
     ulTag.replaceChildren();
 

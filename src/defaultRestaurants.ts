@@ -1,7 +1,7 @@
-import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
-import Restaurant from "./model/Restaurant";
+import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes.js";
+import Restaurant from "./model/Restaurant.js";
 
-export const defaultRestaurants = [
+export const defaultRestaurants: Restaurant[] = [
   new Restaurant({
     id: 1,
     category: "korean",

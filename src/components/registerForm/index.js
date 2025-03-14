@@ -2,7 +2,7 @@ import { BUTTON_TEXT } from "../../constants/buttonText";
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
-import Restaurant from "../../model/Restaurant";
+import Restaurant from "../../model/Restaurant.ts";
 import { $ } from "../../utils/dom";
 import { getInfo } from "../../view/input";
 import Button from "../common/button";
