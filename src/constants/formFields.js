@@ -30,7 +30,12 @@ const senseChangeRestaurantFormValue = () => {
 
 const handleFilterItem = () => {
   const category = document.getElementById("category-filter").value || null;
-  const filterList = storageHandler.filterItem(STORAGE_KEY_NAME, category);
+  const sort = document.getElementById("sorting-filter").value;
+  const filterList = storageHandler.filterItem(
+    STORAGE_KEY_NAME,
+    category,
+    sort
+  );
 
   const restaurantList = document.querySelector(".restaurant-list");
   restaurantList.replaceChildren();
@@ -104,7 +109,7 @@ export const FORM_FIELDS = deepFreeze({
     sortingFilter: {
       options: sortingFilterOptions,
       eventType: "change",
-      event: null,
+      event: handleFilterItem,
       attribute: {
         id: "sorting-filter",
         name: "restaurant-filter",
