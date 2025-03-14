@@ -49,11 +49,11 @@ class RestaurantManager {
   #renderList($main, restaurants) {
     const $oldContainer = $main.querySelector(".restaurant-list-container");
 
-    const $newList = RestaurantList(restaurants, {
+    const $newList = new RestaurantList(restaurants, {
       onToggleFavorite: this.handleToggleFavorite.bind(this),
       onDeleteRestaurant: this.handleDeleteRestaurant.bind(this),
       updateList: this.updateList.bind(this),
-    });
+    }).render();
 
     if ($oldContainer) {
       $main.replaceChild($newList, $oldContainer);
