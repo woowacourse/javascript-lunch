@@ -1,4 +1,4 @@
-import { IMAGE } from '../constants.js';
+import { IMAGE } from '../constants/elements.js';
 
 function createRestaurantInfo({ id, category, name, distance, description, favorite }) {
   const information = `<div class="restaurant__body" data-id="${id}">

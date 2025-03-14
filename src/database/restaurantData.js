@@ -1,5 +1,3 @@
-import { CATEGORY } from '../constants.js';
-
 export const RESTAURANTS = [
   {
     id: 0,

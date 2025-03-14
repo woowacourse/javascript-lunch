@@ -127,7 +127,3 @@ export const SORT_SELECTOR = {
     ['distance', '거리순'],
   ]),
 };
-
-export const STORE = {
-  keyPrefix: 'lunch_',
-};

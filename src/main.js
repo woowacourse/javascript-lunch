@@ -14,7 +14,7 @@ import {
   RESTAURANT_INFO_MODAL,
   CLOSE_INFO_BUTTON,
   DELETE_INFO_BUTTON,
-} from './constants.js';
+} from './constants/elements.js';
 import { RESTAURANTS } from './database/restaurantData.js';
 import eventHandlers from './eventHandlers/eventHandlers.js';
 import stateStore from './domain/stateStore.ts';

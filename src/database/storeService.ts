@@ -1,7 +1,7 @@
 import { Restaurant } from '../../types/domain';
 import store from './store.ts';
 import { parseJSON, parseStorageKey, stringifyJSON } from '../utils/data.ts';
-import { STORE } from '../constants.js';
+import { STORE } from '../constants/database.ts';
 
 interface StoreService {
   getRestaurants(): Restaurant[];
