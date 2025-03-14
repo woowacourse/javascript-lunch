@@ -75,13 +75,13 @@ class RestaurantController {
   #handleChangeCategory = (event) => {
     this.#category = event.target.value;
     const restaurantList = this.#restaurantList.filterRestaurant(this.#category, this.#order);
-    const $filteredRestaurants = this.#updateRestaurantUI(restaurantList);
+    this.#updateRestaurantUI(restaurantList);
   };
 
   #handleChangeFilter = (event) => {
     this.#order = event.target.value;
     const restaurantList = this.#restaurantList.filterRestaurant(this.#category, this.#order);
-    const $filteredRestaurants = this.#updateRestaurantUI(restaurantList);
+    this.#updateRestaurantUI(restaurantList);
   };
 
   #handleTabBar = (event) => {
@@ -89,16 +89,21 @@ class RestaurantController {
 
     if (event.target.id === 'favorite') {
       const favoriteRestaurantList = this.#restaurantList.filterFavorite();
-      const $favoriteRestaurants = this.#updateRestaurantUI(favoriteRestaurantList);
+      this.#updateRestaurantUI(favoriteRestaurantList);
+      this.#tab = 'favorite';
       document.querySelector('select#category-filter').value = '전체';
     } else if (event.target.id === 'all') {
       const allRestaurants = this.#restaurantList.getOrderedRestaurantList(this.#order);
-      const $allRestaurants = this.#updateRestaurantUI(allRestaurants);
+      this.#updateRestaurantUI(allRestaurants);
+      this.#tab = 'all';
     }
   };
 
-  #handleDelete = (event) => {
-    console.log(event.target);
+  #handleDelete = (event, id) => {
+    const deletedRestaurantList = this.#restaurantList.deleteRestaurant(id);
+    this.#restaurantStorage.updateStorage(deletedRestaurantList);
+    this.#updateRestaurantUI(deletedRestaurantList);
+    this.#detailModal.modal.toggle();
   };
 
   #handleClickItem = (event, data) => {

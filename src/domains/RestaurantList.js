@@ -58,6 +58,10 @@ class RestaurantList {
 
     return [...this.#restaurants];
   }
+
+  deleteRestaurant(id) {
+    return (this.#restaurants = this.#restaurants.filter((data) => data.id !== id));
+  }
 }
 
 export default RestaurantList;
