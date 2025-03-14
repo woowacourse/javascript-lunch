@@ -1,7 +1,9 @@
 import { CATEGORY_IMAGES, ICON_IMAGES } from '../assets/images';
+import { STORAGE_KEY } from '../constants/key';
 import { RestaurantType } from '../types/restaurants';
 import { $ } from '../utils/@common/domHelper';
 import EventManager from '../utils/@common/EventManager';
+import { getStorage, saveStorage } from '../utils/@common/localStorage';
 import { useState } from '../utils/core/Core';
 import Button from './@common/Button';
 
@@ -12,10 +14,21 @@ const Restaurant = (props: RestaurantProps) => {
   const [favorite, setFavorite] = useState(isFavorite);
   const eventManager = new EventManager($('#app'));
 
-  const buttonId = `favorite-${name.replace(/\s+/g, '-')}`;
+  const buttonId = `favorite-${crypto.randomUUID()}`;
 
   eventManager.addEvent('click', `#${buttonId}`, () => {
     setFavorite(!favorite);
+
+    const storedRestaurants = getStorage() || [];
+
+    const updatedRestaurants = storedRestaurants.map(
+      (restaurant: RestaurantType) =>
+        restaurant.name === name
+          ? { ...restaurant, isFavorite: !favorite }
+          : restaurant
+    );
+
+    saveStorage(updatedRestaurants);
   });
 
   return `

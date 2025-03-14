@@ -6,9 +6,9 @@ import { SortingSelect } from './components/SortingSelect';
 import { TAB } from './constants/restaurantTypes';
 import useModal from './hooks/useModal';
 import useTab from './hooks/useTab';
-import RESTAURANT_INFO from './mocks/restaurantInfo';
 import { Category, Sorting } from './types/restaurants';
 import { useState } from './utils/core/Core';
+import { getStorage } from './utils/@common/localStorage';
 
 function App() {
   const [isModalOpen, openModal, closeModal] = useModal(false);
@@ -17,7 +17,6 @@ function App() {
   const [sorting, setSorting] = useState<Sorting>('name');
 
   const handleCategoryChange = (selectedCategory: Category) => {
-    console.log('selectedCategory', selectedCategory);
     setCategory(selectedCategory);
   };
 
@@ -28,12 +27,12 @@ function App() {
   const getFilteredRestaurants = () => {
     let filtered =
       category === '전체'
-        ? RESTAURANT_INFO
-        : RESTAURANT_INFO.filter(
+        ? getStorage()
+        : getStorage()?.filter(
             (restaurant) => restaurant.category === category
           );
 
-    return filtered.sort((a, b) => {
+    return filtered?.sort((a, b) => {
       if (sorting === 'name') {
         return a.name.localeCompare(b.name);
       }
@@ -43,23 +42,36 @@ function App() {
 
   const filteredRestaurants = getFilteredRestaurants();
 
+  const favoriteRestaurants = getStorage()
+    ?.filter((restaurant) => restaurant.isFavorite === true)
+    .map((restaurant) => Restaurant(restaurant))
+    .join('');
+
   return `
     <div>
       ${Header({ openModal })}
       ${NavTab({ tab, setTabAll, setTabFavorite })}
-      <section class="restaurant-filter-container">
-        ${CategorySelect({
-          handleCategoryChange,
-          category,
-        })}
-        ${SortingSelect({
-          handleSortChange,
-          sorting,
-        })}
-      </section>
+      ${
+        tab === TAB.ALL
+          ? `
+        <section class="restaurant-filter-container">
+          ${CategorySelect({
+            handleCategoryChange,
+            category,
+          })}
+          ${SortingSelect({
+            handleSortChange,
+            sorting,
+          })}
+        </section>
         ${filteredRestaurants
-          .map((restaurant) => Restaurant(restaurant))
+          ?.map((restaurant) => Restaurant(restaurant))
           .join('')}
+      `
+          : `
+            ${favoriteRestaurants}
+          `
+      }
     </div>
   `;
 }
