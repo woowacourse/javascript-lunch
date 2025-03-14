@@ -7,8 +7,9 @@ import CategoryImage from "./CategoryImage";
 import FavoriteIcon from "./FavoriteIcon";
 import RestaurantDetail from "../RestaurantDetail";
 
-const RestaurantCard = (restaurant) => {
+const RestaurantCard = (restaurant, events) => {
   const { category, name, distance, description } = restaurant.value;
+  const { clickFavorite } = events;
 
   const restaurantCard = createElement({
     tagName: "li",
@@ -16,7 +17,7 @@ const RestaurantCard = (restaurant) => {
     children: [
       CategoryImage(category),
       RestaurantInfo(restaurant.value),
-      FavoriteIcon(restaurant),
+      FavoriteIcon(restaurant, clickFavorite),
     ],
     events: {
       click: () => {

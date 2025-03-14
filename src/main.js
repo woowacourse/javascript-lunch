@@ -27,5 +27,6 @@ addEventListener("load", () => {
       RegisterForm(restaurantList)
     )
   );
+
   renderAllpage(restaurantList);
 });

@@ -17,9 +17,6 @@ const renderAllpage = (restaurantList) => {
   filterContainer.appendChild(CategorySelector(restaurantList));
   filterContainer.appendChild(NameOrDistanceSelector(restaurantList));
 
-  console.log(restaurantList.list);
-  console.log(createRestaurantCards(restaurantList.list));
-
   renderRestaurants(createRestaurantCards(restaurantList.list));
 };
 
