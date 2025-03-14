@@ -3,7 +3,7 @@ import Component from './core/Component';
 
 export default class Application extends Component {
   override onRender() {
-    this.appendChild(new RestaurantHeader({ title: '오늘 뭐 먹지', alt: '음식점 추가' }).render());
+    this.appendChild(new RestaurantHeader().render());
     this.appendChild(new RestaurantList().render());
   }
 }
