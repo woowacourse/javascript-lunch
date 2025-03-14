@@ -1,3 +1,5 @@
+import Modal from "../components/Modal.js";
+import EventHandler from "../utils/EventHandler.js";
 import CategoryFilterController from "./CategoryFilterController.js";
 import FavoriteListController from "./FavoriteListController.js";
 import HeaderController from "./HeaderController.js";
@@ -18,8 +20,7 @@ function MainController() {
   );
 
   const { categoryFilterElement, sortingFilterElement } = CategoryFilterController(allListContainerElement, updateList);
-  HeaderController(app);
-  ModalController(mainElement, {
+  const modalElement = ModalController(mainElement, {
     updateList: () => updateList(categoryFilterElement.value, sortingFilterElement.value),
     restaurantList,
   });
@@ -28,6 +29,7 @@ function MainController() {
     { allListContainerElement, favoriteListContainerElement },
     { updateList: () => updateList(categoryFilterElement.value, sortingFilterElement.value), updateFavoriteList },
   );
+  HeaderController(app, modalElement);
 
   mainElement.addEventListener("click", (event) => {
     const starElement = event.target.closest(".favorite-star");
@@ -46,6 +48,29 @@ function MainController() {
         }
       });
     }
+  });
+
+  mainElement.addEventListener("click", (event) => {
+    if (event.target.closest(".favorite-star")) return;
+    const restaurantElement = event.target.closest("li.restaurant");
+    if (!restaurantElement) return;
+    const restaurantName = restaurantElement.dataset.name;
+    const restaurant = restaurantList.getRestaurantByName(restaurantName);
+    const dummy = document.createElement("div");
+    dummy.innerHTML = `
+      <div class="restaurant__top">
+        <div>
+          <h3 class="restaurant__name text-subtitle">ewfewfwefwefwefew</h3>
+          <span class="restaurant__distance text-body">캠퍼스부터 </span>
+        </div>
+      </div>
+`;
+    const modalElement = Modal([dummy]);
+    mainElement.appendChild(modalElement);
+
+    const modalBackdropElement = modalElement.querySelector(".modal-backdrop");
+    modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(modalElement));
+    EventHandler.modalToggle(modalElement);
   });
 }
 
