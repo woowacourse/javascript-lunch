@@ -1,6 +1,8 @@
 import restaurantDataList from "../../../domain/RestaurantDataList";
 import createElement from "../../../util/createElement";
-import { $ } from "../../../util/querySelector";
+import RestaurantItemCategory from "../../restaurant/restaurantItem/RestaurantItemCategory";
+import RestaurantItemFavorite from "../../restaurant/restaurantItem/RestaurantItemFavorite";
+import RestaurantItemNameDistance from "../../restaurant/restaurantItem/RestaurantItemNameDistance";
 import { removeModal } from "../Modal";
 
 export default function RestaurantDetailModal(restaurantData) {
@@ -33,62 +35,10 @@ function createDetailInfo({
     classNames: ["restaurantDetail__info"],
   });
 
-  const $category = createElement({
+  const $starWrap = createElement({
     tag: "div",
-    classNames: ["restaurant__category"],
+    classNames: ["restaurantDetail__star"],
   });
-  const $categoryImg = createElement({
-    tag: "img",
-    src: src,
-    alt: alt,
-    classNames: ["category-icon"],
-  });
-  $category.appendChild($categoryImg);
-
-  const $name = createElement({
-    tag: "h3",
-    classNames: ["restaurant__name", "text-subtitle", "marginTopBottom-15"],
-    textContent: name,
-  });
-
-  const $distance = createElement({
-    tag: "span",
-    classNames: ["restaurant__distance", "text-body"],
-    textContent: `캠퍼스부터 ${distance}분 내`,
-  });
-
-  const $start = createElement({
-    tag: "div",
-    classNames: ["restaurantDetail__start"],
-  });
-  const favoriteImgAttributes = isFavorite
-    ? {
-        tag: "img",
-        name: "favorite__star",
-        classNames: ["favorite__star"],
-        src: "/public/fill-star.png",
-        alt: "좋아요한 별",
-      }
-    : {
-        tag: "img",
-        name: "favorite__star",
-        classNames: ["favorite__star"],
-        src: "/public/empty-star.png",
-        alt: "좋아요안한 별",
-      };
-  const $favorite = createElement(favoriteImgAttributes);
-
-  $favorite.addEventListener("click", () => {
-    restaurantDataList.changeFavorite(id);
-    const dataById = restaurantDataList.getDataById(id);
-
-    $favorite.src = dataById.isFavorite
-      ? "/public/fill-star.png"
-      : "/public/empty-star.png";
-    restaurantDataList.getFilteredDataList();
-  });
-
-  $start.appendChild($favorite);
 
   const $description = createElement({
     tag: "p",
@@ -107,10 +57,18 @@ function createDetailInfo({
     href: link,
   });
 
+  const $category = RestaurantItemCategory({ src, alt });
+  const $nameAndDistance = RestaurantItemNameDistance({ name, distance });
+  const $favorite = RestaurantItemFavorite({ isFavorite, id });
+
+  $favorite.addEventListener("click", () => {
+    restaurantDataList.getFilteredDataList();
+  });
+
+  $starWrap.appendChild($favorite);
   $info.appendChild($category);
-  $info.appendChild($name);
-  $info.appendChild($distance);
-  $info.appendChild($start);
+  $info.appendChild($nameAndDistance);
+  $info.appendChild($starWrap);
   $info.appendChild($description);
   $info.appendChild($link);
 
@@ -136,14 +94,12 @@ function createButtons(id) {
   $buttonWrap.appendChild($closeButton);
 
   $deleteButton.addEventListener("click", () => {
-    // 모달창 닫고
     removeModal();
 
-    // 아이템 제거하고 리렌더링 하기
     restaurantDataList.removeDataById(id);
     restaurantDataList.getFilteredDataList();
-    //
   });
+
   $closeButton.addEventListener("click", removeModal);
 
   return $buttonWrap;
