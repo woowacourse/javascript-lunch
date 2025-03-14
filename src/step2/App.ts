@@ -15,6 +15,7 @@ function App() {
   const [tab, setTabAll, setTabFavorite] = useTab(TAB.ALL);
   const [category, setCategory] = useState<Category>('전체');
   const [sorting, setSorting] = useState<Sorting>('name');
+  const [, setFavorite] = useState(false);
 
   const handleCategoryChange = (selectedCategory: Category) => {
     setCategory(selectedCategory);
@@ -44,7 +45,17 @@ function App() {
 
   const favoriteRestaurants = getStorage()
     ?.filter((restaurant) => restaurant.isFavorite === true)
-    .map((restaurant) => Restaurant(restaurant))
+    .map((restaurant) =>
+      Restaurant({
+        ...restaurant,
+        favorite: restaurant.isFavorite ?? false,
+        setFavorite: (favorite: boolean) => {
+          setFavorite(favorite);
+        },
+        isModalOpen,
+        closeModal,
+      })
+    )
     .join('');
 
   return `
@@ -65,7 +76,17 @@ function App() {
           })}
         </section>
         ${filteredRestaurants
-          ?.map((restaurant) => Restaurant(restaurant))
+          ?.map((restaurant) =>
+            Restaurant({
+              ...restaurant,
+              favorite: restaurant.isFavorite ?? false,
+              isModalOpen,
+              setFavorite: (favorite: boolean) => {
+                setFavorite(favorite);
+              },
+              closeModal,
+            })
+          )
           .join('')}
       `
           : `
@@ -73,6 +94,7 @@ function App() {
           `
       }
     </div>
+    
   `;
 }
 
