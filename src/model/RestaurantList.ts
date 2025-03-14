@@ -1,4 +1,4 @@
-import { Restaurant, RestaurantForm } from "../../types/restaurantTypes";
+import type { Restaurant, RestaurantForm } from "../../types/restaurantTypes";
 import { ERROR_MESSAGE } from "../settings/settings";
 import { restaurantFormValidation } from "../validation/restaurantFormValidation";
 
