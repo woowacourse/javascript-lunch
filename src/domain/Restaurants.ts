@@ -16,6 +16,14 @@ class Restaurants {
     this.#restaurants.push(restaurant);
     localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
   }
+
+  filterByCategory(category: string) {
+    if (category === 'all') {
+      return [...this.#restaurants];
+    }
+
+    return this.#restaurants.filter((restaurant) => category === restaurant.category);
+  }
 }
 
 export default Restaurants;

@@ -3,6 +3,7 @@ import RestaurantFilterContainer from '../components/filter/RestaurantFilterCont
 import Header from '../components/Header';
 import RestaurantItem from '../components/restaurant/RestaurantItem';
 import RestaurantList from '../components/restaurant/RestaurantList';
+import RestaurantListContainer from '../components/restaurant/RestaurantListContainer';
 import Restaurants from '../domain/Restaurants';
 import { Restaurant } from '../types/types';
 import { $ } from '../util/selector';
@@ -20,7 +21,7 @@ class AppController {
   init() {
     this.renderHeader();
     this.renderFilterContainer();
-    this.renderRestaurantList();
+    this.renderRestaurantListContainer();
     this.renderModal();
   }
 
@@ -36,12 +37,16 @@ class AppController {
 
     const filterContainer = RestaurantFilterContainer();
     main?.prepend(filterContainer);
+
+    $<HTMLSelectElement>('#category-filter')?.addEventListener('change', (event) => {
+      this.updateRestaurantListByFilter((event.target as HTMLSelectElement)?.value);
+    });
   }
 
-  renderRestaurantList() {
+  renderRestaurantListContainer() {
     const main = $('main');
 
-    main?.appendChild(RestaurantList({ restaurants: this.restaurants.items }));
+    main?.appendChild(RestaurantListContainer({ restaurants: this.restaurants.items }));
   }
 
   renderModal() {
@@ -52,6 +57,14 @@ class AppController {
       this.modalController.attachModalEvents();
       this.modalController.attachFormSubmitEvent((data) => this.addRestaurantItem(data));
     }
+  }
+
+  updateRestaurantListByFilter(categoryFilterValue: string | null) {
+    const filteredRestaurants = this.restaurants.filterByCategory(categoryFilterValue ?? 'all');
+    const restaurantListDOM = $('.restaurant-list');
+    const restaurantList = RestaurantList({ restaurants: filteredRestaurants });
+
+    restaurantListDOM?.replaceWith(restaurantList);
   }
 
   addRestaurantItem(restaurant: Restaurant) {

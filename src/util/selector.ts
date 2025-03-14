@@ -1,8 +1,8 @@
-function $(selector: string): Element | null {
-  return document.querySelector(selector);
+function $<T extends HTMLElement>(selector: string): T | null {
+  return document.querySelector(selector) as T | null;
 }
 
-function $all(selector: string): NodeListOf<Element> {
+function $all<T extends HTMLElement>(selector: string): NodeListOf<T> {
   return document.querySelectorAll(selector);
 }
 
