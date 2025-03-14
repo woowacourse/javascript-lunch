@@ -1,14 +1,7 @@
 import Restaurant from '../Restaurant';
 import { validateDropDown, validateName, validateDescription, validateLink } from '../validation/validations';
 import { mockRestaurantData } from '../data/MockRestaurantData';
-
-interface RestaurantData {
-  name: string;
-  distance: string;
-  category: string;
-  description?: string;
-  link?: string;
-}
+import { RestaurantData } from '../types/RestaurantTypes';
 
 let restaurantList: Restaurant[] = mockRestaurantData.map(
   (data) => new Restaurant(data.name, data.distance, data.category, data.description, data.link),

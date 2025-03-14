@@ -1,10 +1,4 @@
-interface RestaurantData {
-  name: string;
-  distance: string;
-  category: string;
-  description?: string;
-  link?: string;
-}
+import { RestaurantData } from '../types/RestaurantTypes';
 
 export const mockRestaurantData: RestaurantData[] = [
   {

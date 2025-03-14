@@ -5,15 +5,7 @@ import Modal from '../../../components/modal/Modal';
 import RestaurantItem from '../../../components/restaurant/RestaurantItem';
 import { DOM } from '../../../../dom';
 import { addRestaurant } from '../../../../Domain/services/RestaurantService';
-import Restaurant from '../../../../Domain/Restaurant';
-
-interface RestaurantFormData {
-  name: string;
-  category: string;
-  distance: string;
-  description?: string;
-  link?: string;
-}
+import { RestaurantFormData } from '../../../../Domain/types/RestaurantTypes';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
@@ -130,8 +122,6 @@ class AddRestaurantModal {
       }
 
       this.handleToggleModal();
-      // } catch (error) {
-      //   alert(error.message);
     } catch (error: unknown) {
       if (error instanceof Error) {
         alert(error.message);
