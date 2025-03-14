@@ -55,14 +55,32 @@ function DeleteModalEvent() {
 function CloseModalEvent() {
   const $closeModalButton = document.querySelector(
     ".restaurant-detail-modal-close-button"
-  );
+  ) as HTMLButtonElement;
 
-  $closeModalButton?.addEventListener("click", () => {
+  $closeModalButton.addEventListener("click", () => {
     const $modal = document.querySelector(
       ".restaurant-detail-modal-background"
     );
 
     $modal?.remove();
     location.reload();
+  });
+
+  CloseOnDarkBackground();
+}
+function CloseOnDarkBackground() {
+  const $modalBackground = document.querySelector(
+    ".restaurant-detail-modal-background"
+  ) as HTMLElement;
+
+  $modalBackground.addEventListener("click", (e: Event) => {
+    const $detailModal = document.querySelector(
+      ".restaurant-detail-modal"
+    ) as HTMLElement;
+
+    if ($detailModal && e.target === $modalBackground) {
+      $modalBackground.remove();
+      location.reload();
+    }
   });
 }
