@@ -2,7 +2,7 @@ import Button from '../../../components/button/Button';
 import InputDropDown from '../../../components/input/InputDropDown';
 import InputText from '../../../components/input/InputText';
 import Modal from '../../../components/modal/Modal';
-import RestaurantItem from '../../../components/restaurant/RestaurantItem.js';
+import RestaurantItem from '../../../components/restaurant/RestaurantItem';
 import { DOM } from '../../../../dom';
 import { addRestaurant } from '../../../../Domain/services/RestaurantService';
 
@@ -103,7 +103,7 @@ class AddRestaurantModal {
       const newRestaurant = addRestaurant(formData);
       const newRestaurantItem = new RestaurantItem(newRestaurant);
 
-      DOM.RESTAURANT_LIST.appendChild(newRestaurantItem);
+      DOM.RESTAURANT_LIST.appendChild(newRestaurantItem.getElement());
 
       this.handleToggleModal();
     } catch (error) {
