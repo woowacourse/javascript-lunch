@@ -12,7 +12,12 @@ import validate from "../utils/validate.js";
 export const modalHandler = {
   closeModal: () => {
     const modal = querySelector(".modal");
-    modal.classList.remove("modal--open");
+    const modalContainer = querySelector(".modal-container");
+    modal.classList.toggle("modal--open");
+
+    while (modalContainer.firstChild) {
+      modalContainer.removeChild(modalContainer.firstChild);
+    }
   },
 
   addForm: () => {
