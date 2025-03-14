@@ -41,8 +41,8 @@ describe("모달 사용자 입력 테스트", () => {
       const selectValue = "";
       const title = "카테고리";
 
-      expect(() => validateSelectInput(selectValue)).toThrow(
-        ERRORS.EMPTY_SELECT(selectValue, title)
+      expect(() => validateSelectInput(selectValue, title)).toThrow(
+        ERRORS.EMPTY_SELECT(title)
       );
     });
   });
