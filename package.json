@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test-unit": "jest --no-cache",
-    "lint": "eslint src --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx",
     "test-e2e": "cypress open",
     "deploy": "vite build --base=/javascript-lunch/ --minify=false && npx gh-pages -d dist"
   },

@@ -1,15 +1,12 @@
 import { DEFAULT_RESTAURANT_LIST, LOCAL_STORAGE_KEY_MAP } from '../../src/lib/constants';
 import { PREVIEW_URL } from './constants';
-import { type LanguageType } from './types';
 
 const URL = PREVIEW_URL; // TODO: 환경에 따라 다른 URL 사용
-let language: LanguageType;
 
 describe('애플리케이션 테스트 케이스', () => {
   beforeEach(() => {
     cy.visit(URL);
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(DEFAULT_RESTAURANT_LIST));
-    language = (window.navigator.language ?? 'en') as LanguageType;
   });
   describe('정상적인 경우', () => {
     describe('음식점 목록을 확인할 수 있다.', () => {

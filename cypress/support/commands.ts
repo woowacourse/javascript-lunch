@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-/** @ts-ignore */
+/** @ts-expect-error cypress */
 Cypress.Commands.add('addRestaurant', (restaurantAdd: RestaurantAddType) => {
   cy.get('.gnb__button').click();
   cy.get('#category').select(restaurantAdd.category);
