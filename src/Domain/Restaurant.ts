@@ -1,14 +1,16 @@
 class Restaurant {
   #name: string;
   #distance: string;
-  #description: string;
   #category: string;
+  #description: string;
+  #link: string;
 
-  constructor(name: string, distance: string, description: string, category: string) {
+  constructor(name: string, distance: string, category: string, description: string = '', link: string = '') {
     this.#name = name;
     this.#distance = distance;
-    this.#description = description;
     this.#category = category;
+    this.#description = description;
+    this.#link = link;
   }
 
   getName(): string {
@@ -19,12 +21,16 @@ class Restaurant {
     return String(this.#distance);
   }
 
+  getCategory(): string {
+    return String(this.#category);
+  }
+
   getDescription(): string {
     return String(this.#description);
   }
 
-  getCategory(): string {
-    return String(this.#category);
+  getLink(): string {
+    return String(this.#link);
   }
 }
 
