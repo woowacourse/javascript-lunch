@@ -89,7 +89,8 @@ export class RestaurantDataList {
     const targetData = this.#dataList.find(
       (restaurantData) => restaurantData.id === id
     );
-    targetData.favorite = !targetData.favorite;
+
+    targetData.isFavorite = !targetData.isFavorite;
 
     this.getFilteredDataList();
   }
