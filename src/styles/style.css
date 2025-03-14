@@ -335,6 +335,18 @@ main::-webkit-scrollbar-thumb:hover {
   width: 100%;
 }
 
+.restaurant__info.full .restaurant__description {
+  display: -webkit-box;
+
+  padding-top: 8px;
+
+  overflow: visible; /* 숨김 해제 */
+  text-overflow: unset; /* 말줄임 해제 */
+  -webkit-line-clamp: unset; /* 줄 제한 해제 */
+  -webkit-box-orient: unset; /* 방향 설정 해제 */
+  white-space: normal; /* 줄바꿈 허용 */
+}
+
 .restaurant__name {
   margin: 0;
 }
