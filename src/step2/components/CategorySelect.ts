@@ -5,17 +5,17 @@ import { $ } from '../utils/@common/domHelper';
 import { CATEGORIES } from '../constants/options';
 
 interface CategorySelectProps {
-  handleCategoryChange: (category: Category) => void;
+  setCategory: (category: Category) => void;
   category: Category;
 }
 
 export const CategorySelect = (props: CategorySelectProps) => {
-  const { handleCategoryChange, category } = props;
+  const { setCategory, category } = props;
   const eventManager = new EventManager($('#app'));
 
   eventManager.addEvent('change', '#category-filter', (e: Event) => {
     const target = e.target as HTMLSelectElement;
-    handleCategoryChange(target.value as Category);
+    setCategory(target.value as Category);
   });
 
   return Select({

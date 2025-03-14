@@ -9,17 +9,17 @@ const SORTING_OPTIONS = [
 ];
 
 interface SortingSelectProps {
-  handleSortChange: (sorting: Sorting) => void;
+  setSorting: (sorting: Sorting) => void;
   sorting: Sorting;
 }
 
 export const SortingSelect = (props: SortingSelectProps) => {
-  const { handleSortChange, sorting } = props;
+  const { setSorting, sorting } = props;
   const eventManager = new EventManager($('#app'));
 
   eventManager.addEvent('change', '#sorting-filter', (e: Event) => {
     const target = e.target as HTMLSelectElement;
-    handleSortChange(target.value as Sorting);
+    setSorting(target.value as Sorting);
   });
 
   return Select({
