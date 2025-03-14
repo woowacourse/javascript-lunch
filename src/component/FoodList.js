@@ -2,11 +2,13 @@ import { storeFoodItems } from "../managers/storageManagers.ts";
 import FoodItem from "./FoodItem.ts";
 
 export default class FoodList {
-  #foodItems;
+  #originFoodItems;
+  #filteredFoodItems;
   foodList;
 
   constructor({ foodItems }) {
-    this.#foodItems = foodItems;
+    this.#originFoodItems = foodItems;
+    this.#filteredFoodItems = foodItems;
     this.foodList = document.createElement("ul");
     this.foodList.classList.add("restaurant-list");
 
@@ -16,7 +18,7 @@ export default class FoodList {
   render() {
     this.foodList.innerHTML = "";
     const foodFragment = document.createDocumentFragment();
-    this.#foodItems.forEach((foodItem) => {
+    this.#filteredFoodItems.forEach((foodItem) => {
       foodFragment.appendChild(
         new FoodItem({
           id: foodItem.id,
@@ -32,8 +34,18 @@ export default class FoodList {
   }
 
   addItem(foodItem) {
-    this.#foodItems = [...this.#foodItems, foodItem];
-    storeFoodItems(this.#foodItems);
+    this.#originFoodItems = [...this.#originFoodItems, foodItem];
+    storeFoodItems(this.#originFoodItems);
+    this.render();
+  }
+
+  filterFavoriteItem() {
+    this.#filteredFoodItems = this.#originFoodItems.filter((foodItem) => foodItem.isFavorite);
+    this.render();
+  }
+
+  resetFilter() {
+    this.#filteredFoodItems = this.#originFoodItems;
     this.render();
   }
 
