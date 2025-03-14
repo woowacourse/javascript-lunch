@@ -5,6 +5,15 @@ import Modal from '../../../components/modal/Modal';
 import RestaurantItem from '../../../components/restaurant/RestaurantItem';
 import { DOM } from '../../../../dom';
 import { addRestaurant } from '../../../../Domain/services/RestaurantService';
+import Restaurant from '../../../../Domain/Restaurant';
+
+interface RestaurantFormData {
+  name: string;
+  category: string;
+  distance: string;
+  description?: string;
+  link?: string;
+}
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
@@ -24,34 +33,36 @@ const DISTANCE_LIST = [
 ];
 
 class AddRestaurantModal {
-  #modal;
-  #modalForm;
-  #cancelButton;
-  #addButton;
-  #categoryDropDown;
-  #nameInput;
-  #distanceDropDown;
-  #descriptionInput;
-  #linkInput;
+  #modal: Modal;
+  #modalForm: HTMLFormElement;
+  #cancelButton!: Button;
+  #addButton!: Button;
+  #categoryDropDown!: InputDropDown;
+  #nameInput!: InputText;
+  #distanceDropDown!: InputDropDown;
+  #descriptionInput!: InputText;
+  #linkInput!: InputText;
 
   constructor() {
     this.#modal = new Modal();
+    this.#modalForm = document.createElement('form');
     this.#init();
     this.#createAddModal();
   }
 
-  #init() {
+  #init(): void {
     this.#cancelButton = new Button('button', 'button--secondary', '취소하기', () => this.#handleCancelButton());
-    this.#addButton = new Button('submit', 'button--primary', '추가하기', (event) => this.#handleAddButton(event));
+    this.#addButton = new Button('submit', 'button--primary', '추가하기', (event: MouseEvent) =>
+      this.#handleAddButton(event),
+    );
     this.#categoryDropDown = new InputDropDown('카테고리', CATEGORY_LIST);
     this.#nameInput = new InputText('이름');
     this.#distanceDropDown = new InputDropDown('거리(도보 이동 시간)', DISTANCE_LIST);
     this.#descriptionInput = new InputText('설명');
     this.#linkInput = new InputText('참조 링크');
-    this.#modalForm = document.createElement('form');
   }
 
-  #createAddModal() {
+  #createAddModal(): void {
     const modalTitle = document.createElement('h2');
     modalTitle.classList.add('modal-title', 'text-title');
     modalTitle.innerText = '새로운 음식점';
@@ -61,7 +72,7 @@ class AddRestaurantModal {
     this.#modal.addElementToModalContainer(this.#modalForm);
   }
 
-  #createModalForm() {
+  #createModalForm(): HTMLFormElement {
     const modalForm = document.createElement('form');
 
     modalForm.appendChild(this.#createModalFormScrollable());
@@ -70,7 +81,7 @@ class AddRestaurantModal {
     return modalForm;
   }
 
-  #createModalFormScrollable() {
+  #createModalFormScrollable(): HTMLDivElement {
     const modalFormScrollable = document.createElement('div');
     modalFormScrollable.classList.add('modal-form-scrollable');
     modalFormScrollable.appendChild(this.#categoryDropDown.getElement());
@@ -81,7 +92,7 @@ class AddRestaurantModal {
     return modalFormScrollable;
   }
 
-  #createButtonContainer() {
+  #createButtonContainer(): HTMLDivElement {
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
@@ -91,27 +102,46 @@ class AddRestaurantModal {
     return buttonContainer;
   }
 
-  #handleCancelButton() {
+  #handleCancelButton(): void {
     this.handleToggleModal();
   }
 
-  #handleAddButton(event) {
+  #handleAddButton(event: Event): void {
     event.preventDefault();
-    const formData = Object.fromEntries(new FormData(this.#modalForm));
+
+    // FormData를 직접 처리하여 필요한 데이터 추출
+    const formData = new FormData(this.#modalForm);
+    const restaurantData: RestaurantFormData = {
+      name: formData.get('name') as string,
+      category: formData.get('category') as string,
+      distance: formData.get('distance') as string,
+      description: (formData.get('description') as string) || undefined,
+      link: (formData.get('link') as string) || undefined,
+    };
 
     try {
-      const newRestaurant = addRestaurant(formData);
+      const newRestaurant = addRestaurant(restaurantData);
       const newRestaurantItem = new RestaurantItem(newRestaurant);
 
-      DOM.RESTAURANT_LIST.appendChild(newRestaurantItem.getElement());
+      if (DOM.RESTAURANT_LIST) {
+        DOM.RESTAURANT_LIST.appendChild(newRestaurantItem.getElement());
+      } else {
+        console.error('Restaurant list element not found');
+      }
 
       this.handleToggleModal();
-    } catch (error) {
-      alert(error.message);
+      // } catch (error) {
+      //   alert(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert('알 수 없는 오류가 발생했습니다.');
+      }
     }
   }
 
-  handleToggleModal() {
+  handleToggleModal(): void {
     this.#modal.toggleModal();
     this.#modalForm.reset();
   }
