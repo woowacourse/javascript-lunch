@@ -1,5 +1,6 @@
 import RestaurantFilterContainer from "../components/RestaurantFilterContainer.js";
 import { setupFilterEventListeners } from "../handlers/filterHandler.js";
+import { setupFavoriteEventListeners } from "../handlers/favoriteHandler.js";
 
 export function initializeFilters() {
   const $filterContainer = document.querySelector(
@@ -8,8 +9,8 @@ export function initializeFilters() {
 
   if ($filterContainer) {
     RestaurantFilterContainer($filterContainer);
-
     setupFilterEventListeners();
+    setupFavoriteEventListeners();
   } else {
     console.error("필터 컨테이너 요소를 찾을 수 없습니다.");
   }
