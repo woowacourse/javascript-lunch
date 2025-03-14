@@ -13,7 +13,8 @@ const RestaurantListUtils = {
   },
 
   sortByName(restaurantList: Restaurant[]): Restaurant[] {
-    return restaurantList.sort((a, b) => {
+    const resultList = [...restaurantList];
+    return resultList.sort((a, b) => {
       const nameA = a.name.toUpperCase();
       const nameB = b.name.toUpperCase();
       if (nameA < nameB) return -1;
@@ -23,7 +24,8 @@ const RestaurantListUtils = {
   },
 
   sortByDistance(restaurantList: Restaurant[]): Restaurant[] {
-    return restaurantList.sort((a, b) => a.distance - b.distance);
+    const resultList = [...restaurantList];
+    return resultList.sort((a, b) => a.distance - b.distance);
   },
 };
 
