@@ -33,6 +33,10 @@ class StoreList {
     return this.#list.filter((store) => store.isFavorite === true);
   }
 
+  filterByStoreName(name) {
+    return this.#list.find((store) => store.name === name);
+  }
+
   filterStoreList(category) {
     if (category === "전체") this.#filteredList = this.#list;
     else this.#filteredList = this.#list.filter((l) => l.category === category);

@@ -16,7 +16,7 @@ body {
 }
 
 span {
-  display: inline-block;
+  display: block;
 }
 
 a {

@@ -40,9 +40,14 @@ addEventListener("load", () => {
 
   querySelector(".restaurant-list").addEventListener("click", (e) => {
     storeRenderer.toggleFavorite(storeList, e);
+
+    const storeInfo = e.target.closest(".restaurant__info");
+    const storeName = storeInfo.querySelector(".restaurant__name").textContent;
+    const store = storeList.filterByStoreName(storeName);
+
     initRenderer.setModal();
     querySelector(".modal").classList.add("modal--open");
-    modalRenderer.setStoreInfoModal();
+    modalRenderer.setStoreInfoModal(store);
 
     querySelector("#close-button").addEventListener(
       "click",
