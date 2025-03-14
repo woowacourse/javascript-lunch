@@ -4,9 +4,12 @@ interface RestaurantState {
   isFavoriteTab: boolean;
 }
 
+type StateKey = keyof RestaurantState;
+type State = RestaurantState[StateKey];
+
 interface StateStore {
   restaurantState: RestaurantState;
-  updateState: (stateKey: string, state: string) => void;
+  updateState: (stateKey: StateKey, state: State) => void;
   initState: () => void;
   getState: () => RestaurantState;
 }
