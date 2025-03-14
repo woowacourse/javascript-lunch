@@ -4,6 +4,7 @@ import AddRestaurantModal from './modal/AddRestaurantModal.js';
 import DISTANCE from './constant/distance.js';
 import CATEGORY from './constant/category.js';
 import InputDropDown from './components/InputDropDown.js';
+import LikeHeader from './components/LikeHeader.js';
 
 const SORT_BY = Object.freeze({
   name: '이름 순',
@@ -15,7 +16,9 @@ class App {
   #sortingFilter;
   #currentCategory;
   #currentSorting;
+  #currentHeader = '모든 음식점';
   #restaurantList;
+  #likeHeader;
 
   constructor() {
     this.#init();
@@ -34,8 +37,11 @@ class App {
     this.appContainer.classList.add('app');
     document.body.appendChild(this.appContainer);
 
-    this.filterContainer = document.createElement('div');
+    this.filterContainer = document.createElement('section');
     this.filterContainer.classList.add('restaurant-filter-container');
+
+    this.likeHeaderContainer = document.createElement('section');
+    this.likeHeaderContainer.classList.add('like-header-container');
 
     this.restaurantListContainer = document.createElement('section');
     this.restaurantListContainer.classList.add('restaurant-list-container');
@@ -45,7 +51,8 @@ class App {
     this.restaurantList.id = 'restaurant-list';
 
     this.restaurantListContainer.appendChild(this.restaurantList);
-    this, this.appContainer.appendChild(this.filterContainer);
+    this.appContainer.appendChild(this.likeHeaderContainer);
+    this.appContainer.appendChild(this.filterContainer);
     this.appContainer.appendChild(this.restaurantListContainer);
   }
 
@@ -72,7 +79,7 @@ class App {
     const categoryElement = this.#categoryFilter.getElement();
     categoryElement.addEventListener('change', (event) => {
       this.#currentCategory = categoryElement.value;
-      this.#restaurantList.sortRestaurantList(this.#currentCategory, this.#currentSorting);
+      this.#handleRestaurantUpdate();
     });
   };
 
@@ -80,23 +87,36 @@ class App {
     const sortingElement = this.#sortingFilter.getElement();
     sortingElement.addEventListener('change', (event) => {
       this.#currentSorting = sortingElement.value;
-      this.#restaurantList.sortRestaurantList(this.#currentCategory, this.#currentSorting);
+      this.#handleRestaurantUpdate();
+    });
+  };
+
+  #onChangedLikeHeader = () => {
+    this.#likeHeader.getElement().addEventListener('click', () => {
+      this.#currentHeader = this.#likeHeader.getCurrentHeader();
+      this.#handleRestaurantUpdate();
     });
   };
 
   #bindEvent = () => {
     this.#onChangedCategory();
     this.#onChangedSorting();
+    this.#onChangedLikeHeader();
   };
 
   #modalClickHandler = () => {
     this.addRestaurantModal.openModal();
   };
 
+  #handleRestaurantUpdate() {
+    this.#restaurantList.sortRestaurantList(this.#currentCategory, this.#currentSorting, this.#currentHeader);
+  }
+
   #initAppUI() {
     this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.restaurantListContainer);
     new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
-    this.#restaurantList = new RestaurantList(this.restaurantListContainer);
+    this.#likeHeader = new LikeHeader(this.likeHeaderContainer, '모든 음식점', '자주 가는 음식점');
+    this.#restaurantList = new RestaurantList(this.restaurantListContainer, this.#handleRestaurantUpdate.bind(this));
   }
 }
 

@@ -37,22 +37,23 @@ const restaurantDatas = [
 
 class RestaurantList {
   #restaurantListContainer;
+  #onRestaurantUpdate;
 
-  constructor(restaurantListContainer) {
+  constructor(restaurantListContainer, onRestaurantUpdate) {
     this.#restaurantListContainer = restaurantListContainer;
-    this.#createRestaurantList(this.sortRestaurantList('', 'name'));
+    this.#onRestaurantUpdate = onRestaurantUpdate;
+    this.#createRestaurantList(this.sortRestaurantList('', 'name', '모든 음식점'));
   }
 
   #createRestaurantList(restaurantList) {
     this.#restaurantListContainer.innerHTML = '';
     restaurantList.forEach((restaurant) => {
-      const restaurantItem = new RestaurantItem(restaurant);
-
+      const restaurantItem = new RestaurantItem(restaurant, this.#onRestaurantUpdate).getElement();
       this.#restaurantListContainer.appendChild(restaurantItem);
     });
   }
 
-  sortRestaurantList(category, sorting) {
+  sortRestaurantList(category, sorting, currentHeader) {
     let filteredList = restaurantDatas;
     if (category && category !== '') {
       filteredList = restaurantDatas.filter((restaurant) => {
@@ -64,6 +65,18 @@ class RestaurantList {
       filteredList = [...filteredList].sort((a, b) => a.getName().localeCompare(b.getName()));
     } else if (sorting === 'distance') {
       filteredList = [...filteredList].sort((a, b) => Number(a.getDistance()) - Number(b.getDistance()));
+    }
+
+    if (currentHeader === '모든 음식점') {
+      filteredList = [...filteredList].filter((restaurant) => {
+        return restaurant.getLike() === false || restaurant.getLike() === true;
+      });
+    }
+
+    if (currentHeader === '자주 가는 음식점') {
+      filteredList = [...filteredList].filter((restaurant) => {
+        return restaurant.getLike() === true;
+      });
     }
 
     this.#createRestaurantList(filteredList);
