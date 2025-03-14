@@ -42,10 +42,11 @@ export default function RestaurantItem({
   $restaurantItem.addEventListener("click", (event) => {
     if (event.target.name === "favorite__star") {
       restaurantDataList.changeFavorite(id);
-    } else {
-      const dataById = restaurantDataList.getDataById(id);
-      Modal(() => RestaurantDetailModal({ ...dataById }));
+      return;
     }
+
+    const dataById = restaurantDataList.getDataById(id);
+    Modal(() => RestaurantDetailModal({ ...dataById }));
   });
 
   return $restaurantItem;
