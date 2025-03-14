@@ -2,17 +2,29 @@ import RULES from "../../constants/rules.js";
 
 class FilterBar {
   #$target;
-  #props;
+  #selectedCategory;
+  #selectedSorting;
+  #onCategoryChange;
+  #onSortingChange;
 
-  constructor($target, props) {
+  constructor(
+    $target,
+    { selectedCategory, selectedSorting, onCategoryChange, onSortingChange }
+  ) {
     this.#$target = $target;
-    this.#props = props;
+    this.#selectedCategory = selectedCategory;
+    this.#selectedSorting = selectedSorting;
+    this.#onCategoryChange = onCategoryChange;
+    this.#onSortingChange = onSortingChange;
 
-    this.#$target.insertAdjacentHTML("beforeend", this.#template());
+    const template = document.createElement("template");
+    template.innerHTML = this.#template().trim();
+    this.#$target.appendChild(template.content.firstElementChild);
+
     this.#$target.querySelector("#category-filter").value =
-      this.#props.selectedCategory;
+      this.#selectedCategory;
     this.#$target.querySelector("#sorting-filter").value =
-      this.#props.selectedSorting;
+      this.#selectedSorting;
     this.#bindEvents();
   }
 
@@ -41,8 +53,8 @@ class FilterBar {
   }
 
   #bindEvents() {
-    const $categoryFilter = document.querySelector("#category-filter");
-    const $sortingFilter = document.querySelector("#sorting-filter");
+    const $categoryFilter = this.#$target.querySelector("#category-filter");
+    const $sortingFilter = this.#$target.querySelector("#sorting-filter");
 
     $categoryFilter.removeEventListener("change", this.#handleCategoryChange);
     $sortingFilter.removeEventListener("change", this.#handleSortingChange);
@@ -53,15 +65,15 @@ class FilterBar {
 
   #handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
-    if (this.#props.onCategoryChange) {
-      this.#props.onCategoryChange(selectedCategory);
+    if (this.#onCategoryChange) {
+      this.#onCategoryChange(selectedCategory);
     }
   };
 
   #handleSortingChange = (event) => {
     const selectedSorting = event.target.value;
-    if (this.#props.onSortingChange) {
-      this.#props.onSortingChange(selectedSorting);
+    if (this.#onSortingChange) {
+      this.#onSortingChange(selectedSorting);
     }
   };
 }
