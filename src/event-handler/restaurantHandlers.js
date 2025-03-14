@@ -92,10 +92,15 @@ export function handleDeleteRestaurant(
   try {
     const parent = event.target.parentElement.parentElement;
     const name = parent.querySelector(".restaurant__name").textContent;
+
     restaurantList.deleteRestaurant(name);
+
     localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+
     deleteRestaurantElementByName(name);
+
     const descriptionModal = document.querySelector(".description-modal");
+
     descriptionModal.close();
     Toast.showToast(`${name} 레스토랑을 삭제했습니다.`, "success");
   } catch (error) {
