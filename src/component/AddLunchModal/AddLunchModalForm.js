@@ -10,6 +10,8 @@ import {
 import state from "../../state.ts";
 import { Validator } from "../../utils/Validator.ts";
 import RestaurantList from "../RestaurantList.js";
+import data from "../../data.ts";
+import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
 
 const AddLunchModalForm = {
   create() {
@@ -82,7 +84,7 @@ const AddLunchModalForm = {
     try {
       this.validateFormInputs({ name, link, description });
       this.addRestaurant({ category, name, distance, description, link });
-      RestaurantList.applyElements();
+      RestaurantList.applyData();
       Modal.close("addLunch");
       Modal.reset("addLunch");
     } catch (e) {
@@ -97,12 +99,13 @@ const AddLunchModalForm = {
   },
 
   addRestaurant({ category, name, distance, description, link }) {
-    state.currentRestaurantList.push({
+    data.restaurantList = RestaurantListUtils.add(data.restaurantList, {
+      id: data.restaurantList.length,
       label: category,
-      name: name,
-      distance: Number(distance),
+      name,
+      distance,
       description,
-      link: link,
+      link,
     });
   },
 };

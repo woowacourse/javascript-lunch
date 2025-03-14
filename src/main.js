@@ -10,7 +10,7 @@ initAddLunchModal();
 
 function initRestaurantList() {
   DOM.$body.append(RestaurantList.create());
-  RestaurantList.applyElements();
+  RestaurantList.applyData();
 }
 
 function initAddLunchModal() {
