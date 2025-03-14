@@ -151,10 +151,10 @@ body {
 }
 
 .restaurant__info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  position: relative; /* 상대 위치 설정하여 기준점 만들기 */
+  width: 100%; /* 전체 너비 사용 */
 }
+
 
 .restaurant__name {
   margin: 0;
@@ -360,4 +360,31 @@ input[name="link"] {
 /* 호버 효과 */
 .tab-button:hover {
   color:  var(--primary-color);
+}
+
+.restaurant__star__container {
+  display: flex;
+  justify-content: space-between; /* 양쪽 끝에 요소 배치 */
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+  align-items: flex-start; /* 상단 정렬 */
+  margin-bottom: 8px; /* 아래 여백 추가 */
+}
+
+.restaurant__name__and__distance {
+  flex: 1; /* 가능한 많은 공간 차지 */
+  padding-right: 10px; /* 별과의 간격 */
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.star-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
 }

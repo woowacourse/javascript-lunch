@@ -1,5 +1,7 @@
+
 export const initialRestaurants = [
   {
+    id: 1,
     category: "korean",
     categoryName: "한식",
     name: "피양콩할마니",
@@ -9,6 +11,7 @@ export const initialRestaurants = [
     favorites: true,
   },
   {
+    id: 2,
     category: "chinese",
     categoryName: "중식",
     name: "친친",
@@ -18,6 +21,7 @@ export const initialRestaurants = [
     favorites: false,
   },
   {
+    id: 3,
     category: "japanese",
     categoryName: "일식",
     name: "잇쇼우",
@@ -27,6 +31,7 @@ export const initialRestaurants = [
     favorites: false,
   },
   {
+    id: 4,
     category: "western",
     categoryName: "양식",
     name: "이태리키친",
@@ -35,6 +40,7 @@ export const initialRestaurants = [
     favorites: false,
   },
   {
+    id: 5,
     category: "asian",
     categoryName: "아시안",
     name: "호아빈 삼성점",
@@ -43,6 +49,7 @@ export const initialRestaurants = [
     favorites: false,
   },
   {
+    id: 6,
     category: "etc",
     categoryName: "기타",
     name: "도스타코스 선릉점",
