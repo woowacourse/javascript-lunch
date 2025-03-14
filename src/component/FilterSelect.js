@@ -1,3 +1,7 @@
+import data from "../data.ts";
+import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
+import RestaurantList from "./RestaurantList.js";
+
 const FilterSelect = {
   create({ id, name, dropdownList }) {
     const filterElement = document.createElement("select");
@@ -10,8 +14,23 @@ const FilterSelect = {
       .join("\n")}
     `;
 
+    filterElement.addEventListener("change", (e) => {
+      if (id === "category-filter") this.onChangeCategory(e.target.value);
+      if (id === "sorting-filter") this.onChangeSorting(e.target.value);
+    });
+
     return filterElement;
   },
+
+  onChangeCategory(category) {
+    const filteredList = RestaurantListUtils.filterByCategory(
+      data.restaurantList,
+      category
+    );
+    RestaurantList.applyList(filteredList);
+  },
+
+  onChangeSorting(sortingRule) {},
 };
 
 export default FilterSelect;

@@ -21,6 +21,7 @@ const RestaurantList = {
   },
 
   applyList(restaurantList) {
+    state.setCurrentRestaurantList(restaurantList);
     const restaurantElementList = this.getRestaurantElementList(restaurantList);
     this.applyElements(restaurantElementList);
   },

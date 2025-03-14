@@ -3,6 +3,7 @@ import {
   DISTANCE_DROPDOWN_LIST,
   SORT_DROPDOWN_LIST,
 } from "../src/constants/constants";
+import { CATEGORY_FILTER_DROPDOWN_LIST } from "../src/constants/dropdownList";
 
 declare module "*.png";
 declare module "*.jpg";
@@ -20,3 +21,6 @@ interface Restaurant {
   description?: string;
   link?: string;
 }
+
+type CATEGORY_FILTER = (typeof CATEGORY_FILTER_DROPDOWN_LIST)[number]["value"];
+type SORTING_FILTER = (typeof SORT_DROPDOWN_LIST)[number]["value"];

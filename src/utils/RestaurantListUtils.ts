@@ -1,4 +1,4 @@
-import { Label, Restaurant } from "../../types/global";
+import { CATEGORY_FILTER, Restaurant } from "../../types/global";
 
 const RestaurantListUtils = {
   add(restaurantList: Restaurant[], newRestaurant: Restaurant): Restaurant[] {
@@ -7,8 +7,9 @@ const RestaurantListUtils = {
 
   filterByCategory(
     restaurantList: Restaurant[],
-    category: Label
+    category: CATEGORY_FILTER
   ): Restaurant[] {
+    if (category === "전체") return restaurantList;
     return restaurantList.filter(({ label }) => label === category);
   },
 
