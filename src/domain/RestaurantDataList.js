@@ -82,7 +82,6 @@ export class RestaurantDataList {
     } else {
       dataList.sort((a, b) => (a.name > b.name ? 1 : -1));
     }
-    console.log(dataList);
 
     return dataList;
   }

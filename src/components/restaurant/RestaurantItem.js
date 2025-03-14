@@ -44,7 +44,6 @@ export default function RestaurantItem({
       restaurantDataList.changeFavorite(id);
     } else {
       const dataById = restaurantDataList.getDataById(id);
-      console.log(dataById);
       Modal(() => RestaurantDetailModal({ ...dataById }));
     }
   });
