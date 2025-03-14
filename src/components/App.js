@@ -3,6 +3,7 @@ import { createRestaurant, updateRestaurant } from "./createRestaurant.js";
 import Component from "./Component.js";
 import { filterRestaurants } from "../domain/filterRestaurants.js";
 import { getStoredRestaurantData } from "../domain/storeRestaurantData.js";
+import Tab from "./Tab/Tab.js";
 class App extends Component {
   constructor($target) {
     super($target);
@@ -13,6 +14,7 @@ class App extends Component {
 
   render() {
     new Header(document.querySelector(".gnb"));
+    new Tab(document.querySelector(".tab-container"));
     filterRestaurants(
       localStorage.getItem("selectedCategory"),
       localStorage.getItem("sortType"),
