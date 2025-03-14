@@ -13,14 +13,9 @@ export default class Modal {
       </div>
       
 `;
-    document.querySelector("body").appendChild(this.#container);
 
-    this.#container
-      .querySelector(".modal-container")
-      .appendChild(this.#content);
-    this.#container
-      .querySelector(".modal-backdrop")
-      .addEventListener("click", () => this.close());
+    this.#container.querySelector(".modal-container").appendChild(this.#content);
+    this.#container.querySelector(".modal-backdrop").addEventListener("click", () => this.close());
 
     this.close();
   }
@@ -34,5 +29,8 @@ export default class Modal {
   }
   get isOpen() {
     return this.#isOpen;
+  }
+  get element() {
+    return this.#container;
   }
 }
