@@ -16,11 +16,14 @@ import RestaurantInfoModal from "./components/modal/RestaurantInfoModal/index.js
 import { makeUniqueId } from "./utils/makeUniqueId.js";
 import CategoryFilter from "./components/CategoryFilter.js";
 import SortingFilter from "./components/SortingFilter.js";
+import sortAndFilter from "./utils/sortAndFilter.js";
 
 class App extends Component {
   setup() {
     this.state = {
-      restaurants: this.props.getItemFromLocalStorage(this.props.KEY),
+      restaurants: sortAndFilter(
+        this.props.getItemFromLocalStorage(this.props.KEY)
+      ),
     };
   }
 
@@ -120,22 +123,15 @@ class App extends Component {
       restaurantSection.remove();
 
       const restaurantList = this.state.restaurants;
-      if (event.target.value === "전체") {
-        this.renderRestaurantList(restaurantList);
-        return;
-      }
 
-      const filterByCategory = (restaurantList, category) => {
-        return restaurantList.filter(
-          (restaurant) => restaurant.category === category
-        );
-      };
+      const category = event.target.value;
 
-      const filteredRestaurant = filterByCategory(
-        restaurantList,
-        event.target.value
+      const $sortingFilter = $($restaurantFilterContainer, "#sorting-filter");
+      const sorting = $sortingFilter.value;
+
+      this.renderRestaurantList(
+        sortAndFilter(restaurantList, sorting, category)
       );
-      this.renderRestaurantList(filteredRestaurant);
     });
 
     $restaurantFilterContainer.insertAdjacentHTML("beforeend", SortingFilter());
@@ -147,18 +143,14 @@ class App extends Component {
 
       const restaurantList = this.state.restaurants;
 
-      const sorting = (restaurantList, option) => {
-        const sortByOptions = {
-          name: (array) =>
-            [...array].sort((a, b) => a.name.localeCompare(b.name)),
-          distance: (array) =>
-            [...array].sort((a, b) => a.distance - b.distance),
-        };
-        return sortByOptions[option](restaurantList);
-      };
+      const $categoryFilter = $($restaurantFilterContainer, "#category-filter");
+      const category = $categoryFilter.value;
 
-      const sortedRestaurantList = sorting(restaurantList, event.target.value);
-      this.renderRestaurantList(sortedRestaurantList);
+      const sorting = event.target.value;
+
+      this.renderRestaurantList(
+        sortAndFilter(restaurantList, sorting, category)
+      );
     });
   }
 
