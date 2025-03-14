@@ -41,6 +41,10 @@ class RestaurantDataList {
     filteredData.toggleIsWish();
     return filteredData.isWish;
   }
+
+  deleteDataList(id) {
+    this.#dataList = this.#dataList.filter((data) => data.getId() !== id);
+  }
 }
 
 const dummy = [

@@ -1,8 +1,11 @@
 import createElement from "../../util/createElement";
 import closeModal from "../../util/closeModal";
 import Button from "../util/Button";
+import restaurantDataList from "../../domain/RestaurantDataList";
 
-export default function RestaurantItemDetailModalButtonContainer() {
+export default function RestaurantItemDetailModalButtonContainer({restaurantId}) {
+  // console.log(restaurantId);
+  
   const $div = createElement({
     tag: "div",
     classNames: ["button-container"],
@@ -13,6 +16,7 @@ export default function RestaurantItemDetailModalButtonContainer() {
       variant: "secondary",
       type: "button",
       text: "삭제하기",
+      onClick: () => deleteItemButton(restaurantId),
     })
   );
   $div.appendChild(
@@ -25,4 +29,9 @@ export default function RestaurantItemDetailModalButtonContainer() {
   );
 
   return $div;
+}
+
+function deleteItemButton(restaurantId) {
+  restaurantDataList.deleteDataList(restaurantId);
+  closeModal();
 }

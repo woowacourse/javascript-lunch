@@ -8,7 +8,7 @@ export default function RestaurantItemDetailModal({restaurantId, isColumn}) {
     const restaurant = restaurantDataList.getData(restaurantId);
     
     $fragment.appendChild(RestaurantItem({...restaurant.getData(), isColumn}));
-    $fragment.appendChild(RestaurantItemDetailModalButtonContainer());
+    $fragment.appendChild(RestaurantItemDetailModalButtonContainer({restaurantId}));
     
     return $fragment;
 }
