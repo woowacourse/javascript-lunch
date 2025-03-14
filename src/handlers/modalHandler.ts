@@ -3,13 +3,19 @@ import FormContent from "../components/FormContent.js";
 import OptionInput from "../components/OptionInput.js";
 import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
-
+import Restaurant from "../components/Restaurant.js";
 import RESTAURANT_ADD_FORM_HELP_TEXT from "../constants/restaurantAddForm/helpText.js";
 import RESTAURANT_ADD_FORM_SELECT_OPTIONS from "../constants/restaurantAddForm/selectOptions.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
+import { RestaurantItem } from "../types/restaurantItem.js";
 
 export const modalHandler = {
+  openModal: () => {
+    const modal = querySelector(".modal");
+    modal.classList.add("modal--open");
+  },
+
   closeModal: () => {
     const modal = querySelector(".modal");
     const modalContainer = querySelector(".modal-container");
@@ -17,6 +23,22 @@ export const modalHandler = {
 
     while (modalContainer.firstChild) {
       modalContainer.removeChild(modalContainer.firstChild);
+    }
+  },
+
+  addRestaurantDetail: (restaurantDetail: RestaurantItem) => {
+    const modalContainer = querySelector(".modal-container");
+    const restaurantDetailItem = document.createElement("li");
+    restaurantDetailItem.classList.add("restaurant", "restaurant__detail");
+    restaurantDetailItem.innerHTML = Restaurant(restaurantDetail, true);
+
+    restaurantDetailItem.appendChild(
+      modalHandler.addButtons("delete", "close")
+    );
+
+    if (modalContainer.children.length === 0) {
+      modalContainer.appendChild(restaurantDetailItem);
+      modalHandler.openModal();
     }
   },
 
@@ -39,7 +61,7 @@ export const modalHandler = {
       TextInput("link", false, RESTAURANT_ADD_FORM_HELP_TEXT.LINK)
     );
 
-    modalForm.appendChild(modalHandler.addButtons());
+    modalForm.appendChild(modalHandler.addButtons("cancel", "add"));
     modalHandler.addFormCheck();
 
     querySelector("#cancel-button").addEventListener(
@@ -48,11 +70,11 @@ export const modalHandler = {
     );
   },
 
-  addButtons: () => {
+  addButtons: (type1: string, type2: string) => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
-    buttonContainer.appendChild(Button("cancel"));
-    buttonContainer.appendChild(Button("add"));
+    buttonContainer.appendChild(Button(type1));
+    buttonContainer.appendChild(Button(type2));
 
     return buttonContainer;
   },
