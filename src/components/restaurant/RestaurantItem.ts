@@ -6,6 +6,7 @@ function RestaurantItem({ restaurant }: { restaurant: Restaurant }) {
   return createDOMElement({
     tag: 'li',
     class: 'restaurant',
+    'data-id': restaurant.name,
     children: [
       createDOMElement({
         tag: 'div',

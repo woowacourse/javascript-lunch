@@ -38,6 +38,11 @@ class ModalController {
       this.close();
     });
   }
+
+  switchContent(contents: HTMLElement[]) {
+    const modalContainer = $('.modal-container');
+    modalContainer?.replaceChildren(...contents);
+  }
 }
 
 export default ModalController;

@@ -1,17 +1,15 @@
 import createDOMElement from '../util/createDomElement';
-import { $ } from '../util/selector';
 
 function Modal({ content }: { content: HTMLElement }): { modal: HTMLElement; open: () => void; close: () => void } {
+  const modalBackdrop = createDOMElement({
+    tag: 'div',
+    class: 'modal-backdrop',
+  });
+
   const modal = createDOMElement({
     tag: 'div',
     class: 'modal',
-    children: [
-      createDOMElement({
-        tag: 'div',
-        class: 'modal-backdrop',
-      }),
-      content,
-    ],
+    children: [modalBackdrop, content],
   });
 
   function open() {
@@ -32,7 +30,7 @@ function Modal({ content }: { content: HTMLElement }): { modal: HTMLElement; ope
     }
   }
 
-  $('.modal-backdrop')?.addEventListener('click', close);
+  modalBackdrop.addEventListener('click', close);
 
   return { modal, open, close };
 }
