@@ -4,6 +4,7 @@ import Description from "./description";
 import Distance from "./distance";
 
 const RestaurantInfo = ({
+  id,
   name,
   distance,
   description,
@@ -13,6 +14,7 @@ const RestaurantInfo = ({
 }) => {
   const restaurantInfo = document.createElement("div");
   restaurantInfo.classList.add("restaurant__info");
+  restaurantInfo.setAttribute("id", `restaurant__info__${id}`);
 
   restaurantInfo.appendChild(
     Title({

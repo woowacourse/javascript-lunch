@@ -10,13 +10,15 @@ import CategoryImage from "./categoryImage";
 import RestaurantInfo from "./restaurantInfo";
 
 const RestaurantCard = (restaurant, filter, deleteRestaurant) => {
-  const { category, name, distance, description, favorite } = restaurant.info;
+  const { id, category, name, distance, description, favorite } =
+    restaurant.info;
   const restaurantCard = document.createElement("li");
   restaurantCard.classList.add("restaurant");
 
   restaurantCard.prepend(CategoryImage(category));
   restaurantCard.appendChild(
     RestaurantInfo({
+      id,
       name,
       distance,
       description: [description, true],
