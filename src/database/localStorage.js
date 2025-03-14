@@ -7,5 +7,5 @@ export const setItemToLocalStorage = (key, value) => {
 
 export const getItemFromLocalStorage = (key) => {
   const data = localStorage.getItem(key);
-  return JSON.parse(data) || [];
+  return JSON.parse(data);
 };
