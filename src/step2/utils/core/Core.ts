@@ -1,6 +1,6 @@
 import { debounce } from '../@common/debounce';
 
-interface Dispatch<T> {
+export interface Dispatch<T> {
   (value: T): void;
 }
 
