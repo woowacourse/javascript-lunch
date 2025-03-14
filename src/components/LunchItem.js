@@ -3,12 +3,12 @@ import { CategoryIcon } from "./common/CategoryIcon.js";
 import { StoreInfo } from "./StoreInfo.js";
 
 export function LunchItem({
-  targetID,
   category,
   name,
   distance,
   description,
   link,
+  isFavorite,
 }) {
   const li = createElement("li");
   li.classList.add("restaurant");
@@ -23,6 +23,7 @@ export function LunchItem({
       description,
       link,
       type: "summary",
+      isFavorite,
     })}
   `;
     return li;
