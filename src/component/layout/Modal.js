@@ -1,8 +1,10 @@
 import {
   convertStorageToLocal,
+  readFoodList,
   showFoodItem,
   sortedFoodList,
 } from "../../domain/handler/FoodItemHandler";
+import { readStorageFoodList } from "../../domain/handler/FoodStorageHandler";
 import { FoodDetail } from "../../pages/FoodDetail";
 
 export class Modal {
@@ -42,7 +44,9 @@ export class Modal {
     modalContent.classList.remove("modal--open");
 
     if (filter) {
-      const foodList = sortedFoodList(filter);
+      // const previousFoodList = readFoodList(filter, modal);
+      const previousFoodList = readStorageFoodList();
+      const foodList = sortedFoodList(filter, previousFoodList);
       convertStorageToLocal(modal, filter, foodList);
     }
   }

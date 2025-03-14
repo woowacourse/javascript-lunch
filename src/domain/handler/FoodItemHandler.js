@@ -11,12 +11,20 @@ import {
 } from "./FoodStorageHandler";
 
 // CRUD - create : mock Data
-export function readFoodList(filter, modal) {
-  const previousFoodList = readStorageFoodList();
-  if (previousFoodList.length === 0) {
+export function readFoodList(filter, modal, favoriteFilter = false) {
+  const previousFoodList = readStorageFoodList().filter((item) => {
+    if (favoriteFilter) return item.favorite === true;
+    return item;
+  });
+  if (previousFoodList.length === 0 && !favoriteFilter) {
+    // console.log("빈 리스트");
     localStorage.setItem("foodList", JSON.stringify(foodItems));
   }
-  convertStorageToLocal(modal, filter, sortedFoodList(filter));
+  convertStorageToLocal(
+    modal,
+    filter,
+    sortedFoodList(filter, previousFoodList)
+  );
 }
 
 // CRUD - update
@@ -35,16 +43,16 @@ function addFoodItem(filter, newFoodItem, modal) {
 }
 
 export function deleteFoodItem(filter, newFoodItem, modal) {
-  console.log("dlelte  ", newFoodItem);
+  // console.log("dlelte  ", newFoodItem);
   const deletedFoodList = deleteStorageFoodList(newFoodItem);
   Modal.close(filter, modal);
   // convertStorageToLocal(modal, sortedFoodList(filter));
 }
 
-export function sortedFoodList(filter) {
-  const foodLIst = readStorageFoodList();
+export function sortedFoodList(filter, foodList) {
+  // const foodLIst = readStorageFoodList();
   filter.reset();
-  return foodLIst.sort((a, b) => filter.sortBy(a, b));
+  return foodList.sort((a, b) => filter.sortBy(a, b));
 }
 
 // 화면에 출력하기
@@ -67,11 +75,20 @@ function openDetailModal(modal, filter, foodItem) {
 }
 
 function handleFavoriteButton(event, foodItem, filter, modal) {
+  const favoriteState = document.querySelector(
+    ".tab-button_favorite.selected-button"
+  );
+
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateStorageFoodList(foodItem);
-  Modal.close(filter, modal);
+
+  if (favoriteState) {
+    readFoodList(filter, modal, true);
+  } else readFoodList(filter, modal);
   event.stopPropagation();
+
+  // console.log("1");
 }
 
 export function showFoodItem(foodListComponent) {

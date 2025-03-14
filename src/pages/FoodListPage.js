@@ -46,9 +46,9 @@ export class FoodListPage {
   loadTabButton() {
     const container = document.createElement("div");
     container.innerHTML = `
-      <div>
-        <button> 모든 음식점 </button>
-        <button> 자주 가는 음식점 </button>
+      <div class="tab-button">
+        <button class="tab-button_all"> 모든 음식점 </button>
+        <button class="tab-button_favorite"> 자주 가는 음식점 </button>
       </div>
     `;
     this.#main.appendChild(container.firstElementChild);
