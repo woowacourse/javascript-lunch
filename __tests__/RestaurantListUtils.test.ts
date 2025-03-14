@@ -29,6 +29,12 @@ describe("RestaurantList 유틸 함수 테스트", () => {
   });
 
   test("음식점 정렬순서에 따라 정렬된 List를 반환한다.", () => {
+    const restaurantListSortedById: Restaurant[] = [
+      { id: 0, label: "한식", name: "한식집", distance: 10 },
+      { id: 1, label: "일식", name: "초밥집", distance: 5 },
+      { id: 2, label: "양식", name: "돈가스집", distance: 15 },
+      { id: 3, label: "한식", name: "국밥집", distance: 20 },
+    ];
     const restaurantListSortedByName: Restaurant[] = [
       { id: 3, label: "한식", name: "국밥집", distance: 20 },
       { id: 2, label: "양식", name: "돈가스집", distance: 15 },
@@ -42,6 +48,9 @@ describe("RestaurantList 유틸 함수 테스트", () => {
       { id: 3, label: "한식", name: "국밥집", distance: 20 },
     ];
 
+    expect(RestaurantListUtils.sortById(restaurantList)).toEqual(
+      restaurantListSortedById
+    );
     expect(RestaurantListUtils.sortByName(restaurantList)).toEqual(
       restaurantListSortedByName
     );

@@ -13,6 +13,11 @@ const RestaurantListUtils = {
     return restaurantList.filter(({ label }) => label === category);
   },
 
+  sortById(restaurantList: Restaurant[]): Restaurant[] {
+    const resultList = [...restaurantList];
+    return resultList.sort((a, b) => a.id - b.id);
+  },
+
   sortByName(restaurantList: Restaurant[]): Restaurant[] {
     const resultList = [...restaurantList];
     return resultList.sort((a, b) => {

@@ -1,4 +1,5 @@
 import data from "../data.ts";
+import state from "../state.ts";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
 import RestaurantList from "./RestaurantList.js";
 
@@ -30,7 +31,17 @@ const FilterSelect = {
     RestaurantList.applyList(filteredList);
   },
 
-  onChangeSorting(sortingRule) {},
+  onChangeSorting(sortingRule) {
+    let filteredList = state.currentRestaurantList;
+    if (sortingRule === "id")
+      filteredList = RestaurantListUtils.sortById(filteredList);
+    if (sortingRule === "name")
+      filteredList = RestaurantListUtils.sortByName(filteredList);
+    if (sortingRule === "distance")
+      filteredList = RestaurantListUtils.sortByDistance(filteredList);
+
+    RestaurantList.applyList(filteredList);
+  },
 };
 
 export default FilterSelect;
