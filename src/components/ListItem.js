@@ -9,6 +9,7 @@ const CATRGORY_IMAGE_PATH = {
 
 function ListItem({ category, name, distance, description, favoriteStar }) {
   const listElement = document.createElement("li");
+  listElement.dataset.name = name;
   listElement.classList.add("restaurant");
   listElement.innerHTML = /*html*/ `
     <div class="restaurant__category">

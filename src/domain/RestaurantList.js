@@ -57,6 +57,10 @@ class RestaurantList {
     return [...this.#filteredRestaurants];
   }
 
+  favoriteRestaurants() {
+    return this.#restaurants.filter(({ information }) => information.favoriteStar);
+  }
+
   // 로컬스토리지 업데이트
   updateLocalStorage() {
     localStorage.setItem("restaurants", JSON.stringify(this.#restaurants));

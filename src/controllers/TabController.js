@@ -4,7 +4,11 @@ const TAB_DATA = [
   { id: "all-restaurant", text: "모든 음식점" },
   { id: "favorite-restaurant", text: "자주 가는 음식점" },
 ];
-function TabController(mainElement, { allListContainerElement, favoriteListContainerElement }) {
+function TabController(
+  mainElement,
+  { allListContainerElement, favoriteListContainerElement },
+  { updateList, updateFavoriteList },
+) {
   const tabContainerElement = TabWrapper(TAB_DATA);
   mainElement.prepend(tabContainerElement);
 
@@ -18,6 +22,7 @@ function TabController(mainElement, { allListContainerElement, favoriteListConta
     allRestaurantTab.classList.add("active");
     favoriteListContainerElement.classList.remove("active");
     allListContainerElement.classList.add("active");
+    updateList();
   });
 
   favoriteRestaurantTab.addEventListener("click", () => {
@@ -25,6 +30,7 @@ function TabController(mainElement, { allListContainerElement, favoriteListConta
     favoriteRestaurantTab.classList.add("active");
     allListContainerElement.classList.remove("active");
     favoriteListContainerElement.classList.add("active");
+    updateFavoriteList();
   });
 }
 

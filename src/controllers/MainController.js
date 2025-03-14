@@ -12,25 +12,39 @@ function MainController() {
   const favoriteListContainerElement = mainElement.querySelector(".favorite-restaurant-list-container");
 
   const { listElement, restaurantList, updateList } = ListController(allListContainerElement);
+  const { favoriteListElement, updateFavoriteList } = FavoriteListController(
+    favoriteListContainerElement,
+    restaurantList,
+  );
 
   const { categoryFilterElement, sortingFilterElement } = CategoryFilterController(allListContainerElement, updateList);
   HeaderController(app);
   ModalController(mainElement, {
-    updateList: () => updateList(category, sortOption),
+    updateList: () => updateList(categoryFilterElement.value, sortingFilterElement.value),
     restaurantList,
   });
-  TabController(mainElement, { allListContainerElement, favoriteListContainerElement });
+  TabController(
+    mainElement,
+    { allListContainerElement, favoriteListContainerElement },
+    { updateList: () => updateList(categoryFilterElement.value, sortingFilterElement.value), updateFavoriteList },
+  );
 
-  listElement.addEventListener("click", (event) => {
+  mainElement.addEventListener("click", (event) => {
     const starElement = event.target.closest(".favorite-star");
     if (!starElement) return;
-
+    starElement.classList.toggle("active");
     const restaurantName = starElement.dataset.name;
     const restaurant = restaurantList.getRestaurantByName(restaurantName);
+
     if (restaurant) {
       restaurant.toggleFavorite();
       restaurantList.updateLocalStorage();
-      updateList(categoryFilterElement.value, sortingFilterElement.value);
+
+      favoriteListElement.querySelectorAll("li").forEach((favoriteListElement) => {
+        if (favoriteListElement.dataset.name === restaurantName) {
+          favoriteListElement.remove();
+        }
+      });
     }
   });
 }
