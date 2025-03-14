@@ -1,23 +1,27 @@
 import CATEGORY from '../../constant/category';
 
-const TAG_MAP = {
+type DropDownTitle = '카테고리' | '거리(도보 이동 시간)';
+
+const TAG_MAP: Record<DropDownTitle, string> = {
   카테고리: 'category',
   '거리(도보 이동 시간)': 'distance',
 };
 
 class InputDropDown {
-  constructor(title, List) {
-    return this.#createInputDropDown(title, List);
+  private element: HTMLDivElement;
+
+  constructor(title: DropDownTitle, List: string[][]) {
+    this.element = this.#createInputDropDown(title, List);
   }
 
-  #createOption(value, textContent) {
+  #createOption(value: string, textContent: string): HTMLOptionElement {
     const option = document.createElement('option');
     option.value = value;
     option.textContent = textContent;
     return option;
   }
 
-  #createInputDropDown(title, optionList) {
+  #createInputDropDown(title: DropDownTitle, optionList: string[][]): HTMLDivElement {
     const inputDropDown = document.createElement('div');
     inputDropDown.classList.add('form-item');
     inputDropDown.classList.add('form-item--required');
@@ -46,6 +50,10 @@ class InputDropDown {
     inputDropDown.appendChild(select);
 
     return inputDropDown;
+  }
+
+  getElement(): HTMLDivElement {
+    return this.element;
   }
 }
 
