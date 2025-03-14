@@ -1,7 +1,7 @@
 class RestaurantItem {
   #restaurantInfo = {};
 
-  constructor({ id, category, name, distance, description, isFavorite, link }) {
+  constructor({ id, category, name, distance, description = '', isFavorite = false, link = '' }) {
     this.#restaurantInfo = {
       id: id || this.#generateId(),
       category,
