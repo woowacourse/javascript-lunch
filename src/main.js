@@ -24,10 +24,21 @@ addEventListener("load", () => {
     Modal({
       handleCloseModal: registerModalClose,
       id: "register-modal-backdrop",
+      classNames: ["register-modal"],
       contents: [
         Title("새로운 음식점", "h2", "modal-title", "text-title"),
         RegisterForm(restaurantList),
       ],
+    })
+  );
+
+  $("main").appendChild(
+    Modal({
+      id: "restaurant-detail-modal-backdrop",
+      classNames: ["restaurant-detail-modal"],
+      handleCloseModal: () => {
+        $("#restaurant-detail-modal-backdrop").classList.remove("open");
+      },
     })
   );
 

@@ -8,7 +8,7 @@ import RestaurantDetail from "../RestaurantDetail";
 
 const RestaurantCard = (restaurant, events) => {
   const { category, name, distance, description } = restaurant.value;
-  const { clickFavorite } = events;
+  const { clickFavorite, clickCard } = events;
 
   const restaurantCard = createElement({
     tagName: "li",
@@ -21,7 +21,7 @@ const RestaurantCard = (restaurant, events) => {
     events: {
       click: () => {
         console.log(`${name} 클릭`);
-        $("#register-modal-backdrop").classList.add("open");
+        clickCard(restaurant);
       },
     },
   });
