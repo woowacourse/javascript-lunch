@@ -3,7 +3,7 @@ import { getStorage, setStorage } from "../utils/storage.ts";
 import { getHTML, createElement } from "../utils/utils.ts";
 import { LunchItem } from "./LunchItem.ts";
 
-export function LunchList(targetID: string) {
+export function LunchList(targetID: string = "restaurantListSection") {
   // 런치아이템 데이터를 가진 객체들이 배열로 받음
   const lunchItems = getStorage("lunchItems") as ILunchItem[];
 
@@ -18,14 +18,12 @@ export function LunchList(targetID: string) {
     } else {
       ul.innerHTML = `<p class="empty-message">목록이 없습니다.</p>`;
     }
-    console.log(lunchItems);
-    console.log(ul);
     return ul.outerHTML;
   }
 
   function render() {
+    console.log("실행됨실행됨");
     getHTML(targetID).innerHTML = "";
-    console.log(getHTML(targetID));
     getHTML(targetID).innerHTML = template();
   }
 
@@ -47,7 +45,6 @@ export function LunchList(targetID: string) {
     };
     lunchItems.push(newItem);
     setStorage("lunchItems", lunchItems);
-    //ul.appendChild(LunchItem(newItem));
     render();
   }
 

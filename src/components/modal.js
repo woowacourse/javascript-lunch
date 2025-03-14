@@ -8,6 +8,7 @@ import { TextareaBox } from "./common/TextareaBox.js";
 import { StoreDeleteForm } from "./common/StoreDeleteForm.js";
 
 export function openModal(formName, target) {
+  //const lunchItemIndex = target.dataset.index;
   const modalHTML = `<div class="modal modal--open">
     <div class="modal-container">
       ${
