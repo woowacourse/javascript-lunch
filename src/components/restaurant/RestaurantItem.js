@@ -14,6 +14,7 @@ export default function RestaurantItem({
   distance,
   description,
   isWish,
+  link,
   isColumn = false
 }) {
   const $restaurantItem = createElement({
@@ -65,6 +66,13 @@ export default function RestaurantItem({
     id,
   });
 
+  const $restaurantLink = createElement({
+    tag: "a",
+    href: link,
+    target: "_blank",
+    classNames: ["text-body"],
+  })
+
 
   if(isColumn) {
     $restaurantItem.classList.add("modal-column");
@@ -89,22 +97,28 @@ export default function RestaurantItem({
     }
   }
 
-  $restaurantCategory.append($categoryIcon);
+  $restaurantCategory.appendChild($categoryIcon);
 
-  $restaurantInfo.append($restaurantName);
-  $restaurantInfo.append($restaurantDistance);
-  $restaurantInfo.append($restaurantDescription);
+  $restaurantInfo.appendChild($restaurantName);
+  $restaurantInfo.appendChild($restaurantDistance);
+  $restaurantInfo.appendChild($restaurantDescription);
 
-  $restaurantWish.append($restaurantStar);
+  $restaurantWish.appendChild($restaurantStar);
 
-  $restaurantItem.append($restaurantCategory);
-  $restaurantItem.append($restaurantInfo);
-  $restaurantItem.append($restaurantWish);
+  $restaurantItem.appendChild($restaurantCategory);
+  $restaurantItem.appendChild($restaurantInfo);
+  $restaurantItem.appendChild($restaurantWish);
 
   $restaurantName.textContent = name;
   $restaurantDistance.textContent = `캠퍼스로부터 ${distance}분 내`;
   $restaurantDescription.textContent = description;
   $restaurantStar.textContent = "★"
   
+  if(isColumn) {
+    console.log(link)
+    $restaurantInfo.appendChild($restaurantLink);
+    $restaurantLink.textContent = link;
+  }
+
   return $restaurantItem;
 }
