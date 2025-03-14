@@ -1,4 +1,8 @@
-import { NAV_BAR_KEYS } from "../constants/constants.js";
+import {
+  CATEGORY,
+  NAV_BAR_KEYS,
+  SORT_OPTIONS,
+} from "../constants/constants.js";
 
 export default class RestaurantService {
   constructor(restaurantStore) {
@@ -9,7 +13,15 @@ export default class RestaurantService {
     this.restaurantStore.addRestaurant(restaurantInfo);
   }
 
-  getRestaurants(options = { filterType: NAV_BAR_KEYS.all }) {
+  getRestaurants(
+    options = {
+      tabType: NAV_BAR_KEYS.all,
+      filterType: {
+        categoryFilterType: CATEGORY[0],
+        sortFilterType: Object.keys(SORT_OPTIONS)[0],
+      },
+    }
+  ) {
     return this.restaurantStore.getRestaurants(options);
   }
 

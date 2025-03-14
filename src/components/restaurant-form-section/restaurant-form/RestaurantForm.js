@@ -20,7 +20,7 @@ export default class RestaurantForm {
     this.formElements = {
       category: new SelectBox({
         label: "category",
-        options: CATEGORY,
+        options: CATEGORY.slice(1, CATEGORY.length),
       }).render(),
       name: new NameInput().render(),
       distance: new SelectBox({

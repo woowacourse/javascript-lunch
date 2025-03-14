@@ -24,13 +24,21 @@ export const NAV_BAR_OPTIONS = Object.freeze({
   [NAV_BAR_KEYS.favorite]: "자주 가는 음식점",
 });
 
-export const SORT_OPTION_TEXTS = Object.freeze({
+export const SORT_OPTIONS = Object.freeze({
   [LABEL_KEYS.name]: "이름순",
   [LABEL_KEYS.distance]: "거리순",
 });
 
 export const DISTANCE = ["5", "10", "15", "20", "30"];
-export const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+export const CATEGORY = [
+  "전체",
+  "한식",
+  "중식",
+  "일식",
+  "양식",
+  "아시안",
+  "기타",
+];
 
 export const CATEGORY_ASSETS = Object.freeze({
   한식: "./assets/category-korean.png",
@@ -49,6 +57,7 @@ export const FAVORITE_ASSETS = Object.freeze({
 export const EVENT_TYPES = Object.freeze({
   click: "click",
   submit: "submit",
+  change: "change",
 });
 
 export const BUTTON_TYPES = Object.freeze({

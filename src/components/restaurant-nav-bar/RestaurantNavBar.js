@@ -8,9 +8,9 @@ import "./restaurantNavBar.css";
 const activeTabStyle = "active-tab-menu";
 
 export default class RestaurantNavBar {
-  constructor({ onFilterChange }) {
-    this.onFilterChange = onFilterChange;
-    this.currnentFilterType = NAV_BAR_KEYS.all;
+  constructor({ onTabChange }) {
+    this.onTabChange = onTabChange;
+    this.currentTabType = NAV_BAR_KEYS.all;
   }
 
   render() {
@@ -34,17 +34,17 @@ export default class RestaurantNavBar {
 
     [$allButton, $favoriteButton].forEach(($button) => {
       $button.addEventListener(EVENT_TYPES.click, (e) => {
-        this.currnentFilterType = e.target.value;
+        this.currentTabType = e.target.value;
 
         $navList.querySelectorAll("button").forEach((button) => {
           button.classList.toggle(
             activeTabStyle,
-            button.value === this.currnentFilterType
+            button.value === this.currentTabType
           );
         });
 
-        if (this.onFilterChange) {
-          this.onFilterChange(this.currnentFilterType);
+        if (this.onTabChange) {
+          this.onTabChange(this.currentTabType);
         }
       });
     });
@@ -58,7 +58,7 @@ export default class RestaurantNavBar {
     return $navBar;
   }
 
-  getCurrentFilterType() {
-    return this.currnentFilterType;
+  getCurrentTabType() {
+    return this.currentTabType;
   }
 }

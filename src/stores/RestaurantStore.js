@@ -44,10 +44,15 @@ export default class RestaurantStore {
     this.#notifyListeners();
   }
 
-  getRestaurants({ filterType = NAV_BAR_KEYS.all }) {
+  getRestaurants({ tabType, filterType }) {
     const restaurants = [...this.#restaurants];
-    return filterType === NAV_BAR_KEYS.favorite
+
+    return tabType && tabType === NAV_BAR_KEYS.favorite
       ? restaurants.filter((restaurant) => restaurant.isFavorite)
+      : filterType && filterType.categoryFilterType !== "전체"
+      ? restaurants.filter(
+          (restaurant) => restaurant.category === filterType.categoryFilterType
+        )
       : restaurants;
   }
 

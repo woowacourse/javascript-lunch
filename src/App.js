@@ -37,16 +37,26 @@ export default class App {
 
   #renderRestaurantNavBar() {
     this.$restaurantNavBar = new RestaurantNavBar({
-      onFilterChange: (filterType) => {
-        this.$restaurantFilter.toggleFilterVisibility({ filterType });
-        this.$restaurantList.updateRestaurantList({ filterType });
+      onTabChange: (tabType) => {
+        this.$restaurantFilter.toggleFilterVisibility({ tabType });
+        this.$restaurantList.updateRestaurantList({
+          tabType,
+          filterType: this.$restaurantFilter.getCurrentFilterType(),
+        });
       },
     });
     this.$main.append(this.$restaurantNavBar.render());
   }
 
   #renderRestaurantFilter() {
-    this.$restaurantFilter = new RestaurantFilter();
+    this.$restaurantFilter = new RestaurantFilter({
+      onFilterChange: (filterType) => {
+        this.$restaurantList.updateRestaurantList({
+          tabType: this.$restaurantNavBar.getCurrentTabType(),
+          filterType,
+        });
+      },
+    });
     this.$main.append(this.$restaurantFilter.render());
   }
 
@@ -79,9 +89,9 @@ export default class App {
   }
 
   #updateRestaurantList() {
-    const currentFilterType = this.$restaurantNavBar.getCurrentFilterType();
     this.$restaurantList.updateRestaurantList({
-      filterType: currentFilterType,
+      tabType: this.$restaurantNavBar.getCurrentTabType(),
+      filterType: this.$restaurantFilter.getCurrentFilterType(),
     });
   }
 }
