@@ -37,9 +37,11 @@ export default function createRestaurantDescription({
       <p class="restaurant__description text-body">
         ${description}
       </p>
-       <p class="restaurant__description text-body">
-         ${link}
-      </p>
+        <p class="restaurant__description text-body">
+          <a href="${link}" target="_blank" class="link">
+              ${link}
+          </a>
+        </p>
      </div>
       <div class="button-container">
         <button type="button" class="button button--secondary text-caption" id="delete-button">삭제하기</button>

@@ -4,3 +4,17 @@
 .description__contents {
   margin-bottom: 1rem;
 }
+.link {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:focus {
+  outline: none;
+  color: #0056b3;
+}
