@@ -1,6 +1,5 @@
-import { Restaurant } from './../../types/types';
 import createDOMElement from '../../util/createDomElement';
-import RestaurantIcon from './RestaurantIcon';
+import { Restaurant } from './../../types/types';
 import RestaurantItem from './RestaurantItem';
 
 function RestaurantList({ restaurants }: { restaurants: Restaurant[] }) {
@@ -11,9 +10,7 @@ function RestaurantList({ restaurants }: { restaurants: Restaurant[] }) {
       createDOMElement({
         tag: 'ul',
         class: 'restaurant-list',
-        children: restaurants.map((restaurant) =>
-          RestaurantItem({ ...restaurant, icon: RestaurantIcon({ category: restaurant.category }) }),
-        ),
+        children: restaurants.map((restaurant) => RestaurantItem({ restaurant })),
       }),
     ],
   });

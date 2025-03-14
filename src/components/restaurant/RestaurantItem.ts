@@ -1,16 +1,8 @@
+import { Restaurant } from '../../types/types';
 import createDOMElement from '../../util/createDomElement';
+import RestaurantIcon from './RestaurantIcon';
 
-function RestaurantItem({
-  name,
-  distance,
-  description,
-  icon,
-}: {
-  name: string;
-  distance: number;
-  description?: string;
-  icon: HTMLElement;
-}) {
+function RestaurantItem({ restaurant }: { restaurant: Restaurant }) {
   return createDOMElement({
     tag: 'li',
     class: 'restaurant',
@@ -18,7 +10,7 @@ function RestaurantItem({
       createDOMElement({
         tag: 'div',
         class: 'restaurant__category',
-        children: [icon],
+        children: [RestaurantIcon({ category: restaurant.category })],
       }),
       createDOMElement({
         tag: 'div',
@@ -27,17 +19,17 @@ function RestaurantItem({
           createDOMElement({
             tag: 'h3',
             class: 'restaurant__name text-subtitle',
-            textContent: name,
+            textContent: restaurant.name,
           }),
           createDOMElement({
             tag: 'span',
             class: 'restaurant__distance text-body',
-            textContent: `캠퍼스부터 ${distance}분 내`,
+            textContent: `캠퍼스부터 ${restaurant.distance}분 내`,
           }),
           createDOMElement({
             tag: 'p',
             class: 'restaurant__description text-body',
-            textContent: description,
+            textContent: restaurant.description,
           }),
         ],
       }),

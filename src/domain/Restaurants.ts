@@ -11,6 +11,11 @@ class Restaurants {
   get items(): Restaurant[] {
     return [...this.#restaurants];
   }
+
+  addRestaurant(restaurant: Restaurant) {
+    this.#restaurants.push(restaurant);
+    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+  }
 }
 
 export default Restaurants;

@@ -1,6 +1,5 @@
 import PlusButton from '../components/button/PlusButton';
 import Header from '../components/Header';
-import RestaurantIcon from '../components/restaurant/RestaurantIcon';
 import RestaurantItem from '../components/restaurant/RestaurantItem';
 import RestaurantList from '../components/restaurant/RestaurantList';
 import Restaurants from '../domain/Restaurants';
@@ -10,9 +9,11 @@ import ModalController from './modalController';
 
 class AppController {
   modalController;
+  restaurants;
 
   constructor() {
     this.modalController = new ModalController();
+    this.restaurants = new Restaurants();
   }
 
   init() {
@@ -30,9 +31,8 @@ class AppController {
 
   renderRestaurantList() {
     const main = $('main');
-    const restaurants = new Restaurants();
 
-    main?.appendChild(RestaurantList({ restaurants: restaurants.items }));
+    main?.appendChild(RestaurantList({ restaurants: this.restaurants.items }));
   }
 
   renderModal() {
@@ -41,19 +41,15 @@ class AppController {
     if (main) {
       this.modalController.attachTo(main);
       this.modalController.attachModalEvents();
-      this.modalController.attachFormSubmitEvent(this.addRestaurantItem);
+      this.modalController.attachFormSubmitEvent((data) => this.addRestaurantItem(data));
     }
   }
 
-  addRestaurantItem({ name, distance, description, category }: Restaurant) {
-    const item = RestaurantItem({
-      name,
-      distance,
-      description,
-      icon: RestaurantIcon({ category }),
-    });
+  addRestaurantItem(restaurant: Restaurant) {
+    const item = RestaurantItem({ restaurant });
 
     $('.restaurant-list')?.appendChild(item);
+    this.restaurants.addRestaurant(restaurant);
   }
 }
 
