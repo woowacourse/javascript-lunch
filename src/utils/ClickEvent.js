@@ -12,6 +12,10 @@ class ClickEvent {
   selectTab(target) {
     const tabs = document.querySelectorAll(".tab-item");
     const indicator = document.querySelector(".tab-indicator");
+    const container = document.querySelector(".restaurant-section-container");
+    const slider = document.querySelector(".restaurant-section-slider");
+
+    const index = Number(target.value);
 
     tabs.forEach((tab) => {
       tab.classList.remove("active");
@@ -19,9 +23,13 @@ class ClickEvent {
 
     target.classList.add("active");
 
-    const selectedTab = target;
-    indicator.style.left = `${selectedTab.offsetLeft}px`;
-    indicator.style.width = `${selectedTab.offsetWidth}px`;
+    indicator.style.left = `${target.offsetLeft}px`;
+    indicator.style.width = `${target.offsetWidth}px`;
+
+    slider.scrollTo({
+      left: index * container.clientWidth,
+      behavior: "smooth",
+    });
   }
 
   showStoreAddModal() {
