@@ -8,8 +8,9 @@ class Restaurant {
   #description;
   #category;
   #link;
+  #like;
 
-  constructor(name, distance, description, category, link) {
+  constructor(name, distance, description, category, link, like) {
     validateName(name);
     validateDescription(description);
     validateLink(link);
@@ -18,6 +19,7 @@ class Restaurant {
     this.#description = description;
     this.#category = category;
     this.#link = link;
+    this.#like = like;
   }
 
   getName() {
@@ -38,6 +40,14 @@ class Restaurant {
 
   getLink() {
     return String(this.#link);
+  }
+
+  getLike() {
+    return this.#like;
+  }
+
+  setLike(like) {
+    this.#like = like;
   }
 }
 

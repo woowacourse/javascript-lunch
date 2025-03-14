@@ -306,3 +306,22 @@ input[name='link'] {
 .hidden {
   visibility: hidden;
 }
+
+.star-icon {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: 0;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+
+.star-icon.unlike {
+  background-image: url('../../public/assets/star-outlined.png');
+}
+
+.star-icon.like {
+  background-image: url('../../public/assets/star-filled.png');
+}
