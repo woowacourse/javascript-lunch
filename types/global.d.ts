@@ -10,11 +10,12 @@ declare global {
   type Distance = "5분" | "10분" | "15분" | "20분" | "30분";
 
   interface FoodItemProps {
-    id: number;
+    id: string;
     category: Category;
     name: string;
     distance: Distance;
     description: string;
     isFavorite: boolean;
+    link: string;
   }
 }
