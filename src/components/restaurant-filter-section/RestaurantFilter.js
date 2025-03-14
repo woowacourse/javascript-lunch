@@ -38,6 +38,7 @@ export default class RestaurantFilter {
     SORT_OPTIONS.forEach((option) => {
       const $option = document.createElement("option");
 
+      // TODO: 상수 분리
       const valueTypes = {
         이름순: "name",
         거리순: "distance",
