@@ -1,19 +1,20 @@
 import { CATEGORIES } from "../../constants/constants";
-import { restaurantsData } from "../../constants/restaurantsMockData";
+import { restaurantsData } from "../../../public/database/restaurants";
 import RestaurantList from "../../Restaurant/RestaurantList";
 
 const createCategoryFilter = () => {
   const addrestaurant_filter_container = document.querySelector(
     ".restaurant-filter-container"
   );
-  const categoryFilter = `
+  const categoryFilter = `<div>
   <select name="category" id="category-filter" class="restaurant-filter">
     <option value="전체">전체</option>
     ${CATEGORIES.map(
       (category) => `<option value="${category}">${category}</option>`
     ).join("")}
   </select>
-  <p id="result"></p>
+  <p id="category-filter-result"></p>
+  </div>
   `;
 
   addrestaurant_filter_container.insertAdjacentHTML(
@@ -29,15 +30,16 @@ const createCategoryFilter = () => {
 
 function handleOnChange(selectedCategory) {
   const text = selectedCategory.options[selectedCategory.selectedIndex].text;
-  const selectedCategoryResult = document.getElementById("result");
+  const selectedCategoryResult = document.getElementById(
+    "category-filter-result"
+  );
   showSelectedCategoryRestaurantList(text);
 }
 
 function showSelectedCategoryRestaurantList(selectedCategory) {
-  const restaurantList = new RestaurantList(selectedCategory);
+  const restaurantList = new RestaurantList();
+  restaurantList.setSelectedCategory(selectedCategory);
   restaurantList.createRestaurantList();
 }
 
 export default createCategoryFilter;
-
-// const newArray = array.filter((element) => 조건);

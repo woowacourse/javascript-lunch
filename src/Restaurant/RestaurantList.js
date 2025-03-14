@@ -1,12 +1,23 @@
 import "./RestaurantList.css";
-import { restaurantsData } from "../constants/restaurantsMockData";
+import { restaurantsData } from "../../public/database/restaurants";
 import renderRestaurantElement from "./RestaurantItem";
 
 class RestaurantList {
-  constructor(selectedCategory = "전체") {
+  selectedCategory = "전체";
+  selectedSort = "이름순";
+  // selectedTab = "전체";
+
+  constructor() {
     this.restaurants = [...restaurantsData];
     this.restaurantListElement = null;
-    this.selectedCategory = selectedCategory;
+  }
+
+  setSelectedCategory(category) {
+    this.selectedCategory = category;
+  }
+
+  setSelectedSort(sortOption) {
+    this.selectedSort = sortOption;
   }
 
   createRestaurantList() {
@@ -24,17 +35,32 @@ class RestaurantList {
   render() {
     this.restaurantListElement.innerHTML = "";
 
-    let filteredData;
+    let categoryFilteredData;
+    let sortFilteredData;
 
+    // 카테고리 필터
     if (this.selectedCategory === "전체") {
-      filteredData = this.restaurants;
+      categoryFilteredData = this.restaurants;
     } else {
-      filteredData = this.restaurants.filter(
+      categoryFilteredData = this.restaurants.filter(
         (restaurant) => restaurant.category == this.selectedCategory
       );
     }
 
-    filteredData.forEach((restaurant) => {
+    // 정렬 필터
+    if (this.selectedSort === "이름순") {
+      sortFilteredData = categoryFilteredData
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name, "ko"));
+    } else {
+      sortFilteredData = categoryFilteredData
+        .slice()
+        .sort((a, b) => a.distance - b.distance);
+    }
+
+    // 즐겨찾기 필터
+
+    sortFilteredData.forEach((restaurant) => {
       const restaurantItem = renderRestaurantElement(restaurant);
       this.restaurantListElement.appendChild(restaurantItem);
     });

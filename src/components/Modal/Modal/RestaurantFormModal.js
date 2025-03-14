@@ -5,7 +5,7 @@ import createDistance from "../Select/DistanceSelect.js";
 import createDescription from "../Select/DescriptionLink.js";
 import createLink from "../Select/LinkInput.js";
 import modalButton from "../Button/Button.js";
-import { restaurantsData } from "../../../constants/restaurantsMockData.js";
+import { restaurantsData } from "../../../../public/database/restaurants.js";
 import validateRestaurant from "../../../validators/validateRestaurant.js";
 
 export default class RestaurantFormModal {
