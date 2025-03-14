@@ -1,7 +1,7 @@
 import Header from "./components/Header.js";
 import TabBarView from "./components/TabBar/index.js";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
-import FilterBarManager from "./components/FilterBar/FilterBarManager.js";
+import FilterManager from "./components/FilterBar/FilterManager.js";
 import TabManager from "./components/TabBar/TabManager.js";
 import RestaurantManager from "./components/RestaurantList/RestaurantManager.js";
 import TabBar from "./components/TabBar/index.js";
@@ -21,7 +21,7 @@ class App {
     const $tabContainer = this.#$target.querySelector("#tab-container");
     $tabContainer.appendChild(TabBar());
 
-    this.#filterBarManager = new FilterBarManager();
+    this.#filterBarManager = new FilterManager();
     this.#init();
   }
 

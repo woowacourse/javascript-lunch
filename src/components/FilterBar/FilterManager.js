@@ -1,7 +1,7 @@
 import RULES from "../../constants/rules.js";
 import FilterBar from "./index.js";
 
-class FilterBarManager {
+class FilterManager {
   #selectedCategory = RULES.ALL_CATEGORY;
   #selectedSorting = RULES.SORTING[0];
 
@@ -29,4 +29,4 @@ class FilterBarManager {
   }
 }
 
-export default FilterBarManager;
+export default FilterManager;
