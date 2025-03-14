@@ -50,6 +50,7 @@ function createRestaurantItem(data, onClickItem, onClickStar, detail = false) {
 
   if (onClickStar) {
     starImg.addEventListener('click', (event) => {
+      event.stopPropagation();
       onClickStar(event, data.id);
     });
   }
