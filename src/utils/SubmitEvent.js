@@ -1,9 +1,11 @@
 import { LunchItem } from "../components/LunchItem.ts";
 import { LunchList } from "../components/LunchList.ts";
+import { getStorage, setStorage } from "./storage.ts";
 
 const getHTML = (id) => document.getElementById(id);
 function SubmitEvent(lunchList) {
   document.addEventListener("submit", onSubmit.bind(this));
+
   function handleRestaurantSubmit(event, form) {
     event.preventDefault();
     const formData = new FormData(form);
@@ -23,6 +25,17 @@ function SubmitEvent(lunchList) {
     closeModal();
   }
 
+  function deleteStore(event, form) {
+    const lunchItemIndex = event.submitter?.value;
+    const storageLunchItems = getStorage("lunchItems");
+
+    storageLunchItems.splice(lunchItemIndex, 1);
+
+    setStorage("lunchItems", storageLunchItems);
+    LunchList().render();
+    closeModal();
+  }
+
   function closeModal() {
     const modalBackground = getHTML("modalBackground");
     modalBackground.classList.remove("show");
@@ -35,6 +48,10 @@ function SubmitEvent(lunchList) {
 
     if (form.id === "restaurantForm") {
       handleRestaurantSubmit(event, form);
+    }
+
+    if (form.id === "storeDeleteForm") {
+      deleteStore(event, form);
     }
     form.reset();
   }
