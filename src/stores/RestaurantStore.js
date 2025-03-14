@@ -1,4 +1,4 @@
-import { NAV_BAR_KEYS } from "../constants/constants.js";
+import { CATEGORY, LABEL_KEYS, NAV_BAR_KEYS } from "../constants/constants.js";
 import generateUUID from "../utils/generateUUID.js";
 
 export default class RestaurantStore {
@@ -44,16 +44,40 @@ export default class RestaurantStore {
     this.#notifyListeners();
   }
 
-  getRestaurants({ tabType, filterType }) {
+  getRestaurants({
+    tabType,
+    filterType: { categoryFilterType, sortFilterType },
+  }) {
     const restaurants = [...this.#restaurants];
 
-    return tabType && tabType === NAV_BAR_KEYS.favorite
-      ? restaurants.filter((restaurant) => restaurant.isFavorite)
-      : filterType && filterType.categoryFilterType !== "전체"
-      ? restaurants.filter(
-          (restaurant) => restaurant.category === filterType.categoryFilterType
-        )
-      : restaurants;
+    const tabTypeFn = {
+      [NAV_BAR_KEYS.all]: (restaurantsInfo) => {
+        if (categoryFilterType === CATEGORY[0]) return restaurantsInfo;
+        return restaurantsInfo.filter(
+          (restaurant) => restaurant.category === categoryFilterType
+        );
+      },
+      [NAV_BAR_KEYS.favorite]: (restaurantsInfo) => {
+        return restaurantsInfo.filter((restaurant) => restaurant.isFavorite);
+      },
+    };
+
+    const sortFilterTypeFn = {
+      [LABEL_KEYS.name]: (restaurantsInfo) => {
+        return restaurantsInfo.sort((a, b) => a.name.localeCompare(b.name));
+      },
+      [LABEL_KEYS.distance]: (restaurantsInfo) => {
+        return restaurantsInfo.sort(
+          (a, b) => parseInt(a.distance) - parseInt(b.distance)
+        );
+      },
+    };
+
+    if (tabType === NAV_BAR_KEYS.favorite) {
+      return tabTypeFn[tabType](restaurants);
+    }
+
+    return sortFilterTypeFn[sortFilterType](tabTypeFn[tabType](restaurants));
   }
 
   toggleFavorite(restaurantId) {
