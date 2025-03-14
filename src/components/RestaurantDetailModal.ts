@@ -8,7 +8,7 @@ import { html } from '../lib/utils.ts';
 interface RestaurantDetailModalProps extends RestaurantType {}
 
 export default class RestaurantDetailModal extends Component<null, RestaurantDetailModalProps | null> {
-  template() {
+  override template() {
     return html`<section class="restaurant-add-modal"></section>`;
   }
 

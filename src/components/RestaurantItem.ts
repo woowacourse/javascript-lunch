@@ -6,7 +6,7 @@ import { html } from '../lib/utils.ts';
 interface RestaurantProps extends RestaurantType {}
 
 export default class RestaurantItem extends Component<null, RestaurantProps> {
-  template() {
+  override template() {
     return html` <li class="restaurant" data-id="${this.props?.id ?? ''}">
       <div class="restaurant__category">
         <img

@@ -8,7 +8,7 @@ interface SelectProps {
 }
 
 export default class Select extends Component<null, SelectProps> {
-  template() {
+  override template() {
     return html`
       <select name="select">
         ${this.props?.options
@@ -21,7 +21,7 @@ export default class Select extends Component<null, SelectProps> {
     `;
   }
 
-  attachEventListener() {
+  override attachEventListener() {
     this.element?.querySelector('select')?.addEventListener('change', (event) => {
       this.props?.setValue((event?.target as HTMLSelectElement)?.value);
     });

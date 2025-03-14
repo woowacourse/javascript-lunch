@@ -7,7 +7,7 @@ interface HeaderProps {
 }
 
 export default class RestaurantHeader extends Component<null, HeaderProps> {
-  template() {
+  override template() {
     return html`
       <header class="gnb">
         <h1 class="gnb__title text-title">${this.props?.title ?? ''}</h1>
@@ -18,7 +18,7 @@ export default class RestaurantHeader extends Component<null, HeaderProps> {
     `;
   }
 
-  attachEventListener() {
+  override attachEventListener() {
     this.element?.querySelector('.gnb__button')?.addEventListener('click', () => {
       document.querySelector('#restaurant-add-modal')?.classList.add('modal--open');
     });

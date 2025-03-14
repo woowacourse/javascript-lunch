@@ -7,7 +7,7 @@ interface ModalProps {
 }
 
 export default class Modal extends Component<ModalProps> {
-  template() {
+  override template() {
     return html`
       <div class="modal" id="${this.props?.id ?? ''}">
         <div class="modal-backdrop"></div>
@@ -16,7 +16,7 @@ export default class Modal extends Component<ModalProps> {
     `;
   }
 
-  attachEventListener() {
+  override attachEventListener() {
     this.#attachClickEventListener();
     this.#attachKeyDownEventListener();
   }

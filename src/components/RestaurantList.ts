@@ -30,7 +30,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
     };
   }
 
-  template() {
+  override template() {
     return html`
       <section class="restaurant-tab"></section>
       <section class="restaurant-filter-sort"></section>
@@ -46,7 +46,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
    * 자식 컴포넌트 렌더링
    */
 
-  onRender() {
+  override onRender() {
     this.#appendRestaurantTab();
     this.#appendRestaurantFilterSelectSort();
     this.#appendRestaurants();
@@ -133,7 +133,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
    * 이벤트 리스너
    */
 
-  attachEventListener() {
+  override attachEventListener() {
     this.element.addEventListener('click', (event) => {
       if (!event.target) return;
 

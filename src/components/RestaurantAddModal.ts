@@ -10,11 +10,11 @@ interface RestaurantAddModalProps {
 }
 
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
-  template() {
+  override template() {
     return html`<section class="restaurant-add-modal"></section>`;
   }
 
-  onRender() {
+  override onRender() {
     this.#appendRestaurantAddModal();
   }
 
@@ -88,7 +88,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
     this.appendChild(modal.render(), '.restaurant-add-modal');
   }
 
-  attachEventListener() {
+  override attachEventListener() {
     this.element?.querySelector('form')?.addEventListener('submit', (event) => {
       event.preventDefault();
       const id = generateId();

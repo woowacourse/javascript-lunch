@@ -9,7 +9,7 @@ interface ButtonProps {
 }
 
 export default class Button extends Component<null, ButtonProps> {
-  template() {
+  override template() {
     return html` <button
       class="button text-caption ${this.props?.class}"
       ${this.props?.type ? `type = ${this.props?.type}` : ''}

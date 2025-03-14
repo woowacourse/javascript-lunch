@@ -8,7 +8,7 @@ interface RestaurantTabProps {
 }
 
 export default class RestaurantTab extends Component<null, RestaurantTabProps> {
-  template() {
+  override template() {
     return html`
       <div class="restaurant__tab-list">
         <div
@@ -29,7 +29,7 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
     `;
   }
 
-  attachEventListener() {
+  override attachEventListener() {
     this.element?.querySelectorAll('.restaurant__tab-item').forEach((tabItem) => {
       tabItem.addEventListener('click', (event) => {
         this.props?.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab as TabType);
