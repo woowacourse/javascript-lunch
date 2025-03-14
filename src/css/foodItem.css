@@ -83,3 +83,8 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+.empty-message {
+  text-align: center;
+  padding: 1rem;
+}
