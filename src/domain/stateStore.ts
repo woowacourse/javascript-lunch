@@ -1,7 +1,7 @@
 interface RestaurantState {
   sort: string;
-  category: string;
-  tab: string;
+  category: string | null;
+  isFavoriteTab: boolean;
 }
 
 interface StateStore {
@@ -14,8 +14,8 @@ interface StateStore {
 const stateStore: StateStore = {
   restaurantState: {
     sort: 'name',
-    category: 'total',
-    tab: 'total',
+    category: null,
+    isFavoriteTab: false,
   },
 
   updateState(stateKey, state) {
@@ -33,8 +33,8 @@ const stateStore: StateStore = {
     const currentState = this.restaurantState;
 
     currentState.sort = 'name';
-    currentState.category = 'total';
-    currentState.tab = 'total';
+    currentState.category = null;
+    currentState.isFavoriteTab = false;
   },
 
   getState() {

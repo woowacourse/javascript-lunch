@@ -23,7 +23,7 @@ export const CATEGORY = {
   name: 'category',
   required: true,
   lists: new Map([
-    ['total', '선택해주세요'],
+    [null, '선택해주세요'],
     ['KOREAN', '한식'],
     ['CHINESE', '중식'],
     ['JAPANESE', '일식'],
@@ -107,7 +107,7 @@ export const CATEGORY_FILTER = {
   name: 'category-filter',
   required: false,
   lists: new Map([
-    ['total', '전체'],
+    [null, '전체'],
     ['KOREAN', '한식'],
     ['CHINESE', '중식'],
     ['JAPANESE', '일식'],
