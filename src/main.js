@@ -30,6 +30,8 @@ import {
 import storeService from './database/storeService.ts';
 import sortRestaurants from './domain/sortRestaurants.ts';
 import createRestaurantInfo from './components/RestaurantInfo.js';
+import filterByFavorite from './domain/filterByFavorite.ts';
+import filterByCategory from './domain/filterByCategory.ts';
 
 addEventListener('load', () => {
   appendHeader();
