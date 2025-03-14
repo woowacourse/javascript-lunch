@@ -13,17 +13,19 @@ export function ModalController(mainElement, { updateList, restaurantList }) {
   const closeButtonElement = formElement.querySelector("button[type='button']");
   const modalBackdropElement = modalElement.querySelector(".modal-backdrop");
 
-  closeButtonElement.addEventListener("click", () => EventHandler.modalToggle(mainElement, formElement));
-  modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(mainElement, formElement));
+  closeButtonElement.addEventListener("click", () => EventHandler.modalToggle(modalElement, formElement));
+  modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(modalElement, formElement));
   formElement.addEventListener("submit", (event) => {
     const values = EventHandler.formDataParsing(event);
     restaurantList.addRestaurant(values);
     // List 재렌더링
     updateList();
-    EventHandler.modalToggle(mainElement, formElement);
+    EventHandler.modalToggle(modalElement, formElement);
   });
 
   mainElement.appendChild(modalElement);
+
+  return modalElement;
 }
 
 export default ModalController;
