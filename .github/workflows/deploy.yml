@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+
       - name: Use Cache
         uses: actions/cache@v3
         id: cache
@@ -38,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Lint
+        run: npm run lint
 
       - name: E2E
         uses: cypress-io/github-action@v6
