@@ -1,6 +1,6 @@
 import createElement from "../../../utils/createElement/createElement";
 
-const ModalContent = (contents, classNames) =>
+const ModalContent = (contents, classNames = []) =>
   createElement({
     tagName: "div",
     classNames: ["modal-container", ...classNames],
