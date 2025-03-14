@@ -22,6 +22,8 @@ export default function RestaurantDetailModal() {
         (restaurant: Restaurant) => restaurant.nameValue === restaurantName
       );
 
+      if (!restaurantValues) return;
+
       DetailModal($app, restaurantValues);
       SaveFavoriteRestaurantInModal();
       DeleteModalEvent();

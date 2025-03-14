@@ -1,7 +1,7 @@
-import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options.js";
-import CustomDropdown from "../shared/CustomDropdown.js";
-import CustomInput from "../shared/CustomInput.js";
-import CustomButton from "../shared/CustomButton.js";
+import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options";
+import CustomDropdown from "../shared/CustomDropdown";
+import CustomInput from "../shared/CustomInput";
+import CustomButton from "../shared/CustomButton";
 
 export default function AddRestaurantModal(container: HTMLElement): void {
   container.innerHTML += `

@@ -1,6 +1,6 @@
-import InitHeader from "./InitHeader.js";
-import InitRestaurantList from "./InitRestaurantList.js";
-import InitModalHandler from "./InitModalHandler.js";
+import InitHeader from "./InitHeader";
+import InitModalHandler from "./InitModalHandler";
+import InitRestaurantList from "./InitRestaurantList";
 
 addEventListener("load", () => {
   InitHeader();
