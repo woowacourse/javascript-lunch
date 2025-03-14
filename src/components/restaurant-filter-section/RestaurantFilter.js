@@ -1,4 +1,4 @@
-import { CATEGORY, SORT_OPTIONS } from "../../constants/constants.js";
+import { CATEGORY, SORT_OPTION_TEXTS } from "../../constants/constants.js";
 import "./restaurantFilter.css";
 
 export default class RestaurantFilter {
@@ -35,17 +35,11 @@ export default class RestaurantFilter {
 
     $filterContainer.append($filterSort);
 
-    SORT_OPTIONS.forEach((option) => {
+    Object.keys(SORT_OPTION_TEXTS).forEach((optionType) => {
       const $option = document.createElement("option");
 
-      // TODO: 상수 분리
-      const valueTypes = {
-        이름순: "name",
-        거리순: "distance",
-      };
-
-      $option.value = valueTypes[option];
-      $option.textContent = option;
+      $option.value = optionType;
+      $option.textContent = SORT_OPTION_TEXTS[optionType];
 
       $filterSort.append($option);
     });

@@ -5,6 +5,8 @@ import {
 } from "../../constants/constants.js";
 import "./restaurantNavBar.css";
 
+const activeTabStyle = "active-tab-menu";
+
 export default class RestaurantNavBar {
   constructor({ onFilterChange }) {
     this.onFilterChange = onFilterChange;
@@ -18,7 +20,7 @@ export default class RestaurantNavBar {
 
     const $allItem = document.createElement("li");
     const $allButton = document.createElement("button");
-    $allButton.className = `restaurant-${NAV_BAR_KEYS.all}-menu text-subtitle active-tab-menu`;
+    $allButton.className = `restaurant-${NAV_BAR_KEYS.all}-menu text-subtitle ${activeTabStyle}`;
     $allButton.value = NAV_BAR_KEYS.all;
     $allButton.type = "button";
     $allButton.textContent = NAV_BAR_OPTIONS[NAV_BAR_KEYS.all];
@@ -36,7 +38,7 @@ export default class RestaurantNavBar {
 
         $navList.querySelectorAll("button").forEach((button) => {
           button.classList.toggle(
-            "active-tab-menu",
+            activeTabStyle,
             button.value === this.currnentFilterType
           );
         });

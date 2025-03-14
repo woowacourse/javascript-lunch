@@ -1,9 +1,17 @@
+export const LABEL_KEYS = Object.freeze({
+  category: "category",
+  name: "name",
+  distance: "distance",
+  description: "description",
+  link: "link",
+});
+
 export const LABEL_NAMES = Object.freeze({
-  category: "카테고리",
-  name: "이름",
-  distance: "거리(도보 이동 시간)",
-  description: "설명",
-  link: "참고 링크",
+  [LABEL_KEYS.category]: "카테고리",
+  [LABEL_KEYS.name]: "이름",
+  [LABEL_KEYS.distance]: "거리(도보 이동 시간)",
+  [LABEL_KEYS.description]: "설명",
+  [LABEL_KEYS.link]: "참고 링크",
 });
 
 export const NAV_BAR_KEYS = Object.freeze({
@@ -16,9 +24,13 @@ export const NAV_BAR_OPTIONS = Object.freeze({
   [NAV_BAR_KEYS.favorite]: "자주 가는 음식점",
 });
 
+export const SORT_OPTION_TEXTS = Object.freeze({
+  [LABEL_KEYS.name]: "이름순",
+  [LABEL_KEYS.distance]: "거리순",
+});
+
 export const DISTANCE = ["5", "10", "15", "20", "30"];
 export const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
-export const SORT_OPTIONS = ["이름순", "거리순"];
 
 export const CATEGORY_ASSETS = Object.freeze({
   한식: "./assets/category-korean.png",
