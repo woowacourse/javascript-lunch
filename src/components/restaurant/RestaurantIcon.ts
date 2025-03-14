@@ -1,10 +1,11 @@
+import { Restaurant } from '../../types/types';
 import createDOMElement from '../../util/createDomElement';
 
-function RestaurantIcon({ src, alt }: { src: string; alt: string }) {
+function RestaurantIcon({ category }: { category: Restaurant['category'] }) {
   return createDOMElement({
     tag: 'img',
-    src,
-    alt,
+    src: `images/category-${category}.png`,
+    alt: category,
     class: 'category-icon',
   });
 }

@@ -6,7 +6,7 @@ type SelectOption = {
 export type SelectOptions = readonly SelectOption[];
 
 type Distance = 5 | 10 | 15 | 20 | 30;
-type Category = '한식' | '중식' | '일식' | '양식' | '아시안' | '기타';
+type Category = 'korean' | 'chinese' | 'japanese' | 'western' | 'asian' | 'etc';
 
 export type Restaurant = {
   category: Category;

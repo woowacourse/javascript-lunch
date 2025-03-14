@@ -1,13 +1,14 @@
-import PlusButton from './components/button/PlusButton';
-import Header from './components/Header';
-import RestaurantIcon from './components/restaurant/RestaurantIcon';
-import RestaurantItem from './components/restaurant/RestaurantItem';
-import RestaurantList from './components/restaurant/RestaurantList';
-import ModalController from './controller/modalController';
-import { Restaurant } from './types/types';
-import { $ } from './util/selector';
+import PlusButton from '../components/button/PlusButton';
+import Header from '../components/Header';
+import RestaurantIcon from '../components/restaurant/RestaurantIcon';
+import RestaurantItem from '../components/restaurant/RestaurantItem';
+import RestaurantList from '../components/restaurant/RestaurantList';
+import Restaurants from '../domain/Restaurants';
+import { Restaurant } from '../types/types';
+import { $ } from '../util/selector';
+import ModalController from './modalController';
 
-class App {
+class AppController {
   modalController;
 
   constructor() {
@@ -29,8 +30,9 @@ class App {
 
   renderRestaurantList() {
     const main = $('main');
+    const restaurants = new Restaurants();
 
-    main?.appendChild(RestaurantList());
+    main?.appendChild(RestaurantList({ restaurants: restaurants.items }));
   }
 
   renderModal() {
@@ -48,11 +50,11 @@ class App {
       name,
       distance,
       description,
-      icon: RestaurantIcon({ src: `images/category-${category}.png`, alt: category }),
+      icon: RestaurantIcon({ category }),
     });
 
     $('.restaurant-list')?.appendChild(item);
   }
 }
 
-export default App;
+export default AppController;

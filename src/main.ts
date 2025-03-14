@@ -1,5 +1,5 @@
-import App from './App';
+import AppController from './controller/AppController';
 
-const app = new App();
+const app = new AppController();
 
 app.init();
