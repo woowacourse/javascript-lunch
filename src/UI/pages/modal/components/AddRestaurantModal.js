@@ -1,5 +1,5 @@
 import Button from '../../../components/button/Button';
-import InputDropDown from '../../../components/input/InputDropDown.js';
+import InputDropDown from '../../../components/input/InputDropDown';
 import InputText from '../../../components/input/InputText';
 import Modal from '../../../components/modal/Modal';
 import RestaurantItem from '../../../components/restaurant/RestaurantItem.js';
@@ -73,9 +73,9 @@ class AddRestaurantModal {
   #createModalFormScrollable() {
     const modalFormScrollable = document.createElement('div');
     modalFormScrollable.classList.add('modal-form-scrollable');
-    modalFormScrollable.appendChild(this.#categoryDropDown);
+    modalFormScrollable.appendChild(this.#categoryDropDown.getElement());
     modalFormScrollable.appendChild(this.#nameInput.getElement());
-    modalFormScrollable.appendChild(this.#distanceDropDown);
+    modalFormScrollable.appendChild(this.#distanceDropDown.getElement());
     modalFormScrollable.appendChild(this.#descriptionInput.getElement());
     modalFormScrollable.appendChild(this.#linkInput.getElement());
     return modalFormScrollable;
