@@ -1,7 +1,7 @@
 import createElement from "../../utils/createElement/createElement";
 import ButtonContainer from "./ButtonContainer";
 
-const RestaurantDetail = (restaurant, restaurantList) => {
+const RestaurantDetail = (restaurant) => {
   const { name, distance, description } = restaurant.value;
 
   //TODO: 기존 컴포넌트로 고침
@@ -24,7 +24,7 @@ const RestaurantDetail = (restaurant, restaurantList) => {
         classNames: ["restaurant__description"],
         text: description,
       }),
-      ButtonContainer(restaurant, restaurantList),
+      ButtonContainer(),
     ],
   });
 };

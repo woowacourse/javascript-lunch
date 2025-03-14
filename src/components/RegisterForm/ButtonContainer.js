@@ -8,6 +8,7 @@ import { getInfo } from "./getInfo";
 import Button from "../common/Button";
 import ErrorMessage from "../common/ErrorMessage";
 import createElement from "../../utils/createElement/createElement";
+import createRestaurantCards from "../../service/createRestaurantCards";
 
 const ButtonContainer = (restaurantList) => {
   const cancleButton = Button({
@@ -57,7 +58,7 @@ const registerRestaurant = (e, restaurantList) => {
     restaurantList.add(restaurant);
 
     $(".modal-backdrop").classList.remove("open");
-    renderRestaurants(restaurantList, ...restaurantList.list);
+    renderRestaurants(createRestaurantCards(restaurantList.filter()));
 
     clearInput("#register-form");
   } catch (e) {

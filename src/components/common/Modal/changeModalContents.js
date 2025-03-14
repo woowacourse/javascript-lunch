@@ -5,7 +5,7 @@ import ModalContent from "./ModalContent";
 const changeModalContents = (...contents) => {
   $(".modal-backdrop").innerHTML = "";
 
-  $(".modal-backdrop").appendChild(ModalContent([...contents], "sldkfj"));
+  $(".modal-backdrop").appendChild(ModalContent([...contents]));
 };
 
 export default changeModalContents;

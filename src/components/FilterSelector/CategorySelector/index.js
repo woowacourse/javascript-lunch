@@ -1,4 +1,5 @@
 import { FOOD_CATEGORY } from "../../../constants/foodCategory";
+import createRestaurantCards from "../../../service/createRestaurantCards";
 import renderRestaurants from "../../../ui/renderRestaurant";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
 import Select from "../../common/Select";
@@ -7,7 +8,7 @@ const CategorySelector = (restaurantList) => {
   const events = {
     change: (e) => {
       restaurantList.setCategory(e.target.value);
-      renderRestaurants(restaurantList, ...restaurantList.filter());
+      renderRestaurants(createRestaurantCards(restaurantList.filter()));
     },
   };
 

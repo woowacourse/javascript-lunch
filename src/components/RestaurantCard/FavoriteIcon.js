@@ -2,7 +2,7 @@ import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";
 import Image from "../common/Image";
 
-const FavoriteIcon = (restaurant, restaurantList) =>
+const FavoriteIcon = (restaurant) =>
   createElement({
     tagName: "div",
     classNames: ["restaurant__favorite"],

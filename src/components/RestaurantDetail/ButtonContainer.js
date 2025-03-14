@@ -8,15 +8,14 @@ const BUTTON_TEXT = {
   CLOSE: "닫기",
 };
 
-const ButtonContainer = (restaurant, restaurantList) => {
+const ButtonContainer = () => {
   const deleteButton = Button({
     text: BUTTON_TEXT.DELETE,
     style: "button--secondary",
     onClick: () => {
       console.log("삭제하기 클릭");
-      restaurantList.delete(restaurant);
+
       $(".modal-backdrop").classList.remove("open");
-      renderRestaurants(restaurantList, ...restaurantList.list);
     },
   });
 

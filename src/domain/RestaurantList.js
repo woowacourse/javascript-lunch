@@ -30,6 +30,7 @@ class RestaurantList {
 
     return filteredList;
   }
+  
   getFavoriteList() {
     const favoriteList = this.#restaurantList.filter(
       (restaurant) => restaurant.value.isFavorite

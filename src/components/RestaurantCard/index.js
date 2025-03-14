@@ -7,7 +7,7 @@ import CategoryImage from "./CategoryImage";
 import FavoriteIcon from "./FavoriteIcon";
 import RestaurantDetail from "../RestaurantDetail";
 
-const RestaurantCard = (restaurant, restaurantList) => {
+const RestaurantCard = (restaurant) => {
   const { category, name, distance, description } = restaurant.value;
 
   const restaurantCard = createElement({
@@ -21,7 +21,7 @@ const RestaurantCard = (restaurant, restaurantList) => {
     events: {
       click: () => {
         console.log(`${name} 클릭`);
-        changeModalContents(RestaurantDetail(restaurant, restaurantList));
+        changeModalContents(RestaurantDetail(restaurant));
         $(".modal-backdrop").classList.add("open");
       },
     },
