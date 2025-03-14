@@ -72,4 +72,14 @@ describe("RestaurantList 유틸 함수 테스트", () => {
       resultList
     );
   });
+
+  test("주어진 데이터 중 즐겨찾기된 음식점 목록을 반환할 수 있다.", () => {
+    const resultList: Restaurant[] = [
+      { id: 2, label: "양식", name: "돈가스집", distance: 15, favorite: true },
+    ];
+    const favoriteList = RestaurantListUtils.favoriteById(restaurantList, 2);
+    expect(RestaurantListUtils.getFavoriteList(favoriteList)).toEqual(
+      resultList
+    );
+  });
 });

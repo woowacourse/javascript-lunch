@@ -41,6 +41,10 @@ const RestaurantListUtils = {
         : restaurant
     );
   },
+
+  getFavoriteList(restaurantList: Restaurant[]) {
+    return restaurantList.filter(({ favorite }) => favorite);
+  },
 };
 
 export default RestaurantListUtils;
