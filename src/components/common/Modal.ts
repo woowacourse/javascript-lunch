@@ -22,21 +22,13 @@ export default class Modal extends Component<ModalProps> {
   }
 
   #attachClickEventListener() {
-    this.element?.addEventListener('click', (event) => {
-      if (!event.target) return;
-
-      const target = event.target as HTMLElement;
-
-      if (target.closest('#modal-cancel') || target.closest('.modal-backdrop')) {
-        this.#removeModal();
-        return;
-      }
-    });
+    this.element?.querySelector('#modal-cancel')?.addEventListener('click', this.#removeModal.bind(this));
+    this.element?.querySelector('.modal-backdrop')?.addEventListener('click', this.#removeModal.bind(this));
   }
 
   #attachKeyDownEventListener() {
     window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') this.#removeModal();
+      if (event.key === 'Escape') this.#removeModal.bind(this)();
     });
   }
 

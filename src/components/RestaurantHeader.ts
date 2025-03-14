@@ -19,7 +19,7 @@ export default class RestaurantHeader extends Component<null, HeaderProps> {
   }
 
   attachEventListener() {
-    this.element?.addEventListener('click', () => {
+    this.element?.querySelector('.gnb__button')?.addEventListener('click', () => {
       document.querySelector('#restaurant-add-modal')?.classList.add('modal--open');
     });
   }
