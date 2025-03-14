@@ -1,4 +1,5 @@
 import RestaurantData from "./RestaurantData";
+import { getAllData } from "../util/dataRepository";
 
 export const VIEW_STATE = {
   all: "모든 음식점",
@@ -28,18 +29,15 @@ export class RestaurantDataList {
   #category = CATEGORY.all;
 
   constructor() {
-    const dataList = JSON.parse(localStorage.getItem("restaurantData"));
-    this.#dataList = dataList.map((data) => {
-      return this.createData(data);
-    });
-  }
+    const restaurantDataList = getAllData();
 
-  getDataList() {
-    return this.#dataList.map((restaurantData) => restaurantData.getData());
+    this.#dataList = restaurantDataList.map((restaurantData) =>
+      new RestaurantData(restaurantData).getData()
+    );
   }
 
   getFavoriteDataList() {
-    const favoriteList = this.getDataList().filter(
+    const favoriteList = this.#dataList.filter(
       (restaurantData) => restaurantData.isFavorite
     );
 
@@ -50,7 +48,7 @@ export class RestaurantDataList {
     const restaurantDataList =
       this.#viewState === VIEW_STATE.favorite
         ? this.getFavoriteDataList()
-        : this.getDataList();
+        : this.#dataList;
 
     if (this.#category === CATEGORY.all) {
       this.notify(this.sortedDataList(restaurantDataList));
@@ -89,41 +87,30 @@ export class RestaurantDataList {
 
   changeFavorite(id) {
     const targetData = this.#dataList.find(
-      (restaurantData) => restaurantData.getData().id === id
+      (restaurantData) => restaurantData.id === id
     );
-    targetData.changeFavorite();
+    targetData.favorite = !targetData.favorite;
 
     this.getFilteredDataList();
   }
 
   getDataById(id) {
-    return this.#dataList
-      .find((restaurantData) => restaurantData.getData().id === id)
-      .getData();
+    return this.#dataList.find((restaurantData) => restaurantData.id === id);
   }
 
   addData(data) {
-    this.#dataList.push(this.createData(data));
+    const restaurantData = new RestaurantData(data);
+
+    this.#dataList.push(restaurantData.getData());
+    // 로컬 스토리지에도 추가하기(post 요청)
 
     this.getFilteredDataList();
   }
 
   removeDataById(id) {
     this.#dataList = this.#dataList.filter(
-      (restaurant) => restaurant.getData().id !== id
+      (restaurant) => restaurant.id !== id
     );
-  }
-
-  createData(data) {
-    return new RestaurantData({
-      id: data.id,
-      name: data.name,
-      distance: data.distance,
-      description: data.description,
-      link: data.link,
-      category: data.category,
-      isFavorite: data.isFavorite ?? false,
-    });
   }
 
   subscribe(callback) {
