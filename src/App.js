@@ -12,21 +12,18 @@ import {
   setItemToLocalStorage,
   getItemFromLocalStorage,
 } from "./database/localStorage.js";
+import RestaurantInfoModal from "./components/modal/RestaurantInfoModal/index.js";
 
 class App extends Component {
   setup() {
-    const key = "restaurantList";
-    setItemToLocalStorage(key, restaurants);
-
     this.state = {
-      restaurants: getItemFromLocalStorage(key),
-      key,
+      restaurants: this.props.getItemFromLocalStorage(this.props.KEY),
     };
   }
 
   updateRestaurant(newRestaurant) {
-    const newRestaurantList = [...this.state.restaurants, newRestaurant];
-    setItemToLocalStorage(this.state.key, newRestaurantList);
+    const newRestaurantList = [newRestaurant, ...this.state.restaurants];
+    this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
 
     this.setState({
       restaurants: newRestaurantList,
@@ -85,8 +82,26 @@ class App extends Component {
       "afterbegin",
       RestaurantList(this.state.restaurants)
     );
+
+    const restaurantInfoModal = new RestaurantInfoModal($(document, "#modal"));
+
+    $(document, "#restaurant-list").addEventListener("click", (event) => {
+      const restaurantItem = event.target.closest("li");
+      const restaurantList = this.props.getItemFromLocalStorage(this.props.KEY);
+
+      const restaurant = restaurantList.find(
+        ({ name }) => name === restaurantItem.id
+      );
+
+      restaurantInfoModal.setState({ data: restaurant });
+      restaurantInfoModal.open();
+    });
   }
 }
 
+const KEY = "restaurantList";
+const initialList = getItemFromLocalStorage(KEY) ?? restaurants;
+setItemToLocalStorage(KEY, initialList);
+
 const app = $(document, "#app");
-new App(app);
+new App(app, { setItemToLocalStorage, getItemFromLocalStorage, KEY });
