@@ -3,7 +3,7 @@ import ListItem from "../components/ListItem.js";
 import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
 
-function ListController(allListContainerElement, category) {
+function ListController(allListContainerElement) {
   const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS);
   let listElement = List(restaurantList.filterAndSort("전체", "이름순"));
   allListContainerElement.appendChild(listElement);
