@@ -29,7 +29,8 @@ export function applyFilter() {
 
     // 탭필터 (그 자주가는 음식점이 활성화 된 경우)
     if (tabState.activeTab === "favorites") {
-      const isFavorite = item.dataset.favorites === true;
+      const isFavorite = item.dataset.favorites === "true";
+
       if (!isFavorite) {
         item.style.display = "none";
       }
