@@ -1,4 +1,5 @@
 import { openModal } from "../components/modal.js";
+import { getStorage, setStorage } from "./storage.js";
 
 class ClickEvent {
   constructor(elem) {
@@ -39,6 +40,17 @@ class ClickEvent {
   showStoreDeleteModal(target) {
     openModal("storeDelete", target);
   }
+
+  // deleteStore(target) {
+  //   const storageLunchItem = getStorage("lunchItems");
+  //   // console.log("target => ", target);
+  //   // console.log("타겟의 엘리먼트 li 확인", target.closest("li"));
+  //   // const lunchItemIndex = Number(target.closest("li").dataset.value);
+  //   storageLunchItem.splice(lunchItemIndex, 1);
+
+  //   setStorage("lunchItems", storageLunchItem);
+  //   document.getElementById("modalBackground")?.classList.remove("show");
+  // }
 
   removeModal(element) {
     if (element.id === "closeModalBtn") {
