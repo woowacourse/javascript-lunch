@@ -6,7 +6,7 @@ const NameOrDistanceSelector = (restaurantList) => {
   const events = {
     change: (e) => {
       restaurantList.setNameOrDistance(e.target.value);
-      renderRestaurants(...restaurantList.filter());
+      renderRestaurants(restaurantList, ...restaurantList.filter());
     },
   };
 

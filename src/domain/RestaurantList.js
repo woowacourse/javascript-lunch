@@ -11,6 +11,12 @@ class RestaurantList {
     this.#restaurantList.push(restaurant);
   }
 
+  delete(restaurant) {
+    this.#restaurantList = this.#restaurantList.filter(
+      (item) => item !== restaurant
+    );
+  }
+
   filter() {
     let filteredList = this.#restaurantList;
     filteredList = this.filterByCategory(this.#currentCategory, filteredList);

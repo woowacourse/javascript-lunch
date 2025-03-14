@@ -7,7 +7,7 @@ const CategorySelector = (restaurantList) => {
   const events = {
     change: (e) => {
       restaurantList.setCategory(e.target.value);
-      renderRestaurants(...restaurantList.filter());
+      renderRestaurants(restaurantList, ...restaurantList.filter());
     },
   };
 

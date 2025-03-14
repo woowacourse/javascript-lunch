@@ -6,7 +6,7 @@ const renderFavoritePage = (restaurantList) => {
   $(".restaurant-filter-container").innerHTML = "";
   $(".restaurant-list").innerHTML = "";
 
-  renderRestaurants(...restaurantList.getFavoriteList());
+  renderRestaurants(restaurantList, ...restaurantList.getFavoriteList());
 };
 
 export default renderFavoritePage;
