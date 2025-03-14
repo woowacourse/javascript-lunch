@@ -1,3 +1,5 @@
+import { favoriteChangeListeners } from "./eventManagers.ts";
+
 export function storeFoodItems(foodItem: FoodItemProps) {
   localStorage.setItem("foodItems", JSON.stringify(foodItem));
 }
@@ -21,4 +23,6 @@ export function toggleFavorite(id: string) {
     return foodItem;
   });
   storeFoodItems(resultItems);
+
+  favoriteChangeListeners.forEach((listener) => listener(id));
 }

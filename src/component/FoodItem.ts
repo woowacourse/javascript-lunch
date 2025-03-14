@@ -23,7 +23,7 @@ export default class FoodItem {
     this.container = document.createElement("div");
 
     this.render();
-    this.handleIsClick();
+    this.setUpFavoriteToggle();
   }
 
   getBookmarkIconSrc() {
@@ -33,7 +33,7 @@ export default class FoodItem {
     return "/favorite-icon-lined.png";
   }
 
-  handleIsClick() {
+  setUpFavoriteToggle() {
     const bookmarkIcon = this.container.querySelector(".bookmark-icon");
     if (!bookmarkIcon) return;
 

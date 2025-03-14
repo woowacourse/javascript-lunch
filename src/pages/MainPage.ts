@@ -32,12 +32,22 @@ export default class MainPage {
     this.container = document.createElement("div");
 
     const body = document.querySelector("body")!;
+
     body.appendChild(this.modal.element);
     body.appendChild(Header({ title: "점심 뭐 먹지?", onAddClick: () => this.modal.open() }));
     body.appendChild(this.tabMenu.element);
     body.appendChild(this.container);
 
     this.render();
+  }
+
+  getFoodListElement() {
+    if (this.tabMenu.currentMenu === "favorite") {
+      this.foodList.filterFavoriteItem();
+      return this.foodList.element;
+    }
+    this.foodList.resetFilter();
+    return this.foodList.element;
   }
 
   render() {
@@ -49,14 +59,5 @@ export default class MainPage {
   handleSubmit(formData: FoodItemProps) {
     this.foodList.addItem(formData);
     this.modal.close();
-  }
-
-  getFoodListElement() {
-    if (this.tabMenu.currentMenu === "favorite") {
-      this.foodList.filterFavoriteItem();
-      return this.foodList.element;
-    }
-    this.foodList.resetFilter();
-    return this.foodList.element;
   }
 }
