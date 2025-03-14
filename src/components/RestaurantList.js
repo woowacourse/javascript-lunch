@@ -7,7 +7,7 @@ function createRestaurantList(datas, onItemClick, onStarClick) {
   const fragment = new DocumentFragment();
 
   datas.forEach((data) => {
-    const restaurantItem = createRestaurantItem(data.getInfo(), onItemClick, onStarClick);
+    const restaurantItem = createRestaurantItem(data, onItemClick, onStarClick);
     fragment.appendChild(restaurantItem);
   });
 
@@ -33,7 +33,7 @@ function updateRestaurantList(datas, onItemClick, onStarClick) {
   const fragment = new DocumentFragment();
 
   datas.forEach((data) => {
-    const restaurantItem = createRestaurantItem(data.getInfo(), onItemClick, onStarClick);
+    const restaurantItem = createRestaurantItem(data, onItemClick, onStarClick);
     fragment.appendChild(restaurantItem);
   });
 

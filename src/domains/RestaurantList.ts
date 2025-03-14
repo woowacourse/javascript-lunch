@@ -1,32 +1,42 @@
 import { CATEGORY_KEY } from '../../public/restaurantData.js';
-import RestaurantItem from './RestaurantItem.js';
+import {
+  CategoryType,
+  IAddRestaurantParams,
+  IFilterParams,
+  IRestaurantInfo,
+  ISortOptionsParams,
+  ISortResult,
+  OrderType,
+} from '../../types/restaurants.js';
 
 class RestaurantList {
-  #restaurants = [];
+  #restaurants: IRestaurantInfo[] = [];
 
-  constructor(initialDatas = []) {
-    initialDatas.forEach((data) => this.#restaurants.push(new RestaurantItem(data)));
+  constructor(initialDatas: IRestaurantInfo[] = []) {
+    initialDatas.forEach((data) => this.#restaurants.push(data));
   }
 
-  getOrderedRestaurantList(order) {
+  getOrderedRestaurantList(order: OrderType): IRestaurantInfo[] {
     if (order === '이름순') {
       return [...this.#restaurants].sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
     } else if (order === '거리순') {
       return [...this.#restaurants].sort((a, b) => a.distance - b.distance);
     }
+
+    return [...this.#restaurants];
   }
 
-  filterFavorite() {
+  filterFavorite(): IRestaurantInfo[] {
     return [...this.#restaurants].filter((data) => data.isFavorite);
   }
 
-  toggleFavorite({ id, tab, category, order }) {
+  toggleFavorite({ id, tab, category, order }: IFilterParams) {
     this.#restaurants = [...this.#restaurants].map((data) => {
       if (data.id === id) {
-        return new RestaurantItem({
-          ...data.getInfo(),
+        return {
+          ...data,
           isFavorite: !data.isFavorite,
-        });
+        };
       }
 
       return data;
@@ -35,17 +45,17 @@ class RestaurantList {
     return this.sortByOptions({ tab, order, category });
   }
 
-  deleteRestaurant({ id, tab, order, category }) {
+  deleteRestaurant({ id, tab, order, category }: IFilterParams) {
     this.#restaurants = this.#restaurants.filter((data) => data.id !== id);
     return this.sortByOptions({ tab, order, category });
   }
 
-  addRestaurant({ data, tab, order, category }) {
-    this.#restaurants.push(new RestaurantItem({ ...data }));
+  addRestaurant({ data, tab, order, category }: IAddRestaurantParams) {
+    this.#restaurants.push(data);
     return this.sortByOptions({ tab, order, category });
   }
 
-  sortByOptions({ tab, order, category }) {
+  sortByOptions({ tab, order, category }: ISortOptionsParams): ISortResult {
     if (tab === 'all') {
       return {
         originalList: this.#restaurants,
@@ -57,9 +67,14 @@ class RestaurantList {
         filteredList: this.filterFavorite(),
       };
     }
+
+    return {
+      originalList: this.#restaurants,
+      filteredList: this.#restaurants,
+    };
   }
 
-  filterRestaurant(category, order) {
+  filterRestaurant(category: CategoryType, order: OrderType): IRestaurantInfo[] {
     let filteredRestaurants;
 
     if (category === '전체') {
