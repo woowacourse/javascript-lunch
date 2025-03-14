@@ -27,10 +27,7 @@ function Select(props: SelectProps) {
 
 function Option(props: OptionProps) {
   const { options, selectedValue } = props;
-  console.log(
-    'options.values',
-    options.map((option) => option.value)
-  );
+
   return `
     ${options
       .map(

@@ -15,7 +15,6 @@ export const CategorySelect = (props: CategorySelectProps) => {
 
   eventManager.addEvent('change', '#category-filter', (e: Event) => {
     const target = e.target as HTMLSelectElement;
-    console.log('e.target.value', target.value);
     handleCategoryChange(target.value as Category);
   });
 
