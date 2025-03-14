@@ -29,8 +29,37 @@
     opacity 0.3s ease-out;
 }
 
-.modal-title {
-  margin-bottom: 36px;
+#restaurant_info_content {
+  height: 590px;
+  display: flex;
+  flex-direction: column;
+}
+.favorite_add_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#restaurant__info {
+  gap: 10px;
+}
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.favorite-icon {
+  width: 36px;
+  height: 36px;
+}
+
+#restaurant__description {
+  overflow: visible;
+  line-height: 1.5;
+  height: 350px;
 }
 
 .form-item {
