@@ -28,7 +28,7 @@ const SELECT_OPTIONS = {
   ],
 };
 
-export function FoodForm(filter, modal) {
+export function FoodForm(filter) {
   const container = document.createElement("form");
 
   container.appendChild(
@@ -86,7 +86,7 @@ export function FoodForm(filter, modal) {
         Button({
           cssType: "primary",
           innerText: "추가하기",
-          onClick: () => addFoodFormItem(filter, modal),
+          onClick: () => addFoodFormItem(filter),
         }),
       ],
     })

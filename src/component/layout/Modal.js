@@ -8,11 +8,7 @@ import { readStorageFoodList } from "../../domain/handler/FoodStorageHandler";
 import { FoodDetail } from "../../pages/FoodDetail";
 
 export class Modal {
-  constructor() {
-    this.setDefaultModal();
-  }
-
-  setDefaultModal() {
+  static setDefaultModal() {
     const container = document.createElement("div");
     container.classList.add("modal");
     container.innerHTML = `
@@ -24,7 +20,7 @@ export class Modal {
     document.querySelector("main").appendChild(container);
   }
 
-  setModalContent(modalContent, filter, modal) {
+  static setContent(modalContent, filter) {
     const modalContainer = document.querySelector(".modal-container");
     modalContainer.innerHTML = "";
     modalContainer.appendChild(modalContent);
@@ -38,16 +34,15 @@ export class Modal {
     modal.classList.add("modal--open");
   }
 
-  static close(filter = null, modal = null) {
+  static close(filter = null) {
     const modalOpen = document.querySelector(".modal--open");
     const modalContent = document.querySelector(".modal");
     modalContent.classList.remove("modal--open");
 
     if (filter) {
-      // const previousFoodList = readFoodList(filter, modal);
       const previousFoodList = readStorageFoodList();
       const foodList = sortedFoodList(filter, previousFoodList);
-      convertStorageToLocal(modal, filter, foodList);
+      convertStorageToLocal(filter, foodList);
     }
   }
 }

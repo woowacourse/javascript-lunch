@@ -1,5 +1,4 @@
 import { Header } from "../component/layout/Header.js";
-import { Modal } from "../component/layout/Modal.js";
 import { Filter } from "../domain/Filter.js";
 
 const categoryFilter = [

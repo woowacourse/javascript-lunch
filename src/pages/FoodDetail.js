@@ -8,7 +8,7 @@ import {
 } from "../domain/handler/FoodItemHandler";
 import { updateStorageFoodList } from "../domain/handler/FoodStorageHandler";
 
-export function FoodDetail(filter, foodDetailItem, modal) {
+export function FoodDetail(filter, foodDetailItem) {
   const { imgSrc, imgAlt, name, distance, description, link, favorite } =
     foodDetailItem;
   const container = document.createElement("div");
@@ -16,8 +16,7 @@ export function FoodDetail(filter, foodDetailItem, modal) {
   const foodDetailInfo = FoodItem(
     foodDetailItem,
     () => {},
-    (event, foodItem) =>
-      handleFavoriteButton(event, foodItem, filter, modal, favorite)
+    (event, foodItem) => handleFavoriteButton(event, foodItem, filter, favorite)
   );
   foodDetailInfo.style.flexDirection = "column";
   foodDetailInfo.style.gap = "16px";
@@ -29,12 +28,12 @@ export function FoodDetail(filter, foodDetailItem, modal) {
         Button({
           cssType: "secondary",
           innerText: "삭제하기",
-          onClick: () => deleteFoodItem(filter, foodDetailItem, modal),
+          onClick: () => deleteFoodItem(filter, foodDetailItem),
         }),
         Button({
           cssType: "primary",
           innerText: "닫기",
-          onClick: () => closeButton(filter, modal),
+          onClick: () => closeButton(filter),
         }),
       ],
     })
@@ -43,21 +42,20 @@ export function FoodDetail(filter, foodDetailItem, modal) {
   return container;
 }
 
-function closeButton(filter, modal) {
+function closeButton(filter) {
   const favoriteState = document.querySelector(
     ".tab-button_favorite.selected-button"
   );
   if (favoriteState) {
-    readFoodList(filter, modal, true);
-  } else readFoodList(filter, modal);
+    readFoodList(filter, true);
+  } else readFoodList(filter);
 
   Modal.close();
 }
 
-function handleFavoriteButton(event, foodItem, filter, modal) {
+function handleFavoriteButton(event, foodItem, filter) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateStorageFoodList(foodItem);
-
-  modal.setModalContent(FoodDetail(filter, foodItem, modal), filter, modal);
+  Modal.setContent(FoodDetail(filter, foodItem), filter);
 }

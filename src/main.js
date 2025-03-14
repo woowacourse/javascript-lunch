@@ -22,56 +22,55 @@ addEventListener("load", () => {
     AddFoodItemIcon,
     filter
   );
-  const modal = new Modal();
 
-  // readFoodList(filter, modal); //mock 데이터 로딩
-  setFoodFormMoal(filter, modal);
-  setFilteredItems(filter, modal);
-  setFavoriteButton(filter, modal);
+  Modal.setDefaultModal();
+  setFoodFormMoal(filter);
+  setFilteredItems(filter);
+  setFavoriteButton(filter);
 });
 
-function setFoodFormMoal(filter, modal) {
+function setFoodFormMoal(filter) {
   document.querySelector(".gnb__button").addEventListener("click", () => {
-    modal.setModalContent(FoodForm(filter, modal));
+    Modal.setContent(FoodForm(filter));
     Modal.open();
   });
 }
 
-function setFilteredItems(filter, modal) {
+function setFilteredItems(filter) {
   document
     .querySelector("select[name=category]")
     .addEventListener("change", () => {
       const filteredItems = filter.changeCategory();
-      convertStorageToLocal(modal, filter, filteredItems);
+      convertStorageToLocal(filter, filteredItems);
     });
 
   document
     .querySelector("select[name=sorting]")
     .addEventListener("change", () => {
       const filteredItems = filter.changeSorting();
-      convertStorageToLocal(modal, filter, filteredItems);
+      convertStorageToLocal(filter, filteredItems);
     });
 }
 
-function setFavoriteButton(filter, modal) {
+function setFavoriteButton(filter) {
   const totalButton = document.querySelector(".tab-button .tab-button_all");
   totalButton.classList.toggle("selected-button");
   const favoriteButton = document.querySelector(
     ".tab-button .tab-button_favorite"
   );
-  readFoodList(filter, modal);
+  readFoodList(filter);
 
   totalButton.addEventListener("click", () => {
     if (totalButton.classList.contains("selected-button")) return;
     totalButton.classList.toggle("selected-button");
     favoriteButton.classList.remove("selected-button");
-    readFoodList(filter, modal);
+    readFoodList(filter);
   });
 
   favoriteButton.addEventListener("click", () => {
     if (favoriteButton.classList.contains("selected-button")) return;
     favoriteButton.classList.toggle("selected-button");
     totalButton.classList.remove("selected-button");
-    readFoodList(filter, modal, true);
+    readFoodList(filter, true);
   });
 }
