@@ -6,7 +6,7 @@ import AddLunchButtonContainer from "./AddLunchButtonContainer.js";
 import {
   CATEGORY_DROPDOWN_LIST,
   DISTANCE_DROPDOWN_LIST,
-} from "../../constants/constants.ts";
+} from "../../constants/dropdownList.ts";
 import state from "../../state.ts";
 import { Validator } from "../../utils/Validator.ts";
 import RestaurantList from "../RestaurantList.js";
