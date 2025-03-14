@@ -1,4 +1,4 @@
-import { favoriteChangeListeners } from "./eventManagers.ts";
+import { notifyFavoriteChange } from "./eventManagers";
 
 export function storeFoodItems(foodItem: FoodItemProps) {
   localStorage.setItem("foodItems", JSON.stringify(foodItem));
@@ -11,8 +11,9 @@ export function getStoredFoodItems() {
   return [];
 }
 
-export function getStoredCount() {
-  return getStoredFoodItems().length;
+export function removeStoredFoodItem(id: string) {
+  const filteredItems = getStoredFoodItems().filter((item: FoodItemProps) => item.id !== id);
+  localStorage.setItem("foodItems", JSON.stringify(filteredItems));
 }
 
 export function toggleFavorite(id: string) {
@@ -23,6 +24,5 @@ export function toggleFavorite(id: string) {
     return foodItem;
   });
   storeFoodItems(resultItems);
-
-  favoriteChangeListeners.forEach((listener) => listener(id));
+  notifyFavoriteChange(id);
 }

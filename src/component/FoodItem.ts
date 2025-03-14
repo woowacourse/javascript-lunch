@@ -1,4 +1,6 @@
-import { toggleFavorite } from "../managers/storageManagers.js";
+import { DELETE } from "../constants/systemMessage.js";
+import { notifyDeleteChange } from "../managers/eventManagers.js";
+import { removeStoredFoodItem, toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";
@@ -51,55 +53,15 @@ export default class FoodItem {
     }
   }
 
+  get element() {
+    return this.container.firstElementChild;
+  }
+
   getBookmarkIconSrc() {
     if (this.#isFavorite) {
       return "/favorite-icon-filled.png";
     }
     return "/favorite-icon-lined.png";
-  }
-
-  setUpFavoriteToggle() {
-    const bookmarkIcon = this.container.querySelector(".favorite-icon");
-    if (!bookmarkIcon) return;
-
-    bookmarkIcon.addEventListener("click", (event) => {
-      event.stopPropagation();
-
-      this.#isFavorite = !this.#isFavorite;
-      bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
-
-      toggleFavorite(this.#id);
-      this.render();
-    });
-  }
-
-  showDetail() {
-    this.container.querySelector("li")?.addEventListener("click", () => {
-      if (this.#isModalFoodItem) return;
-
-      const fragment = document.createDocumentFragment();
-
-      const detailFoodItem = new FoodItem({
-        data: this.#data,
-        cssType: "column",
-        isModalFoodItem: true,
-      });
-      if (!detailFoodItem.element) return;
-      fragment.appendChild(detailFoodItem.element);
-
-      const buttonContainer = ButtonContainer({
-        buttons: [
-          Button({ name: "delete", innerText: "삭제하기", cssType: "secondary" }),
-          Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
-        ],
-      });
-      fragment.appendChild(buttonContainer);
-
-      const detailModal = new Modal({ content: fragment });
-      detailModal.open();
-
-      document.querySelector("body")?.appendChild(detailModal.element);
-    });
   }
 
   setCss() {
@@ -135,7 +97,63 @@ export default class FoodItem {
   `;
   }
 
-  get element() {
-    return this.container.firstElementChild;
+  setUpFavoriteToggle() {
+    const bookmarkIcon = this.container.querySelector(".favorite-icon");
+    if (!bookmarkIcon) return;
+
+    bookmarkIcon.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      this.#isFavorite = !this.#isFavorite;
+      bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
+
+      toggleFavorite(this.#id);
+      this.render();
+    });
+  }
+
+  showDetail() {
+    this.container.querySelector("li")?.addEventListener("click", () => {
+      if (this.#isModalFoodItem) return;
+
+      const fragment = document.createDocumentFragment();
+
+      const detailFoodItem = new FoodItem({
+        data: this.#data,
+        cssType: "column",
+        isModalFoodItem: true,
+      });
+      if (!detailFoodItem.element) return;
+      fragment.appendChild(detailFoodItem.element);
+
+      const buttonContainer = ButtonContainer({
+        buttons: [
+          Button({
+            name: "delete",
+            innerText: "삭제하기",
+            cssType: "secondary",
+            onClick: () => {
+              detailFoodItem.deleteItem();
+              detailModal.close();
+            },
+          }),
+          Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
+        ],
+      });
+      fragment.appendChild(buttonContainer);
+
+      const detailModal = new Modal({ content: fragment });
+      detailModal.open();
+
+      document.querySelector("body")?.appendChild(detailModal.element);
+    });
+  }
+
+  deleteItem() {
+    if (confirm(DELETE)) {
+      notifyDeleteChange(this.#id);
+      removeStoredFoodItem(this.#id);
+      this.render();
+    }
   }
 }

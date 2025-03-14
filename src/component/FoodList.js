@@ -1,4 +1,4 @@
-import { addFavoriteChangeListeners } from "../managers/eventManagers.ts";
+import { addFavoriteChangeListeners, addDeleteItemChangeListeners } from "../managers/eventManagers.ts";
 import { storeFoodItems } from "../managers/storageManagers.ts";
 import FoodItem from "./FoodItem.ts";
 
@@ -15,12 +15,27 @@ export default class FoodList {
     this.foodList.classList.add("restaurant-list");
 
     addFavoriteChangeListeners(this.updateFavoriteItem.bind(this));
+    addDeleteItemChangeListeners(this.updateDeleteItem.bind(this));
 
     this.render();
   }
 
   render() {
     this.foodList.innerHTML = "";
+    this.checkAndRenderEmptyList();
+    const foodFragment = document.createDocumentFragment();
+    this.#filteredFoodItems.forEach((foodItem) => {
+      foodFragment.appendChild(
+        new FoodItem({
+          data: foodItem,
+          cssType: "row",
+        }).element,
+      );
+    });
+    this.foodList.appendChild(foodFragment);
+  }
+
+  checkAndRenderEmptyList() {
     if (this.#originFoodItems.length === 0) {
       this.foodList.innerHTML = `
       <p class="empty-message">음식점이 없습니다. 우측 상단 버튼을 눌러 추가해 주세요.</p>
@@ -35,16 +50,6 @@ export default class FoodList {
 
       return;
     }
-    const foodFragment = document.createDocumentFragment();
-    this.#filteredFoodItems.forEach((foodItem) => {
-      foodFragment.appendChild(
-        new FoodItem({
-          data: foodItem,
-          cssType: "row",
-        }).element,
-      );
-    });
-    this.foodList.appendChild(foodFragment);
   }
 
   addItem(foodItem) {
@@ -63,6 +68,12 @@ export default class FoodList {
 
       return foodItem;
     });
+  }
+
+  updateDeleteItem(id) {
+    this.#originFoodItems = this.#originFoodItems.filter((foodItem) => foodItem.id !== id);
+    this.#filteredFoodItems = this.#originFoodItems;
+    this.render();
   }
 
   filterFavoriteItem() {
