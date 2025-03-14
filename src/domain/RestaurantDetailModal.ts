@@ -74,11 +74,7 @@ function CloseOnDarkBackground() {
   ) as HTMLElement;
 
   $modalBackground.addEventListener("click", (e: Event) => {
-    const $detailModal = document.querySelector(
-      ".restaurant-detail-modal"
-    ) as HTMLElement;
-
-    if ($detailModal && e.target === $modalBackground) {
+    if (e.target === $modalBackground) {
       $modalBackground.remove();
       location.reload();
     }
