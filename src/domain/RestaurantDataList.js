@@ -108,6 +108,12 @@ export class RestaurantDataList {
     this.getFilteredDataList();
   }
 
+  removeDataById(id) {
+    this.#dataList = this.#dataList.filter(
+      (restaurant) => restaurant.getData().id !== id
+    );
+  }
+
   createData(data) {
     return new RestaurantData({
       id: data.id,
