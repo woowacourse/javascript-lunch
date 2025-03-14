@@ -17,6 +17,12 @@ class Restaurants {
     localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
   }
 
+  removeRestaurant(restaurantName: string) {
+    this.#restaurants = this.#restaurants.filter((restaurant) => restaurant.name !== restaurantName);
+    console.log(this.#restaurants);
+    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+  }
+
   getRestaurantByFilter(category: string, sortOption: string) {
     const filteredRestaurants = this.filterByCategory(category);
     return this.sortByOption(filteredRestaurants, sortOption);

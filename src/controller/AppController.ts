@@ -75,7 +75,18 @@ class AppController {
           createDOMElement({
             tag: 'div',
             class: 'button-container',
-            children: [ActionButton({ text: '삭제하기', type: 'button' }), CTAButton({ text: '닫기', type: 'submit' })],
+            children: [
+              ActionButton({
+                text: '삭제하기',
+                type: 'button',
+                onclick: () => {
+                  this.restaurants.removeRestaurant(selectedRestaurant.name);
+                  this.modalController.close();
+                  this.removeRestaurantItem(selectedRestaurant.name);
+                },
+              }),
+              CTAButton({ text: '닫기', type: 'submit', onclick: this.modalController.close }),
+            ],
           }),
         ];
         this.modalController.switchContent(modalContent);
@@ -111,6 +122,15 @@ class AppController {
 
     $('.restaurant-list')?.appendChild(item);
     this.restaurants.addRestaurant(restaurant);
+  }
+
+  removeRestaurantItem(restaurantName: string) {
+    const restaurantList = $('.restaurant-list-container');
+
+    if (restaurantList) {
+      const target = restaurantList.querySelector(`[data-id="${restaurantName}"]`);
+      target?.remove();
+    }
   }
 }
 
