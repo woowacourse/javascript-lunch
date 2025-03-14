@@ -2,9 +2,9 @@ import { toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 
 export default class FoodItem {
-  container!: HTMLElement;
+  container: HTMLElement;
 
-  #id: number;
+  #id: string;
   #category: Category;
   #name: string;
   #distance: Distance;
@@ -12,20 +12,15 @@ export default class FoodItem {
 
   #isFavorite;
 
-  constructor({
-    id,
-    category,
-    name,
-    distance,
-    description,
-    isFavorite,
-  }: FoodItemProps) {
+  constructor({ id, category, name, distance, description, isFavorite }: FoodItemProps) {
     this.#id = id;
     this.#category = category;
     this.#name = name;
     this.#distance = distance;
     this.#description = description;
     this.#isFavorite = isFavorite;
+
+    this.container = document.createElement("div");
 
     this.render();
     this.handleIsClick();
@@ -47,13 +42,13 @@ export default class FoodItem {
       bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
 
       toggleFavorite(this.#id);
+      this.render();
     });
   }
 
   render() {
     const { imgAlt, imgSrc } = getImgSrcAlt(this.#category);
 
-    this.container = document.createElement("div");
     this.container.innerHTML = `
   <li class="restaurant">
     <div class="restaurant__category">
