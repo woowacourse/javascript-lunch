@@ -2,7 +2,7 @@ describe("description 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
   });
-  it("레스토랑을 삭제할수 있어야 한다.", () => {
+  it("피양콩할마니를 클릭하면 정상적인 설명을 보여줘야 한다.", () => {
     cy.get("#피양콩할마니").click();
 
     cy.get(".description-modal").contains("피양콩할마니");
