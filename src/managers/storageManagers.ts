@@ -13,7 +13,7 @@ export function getStoredCount() {
   return getStoredFoodItems().length;
 }
 
-export function toggleFavorite(id: number) {
+export function toggleFavorite(id: string) {
   const resultItems = getStoredFoodItems().map((foodItem: FoodItemProps) => {
     if (foodItem.id === id) {
       return { ...foodItem, isFavorite: !foodItem.isFavorite };
