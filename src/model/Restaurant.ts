@@ -1,8 +1,9 @@
+import { RestaurantInfo } from "../../types/restaurant";
 import { ERROR_MESSAGE } from "../constants/error";
 import { validateEmptyString } from "../validate/validateEmptyString";
 
 class Restaurant {
-  #info;
+  #info: RestaurantInfo;
 
   constructor({
     id,
@@ -12,7 +13,7 @@ class Restaurant {
     description,
     link,
     favorite = false,
-  }) {
+  }: RestaurantInfo) {
     this.#info = {
       id,
       category,
@@ -30,7 +31,7 @@ class Restaurant {
     return this.#info.favorite;
   };
 
-  grantId(id) {
+  grantId(id: number) {
     this.#info.id = id;
   }
 
