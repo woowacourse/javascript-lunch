@@ -14,7 +14,7 @@ import {
   RESTAURANT_INFO_MODAL,
   CLOSE_INFO_BUTTON,
   DELETE_INFO_BUTTON,
-} from './constants/elements.js';
+} from './constants/elements.ts';
 import { RESTAURANTS } from './database/restaurantData.js';
 import eventHandlers from './eventHandlers/eventHandlers.js';
 import stateStore from './domain/stateStore.ts';
@@ -27,8 +27,8 @@ import {
   createSelect,
   createTextarea,
 } from './components/index.js';
-import storeService from './database/storeService.js';
-import sortRestaurants from './domain/sortRestaurants.js';
+import storeService from './database/storeService.ts';
+import sortRestaurants from './domain/sortRestaurants.ts';
 import createRestaurantInfo from './components/RestaurantInfo.js';
 
 addEventListener('load', () => {

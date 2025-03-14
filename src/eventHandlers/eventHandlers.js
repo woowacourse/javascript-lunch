@@ -86,7 +86,7 @@ function readNewRestaurant() {
     };
 
     const id = storeService.getNewRestaurantId();
-    storeService.updateRestaurantById(newRestaurantData.name, { ...newRestaurantData, id });
+    storeService.updateRestaurantById(newRestaurantData.id, { ...newRestaurantData, id });
     window.dispatchEvent(new Event('storage'));
     resetFormAndState();
     modal.classList.remove('modal--open');
