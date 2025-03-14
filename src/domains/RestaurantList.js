@@ -5,11 +5,7 @@ class RestaurantList {
   #restaurants = [];
 
   constructor(initialDatas = []) {
-    initialDatas.forEach((data) => this.addRestaurant(data));
-  }
-
-  addRestaurant(restaurantData) {
-    this.#restaurants.push(new RestaurantItem(restaurantData));
+    initialDatas.forEach((data) => this.#restaurants.push(new RestaurantItem(data)));
   }
 
   getOrderedRestaurantList(order) {
@@ -65,12 +61,28 @@ class RestaurantList {
     if (tab === 'all') {
       return {
         originalList: this.#restaurants,
-        deletedRestaurantList: this.filterRestaurant(category, order),
+        filteredList: this.filterRestaurant(category, order),
       };
     } else if (tab === 'favorite') {
       return {
         originalList: this.#restaurants,
-        deletedRestaurantList: this.filterFavorite(),
+        filteredList: this.filterFavorite(),
+      };
+    }
+  }
+
+  addRestaurant({ data, tab, order, category }) {
+    this.#restaurants.push(new RestaurantItem({ ...data }));
+
+    if (tab === 'all') {
+      return {
+        originalList: this.#restaurants,
+        filteredList: this.filterRestaurant(category, order),
+      };
+    } else if (tab === 'favorite') {
+      return {
+        originalList: this.#restaurants,
+        filteredList: this.filterFavorite(),
       };
     }
   }

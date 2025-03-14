@@ -3,10 +3,11 @@ import createSectionContainer from '../components/common/SectionContainer.js';
 import createFilterGroup from '../components/FilterGroup.js';
 import RestaurantDetailModal from '../components/RestaurantDetailModal.js';
 import createRestaurantDetailModal from '../components/RestaurantDetailModal.js';
+import RestaurantEnrollModal from '../components/RestaurantEnrollModal.js';
 import createRestaurantEnrollModal from '../components/RestaurantEnrollModal.js';
 import {
-  createRestaurantList,
   addRestaurantList,
+  createRestaurantList,
   updateRestaurantList,
 } from '../components/RestaurantList.js';
 import createTabBar from '../components/TabBar.js';
@@ -33,7 +34,7 @@ class RestaurantController {
     this.#appendModal();
 
     document.querySelector('.gnb__button').addEventListener('click', () => {
-      this.#enrollModal.toggle();
+      this.#enrollModal.modal.toggle();
     });
   }
 
@@ -57,10 +58,10 @@ class RestaurantController {
   }
 
   #appendModal() {
-    const $enrollModal = createRestaurantEnrollModal();
+    const $enrollModal = new RestaurantEnrollModal(this.#handleAddRestaurant);
     const $detailModal = new RestaurantDetailModal();
 
-    this.#main.append($enrollModal.getElement(), $detailModal.modal.getElement());
+    this.#main.append($enrollModal.modal.getElement(), $detailModal.modal.getElement());
 
     this.#enrollModal = $enrollModal;
     this.#detailModal = $detailModal;
@@ -100,15 +101,15 @@ class RestaurantController {
   };
 
   #handleDelete = (event, id) => {
-    if (window.confirm('해당 식당을 삭제하시겠습니까?')) {
-      const { originalList, deletedRestaurantList } = this.#restaurantList.deleteRestaurant({
+    if (window.confirm('해당 음식점을 삭제하시겠습니까?')) {
+      const { originalList, filteredList } = this.#restaurantList.deleteRestaurant({
         id,
         tab: this.#tab,
         order: this.#order,
         category: this.#category,
       });
       this.#restaurantStorage.updateStorage(originalList);
-      this.#updateRestaurantUI(deletedRestaurantList);
+      this.#updateRestaurantUI(filteredList);
       this.#detailModal.modal.toggle();
     }
   };
@@ -121,6 +122,22 @@ class RestaurantController {
       onClose: () => {},
     });
     this.#detailModal.modal.toggle();
+  };
+
+  #handleAddRestaurant = (inputData) => {
+    if (window.confirm('해당 음식점을 추가하시겠습니까?')) {
+      addRestaurantList(inputData, this.#handleClickItem, this.#handleClickStar);
+
+      const { originalList, filteredList } = this.#restaurantList.addRestaurant({
+        data: inputData,
+        tab: this.#tab,
+        order: this.#order,
+        category: this.#category,
+      });
+      this.#restaurantStorage.updateStorage(originalList);
+      this.#updateRestaurantUI(filteredList);
+      this.#enrollModal.modal.toggle();
+    }
   };
 
   #updateRestaurantUI(restaurantList) {

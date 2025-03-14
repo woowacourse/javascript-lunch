@@ -16,7 +16,7 @@ function createRestaurantList(datas, onItemClick, onStarClick) {
   return restaurantList;
 }
 
-function addRestaurantList(inputData, handleClick) {
+function addRestaurantList(inputData, onItemClick, onStarClick) {
   const $restaurantList = document.querySelector('.restaurant-list');
   const $restaurantItem = createRestaurantItem(inputData, onItemClick, onStarClick);
 
