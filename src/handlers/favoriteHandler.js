@@ -16,9 +16,6 @@ export function handleFavoriteToggle(e) {
   if (starIcon) {
     starIcon.src = newFavoriteState ? "./fill-star.png" : "./blank-star.png";
     starIcon.classList.add("star-animation");
-    setTimeout(() => {
-      starIcon.classList.remove("star-animation");
-    }, 300);
   }
 
   const { restaurantId } = button.dataset;

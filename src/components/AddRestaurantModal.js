@@ -96,7 +96,7 @@ export default function AddRestaurantModal(container) {
   );
   const submitButton = CustomButton("", "button--primary", "추가하기");
 
-  container.innerHTML += `
+  container.innerHTML += /* html */ `
     <div class="modal modal--open">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
