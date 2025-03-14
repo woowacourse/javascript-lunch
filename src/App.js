@@ -30,6 +30,17 @@ export default class App {
         this.#updateList
       ).render()
     );
+
+    const $filterSection = document.querySelector(
+      ".restaurant-filter-container"
+    );
+    $filterSection.replaceWith(
+      new RestaurantFilterSection(
+        restaurantList,
+        this.#updateList,
+        this.#selectedTab
+      ).render()
+    );
   };
 
   #updateList = (newRestaurantList) => {
@@ -82,7 +93,11 @@ export default class App {
     ).render();
 
     this.$listSection.appendChild(
-      new RestaurantFilterSection(restaurantList, this.#updateList).render()
+      new RestaurantFilterSection(
+        restaurantList,
+        this.#updateList,
+        this.#selectedTab
+      ).render()
     );
 
     this.$listSection.append(
