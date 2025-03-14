@@ -12,9 +12,6 @@ class Modal extends Component {
   }
 
   template() {
-    const starImg = this.props.data.like
-      ? "/filledStar.png"
-      : "unFilledStar.png";
     if (this.props.mode === "add") {
       return `<div class="modal-backdrop"></div>
     <div class="modal-container">
@@ -40,6 +37,9 @@ class Modal extends Component {
     </div>
     `;
     } else if (this.props.mode === "detail") {
+      const starImg = this.props.data.like
+        ? "/filledStar.png"
+        : "unFilledStar.png";
       return `<div class="modal-backdrop"></div>
     <div class="modal-container">
       <div class="modal-wrapper">
