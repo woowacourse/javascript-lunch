@@ -1,11 +1,23 @@
 import { CATEGORY_IMAGES, ICON_IMAGES } from '../assets/images';
 import { RestaurantType } from '../types/restaurants';
+import { $ } from '../utils/@common/domHelper';
+import EventManager from '../utils/@common/EventManager';
+import { useState } from '../utils/core/Core';
 import Button from './@common/Button';
 
 interface RestaurantProps extends RestaurantType {}
 
 const Restaurant = (props: RestaurantProps) => {
   const { category, name, distance, description, isFavorite } = props;
+  const [favorite, setFavorite] = useState(isFavorite);
+  const eventManager = new EventManager($('#app'));
+
+  const buttonId = `favorite-${name.replace(/\s+/g, '-')}`;
+
+  eventManager.addEvent('click', `#${buttonId}`, () => {
+    setFavorite(!favorite);
+  });
+
   return `
     <li class="restaurant">
       <div class="restaurant__container">
@@ -31,10 +43,11 @@ const Restaurant = (props: RestaurantProps) => {
       </div>
       ${Button({
         attribute: {
+          id: buttonId,
           class: 'restaurant__favorite-button',
         },
         children: `<img src="${
-          isFavorite ? ICON_IMAGES.FAVORITE : ICON_IMAGES.UNFAVORITE
+          favorite ? ICON_IMAGES.FAVORITE : ICON_IMAGES.UNFAVORITE
         }" alt="favorite" />`,
       })}
     </li>
