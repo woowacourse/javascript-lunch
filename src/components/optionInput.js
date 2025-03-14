@@ -1,4 +1,4 @@
-import inputTitle from "../constants/inputTitle.js";
+import RESTAURANT_ADD_FORM_INPUT_TITLE from "../constants/restaurantAddForm/inputTitle.js";
 
 const getOptionValue = (name, option) => {
   if (name === "distance") {
@@ -15,7 +15,7 @@ const OptionInput = (name, options) => {
 
   formItem.innerHTML = `
     <label for=${name} class="text-caption">${
-    inputTitle[name.toUpperCase()]
+    RESTAURANT_ADD_FORM_INPUT_TITLE[name.toUpperCase()]
   }</label>
     <select name=${name} id=${name}>
       <option value="">선택해 주세요</option>

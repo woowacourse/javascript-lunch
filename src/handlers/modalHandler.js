@@ -4,8 +4,8 @@ import OptionInput from "../components/OptionInput.js";
 import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
 
-import helpText from "../constants/helpText.js";
-import selectOptions from "../constants/selectOptions.js";
+import RESTAURANT_ADD_FORM_HELP_TEXT from "../constants/restaurantAddForm/helpText.js";
+import RESTAURANT_ADD_FORM_SELECT_OPTIONS from "../constants/restaurantAddForm/selectOptions.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
 import { restaurantHandler } from "./restaurantHandler.js";
@@ -21,11 +21,19 @@ export const modalHandler = {
     modalContainer.innerHTML = FormContent({ title: "새로운 음식점" });
 
     const modalForm = querySelector(".modal-form");
-    modalForm.appendChild(OptionInput("category", selectOptions.CATEGORY));
+    modalForm.appendChild(
+      OptionInput("category", RESTAURANT_ADD_FORM_SELECT_OPTIONS.CATEGORY)
+    );
     modalForm.appendChild(TextInput("name", true));
-    modalForm.appendChild(OptionInput("distance", selectOptions.DISTANCE));
-    modalForm.appendChild(TextArea("description", helpText.DESCRIPTION));
-    modalForm.appendChild(TextInput("link", false, helpText.LINK));
+    modalForm.appendChild(
+      OptionInput("distance", RESTAURANT_ADD_FORM_SELECT_OPTIONS.DISTANCE)
+    );
+    modalForm.appendChild(
+      TextArea("description", RESTAURANT_ADD_FORM_HELP_TEXT.DESCRIPTION)
+    );
+    modalForm.appendChild(
+      TextInput("link", false, RESTAURANT_ADD_FORM_HELP_TEXT.LINK)
+    );
 
     modalForm.appendChild(modalHandler.addButtons());
     modalHandler.addFormCheck();

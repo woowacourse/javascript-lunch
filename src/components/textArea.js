@@ -1,4 +1,4 @@
-import inputTitle from "../constants/inputTitle.js";
+import RESTAURANT_ADD_FORM_INPUT_TITLE from "../constants/restaurantAddForm/inputTitle.js";
 
 const TextArea = (name, helpText, colRow = { col: 30, row: 5 }) => {
   const formItem = document.createElement("div");
@@ -6,7 +6,7 @@ const TextArea = (name, helpText, colRow = { col: 30, row: 5 }) => {
 
   formItem.innerHTML = `
     <label for=${name} class="text-caption">${
-    inputTitle[name.toUpperCase()]
+    RESTAURANT_ADD_FORM_INPUT_TITLE[name.toUpperCase()]
   }</label>
     <textarea
       name=${name}
