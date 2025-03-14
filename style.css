@@ -6,6 +6,7 @@
 @import "./src/css/button.css";
 @import "./src/css/filter.css";
 @import "./src/css/iconButton.css";
+@import "./src/css/tabMenu.css";
 
 * {
   padding: 0;
@@ -22,6 +23,11 @@ html,
 body {
   font-family: sans-serif;
   font-size: 16px;
+}
+button {
+  background-color: white;
+  border: none;
+  cursor: pointer;
 }
 
 /* Colors *****************************************/
