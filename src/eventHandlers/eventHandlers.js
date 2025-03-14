@@ -1,7 +1,7 @@
 import storeService from '../database/storeService.js';
 import filteringRestaurants from '../domain/filteringRestaurants.js';
 import sortRestaurants from '../domain/sortRestaurants.js';
-import stateStore from '../stateStore.js';
+import stateStore from '../domain/stateStore.js';
 
 function openAddRestaurantModal() {
   const gnbButton = document.querySelector('.gnb__button');
