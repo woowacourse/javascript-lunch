@@ -60,8 +60,17 @@ export default class RestaurantFilterSection {
 
   #handleSortingChange = (e) => {
     const { value } = e.target;
+
+    let filterBySelectTab = [...this.#restaurantList];
+
+    if (this.#selectedTab === "bookmark") {
+      filterBySelectTab = filterBySelectTab.filter(
+        (restaurant) => restaurant.bookmark
+      );
+    }
+
     if (value === "이름순") {
-      const filteredList = this.#restaurantList.sort((a, b) =>
+      const filteredList = filterBySelectTab.sort((a, b) =>
         a.name.toLowerCase().localeCompare(b.name.toLowerCase())
       );
       this.#updateList(filteredList);
@@ -69,7 +78,7 @@ export default class RestaurantFilterSection {
 
     if (value === "거리순") {
       this.#updateList(
-        this.#restaurantList.sort((a, b) => a.distance - b.distance)
+        filterBySelectTab.sort((a, b) => a.distance - b.distance)
       );
     }
   };
