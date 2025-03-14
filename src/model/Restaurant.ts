@@ -1,6 +1,6 @@
 import { RestaurantInfo } from "../../types/restaurant";
 import { ERROR_MESSAGE } from "../constants/error";
-import { validateEmptyString } from "../validate/validateEmptyString";
+import validateEmptyString from "../validate/validateEmptyString";
 
 class Restaurant {
   #info: RestaurantInfo;
