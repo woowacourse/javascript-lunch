@@ -14,8 +14,8 @@ interface StateStore {
 const stateStore: StateStore = {
   restaurantState: {
     sort: 'name',
-    category: '',
-    tab: '',
+    category: 'total',
+    tab: 'total',
   },
 
   updateState(stateKey, state) {
@@ -33,8 +33,8 @@ const stateStore: StateStore = {
     const currentState = this.restaurantState;
 
     currentState.sort = 'name';
-    currentState.category = '';
-    currentState.tab = '';
+    currentState.category = 'total';
+    currentState.tab = 'total';
   },
 
   getState() {

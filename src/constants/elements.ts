@@ -23,7 +23,7 @@ export const CATEGORY = {
   name: 'category',
   required: true,
   lists: new Map([
-    [null, '선택해주세요'],
+    ['total', '선택해주세요'],
     ['KOREAN', '한식'],
     ['CHINESE', '중식'],
     ['JAPANESE', '일식'],
@@ -92,7 +92,7 @@ export const IMAGE = new Map([
 
 export const TOTAL_ITEMS_TAB = {
   type: 'button',
-  classNames: ['tab', 'total-items'],
+  classNames: ['tab', 'total'],
   content: '모든 음식점',
 };
 
@@ -107,7 +107,7 @@ export const CATEGORY_FILTER = {
   name: 'category-filter',
   required: false,
   lists: new Map([
-    [null, '전체'],
+    ['total', '전체'],
     ['KOREAN', '한식'],
     ['CHINESE', '중식'],
     ['JAPANESE', '일식'],
