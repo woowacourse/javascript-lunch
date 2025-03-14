@@ -69,6 +69,10 @@ function appendTabs() {
   const tabContainer = document.querySelector('.tab-container');
   tabContainer.insertAdjacentHTML('beforeend', totalItemsTab);
   tabContainer.insertAdjacentHTML('beforeend', frequentItemsTab);
+
+  const tabs = document.querySelectorAll('.tab');
+  tabs[0].dataset.tab = 'all';
+  tabs[1].dataset.tab = 'favorite';
 }
 
 function appendItemsController() {
