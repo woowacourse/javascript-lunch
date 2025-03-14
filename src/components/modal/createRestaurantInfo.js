@@ -2,16 +2,12 @@ import $button from "../common/button.js";
 import $buttonContainer from "../layout/button-container.js";
 import { UI_CONFIG } from "../../constants/uiConfig.js";
 import { handleModalClose, handleModalOpen } from "./modal.js";
+import { storageHandler } from "../../utils/storageHandler.js";
+import { STORAGE_KEY_NAME } from "../../constants/storage.js";
 
-const $createRestaurantInfo = ({
-  categoryIcon,
-  categoryTitle,
-  description,
-  distance,
-  link,
-  name,
-  id,
-}) => {
+const $createRestaurantInfo = (restaurantInfo) => {
+  const { categoryIcon, categoryTitle, description, distance, link, name, id } =
+    restaurantInfo;
   const container = document.querySelector(".modal-container");
   container.replaceChildren();
 
@@ -51,7 +47,14 @@ const $createRestaurantInfo = ({
     container.appendChild(InfoLink);
   }
 
-  const deleteEvent = { eventType: null, eventHandler: null };
+  const itemDelete = () => {
+    document.querySelector(`[data-id="${id}"]`).remove();
+    storageHandler.deleteItem(STORAGE_KEY_NAME, id);
+  };
+  const deleteEvent = {
+    eventType: "click",
+    eventHandler: itemDelete,
+  };
   const closeEvent = { eventType: "click", eventHandler: handleModalClose };
   const deleteCloseButtons = $buttonContainer([
     $button(UI_CONFIG.BUTTONS.DELETE, deleteEvent),
