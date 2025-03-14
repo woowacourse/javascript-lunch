@@ -193,7 +193,13 @@ body {
 }
 
 .restaurant__top .favorite-star {
+  width: 32px;
+  height: 32px;
   cursor: pointer;
+  background-image: url("/empty-star.svg");
+}
+.restaurant__top .favorite-star.active {
+  background-image: url("/full-star.svg");
 }
 
 .restaurant__name {
