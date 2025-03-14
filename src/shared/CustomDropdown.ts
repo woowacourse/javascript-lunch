@@ -1,9 +1,9 @@
 interface ICustomDropdown {
-  label: String;
-  name: String;
-  id: String;
-  options: Array<{ value: String | Number; text: String }>;
-  required?: Boolean;
+  label: string;
+  name: string;
+  id: string;
+  options: Array<{ value: string | number; text: string }>;
+  required?: boolean;
 }
 
 export default function CustomDropdown({
