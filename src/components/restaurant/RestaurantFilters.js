@@ -29,13 +29,13 @@ export default function RestaurantFilters() {
   $categoryFilter.addEventListener("change", (event) => {
     const selectedCategory = event.target.value;
     restaurantDataList.setCategory(selectedCategory);
-    restaurantDataList.getFilteredDataList();
+    restaurantDataList.renderRestaurantList();
   });
 
   $sortingFilter.addEventListener("change", (event) => {
     const selectedSorting = event.target.value;
     restaurantDataList.setSortedFlag(selectedSorting);
-    restaurantDataList.getFilteredDataList();
+    restaurantDataList.renderRestaurantList();
   });
 
   $filterContainer.append($categoryFilter, $sortingFilter);

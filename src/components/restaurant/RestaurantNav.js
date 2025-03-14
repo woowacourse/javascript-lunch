@@ -24,7 +24,7 @@ export default function RestaurantNav() {
     $favoriteRestaurant.classList.remove("select");
     // 모든 음식점 가져와서 render 함수 호출
     restaurantDataList.setViewState(VIEW_STATE.all);
-    restaurantDataList.getFilteredDataList();
+    restaurantDataList.renderRestaurantList();
   });
 
   $favoriteRestaurant.addEventListener("click", (e) => {
@@ -33,10 +33,10 @@ export default function RestaurantNav() {
     $favoriteRestaurant.classList.add("select");
     // 좋아요 음식점 가져와서 render 함수 호출
     restaurantDataList.setViewState(VIEW_STATE.favorite);
-    restaurantDataList.getFilteredDataList();
+    restaurantDataList.renderRestaurantList();
   });
 
-  restaurantDataList.getFilteredDataList();
+  restaurantDataList.renderRestaurantList();
   $nav.append($allRestaurant, $favoriteRestaurant);
   return $nav;
 }

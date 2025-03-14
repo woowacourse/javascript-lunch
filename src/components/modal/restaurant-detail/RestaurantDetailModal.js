@@ -62,7 +62,7 @@ function createDetailInfo({
   const $favorite = RestaurantItemFavorite({ isFavorite, id });
 
   $favorite.addEventListener("click", () => {
-    restaurantDataList.getFilteredDataList();
+    restaurantDataList.renderRestaurantList();
   });
 
   $starWrap.appendChild($favorite);
@@ -97,7 +97,7 @@ function createButtons(id) {
     removeModal();
 
     restaurantDataList.removeDataById(id);
-    restaurantDataList.getFilteredDataList();
+    restaurantDataList.renderRestaurantList();
   });
 
   $closeButton.addEventListener("click", removeModal);

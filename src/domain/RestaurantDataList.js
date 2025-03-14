@@ -44,23 +44,8 @@ export class RestaurantDataList {
     return favoriteList;
   }
 
-  getFilteredDataList() {
-    const restaurantDataList =
-      this.#viewState === VIEW_STATE.favorite
-        ? this.getFavoriteDataList()
-        : this.#dataList;
-
-    if (this.#category === CATEGORY.all) {
-      this.notify(this.sortedDataList(restaurantDataList));
-      return;
-    }
-
-    const filteredList = restaurantDataList.filter(
-      (restaurantData) => restaurantData.category === this.#category
-    );
-
-    const sortedFilteredList = this.sortedDataList(filteredList);
-    this.notify(sortedFilteredList);
+  getDataById(id) {
+    return this.#dataList.find((restaurantData) => restaurantData.id === id);
   }
 
   setViewState(viewState) {
@@ -75,34 +60,18 @@ export class RestaurantDataList {
     this.#sortedFlag = sortedFlag;
   }
 
-  sortedDataList(dataList) {
-    if (this.#sortedFlag === SORTED.distance) {
-      dataList.sort((a, b) => a.distance - b.distance);
-    } else {
-      dataList.sort((a, b) => (a.name > b.name ? 1 : -1));
-    }
+  addData(data) {
+    const restaurantData = new RestaurantData(data);
+    this.#dataList.push(restaurantData.getData());
 
-    return dataList;
+    postData(this.#dataList);
   }
 
   changeFavorite(id) {
     const targetData = this.#dataList.find(
       (restaurantData) => restaurantData.id === id
     );
-
     targetData.isFavorite = !targetData.isFavorite;
-
-    postData(this.#dataList);
-  }
-
-  getDataById(id) {
-    return this.#dataList.find((restaurantData) => restaurantData.id === id);
-  }
-
-  addData(data) {
-    const restaurantData = new RestaurantData(data);
-
-    this.#dataList.push(restaurantData.getData());
 
     postData(this.#dataList);
   }
@@ -113,6 +82,34 @@ export class RestaurantDataList {
     );
 
     postData(this.#dataList);
+  }
+
+  renderRestaurantList() {
+    const restaurantDataList =
+      this.#viewState === VIEW_STATE.favorite
+        ? this.getFavoriteDataList()
+        : this.#dataList;
+
+    if (this.#category === CATEGORY.all) {
+      this.notify(this.sortedDataList(restaurantDataList));
+      return;
+    }
+
+    const filteredList = restaurantDataList.filter(
+      (restaurantData) => restaurantData.category === this.#category
+    );
+    const sortedFilteredList = this.sortedDataList(filteredList);
+    this.notify(sortedFilteredList);
+  }
+
+  sortedDataList(dataList) {
+    if (this.#sortedFlag === SORTED.distance) {
+      dataList.sort((a, b) => a.distance - b.distance);
+    } else {
+      dataList.sort((a, b) => (a.name > b.name ? 1 : -1));
+    }
+
+    return dataList;
   }
 
   subscribe(callback) {
