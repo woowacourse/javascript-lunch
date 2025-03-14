@@ -1,4 +1,7 @@
-const CATEGORY_OPTIONS = [
+import { Restaurant } from '../types/types';
+import { ExtendType, ToString } from '../types/typeUtils';
+
+const CATEGORY_OPTIONS: { value: ExtendType<Restaurant['category'], ''>; option: string }[] = [
   { value: '', option: '선택해 주세요' },
   { value: 'korean', option: '한식' },
   { value: 'chinese', option: '중식' },
@@ -8,7 +11,7 @@ const CATEGORY_OPTIONS = [
   { value: 'etc', option: '기타' },
 ] as const;
 
-const DISTANCE_OPTIONS = [
+const DISTANCE_OPTIONS: { value: ExtendType<ToString<Restaurant['distance']>, ''>; option: string }[] = [
   { value: '', option: '선택해 주세요' },
   { value: '5', option: '5분 내' },
   { value: '10', option: '10분 내' },

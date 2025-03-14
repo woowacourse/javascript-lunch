@@ -1,4 +1,5 @@
 import PlusButton from '../components/button/PlusButton';
+import RestaurantFilterContainer from '../components/filter/RestaurantFilterContainer';
 import Header from '../components/Header';
 import RestaurantItem from '../components/restaurant/RestaurantItem';
 import RestaurantList from '../components/restaurant/RestaurantList';
@@ -18,6 +19,7 @@ class AppController {
 
   init() {
     this.renderHeader();
+    this.renderFilterContainer();
     this.renderRestaurantList();
     this.renderModal();
   }
@@ -27,6 +29,13 @@ class AppController {
 
     const header = Header({ title: '점심 뭐 먹지', right: PlusButton({ onclick: this.modalController.open }) });
     body?.prepend(header);
+  }
+
+  renderFilterContainer() {
+    const main = $('main');
+
+    const filterContainer = RestaurantFilterContainer();
+    main?.prepend(filterContainer);
   }
 
   renderRestaurantList() {

@@ -6,3 +6,7 @@ export type AttributeWithoutChildren<T extends keyof JSX.IntrinsicElements> = Om
   ExtractFirstGeneric<JSX.IntrinsicElements[T]>,
   'children'
 >;
+
+export type ExtendType<T, U> = T | U;
+
+export type ToString<T extends number> = `${T}`;
