@@ -1,11 +1,13 @@
 class RestaurantInfo {
-  constructor(name, distance, description) {
-    return this.#createRestaurantInfo(name, distance, description);
+  private element: HTMLDivElement;
+
+  constructor(name: string, distance: string, description: string) {
+    this.element = this.#createRestaurantInfo(name, distance, description);
   }
 
-  #createRestaurantInfo(name, distance, description) {
+  #createRestaurantInfo(name: string, distance: string, description: string): HTMLDivElement {
     const restaurantInfo = document.createElement('div');
-    restaurantInfo.classList = 'restaurant__info';
+    restaurantInfo.classList.add('restaurant__info');
 
     const restaurantName = document.createElement('h3');
     restaurantName.classList.add('restaurant__name', 'text-subtitle');
@@ -23,6 +25,10 @@ class RestaurantInfo {
     restaurantInfo.appendChild(restaurantDistance);
     restaurantInfo.appendChild(restaurantDescription);
     return restaurantInfo;
+  }
+
+  getElement(): HTMLDivElement {
+    return this.element;
   }
 }
 
