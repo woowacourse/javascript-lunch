@@ -105,7 +105,10 @@ export default class RestaurantForm {
 
     const newRestaurantInfo = extractValuesByKey(formQuery, "value");
 
-    this.updateList([...this.list, { ...newRestaurantInfo, bookmark: false }]);
+    this.updateList([
+      ...this.list,
+      { ...newRestaurantInfo, bookmark: false, id: new Date().getTime() },
+    ]);
     this.#resetFormData(formQuery);
     this.#closeModal();
   }
