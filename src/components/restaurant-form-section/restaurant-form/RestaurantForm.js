@@ -13,7 +13,8 @@ import {
 } from "../../../constants/constants.js";
 
 export default class RestaurantForm {
-  constructor({ onSubmit, onCancel }) {
+  constructor({ title, onSubmit, onCancel }) {
+    this.title = title;
     this.onSubmit = onSubmit;
     this.onCancel = onCancel;
 
@@ -33,6 +34,25 @@ export default class RestaurantForm {
   }
 
   render() {
+    const $fragment = new DocumentFragment();
+
+    const $title = this.#renderTitle();
+    const $form = this.#renderForm();
+
+    $fragment.append($title, $form);
+
+    return $fragment;
+  }
+
+  #renderTitle() {
+    const $title = document.createElement("h2");
+    $title.className = "modal-title text-title";
+    $title.textContent = this.title;
+
+    return $title;
+  }
+
+  #renderForm() {
     const $form = document.createElement("form");
 
     const $buttonContainer = document.createElement("div");
@@ -42,12 +62,14 @@ export default class RestaurantForm {
       text: BUTTON_TEXTS.cancel,
       action: BUTTON_TYPES.cancel,
     }).render();
+
     const $addButton = new Button({
       type: "submit",
       text: BUTTON_TEXTS.add,
       action: BUTTON_TYPES.add,
     }).render();
 
+    $buttonContainer.append($cancelButton, $addButton);
     $form.append(
       this.formElements.category,
       this.formElements.name,
@@ -56,8 +78,6 @@ export default class RestaurantForm {
       this.formElements.link,
       $buttonContainer
     );
-
-    $buttonContainer.append($cancelButton, $addButton);
 
     $cancelButton.addEventListener(EVENT_TYPES.click, this.onCancel.bind(this));
     $form.addEventListener(EVENT_TYPES.submit, this.#handleSubmit.bind(this));

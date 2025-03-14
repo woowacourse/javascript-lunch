@@ -71,12 +71,12 @@ export default class App {
 
   #renderBottomSheet() {
     const $restaurantForm = new RestaurantForm({
+      title: "새로운 음식점",
       onSubmit: this.#handleFormSubmit.bind(this),
       onCancel: () => this.$bottomSheet.close(),
     });
 
     this.$bottomSheet = new BottomSheetBase({
-      title: "새로운 음식점",
       $children: $restaurantForm.render(),
     });
 

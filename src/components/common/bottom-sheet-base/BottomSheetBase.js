@@ -2,8 +2,7 @@ import { EVENT_TYPES } from "../../../constants/constants.js";
 import "./bottomSheetBase.css";
 
 export default class BottomSheetBase {
-  constructor({ title, $children }) {
-    this.title = title;
+  constructor({ $children }) {
     this.$children = $children;
     this.$modal = document.createElement("div");
   }
@@ -17,12 +16,8 @@ export default class BottomSheetBase {
     const $container = document.createElement("div");
     $container.className = "modal-container";
 
-    const $title = document.createElement("h2");
-    $title.className = "modal-title text-title";
-    $title.textContent = this.title;
-
     this.$modal.append($backdrop, $container);
-    $container.append($title, this.$children);
+    $container.append(this.$children);
 
     $backdrop.addEventListener(EVENT_TYPES.click, this.close.bind(this));
 
