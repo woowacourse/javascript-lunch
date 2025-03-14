@@ -4,7 +4,9 @@ import Title from "../components/common/Title";
 import CategorySelector from "../components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "../components/FilterSelector/NameOrDistanceSelector";
 import RegisterForm from "../components/RegisterForm";
+import RestaurantCard from "../components/RestaurantCard";
 import RestaurantDetail from "../components/RestaurantDetail";
+import RestaurantDetailButtonContainer from "../components/RestaurantDetail/RestaurantDetailButtonContainer";
 import Restaurant from "../domain/Restaurant";
 import createRestaurantCards from "../service/createRestaurantCards";
 import createElement from "../utils/createElement/createElement";
@@ -19,20 +21,42 @@ const renderAllpage = (restaurantList) => {
   filterContainer.appendChild(CategorySelector(restaurantList));
   filterContainer.appendChild(NameOrDistanceSelector(restaurantList));
 
+  renderAllRestaurant(restaurantList);
+};
+
+const renderAllRestaurant = (restaurantList) => {
   renderRestaurants(
     createRestaurantCards(restaurantList.list, {
       clickCard: (restaurant) => {
         $("#restaurant-detail-modal-backdrop").classList.add("open");
-        changeModalContents(restaurant);
+        changeModalContents(restaurant, restaurantList);
       },
     })
   );
 };
 
-const changeModalContents = (restaurant) => {
+const clickDelete = (restaurant, restaurantList) => {
+  restaurantList.delete(restaurant);
+  renderAllRestaurant(restaurantList);
+};
+
+const changeModalContents = (restaurant, restaurantList) => {
   const restaurantDetailModal = $(".restaurant-detail-modal");
   restaurantDetailModal.innerHTML = "";
-  restaurantDetailModal.appendChild(RestaurantDetail(restaurant));
+
+  restaurantDetailModal.appendChild(
+    RestaurantCard(restaurant, {
+      clickFavorite: () => {
+        renderAllRestaurant(restaurantList);
+      },
+    })
+  );
+
+  restaurantDetailModal.appendChild(
+    RestaurantDetailButtonContainer(restaurant, () => {
+      clickDelete(restaurant, restaurantList);
+    })
+  );
 };
 
 export default renderAllpage;

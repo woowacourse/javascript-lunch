@@ -4,9 +4,8 @@ import Image from "../common/Image";
 import RestaurantInfo from "./RestaurantInfo";
 import CategoryImage from "./CategoryImage";
 import FavoriteIcon from "./FavoriteIcon";
-import RestaurantDetail from "../RestaurantDetail";
 
-const RestaurantCard = (restaurant, events) => {
+const RestaurantCard = (restaurant, events = {}) => {
   const { category, name, distance, description } = restaurant.value;
   const { clickFavorite, clickCard } = events;
 

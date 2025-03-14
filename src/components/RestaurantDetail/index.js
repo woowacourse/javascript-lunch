@@ -1,10 +1,12 @@
 import createElement from "../../utils/createElement/createElement";
-import ButtonContainer from "./ButtonContainer";
+import FavoriteIcon from "../RestaurantCard/FavoriteIcon";
+import RestaurantDetailButtonContainer from "./RestaurantDetailButtonContainer";
 
-const RestaurantDetail = (restaurant) => {
+const RestaurantDetail = (restaurant, events = {}) => {
   const { name, distance, description } = restaurant.value;
+  const { clickDelete, clickFavorite } = events;
 
-  //TODO: 기존 컴포넌트로 고침
+  //TODO: 기존 컴포넌트로 고치기
   return createElement({
     tagName: "div",
     classNames: ["restaurant__info"],
@@ -24,7 +26,8 @@ const RestaurantDetail = (restaurant) => {
         classNames: ["restaurant__description"],
         text: description,
       }),
-      ButtonContainer(),
+      FavoriteIcon(restaurant, clickFavorite),
+      RestaurantDetailButtonContainer(restaurant, clickDelete),
     ],
   });
 };

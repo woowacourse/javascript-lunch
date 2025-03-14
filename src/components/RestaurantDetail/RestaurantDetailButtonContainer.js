@@ -8,14 +8,14 @@ const BUTTON_TEXT = {
   CLOSE: "닫기",
 };
 
-const ButtonContainer = () => {
+const RestaurantDetailButtonContainer = (restaurant, clickDelete) => {
   const deleteButton = Button({
     text: BUTTON_TEXT.DELETE,
     style: "button--secondary",
     onClick: () => {
       console.log("삭제하기 클릭");
-
-      $("#register-modal-backdrop").classList.remove("open");
+      $("#restaurant-detail-modal-backdrop").classList.remove("open");
+      clickDelete(restaurant);
     },
   });
 
@@ -24,7 +24,7 @@ const ButtonContainer = () => {
     style: "button--primary",
     onClick: () => {
       console.log("닫기 클릭");
-      $("#register-modal-backdrop").classList.remove("open");
+      $("#restaurant-detail-modal-backdrop").classList.remove("open");
     },
   });
 
@@ -37,4 +37,4 @@ const ButtonContainer = () => {
   return buttonContainer;
 };
 
-export default ButtonContainer;
+export default RestaurantDetailButtonContainer;
