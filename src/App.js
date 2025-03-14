@@ -15,6 +15,7 @@ import {
 import RestaurantInfoModal from "./components/modal/RestaurantInfoModal/index.js";
 import { makeUniqueId } from "./utils/makeUniqueId.js";
 import CategoryFilter from "./components/CategoryFilter.js";
+import SortingFilter from "./components/SortingFilter.js";
 
 class App extends Component {
   setup() {
@@ -135,6 +136,29 @@ class App extends Component {
         event.target.value
       );
       this.renderRestaurantList(filteredRestaurant);
+    });
+
+    $restaurantFilterContainer.insertAdjacentHTML("beforeend", SortingFilter());
+    const $sortingFilter = $($restaurantFilterContainer, "#sorting-filter");
+
+    $sortingFilter.addEventListener("change", (event) => {
+      const restaurantSection = $(document, ".restaurant-list-container");
+      restaurantSection.remove();
+
+      const restaurantList = this.state.restaurants;
+
+      const sorting = (restaurantList, option) => {
+        const sortByOptions = {
+          name: (array) =>
+            [...array].sort((a, b) => a.name.localeCompare(b.name)),
+          distance: (array) =>
+            [...array].sort((a, b) => a.distance - b.distance),
+        };
+        return sortByOptions[option](restaurantList);
+      };
+
+      const sortedRestaurantList = sorting(restaurantList, event.target.value);
+      this.renderRestaurantList(sortedRestaurantList);
     });
   }
 
