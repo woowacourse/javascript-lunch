@@ -1,4 +1,6 @@
-const restaurantData = [
+import { RestaurantItem } from "../types/restaurantItem";
+
+const restaurantData: RestaurantItem[] = [
   {
     category: "한식",
     name: "피양콩할마니",

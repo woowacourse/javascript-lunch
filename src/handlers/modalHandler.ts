@@ -8,7 +8,6 @@ import RESTAURANT_ADD_FORM_HELP_TEXT from "../constants/restaurantAddForm/helpTe
 import RESTAURANT_ADD_FORM_SELECT_OPTIONS from "../constants/restaurantAddForm/selectOptions.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
-import { restaurantHandler } from "./restaurantHandler.js";
 
 export const modalHandler = {
   closeModal: () => {
@@ -67,40 +66,44 @@ export const modalHandler = {
     modalHandler.checkInput(distSelect, validate.emptySelector, "change");
   },
 
-  checkInput: (input, validate, type = "input") => {
+  checkInput: (
+    input: HTMLInputElement,
+    validate: (value: string) => void,
+    type: string = "input"
+  ) => {
     const addButton = querySelector("#add-button");
 
-    input.addEventListener(type, (e) => {
+    input.addEventListener(type, (e: Event) => {
       try {
-        validate(e.target.value);
+        validate((e.target as HTMLInputElement).value);
         modalHandler.removeErrorText(input);
         addButton.classList.remove("disabled-button");
         addButton.disabled = false;
-      } catch (e) {
-        modalHandler.addErrorText(input, e);
+      } catch (error) {
+        modalHandler.addErrorText(input, error as Error);
         addButton.classList.add("disabled-button");
         addButton.disabled = true;
       }
     });
   },
 
-  addErrorText: (input, e) => {
+  addErrorText: (input: HTMLInputElement, e: Error) => {
     if (!input.classList.contains("form-item--error")) {
       input.classList.add("form-item--error");
       const parentNode = input.parentNode;
       const errorText = document.createElement("span");
       errorText.classList.add("error-text");
       errorText.innerText = e.message;
-      parentNode.appendChild(errorText);
+      parentNode?.appendChild(errorText);
     }
   },
 
-  removeErrorText: (input) => {
-    if (input.parentNode.querySelector(".error-text")) {
+  removeErrorText: (input: HTMLInputElement) => {
+    const errorText = input.parentNode?.querySelector(".error-text");
+
+    if (errorText) {
       input.classList.remove("form-item--error");
-      input.parentNode.removeChild(
-        input.parentNode.querySelector(".error-text")
-      );
+      input.parentNode?.removeChild(errorText);
     }
   },
 };

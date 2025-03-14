@@ -3,12 +3,13 @@ import RestaurantList from "./stores/RestaurantList.js";
 
 import restaurantData from "./data/restaurantData.js";
 import querySelector from "./utils/querySelector.js";
-import { modalHandler } from "./handlers/modalHandler.js";
-import { restaurantHandler } from "./handlers/restaurantHandler.js";
+import { modalHandler } from "./handlers/modalHandler.ts";
+import { restaurantHandler } from "./handlers/restaurantHandler.ts";
+import { RestaurantItem } from "./types/restaurantItem.js";
 
 addEventListener("load", () => {
   const restaurantList = new RestaurantList(restaurantData);
-  restaurantList.list.forEach((restaurant) => {
+  restaurantList.list.forEach((restaurant: RestaurantItem) => {
     restaurantHandler.addRestaurantItem(restaurant);
   });
   const modal = Modal();
@@ -18,7 +19,7 @@ addEventListener("load", () => {
     querySelector(".modal").classList.add("modal--open");
     modalHandler.addForm();
 
-    querySelector(".modal-form").addEventListener("submit", (e) =>
+    querySelector(".modal-form").addEventListener("submit", (e: Event) =>
       restaurantHandler.uploadRestaurant(restaurantList, e)
     );
   });
