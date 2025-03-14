@@ -8,3 +8,6 @@ const lunchList = LunchList("restaurantListSection");
 
 lunchList.render();
 SubmitEvent(lunchList);
+
+const lunchFavoriteList = LunchList("restaurantFavoriteSection");
+lunchFavoriteList.render();
