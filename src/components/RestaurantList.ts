@@ -122,7 +122,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
       restaurants: [...this.state.restaurants, restaurant],
     });
 
-    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
+    this.#saveRestaurantsInLocalStorage();
   }
 
   /**
@@ -161,7 +161,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
     this.setState({
       restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
     });
-    localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
+    this.#saveRestaurantsInLocalStorage();
   }
 
   #toggleLike(restaurantName: string) {
@@ -176,6 +176,10 @@ export default class RestaurantList extends Component<RestaurantListState> {
       restaurants: copiedRestaurants,
     });
 
+    this.#saveRestaurantsInLocalStorage();
+  }
+
+  #saveRestaurantsInLocalStorage() {
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(this.state.restaurants));
   }
 }
