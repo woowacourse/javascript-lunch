@@ -6,6 +6,11 @@
 
   border-bottom: 1px solid #e9eaed;
   cursor: pointer;
+
+  position: relative;
+}
+.restaurant-detail {
+  flex-direction: column;
 }
 
 .restaurant-list-container {
@@ -21,7 +26,11 @@
   height: 36px;
 }
 
-.bookmark-icon {
+.favorite-icon {
+  position: absolute;
+  top: 16px;
+  right: 8px;
+
   width: 32px;
   height: 32px;
   cursor: pointer;
@@ -51,10 +60,6 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-}
-.restaurant__info-header {
-  display: flex;
-  justify-content: space-between;
 }
 
 .restaurant__name {

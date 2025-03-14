@@ -2,6 +2,13 @@ import { toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 import Modal from "./layout/modal/Modal.js";
 
+type CssTypeProps = "row" | "column";
+
+interface FoodItemOptions {
+  data: FoodItemProps;
+  cssType: CssTypeProps;
+}
+
 export default class FoodItem {
   container: HTMLElement;
 
@@ -13,19 +20,24 @@ export default class FoodItem {
 
   #isFavorite;
 
-  constructor({ id, category, name, distance, description, isFavorite }: FoodItemProps) {
-    this.#id = id;
-    this.#category = category;
-    this.#name = name;
-    this.#distance = distance;
-    this.#description = description;
-    this.#isFavorite = isFavorite;
+  #cssType: CssTypeProps;
+
+  constructor({ data, cssType }: FoodItemOptions) {
+    this.#cssType = cssType;
+
+    this.#id = data.id;
+    this.#category = data.category;
+    this.#name = data.name;
+    this.#distance = data.distance;
+    this.#description = data.description;
+    this.#isFavorite = data.isFavorite;
 
     this.container = document.createElement("div");
 
     this.render();
     this.setUpFavoriteToggle();
     this.showDetail();
+    this.setCss();
   }
 
   getBookmarkIconSrc() {
@@ -36,10 +48,12 @@ export default class FoodItem {
   }
 
   setUpFavoriteToggle() {
-    const bookmarkIcon = this.container.querySelector(".bookmark-icon");
+    const bookmarkIcon = this.container.querySelector(".favorite-icon");
     if (!bookmarkIcon) return;
 
-    bookmarkIcon.addEventListener("click", () => {
+    bookmarkIcon.addEventListener("click", (event) => {
+      event.stopPropagation();
+
       this.#isFavorite = !this.#isFavorite;
       bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
 
@@ -58,27 +72,35 @@ export default class FoodItem {
     });
   }
 
+  setCss() {
+    if (this.#cssType === "column") {
+      this.container.querySelector("li")?.classList.add("restaurant-detail");
+    }
+  }
+
   render() {
     const { imgAlt, imgSrc } = getImgSrcAlt(this.#category);
 
     this.container.innerHTML = `
-  <li class="restaurant">
-    <div class="restaurant__category">
-      <img src="${imgSrc}" alt="${imgAlt}" class="category-icon" />
-    </div>
-    <div class="restaurant__info">
-      <div class="restaurant__info-header">
-        <div class="restaurant__title-container">
-          <h3 class="restaurant__name text-subtitle">${this.#name}</h3>
-          <span class="restaurant__distance text-body"
-            >캠퍼스부터 ${this.#distance}분 내</span
-          >
-        </div>
-        <img src=${this.getBookmarkIconSrc()} alt="즐겨찾기" class="bookmark-icon">
-      </div>
-      <p class="restaurant__description text-body">${this.#description}</p>
-    </div>
-  </li>
+              <li class="restaurant">
+            <div class="restaurant__category">
+              <img
+                src=${imgSrc}
+                alt=${imgAlt}
+                class="category-icon"
+              />
+            </div>
+            <div class="restaurant__info">
+              <h3 class="restaurant__name text-subtitle">${this.#name}</h3>
+              <span class="restaurant__distance text-body"
+                >캠퍼스부터 ${this.#distance}분 내</span
+              >
+              <p class="restaurant__description text-body">
+               ${this.#description}
+              </p>
+              <img src=${this.getBookmarkIconSrc()} alt="즐겨찾기" class="favorite-icon">
+            </div>
+          </li>
   `;
   }
 

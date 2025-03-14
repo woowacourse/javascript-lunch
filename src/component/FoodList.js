@@ -25,12 +25,8 @@ export default class FoodList {
     this.#filteredFoodItems.forEach((foodItem) => {
       foodFragment.appendChild(
         new FoodItem({
-          id: foodItem.id,
-          category: foodItem.category,
-          name: foodItem.name,
-          distance: foodItem.distance,
-          description: foodItem.description,
-          isFavorite: foodItem.isFavorite,
+          data: foodItem,
+          cssType: "row",
         }).element,
       );
     });
