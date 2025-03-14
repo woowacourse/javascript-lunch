@@ -5,6 +5,7 @@ import RestaurantForm from "./components/restaurantFormSection/restaurantForm/Re
 import RestaurantListModel from "./domain/RestaurantListModel.js";
 import RestaurantNavigator from "./components/restaurantListSection/restaurantNavigator/RestaurantNavigator.js";
 import RestaurantFilterSection from "./components/restaurantListSection/restaurantFilterSection/RestaurantFilterSection.js";
+import { setItem, RESTAURANT_LIST_KEY } from "./components/utils/storage.js";
 
 export default class App {
   #selectedTab;
@@ -55,6 +56,7 @@ export default class App {
 
   updateRestautantList = (newRestaurantList) => {
     this.restaurantListModel.updateRestautantList(newRestaurantList);
+    setItem(RESTAURANT_LIST_KEY, newRestaurantList);
   };
 
   #resetForm() {
