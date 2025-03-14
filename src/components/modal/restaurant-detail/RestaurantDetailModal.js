@@ -77,6 +77,17 @@ function createDetailInfo({
         alt: "좋아요안한 별",
       };
   const $favorite = createElement(favoriteImgAttributes);
+
+  $favorite.addEventListener("click", () => {
+    restaurantDataList.changeFavorite(id);
+    const dataById = restaurantDataList.getDataById(id);
+
+    $favorite.src = dataById.isFavorite
+      ? "/public/fill-star.png"
+      : "/public/empty-star.png";
+    restaurantDataList.getFilteredDataList();
+  });
+
   $start.appendChild($favorite);
 
   const $description = createElement({
