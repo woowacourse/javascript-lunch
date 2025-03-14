@@ -99,7 +99,7 @@ function detectStorageEvent(callback) {
   });
 }
 
-function switchTab() {
+function switchTab(callback) {
   let selected;
 
   const handleTabClick = (event) => {
@@ -115,6 +115,8 @@ function switchTab() {
 
     selected = target;
     selected.classList.add('selected');
+
+    callback(target);
   };
 
   const tabContainer = document.querySelector('.tab-container');
