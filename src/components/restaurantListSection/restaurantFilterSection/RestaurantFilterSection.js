@@ -26,7 +26,11 @@ export default class RestaurantFilterSection {
     );
 
     $section.appendChild(
-      new RestaurantFilter(SORTING, "sorting", () => {}).render()
+      new RestaurantFilter(
+        SORTING,
+        "sorting",
+        this.#handleSortingChange
+      ).render()
     );
 
     return $section;
@@ -52,5 +56,21 @@ export default class RestaurantFilterSection {
       (restaurant) => restaurant.category === value
     );
     this.#updateList(filteredList);
+  };
+
+  #handleSortingChange = (e) => {
+    const { value } = e.target;
+    if (value === "이름순") {
+      const filteredList = this.#restaurantList.sort((a, b) =>
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      );
+      this.#updateList(filteredList);
+    }
+
+    if (value === "거리순") {
+      this.#updateList(
+        this.#restaurantList.sort((a, b) => a.distance - b.distance)
+      );
+    }
   };
 }
