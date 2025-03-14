@@ -8,11 +8,12 @@ import { TextareaBox } from "./TextareaBox.js";
 
 export function StoreDeleteForm(lunchItemIndex) {
   const lunchItem = getStorage("lunchItems")[lunchItemIndex];
+
   function template() {
     return `
         <form id="storeDeleteForm" class="modal-form">
           ${StoreInfo(lunchItem, "full")}
-          ${FormButtons("storeDelete")}
+          ${FormButtons("storeDelete", lunchItemIndex)}
         </form>
     `;
   }
