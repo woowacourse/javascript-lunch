@@ -32,10 +32,15 @@
 .restaurant {
   display: flex;
   align-items: flex-start;
-
+  justify-content: space-between;
+  width: 100%;
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+}
+
+.restaurant__box {
+  display: flex;
 }
 
 .restaurant__category {

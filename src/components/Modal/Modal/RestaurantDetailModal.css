@@ -1,3 +1,8 @@
+.icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .detail-restaurant__info {
   display: flex;
   flex-direction: column;

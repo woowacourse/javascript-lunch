@@ -1,7 +1,7 @@
 import "./RestaurantDetailModal.css";
 import { Restaurant } from "../../../../types/restaurant";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../../../constants/constants";
-
+import { clickStar } from "../../StarIcon/star";
 export default class RestaurantDetailModal {
   restaurant;
   modalElement;
@@ -25,11 +25,16 @@ export default class RestaurantDetailModal {
       "#detail-modal-container"
     ) as HTMLElement;
 
-    const { category, name, distance, description, link } = this.restaurant;
+    const { category, name, distance, description, link, isFavorite } =
+      this.restaurant;
     const mappedImage =
       IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category] || "images/default.png";
-    addRestaurantDetail.innerHTML = `<div class="restaurant__category">
-            <img class="category-icon" src="${mappedImage}" />
+    addRestaurantDetail.innerHTML = `
+          <div class="icon-container">
+            <div class="restaurant__category">
+              <img class="category-icon" src="${mappedImage}"/>
+            </div>
+            <div class="favorite">${clickStar(isFavorite)}</div>
           </div>
           <div class="detail-restaurant__info">
             <h3 class="detail-restaurant__name text-title">${name}</h3>
@@ -37,6 +42,7 @@ export default class RestaurantDetailModal {
             <p class="detail-restaurant__description text-body">${description}</p>
             <a class="detail-restaurant__link" href="${link}">${link}</a>
           </div>
+
           <div class="detail-button-box">
             <button type="button" class="button detail-delete-button">
               삭제하기

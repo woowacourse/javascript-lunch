@@ -1,16 +1,39 @@
+import "../components/StarIcon/star.css";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.js";
 import RestaurantDetailModal from "../components/Modal/Modal/RestaurantDetailModal.js";
+import { clickStar } from "../components/StarIcon/star.js";
+
 const renderRestaurantElement = ({
   category,
   name,
   distance,
   description,
   link,
+  isFavorite,
 }) => {
   const li = document.createElement("li");
   li.classList.add("restaurant");
-  const restaurant = { category, name, distance, description, link };
-  li.addEventListener("click", () => {
+  const restaurant = {
+    category,
+    name,
+    distance,
+    description,
+    link,
+    isFavorite,
+  };
+  li.addEventListener("click", (e) => {
+    const starIcon = e.target.closest(".star-icon");
+    // falsy -> "", 0, undefined, null
+    // truthy -> falsy 아닌 값들 전체 다
+    if (starIcon) {
+      starIcon.src = !restaurant.isFavorite
+        ? "public/images/star.png"
+        : "public/images/empty-star.png";
+
+      restaurant.isFavorite = !restaurant.isFavorite;
+      return;
+    }
+
     const restaurantDetailModal = new RestaurantDetailModal(restaurant);
     restaurantDetailModal.open();
   });
@@ -19,6 +42,7 @@ const renderRestaurantElement = ({
     IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category] || "images/default.png";
 
   li.innerHTML = `
+    <div class="restaurant__box">
       <div class="restaurant__category">
         <img class="category-icon" />
       </div>
@@ -27,6 +51,8 @@ const renderRestaurantElement = ({
         <span class="restaurant__distance text-body"></span>
         <p class="restaurant__description text-body"></p>
       </div>
+    </div>
+    <div class="favorite">${clickStar(isFavorite)}</div>
     `;
 
   li.querySelector(".category-icon").src = mappedImage;
