@@ -1,15 +1,20 @@
+type InputTitle = '이름' | '설명' | '참조 링크';
+
 class InputText {
-  constructor(title) {
-    return this.#createInputFormItem(title);
+  private element: HTMLDivElement;
+
+  constructor(title: InputTitle) {
+    this.element = this.#createInputFormItem(title) || document.createElement('div');
   }
 
-  #createInputFormItem(title) {
+  #createInputFormItem(title: InputTitle): HTMLDivElement | undefined {
     if (title === '이름') return this.#createNameFormItem(title);
-    if (title === '설명') return this.#createDescriptionFormItem(title);
-    if (title === '참조 링크') return this.#createLinkFormItem(title);
+    if (title === '설명') return this.#createDescriptionFormItem();
+    if (title === '참조 링크') return this.#createLinkFormItem();
+    return undefined;
   }
 
-  #createNameFormItem(title) {
+  #createNameFormItem(title: string): HTMLDivElement {
     const formItem = document.createElement('div');
     formItem.classList.add('form-item');
     formItem.classList.add('form-item--required');
@@ -18,7 +23,7 @@ class InputText {
     return formItem;
   }
 
-  #createDescriptionFormItem() {
+  #createDescriptionFormItem(): HTMLDivElement {
     const formItem = document.createElement('div');
     formItem.classList.add('form-item');
     formItem.appendChild(this.#createLabel('description', '설명'));
@@ -27,7 +32,7 @@ class InputText {
     return formItem;
   }
 
-  #createLinkFormItem() {
+  #createLinkFormItem(): HTMLDivElement {
     const formItem = document.createElement('div');
     formItem.classList.add('form-item');
     formItem.appendChild(this.#createLabel('link', '참고 링크'));
@@ -36,7 +41,7 @@ class InputText {
     return formItem;
   }
 
-  #createLabel(type, title) {
+  #createLabel(type: string, title: string): HTMLLabelElement {
     const label = document.createElement('label');
     label.setAttribute('for', type);
     label.classList.add('text-caption');
@@ -44,7 +49,7 @@ class InputText {
     return label;
   }
 
-  #createInput(tag) {
+  #createInput(tag: string): HTMLInputElement {
     const input = document.createElement('input');
     input.type = 'text';
     input.name = tag;
@@ -53,7 +58,7 @@ class InputText {
     return input;
   }
 
-  #createTextarea() {
+  #createTextarea(): HTMLTextAreaElement {
     const textarea = document.createElement('textarea');
     textarea.name = 'description';
     textarea.id = 'description';
@@ -62,12 +67,16 @@ class InputText {
     return textarea;
   }
 
-  #createSpan(text) {
+  #createSpan(text: string): HTMLSpanElement {
     const span = document.createElement('span');
     span.classList.add('help-text');
     span.classList.add('text-caption');
     span.textContent = text;
     return span;
+  }
+
+  getElement(): HTMLDivElement {
+    return this.element;
   }
 }
 
