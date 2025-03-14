@@ -1,14 +1,14 @@
 import { RESTAURANT_DATA } from '../../public/restaurantData';
 import { IRestaurantInfo } from '../../types/restaurants';
+import { LOCAL_STORAGE_KEY } from '../constants/SETTING';
 
 class RestaurantStorage {
   #key;
   #restaurants: IRestaurantInfo[];
 
   constructor() {
-    this.#key = 'restaurant';
+    this.#key = LOCAL_STORAGE_KEY;
     this.#restaurants = this.#loadData();
-    console.log(this.#restaurants);
   }
 
   getAllRestaurants(): IRestaurantInfo[] {

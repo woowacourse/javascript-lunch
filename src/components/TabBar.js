@@ -1,4 +1,5 @@
 import { CATEGORY_OPTIONS, SORT_OPTIONS } from '../../public/restaurantData.js';
+import { TAB } from '../constants/SETTING.js';
 import createElement from '../utils/createElement.js';
 import createSectionContainer from './common/SectionContainer.js';
 import { createSelectBox } from './common/SelectBox.js';
@@ -26,8 +27,8 @@ function createTabBar(onClick) {
     const id = event.target.id;
 
     if (
-      (id === 'all' && allTabDiv.classList.contains('tab-item-selected')) ||
-      (id === 'favorite' && favoriteTabDiv.classList.contains('tab-item-selected'))
+      (id === TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
+      (id === TAB.FAVORITE && favoriteTabDiv.classList.contains('tab-item-selected'))
     ) {
       return;
     }
@@ -39,8 +40,8 @@ function createTabBar(onClick) {
   favoriteTabDiv.addEventListener('click', (event) => {
     const id = event.target.id;
     if (
-      (id === 'all' && allTabDiv.classList.contains('tab-item-selected')) ||
-      (id === 'favorite' && favoriteTabDiv.classList.contains('tab-item-selected'))
+      (id === TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
+      (id === TAB.FAVORITE && favoriteTabDiv.classList.contains('tab-item-selected'))
     ) {
       return;
     }

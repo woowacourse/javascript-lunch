@@ -46,7 +46,6 @@ class RestaurantEnrollModal {
     const isValidate = RestaurantValidator.validate(this.#restaurantInput);
     if (!isValidate) return;
 
-    console.log(this.#onAdd);
     this.#onAdd(this.#restaurantInput);
   }
 

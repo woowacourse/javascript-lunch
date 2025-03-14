@@ -8,6 +8,7 @@ import {
   ISortResult,
   OrderType,
 } from '../../types/restaurants.js';
+import { ORDER, TAB } from '../constants/SETTING.js';
 
 class RestaurantList {
   #restaurants: IRestaurantInfo[] = [];
@@ -17,9 +18,9 @@ class RestaurantList {
   }
 
   getOrderedRestaurantList(order: OrderType): IRestaurantInfo[] {
-    if (order === '이름순') {
+    if (order === ORDER.NAME) {
       return [...this.#restaurants].sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
-    } else if (order === '거리순') {
+    } else if (order === ORDER.DISTANCE) {
       return [...this.#restaurants].sort((a, b) => a.distance - b.distance);
     }
 
@@ -56,12 +57,12 @@ class RestaurantList {
   }
 
   sortByOptions({ tab, order, category }: ISortOptionsParams): ISortResult {
-    if (tab === 'all') {
+    if (tab === TAB.ALL) {
       return {
         originalList: this.#restaurants,
         filteredList: this.filterRestaurant(category, order),
       };
-    } else if (tab === 'favorite') {
+    } else if (tab === TAB.FAVORITE) {
       return {
         originalList: this.#restaurants,
         filteredList: this.filterFavorite(),
@@ -85,9 +86,9 @@ class RestaurantList {
       );
     }
 
-    if (order === '이름순') {
+    if (order === ORDER.NAME) {
       filteredRestaurants.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
-    } else if (order === '거리순') {
+    } else if (order === ORDER.DISTANCE) {
       filteredRestaurants.sort((a, b) => a.distance - b.distance);
     }
 

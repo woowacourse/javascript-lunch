@@ -6,6 +6,7 @@ import {
   updateRestaurantList,
 } from '../components/RestaurantList.js';
 import createTabBar from '../components/TabBar.js';
+import { CATEGORY, MODAL_TYPE, ORDER, STATE_KEY, TAB } from '../constants/SETTING.js';
 import RestaurantList from '../domains/RestaurantList.js';
 import ModalService from '../services/ModalService.js';
 import RestaurantService from '../services/RestaurantService.js';
@@ -16,9 +17,9 @@ class RestaurantController {
   #main = document.getElementsByTagName('main')[0];
 
   #state = {
-    category: '전체',
-    order: '이름순',
-    tab: 'all',
+    category: CATEGORY.ALL,
+    order: ORDER.NAME,
+    tab: TAB.ALL,
   };
 
   constructor() {
@@ -31,7 +32,7 @@ class RestaurantController {
     this.#modalService.appendModal();
 
     document.querySelector('.gnb__button').addEventListener('click', () => {
-      this.#modalService.toggleModal('enroll');
+      this.#modalService.toggleModal(MODAL_TYPE.ENROLL);
     });
   }
 
@@ -66,7 +67,7 @@ class RestaurantController {
   };
 
   #handleChangeCategory = (event) => {
-    this.#state.category = event.target.value;
+    this.#changeState(STATE_KEY.CATEGORY, event.target.value);
     const restaurantList = this.#restaurantService.getFilteredRestaurants(
       this.#state.category,
       this.#state.order
@@ -75,7 +76,7 @@ class RestaurantController {
   };
 
   #handleChangeFilter = (event) => {
-    this.#state.order = event.target.value;
+    this.#changeState(STATE_KEY.ORDER, event.target.value);
     const restaurantList = this.#restaurantService.getFilteredRestaurants(
       this.#state.category,
       this.#state.order
@@ -86,15 +87,15 @@ class RestaurantController {
   #handleTabBar = (event) => {
     document.querySelector('.restaurant-filter-container').classList.toggle('hidden');
 
-    if (event.target.id === 'favorite') {
+    if (event.target.id === TAB.FAVORITE) {
       const favoriteRestaurantList = this.#restaurantService.getFavoriteRestaurants();
       this.#updateRestaurantUI(favoriteRestaurantList);
-      this.#state.tab = 'favorite';
-      document.querySelector('select#category-filter').value = '전체';
-    } else if (event.target.id === 'all') {
+      this.#changeState(STATE_KEY.TAB, TAB.FAVORITE);
+      document.querySelector('select#category-filter').value = CATEGORY.ALL;
+    } else if (event.target.id === TAB.ALL) {
       const allRestaurants = this.#restaurantService.getOrderedRestaurants(this.#state.order);
       this.#updateRestaurantUI(allRestaurants);
-      this.#state.tab = 'all';
+      this.#changeState(STATE_KEY.TAB, TAB.ALL);
     }
   };
 
@@ -107,7 +108,7 @@ class RestaurantController {
         category: this.#state.category,
       });
       this.#updateRestaurantUI(filteredList);
-      this.#modalService.toggleModal('detail');
+      this.#modalService.toggleModal(MODAL_TYPE.DETAIL);
     }
   };
 
@@ -117,7 +118,7 @@ class RestaurantController {
       onClickStar: this.#handleClickStar,
       onDelete: this.#handleDelete,
     });
-    this.#modalService.toggleModal('detail');
+    this.#modalService.toggleModal(MODAL_TYPE.DETAIL);
   };
 
   #handleAddRestaurant = (inputData) => {
@@ -131,7 +132,7 @@ class RestaurantController {
         category: this.#state.category,
       });
       this.#updateRestaurantUI(filteredList);
-      this.#modalService.toggleModal('enroll');
+      this.#modalService.toggleModal(MODAL_TYPE.ENROLL);
     }
   };
 
@@ -142,6 +143,10 @@ class RestaurantController {
       this.#handleClickStar
     );
     this.#main.appendChild($restaurants);
+  }
+
+  #changeState(field, value) {
+    this.#state[field] = value;
   }
 }
 
