@@ -26,6 +26,7 @@ const addRestaurant = (data) => {
     description: data.description,
     link: data.link,
     id: new Date(),
+    isFavorite: false,
   };
   document
     .querySelector(".restaurant-list")

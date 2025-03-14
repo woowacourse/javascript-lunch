@@ -129,6 +129,19 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  position: relative;
+}
+
+svg.favorite-icon {
+  width: 28px;
+  height: 26px;
+
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  cursor: pointer;
 }
 
 .restaurant__category {

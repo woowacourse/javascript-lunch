@@ -32,4 +32,21 @@ export const storageHandler = {
       a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
     );
   },
+  updateFavorite: (key, restaurantInfo) => {
+    const favoriteItem = JSON.parse(localStorage.getItem(key)).filter(
+      (item) => item.id === restaurantInfo.id
+    );
+
+    const updateData = JSON.parse(localStorage.getItem(key)).map((item) => {
+      if (item.id === restaurantInfo.id) {
+        restaurantInfo.isFavorite = !favoriteItem[0].isFavorite;
+        return restaurantInfo;
+      }
+
+      return item;
+    });
+    localStorage.setItem(key, JSON.stringify(updateData));
+
+    return favoriteItem.length > 0 ? favoriteItem[0].isFavorite : null;
+  },
 };
