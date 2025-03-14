@@ -1,6 +1,4 @@
-/* 이걸 바꾸시오. */
-
-#favorite-filter {
+.favorite-filter {
   display: flex;
   justify-content: center;
   border-bottom: 2px solid #ddd;
@@ -8,11 +6,11 @@
   flex-grow: 1;
 }
 
-#favorite-filter input[type="radio"] {
+.favorite-filter input[type="radio"] {
   display: none;
 }
 
-#favorite-filter label {
+.favorite-filter label {
   width: 100%;
   text-align: center;
   position: relative;
@@ -24,12 +22,12 @@
   transition: color 0.3s ease-in-out;
 }
 
-#favorite-filter input[type="radio"]:checked + label {
+.favorite-filter input[type="radio"]:checked + label {
   color: #f60;
   font-weight: 700;
 }
 
-#favorite-filter input[type="radio"]:checked + label::after {
+.favorite-filter input[type="radio"]:checked + label::after {
   content: "";
   position: absolute;
   left: 0;
