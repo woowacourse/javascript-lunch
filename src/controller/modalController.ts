@@ -39,9 +39,9 @@ class ModalController {
     });
   }
 
-  switchContent(contents: HTMLElement[]) {
+  switchContent(content: HTMLElement) {
     const modalContainer = $('.modal-container');
-    modalContainer?.replaceChildren(...contents);
+    modalContainer?.replaceWith(content);
   }
 }
 

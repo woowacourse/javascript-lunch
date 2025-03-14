@@ -3,6 +3,7 @@ import CTAButton from '../components/button/CTAButton';
 import PlusButton from '../components/button/PlusButton';
 import RestaurantFilterContainer from '../components/filter/RestaurantFilterContainer';
 import Header from '../components/Header';
+import RestaurantAddModalContent from '../components/modal/RestaurantAddModalContent';
 import RestaurantDetailInfo from '../components/modal/RestaurantDetailInfo';
 import RestaurantItem from '../components/restaurant/RestaurantItem';
 import RestaurantList from '../components/restaurant/RestaurantList';
@@ -32,7 +33,15 @@ class AppController {
   renderHeader() {
     const body = $('body');
 
-    const header = Header({ title: '점심 뭐 먹지', right: PlusButton({ onclick: this.modalController.open }) });
+    const header = Header({
+      title: '점심 뭐 먹지',
+      right: PlusButton({
+        onclick: () => {
+          this.modalController.switchContent(RestaurantAddModalContent());
+          this.modalController.open();
+        },
+      }),
+    });
     body?.prepend(header);
   }
 
@@ -70,25 +79,29 @@ class AppController {
       const selectedRestaurant = this.restaurants.items.find((restaurant) => restaurant.name === restaurantName);
 
       if (selectedRestaurant) {
-        const modalContent = [
-          RestaurantDetailInfo({ restaurant: selectedRestaurant }),
-          createDOMElement({
-            tag: 'div',
-            class: 'button-container',
-            children: [
-              ActionButton({
-                text: '삭제하기',
-                type: 'button',
-                onclick: () => {
-                  this.restaurants.removeRestaurant(selectedRestaurant.name);
-                  this.modalController.close();
-                  this.removeRestaurantItem(selectedRestaurant.name);
-                },
-              }),
-              CTAButton({ text: '닫기', type: 'submit', onclick: this.modalController.close }),
-            ],
-          }),
-        ];
+        const modalContent = createDOMElement({
+          tag: 'div',
+          class: 'modal-container',
+          children: [
+            RestaurantDetailInfo({ restaurant: selectedRestaurant }),
+            createDOMElement({
+              tag: 'div',
+              class: 'button-container',
+              children: [
+                ActionButton({
+                  text: '삭제하기',
+                  type: 'button',
+                  onclick: () => {
+                    this.restaurants.removeRestaurant(selectedRestaurant.name);
+                    this.modalController.close();
+                    this.removeRestaurantItem(selectedRestaurant.name);
+                  },
+                }),
+                CTAButton({ text: '닫기', type: 'submit', onclick: this.modalController.close }),
+              ],
+            }),
+          ],
+        });
         this.modalController.switchContent(modalContent);
         this.modalController.open();
       }
