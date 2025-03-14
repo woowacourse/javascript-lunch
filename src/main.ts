@@ -2,7 +2,7 @@ import { DOM } from './dom';
 import { getRestaurantList } from './Domain/services/RestaurantService';
 import Restaurant from './Domain/Restaurant';
 import Header from './UI/components/header/Header';
-import RestaurantItem from './UI/components/restaurant/RestaurantItem';
+import RestaurantItem from './UI/components/restaurant/RestaurantItem.js';
 import AddRestaurantModal from './UI/pages/modal/components/AddRestaurantModal';
 
 const addRestaurantModal = new AddRestaurantModal();
