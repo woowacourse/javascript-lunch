@@ -4,3 +4,7 @@
   align-items: start;
   justify-content: space-between;
 }
+
+.restaurant__link {
+  display: none;
+}
