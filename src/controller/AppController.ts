@@ -39,7 +39,14 @@ class AppController {
     main?.prepend(filterContainer);
 
     $<HTMLSelectElement>('#category-filter')?.addEventListener('change', (event) => {
-      this.updateRestaurantListByFilter((event.target as HTMLSelectElement)?.value);
+      const sortFilterValue = $<HTMLSelectElement>('#sort-filter')?.value;
+
+      this.updateRestaurantListByFilter((event.target as HTMLSelectElement)?.value, sortFilterValue);
+    });
+    $<HTMLSelectElement>('#sorting-filter')?.addEventListener('change', (event) => {
+      const categoryFilterValue = $<HTMLSelectElement>('#category-filter')?.value;
+
+      this.updateRestaurantListByFilter(categoryFilterValue, (event.target as HTMLSelectElement)?.value);
     });
   }
 
@@ -59,8 +66,12 @@ class AppController {
     }
   }
 
-  updateRestaurantListByFilter(categoryFilterValue: string | null) {
-    const filteredRestaurants = this.restaurants.filterByCategory(categoryFilterValue ?? 'all');
+  updateRestaurantListByFilter(categoryFilterValue?: string, sortFilterValue?: string) {
+    const filteredRestaurants = this.restaurants.getRestaurantByFilter(
+      categoryFilterValue ?? 'all',
+      sortFilterValue ?? 'latest',
+    );
+
     const restaurantListDOM = $('.restaurant-list');
     const restaurantList = RestaurantList({ restaurants: filteredRestaurants });
 

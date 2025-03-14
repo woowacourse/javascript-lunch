@@ -9,17 +9,17 @@ function SortFilter() {
     children: [
       createDOMElement({
         tag: 'option',
-        value: '최신순',
+        value: 'latest',
         textContent: '최신순',
       }),
       createDOMElement({
         tag: 'option',
-        value: '이름순',
+        value: 'name',
         textContent: '이름순',
       }),
       createDOMElement({
         tag: 'option',
-        value: '거리순',
+        value: 'distance',
         textContent: '거리순',
       }),
     ],
