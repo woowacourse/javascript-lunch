@@ -19,6 +19,14 @@ body {
   font-size: 16px;
 }
 
+.star-button svg path {
+  fill-opacity: 0.5;
+}
+
+.star-button.active svg path {
+  fill-opacity: 1;
+}
+
 .container {
   display: flex;
   width: 100%;
@@ -66,8 +74,13 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  padding: 0 16px;
+  //padding: 0 16px;
   margin: 16px 0;
+  overflow: hidden;
+}
+
+.restaurant-menu-container {
+  padding: 0 16px;
 }
 
 .tab-container {
@@ -126,7 +139,6 @@ main {
 
 main {
   height: calc(100vh - 64px);
-  overflow-y: scroll;
 }
 
 main::-webkit-scrollbar {
@@ -234,6 +246,18 @@ main::-webkit-scrollbar-thumb:hover {
 
 /* 음식점 목록 *****************************************/
 
+.restaurant-section-slider {
+  overflow-x: hidden;
+  position: relative;
+}
+
+.restaurant-section-container {
+  display: flex;
+  flex-direction: row;
+  width: 780px;
+  display: flex;
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -261,6 +285,7 @@ main::-webkit-scrollbar-thumb:hover {
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
+  padding: 0 16px;
 }
 
 .restaurant {
@@ -292,10 +317,22 @@ main::-webkit-scrollbar-thumb:hover {
   height: 36px;
 }
 
+.restaurant__title-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.restaurant__title {
+  display: flex;
+  flex-direction: column;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .restaurant__name {
