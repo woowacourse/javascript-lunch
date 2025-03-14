@@ -91,11 +91,14 @@ export function filterAndSortRestaurants(
   }
 
   if (sorting === RULES.SORTING[1]) {
-    filteredRestaurants.sort((a, b) => a.distance - b.distance);
+    filteredRestaurants.sort((a, b) => {
+      const diff = a.distance - b.distance;
+      return diff !== 0 ? diff : a.name.localeCompare(b.name, "ko");
+    });
     return filteredRestaurants;
   }
 
-  filteredRestaurants.sort((a, b) => a.name.localeCompare(b.name));
+  filteredRestaurants.sort((a, b) => a.name.localeCompare(b.name, "ko"));
   return filteredRestaurants;
 }
 

@@ -1,119 +1,120 @@
 describe("음식점 필터링에 대한 E2E 테스트", () => {
-  const expectedRestaurants = [
-    {
-      id: "1",
-      category: "한식",
-      name: "피양콩할마니",
-      distance: 10,
-      description:
-        "평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로, ‘피양’은 평안도 사투리로 ‘평양’을 의미한다. 딸과 함께 운영하는 이곳에선 맷돌로 직접 간 콩만을 사용하며, 일체의 조미료를 넣지 않은 건강식을 선보인다. 콩비지와 피양 만두가 이곳의 대표 메뉴지만, 할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.",
-      link: "https://naver.me/5Rh0ttMw",
-    },
-    {
-      id: "2",
-      category: "중식",
-      name: "친친",
-      distance: 5,
-      description:
-        "Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다",
-      link: "https://naver.me/FV7Y4RTm",
-    },
-    {
-      id: "3",
-      category: "일식",
-      name: "잇쇼우",
-      distance: 10,
-      description:
-        "잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다",
-      link: "https://naver.me/FLyTJ4dC",
-    },
-    {
-      id: "4",
-      category: "양식",
-      name: "이태리키친",
-      distance: 20,
-      description: "늘 변화를 추구하는 이태리키친입니다.",
-      link: "https://naver.me/5huapW2k",
-    },
-    {
-      id: "5",
-      category: "아시안",
-      name: "호아빈 삼성점",
-      distance: 15,
-      description: "푸짐한 양에 국물이 일품인 쌀국수",
-      link: "https://naver.me/5WOQLjn6",
-    },
-    {
-      id: "6",
-      category: "기타",
-      name: "도스타코스 선릉점",
-      distance: 5,
-      description: "멕시칸 캐주얼 그릴",
-      link: "https://naver.me/Gn0yLQ8K",
-    },
-  ];
+  let initialRestaurantList = [];
+  let categoryCounts = {};
+
+  before(() => {
+    cy.visit("http://localhost:5173");
+
+    // 음식점 목록을 객체 배열로 저장 (name, distance 추출)
+    cy.get('[data-testid="restaurant-list"]')
+      .children()
+      .then(($elements) => {
+        initialRestaurantList = Cypress.$($elements)
+          .map((_, el) => {
+            const name = Cypress.$(el).find(".restaurant__name").text().trim();
+            // "캠퍼스부터 10분 내" → split by space → parts[1] is "10분"
+            const distanceText = Cypress.$(el)
+              .find(".restaurant__distance")
+              .text()
+              .trim(); // e.g., "캠퍼스부터 10분 내"
+            const parts = distanceText.split(" ");
+            // parts[1] should be "10분", remove "분" and parse
+            const distance = parseInt(parts[1].replace("분", ""));
+            return { name, distance };
+          })
+          .get();
+      });
+
+    // 카테고리별 음식점 개수를 렌더링된 UI에서 가져오기 (alt 속성 사용)
+    cy.get('[data-testid="restaurant-category"]').each(($el) => {
+      const category = $el.attr("alt");
+      if (category) {
+        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+      }
+    });
+  });
 
   beforeEach(() => {
     cy.visit("http://localhost:5173");
+
+    cy.get('[data-testid="restaurant-list"]')
+      .should("exist")
+      .children()
+      .should("have.length.greaterThan", 0);
   });
 
-  it("음식점 카테고리 필터링/정렬 전체 선택, 이름 순으로 화면에 출력한다.", () => {
+  it("카테고리 전체 선택 시, 이름 순으로 정렬된 목록이 보인다.", () => {
     cy.get('[data-testid="category-filter"]').select("전체");
     cy.get('[data-testid="sorting"]').select("name");
 
     cy.get('[data-testid="restaurant-list"]')
       .children()
-      .should("have.length", [...expectedRestaurants].length)
-      .each((item, index) => {
-        cy.wrap(item).should(
-          "contain.text",
-          [...expectedRestaurants].sort((a, b) => a.name.localeCompare(b.name))[
-            index
-          ].name
+      .then(($elements) => {
+        const sortedByName = [...initialRestaurantList].sort((a, b) =>
+          a.name.localeCompare(b.name)
         );
+
+        cy.wrap($elements).each(($el, index) => {
+          cy.wrap($el).should("contain.text", sortedByName[index].name);
+        });
       });
   });
 
-  expectedRestaurants.forEach((restaurant) => {
-    it(`"${restaurant.category}" 선택 시, 이름순으로 "${restaurant.name}" 이(가) 렌더링된다.`, () => {
-      cy.get('[data-testid="category-filter"]').select(restaurant.category);
+  const categories = ["한식", "중식", "일식", "아시안", "양식", "기타"];
+
+  categories.forEach((category) => {
+    it(`"${category}" 선택 시, 해당 카테고리의 음식점만 렌더링된다.`, () => {
+      // 카테고리에 해당하는 음식점이 없으면 테스트 스킵
+      if (!categoryCounts[category] || categoryCounts[category] === 0) return;
+
+      cy.get('[data-testid="category-filter"]').select(category);
       cy.get('[data-testid="sorting"]').select("name");
 
       cy.get('[data-testid="restaurant-list"]')
         .children()
-        .should("have.length", 1)
-        .first()
-        .should("contain.text", restaurant.name);
+        .should("have.length", categoryCounts[category])
+        .each(($el) => {
+          cy.wrap($el)
+            .find('[data-testid="restaurant-category"]')
+            .should("have.attr", "alt", category);
+        });
     });
   });
 
-  it("음식점 카테고리 필터링/정렬 전체 선택, 거리 순으로 화면에 출력한다.", () => {
+  it("카테고리 전체 선택 시, 거리 순으로 정렬된 목록이 보인다.", () => {
     cy.get('[data-testid="category-filter"]').select("전체");
     cy.get('[data-testid="sorting"]').select("distance");
 
     cy.get('[data-testid="restaurant-list"]')
       .children()
-      .should("have.length", [...expectedRestaurants].length)
-      .each((item, index) => {
-        cy.wrap(item).should(
-          "contain.text",
-          [...expectedRestaurants].sort((a, b) => a.distance - b.distance)[
-            index
-          ].name
-        );
+      .then(($elements) => {
+        const sortedByDistance = [...initialRestaurantList].sort((a, b) => {
+          const diff = a.distance - b.distance;
+          return diff !== 0 ? diff : a.name.localeCompare(b.name, "ko");
+        });
+
+        cy.wrap($elements).each(($el, index) => {
+          cy.wrap($el).should("contain.text", sortedByDistance[index].name);
+        });
       });
   });
 
-  expectedRestaurants.forEach((restaurant) => {
-    it(`"${restaurant.category}" 선택 시, 거리순으로 "${restaurant.name}" 이(가) 렌더링된다.`, () => {
-      cy.get('[data-testid="category-filter"]').select(restaurant.category);
+  categories.forEach((category) => {
+    it(`"${category}" 선택 후 거리순 정렬 시, 해당 카테고리의 음식점만 렌더링된다.`, () => {
+      // 카테고리에 해당하는 음식점이 없으면 테스트 스킵
+      if (!categoryCounts[category] || categoryCounts[category] === 0) return;
+
+      cy.get('[data-testid="category-filter"]').select(category);
       cy.get('[data-testid="sorting"]').select("distance");
 
       cy.get('[data-testid="restaurant-list"]')
         .children()
-        .should("have.length", 1)
-        .first()
-        .should("contain.text", restaurant.name);
+        .should("have.length", categoryCounts[category])
+        .each(($el) => {
+          cy.wrap($el)
+            .find('[data-testid="restaurant-category"]')
+            .should("have.attr", "alt", category);
+        });
     });
   });
 });

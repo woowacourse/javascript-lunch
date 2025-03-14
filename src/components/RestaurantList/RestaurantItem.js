@@ -20,7 +20,7 @@ const RestaurantItem = ({
       <div class="restaurant__category">
         <img src="./icons/${
           imageSource[category]
-        }" alt="${category}" class="category-icon" />
+        }" alt="${category}" class="category-icon" data-testid="restaurant-category" />
       </div>
       <div class="restaurant__info">
         <div class="restaurant__header">
