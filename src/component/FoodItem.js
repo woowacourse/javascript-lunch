@@ -1,4 +1,10 @@
-export function FoodItem(foodItem, onClick = () => {}) {
+import { IconButton } from "./button/IconButton";
+
+export function FoodItem(
+  foodItem,
+  handleModal = () => {},
+  handleFavoriteButton = () => {}
+) {
   const {
     imgSrc,
     imgAlt,
@@ -12,12 +18,24 @@ export function FoodItem(foodItem, onClick = () => {}) {
   const itemContainer = document.createElement("li");
   itemContainer.className = "restaurant";
   itemContainer.addEventListener("click", () => {
-    onClick(foodItem);
+    handleModal(foodItem);
   });
 
   const convertStarImg = favorite ? "./filled-star.png" : "./empty-star.png";
+
+  const favoriteIcon = IconButton({
+    imgSrc: convertStarImg,
+    label: "즐겨찾기 버튼",
+    onClick: (event) => handleFavoriteButton(event, foodItem),
+  });
+
+  // const favoriteIcon = document.createElement("img");
+  // favoriteIcon.src = convertStarImg();
+  // favoriteIcon.alt ="즐겨찾기 버튼"
+
+  // <img src=${convertStarImg} alt="즐겨찾기버튼" class="restaurant-star"></img>
+
   itemContainer.innerHTML = `
-        <img src=${convertStarImg} alt="즐겨찾기버튼" class="restaurant-star">
         <div class="restaurant__category">
           <img src=${imgSrc} alt=${imgAlt} class="category-icon">
         </div>
@@ -25,7 +43,10 @@ export function FoodItem(foodItem, onClick = () => {}) {
           <h3 class="restaurant__name text-subtitle">${name}</h3>
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description text-body">${description}</p>
-        </div>`;
+        </div>
+          `;
+
+  itemContainer.appendChild(favoriteIcon);
 
   return itemContainer;
 }

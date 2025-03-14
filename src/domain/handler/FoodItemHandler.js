@@ -28,7 +28,14 @@ export function addFoodFormItem(filter, modal) {
   Modal.close(filter, modal);
 }
 
+function addFoodItem(filter, newFoodItem, modal) {
+  const updatedFoodList = updateStorageFoodList(newFoodItem);
+  // convertStorageToLocal(modal, sortedFoodList(filter));
+  Modal.close(filter, modal);
+}
+
 export function deleteFoodItem(filter, newFoodItem, modal) {
+  console.log("dlelte  ", newFoodItem);
   const deletedFoodList = deleteStorageFoodList(newFoodItem);
   Modal.close(filter, modal);
   // convertStorageToLocal(modal, sortedFoodList(filter));
@@ -43,15 +50,11 @@ export function sortedFoodList(filter) {
 // 화면에 출력하기
 export function convertStorageToLocal(modal = null, filter = null, foodList) {
   const FoodItemListComponent = foodList.map((localFoodItem) => {
-    const foodComponent = FoodItem(localFoodItem, (foodItem) => {
-      openDetailModal(modal, filter, foodItem);
-    });
-
-    foodComponent
-      .querySelector(".restaurant-star")
-      .addEventListener("click", (event) => {
-        event.stopPropagation();
-      });
+    const foodComponent = FoodItem(
+      localFoodItem,
+      (foodItem) => openDetailModal(modal, filter, foodItem),
+      (event, foodItem) => handleFavoriteButton(event, foodItem, filter, modal)
+    );
 
     return foodComponent;
   });
@@ -61,6 +64,14 @@ export function convertStorageToLocal(modal = null, filter = null, foodList) {
 function openDetailModal(modal, filter, foodItem) {
   modal.setModalContent(FoodDetail(filter, foodItem, modal), filter, modal);
   Modal.open();
+}
+
+function handleFavoriteButton(event, foodItem, filter, modal) {
+  const newFoodItem = foodItem;
+  newFoodItem.favorite = !foodItem.favorite;
+  updateStorageFoodList(foodItem);
+  Modal.close(filter, modal);
+  event.stopPropagation();
 }
 
 export function showFoodItem(foodListComponent) {

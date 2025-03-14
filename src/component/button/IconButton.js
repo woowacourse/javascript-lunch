@@ -6,8 +6,8 @@ export function IconButton({ imgSrc, label, onClick = () => {} }) {
   >
   `;
 
-  container.querySelector("button").addEventListener("click", () => {
-    onClick();
+  container.querySelector("button").addEventListener("click", (event) => {
+    onClick(event);
   });
 
   return container.firstElementChild;
