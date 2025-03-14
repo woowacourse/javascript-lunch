@@ -21,13 +21,12 @@ addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
 
   // 카테고리 / 정렬 필터
-  const restaurantFilter = document.querySelector(".restaurant-filter-container");
+  const restaurantFilter = document.querySelector(
+    ".restaurant-filter-container"
+  );
   if (!restaurantFilter) return;
 
-  const listFilters = [
-    $filter(FILTERS.CATEGORY),
-    $filter(FILTERS.SORT),
-  ];
+  const listFilters = [$filter(FILTERS.CATEGORY), $filter(FILTERS.SORT)];
 
   listFilters.forEach((data) => {
     restaurantFilter.appendChild(data);
@@ -35,10 +34,12 @@ addEventListener("load", () => {
 
   const categoryFilter = document.querySelector("#category-filter");
   const sortingFilter = document.querySelector("#sorting-filter");
-  const restaurantList = document.querySelector(".restaurant-list") as HTMLElement | null;
+  const restaurantList = document.querySelector(
+    ".restaurant-list"
+  ) as HTMLElement | null;
 
   if (!categoryFilter || !sortingFilter || !restaurantList) return;
-  
+
   let selectedCategory = "";
   let selectedSorting = "name";
 
@@ -56,7 +57,9 @@ addEventListener("load", () => {
     const restaurantId = target.getAttribute("data-id");
     if (!restaurantId) return;
 
-    const restaurant = currentRestaurantData.find((r) => r.dataId.toString() === restaurantId);
+    const restaurant = currentRestaurantData.find(
+      (r) => r.dataId.toString() === restaurantId
+    );
     if (!restaurant) return;
 
     const modal = $restaurantDetailModal(restaurant);
@@ -94,13 +97,27 @@ addEventListener("load", () => {
 
   const main = document.querySelector("main");
   if (!main) return;
-  main.appendChild($addRestaurantModal({form: restaurantAddForm}));
+  main.appendChild($addRestaurantModal({ form: restaurantAddForm }));
 
   const cancelButton = document.querySelector("#cancel-restaurant-add-button");
   if (cancelButton) cancelButton.addEventListener("click", handleModalClose);
 
   const addButton = document.querySelector("#restaurant-add-button");
   if (addButton) addButton.addEventListener("click", handleAddRestaurant);
+
+  const favButtons = document.querySelectorAll(
+    ".button-favorite"
+  ) as NodeListOf<HTMLImageElement>;
+
+  favButtons.forEach((favButton) => {
+    favButton.addEventListener("mouseover", () => {
+      favButton.src = "images/star-filled.png";
+    });
+
+    favButton.addEventListener("mouseout", () => {
+      favButton.src = "images/star-outline.png";
+    });
+  });
 });
 
 // 음식점 상세 정보 버튼 이벤트 처리

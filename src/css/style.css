@@ -122,7 +122,7 @@ body {
 
 .restaurant {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 
   padding: 16px 8px;
 
@@ -168,7 +168,8 @@ body {
 .restaurant__info {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  width: 100%;
 }
 
 .restaurant__name {
@@ -188,7 +189,7 @@ body {
 .restaurant__description {
   display: -webkit-box;
 
-  padding-top: 8px;
+  margin-top: 8px;
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -202,6 +203,17 @@ body {
 
 .restaurant_detail_link {
   margin-bottom: 20px;
+}
+
+.restaurant-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-favorite {
+  width: 27px;
+  height: 27px;
+  cursor: pointer;
 }
 
 /* 음식점 추가 모달 *****************************************/

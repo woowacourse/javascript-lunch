@@ -1,7 +1,3 @@
-import { handleModalClose } from "../components/modal/add-restaurant-modal.ts";
-import { handleRestaurantDetailModalClose } from "../components/modal/restaurant-detail-modal.ts";
-import { handleAddRestaurant } from "../components/form-elements/form.ts";
-
 type HeaderConfig = {
   title: string;
   buttonTitle: string;
@@ -15,6 +11,11 @@ type ButtonConfig = {
   className: string[];
 };
 
+type ImageButtonConfig = {
+  isFavorite: boolean;
+  className: string[];
+};
+
 type UIConfig = {
   HEADER: HeaderConfig,
   BUTTONS: {
@@ -22,6 +23,7 @@ type UIConfig = {
     ADD: ButtonConfig,
     DELETE: ButtonConfig,
     CLOSE: ButtonConfig,
+    FAVORITE: ImageButtonConfig,
   };
 };
 
@@ -66,5 +68,9 @@ export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
       type: "button" as const,
       className: ["button", "button--primary", "text-caption", "add-button"],
     },
+    FAVORITE: {
+      isFavorite: false,
+      className: ["button-favorite"],
+    }
   }),
 });

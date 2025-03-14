@@ -1,3 +1,6 @@
+import { UI_CONFIG } from "../../constants/uiConfig";
+import $favoriteButton from "../common/favorite-button";
+
 type RestaurantItemProps = {
   dataId: number;
   categoryIcon: string;
@@ -29,15 +32,22 @@ const $restaurantItem = ({ dataId, categoryIcon, categoryTitle, name, distance, 
   const info = document.createElement("div");
   info.classList.add("restaurant__info");
 
+  const restaurantHeader = document.createElement("div");
+  restaurantHeader.classList.add("restaurant-header");
+  const restaurantDetails = document.createElement("div");
   const restaurantName = document.createElement("h3");
   restaurantName.classList.add("restaurant__name", "text-subtitle");
   restaurantName.innerText = name;
-  info.appendChild(restaurantName);
+  restaurantDetails.appendChild(restaurantName);
 
   const restaurantDistance = document.createElement("span");
   restaurantDistance.classList.add("restaurant__distance", "text-body");
   restaurantDistance.innerText = distanceCaption;
-  info.appendChild(restaurantDistance);
+  restaurantDetails.appendChild(restaurantDistance);
+  restaurantHeader.appendChild(restaurantDetails);
+
+  restaurantHeader.appendChild($favoriteButton(UI_CONFIG.BUTTONS.FAVORITE));
+  info.appendChild(restaurantHeader);
 
   const restaurantDescription = document.createElement("p");
   restaurantDescription.classList.add("restaurant__description", "text-body");
