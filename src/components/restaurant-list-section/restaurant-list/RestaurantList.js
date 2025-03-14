@@ -1,3 +1,4 @@
+import { NAV_BAR_KEYS } from "../../../constants/constants.js";
 import RestaurantListItem from "../restaurant-list-item/RestaurantListItem.js";
 import "./restaurantList.css";
 
@@ -27,7 +28,7 @@ export default class RestaurantList {
     return this.$listSection;
   }
 
-  update(options = { filterType: "all" }) {
+  update(options = { filterType: NAV_BAR_KEYS.all }) {
     this.restaurantList = this.restaurantService.getRestaurants(options);
     this.render();
   }
