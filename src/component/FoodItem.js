@@ -29,11 +29,7 @@ export function FoodItem(
     onClick: (event) => handleFavoriteButton(event, foodItem),
   });
 
-  // const favoriteIcon = document.createElement("img");
-  // favoriteIcon.src = convertStarImg();
-  // favoriteIcon.alt ="즐겨찾기 버튼"
-
-  // <img src=${convertStarImg} alt="즐겨찾기버튼" class="restaurant-star"></img>
+  favoriteIcon.classList.add("restaurant-star");
 
   itemContainer.innerHTML = `
         <div class="restaurant__category">
