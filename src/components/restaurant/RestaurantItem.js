@@ -76,9 +76,17 @@ export default function RestaurantItem({
     toggleStar(event.target);
   })
 
+
+
   function toggleStar(element) {
     const isWish = restaurantDataList.updateIsWish(id);
-    Restaurant({isReRender: true});
+    if(!isWish && isColumn) {
+      $restaurantStar.classList.toggle('active');
+    } 
+
+    if(!isColumn) {
+      Restaurant({isReRender: true});
+    }
   }
 
   $restaurantCategory.append($categoryIcon);
