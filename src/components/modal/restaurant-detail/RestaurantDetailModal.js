@@ -28,12 +28,12 @@ function createDetailInfo({
   name,
   isFavorite,
 }) {
-  const $infoDiv = createElement({
+  const $info = createElement({
     tag: "div",
     classNames: ["restaurantDetail__info"],
   });
 
-  const $categoryDiv = createElement({
+  const $category = createElement({
     tag: "div",
     classNames: ["restaurant__category"],
   });
@@ -43,7 +43,7 @@ function createDetailInfo({
     alt: alt,
     classNames: ["category-icon"],
   });
-  $categoryDiv.appendChild($categoryImg);
+  $category.appendChild($categoryImg);
 
   const $name = createElement({
     tag: "h3",
@@ -51,13 +51,13 @@ function createDetailInfo({
     textContent: name,
   });
 
-  const $distanceSpan = createElement({
+  const $distance = createElement({
     tag: "span",
     classNames: ["restaurant__distance", "text-body"],
     textContent: `캠퍼스부터 ${distance}분 내`,
   });
 
-  const $startDiv = createElement({
+  const $start = createElement({
     tag: "div",
     classNames: ["restaurantDetail__start"],
   });
@@ -76,10 +76,10 @@ function createDetailInfo({
         src: "/public/empty-star.png",
         alt: "좋아요안한 별",
       };
-  const $favoriteImg = createElement(favoriteImgAttributes);
-  $startDiv.appendChild($favoriteImg);
+  const $favorite = createElement(favoriteImgAttributes);
+  $start.appendChild($favorite);
 
-  const $descriptionP = createElement({
+  const $description = createElement({
     tag: "p",
     classNames: [
       "restaurantDetail__description",
@@ -89,20 +89,21 @@ function createDetailInfo({
     textContent: description,
   });
 
-  const $linkP = createElement({
-    tag: "p",
+  const $link = createElement({
+    tag: "a",
     classNames: ["restaurantDetail__link", "text-body"],
     textContent: link,
+    href: link,
   });
 
-  $infoDiv.appendChild($categoryDiv);
-  $infoDiv.appendChild($name);
-  $infoDiv.appendChild($distanceSpan);
-  $infoDiv.appendChild($startDiv);
-  $infoDiv.appendChild($descriptionP);
-  $infoDiv.appendChild($linkP);
+  $info.appendChild($category);
+  $info.appendChild($name);
+  $info.appendChild($distance);
+  $info.appendChild($start);
+  $info.appendChild($description);
+  $info.appendChild($link);
 
-  return $infoDiv;
+  return $info;
 }
 
 function createButtons(id) {
