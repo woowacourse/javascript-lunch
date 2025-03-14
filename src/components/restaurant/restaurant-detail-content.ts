@@ -2,12 +2,16 @@ import $buttonContainer from "../layout/button-container.ts";
 import $button from "../common/button.ts";
 import { Restaurant } from "../../data/restaurant.ts";
 import { UI_CONFIG } from "../../constants/uiConfig.ts";
+import $favoriteButton from "../common/favorite-button.ts";
 
 const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   const info = document.createElement("div");
   info.classList.add("restaurant__info");
 
-  // 카테고리 아이콘
+  // 카테고리 아이콘 + 즐겨찾기 버튼
+  const restaurantHeader = document.createElement("div");
+  restaurantHeader.classList.add("restaurant-header");
+
   const iconContainer = document.createElement("div");
   iconContainer.classList.add("restaurant_datail_category");
 
@@ -16,7 +20,19 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   categoryIcon.alt = `${restaurant.categoryTitle} icon`;
 
   iconContainer.appendChild(categoryIcon);
-  info.appendChild(iconContainer);
+  restaurantHeader.appendChild(iconContainer);
+  const favButton = $favoriteButton(UI_CONFIG.BUTTONS.FAVORITE);
+  restaurantHeader.appendChild(favButton);
+
+  favButton.addEventListener("mouseover", () => {
+    favButton.src = "images/star-filled.png";
+  });
+
+  favButton.addEventListener("mouseout", () => {
+    favButton.src = "images/star-outline.png";
+  });
+
+  info.appendChild(restaurantHeader);
 
   // 제목
   const title = document.createElement("h3");
