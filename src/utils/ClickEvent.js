@@ -36,6 +36,10 @@ class ClickEvent {
     openModal("storeAdd");
   }
 
+  showStoreDeleteModal(target) {
+    openModal("storeDelete", target);
+  }
+
   removeModal(element) {
     if (element.id === "closeModalBtn") {
       document.getElementById("modalBackground")?.classList.remove("show");
