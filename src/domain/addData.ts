@@ -29,6 +29,7 @@ const addData = (): RestaurantInfo => {
       categoryValue[submittedData.category as keyof typeof categoryValue] ||
       "카테고리 없음",
     link: submittedData.link,
+    like: false,
   };
 
   const currentData = getStoredRestaurantData();
