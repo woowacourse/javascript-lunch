@@ -4,7 +4,6 @@ import {
   sortedFoodList,
 } from "../../domain/handler/FoodItemHandler";
 import { FoodDetail } from "../../pages/FoodDetail";
-import { FoodItem } from "../FoodItem";
 
 export class Modal {
   constructor() {

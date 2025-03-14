@@ -20,6 +20,7 @@ export function getFormFoodItem() {
       distance: foodItem.distance,
       description: foodItem.description,
       link: foodItem.link,
+      favorite: false,
     };
   } catch (error) {
     return;

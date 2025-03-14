@@ -1,5 +1,6 @@
 .food-detail {
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 16px;
 }

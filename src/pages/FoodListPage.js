@@ -24,6 +24,7 @@ export class FoodListPage {
   constructor(title, iconButton = null) {
     this.loadHeader(title, iconButton);
     this.loadMain();
+    this.loadTabButton();
     this.loadFilter();
     this.loadFoodList();
   }
@@ -40,6 +41,17 @@ export class FoodListPage {
   loadMain() {
     this.#main = document.createElement("main");
     this.#body.appendChild(this.#main);
+  }
+
+  loadTabButton() {
+    const container = document.createElement("div");
+    container.innerHTML = `
+      <div>
+        <button> 모든 음식점 </button>
+        <button> 자주 가는 음식점 </button>
+      </div>
+    `;
+    this.#main.appendChild(container.firstElementChild);
   }
 
   loadFilter() {

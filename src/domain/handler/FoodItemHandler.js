@@ -12,7 +12,6 @@ import {
 
 // CRUD - create : mock Data
 export function readFoodList(filter, modal) {
-  // const filter = new Filter();
   const previousFoodList = readStorageFoodList();
   if (previousFoodList.length === 0) {
     localStorage.setItem("foodList", JSON.stringify(foodItems));
@@ -44,24 +43,27 @@ export function sortedFoodList(filter) {
 // 화면에 출력하기
 export function convertStorageToLocal(modal = null, filter = null, foodList) {
   const FoodItemListComponent = foodList.map((localFoodItem) => {
-    const foodComponent = FoodItem(localFoodItem);
-    foodComponent.addEventListener("click", () => {
-      modal.setModalContent(
-        FoodDetail(filter, localFoodItem, modal),
-        filter,
-        modal
-      );
-      Modal.open();
+    const foodComponent = FoodItem(localFoodItem, (foodItem) => {
+      openDetailModal(modal, filter, foodItem);
     });
+
+    foodComponent
+      .querySelector(".restaurant-star")
+      .addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
 
     return foodComponent;
   });
-
   showFoodItem(FoodItemListComponent);
 }
 
+function openDetailModal(modal, filter, foodItem) {
+  modal.setModalContent(FoodDetail(filter, foodItem, modal), filter, modal);
+  Modal.open();
+}
+
 export function showFoodItem(foodListComponent) {
-  // console.log("render");
   const foodListContainer = document.querySelector(".restaurant-list");
   foodListContainer.innerHTML = "";
   [...foodListComponent].forEach((item) => {

@@ -4,12 +4,15 @@ import { Modal } from "../component/layout/Modal";
 import { deleteFoodItem } from "../domain/handler/FoodItemHandler";
 
 export function FoodDetail(filter, foodItem, modal) {
-  const { imgSrc, imgAlt, name, distance, description, link } = foodItem;
+  const { imgSrc, imgAlt, name, distance, description, link, favorite } =
+    foodItem;
   const container = document.createElement("div");
 
   container.className = "food-detail-container";
+  const convertStarImg = favorite ? "./filled-star.png" : "./empty-star.png";
   container.innerHTML = `
       <div class="food-detail">
+        <img src=${convertStarImg} alt="즐겨찾기버튼" class="restaurant-star">
         <div class="restaurant__category">
             <img src=${imgSrc} alt=${imgAlt} class="category-icon">
           </div>
