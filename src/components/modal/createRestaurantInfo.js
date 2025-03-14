@@ -26,7 +26,7 @@ const $createRestaurantInfo = (restaurantInfo) => {
 
   const InfoDistance = document.createElement("span");
   InfoDistance.classList.add("restaurant__distance", "text-body");
-  InfoDistance.textContent = distance;
+  InfoDistance.textContent = `캠퍼스부터 ${distance}분 내`;
 
   const InfoDescription = document.createElement("p");
   InfoDescription.classList.add("restaurant__description", "text-body");

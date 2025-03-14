@@ -22,7 +22,7 @@ const addRestaurant = (data) => {
     categoryIcon: CATEGORY_ICON[data.category],
     categoryTitle: data.category,
     name: data.name,
-    distance: `캠퍼스부터 ${data.distance}분 내`,
+    distance: data.distance,
     description: data.description,
     link: data.link,
     id: new Date(),
