@@ -7,11 +7,14 @@ import { RestaurantItem } from "../types/restaurantItem.js";
 
 export const restaurantHandler = {
   addRestaurantItem: (restaurantProps: RestaurantItem) => {
-    const list = document.createElement("li");
-    list.classList.add("restaurant");
+    const listItem = document.createElement("li");
+    listItem.classList.add("restaurant");
     const restaurant = Restaurant(restaurantProps);
-    list.innerHTML = restaurant;
-    querySelector(".restaurant-list").appendChild(list);
+    listItem.innerHTML = restaurant;
+    listItem.addEventListener("click", () =>
+      modalHandler.addRestaurantDetail(restaurantProps)
+    );
+    querySelector(".restaurant-list").appendChild(listItem);
   },
 
   uploadRestaurant: (restaurantList: RestaurantList, e: Event) => {
