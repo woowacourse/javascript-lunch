@@ -69,8 +69,9 @@ export default class App {
   #renderRestaurantList() {
     const $listContainer = document.querySelector(".restaurant-list-container");
 
+    const restaurantList = this.restaurantListModel.getRestaurantList();
     this.$listSection.replaceChild(
-      new RestaurantList(this.restaurantListModel.getRestaurantList()).render(),
+      new RestaurantList(restaurantList, this.#updateList).render(),
       $listContainer
     );
   }
@@ -107,7 +108,8 @@ export default class App {
       new RestaurantList(
         restaurantList.sort((a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-        )
+        ),
+        this.#updateList
       ).render()
     );
     $main.appendChild(this.$listSection);

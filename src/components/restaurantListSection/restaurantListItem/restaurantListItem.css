@@ -31,6 +31,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  flex-grow: 1;
 }
 
 .restaurant__name {
@@ -50,4 +51,16 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.restaurant__title__section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant__bookmark {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
