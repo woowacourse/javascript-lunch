@@ -34,6 +34,10 @@
   margin-top: 32px;
 }
 
+.mb-32 {
+  margin-bottom: 32px;
+}
+
 .mt-8 {
   margin-top: 8px;
 }
@@ -80,8 +84,16 @@
   border: 1px solid var(--slate-50);
 }
 
-.border-b {
+.border-b-slate {
   border-bottom: 1px solid var(--slate-50);
+}
+
+.border-b-slate-solid {
+  border-bottom: 2px solid var(--slate-50);
+}
+
+.border-b-primary {
+  border-bottom: 2px solid var(--primary-500);
 }
 
 .border-slate-400 {
