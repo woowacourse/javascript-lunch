@@ -13,10 +13,8 @@ const modalRenderer = {
   closeModal: () => {
     const modal = querySelector(".modal");
     modal.remove();
-    // modal.classList.remove("modal--open");
   },
 
-  //------------------
   addForm: () => {
     const modalContainer = querySelector(".modal-container");
     modalContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>
