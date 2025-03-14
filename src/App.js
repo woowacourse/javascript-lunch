@@ -16,20 +16,24 @@ class App {
 
   constructor($target) {
     this.#$target = $target;
-    this.#$target.insertAdjacentHTML("beforeend", this.#template());
+    this.#$target.appendChild(this.#template());
+
+    const $tabContainer = this.#$target.querySelector("#tab-container");
+    $tabContainer.appendChild(TabBar());
 
     this.#filterBarManager = new FilterBarManager();
-
     this.#init();
   }
 
   #template() {
-    return /*html*/ `
+    const template = document.createElement("template");
+    template.innerHTML = /* html */ `
       ${Header()}
-      ${TabBar()}
+      <div id="tab-container"></div>
       <main></main>
       <div id="modal"></div>
-    `;
+    `.trim();
+    return template.content;
   }
 
   async #init() {
