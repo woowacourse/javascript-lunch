@@ -20,3 +20,7 @@
 .restaurant-filter {
   padding: 8px;
 }
+
+.restaurant-filter--open {
+  display: none;
+}

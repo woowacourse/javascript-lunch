@@ -38,7 +38,8 @@ export default class App {
   #renderRestaurantNavBar() {
     this.$restaurantNavBar = new RestaurantNavBar({
       onFilterChange: (filterType) => {
-        this.$restaurantList.update({ filterType });
+        this.$restaurantFilter.toggleFilterVisibility({ filterType });
+        this.$restaurantList.updateRestaurantList({ filterType });
       },
     });
     this.$main.append(this.$restaurantNavBar.render());
@@ -79,6 +80,8 @@ export default class App {
 
   #updateRestaurantList() {
     const currentFilterType = this.$restaurantNavBar.getCurrentFilterType();
-    this.$restaurantList.update({ filterType: currentFilterType });
+    this.$restaurantList.updateRestaurantList({
+      filterType: currentFilterType,
+    });
   }
 }

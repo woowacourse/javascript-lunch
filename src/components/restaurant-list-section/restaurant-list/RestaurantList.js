@@ -28,7 +28,7 @@ export default class RestaurantList {
     return this.$listSection;
   }
 
-  update(options = { filterType: NAV_BAR_KEYS.all }) {
+  updateRestaurantList(options = { filterType: NAV_BAR_KEYS.all }) {
     this.restaurantList = this.restaurantService.getRestaurants(options);
     this.render();
   }

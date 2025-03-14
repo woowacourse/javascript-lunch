@@ -1,25 +1,25 @@
-import { CATEGORY, SORT_OPTION_TEXTS } from "../../constants/constants.js";
+import {
+  CATEGORY,
+  NAV_BAR_KEYS,
+  SORT_OPTION_TEXTS,
+} from "../../constants/constants.js";
 import "./restaurantFilter.css";
+
+const categoryFilter = ["전체", ...CATEGORY];
 
 export default class RestaurantFilter {
   render() {
-    const $filterContainer = document.createElement("section");
-    $filterContainer.className = "restaurant-filter-container";
+    this.$filterContainer = document.createElement("section");
+    this.$filterContainer.className = "restaurant-filter-container";
 
     const $filterCategory = document.createElement("select");
     $filterCategory.className = "restaurant-filter";
     $filterCategory.id = "category-filter";
     $filterCategory.setAttribute("name", "category-filter");
 
-    $filterContainer.append($filterCategory);
+    this.$filterContainer.append($filterCategory);
 
-    const $totalOption = document.createElement("option");
-    $totalOption.value = "전체";
-    $totalOption.textContent = "전체";
-
-    $filterCategory.append($totalOption);
-
-    CATEGORY.forEach((option) => {
+    categoryFilter.forEach((option) => {
       const $option = document.createElement("option");
 
       $option.value = option;
@@ -33,7 +33,7 @@ export default class RestaurantFilter {
     $filterSort.id = "sorting-filter";
     $filterSort.setAttribute("name", "sorting-filter");
 
-    $filterContainer.append($filterSort);
+    this.$filterContainer.append($filterSort);
 
     Object.keys(SORT_OPTION_TEXTS).forEach((optionType) => {
       const $option = document.createElement("option");
@@ -44,6 +44,14 @@ export default class RestaurantFilter {
       $filterSort.append($option);
     });
 
-    return $filterContainer;
+    return this.$filterContainer;
+  }
+
+  toggleFilterVisibility({ filterType }) {
+    if (filterType === NAV_BAR_KEYS.favorite) {
+      this.$filterContainer.classList.add("restaurant-filter--open");
+    } else {
+      this.$filterContainer.classList.remove("restaurant-filter--open");
+    }
   }
 }
