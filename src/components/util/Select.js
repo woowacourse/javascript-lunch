@@ -25,9 +25,7 @@ export default function Select({
   $select.addEventListener("change", function() {
     selectedFilterValue.updateSelectedFilterValue(id, this.value) 
     if(id === 'category-filter' || id === 'sorting-filter') {
-      Restaurant({
-        isReRender: true
-      });
+      Restaurant({isReRender: true});
     }
   });
 

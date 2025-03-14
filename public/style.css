@@ -127,6 +127,8 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -194,6 +196,18 @@ body {
 .restaurant-wish {
   position: absolute;
   right: 10px;
+}
+
+select {
+  cursor: pointer;
+}
+
+.modal-column {
+  flex-direction: column;
+}
+
+.text-column {
+  -webkit-box-orient: horizontal;
 }
 
 /* 음식점 추가 모달 *****************************************/

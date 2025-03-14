@@ -16,11 +16,8 @@ export function init() {
 function event() {
   const $button = document.querySelector(".gnb__button");
   $button.addEventListener("click", () => {
-    Modal(RestaurantFormModal);
+    Modal({
+      component: RestaurantFormModal
+    });
   });
-
-  const $restaurant = document.querySelector(".restaurant");
-  $restaurant.addEventListener("click", () => {
-    Modal();
-  })
 }

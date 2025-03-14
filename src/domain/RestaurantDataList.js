@@ -12,6 +12,14 @@ class RestaurantDataList {
     return this.#dataList.map((restaurantData) => restaurantData.getData());
   }
 
+  getData(id) {
+    const filteredData =  this.#dataList.filter((dataList) => {
+      return dataList.getId() === id
+    })[0];
+
+    return filteredData;
+  }
+
   addData(data) {
     this.#dataList.push(this.createData(data));
   }
@@ -29,9 +37,7 @@ class RestaurantDataList {
   }
 
   updateIsWish(id) {
-    const filteredData =  this.#dataList.filter((dataList) => {
-      return dataList.getId() === id
-    })[0];
+    const filteredData = this.getData(id);
     filteredData.toggleIsWish();
     return filteredData.isWish;
   }

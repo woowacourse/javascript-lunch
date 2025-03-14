@@ -1,6 +1,6 @@
 import createElement from "../../util/createElement.js";
 
-export default function Modal(component) {
+export default function Modal({component}) {
   const $body = document.querySelector("body");
 
   const $modal = createElement({

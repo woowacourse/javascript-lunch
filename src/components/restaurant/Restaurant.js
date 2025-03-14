@@ -1,6 +1,7 @@
 import RestaurantHeader from "./RestaurantHeader.js";
 import RestaurantListContainer from "./RestaurantListContainer.js";
 import RestaurantFilterContainer from "./RestaurantFilterContainer.js";
+import RestaurantItemDetailModal from "../RestaurantItemDetail/RestaurantItemDetailModal.js";
 
 import restaurantDataList from "../../domain/RestaurantDataList.js";
 import selectedFilterValue from "../../domain/SelectedFilterValue.js";
@@ -8,6 +9,7 @@ import selectedFilterValue from "../../domain/SelectedFilterValue.js";
 import filterRestaurantDataList from "../../util/filterRestaurantDataList.js";
 import reRenderRestaurantListContainer from "../../util/reRenderRestaurantListContainer.js";
 import RestaurantFilterTabs from "./RestaurantFilterTabs.js";
+import Modal from "../util/Modal.js";
 
 export default function Restaurant({isReRender}) {
   const filteredRestaurantDataList = filterRestaurantDataList({
@@ -36,4 +38,12 @@ export default function Restaurant({isReRender}) {
   if(isReRender) {
     reRenderRestaurantListContainer($body, $restaurantListContainer);
   }
+
+  const $restaurants = document.querySelectorAll(".restaurant");
+  $restaurants.forEach(($restaurant) => {
+    $restaurant.addEventListener("click", (event) => {
+      const restaurantId = event.target.closest(".restaurant").id;
+      Modal({component: () => RestaurantItemDetailModal({restaurantId, isColumn: true})});
+    });
+  });
 }

@@ -14,10 +14,12 @@ export default function RestaurantItem({
   distance,
   description,
   isWish,
+  isColumn = false
 }) {
   const $restaurantItem = createElement({
     tag: "li",
     classNames: ["restaurant"],
+    id,
   });
 
   const $restaurantCategory = createElement({
@@ -64,7 +66,13 @@ export default function RestaurantItem({
   });
 
 
+  if(isColumn) {
+    $restaurantItem.classList.add("modal-column");
+    $restaurantDescription.classList.add("text-column");
+  }
+
   $restaurantStar.addEventListener("click", (event) => {
+    event.stopPropagation();
     toggleStar(event.target);
   })
 
