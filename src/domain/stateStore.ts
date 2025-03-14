@@ -1,28 +1,44 @@
-const stateStore = {
-  state: {
+interface RestaurantState {
+  sort: string;
+  category: string;
+  tab: string;
+}
+
+interface StateStore {
+  restaurantState: RestaurantState;
+  updateState: (stateKey: string, state: string) => void;
+  initState: () => void;
+  getState: () => RestaurantState;
+}
+
+const stateStore: StateStore = {
+  restaurantState: {
+    sort: 'name',
     category: '',
-    name: '',
-    distance: 0,
-    description: '',
-    link: '',
+    tab: '',
   },
 
-  updateState(newState) {
-    this.state = newState;
+  updateState(stateKey, state) {
+    if (!(stateKey in this.restaurantState)) {
+      throw new Error('restaurantState에 존재하지 않는 key 입니다.');
+    }
+
+    this.restaurantState = {
+      ...this.restaurantState,
+      [stateKey]: state,
+    };
   },
 
   initState() {
-    const currentState = this.state;
+    const currentState = this.restaurantState;
 
+    currentState.sort = 'name';
     currentState.category = '';
-    currentState.name = '';
-    currentState.distance = 0;
-    currentState.description = '';
-    currentState.link = '';
+    currentState.tab = '';
   },
 
   getState() {
-    return { ...this.state };
+    return { ...this.restaurantState };
   },
 };
 
