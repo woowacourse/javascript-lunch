@@ -7,7 +7,7 @@ export default function RestaurantList(
   const restaurantItemsHTML = restaurants
     .map(
       (restaurant) => `
-      <li class="restaurant" data-category="${restaurant.category}">
+      <li class="restaurant" data-category="${restaurant.category}" data-favorites= "${restaurant.favorites}">
         <div class="restaurant__category">
           <img src="./category-${restaurant.category}.png" alt="${restaurant.categoryName}" class="category-icon" />
         </div>

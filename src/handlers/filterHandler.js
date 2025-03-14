@@ -1,4 +1,6 @@
+/* eslint-disable radix */
 import { initialRestaurants } from "../data/initialRestaurants.js";
+import { tabState } from "./tabHandler.js";
 
 // 저장된 필터
 const currentFilter = {
@@ -6,7 +8,7 @@ const currentFilter = {
   sortBy: "distance", // 기본 정렬은 거리순
 };
 
-function applyFilter() {
+export function applyFilter() {
   const $restaurantItems = document.querySelectorAll(".restaurant");
   if ($restaurantItems.length === 0) {
     console.warn("필터링할 레스토랑 항목이 없습니다.");
@@ -21,6 +23,14 @@ function applyFilter() {
       const itemCategory = item.dataset.category;
 
       if (itemCategory !== currentFilter.category) {
+        item.style.display = "none";
+      }
+    }
+
+    // 탭필터 (그 자주가는 음식점이 활성화 된 경우)
+    if (tabState.activeTab === "favorites") {
+      const isFavorite = item.dataset.favorites === true;
+      if (!isFavorite) {
         item.style.display = "none";
       }
     }
@@ -64,7 +74,6 @@ export function handleCategoryFilter(e) {
   currentFilter.category = selectedCategory === "all" ? null : selectedCategory;
   applyFilter();
 }
-
 export function handleSortingFilter(e) {
   const selectedSorting = e.target.value;
   currentFilter.sortBy = selectedSorting;
