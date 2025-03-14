@@ -19,7 +19,7 @@ class RestaurantInfoModal extends Modal {
     const { category, name, distance, description, link } = this.state.data;
 
     return /*html */ `
-    <div class="restaurant__info-container"> 
+    <div id='restaurant-info-container' class="restaurant__info-container"> 
       <div class="restaurant__category">
         <img src="./icons/${imageSource(
           category
@@ -30,12 +30,11 @@ class RestaurantInfoModal extends Modal {
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
         <p class="text-body">${description}</p>
       </div>
-      <div id='restaurant-info' data-testid='restaurant-info'>
-        <div class="button-container">
-          <button class="button button--secondary text-caption">삭제하기</button>
-          <button type="button" id="cancel-restaurant-info" class="button button--primary text-caption" data-testid="cancel-restaurant-info">닫기</button>
-        </div>
+      <div class="button-container">
+        <button id="delete-restaurant-info" class="button button--secondary text-caption">삭제하기</button>
+        <button type="button" id="cancel-restaurant-info" class="button button--primary text-caption" data-testid="cancel-restaurant-info">닫기</button>
       </div>
+      
     </div>
     `;
   }
@@ -49,11 +48,20 @@ class RestaurantInfoModal extends Modal {
 
   addEventListeners() {
     const $cancelButton = $(document, "#cancel-restaurant-info");
-
     $cancelButton.removeEventListener("click", this.closeModal);
-
     $cancelButton.addEventListener("click", this.closeModal);
+
+    const $deleteButton = $(
+      $(document, "#restaurant-info-container"),
+      "#delete-restaurant-info"
+    );
+    $deleteButton.addEventListener("click", this.deleteCurrentRestaurant);
   }
+
+  deleteCurrentRestaurant = () => {
+    this.props.deleteRestaurant(this.state.data);
+    this.close();
+  };
 }
 
 export default RestaurantInfoModal;

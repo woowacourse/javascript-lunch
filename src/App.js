@@ -41,6 +41,25 @@ class App extends Component {
     );
   }
 
+  deleteRestaurant(targetRestaurant) {
+    const newRestaurantList = [...this.state.restaurants].filter(
+      ({ name }) => name !== targetRestaurant.name
+    );
+    this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
+
+    this.setState({
+      restaurants: newRestaurantList,
+    });
+
+    this.renderDeleteRestaurant(targetRestaurant);
+  }
+
+  renderDeleteRestaurant(targetRestaurant) {
+    const { name } = targetRestaurant;
+    const $targetRestaurant = $(document, `#${name}`);
+    $targetRestaurant.remove();
+  }
+
   template() {
     return /*html*/ `
         <main></main>
@@ -83,8 +102,6 @@ class App extends Component {
       RestaurantList(this.state.restaurants)
     );
 
-    const restaurantInfoModal = new RestaurantInfoModal($(document, "#modal"));
-
     $(document, "#restaurant-list").addEventListener("click", (event) => {
       const restaurantItem = event.target.closest("li");
       const restaurantList = this.props.getItemFromLocalStorage(this.props.KEY);
@@ -93,6 +110,10 @@ class App extends Component {
         ({ name }) => name === restaurantItem.id
       );
 
+      const restaurantInfoModal = new RestaurantInfoModal(
+        $(document, "#modal"),
+        { deleteRestaurant: this.deleteRestaurant.bind(this) }
+      );
       restaurantInfoModal.setState({ data: restaurant });
       restaurantInfoModal.open();
     });
@@ -100,6 +121,7 @@ class App extends Component {
 }
 
 const KEY = "restaurantList";
+
 const initialList = getItemFromLocalStorage(KEY) ?? restaurants;
 setItemToLocalStorage(KEY, initialList);
 
