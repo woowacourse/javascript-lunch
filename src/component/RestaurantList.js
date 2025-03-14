@@ -2,18 +2,38 @@ import { CATEGORY_ICON } from "../constants/constants.ts";
 import data from "../data.ts";
 import state from "../state.ts";
 import { $ } from "../utils/querySelectors.js";
+import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
+import FilterSelect from "./FilterSelect.js";
 import LunchInfoCard from "./LunchInfoCard.js";
 
 const RestaurantList = {
   create() {
     const restaurantListElement = document.createElement("ul");
     restaurantListElement.classList.add("restaurant-list");
+    restaurantListElement.addEventListener("click", (e) =>
+      this.onClickFavorite(e)
+    );
     return restaurantListElement;
   },
 
-  applyData() {
-    state.setCurrentRestaurantList(data.restaurantList);
+  onClickFavorite(event) {
+    const target = event.target;
+    if (!target.classList.contains("restaurant__favorite")) return;
+    data.restaurantList = RestaurantListUtils.favoriteById(
+      data.restaurantList,
+      Number(target.id)
+    );
+    state.setCurrentRestaurantList(
+      RestaurantListUtils.favoriteById(
+        state.currentRestaurantList,
+        Number(target.id)
+      )
+    );
     this.applyState();
+  },
+
+  applyData() {
+    this.applyList(data.restaurantList);
   },
 
   applyState() {

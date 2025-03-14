@@ -1,5 +1,4 @@
 import data from "../data.ts";
-import state from "../state.ts";
 import { $ } from "../utils/querySelectors.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
 import RestaurantList from "./RestaurantList.js";

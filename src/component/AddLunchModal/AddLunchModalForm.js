@@ -7,9 +7,7 @@ import {
   CATEGORY_DROPDOWN_LIST,
   DISTANCE_DROPDOWN_LIST,
 } from "../../constants/dropdownList.ts";
-import state from "../../state.ts";
 import { Validator } from "../../utils/Validator.ts";
-import RestaurantList from "../RestaurantList.js";
 import data from "../../data.ts";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
 import FilterSelect from "../FilterSelect.js";

@@ -13,12 +13,12 @@ const RestaurantListUtils = {
     return restaurantList.filter(({ label }) => label === category);
   },
 
-  sortById(restaurantList: Restaurant[]): Restaurant[] {
+  sortById(restaurantList: Restaurant[]) {
     const resultList = [...restaurantList];
     return resultList.sort((a, b) => a.id - b.id);
   },
 
-  sortByName(restaurantList: Restaurant[]): Restaurant[] {
+  sortByName(restaurantList: Restaurant[]) {
     const resultList = [...restaurantList];
     return resultList.sort((a, b) => {
       const nameA = a.name.toUpperCase();
@@ -29,9 +29,17 @@ const RestaurantListUtils = {
     });
   },
 
-  sortByDistance(restaurantList: Restaurant[]): Restaurant[] {
+  sortByDistance(restaurantList: Restaurant[]) {
     const resultList = [...restaurantList];
     return resultList.sort((a, b) => a.distance - b.distance);
+  },
+
+  favoriteById(restaurantList: Restaurant[], id: number) {
+    return restaurantList.map((restaurant) =>
+      restaurant.id === id
+        ? { ...restaurant, favorite: !restaurant.favorite }
+        : restaurant
+    );
   },
 };
 
