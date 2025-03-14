@@ -38,7 +38,7 @@ class AddRestaurantModal extends Modal {
 
   open() {
     super.open();
-    if (this.isOpen) {
+    if (this.getIsOpen()) {
       this.#addEventListeners();
     }
   }

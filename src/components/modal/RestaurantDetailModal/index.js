@@ -49,7 +49,7 @@ class RestaurantDetailModal extends Modal {
 
   open() {
     super.open();
-    if (this.isOpen) {
+    if (this.getIsOpen()) {
       this.#addEventListeners();
     }
   }
@@ -60,9 +60,9 @@ class RestaurantDetailModal extends Modal {
   }
 
   #addEventListeners() {
-    const $deleteButton = this.$target.querySelector("#delete-restaurant");
-    const $closeButton = this.$target.querySelector("#close-modal");
-    const $favoriteIcon = this.$target.querySelector(".favorite-icon");
+    const $deleteButton = this.getTarget().querySelector("#delete-restaurant");
+    const $closeButton = this.getTarget().querySelector("#close-modal");
+    const $favoriteIcon = this.getTarget().querySelector(".favorite-icon");
 
     $deleteButton.addEventListener("click", this.#handleDelete);
     $closeButton.addEventListener("click", this.handleClose);
@@ -70,9 +70,9 @@ class RestaurantDetailModal extends Modal {
   }
 
   #removeEventListeners() {
-    const $deleteButton = this.$target.querySelector("#delete-restaurant");
-    const $closeButton = this.$target.querySelector("#close-modal");
-    const $favoriteIcon = this.$target.querySelector(".favorite-icon");
+    const $deleteButton = this.getTarget().querySelector("#delete-restaurant");
+    const $closeButton = this.getTarget().querySelector("#close-modal");
+    const $favoriteIcon = this.getTarget().querySelector(".favorite-icon");
 
     $deleteButton.removeEventListener("click", this.#handleDelete);
     $closeButton.removeEventListener("click", this.handleClose);
@@ -100,7 +100,7 @@ class RestaurantDetailModal extends Modal {
 
     this.#restaurant.isFavorite = !this.#restaurant.isFavorite;
 
-    const $favoriteIcon = this.$target.querySelector(".favorite-icon");
+    const $favoriteIcon = this.getTarget().querySelector(".favorite-icon");
     $favoriteIcon.src = this.#restaurant.isFavorite
       ? "./icons/favorite-icon-filled.png"
       : "./icons/favorite-icon-lined.png";

@@ -11,7 +11,7 @@ class Modal {
     return "";
   }
 
-  #componentDidMount() {
+  #mount() {
     const $backdrop = this.#$target.querySelector(".modal-backdrop");
     if ($backdrop) {
       $backdrop.removeEventListener("click", this.handleClose);
@@ -35,7 +35,7 @@ class Modal {
     if (!this.#isOpen) {
       this.#isOpen = true;
       this.#$target.insertAdjacentHTML("beforeend", this.#template());
-      this.#componentDidMount();
+      this.#mount();
     }
   }
 
@@ -46,11 +46,11 @@ class Modal {
     }
   }
 
-  get isOpen() {
+  getIsOpen() {
     return this.#isOpen;
   }
 
-  get $target() {
+  getTarget() {
     return this.#$target;
   }
 }
