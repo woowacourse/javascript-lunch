@@ -9,6 +9,7 @@ type CssTypeProps = "row" | "column";
 interface FoodItemOptions {
   data: FoodItemProps;
   cssType: CssTypeProps;
+  isModalFoodItem: boolean;
 }
 
 export default class FoodItem {
@@ -25,10 +26,12 @@ export default class FoodItem {
   #isFavorite;
 
   #cssType: CssTypeProps;
+  #isModalFoodItem: boolean;
 
-  constructor({ data, cssType }: FoodItemOptions) {
+  constructor({ data, cssType, isModalFoodItem = false }: FoodItemOptions) {
     this.#data = data;
     this.#cssType = cssType;
+    this.#isModalFoodItem = isModalFoodItem;
 
     this.#id = data.id;
     this.#category = data.category;
@@ -43,7 +46,9 @@ export default class FoodItem {
     this.render();
     this.setUpFavoriteToggle();
     this.setCss();
-    this.showDetail();
+    if (!this.#isModalFoodItem) {
+      this.showDetail();
+    }
   }
 
   getBookmarkIconSrc() {
@@ -70,14 +75,16 @@ export default class FoodItem {
 
   showDetail() {
     this.container.querySelector("li")?.addEventListener("click", () => {
+      if (this.#isModalFoodItem) return;
+
       const fragment = document.createDocumentFragment();
 
       const detailFoodItem = new FoodItem({
         data: this.#data,
         cssType: "column",
+        isModalFoodItem: true,
       });
       if (!detailFoodItem.element) return;
-
       fragment.appendChild(detailFoodItem.element);
 
       const buttonContainer = ButtonContainer({
@@ -89,8 +96,8 @@ export default class FoodItem {
       fragment.appendChild(buttonContainer);
 
       const detailModal = new Modal({ content: fragment });
-
       detailModal.open();
+
       document.querySelector("body")?.appendChild(detailModal.element);
     });
   }
