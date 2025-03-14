@@ -23,10 +23,11 @@ describe("음식점 추가 페이지 테스트", () => {
       cy.get("#description").type(info.description);
       cy.get("#link").type(info.link);
     });
+
     //when
     cy.get("#register-button").click();
-    //then
 
+    //then
     cy.get(".restaurant-list")
       .children()
       .each(($el) => {
@@ -48,8 +49,10 @@ describe("음식점 추가 페이지 테스트", () => {
         cy.get("#description").type(info.description);
         cy.get("#link").type(info.link);
       });
+
       //when
       cy.get("#register-button").click();
+
       //then
       cy.get(".error-message").should(
         "contain.text",
@@ -66,8 +69,10 @@ describe("음식점 추가 페이지 테스트", () => {
         cy.get("#description").type(info.description);
         cy.get("#link").type(info.link);
       });
+
       //when
       cy.get("#register-button").click();
+
       //then
       cy.get(".error-message").should(
         "contain.text",
@@ -84,8 +89,10 @@ describe("음식점 추가 페이지 테스트", () => {
         cy.get("#description").type(info.description);
         cy.get("#link").type(info.link);
       });
+
       //when
       cy.get("#register-button").click();
+
       //then
       cy.get(".error-message").should(
         "contain.text",
