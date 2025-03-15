@@ -1,12 +1,14 @@
 import { Category, Distance, RestaurantItem } from "../types/restaurant.types";
 
+const urlRegex = /https?:\/\/[^\s"]/;
+
 export default class Restaurant {
   #id: number;
   #storeName: string;
   #distance: Distance;
   #category: Category;
-  #description: string;
-  #link: string;
+  #description?: string;
+  #link?: string;
   #isFavorite: boolean = false;
 
   constructor({
@@ -25,51 +27,25 @@ export default class Restaurant {
     this.#description = description;
     this.#link = link;
     this.#isFavorite = isFavorite;
+    this.validate();
   }
 
-  save() {
-    const restaurants = Restaurant.restaurantLocalStorage;
-    restaurants.push(this.restaurantValue);
-    Restaurant.updateLocalStorage(restaurants);
-  }
-
-  static toggleFavorite(id: number) {
-    const restaurants = Restaurant.restaurantLocalStorage;
-    const restaurant = restaurants.find((r) => r.id === id);
-
-    if (restaurant) {
-      restaurant.isFavorite = !restaurant.isFavorite;
-      Restaurant.updateLocalStorage(restaurants);
+  validate(): void {
+    if (this.#storeName === "") {
+      throw new Error("음식점 이름 입력해주세요.");
     }
-  }
 
-  static get restaurantLocalStorage(): RestaurantItem[] {
-    const storedData = localStorage.getItem("restaurantItem");
-    return storedData ? JSON.parse(storedData) : [];
-  }
+    if (!this.#distance) {
+      throw new Error("거리를 선택해주세요.");
+    }
 
-  static getItemById(id: number) {
-    return Restaurant.restaurantLocalStorage.find((r) => r.id === id) || null;
-  }
+    if (!this.#category) {
+      throw new Error("카테고리를 선택해주세요.");
+    }
 
-  static getLastRestaurantId(): number {
-    const restaurants = Restaurant.restaurantLocalStorage;
-    return restaurants.length > 0
-      ? Math.max(...restaurants.map((r) => r.id))
-      : 0;
-  }
-
-  static removeItemById(id: number) {
-    const Id = Number(id);
-
-    const restaurants = Restaurant.restaurantLocalStorage.filter(
-      (r) => Number(r.id) !== Id
-    );
-
-    Restaurant.updateLocalStorage(restaurants);
-  }
-  static updateLocalStorage(restaurants: RestaurantItem[]) {
-    localStorage.setItem("restaurantItem", JSON.stringify(restaurants));
+    if (this.#link && !urlRegex.test(this.#link)) {
+      throw new Error("링크 형식이 올바르지 않습니다.");
+    }
   }
 
   get restaurantValue(): RestaurantItem {
