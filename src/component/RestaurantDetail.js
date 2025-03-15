@@ -3,6 +3,7 @@ import toElement from "../utils/toElement.js";
 import ButtonContainer from "./ButtonContainer.js";
 import TextButton from "./TextButton.js";
 import Modal from "./Modal.js";
+import RestaurantList from "../domain/RestaurantList.js";
 
 const CATEGORY_ICON = {
   한식: "./category-korean.png",
@@ -27,26 +28,31 @@ function RestaurantDetail({ category, name, distance, description, link }) {
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
         ${
           description
-            ? `<p class=".restaurant__detial__description text-body">${description}</p>`
+            ? `<p class="restaurant__detail__description text-body">${description}</p>`
             : ""
         }
         ${
           link
-            ? `<p class=".restaurant__detial__link text-body">${link}</p>`
+            ? `<p class="restaurant__detail__link text-body">${link}</p>`
             : ""
         }
     </div>`),
-    ButtonContainer([
+    ButtonContainer(
+      TextButton({
+        id: "remove__button",
+        title: "삭제하기",
+        onClick: () => {
+          if (window.confirm(`${name}을(를) 삭제하시겠습니까?`)) {
+            RestaurantList.remove(name, `restaurantModal_${name}`);
+          }
+        },
+      }),
       TextButton({
         id: "cancel__button",
-        title: "삭제하기",
-      }),
-      TextButton({
-        id: "add__button",
         title: "닫기",
         onClick: () => Modal.close(`restaurantModal_${name}`),
-      }),
-    ])
+      })
+    )
   );
 
   return $el;

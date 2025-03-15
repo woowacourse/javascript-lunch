@@ -306,10 +306,10 @@ input[name="link"] {
   gap: 10px;
 }
 
-.restaurant__detial__description {
+.restaurant__detail__description {
   padding-top: 8px;
 }
 
-.restaurant__detial__link {
+.restaurant__detail__link {
   padding-top: 8px;
 }

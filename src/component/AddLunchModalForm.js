@@ -110,7 +110,7 @@ function AddLunchModalForm(restaurantList, modalId) {
       bottomDescription: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
     }),
 
-    ButtonContainer([
+    ButtonContainer(
       TextButton({
         id: "cancel__button",
         title: "취소하기",
@@ -119,8 +119,8 @@ function AddLunchModalForm(restaurantList, modalId) {
       TextButton({
         id: "add__button",
         title: "추가하기",
-      }),
-    ])
+      })
+    )
   );
 
   return $modalForm;

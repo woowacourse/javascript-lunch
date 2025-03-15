@@ -1,4 +1,5 @@
 import { Category, Restaurant } from "../../types/RestaurantType.ts";
+import Modal from "../component/Modal.js";
 import RestaurantListContainer from "../component/RestaurantListContainer.js";
 import MOCK_ITEM from "../mockItem.js";
 
@@ -48,6 +49,22 @@ class RestaurantList {
     RestaurantListContainer(
       this.#filteringItems.sort(
         (a: Restaurant, b: Restaurant) => a.distance - b.distance
+      )
+    );
+  }
+
+  static remove(targetName: string, modalId: string) {
+    Modal.close(modalId);
+    let restaurantList = JSON.parse(
+      localStorage.getItem("restaurantList") || "[]"
+    );
+    restaurantList = restaurantList.filter(
+      (restaurant: Restaurant) => restaurant.name !== targetName
+    );
+    localStorage.setItem("restaurantList", JSON.stringify(restaurantList));
+    RestaurantListContainer(
+      restaurantList.sort((a: Restaurant, b: Restaurant) =>
+        a.name.localeCompare(b.name)
       )
     );
   }
