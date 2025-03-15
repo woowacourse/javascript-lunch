@@ -3,6 +3,7 @@ import {
   AddNewRestaurant,
   GetAllRestaurants,
 } from "./domain/RestaurantStorage";
+import { CreateRestaurantList } from "./ui/CreateRestaurantList";
 import { categoryMapping } from "./utils/categoryMapping";
 import {
   validateDescriptionInput,
@@ -80,7 +81,7 @@ function HandleAddRestaurant(e: Event) {
     }
     AddNewRestaurant({ restaurant: inputValue });
 
-    location.reload();
+    UpdateRestaurantList();
 
     CloseModal();
   } catch (error) {
@@ -98,4 +99,9 @@ function CloseModal() {
   if ($modal) {
     $modal.remove();
   }
+}
+
+function UpdateRestaurantList() {
+  const restaurants = GetAllRestaurants();
+  CreateRestaurantList(restaurants);
 }
