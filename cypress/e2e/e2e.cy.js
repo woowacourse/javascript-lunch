@@ -59,6 +59,15 @@ describe("E2E 테스트", () => {
     cy.get(".restaurant__name").should("contain.text", targetName);
   });
 
+  it("성공 시나리오: 모달 닫기 버튼 클릭 시 모달 제거", () => {
+    cy.get(".restaurant").eq(0).click();
+    cy.get("#close_button").click();
+    cy.get(".modal").should("not.have.class", "modal--open");
+    cy.get(".gnb__button").should("exist").click();
+    cy.get("#close_button").click();
+    cy.get(".modal").should("not.have.class", "modal--open");
+  });
+
   it("성공 시나리오: 레스토랑 삭제 시 화면에서 제거", () => {
     cy.get(".restaurant").eq(0).click();
     cy.get("#delete_button").click();
