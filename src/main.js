@@ -9,6 +9,8 @@ import {
   SORT_FILTER_DROPDOWN_LIST,
 } from "./constants/dropdownList.js";
 import { $, $$ } from "./utils/querySelectors.js";
+import RestaurantListUtils from "./utils/RestaurantListUtils.js";
+import data from "./data.js";
 
 DOM.$body.prepend(Header.create());
 initNavigationButton();
@@ -21,10 +23,15 @@ function initNavigationButton() {
   $(".navigation-bar-container").addEventListener("click", (e) => {
     $$("main section").forEach((section) => (section.style.display = "none"));
     if (e.target.classList.contains("all_restaurant_nav")) {
+      FilterSelect.applyFilter("allRestaurant");
       DOM.$filterContainer.style.display = "flex";
       DOM.$restaurantContainer.style.display = "block";
     }
     if (e.target.classList.contains("favorite_restaurant_nav")) {
+      const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
+        data.restaurantList
+      );
+      RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
       DOM.$favoriteContainer.style.display = "block";
     }
 
@@ -53,8 +60,8 @@ function initFilterSelect() {
 }
 
 function initRestaurantList() {
-  DOM.$restaurantContainer.append(RestaurantList.create());
-  RestaurantList.applyData();
+  DOM.$restaurantContainer.append(RestaurantList.create("allRestaurant"));
+  RestaurantList.applyData("allRestaurant");
 }
 
 function initAddLunchModal() {
@@ -64,7 +71,5 @@ function initAddLunchModal() {
 }
 
 function initFavoriteList() {
-  const favoriteList = document.createElement("h1");
-  favoriteList.textContent = "자주 가는 음식점임";
-  DOM.$favoriteContainer.append(favoriteList);
+  DOM.$favoriteContainer.append(RestaurantList.create("favoriteRestaurant"));
 }

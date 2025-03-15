@@ -7,16 +7,17 @@ import FilterSelect from "./FilterSelect.js";
 import LunchInfoCard from "./LunchInfoCard.js";
 
 const RestaurantList = {
-  create() {
+  create(id) {
     const restaurantListElement = document.createElement("ul");
+    restaurantListElement.id = id;
     restaurantListElement.classList.add("restaurant-list");
     restaurantListElement.addEventListener("click", (e) =>
-      this.onClickFavorite(e)
+      this.onClickFavorite(id, e)
     );
     return restaurantListElement;
   },
 
-  onClickFavorite(event) {
+  onClickFavorite(id, event) {
     const target = event.target;
     if (!target.classList.contains("restaurant__favorite")) return;
     data.restaurantList = RestaurantListUtils.favoriteById(
@@ -29,26 +30,28 @@ const RestaurantList = {
         Number(target.id)
       )
     );
-    this.applyState();
+    this.applyState(id);
   },
 
-  applyData() {
-    this.applyList(data.restaurantList);
+  applyData(id) {
+    this.applyList(id, data.restaurantList);
   },
 
-  applyState() {
-    this.applyList(state.currentRestaurantList);
+  applyState(id) {
+    this.applyList(id, state.currentRestaurantList);
   },
 
-  applyList(restaurantList) {
+  applyList(id, restaurantList) {
     state.setCurrentRestaurantList(restaurantList);
     const restaurantElementList = this.getRestaurantElementList(restaurantList);
-    this.applyElements(restaurantElementList);
+    this.applyElements(id, restaurantElementList);
   },
 
-  applyElements(elements) {
-    $(".restaurant-list").replaceChildren();
-    elements.forEach((element) => $(".restaurant-list").appendChild(element));
+  applyElements(id, elements) {
+    $(`.restaurant-list[id=${id}]`).replaceChildren();
+    elements.forEach((element) =>
+      $(`.restaurant-list[id=${id}]`).appendChild(element)
+    );
   },
 
   getRestaurantElementList(restaurantList) {

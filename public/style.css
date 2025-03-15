@@ -206,6 +206,14 @@ body {
   cursor: pointer;
 }
 
+.favorite-list-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 16px;
+  margin: 16px 0;
+}
+
 /* 음식점 추가 모달 *****************************************/
 .modal {
   display: none;

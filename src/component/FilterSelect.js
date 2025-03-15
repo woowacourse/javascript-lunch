@@ -15,12 +15,14 @@ const FilterSelect = {
       .join("\n")}
     `;
 
-    filterElement.addEventListener("change", (e) => this.applyFilter());
+    filterElement.addEventListener("change", (e) =>
+      this.applyFilter("allRestaurant")
+    );
 
     return filterElement;
   },
 
-  applyFilter() {
+  applyFilter(id) {
     const category = $("#category-filter").value;
     const sortingRule = $("#sorting-filter").value;
     const filteredListByCategory = this.getFilteredListByCategory(
@@ -31,7 +33,7 @@ const FilterSelect = {
       filteredListByCategory,
       sortingRule
     );
-    RestaurantList.applyList(filteredListByBoth);
+    RestaurantList.applyList(id, filteredListByBoth);
   },
 
   getFilteredListByCategory(restaurantList, category) {
