@@ -55,15 +55,17 @@ const RestaurantList = {
   },
 
   getRestaurantElementList(restaurantList) {
+    console.dir(restaurantList);
     return restaurantList.map(
-      ({ id, name, distance, description, label, favorite }) =>
+      ({ id, name, distance, description, label, favorite, link }) =>
         LunchInfoCard.create({
           id,
           src: CATEGORY_ICON[label],
+          label,
           name,
           distance,
           description,
-          label,
+          link,
           favorite,
         })
     );

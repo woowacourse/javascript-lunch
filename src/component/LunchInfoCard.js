@@ -2,7 +2,7 @@ import DetailModalContent from "./DetailModal/DetailModalContent.js";
 import Modal from "./Modal.js";
 
 const LunchInfoCard = {
-  create({ id, src, name, label, distance, description, favorite }) {
+  create({ id, src, name, label, distance, description, favorite, link }) {
     const LunchInfoCardElement = document.createElement("li");
     LunchInfoCardElement.setAttribute("class", "restaurant");
     LunchInfoCardElement.innerHTML = /*html*/ `
@@ -25,13 +25,13 @@ const LunchInfoCard = {
       Modal.open("detail");
       DetailModalContent.set({
         id,
-        favorite,
         src,
         label,
         name,
         distance,
         description,
         link,
+        favorite,
       });
     });
 
