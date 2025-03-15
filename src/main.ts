@@ -16,12 +16,7 @@ import {
   CLOSE_BUTTON,
 } from './constants/constants.ts';
 import eventHandlers, { handleStarToggle } from './handlers/eventHandlers.ts';
-import {
-  applyFilters,
-  registerCategoryFilter,
-  registerSortingFilter,
-} from '../src/handlers/filterHandlers.ts';
-
+import { applyFilters, registerCategoryFilter, registerSortingFilter } from '../src/handlers/filterHandlers.ts';
 import {
   createButton,
   createHeader,
@@ -34,6 +29,7 @@ import {
   createFilterTab,
   createModalContent,
 } from './components/index.js';
+import registerFilterTabClick from './handlers/filterTabHandlers.ts';
 
 addEventListener('load', () => {
   appendHeader();
@@ -53,6 +49,7 @@ addEventListener('load', () => {
   eventHandlers.registerEventHandlers(addNewRestaurantItem, openRestaurantModal);
   registerCategoryFilter();
   registerSortingFilter();
+  registerFilterTabClick();
 });
 
 function appendHeader() {
