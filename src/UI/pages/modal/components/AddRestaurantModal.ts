@@ -34,10 +34,12 @@ class AddRestaurantModal {
   #distanceDropDown!: InputDropDown;
   #descriptionInput!: InputText;
   #linkInput!: InputText;
+  #onRestaurantAdded: () => void;
 
-  constructor() {
+  constructor(onRestaurantAdded: () => void = () => {}) {
     this.#modal = new Modal();
     this.#modalForm = document.createElement('form');
+    this.#onRestaurantAdded = onRestaurantAdded;
     this.#init();
     this.#createAddModal();
   }
@@ -113,13 +115,8 @@ class AddRestaurantModal {
 
     try {
       const newRestaurant = addRestaurant(restaurantData);
-      const newRestaurantItem = new RestaurantItem(newRestaurant);
 
-      if (DOM.RESTAURANT_LIST) {
-        DOM.RESTAURANT_LIST.appendChild(newRestaurantItem.getElement());
-      } else {
-        console.error('Restaurant list element not found');
-      }
+      this.#onRestaurantAdded();
 
       this.handleToggleModal();
     } catch (error: unknown) {

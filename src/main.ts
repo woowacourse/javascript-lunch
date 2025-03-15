@@ -1,36 +1,13 @@
 import { DOM } from './dom';
-import { getRestaurantList, getFilteredRestaurants } from './Domain/services/RestaurantService';
-import Restaurant from './Domain/Restaurant';
 import Header from './UI/components/header/Header';
-import RestaurantItem from './UI/components/restaurant/RestaurantItem';
 import AddRestaurantModal from './UI/pages/modal/components/AddRestaurantModal';
 import RestaurantFilterContainer from './UI/pages/filter/RestaurantFilterContainer';
-import RestaurantDetailModal from './UI/pages/modal/components/RestaurantDetailModal';
+import RestaurantListRenderer from './UI/components/restaurant/RestaurantListRenderer';
 
-const addRestaurantModal = new AddRestaurantModal();
+const restaurantListRenderer = RestaurantListRenderer.getInstance();
+
+const addRestaurantModal = new AddRestaurantModal(() => restaurantListRenderer.refreshRestaurantList());
 new Header(() => addRestaurantModal.handleToggleModal());
-
-const renderRestaurantList = (restaurantList: Restaurant[]) => {
-  if (!DOM.RESTAURANT_LIST) return;
-
-  DOM.RESTAURANT_LIST.innerHTML = '';
-
-  restaurantList.forEach((restaurant: Restaurant) => {
-    const restaurantItem = new RestaurantItem(restaurant).getElement();
-
-    restaurantItem.addEventListener('click', () => {
-      const detailModal = new RestaurantDetailModal(restaurant);
-      detailModal.handleToggleModal();
-    });
-
-    DOM.RESTAURANT_LIST!.appendChild(restaurantItem as unknown as Node);
-  });
-};
-
-const handleFilterChange = (category: string, sortBy: string) => {
-  const filteredRestaurants = getFilteredRestaurants(category, sortBy);
-  renderRestaurantList(filteredRestaurants);
-};
 
 const initializeFilters = () => {
   if (!DOM.APP) return;
@@ -38,11 +15,11 @@ const initializeFilters = () => {
   const filterContainer = new RestaurantFilterContainer(
     (category) => {
       const sortingFilter = filterContainer.getSortingValue();
-      handleFilterChange(category, sortingFilter);
+      restaurantListRenderer.handleFilterChange(category, sortingFilter);
     },
     (sortBy) => {
       const categoryFilter = filterContainer.getCategoryValue();
-      handleFilterChange(categoryFilter, sortBy);
+      restaurantListRenderer.handleFilterChange(categoryFilter, sortBy);
     },
   );
 
@@ -55,7 +32,7 @@ const initializeFilters = () => {
     }
   }
 
-  handleFilterChange('전체', 'name');
+  restaurantListRenderer.handleFilterChange('전체', 'name');
 };
 
 const initializeApp = () => {
