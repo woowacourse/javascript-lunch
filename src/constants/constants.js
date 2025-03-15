@@ -16,5 +16,10 @@ export const SELECT_OPTIONS = {
   ],
 };
 
+export const DROPDOWN_OPTIONS = {
+  CATEGORTY: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
+  SORT: ["이름순", "거리순"],
+};
+
 export const NAME_MAX_LENGTH = 20;
 export const DESCRIPTION_MAX_LENGTH = 200;

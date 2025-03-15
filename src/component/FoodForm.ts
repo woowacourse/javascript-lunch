@@ -104,6 +104,7 @@ export default class FoodForm {
       }
     };
   }
+
   getFormInputs() {
     const formData = new FormData(this.container);
     const formObject = Object.fromEntries(formData.entries());
@@ -114,6 +115,7 @@ export default class FoodForm {
       isFavorite: false,
     } as FoodItemType;
   }
+
   validateFoodForm(formData: FoodItemType) {
     validateRequiredInput(formData.category);
     validateRequiredInput(formData.name);
@@ -122,6 +124,7 @@ export default class FoodForm {
     validateLength(formData.description, DESCRIPTION_MAX_LENGTH);
     validateURL(formData.link);
   }
+
   get element() {
     return this.container;
   }
