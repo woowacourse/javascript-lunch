@@ -1,5 +1,3 @@
-import storage from "../../domain/storage.ts";
-import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";
 import Image from "../common/Image";
 

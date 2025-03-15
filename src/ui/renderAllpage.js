@@ -1,17 +1,7 @@
-import changeModalContents from "../changeModalContents";
-import Modal from "../components/common/Modal";
-import { registerModalClose } from "../components/common/Modal/registerModalClose";
-import Title from "../components/common/Title";
 import CategorySelector from "../components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "../components/FilterSelector/NameOrDistanceSelector";
-import RegisterForm from "../components/RegisterForm";
-import RestaurantCard from "../components/RestaurantCard";
-import RestaurantDetailButtonContainer from "../components/RestaurantDetailButtonContainer";
-import Restaurant from "../domain/Restaurant";
-import storage from "../domain/storage.ts";
 import renderAllRestaurant from "../renderAllRestaurant";
-import createRestaurantCards from "../service/createRestaurantCards";
-import createElement from "../utils/createElement/createElement";
+import renderFilteredRestaurants from "../renderFilteredRestaurant";
 import { $ } from "../utils/dom";
 
 const renderAllpage = (restaurantList) => {
@@ -22,7 +12,7 @@ const renderAllpage = (restaurantList) => {
   filterContainer.appendChild(CategorySelector(restaurantList));
   filterContainer.appendChild(NameOrDistanceSelector(restaurantList));
 
-  renderAllRestaurant(restaurantList);
+  renderFilteredRestaurants(restaurantList);
 };
 
 export default renderAllpage;

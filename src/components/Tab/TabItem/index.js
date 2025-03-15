@@ -1,5 +1,4 @@
 import createElement from "../../../utils/createElement/createElement";
-import setAttributes from "../../../utils/createElement/set/setAttributes";
 
 const TabItem = ({ text, selected, classNames, events }) => {
   return createElement({

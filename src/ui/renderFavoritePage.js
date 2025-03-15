@@ -1,6 +1,5 @@
 import storage from "../domain/storage.ts";
 import createRestaurantCards from "../service/createRestaurantCards";
-import createElement from "../utils/createElement/createElement";
 import { $ } from "../utils/dom";
 import renderRestaurants from "./renderRestaurant";
 

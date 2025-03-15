@@ -1,9 +1,6 @@
-import changeModalContents from "../../../changeModalContents";
 import storage from "../../../domain/storage.ts";
 import renderFilteredRestaurants from "../../../renderFilteredRestaurant";
-import createRestaurantCards from "../../../service/createRestaurantCards";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
-import { $ } from "../../../utils/dom";
 import Select from "../../common/Select";
 
 const NameOrDistanceSelector = (restaurantList) => {
