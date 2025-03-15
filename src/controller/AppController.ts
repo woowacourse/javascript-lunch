@@ -73,39 +73,45 @@ class AppController {
 
     container.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
-      const restaurantElement = target.closest('.restaurant'); // 가장 가까운 li 찾기
+      const restaurantElement = target.closest('.restaurant');
+      const restaurantFavoriteButton = target.closest('.restaurant__favorite-button');
 
-      if (!restaurantElement) return; // 클릭된 요소가 restaurant 아이템이 아니면 종료
+      if (!restaurantElement) return;
 
       const restaurantName = (restaurantElement as HTMLElement).dataset.id; // data-id 값 가져오기
       const selectedRestaurant = this.restaurants.items.find((restaurant) => restaurant.name === restaurantName);
 
       if (selectedRestaurant) {
-        const modalContent = createDOMElement({
-          tag: 'div',
-          class: 'modal-container',
-          children: [
-            RestaurantDetailInfo({ restaurant: selectedRestaurant }),
-            createDOMElement({
-              tag: 'div',
-              class: 'button-container',
-              children: [
-                ActionButton({
-                  text: '삭제하기',
-                  type: 'button',
-                  onclick: () => {
-                    this.restaurants.removeRestaurant(selectedRestaurant.name);
-                    this.modalController.close();
-                    this.removeRestaurantItem(selectedRestaurant.name);
-                  },
-                }),
-                CTAButton({ text: '닫기', type: 'submit', onclick: this.modalController.close }),
-              ],
-            }),
-          ],
-        });
-        this.modalController.switchContent(modalContent);
-        this.modalController.open();
+        if (restaurantFavoriteButton) {
+          this.restaurants.toggleFavoriteRestaurant(selectedRestaurant.name);
+          restaurantElement.replaceWith(RestaurantItem({ restaurant: selectedRestaurant }));
+        } else {
+          const modalContent = createDOMElement({
+            tag: 'div',
+            class: 'modal-container',
+            children: [
+              RestaurantDetailInfo({ restaurant: selectedRestaurant }),
+              createDOMElement({
+                tag: 'div',
+                class: 'button-container',
+                children: [
+                  ActionButton({
+                    text: '삭제하기',
+                    type: 'button',
+                    onclick: () => {
+                      this.restaurants.removeRestaurant(selectedRestaurant.name);
+                      this.modalController.close();
+                      this.removeRestaurantItem(selectedRestaurant.name);
+                    },
+                  }),
+                  CTAButton({ text: '닫기', type: 'submit', onclick: this.modalController.close }),
+                ],
+              }),
+            ],
+          });
+          this.modalController.switchContent(modalContent);
+          this.modalController.open();
+        }
       }
     });
   }
@@ -136,7 +142,7 @@ class AppController {
     const item = RestaurantItem({ restaurant });
 
     $('.restaurant-list')?.appendChild(item);
-    this.restaurants.addRestaurant(restaurant);
+    this.restaurants.addRestaurant({ ...restaurant, isFavorite: false });
   }
 
   removeRestaurantItem(restaurantName: string) {

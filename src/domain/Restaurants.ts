@@ -49,6 +49,15 @@ class Restaurants {
       return a.distance - b.distance;
     });
   }
+
+  toggleFavoriteRestaurant(restaurantName: string) {
+    const restaurant = this.#restaurants.find((restaurant) => restaurant.name === restaurantName);
+
+    if (restaurant) {
+      restaurant.isFavorite = !restaurant.isFavorite;
+      localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+    }
+  }
 }
 
 export default Restaurants;

@@ -123,6 +123,7 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
+  position: relative;
 
   padding: 16px 8px;
 
@@ -186,6 +187,16 @@ body {
 
 .restaurant__link {
   text-decoration: underline;
+}
+
+.restaurant__favorite-button {
+  position: absolute;
+  top: 14px;
+  right: 8px;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 /* 음식점 추가 모달 *****************************************/

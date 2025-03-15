@@ -1,5 +1,6 @@
 import { Restaurant } from '../../types/types';
 import createDOMElement from '../../util/createDomElement';
+import FavoriteButton from '../button/FavoriteButton';
 import RestaurantIcon from './RestaurantIcon';
 
 function RestaurantItem({ restaurant }: { restaurant: Restaurant }) {
@@ -34,6 +35,7 @@ function RestaurantItem({ restaurant }: { restaurant: Restaurant }) {
           }),
         ],
       }),
+      FavoriteButton({ isFavorite: restaurant.isFavorite }),
     ],
   });
 }
