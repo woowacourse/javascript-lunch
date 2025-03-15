@@ -115,4 +115,22 @@ describe("E2E Test Group", () => {
         cy.wrap($el).should("exist");
       });
   });
+
+  it("새로 만든 음식점을 선택해서 모달창에 정보가 되어있는지 확인하고 즐겨찾기 버튼을 눌러 '자주가는 음식점 목록'에 추가한다.", () => {
+    cy.get(".button-container button").eq(1).click();
+
+    cy.get(".restaurant").eq(0).click();
+    cy.get(".modal").should("exist");
+    cy.get(".modal").find(".gnb__button").click();
+    cy.get(".modal .button").eq(1).click();
+
+    cy.get(".tab-button .tab-button_favorite").click();
+
+    console.log("Aaa", cy.get(".restaurant"));
+    cy.get(".restaurant-list .restaurant")
+      .should("have.length", 1)
+      .each(($el) => {
+        cy.wrap($el).should("exist");
+      });
+  });
 });
