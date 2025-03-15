@@ -83,6 +83,7 @@ function readNewRestaurant(callback) {
       distance: document.querySelector('#distance').value.replace('분 내', ''),
       description: document.querySelector('#description').value,
       link: document.querySelector('#link').value,
+      favorite: false,
     };
 
     const id = storeService.getNewRestaurantId();
