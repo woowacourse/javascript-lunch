@@ -52,6 +52,21 @@ class RestaurantInfoModal extends Modal {
     }
   }
 
+  componentWillUnmount() {
+    this.updateFavoriteIconInList();
+  }
+
+  updateFavoriteIconInList = () => {
+    const { id, isFavorite } = this.props.data;
+    const $restaurantItem = $(document, `#${id}`);
+    if (!$restaurantItem) return;
+
+    const $img = $($restaurantItem, ".favorite-icon");
+    if ($img) {
+      $img.src = isFavorite ? filledStar : emptyStar;
+    }
+  };
+
   addEventListeners() {
     const $cancelButton = $(document, "#cancel-restaurant-info");
     $cancelButton.removeEventListener("click", this.closeModal);

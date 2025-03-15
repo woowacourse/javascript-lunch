@@ -29,6 +29,8 @@ class Modal extends Component {
     }
   }
 
+  componentWillUnmount() {}
+
   template() {
     if (!this.state.isOpen) return "";
     return /* html */ `
@@ -51,6 +53,7 @@ class Modal extends Component {
     window.removeEventListener("keydown", this.closeModalByEscapeKey);
 
     if (this.state.isOpen) {
+      this.componentWillUnmount();
       this.setState({ isOpen: false });
       this.$target.replaceChildren();
     }
