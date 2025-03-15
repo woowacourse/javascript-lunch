@@ -6,10 +6,10 @@ export const categories = [
   "양식",
   "기타",
 ] as const;
+export const distances = [5, 10, 15, 20, 25, 30] as const;
 
 export type Category = (typeof categories)[number];
 
-export const distances = [5, 10, 15, 20, 25, 30] as const;
 export type Distance = (typeof distances)[number];
 
 export type RestaurantItem = {
