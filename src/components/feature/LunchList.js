@@ -80,7 +80,7 @@ export default class LunchList extends Component {
 
     return `
       <section id="lunch-list-container" class="w-full flex flex-col justify-center items-center my-4">
-        <ul id="restaurant-list" class="w-full">
+        <ul id="restaurant-list" class="w-full max-h-620 overflow-y" style="flex-grow: 1; ">
           ${
             isEmpty
               ? `<div class="flex flex-col items-center justify-center gap-16 mt-32 py-8">
