@@ -8,20 +8,17 @@ it("정상적으로 음식점을 등록한다.", () => {
     const initialLength =
       doc.querySelectorAll(".restaurant-list li").length || 0;
 
-    cy.get(".gnb__button").click();
-    cy.get(".modal-container").should("be.visible");
-    cy.get("#category").select("한식");
-    cy.get("#name").type("더휴");
-    cy.get("#distance").select("5분 내");
-    cy.get("#description").type("이집맛집임");
-    cy.get("#link").type("https://www.naver.com");
-
-    cy.get(".button--add").click();
-    cy.get(".modal-container").should("not.exist");
+    cy.addRestaurant(
+      "한식",
+      "서울 한정식",
+      "5분 내",
+      "정갈한 한식",
+      "https://koreanfood.com"
+    );
 
     cy.get(".restaurant-list li").should("have.length", initialLength + 1);
 
-    cy.get(".restaurant-list li").last().should("contain.text", "더휴");
+    cy.get(".restaurant-list li").last().should("contain.text", "서울 한정식");
   });
 });
 
