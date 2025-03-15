@@ -99,7 +99,7 @@ const AddLunchModalForm = {
 
   addRestaurant({ category, name, distance, description, link }) {
     data.restaurantList = RestaurantListUtils.add(data.restaurantList, {
-      id: data.restaurantList.length,
+      id: data.restaurantList[data.restaurantList.length - 1].id + 1,
       label: category,
       name,
       distance,
