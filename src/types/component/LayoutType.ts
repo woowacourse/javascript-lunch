@@ -10,8 +10,8 @@ export interface HeaderType {
 }
 
 export interface ModalSetContentType {
-  modalContent: HTMLElement;
   filter: Filter | null;
+  modalContent: HTMLElement;
 }
 
 export interface ModalCloseContentType {

@@ -43,7 +43,7 @@ export class Modal {
 
     if (filter) {
       const previousFoodList = readStorageFoodList();
-      const foodList = sortedFoodList(filter, previousFoodList);
+      const foodList = sortedFoodList({ filter, foodList: previousFoodList });
       convertStorageToLocal({ filter, foodList });
     }
   }

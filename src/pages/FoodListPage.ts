@@ -1,5 +1,8 @@
 import { Header } from "../component/layout/Header.js";
-import { Filter } from "../domain/Filter.js";
+import {
+  FoodListPageType,
+  LoadHeaderType,
+} from "../types/pages/FoodListPageType.js";
 
 const categoryFilter = [
   { value: "전체", text: "전체" },
@@ -17,46 +20,48 @@ const sortingFilter = [
 ];
 
 export class FoodListPage {
-  #body;
-  #main;
+  #body: HTMLElement | null;
+  #main: HTMLElement | null;
 
-  constructor(title, iconButton = null) {
-    this.loadHeader(title, iconButton);
+  constructor({ title, iconButton = null }: FoodListPageType) {
+    this.#body = null;
+    this.#main = null;
+    this.loadHeader({ title, iconButton });
     this.loadMain();
     this.loadTabButton();
     this.loadFilter();
     this.loadFoodList();
   }
 
-  loadHeader(title, iconButton) {
+  loadHeader({ title, iconButton }: LoadHeaderType) {
     this.#body = document.querySelector("body");
     if (iconButton) {
-      this.#body.appendChild(Header({ title, icon: iconButton }));
+      this.#body?.appendChild(Header({ title, icon: iconButton }));
     } else {
-      this.#body.appendChild(Header({ title }));
+      this.#body?.appendChild(Header({ title, icon: null }));
     }
   }
 
   loadMain() {
     this.#main = document.createElement("main");
-    this.#body.appendChild(this.#main);
+    this.#body?.appendChild(this.#main);
   }
 
   loadTabButton() {
     const container = document.createElement("div");
+    container.className = "tab-button";
     container.innerHTML = `
-      <div class="tab-button">
         <button class="tab-button_all"> 모든 음식점 </button>
         <button class="tab-button_favorite"> 자주 가는 음식점 </button>
-      </div>
     `;
-    this.#main.appendChild(container.firstElementChild);
+    this.#main?.appendChild(container);
   }
 
   loadFilter() {
-    const container = document.createElement("div");
+    const container = document.createElement("section");
+    container.className = "restaurant-filter-container";
     container.innerHTML = `
-          <section class="restaurant-filter-container">
+
           <select name="category" id="category-filter" class="restaurant-filter">
           ${categoryFilter.map(
             ({ value, text }) => `<option value=${value}>${text}</option>`
@@ -69,19 +74,17 @@ export class FoodListPage {
             ({ value, text }) => `<option value=${value}>${text}</option>`
           )}
           </select>
-        </section>
     `;
-    this.#main.appendChild(container.firstElementChild);
+    this.#main?.appendChild(container);
   }
 
   loadFoodList() {
     const container = document.createElement("div");
+    container.className = "restaurant-list-container";
     container.innerHTML = `
-    <section class="restaurant-list-container">
       <ul class="restaurant-list">
       </ul>
-    </section>
     `;
-    this.#main.appendChild(container.firstElementChild);
+    this.#main?.appendChild(container);
   }
 }

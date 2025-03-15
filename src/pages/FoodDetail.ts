@@ -7,17 +7,18 @@ import {
   readFoodList,
 } from "../domain/handler/FoodItemHandler";
 import { updateStorageFoodList } from "../domain/handler/FoodStorageHandler";
+import { HandleFavoriteButtonType } from "../types/domain/FoodItemHandlerType";
+import { CloseButtonType, FoodDetailType } from "../types/pages/FoodDetailType";
 
-export function FoodDetail(filter, foodDetailItem) {
-  const { imgSrc, imgAlt, name, distance, description, link, favorite } =
-    foodDetailItem;
+export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
   const container = document.createElement("div");
 
-  const foodDetailInfo = FoodItem(
-    foodDetailItem,
-    () => {},
-    (event, foodItem) => handleFavoriteButton(event, foodItem, filter, favorite)
-  );
+  const foodDetailInfo = FoodItem({
+    foodItem: foodDetailItem,
+    handleModal: () => {},
+    handleFavoriteButton: (event, foodItem) =>
+      handleFavoriteButton({ event, foodItem, filter }),
+  });
   foodDetailInfo.style.flexDirection = "column";
   foodDetailInfo.style.gap = "16px";
   container.appendChild(foodDetailInfo);
@@ -28,12 +29,13 @@ export function FoodDetail(filter, foodDetailItem) {
         Button({
           cssType: "secondary",
           innerText: "삭제하기",
-          onClick: () => deleteFoodItem(filter, foodDetailItem),
+          onClick: () =>
+            deleteFoodItem({ filter, newFoodItem: foodDetailItem }),
         }),
         Button({
           cssType: "primary",
           innerText: "닫기",
-          onClick: () => closeButton(filter),
+          onClick: () => closeButton({ filter }),
         }),
       ],
     })
@@ -42,20 +44,31 @@ export function FoodDetail(filter, foodDetailItem) {
   return container;
 }
 
-function closeButton(filter) {
+function closeButton({ filter }: CloseButtonType) {
   const favoriteState = document.querySelector(
     ".tab-button_favorite.selected-button"
   );
   if (favoriteState) {
-    readFoodList(filter, true);
-  } else readFoodList(filter);
+    readFoodList({ filter, favoriteFilter: true });
+  } else readFoodList({ filter, favoriteFilter: false });
 
   Modal.close({ filter: null });
 }
 
-function handleFavoriteButton(event, foodItem, filter) {
+function handleFavoriteButton({
+  event,
+  foodItem,
+  filter,
+}: HandleFavoriteButtonType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
-  updateStorageFoodList(foodItem);
-  Modal.setContent(FoodDetail(filter, foodItem));
+  updateStorageFoodList({ newFoodItem: foodItem });
+
+  Modal.setContent({
+    filter,
+    modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
+  });
+  // Modal.setContent({
+  //   modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
+  // });
 }

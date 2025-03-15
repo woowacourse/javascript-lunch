@@ -43,7 +43,7 @@ export function readFoodList({
 export function addFoodFormItem(filter: AddFoodItemType) {
   const foodItem = getFormFoodItem();
   if (!foodItem) return;
-  updateStorageFoodList(foodItem);
+  updateStorageFoodList({ newFoodItem: foodItem });
   Modal.close(filter);
 }
 
@@ -53,13 +53,16 @@ export function addFoodFormItem(filter: AddFoodItemType) {
 // }
 
 export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {
-  deleteStorageFoodList(newFoodItem);
+  deleteStorageFoodList({ newFoodItem });
   Modal.close({ filter });
 }
 
 export function sortedFoodList({ filter, foodList }: SortedFoodListType) {
-  filter?.reset();
-  return foodList.sort((a, b) => filter?.sortBy(a, b));
+  if (filter) {
+    filter.reset();
+    return foodList.sort((a, b) => filter.sortBy({ a, b }));
+  }
+  return foodList;
 }
 
 // 화면에 출력하기
@@ -80,7 +83,10 @@ export function convertStorageToLocal({
 }
 
 function openDetailModal({ filter, foodItem }: OpenDetailModalType) {
-  Modal.setContent(FoodDetail(filter, foodItem));
+  Modal.setContent({
+    filter,
+    modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
+  });
   Modal.open();
 }
 
@@ -95,7 +101,7 @@ function handleFavoriteButton({
 
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
-  updateStorageFoodList(foodItem);
+  updateStorageFoodList({ newFoodItem: foodItem });
 
   if (favoriteState) {
     readFoodList({ filter, favoriteFilter: true });

@@ -1,6 +1,6 @@
 import { FoodType } from "../component/FoodItemType";
 
-export interface SortBy {
+export interface SortByType {
   a: FoodType;
   b: FoodType;
 }

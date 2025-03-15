@@ -1,5 +1,4 @@
 import { CAPTION_MESSAGE } from "../constants/Message.js";
-import { getFormFoodItem } from "../domain/handler/FoodFormHandler.js";
 import { addFoodFormItem } from "../domain/handler/FoodItemHandler.js";
 import { Button } from "../component/button/Button.js";
 import { ButtonContainer } from "../component/button/ButtonContainer.js";
@@ -7,6 +6,7 @@ import { Input } from "../component/input/Input.js";
 import { SelectInput } from "../component/input/SelectInput.js";
 import { TextareaInput } from "../component/input/TextareaInput.js";
 import { Modal } from "../component/layout/Modal.js";
+import { FoodFormType } from "../types/pages/FoodFormType.js";
 
 const SELECT_OPTIONS = {
   category: [
@@ -28,7 +28,7 @@ const SELECT_OPTIONS = {
   ],
 };
 
-export function FoodForm(filter) {
+export function FoodForm({ filter }: FoodFormType) {
   const container = document.createElement("form");
 
   container.appendChild(
@@ -45,6 +45,7 @@ export function FoodForm(filter) {
       isRequired: true,
       name: "name",
       label: "이름",
+      caption: "",
     })
   );
 
@@ -86,7 +87,7 @@ export function FoodForm(filter) {
         Button({
           cssType: "primary",
           innerText: "추가하기",
-          onClick: () => addFoodFormItem(filter),
+          onClick: () => addFoodFormItem({ filter }),
         }),
       ],
     })
