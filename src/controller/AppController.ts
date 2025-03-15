@@ -2,10 +2,11 @@ import FavoriteButton from '../components/button/FavoriteButton';
 import PlusButton from '../components/button/PlusButton';
 import Header from '../components/Header';
 import Restaurants from '../domain/Restaurants';
-import { Restaurant } from '../types/types';
+import { FilterType, Restaurant } from '../types/types';
 import { $ } from '../util/selector';
 import RestaurantFilterView from '../view/RestaurantFilterView';
 import RestaurantListView from '../view/RestaurantListView';
+import FilterController from './FilterController';
 import ModalController from './modalController';
 import TabController from './TabController';
 
@@ -13,10 +14,14 @@ class AppController {
   modalController;
   restaurants;
   tabController;
+  filterController;
 
   constructor() {
     this.tabController = new TabController((tabType) => {
       this.#onTabChange(tabType);
+    });
+    this.filterController = new FilterController((type, value) => {
+      this.#onFilterChange(type, value);
     });
     this.modalController = new ModalController();
     this.restaurants = new Restaurants();
@@ -25,7 +30,7 @@ class AppController {
   init() {
     this.renderHeader();
     this.tabController.render();
-    this.renderFilterContainer();
+    this.filterController.render();
     this.renderRestaurantListContainer();
     this.modalController.renderModal();
   }
@@ -44,26 +49,11 @@ class AppController {
 
   #onTabChange(tabType: 'all' | 'favorite') {
     if (tabType === 'all') {
-      this.renderFilterContainer();
+      this.filterController.render();
     } else if (tabType === 'favorite') {
       RestaurantFilterView.remove();
     }
     this.updateRestaurantListByTab(tabType);
-  }
-
-  renderFilterContainer() {
-    RestaurantFilterView.render();
-
-    $<HTMLSelectElement>('#category-filter')?.addEventListener('change', (event) => {
-      const sortFilterValue = $<HTMLSelectElement>('#sort-filter')?.value;
-
-      this.updateRestaurantListByFilter((event.target as HTMLSelectElement)?.value, sortFilterValue);
-    });
-    $<HTMLSelectElement>('#sorting-filter')?.addEventListener('change', (event) => {
-      const categoryFilterValue = $<HTMLSelectElement>('#category-filter')?.value;
-
-      this.updateRestaurantListByFilter(categoryFilterValue, (event.target as HTMLSelectElement)?.value);
-    });
   }
 
   renderRestaurantListContainer() {
@@ -92,11 +82,8 @@ class AppController {
     });
   }
 
-  updateRestaurantListByFilter(categoryFilterValue?: string, sortFilterValue?: string) {
-    const filteredRestaurants = this.restaurants.getRestaurantByFilter(
-      categoryFilterValue ?? 'all',
-      sortFilterValue ?? 'latest',
-    );
+  #onFilterChange(type: FilterType, value: string) {
+    const filteredRestaurants = this.restaurants.getRestaurantByFilter(type, value);
 
     RestaurantListView.updateList(filteredRestaurants);
   }

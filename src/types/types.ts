@@ -18,3 +18,5 @@ export type Restaurant = {
 };
 
 export type TabType = 'all' | 'favorite';
+
+export type FilterType = 'category' | 'sort';

@@ -1,11 +1,13 @@
-import { Restaurant } from '../types/types';
+import { FilterType, Restaurant } from '../types/types';
 
 class Restaurants {
   #restaurants: Restaurant[];
+  #filter: { category: string; sort: string };
 
   constructor() {
     const localRestaurants = localStorage.getItem('restaurants');
     this.#restaurants = localRestaurants ? (JSON.parse(localRestaurants) as Restaurant[]) : [];
+    this.#filter = { category: 'all', sort: 'latest' };
   }
 
   get items(): Restaurant[] {
@@ -23,30 +25,33 @@ class Restaurants {
     localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
   }
 
-  getRestaurantByFilter(category: string, sortOption: string) {
-    const filteredRestaurants = this.filterByCategory(category);
-    return this.sortByOption(filteredRestaurants, sortOption);
+  getRestaurantByFilter(type: FilterType, value: string) {
+    this.#filter[type] = value;
+    console.log(this.#filter);
+
+    const filteredRestaurants = this.filterByCategory();
+    return this.sortByOption(filteredRestaurants);
   }
 
   getFavoriteRestaurants() {
     return this.#restaurants.filter((restaurant) => restaurant.isFavorite);
   }
 
-  filterByCategory(category: string) {
-    if (category === 'all') {
+  filterByCategory() {
+    if (this.#filter.category === 'all') {
       return [...this.#restaurants];
     }
 
-    return this.#restaurants.filter((restaurant) => category === restaurant.category);
+    return this.#restaurants.filter((restaurant) => this.#filter.category === restaurant.category);
   }
 
-  sortByOption(restaurants: Restaurant[], option: string) {
-    if (option === 'latest') {
+  sortByOption(restaurants: Restaurant[]) {
+    if (this.#filter.sort === 'latest') {
       return [...restaurants];
     }
 
     return [...restaurants].sort((a: Restaurant, b: Restaurant) => {
-      if (option === 'name') {
+      if (this.#filter.sort === 'name') {
         return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
       }
 
