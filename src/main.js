@@ -1,34 +1,21 @@
-import {
-  Icon,
-  Text,
-  Header,
-  Layout,
-  BottomSheet,
-} from "./components/common/index.js";
-import { LunchList, LunchItem, LunchForm } from "./components/feature/index.js";
+import { Header, Layout, BottomSheet } from "./components/common/index.js";
+import Tab from "./components/common/Tab.js";
+import Restaurant from "./domain/Restaurant.js";
 
 addEventListener("load", () => {
   const layout = new Layout();
   const bottomSheet = new BottomSheet();
 
-  const header = layout.addChild(Header);
-  const lunchList = layout.addChild(LunchList);
-
-  header.setProps({
+  const header = layout.addChild(Header, {
     title: "점심 뭐먹지",
     iconName: "add-button",
-    onIconClick: () => bottomSheet.open(),
+    onIconClick: () => bottomSheet.openForm(),
   });
-
-  bottomSheet.setProps({
-    onAdd: (data) => {
-      const newLunchItem = new LunchItem();
-      newLunchItem.setProps(data);
-      lunchList.addLunchItem(newLunchItem);
-    },
+  const tab = layout.addChild(Tab, {
+    tabs: ["모든 음식점", "자주 가는 음식점"],
+    activeIndex: 0,
+    onItemClick: (item) => bottomSheet.openDetail(item),
   });
-
-  bottomSheet.addChild(LunchForm);
 
   layout.render();
 });
