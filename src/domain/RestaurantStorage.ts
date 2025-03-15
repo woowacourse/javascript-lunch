@@ -1,17 +1,19 @@
 import { Restaurant } from "../shared/types";
 
+const STORAGE_KEY = "restaurants";
+
 export function AddNewRestaurant({ restaurant }: { restaurant: Restaurant }) {
   if (!GetAllRestaurants()) {
-    localStorage.setItem("restaurants", JSON.stringify([restaurant]));
+    localStorage.setItem(`${STORAGE_KEY}`, JSON.stringify([restaurant]));
     return;
   }
   const restaurants = GetAllRestaurants();
   restaurants.push(restaurant);
-  localStorage.setItem("restaurants", JSON.stringify(restaurants));
+  localStorage.setItem(`${STORAGE_KEY}`, JSON.stringify(restaurants));
 }
 
 export function GetAllRestaurants() {
-  const data = localStorage.getItem("restaurants") || "[]";
+  const data = localStorage.getItem(`${STORAGE_KEY}`) || "[]";
   return JSON.parse(data) as Restaurant[];
 }
 
@@ -25,7 +27,7 @@ export function SaveFavoriteRestaurantInStorage(
     }
   });
 
-  localStorage.setItem("restaurants", JSON.stringify(allRestaurants));
+  localStorage.setItem(`${STORAGE_KEY}`, JSON.stringify(allRestaurants));
 }
 
 export function DeleteFavoriteRestaurantInStorage(restaurantName: string) {
@@ -36,7 +38,7 @@ export function DeleteFavoriteRestaurantInStorage(restaurantName: string) {
     }
   });
 
-  localStorage.setItem("restaurants", JSON.stringify(allRestaurants));
+  localStorage.setItem(`${STORAGE_KEY}`, JSON.stringify(allRestaurants));
 }
 
 export function DeleteRestaurant(restaurantName: string | null) {
@@ -46,5 +48,5 @@ export function DeleteRestaurant(restaurantName: string | null) {
     (restaurant: Restaurant) => restaurant.nameValue !== restaurantName
   );
 
-  localStorage.setItem("restaurants", JSON.stringify(filteredRestaurants));
+  localStorage.setItem(`${STORAGE_KEY}`, JSON.stringify(filteredRestaurants));
 }
