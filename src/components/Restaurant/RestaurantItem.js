@@ -6,10 +6,13 @@ import Star from './star.js';
 class RestaurantItem {
   #restaurant;
   #onRestaurantUpdate;
+  #restaurantModal;
 
-  constructor(restaurant, onRestaurantUpdate) {
+  constructor(restaurant, onRestaurantUpdate, restaurantModal) {
     this.#onRestaurantUpdate = onRestaurantUpdate;
-    this.#restaurant = this.#createRestaurantItem(restaurant);
+    this.#restaurantModal = restaurantModal;
+    this.#createRestaurantItem(restaurant);
+    this.#bindEvent();
   }
 
   #createRestaurantItem = (restaurant) => {
@@ -24,7 +27,20 @@ class RestaurantItem {
     li.appendChild(info);
     li.appendChild(star);
 
-    return li;
+    this.#restaurant = li;
+  };
+
+  #bindEvent = () => {
+    this.#restaurant.addEventListener('click', (event) => {
+      if (event.target.closest('.star-icon')) {
+        return;
+      }
+
+      const clonedElement = this.#restaurant.cloneNode(true);
+      clonedElement.id = 'restaurant-in-modal';
+      this.#restaurantModal.addRestaurant(clonedElement);
+      this.#restaurantModal.openModal();
+    });
   };
 
   getElement() {

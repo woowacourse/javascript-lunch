@@ -38,17 +38,23 @@ const restaurantDatas = [
 class RestaurantList {
   #restaurantListContainer;
   #onRestaurantUpdate;
+  #restaurantModal;
 
-  constructor(restaurantListContainer, onRestaurantUpdate) {
+  constructor(restaurantListContainer, onRestaurantUpdate, restaurantModal) {
     this.#restaurantListContainer = restaurantListContainer;
     this.#onRestaurantUpdate = onRestaurantUpdate;
+    this.#restaurantModal = restaurantModal;
     this.#createRestaurantList(this.sortRestaurantList('', 'name', '모든 음식점'));
   }
 
   #createRestaurantList(restaurantList) {
     this.#restaurantListContainer.innerHTML = '';
     restaurantList.forEach((restaurant) => {
-      const restaurantItem = new RestaurantItem(restaurant, this.#onRestaurantUpdate).getElement();
+      const restaurantItem = new RestaurantItem(
+        restaurant,
+        this.#onRestaurantUpdate,
+        this.#restaurantModal,
+      ).getElement();
       this.#restaurantListContainer.appendChild(restaurantItem);
     });
   }

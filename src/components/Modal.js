@@ -7,7 +7,7 @@ class Modal {
 
   constructor(appContainer) {
     this.#appContainer = appContainer;
-    this.#modal = this.createModal();
+    this.createModal();
   }
 
   createModal() {
@@ -15,12 +15,16 @@ class Modal {
     divModal.classList.add('modal');
     divModal.innerHTML = MODAL_TEMPLATE;
     this.#appContainer.appendChild(divModal);
-    return divModal;
+    this.#modal = divModal;
   }
 
   addElement(element) {
     const divElement = this.#modal.querySelector('.modal-container');
     divElement.appendChild(element);
+  }
+
+  getModalContainer() {
+    return this.#modal.querySelector('.modal-container');
   }
 
   openModal() {

@@ -5,6 +5,8 @@ import DISTANCE from './constant/distance.js';
 import CATEGORY from './constant/category.js';
 import InputDropDown from './components/InputDropDown.js';
 import LikeHeader from './components/LikeHeader.js';
+import Modal from './components/Modal.js';
+import DetailModal from './modal/DetailModal.js';
 
 const SORT_BY = Object.freeze({
   name: '이름 순',
@@ -114,9 +116,14 @@ class App {
 
   #initAppUI() {
     this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.restaurantListContainer);
+    this.restaurantModal = new DetailModal(this.appContainer);
     new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
     this.#likeHeader = new LikeHeader(this.likeHeaderContainer, '모든 음식점', '자주 가는 음식점');
-    this.#restaurantList = new RestaurantList(this.restaurantListContainer, this.#handleRestaurantUpdate.bind(this));
+    this.#restaurantList = new RestaurantList(
+      this.restaurantListContainer,
+      this.#handleRestaurantUpdate.bind(this),
+      this.restaurantModal,
+    );
   }
 }
 
