@@ -1,4 +1,3 @@
-import { CATEGORY_KEY } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 import RestaurantValidator from '../validators/RestaurantValidator.js';
 import Modal from './common/Modal.js';
@@ -19,7 +18,7 @@ class RestaurantEnrollModal {
       link: null,
     };
 
-    this.#enrollModal = new Modal();
+    this.#enrollModal = new Modal(this.handleClose);
     this.initModalContent();
     this.#onAdd = onAdd;
   }
@@ -46,6 +45,7 @@ class RestaurantEnrollModal {
     const isValidate = RestaurantValidator.validate(this.#restaurantInput);
     if (!isValidate) return;
 
+    this.#restaurantInput.id = Date.now();
     this.#onAdd(this.#restaurantInput);
   }
 
@@ -59,10 +59,6 @@ class RestaurantEnrollModal {
     document.querySelector('select#distance').value = '';
     document.querySelector('textarea#description').value = '';
     document.querySelector('input#link').value = '';
-
-    Object.keys(this.#restaurantInput).forEach((key) => {
-      this.#restaurantInput[key] = null;
-    });
   }
 
   get modal() {
