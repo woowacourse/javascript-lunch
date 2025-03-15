@@ -1,6 +1,6 @@
 type CreateDOMElementProps = {
   tag: string;
-  children?: (HTMLElement | undefined)[];
+  children?: (HTMLElement | undefined)[] | HTMLElement;
   [key: string]: any;
 };
 
@@ -30,9 +30,13 @@ const createDOMElement = ({ tag, children, ...props }: CreateDOMElementProps): H
   });
 
   if (children) {
-    children.forEach((child) => {
-      if (child) element.appendChild(child);
-    });
+    if (Array.isArray(children)) {
+      children.forEach((child) => {
+        if (child) element.appendChild(child);
+      });
+    } else {
+      element.appendChild(children);
+    }
   }
 
   return element;

@@ -6,7 +6,7 @@ function RestaurantListContainer({ restaurants }: { restaurants: Restaurant[] })
   return createDOMElement({
     tag: 'section',
     class: 'restaurant-list-container',
-    children: [RestaurantList({ restaurants })],
+    children: RestaurantList({ restaurants }),
   });
 }
 
