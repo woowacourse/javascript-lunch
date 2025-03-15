@@ -41,9 +41,13 @@ export default function Restaurant({isReRender}) {
 
   const $restaurants = document.querySelectorAll(".restaurant");
   $restaurants.forEach(($restaurant) => {
+    RestaurantClickHandler($restaurant);
+  });
+
+  function RestaurantClickHandler($restaurant) {
     $restaurant.addEventListener("click", (event) => {
       const restaurantId = event.target.closest(".restaurant").id;
       Modal({component: () => RestaurantItemDetailModal({restaurantId, isColumn: true})});
     });
-  });
+  }
 }
