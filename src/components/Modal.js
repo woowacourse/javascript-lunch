@@ -2,13 +2,16 @@ import Button from "./Button.js";
 import Component from "../core/Component.js";
 import InputBox from "./InputBox.js";
 import { FOOD_CATEGORY } from "../constants/constants.js";
-import CatagorySelect from "./CatagorySelect.js";
+import Select from "./Select.js";
 
 class Modal extends Component {
   template() {
     const inputBoxList = [
       new InputBox({
-        input: new CatagorySelect().template(),
+        input: new Select({
+          name: "category",
+          optionList: ["한식", "중식", "일식", "양식", "아시안", "기타"],
+        }).template(),
         section: "category",
         label: "카테고리",
         isRequired: true,
@@ -20,15 +23,10 @@ class Modal extends Component {
         isRequired: true,
       }),
       new InputBox({
-        input: `
-        <select name="distance" id="distance" required>
-          <option value="">선택해 주세요</option>
-          <option value="5">5분 내</option>
-          <option value="10">10분 내</option>
-          <option value="15">15분 내</option>
-          <option value="20">20분 내</option>
-          <option value="30">30분 내</option>
-        </select>`,
+        input: new Select({
+          name: "distance",
+          optionList: ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"],
+        }).template(),
         section: "distance",
         label: "거리(도보 이동 시간)",
         isRequired: true,
