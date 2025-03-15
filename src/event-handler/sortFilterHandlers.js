@@ -1,6 +1,17 @@
 import createRestaurantItem from "../components/restaurant/item/item";
 import Toast from "../components/Toast/Toast";
 import { DICTIONARY } from "../settings/settings";
+
+export function handleSort(sortFor, restaurantList, restaurantListElement) {
+  const restaurantItems = Array.from(restaurantListElement.children);
+
+  localStorage.setItem("sort", sortFor);
+
+  const sortedItems = sortList(restaurantItems, sortFor);
+
+  sortedItems.forEach((item) => restaurantListElement.appendChild(item));
+  Toast.showToast(`${DICTIONARY[sortFor]}순으로 식당을 정렬합니다.`, "info");
+}
 function sortList(list, sortOption) {
   return list.sort((a, b) => {
     const nameA = a.name || a.dataset.name;
@@ -16,31 +27,42 @@ function sortList(list, sortOption) {
   });
 }
 
-export function handleSort(sortFor, restaurantList, restaurantListElement) {
-  const restaurantItems = Array.from(restaurantListElement.children);
-
-  localStorage.setItem("sort", sortFor);
-
-  const sortedItems = sortList(restaurantItems, sortFor);
-
-  sortedItems.forEach((item) => restaurantListElement.appendChild(item));
-  Toast.showToast(`${DICTIONARY[sortFor]}순으로 식당을 정렬합니다.`, "info");
-}
-
 export function handleCombinedFilter(
   event,
   restaurantListElement,
   restaurantList
 ) {
+  clearRestaurantList(restaurantListElement);
+
+  const { categoryFilter, favoriteFilter } = getFilterValues();
+  let filteredList = applyFilters(
+    restaurantList.List,
+    categoryFilter,
+    favoriteFilter
+  );
+  const sortedList = applySorting(filteredList);
+
+  updateRestaurantListUI(restaurantListElement, sortedList);
+  showFilterToast(event.target.value);
+}
+
+function clearRestaurantList(restaurantListElement) {
   while (restaurantListElement.firstChild) {
     restaurantListElement.removeChild(restaurantListElement.firstChild);
   }
-  const categoryFilter = document.getElementById("category-filter").value;
-  const favoriteFilter = document.querySelector(
-    'input[name="favoriteFilter"]:checked'
-  ).value;
+}
 
-  let filteredList = restaurantList.List;
+function getFilterValues() {
+  return {
+    categoryFilter: document.getElementById("category-filter").value,
+    favoriteFilter: document.querySelector(
+      'input[name="favoriteFilter"]:checked'
+    ).value,
+  };
+}
+
+function applyFilters(restaurantList, categoryFilter, favoriteFilter) {
+  let filteredList = restaurantList;
 
   if (favoriteFilter !== "all") {
     filteredList = filteredList.filter(({ isFavorite }) => isFavorite);
@@ -52,19 +74,24 @@ export function handleCombinedFilter(
     );
   }
 
-  const sortOption = localStorage.getItem("sort") || "name";
-  const sortedList = sortList(filteredList, sortOption);
+  return filteredList;
+}
 
+function applySorting(filteredList) {
+  const sortOption = localStorage.getItem("sort") || "name";
+  return sortList(filteredList, sortOption);
+}
+
+function updateRestaurantListUI(restaurantListElement, sortedList) {
   sortedList.forEach((restaurantItem) =>
     restaurantListElement.appendChild(createRestaurantItem(restaurantItem))
   );
+}
 
-  if (event.target.value === "all" || event.target.value === "전체") {
+function showFilterToast(filterValue) {
+  if (filterValue === "all" || filterValue === "전체") {
     Toast.showToast("모든 음식점을 보여줄께요.", "info");
   } else {
-    Toast.showToast(
-      `${DICTIONARY[event.target.value]}만 보여드릴께요.`,
-      "info"
-    );
+    Toast.showToast(`${DICTIONARY[filterValue]}만 보여드릴께요.`, "info");
   }
 }
