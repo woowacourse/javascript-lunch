@@ -16,6 +16,10 @@ export default class RestaurantList {
     this.onToggleFavorite = onToggleFavorite;
     this.onOpenDetail = onOpenDetail;
 
+    this.#initializeDOM();
+  }
+
+  #initializeDOM() {
     this.$listSection = document.createElement("section");
     this.$listSection.className = "restaurant-list-container";
     this.$list = document.createElement("ul");
