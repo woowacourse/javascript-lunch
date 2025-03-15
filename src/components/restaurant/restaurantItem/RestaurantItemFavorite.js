@@ -20,8 +20,8 @@ export default function RestaurantItemFavorite({ isFavorite, id }) {
 
     const dataById = restaurantDataList.getDataById(id);
     $favorite.src = dataById.isFavorite
-      ? "/public/fill-star.png"
-      : "/public/empty-star.png";
+      ? "./fill-star.png"
+      : "./empty-star.png";
   });
 
   return $favoriteWrap;
