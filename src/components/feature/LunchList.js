@@ -1,61 +1,93 @@
 import Component from "../../core/Component.js";
 import CircleIcon from "../common/CircleIcon.js";
+import Text from "../common/Text.js";
 import LunchItem from "./LunchItem.js";
 
 export default class LunchList extends Component {
-  initState() {
-    this.state = {
+  setDefaultProps() {
+    this.props = {
+      type: "ALL",
       items: [],
+      onItemClick: () => {},
     };
   }
 
+  initState() {
+    this.state = {
+      items: this.filterItemsByType(this.props.items, this.props.type),
+    };
+  }
+
+  filterItemsByType(items, type) {
+    if (!items) return [];
+    return type === "ALL" ? items : items.filter((item) => item.isFavorite);
+  }
+
   setProps(newProps) {
-    if (newProps.lunchList) {
+    super.setProps(newProps);
+    if (newProps.items) {
       this.setState({
-        items: newProps.lunchList,
+        items: this.filterItemsByType(
+          newProps.items,
+          newProps.type || this.props.type
+        ),
       });
     }
   }
 
-  addLunchItem(newItem) {
-    this.setState({
-      items: [...this.state.items, newItem],
+  renderLunchItem(item) {
+    const lunchItem = this.addChild(LunchItem, {
+      ...item,
+      onClick: () => this.props.onItemClick(item),
     });
-
-    const restaurantList = document.getElementById("restaurant-list");
-    if (restaurantList) {
-      restaurantList.innerHTML = this.renderItems();
-    }
+    return lunchItem;
   }
 
   renderItems() {
     return this.state.items
-      .map((item) => {
-        return item.template();
-      })
+      .map((item) => this.renderLunchItem(item).template())
       .join("");
   }
 
+  renderText() {
+    const text = this.addChild(Text, {
+      content:
+        this.props.type === "FAVORITES"
+          ? "즐겨찾기한 음식점이 없습니다."
+          : "아직 추가된 음식점이 없습니다.",
+      classList: ["text-lg", "text-slate-500"],
+    });
+    return text.template();
+  }
+
   renderCircleIcon() {
-    const icon = this.addChild(CircleIcon);
-    icon.setProps({
+    const icon = this.addChild(CircleIcon, {
       iconName: "category-korean",
     });
     return icon.template();
   }
 
   template() {
+    const { items } = this.state;
+    const isEmpty = !items || items.length === 0;
+
     return `
-      <section class="w-full flex flex-col justify-center items-center my-16 overflow-y">
-        <ul id="restaurant-list">
-          <div class="flex flex-col items-center justify-center gap-16 mt-32">
-            ${this.renderCircleIcon()}
-            <p class="text-xl">아직 추가된 음식점이 없습니다.</p>
-          </div>
+      <section id="lunch-list" class="lunch-list-container w-full flex flex-col justify-center items-center my-4">
+        <ul id="restaurant-list" class="w-full">
+          ${
+            isEmpty
+              ? `<div class="flex flex-col items-center justify-center gap-16 mt-32 py-8">
+                ${this.renderCircleIcon()}
+                ${this.renderText()}
+              </div>`
+              : this.renderItems()
+          }
         </ul>
       </section>
     `;
   }
 
-  render(props) {}
+  render(props, targetElement = "#lunch-list") {
+    if (props) this.setProps(props);
+  }
 }
