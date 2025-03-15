@@ -2,7 +2,6 @@ import type { HTMLType } from 'src/lib/types';
 import { html } from '../lib/utils.ts';
 
 export default abstract class Component<State = Record<string, any>, Props = Record<string, any>> {
-  #isRendered = false;
   state = {} as State;
 
   #props: Props | null;
@@ -10,16 +9,17 @@ export default abstract class Component<State = Record<string, any>, Props = Rec
 
   constructor(props?: Props) {
     this.#props = props ?? null;
+    this.setup();
+
+    this.render();
+    this.attachEventListener();
   }
+
+  setup() {}
 
   render() {
     this.#element.innerHTML = this.template();
     this.onRender();
-
-    if (!this.#isRendered) {
-      this.attachEventListener();
-      this.#isRendered = true;
-    }
 
     return this.#element;
   }

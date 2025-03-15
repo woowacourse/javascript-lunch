@@ -17,22 +17,22 @@ export default class Modal extends Component<ModalProps> {
   }
 
   override attachEventListener() {
-    this.#attachClickEventListener();
-    this.#attachKeyDownEventListener();
+    this._attachClickEventListener();
+    this._attachKeyDownEventListener();
   }
 
-  #attachClickEventListener() {
-    this.element?.querySelector('#modal-cancel')?.addEventListener('click', this.#removeModal.bind(this));
-    this.element?.querySelector('.modal-backdrop')?.addEventListener('click', this.#removeModal.bind(this));
+  private _attachClickEventListener() {
+    this.element?.querySelector('#modal-cancel')?.addEventListener('click', this.removeModal.bind(this));
+    this.element?.querySelector('.modal-backdrop')?.addEventListener('click', this.removeModal.bind(this));
   }
 
-  #attachKeyDownEventListener() {
+  private _attachKeyDownEventListener() {
     window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') this.#removeModal.bind(this)();
+      if (event.key === 'Escape') this.removeModal.bind(this)();
     });
   }
 
-  #removeModal() {
+  removeModal() {
     this.element?.querySelector(`#${this.props?.id}`)?.classList.remove('modal--open');
   }
 }

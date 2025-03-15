@@ -9,10 +9,10 @@ interface RestaurantDetailModalProps extends RestaurantType {}
 
 export default class RestaurantDetailModal extends Component<null, RestaurantDetailModalProps | null> {
   onRender(): void {
-    this.#appendRestaurantDetailModal();
+    this._appendRestaurantDetailModal();
   }
 
-  #appendRestaurantDetailModal() {
+  private _appendRestaurantDetailModal() {
     const currentRestaurant = this.props ?? null;
 
     const deleteButton = new Button({
@@ -66,7 +66,7 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
             </div>
           </div>
         `,
-      }).render(),
+      }).element,
     );
   }
 }

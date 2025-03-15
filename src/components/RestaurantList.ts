@@ -17,7 +17,9 @@ interface RestaurantListState {
 export default class RestaurantList extends Component<RestaurantListState> {
   constructor() {
     super();
+  }
 
+  override setup() {
     const localStorageRestaurants = LocalStorage.get('restaurants');
     const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : DEFAULT_RESTAURANT_LIST;
 
@@ -47,14 +49,14 @@ export default class RestaurantList extends Component<RestaurantListState> {
    */
 
   override onRender() {
-    this.#appendRestaurantTab();
-    this.#appendRestaurantFilterSelectSort();
-    this.#appendRestaurants();
-    this.#appendRestaurantAddModal();
-    this.#appendRestaurantDetailModal();
+    this._appendRestaurantTab();
+    this._appendRestaurantFilterSelectSort();
+    this._appendRestaurants();
+    this._appendRestaurantAddModal();
+    this._appendRestaurantDetailModal();
   }
 
-  #appendRestaurantTab() {
+  private _appendRestaurantTab() {
     this.appendChild(
       new RestaurantTab({
         setTab: (tab) =>
@@ -62,12 +64,12 @@ export default class RestaurantList extends Component<RestaurantListState> {
             tab,
           }),
         focusedTab: this.state.tab,
-      }).render(),
+      }).element,
       '.restaurant-tab',
     );
   }
 
-  #appendRestaurantFilterSelectSort() {
+  private _appendRestaurantFilterSelectSort() {
     this.appendChild(
       new Select({
         options: FILTERS,
@@ -76,7 +78,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
             filter: filter as FilterType,
           }),
         selected: this.state.filter,
-      }).render(),
+      }).element,
       '.restaurant-filter-sort',
     );
     this.appendChild(
@@ -87,20 +89,20 @@ export default class RestaurantList extends Component<RestaurantListState> {
             sort: sort as SortType,
           }),
         selected: this.state.sort,
-      }).render(),
+      }).element,
       '.restaurant-filter-sort',
     );
   }
 
-  #appendRestaurants() {
-    const filteredRestaurants = this.#getFilteredRestaurants();
+  private _appendRestaurants() {
+    const filteredRestaurants = this._getFilteredRestaurants();
 
     filteredRestaurants.forEach((restaurant) => {
-      this.appendChild(new RestaurantItem(restaurant).render(), '.restaurant-list');
+      this.appendChild(new RestaurantItem(restaurant).element, '.restaurant-list');
     });
   }
 
-  #getFilteredRestaurants() {
+  private _getFilteredRestaurants() {
     return [...this.state.restaurants]
       .filter((restaurant) => this.state.tab === 'all' || restaurant.isLike)
       .filter((restaurant) => this.state.filter === '전체' || restaurant.category === this.state.filter)
@@ -109,19 +111,19 @@ export default class RestaurantList extends Component<RestaurantListState> {
       );
   }
 
-  #appendRestaurantAddModal() {
+  private _appendRestaurantAddModal() {
     const restaurantAddModal = new RestaurantAddModal({
-      addRestaurant: this.#addRestaurant.bind(this),
+      addRestaurant: this._addRestaurant.bind(this),
     });
-    this.appendChild(restaurantAddModal.render(), '.restaurant-add-modal');
+    this.appendChild(restaurantAddModal.element, '.restaurant-add-modal');
   }
 
-  #appendRestaurantDetailModal() {
+  private _appendRestaurantDetailModal() {
     const restaurantDetailModal = new RestaurantDetailModal(this.state.currentRestaurant);
-    this.appendChild(restaurantDetailModal.render(), '.restaurant-detail-modal');
+    this.appendChild(restaurantDetailModal.element, '.restaurant-detail-modal');
   }
 
-  #addRestaurant(restaurant: RestaurantType) {
+  private _addRestaurant(restaurant: RestaurantType) {
     this.setState({
       restaurants: [...this.state.restaurants, restaurant],
     });
@@ -140,7 +142,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
       const target = event.target as HTMLElement;
 
       if (target.closest('#like__button') && target.dataset.id) {
-        this.#toggleLike(target.dataset.id);
+        this._toggleLike(target.dataset.id);
         return;
       }
 
@@ -155,20 +157,20 @@ export default class RestaurantList extends Component<RestaurantListState> {
       }
 
       if (target.closest('#delete-restaurant')) {
-        this.#deleteRestaurant(this.state.currentRestaurant?.id ?? '');
+        this._deleteRestaurant(this.state.currentRestaurant?.id ?? '');
         return;
       }
     });
   }
 
-  #deleteRestaurant(id: string) {
+  private _deleteRestaurant(id: string) {
     this.setState({
       restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
     });
     LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
   }
 
-  #toggleLike(restaurantId: string) {
+  private _toggleLike(restaurantId: string) {
     const copiedRestaurants = [...this.state.restaurants];
 
     const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.id === restaurantId);

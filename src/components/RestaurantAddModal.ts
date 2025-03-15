@@ -11,10 +11,10 @@ interface RestaurantAddModalProps {
 
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
   override onRender() {
-    this.#appendRestaurantAddModal();
+    this.appendRestaurantAddModal();
   }
 
-  #appendRestaurantAddModal() {
+  appendRestaurantAddModal() {
     const inputBoxList = [
       new InputBox({
         input: html` <select name="category" id="category" required>
@@ -81,7 +81,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       `,
     });
 
-    this.appendChild(modal.render());
+    this.appendChild(modal.element);
   }
 
   override attachEventListener() {
