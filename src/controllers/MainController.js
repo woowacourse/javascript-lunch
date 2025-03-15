@@ -1,3 +1,4 @@
+import DetailItem from "../components/DetailItem.js";
 import Modal from "../components/Modal.js";
 import EventHandler from "../utils/EventHandler.js";
 import CategoryFilterController from "./CategoryFilterController.js";
@@ -57,15 +58,9 @@ function MainController() {
     const restaurantName = restaurantElement.dataset.name;
     const restaurant = restaurantList.getRestaurantByName(restaurantName);
     const dummy = document.createElement("div");
-    dummy.innerHTML = `
-      <div class="restaurant__top">
-        <div>
-          <h3 class="restaurant__name text-subtitle">ewfewfwefwefwefew</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 </span>
-        </div>
-      </div>
-`;
-    const modalElement = Modal([dummy]);
+    const detailItemElement = DetailItem(restaurant.information);
+
+    const modalElement = Modal([detailItemElement]);
     mainElement.appendChild(modalElement);
 
     const modalBackdropElement = modalElement.querySelector(".modal-backdrop");
