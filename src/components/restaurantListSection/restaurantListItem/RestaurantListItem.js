@@ -39,10 +39,6 @@ export default class RestaurantListItem {
     $description.className = "restaurant__description text-body";
     $description.textContent = description;
 
-    const $titleAndBookmark = document.createElement("div");
-    $titleAndBookmark.className = "restaurant__title__section";
-    const $titleWrap = document.createElement("div");
-
     const $bookmarkButton = document.createElement("button");
     $bookmarkButton.className = "restaurant__bookmark";
 
@@ -56,16 +52,13 @@ export default class RestaurantListItem {
     $item.appendChild($info);
 
     $category.appendChild($categoryImg);
-    $info.appendChild($titleAndBookmark);
+
+    $info.appendChild($name);
+    $info.appendChild($distance);
     $info.appendChild($description);
 
-    $titleAndBookmark.appendChild($titleWrap);
-    $titleAndBookmark.appendChild($bookmarkButton);
-
-    $titleWrap.appendChild($name);
-    $titleWrap.appendChild($distance);
-    $titleWrap.appendChild($distance);
     $bookmarkButton.appendChild($bookmarkIcon);
+    $item.appendChild($bookmarkButton);
 
     $bookmarkButton.addEventListener("click", () => {
       const src = $bookmarkIcon.getAttribute("src");
