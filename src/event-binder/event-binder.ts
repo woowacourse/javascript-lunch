@@ -1,7 +1,5 @@
-import {
-  handleFormModalToggle,
-  handleDescriptionModalToggle,
-} from "../event-handler/modalHandler.ts";
+import handleFormModalToggle from "../event-handler/modal/handleFormModalToggle.js";
+import handleDescriptionModalToggle from "../event-handler/modal/handleDescriptionModalToggle.js";
 import {
   handleAddRestaurantFormSubmit,
   handleDeleteRestaurant,
