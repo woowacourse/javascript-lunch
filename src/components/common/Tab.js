@@ -44,27 +44,11 @@ export default class Tab extends Component {
     return favoritesList.template();
   }
 
-  setEvent() {
-    this.addTabClickEvent();
-    this.addItemAddedEvent();
-    this.addFavoriteToggledEvent();
-  }
-
-  addTabClickEvent() {
-    document.addEventListener("click", (e) => {
-      const tabButton = e.target.closest("#tab-button");
-      if (tabButton && tabButton.closest(`#tab-container`)) {
-        this.setState({ activeIndex: parseInt(tabButton.dataset.index) });
-      }
-    });
-  }
-
-  addItemAddedEvent() {
-    document.addEventListener("itemAdded", () => this.updateItems());
-  }
-
-  addFavoriteToggledEvent() {
-    document.addEventListener("favoriteToggled", () => this.updateItems());
+  getTabButtonClass(index) {
+    const { activeIndex } = this.state;
+    return activeIndex === index
+      ? "primary-500 border-b-primary"
+      : "slate-400 border-b-slate";
   }
 
   renderTabs() {
@@ -75,6 +59,10 @@ export default class Tab extends Component {
 
   renderTabButton(tab, index) {
     const { activeIndex } = this.state;
+    const buttonClass =
+      activeIndex === index
+        ? "primary-500 border-b-primary"
+        : "slate-400 border-b-slate";
     return `
       <button
         id="tab-button"
@@ -90,11 +78,24 @@ export default class Tab extends Component {
     `;
   }
 
-  getTabButtonClass(index) {
-    const { activeIndex } = this.state;
-    return activeIndex === index
-      ? "primary-500 border-b-primary"
-      : "slate-400 border-b-slate";
+  handleTabClickEvent() {
+    document.removeEventListener("click", this.handleClickTab);
+    this.handleClickTab = (e) => {
+      const tabButton = e.target.closest("#tab-button");
+      if (tabButton && tabButton.closest(`#tab-container`)) {
+        this.setState({ activeIndex: parseInt(tabButton.dataset.index) });
+      }
+    };
+    document.addEventListener("click", this.handleClickTab);
+  }
+
+  handleItemChangeEvent() {
+    document.addEventListener("itemChange", () => this.updateItems());
+  }
+
+  setEvent() {
+    this.handleTabClickEvent();
+    this.handleItemChangeEvent();
   }
 
   template() {
