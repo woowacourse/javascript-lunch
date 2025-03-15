@@ -1,5 +1,7 @@
 import Modal from "../Modal.js";
 import { $ } from "../../../utils/selector.js";
+import filledStar from "../../../../public/icons/filledStar.svg";
+import emptyStar from "../../../../public/icons/emptyStar.svg";
 
 const CATEGORY_IMAGES = Object.freeze({
   한식: "category-korean.png",
@@ -16,10 +18,14 @@ const imageSource = (category) => {
 
 class RestaurantInfoModal extends Modal {
   contents() {
-    const { category, name, distance, description, link } = this.state.data;
+    const { category, name, distance, description, link, isFavorite, id } =
+      this.props.data;
 
     return /*html */ `
     <div id='restaurant-info-container' class="restaurant__info-container"> 
+      <button data-buttonId="${id}" type='button' class="favorite-icon-button">
+        <img src=${isFavorite ? filledStar : emptyStar} class="favorite-icon"/>
+      </button> 
       <div class="restaurant__category">
         <img src="./icons/${imageSource(
           category
@@ -59,7 +65,7 @@ class RestaurantInfoModal extends Modal {
   }
 
   deleteCurrentRestaurant = () => {
-    this.props.deleteRestaurant(this.state.data);
+    this.props.deleteRestaurant(this.props.data);
     this.close();
   };
 }
