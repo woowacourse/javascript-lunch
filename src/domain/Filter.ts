@@ -1,11 +1,8 @@
-import { FoodType } from "../types/component/FoodItemType";
 import {
   ChangeCategoryType,
-  ChangeSortingType,
   SortByType,
   UpdateFilterItemType,
 } from "../types/domain/FilterType";
-import { readStorageFoodList } from "./handler/FoodStorageHandler";
 
 export class Filter {
   #categoryFilter;
@@ -45,15 +42,5 @@ export class Filter {
       return Number(a.distance) - Number(b.distance);
     }
     return 0;
-  }
-
-  reset() {
-    (document.querySelector("#category-filter") as HTMLSelectElement).value =
-      "전체";
-    (document.querySelector("#sorting-filter") as HTMLSelectElement).value =
-      "이름순";
-
-    this.#categoryFilter = "전체";
-    this.#sortingFilter = "이름순";
   }
 }

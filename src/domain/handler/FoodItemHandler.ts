@@ -35,11 +35,11 @@ export function readFoodList({ favoriteFilter }: ReadFoodListType) {
 }
 
 // CRUD - update
-export function addFoodFormItem(filter: AddFoodItemType) {
+export function addFoodFormItem({ filter }: AddFoodItemType) {
   const foodItem = getFormFoodItem();
   if (!foodItem) return;
   updateStorageFoodList({ newFoodItem: foodItem });
-  Modal.close(filter);
+  Modal.close({ filter });
 }
 
 export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {

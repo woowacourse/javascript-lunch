@@ -1,8 +1,9 @@
 import {
   convertStorageToLocal,
+  readFoodList,
   sortedFoodList,
 } from "../../domain/handler/FoodItemHandler";
-import { readStorageFoodList } from "../../domain/handler/FoodStorageHandler";
+import { isFavoriteState } from "../../domain/handler/TabButtonHandler";
 import {
   ModalCloseContentType,
   ModalSetContentType,
@@ -41,7 +42,9 @@ export class Modal {
     modalContent?.classList.remove("modal--open");
 
     if (filter) {
-      const previousFoodList = readStorageFoodList();
+      const previousFoodList = readFoodList({
+        favoriteFilter: isFavoriteState(),
+      });
       const foodList = sortedFoodList({ filter, foodList: previousFoodList });
       convertStorageToLocal({ filter, foodList });
     }
