@@ -193,11 +193,42 @@ class App extends Component {
         return;
       }
 
+      const changeLocalStorageState = (restaurant) => {
+        const restaurantList = this.props.getItemFromLocalStorage(
+          this.props.KEY
+        );
+
+        const newRestaurant = {
+          ...restaurant,
+          isFavorite: !restaurant.isFavorite,
+        };
+
+        const newRestaurantList = [
+          ...restaurantList.filter(({ id }) => id !== restaurant.id),
+          newRestaurant,
+        ];
+
+        this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
+        this.setState({
+          restaurants: newRestaurantList,
+        });
+
+        const $img = $(
+          $(document, "#restaurant-info-container"),
+          ".favorite-icon"
+        );
+        $img.setAttribute(
+          "src",
+          newRestaurant.isFavorite ? filledStar : emptyStar
+        );
+      };
+
       const restaurantInfoModal = new RestaurantInfoModal(
         $(document, "#modal"),
         {
           data: restaurant,
           deleteRestaurant: this.deleteRestaurant.bind(this),
+          changeLocalStorageState,
         }
       );
       restaurantInfoModal.open();

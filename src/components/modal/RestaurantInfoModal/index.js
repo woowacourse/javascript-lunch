@@ -62,11 +62,22 @@ class RestaurantInfoModal extends Modal {
       "#delete-restaurant-info"
     );
     $deleteButton.addEventListener("click", this.deleteCurrentRestaurant);
+
+    const $favoriteButton = $(this.$target, ".favorite-icon-button");
+    $favoriteButton.addEventListener("click", this.toggleFavoriteRestaurant);
   }
 
   deleteCurrentRestaurant = () => {
     this.props.deleteRestaurant(this.props.data);
     this.close();
+  };
+
+  toggleFavoriteRestaurant = () => {
+    this.props.changeLocalStorageState(this.props.data);
+    this.props.data = {
+      ...this.props.data,
+      isFavorite: !this.props.data.isFavorite,
+    };
   };
 }
 
