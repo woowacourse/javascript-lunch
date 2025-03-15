@@ -5,7 +5,11 @@ import RestaurantForm from "./components/restaurantFormSection/restaurantForm/Re
 import RestaurantListModel from "./domain/RestaurantListModel.js";
 import RestaurantNavigator from "./components/restaurantListSection/restaurantNavigator/RestaurantNavigator.js";
 import RestaurantFilterSection from "./components/restaurantListSection/restaurantFilterSection/RestaurantFilterSection.js";
-import { setItem, RESTAURANT_LIST_KEY } from "./components/utils/storage.js";
+import {
+  setItem,
+  RESTAURANT_LIST_KEY,
+  getItem,
+} from "./components/utils/storage.js";
 import RestaurantDetail from "./components/restaurantDetail/RestaurantDetail.js";
 
 export default class App {
@@ -44,6 +48,18 @@ export default class App {
     this.#toggleDetailModalShow();
   };
 
+  #onRestaurantItemDelete = (id) => {
+    const restaurantIndex = this.#restaurantList.findIndex(
+      (restaurant) => restaurant.id === id
+    );
+
+    const restaurantList = this.restaurantListModel.getRestaurantList();
+    const newList = restaurantList.filter((_, i) => i !== restaurantIndex);
+
+    this.#updateLocalRestautantList(newList);
+    this.#toggleDetailModalShow();
+  };
+
   #toggleDetailModalShow = () => {
     this.#detailModalShow = !this.#detailModalShow;
     this.#renderDetailModal();
@@ -60,7 +76,8 @@ export default class App {
     const $restaurantDetail = new RestaurantDetail(
       this.#selectedRestaurant,
       this.#updateRestautantList,
-      this.#toggleDetailModalShow
+      this.#toggleDetailModalShow,
+      this.#onRestaurantItemDelete
     ).render();
 
     $modal.replaceWith(

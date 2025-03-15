@@ -7,11 +7,13 @@ export default class RestaurantDetail {
   #restaurant;
   #updateList;
   #toggleModal;
+  #onDelete;
 
-  constructor(restaurant, updateList, toggleModal) {
+  constructor(restaurant, updateList, toggleModal, onDelete) {
     this.#restaurant = restaurant;
     this.#updateList = updateList;
     this.#toggleModal = toggleModal;
+    this.#onDelete = onDelete;
   }
 
   render() {
@@ -57,7 +59,9 @@ export default class RestaurantDetail {
     $buttonContainer.appendChild($closeButton);
     $div.appendChild($buttonContainer);
 
-    $deleteButton.addEventListener("click", () => {});
+    $deleteButton.addEventListener("click", () =>
+      this.#onDelete(this.#restaurant.id)
+    );
 
     $closeButton.addEventListener("click", this.#toggleModal);
     return $div;
