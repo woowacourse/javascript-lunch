@@ -9,7 +9,7 @@ export default function RestaurantItemFavorite({ isFavorite, id }) {
     tag: "img",
     name: "favorite__star",
     classNames: ["favorite__star"],
-    src: isFavorite ? "/public/fill-star.png" : "/public/empty-star.png",
+    src: isFavorite ? "./fill-star.png" : "./empty-star.png",
     alt: isFavorite ? "좋아요한 별" : "좋아요안한 별",
   });
   $favoriteWrap.appendChild($favorite);
