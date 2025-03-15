@@ -14,12 +14,14 @@ export default defineConfig({
     assetsDir: 'assets',
     rollupOptions: {
       output: {
+        entryFileNames: 'assets/js/[name].[hash].js',
+        chunkFileNames: 'assets/js/[name].[hash].js',
         assetFileNames: (assetInfo) => {
           const name = assetInfo.name || '';
           if (name.endsWith('.css')) {
-            return 'assets/css/[name][extname]';
+            return 'assets/css/[name].[hash][extname]';
           }
-          return 'assets/[name][extname]';
+          return 'assets/[name].[hash][extname]';
         },
       },
     },
