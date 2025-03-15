@@ -6,7 +6,6 @@ let selectedRestaurantId = null;
 export function handleRestaurantClick(e) {
   const $clickedItem = e.target.closest(".restaurant");
 
-  // 모달 내부의 레스토랑 아이템이면 클릭 이벤트 무시
   if ($clickedItem.classList.contains("modal-restaurant")) {
     return;
   }
@@ -28,8 +27,6 @@ export function handleDeleteRestaurant(e) {
   const $restaurantItems = $restaurantList.querySelectorAll(".restaurant");
 
   $restaurantItems.forEach((item) => {
-    console.log(item.dataset.restaurantId);
-    console.log(selectedRestaurantId);
     if (Number(item.dataset.restaurantId) === Number(selectedRestaurantId)) {
       item.remove();
     }
@@ -58,6 +55,15 @@ export function setupRestaurantItemEventListeners() {
     });
   } else {
     console.warn("모달 닫기 버튼을 DOM에서 찾을 수 없습니다.");
+  }
+  const $modalBackdrop = document.querySelector(".modal-backdrop");
+  if ($modalBackdrop) {
+    $modalBackdrop.removeEventListener("click", removeModal);
+    $modalBackdrop.addEventListener("click", (e) => {
+      e.stopPropagation();
+      removeModal();
+      selectedRestaurantId = null;
+    });
   }
 }
 

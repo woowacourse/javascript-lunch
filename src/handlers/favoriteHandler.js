@@ -18,8 +18,6 @@ export function handleFavoriteClick(e) {
     return restaurant;
   });
 
-  console.log(updatedRestaurants);
-
   Object.assign(initialRestaurants, updatedRestaurants);
 
   storeRestaurants(updatedRestaurants);

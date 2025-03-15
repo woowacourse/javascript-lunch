@@ -6,7 +6,6 @@ export const tabState = {
 
 export function handleTabChange(e) {
   const selectedTab = e.target.dataset.tab;
-  console.log(selectedTab);
 
   if (!selectedTab || selectedTab === tabState.activeTab) return;
 
