@@ -13,15 +13,45 @@ export default class App {
   #category;
   #sorting;
 
+  #addModalShow;
+  #detailModalShow;
+
   constructor() {
     this.restaurantListModel = new RestaurantListModel();
     this.#selectedTab = "all";
     this.#restaurantList = this.restaurantListModel.getRestaurantList();
     this.#category = "전체";
     this.#sorting = "이름순";
+    this.#addModalShow = false;
+    this.#detailModalShow = false;
 
     this.#initElement();
   }
+
+  #toggleAddModalShow = () => {
+    this.#addModalShow = !this.#addModalShow;
+    this.#renderAddModal();
+  };
+
+  #renderAddModal = () => {
+    const $modal = document.querySelector("#add-modal");
+
+    const $restaurantForm = new RestaurantForm(
+      this.#updateLocalRestautantList,
+      this.#restaurantList
+    ).render();
+
+    $modal.replaceWith(
+      new BottomSheetBase({
+        title: "새로운 음식점",
+        $children: $restaurantForm,
+        show: this.#addModalShow,
+        toggleShow: this.#toggleAddModalShow,
+        id: "add-modal",
+      }).render()
+    );
+  };
+  //
 
   #updateSelectValue = (value, type) => {
     if (type === "category") this.#category = value;
@@ -150,7 +180,7 @@ export default class App {
 
   #initElement() {
     const $body = document.querySelector("body");
-    $body.appendChild(new Header().render());
+    $body.appendChild(new Header(this.#toggleAddModalShow).render());
 
     const $main = document.createElement("main");
     $body.appendChild($main);
@@ -197,6 +227,9 @@ export default class App {
       new BottomSheetBase({
         title: "새로운 음식점",
         $children: $restaurantForm,
+        show: this.#addModalShow,
+        toggleShow: this.#toggleAddModalShow,
+        id: "add-modal",
       }).render()
     );
   }
