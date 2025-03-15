@@ -2,6 +2,9 @@ import selectedFilterValue from "../../domain/SelectedFilterValue.js";
 import createElement from "../../util/createElement.js";
 import Select from "../util/Select.js";
 
+const CATEGORY = ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"];
+const SORTING = ["이름순", "거리순"];
+
 export default function RestaurantFilterContainer() {
   const $restaurantFilterContainer = createElement({
     tag: "section",
@@ -13,7 +16,7 @@ export default function RestaurantFilterContainer() {
       name: "category",
       id: "category-filter",
       classNames: ['restaurant-filter'],
-      options: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
+      options: CATEGORY,
       selectedValue: selectedFilterValue.getSelectedFilterCategoryValue(),
     })
   );
@@ -23,7 +26,7 @@ export default function RestaurantFilterContainer() {
       name: "sorting",
       id: "sorting-filter",
       classNames: ['restaurant-filter'],
-      options: ["이름순", "거리순"],
+      options: SORTING,
       selectedValue: selectedFilterValue.getSelectedFilterSortingValue(),
     })
   );
