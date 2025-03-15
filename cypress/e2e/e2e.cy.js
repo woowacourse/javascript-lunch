@@ -27,6 +27,27 @@ describe("E2E 테스트", () => {
     cy.get(".restaurant__name").should("contain.text", "마담밍");
   });
 
+  it("성공 시나리오: 좋아요 클릭 후 자주가는 음식점 클릭 시 해당 식당 랜더링", () => {
+    const targetName = "피양콩할마니";
+    cy.contains(".restaurant__name", targetName)
+      .parents(".restaurant")
+      .find(".list__star")
+      .click();
+    // 로컬 업데이트 확인
+    cy.window().then((win) => {
+      const value = win.localStorage.getItem("restaurantData");
+      const parsedValue = JSON.parse(value);
+      const targetRestaurant = parsedValue.find(
+        (restaurant) => restaurant.name.trim() === targetName,
+      );
+      expect(targetRestaurant.like).to.be.true;
+    });
+    // 탭 바 이동 후 랜더링 확인
+    cy.get(".favorite").click();
+    cy.get(".restaurant").should("have.length", 1);
+    cy.get(".restaurant__name").should("contain.text", targetName);
+  });
+
   it("실패 시나리오: 필수 필드 누락 시 모달 유지", () => {
     // 모달 열기
     cy.get(".gnb__button").should("exist").click();
