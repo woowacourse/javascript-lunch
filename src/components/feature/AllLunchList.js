@@ -1,6 +1,5 @@
 import Component from "../../core/Component";
 import { categories } from "../../types/restaurant.types";
-import { extractNumberFromDistance } from "../../utils/extractNumber";
 import { Select } from "../common";
 import LunchList from "./LunchList";
 
@@ -30,10 +29,7 @@ export default class AllLunchList extends Component {
 
   sortByDistance(items) {
     return items.sort((a, b) => {
-      return (
-        extractNumberFromDistance(a.distance) -
-        extractNumberFromDistance(b.distance)
-      );
+      return a.distance - b.distance;
     });
   }
 
