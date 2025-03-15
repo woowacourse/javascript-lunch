@@ -61,7 +61,7 @@ function addNewRestaurantItem() {
   const ul = document.querySelector('.restaurant-list');
   if (!ul) return;
   const newRestaurantData = stateStore.getState();
-  const newItem = createRestaurantItem(newRestaurantData, false);
+  const newItem = createRestaurantItem(newRestaurantData);
   ul.insertAdjacentHTML('beforeend', newItem);
 }
 
@@ -137,6 +137,7 @@ function appendFilterTab(fieldName: filterTab) {
 }
 
 function openRestaurantModal({
+  id,
   category,
   name,
   distance,
@@ -145,6 +146,7 @@ function openRestaurantModal({
   isFavorite,
   link,
 }: {
+  id: number;
   category: string;
   name: string;
   distance: string;
@@ -158,7 +160,16 @@ function openRestaurantModal({
 
   if (!modal || !modalContent) return;
 
-  const restaurantModalContent = createModalContent({ category, name, distance, description, image, isFavorite, link });
+  const restaurantModalContent = createModalContent({
+    id,
+    category,
+    name,
+    distance,
+    description,
+    image,
+    isFavorite,
+    link,
+  });
   modalContent.innerHTML = restaurantModalContent;
 
   appendRestaurantDetailModalButton(modalContent);
