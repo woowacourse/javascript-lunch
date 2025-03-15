@@ -17,7 +17,7 @@ const createDOMElement = ({ tag, children, ...props }: CreateDOMElementProps): H
         });
       } else if (typeof value === 'string') {
         value.split(' ').forEach((className) => {
-          element.classList.add(className);
+          if (className !== '') element.classList.add(className);
         });
       }
     }

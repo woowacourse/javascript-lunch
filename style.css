@@ -190,6 +190,8 @@ body {
 }
 
 .restaurant__favorite-button {
+  width: 34px;
+  height: 34px;
   position: absolute;
   top: 14px;
   right: 8px;
@@ -197,6 +199,11 @@ body {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.restaurant__favorite-button--detail {
+  top: 32px;
+  right: 16px;
 }
 
 /* 음식점 추가 모달 *****************************************/
