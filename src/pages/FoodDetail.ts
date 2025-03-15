@@ -19,6 +19,11 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
     handleFavoriteButton: (event, foodItem) =>
       handleFavoriteButton({ event, foodItem, filter }),
   });
+  const linkCompennt = document.createElement("div");
+  linkCompennt.innerHTML = foodDetailItem.link;
+
+  foodDetailInfo.appendChild(linkCompennt);
+
   foodDetailInfo.style.flexDirection = "column";
   foodDetailInfo.style.gap = "16px";
   container.appendChild(foodDetailInfo);

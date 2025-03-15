@@ -29,6 +29,7 @@ const SELECT_OPTIONS = {
 };
 
 export function FoodForm({ filter }: FoodFormType) {
+  document.querySelector("form")?.reset();
   const container = document.createElement("form");
 
   container.appendChild(

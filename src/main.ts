@@ -30,7 +30,12 @@ addEventListener("load", () => {
 
 function setFoodFormMoal(filter: Filter) {
   document.querySelector(".gnb__button")?.addEventListener("click", () => {
-    Modal.setContent({ modalContent: FoodForm({ filter }) });
+    const formContainer = document.createElement("div");
+    const header = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
+    formContainer.innerHTML = header;
+
+    formContainer.appendChild(FoodForm({ filter }));
+    Modal.setContent({ modalContent: formContainer });
     Modal.open();
   });
 }
