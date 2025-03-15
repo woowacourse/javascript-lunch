@@ -5,4 +5,5 @@ export const DOM = {
   $main: $("main"),
   $filterContainer: $(".restaurant-filter-container"),
   $restaurantContainer: $(".restaurant-list-container"),
+  $favoriteContainer: $(".favorite-list-container"),
 };

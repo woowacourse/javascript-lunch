@@ -15,9 +15,19 @@ initNavigationButton();
 initFilterSelect();
 initRestaurantList();
 initAddLunchModal();
+initFavoriteList();
 
 function initNavigationButton() {
   $(".navigation-bar-container").addEventListener("click", (e) => {
+    $$("main section").forEach((section) => (section.style.display = "none"));
+    if (e.target.classList.contains("all_restaurant_nav")) {
+      DOM.$filterContainer.style.display = "flex";
+      DOM.$restaurantContainer.style.display = "block";
+    }
+    if (e.target.classList.contains("favorite_restaurant_nav")) {
+      DOM.$favoriteContainer.style.display = "block";
+    }
+
     $$(".navigation__button").forEach((btn) =>
       btn.classList.remove("activated")
     );
@@ -51,4 +61,10 @@ function initAddLunchModal() {
   const addLunchModalContent = AddLunchModalForm.create();
   const addLunchModalElement = Modal.create("addLunch", addLunchModalContent);
   DOM.$main.append(addLunchModalElement);
+}
+
+function initFavoriteList() {
+  const favoriteList = document.createElement("h1");
+  favoriteList.textContent = "자주 가는 음식점임";
+  DOM.$favoriteContainer.append(favoriteList);
 }
