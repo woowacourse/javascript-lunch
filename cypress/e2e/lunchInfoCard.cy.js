@@ -2,7 +2,14 @@ import MOCK_ITEM from "../../src/mockItem.js";
 
 describe("LunchInfoCard 테스트", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5173/");
+    cy.visit("http://localhost:5173/", {
+      onBeforeLoad(win) {
+        win.localStorage.setItem(
+          "restaurantList",
+          JSON.stringify(MOCK_ITEM.restaurantList)
+        );
+      },
+    });
   });
 
   it("초기 LunchInfoCard는 6개가 있다.", () => {
