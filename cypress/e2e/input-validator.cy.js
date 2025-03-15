@@ -1,4 +1,4 @@
-describe('식당 등록 폼 테스트', () => {
+describe('음식점 등록 폼 테스트', () => {
   let stub;
 
   beforeEach(() => {
@@ -8,7 +8,7 @@ describe('식당 등록 폼 테스트', () => {
     cy.on('window:alert', stub);
   });
 
-  it('필수 입력값인 카테고리, 이름, 거리를 입력하지 않으면 경고창이 뜬다', () => {
+  it('필수 입력값인 카테고리, 이름, 거리를 입력하지 않으면 경고창이 뜬다.', () => {
     cy.get('.gnb__button').click();
 
     cy.get('button.button--primary')
@@ -19,7 +19,7 @@ describe('식당 등록 폼 테스트', () => {
       });
   });
 
-  it('이름을 100자 이상 작성하면 경고창이 뜬다', () => {
+  it('이름을 100자 이상 작성하면 경고창이 뜬다.', () => {
     const name = 'a'.repeat(101);
 
     cy.get('.gnb__button').click();
@@ -36,7 +36,7 @@ describe('식당 등록 폼 테스트', () => {
       });
   });
 
-  it('설명을 300자 이상 작성하면 경고창이 뜬다', () => {
+  it('설명을 300자 이상 작성하면 경고창이 뜬다.', () => {
     const discription = 'a'.repeat(301);
 
     cy.get('.gnb__button').click();
@@ -54,7 +54,7 @@ describe('식당 등록 폼 테스트', () => {
       });
   });
 
-  it('올바르지 않은 url을 작성하면 경고창이 뜬다', () => {
+  it('올바르지 않은 url을 작성하면 경고창이 뜬다.', () => {
     const incorrectURL = 'inCorrectURL';
 
     cy.get('.gnb__button').click();
