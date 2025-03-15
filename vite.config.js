@@ -5,7 +5,7 @@ import path from "node:path";
 export default defineConfig({
   plugins: [
     AutoImport({
-      include: [/src\/components\/.+\.js$/],
+      include: [/src\/components\/.+\.(js|ts|jsx|tsx)$/],
 
       imports: [
         {
