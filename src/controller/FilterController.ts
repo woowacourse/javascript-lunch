@@ -14,6 +14,10 @@ class FilterController {
     this.#bindEvents();
   }
 
+  remove() {
+    RestaurantFilterView.remove();
+  }
+
   #bindEvents() {
     $<HTMLSelectElement>('#category-filter')?.addEventListener('change', (event) => {
       this.#onFilterChange('category', (event.target as HTMLSelectElement)?.value);

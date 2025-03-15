@@ -27,7 +27,6 @@ class Restaurants {
 
   getRestaurantByFilter(type: FilterType, value: string) {
     this.#filter[type] = value;
-    console.log(this.#filter);
 
     const filteredRestaurants = this.filterByCategory();
     return this.sortByOption(filteredRestaurants);

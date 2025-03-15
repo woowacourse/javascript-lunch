@@ -1,13 +1,11 @@
-import FavoriteButton from '../components/button/FavoriteButton';
 import PlusButton from '../components/button/PlusButton';
 import Header from '../components/Header';
 import Restaurants from '../domain/Restaurants';
 import { FilterType, Restaurant } from '../types/types';
 import { $ } from '../util/selector';
-import RestaurantFilterView from '../view/RestaurantFilterView';
-import RestaurantListView from '../view/RestaurantListView';
 import FilterController from './FilterController';
 import ModalController from './modalController';
+import RestaurantListController from './RestaurantListController';
 import TabController from './TabController';
 
 class AppController {
@@ -15,6 +13,7 @@ class AppController {
   restaurants;
   tabController;
   filterController;
+  restaurantListController;
 
   constructor() {
     this.tabController = new TabController((tabType) => {
@@ -25,13 +24,22 @@ class AppController {
     });
     this.modalController = new ModalController();
     this.restaurants = new Restaurants();
+    this.restaurantListController = new RestaurantListController(
+      this.restaurants.items,
+      (restaurantName) => {
+        this.restaurants.toggleFavoriteRestaurant(restaurantName);
+      },
+      (restaurant) => {
+        this.modalController.openRestaurantDetailModal(restaurant, this.restaurants);
+      },
+    );
   }
 
   init() {
     this.renderHeader();
     this.tabController.render();
     this.filterController.render();
-    this.renderRestaurantListContainer();
+    this.restaurantListController.render();
     this.modalController.renderModal();
   }
 
@@ -41,7 +49,7 @@ class AppController {
     const header = Header({
       title: '점심 뭐 먹지',
       right: PlusButton({
-        onclick: () => this.modalController.openRestaurantAddModal((data) => this.addRestaurantItem(data)),
+        onclick: () => this.modalController.openRestaurantAddModal((data) => this.#addRestaurantItem(data)),
       }),
     });
     body?.prepend(header);
@@ -50,57 +58,22 @@ class AppController {
   #onTabChange(tabType: 'all' | 'favorite') {
     if (tabType === 'all') {
       this.filterController.render();
+      this.restaurantListController.updateList(this.restaurants.items);
     } else if (tabType === 'favorite') {
-      RestaurantFilterView.remove();
+      this.filterController.remove();
+      const favoriteRestaurants = this.restaurants.getFavoriteRestaurants();
+      this.restaurantListController.updateList(favoriteRestaurants);
     }
-    this.updateRestaurantListByTab(tabType);
-  }
-
-  renderRestaurantListContainer() {
-    RestaurantListView.render(this.restaurants.items);
-
-    const container = $('.restaurant-list-container');
-
-    container?.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      const restaurantElement = target.closest('.restaurant');
-      const restaurantFavoriteButton = target.closest('.restaurant__favorite-button');
-
-      if (!restaurantElement) return;
-
-      const restaurantName = (restaurantElement as HTMLElement).dataset.id;
-      const selectedRestaurant = this.restaurants.items.find((restaurant) => restaurant.name === restaurantName);
-
-      if (selectedRestaurant) {
-        if (restaurantFavoriteButton) {
-          this.restaurants.toggleFavoriteRestaurant(selectedRestaurant.name);
-          restaurantFavoriteButton.replaceWith(FavoriteButton({ isFavorite: selectedRestaurant.isFavorite }));
-        } else {
-          this.modalController.openRestaurantDetailModal(selectedRestaurant, this.restaurants);
-        }
-      }
-    });
   }
 
   #onFilterChange(type: FilterType, value: string) {
     const filteredRestaurants = this.restaurants.getRestaurantByFilter(type, value);
-
-    RestaurantListView.updateList(filteredRestaurants);
+    this.restaurantListController.updateList(filteredRestaurants);
   }
 
-  updateRestaurantListByTab(tabType: 'all' | 'favorite') {
-    const favoriteRestaurants = this.restaurants.getFavoriteRestaurants();
-
-    if (tabType === 'all') {
-      RestaurantListView.updateList(this.restaurants.items);
-    } else if (tabType === 'favorite') {
-      RestaurantListView.updateList(favoriteRestaurants);
-    }
-  }
-
-  addRestaurantItem(restaurant: Restaurant) {
-    RestaurantListView.addItem(restaurant);
+  #addRestaurantItem(restaurant: Restaurant) {
     this.restaurants.addRestaurant({ ...restaurant, isFavorite: false });
+    this.restaurantListController.addItem(restaurant);
   }
 }
 
