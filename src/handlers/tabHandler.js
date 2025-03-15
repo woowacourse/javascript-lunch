@@ -1,4 +1,5 @@
 import { applyFilter } from "./filterHandler.js";
+import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
 
 export const tabState = {
   activeTab: "all",
@@ -19,6 +20,9 @@ export function handleTabChange(e) {
   toggleSortingVisibility(selectedTab);
 
   applyFilter();
+  setTimeout(() => {
+    setupRestaurantItemEventListeners();
+  }, 10);
 }
 
 function toggleSortingVisibility(activeTab) {
@@ -38,8 +42,10 @@ function toggleSortingVisibility(activeTab) {
 export function setupTabEventListeners() {
   const tabButtons = document.querySelectorAll(".tab-button");
   tabButtons.forEach((button) => {
+    button.removeEventListener("click", handleTabChange);
     button.addEventListener("click", handleTabChange);
   });
   // 로드됐을때도 잘 토글이 보여야 하기때문에
   toggleSortingVisibility(tabState.activeTab);
+  setupRestaurantItemEventListeners();
 }
