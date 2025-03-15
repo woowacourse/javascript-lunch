@@ -1,6 +1,7 @@
 import { AddDetailModal } from "../components/AddDetailModal.js";
 import { initialRestaurants } from "../data/initialRestaurants.js";
 import removeModal from "../utils/removeModal.js";
+import { storeRestaurants } from "../utils/localStorage.js";
 
 let selectedRestaurantId = null;
 export function handleRestaurantClick(e) {
@@ -28,6 +29,13 @@ export function handleDeleteRestaurant(e) {
       item.remove();
     }
   });
+
+  const updatedRestaurants = initialRestaurants.filter(
+    (restaurant) => restaurant.id !== selectedRestaurantId,
+  );
+
+  storeRestaurants(updatedRestaurants);
+
   removeModal();
 }
 
