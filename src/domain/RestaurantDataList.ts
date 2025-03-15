@@ -1,67 +1,56 @@
-import RestaurantData from "./RestaurantData";
+import Restaurant from "../types/Restaurant.ts";
+import RestaurantData from "./RestaurantData.ts";
 
 class RestaurantDataList {
-  #dataList;
+  #dataList: RestaurantData[];
+
   constructor() {
-    const dataList = this.getLocalStorage();
-    this.setLocalStorage(dataList);
-    this.#dataList = dataList.map((data) => {
-      return this.createData(data);
-    });
+    const dataList = this.getLocalStorage() || [];
+    this.#dataList = dataList.map((data: Restaurant) => this.createData(data));
   }
 
-  getDataList() {
-    return this.#dataList.map((restaurantData) => restaurantData.getData());
+  getDataList(): Restaurant[] {
+    return this.#dataList.map((restaurantData: RestaurantData) => restaurantData.getData());
   }
 
-  getData(id) {
-    const filteredData =  this.#dataList.filter((dataList) => {
-      return dataList.getId() === id
-    })[0];
-
-    return filteredData;
+  getData(id: string): RestaurantData | undefined {
+    return this.#dataList.find((dataList: RestaurantData) => dataList.getId() === id);
   }
 
-  addData(data) {
+  addData(data: Restaurant): void {
     this.#dataList.push(this.createData(data));
     this.setLocalStorage(this.#dataList);
   }
 
-  createData(data) {
-    return new RestaurantData({
-      id: data.id,
-      name: data.name,
-      distance: data.distance,
-      description: data.description,
-      link: data.link,
-      category: data.category,
-      isWish: data.isWish
-    });
+  createData(data: Restaurant): RestaurantData {
+    return new RestaurantData(data);
   }
 
-  updateIsWish(id) {
+  updateIsWish(id: string): boolean | undefined {
     const filteredData = this.getData(id);
+    if (!filteredData) return undefined;
+
     filteredData.toggleIsWish();
     this.setLocalStorage(this.#dataList);
     return filteredData.isWish;
   }
 
-  deleteDataList(id) {
-    this.#dataList = this.#dataList.filter((data) => data.getId() !== id);
+  deleteDataList(id: string): void {
+    this.#dataList = this.#dataList.filter((data: RestaurantData) => data.getId() !== id);
     this.setLocalStorage(this.#dataList);
   }
 
-  getLocalStorage() {
-    const dataList = JSON.parse(localStorage.getItem("dataList"));
-    return dataList;
+  getLocalStorage(): Restaurant[] | null {
+    const dataList = localStorage.getItem("dataList");
+    return dataList ? JSON.parse(dataList) : null;
   }
 
-  setLocalStorage(dataList) {
-    return localStorage.setItem("dataList", JSON.stringify(dataList));
+  setLocalStorage(dataList: RestaurantData[]): void {
+    localStorage.setItem("dataList", JSON.stringify(dataList.map(data => data.getData())));
   }
 }
 
-const dummy = [
+const dummy: Restaurant[] = [
   {
     id: "1234",
     category: "한식",
@@ -91,6 +80,7 @@ const dummy = [
     link: "https://ofcourse.kr/css-course/cursor-%EC%86%8D%EC%84%B1"
   },
 ];
+localStorage.setItem("dataList", JSON.stringify(dummy));
 
-const restaurantDataList = new RestaurantDataList(dummy);
+const restaurantDataList = new RestaurantDataList();
 export default restaurantDataList;

@@ -9,15 +9,15 @@ export default function filterRestaurantDataList({restaurantDataList, isWishList
   }
   
   function filterByCategory(dataList) {
-    const category = selectedFilterValue.getSelectedFilterCategoryValue()
-    const sorting = selectedFilterValue.getSelectedFilterCategorySorting();
+    const category = selectedFilterValue.getSelectedFilterCategoryValue();
+    const sorting = selectedFilterValue.getSelectedFilterSortingValue();
     return dataList.filter((data) => 
       category === "전체" || data.category === category
     );
   }
   
   function sortByCategory(dataList) {
-    const category = selectedFilterValue.getSelectedFilterCategorySorting();
+    const category = selectedFilterValue.getSelectedFilterSortingValue();
     if(category === '이름순') {
       dataList.sort((a, b) => a.name.localeCompare(b.name));
     }

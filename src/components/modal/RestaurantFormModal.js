@@ -4,7 +4,7 @@ import Input from "../util/Input.js";
 import TextArea from "../util/TextArea.js";
 import RestaurantFormModalItem from "./RestaurantFormModalItem.js";
 import RestaurantFormModalButtonContainer from "./RestaurantFormModalButtonContainer.js";
-import restaurantDataList from "../../domain/RestaurantDataList.js";
+import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import Restaurant from "../restaurant/Restaurant.js";
 import closeModal from "../../util/closeModal.js";
 

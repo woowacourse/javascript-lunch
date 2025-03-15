@@ -3,7 +3,7 @@ import RestaurantListContainer from "./RestaurantListContainer.js";
 import RestaurantFilterContainer from "./RestaurantFilterContainer.js";
 import RestaurantItemDetailModal from "../RestaurantItemDetail/RestaurantItemDetailModal.js";
 
-import restaurantDataList from "../../domain/RestaurantDataList.js";
+import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import selectedFilterValue from "../../domain/SelectedFilterValue.js";
 
 import filterRestaurantDataList from "../../util/filterRestaurantDataList.js";

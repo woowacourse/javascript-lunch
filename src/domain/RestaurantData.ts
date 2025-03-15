@@ -1,6 +1,8 @@
 import ERROR_MASSAGE from "../constants/errorMessage.js";
+import Category from "../types/Category.js";
+import Restaurant from "../types/Restaurant.js";
 
-const CATEGORY_IMAGE = Object.freeze({
+const CATEGORY_IMAGE: Readonly<Record<Category, string>> = Object.freeze({
   한식: "./category-korean.png",
   중식: "./category-chinese.png",
   일식: "./category-japanese.png",
@@ -10,17 +12,17 @@ const CATEGORY_IMAGE = Object.freeze({
 });
 
 export default class RestaurantData {
-  id;
-  src;
-  alt;
-  name;
-  distance;
-  description;
-  link;
-  category;
-  isWish;
+  id: string;
+  src: string;
+  alt: string;
+  name: string;
+  distance: number;
+  description: string;
+  link: string;
+  category: Category;
+  isWish: boolean;
 
-  constructor({ id, name, distance, description = "", link = "", category, isWish}) {
+  constructor({ id, name, distance, description = "", link = "", category, isWish }: Restaurant) {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
@@ -36,11 +38,11 @@ export default class RestaurantData {
     this.isWish = isWish;
   }
 
-  getData() {
+  getData(): Restaurant {
     return {
       id: this.id,
-      alt: this.alt,
       src: this.src,
+      alt: this.alt,
       name: this.name,
       distance: this.distance,
       description: this.description,
@@ -50,32 +52,32 @@ export default class RestaurantData {
     };
   }
 
-  getId() {
+  getId(): string {
     return this.id;
   }
-  
-  toggleIsWish() {
+
+  toggleIsWish(): void {
     this.isWish = !this.isWish;
   }
-  
-  isValidateOption(value) {
+
+  isValidateOption(value: string | number): boolean {
     return !value;
   }
 
-  isValidateName(name) {
+  isValidateName(name: string): boolean {
     const NAME_LENGTH_MIN = 2;
     return name.length < NAME_LENGTH_MIN;
   }
 
-  validateCategory(category) {
+  validateCategory(category: string): void {
     if (this.isValidateOption(category)) throw Error(ERROR_MASSAGE.category);
   }
 
-  validateDistance(distance) {
+  validateDistance(distance: number): void {
     if (this.isValidateOption(distance)) throw Error(ERROR_MASSAGE.distance);
   }
 
-  validateName(name) {
+  validateName(name: string): void {
     if (this.isValidateName(name)) throw Error(ERROR_MASSAGE.name);
   }
 }

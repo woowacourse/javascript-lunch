@@ -24,7 +24,7 @@ export default function RestaurantFilterContainer() {
       id: "sorting-filter",
       classNames: ['restaurant-filter'],
       options: ["이름순", "거리순"],
-      selectedValue: selectedFilterValue.getSelectedFilterCategorySorting(),
+      selectedValue: selectedFilterValue.getSelectedFilterSortingValue(),
     })
   );
   
