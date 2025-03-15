@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import { styleStr } from "../../utils/styleStr.js";
+import { styleStr } from "../../utils/styleStr.ts";
 
 export default class Text extends Component {
   setDefaultProps() {

@@ -4,7 +4,6 @@ import Select from "../common/Select.js";
 import TextArea from "../common/TextArea.js";
 import Button from "../common/Button.js";
 import BottomSheet from "../common/BottomSheet.js";
-import Validator from "../../utils/Validator.js";
 import Restaurant from "../../domain/Restaurant.js";
 import { categories, distances } from "../../types/restaurant.types.js";
 

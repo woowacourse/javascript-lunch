@@ -97,7 +97,7 @@ export default class AllLunchList extends Component {
 
   updateFilterAndList(container) {
     const filterContainer = container.querySelector("#filter");
-    const existingList = container.querySelector(".lunch-list-container");
+    const existingList = container.querySelector("#lunch-list-container");
     const listContent = this.renderLunchList();
 
     if (!filterContainer)

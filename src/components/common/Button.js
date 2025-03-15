@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import { styleStr } from "../../utils/styleStr.js";
+import { styleStr } from "../../utils/styleStr.ts";
 
 const primary = ["bg-primary-500", "white", "border-none"];
 const secondary = ["bg-white", "slate-400", "border", "border-slate-400"];
