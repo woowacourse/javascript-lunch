@@ -4,6 +4,7 @@ import validate from "../utils/validate.js";
 import type RestaurantList from "../stores/RestaurantList.js";
 import { modalHandler } from "./modalHandler.js";
 import { RestaurantItem } from "../types/restaurantItem.js";
+import restaurantStorage from "../stores/restaurantStorage.js";
 
 export const restaurantHandler = {
   addRestaurantItem: (restaurantProps: RestaurantItem) => {
@@ -32,6 +33,7 @@ export const restaurantHandler = {
       restaurantList.addRestaurant(newRestaurant);
       restaurantHandler.addRestaurantItem(newRestaurant);
 
+      restaurantStorage.setRestaurantList(restaurantList.list);
       modalHandler.closeModal();
     } catch (error) {
       restaurantHandler.checkRequired(
