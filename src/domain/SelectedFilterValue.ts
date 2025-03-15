@@ -4,7 +4,7 @@ class SelectedFilterValue {
     #isWishList: boolean;
 
     constructor() {
-        this.#category = "한식";
+        this.#category = "전체";
         this.#sorting = "이름순";
         this.#isWishList = false;
     }
