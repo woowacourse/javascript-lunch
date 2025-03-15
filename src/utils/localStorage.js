@@ -13,6 +13,7 @@ export function getStoredRestaurants() {
   }
 }
 
+// localStorage에 레스토랑 데이터 저장하기
 export function storeRestaurants(restaurants) {
   try {
     localStorage.setItem(STORAGE_KEYS.RESTAURANTS, JSON.stringify(restaurants));
@@ -20,6 +21,23 @@ export function storeRestaurants(restaurants) {
     console.error("레스토랑 데이터를 저장하는데 실패했습니다:", error);
   }
 }
+
+// localStorage 초기화하기
+export function clearLocalStorage() {
+  try {
+    // 특정 데이터만 삭제
+    localStorage.removeItem(STORAGE_KEYS.RESTAURANTS);
+    console.log("localStorage가 초기화되었습니다.");
+
+    // 페이지 새로고침
+    window.location.reload();
+  } catch (error) {
+    console.error("localStorage 초기화에 실패했습니다:", error);
+  }
+}
+
+// 전역 객체에 clearLocalStorage 추가
+window.clearLocalStorage = clearLocalStorage;
 
 // localStorage에서 레스토랑 데이터 초기화하기
 export function initializeRestaurants(initialData) {

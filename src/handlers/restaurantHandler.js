@@ -7,9 +7,12 @@ import {
 import removeModal from "../utils/removeModal.js";
 import { ERROR_TYPES } from "../constants/errors.js";
 import RestaurantItem from "../components/RestaurantItem.js";
-import { generateUUID } from "../utils/generateId.js";
+import { generateId } from "../utils/generateId.js";
 import { storeRestaurants } from "../utils/localStorage.js";
 import { initialRestaurants } from "../data/initialRestaurants.js";
+import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
+import { setupFavoriteEventListeners } from "./favoriteHandler.js";
+import { DISTANCE_OPTIONS } from "../constants/options.js";
 
 export function handleDeleteRestaurant(e) {
   e.preventDefault();
@@ -50,7 +53,7 @@ export function handleAddRestaurant(e) {
 
     // 새로운 레스토랑 객체 생성
     const newRestaurant = {
-      id: generateUUID(),
+      id: generateId(),
       category,
       categoryName: categoryValue,
       name: nameValue,
@@ -69,6 +72,10 @@ export function handleAddRestaurant(e) {
     if ($restaurantList) {
       const restaurantItemHTML = RestaurantItem(newRestaurant);
       $restaurantList.innerHTML += restaurantItemHTML;
+
+      // 새로 추가된 레스토랑에 이벤트 리스너 설정
+      setupRestaurantItemEventListeners();
+      setupFavoriteEventListeners();
     } else {
       console.warn("레스토랑 목록을 DOM에서 찾을 수 없습니다.");
       alert("레스토랑 목록을 찾을 수 없습니다.");

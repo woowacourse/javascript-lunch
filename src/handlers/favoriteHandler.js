@@ -20,10 +20,8 @@ export function handleFavoriteClick(e) {
 
   console.log(updatedRestaurants);
 
-  // initialRestaurants 업데이트
   Object.assign(initialRestaurants, updatedRestaurants);
 
-  // localStorage 업데이트
   storeRestaurants(updatedRestaurants);
 
   // UI 업데이트
