@@ -3,6 +3,7 @@ import { initialRestaurants } from "../data/initialRestaurants.js";
 import removeModal from "../utils/removeModal.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.js";
 import { setupTabEventListeners } from "./tabHandler.js";
+import { setupFilterEventListeners } from "./filterHandler.js";
 
 let selectedRestaurantId = null;
 let eventListenersAttached = false;
@@ -42,9 +43,9 @@ export function handleDeleteRestaurant(e) {
   removeAllModalEventListeners();
   removeModal();
 
-  // 탭 이벤트 리스너 재설정
+  // 모달이 닫힌 후 모든 이벤트 리스너 재설정
   setTimeout(() => {
-    setupTabEventListeners();
+    resetAllEventListeners();
   }, 10);
 }
 
@@ -58,9 +59,9 @@ function handleCloseModal(e) {
   removeAllModalEventListeners();
   removeModal();
 
-  // 탭 이벤트 리스너 재설정
+  // 모달이 닫힌 후 모든 이벤트 리스너 재설정
   setTimeout(() => {
-    setupTabEventListeners();
+    resetAllEventListeners();
   }, 10);
 }
 
@@ -73,10 +74,18 @@ function handleModalBackdropClick(e) {
   removeModal();
   selectedRestaurantId = null;
 
-  // 탭 이벤트 리스너 재설정
+  // 모달이 닫힌 후 모든 이벤트 리스너 재설정
   setTimeout(() => {
-    setupTabEventListeners();
+    resetAllEventListeners();
   }, 10);
+}
+
+// 모든 이벤트 리스너를 재설정하는 함수
+function resetAllEventListeners() {
+  setupTabEventListeners();
+  setupRestaurantItemEventListeners();
+  setupFilterEventListeners();
+  setupFavoriteEventListeners();
 }
 
 // 모달의 모든 이벤트 리스너를 제거하는 함수
