@@ -90,8 +90,3 @@
   text-overflow: clip;
   display: block;
 }
-
-.restaurant__description .empty-message {
-  text-align: center;
-  padding: 1rem;
-}

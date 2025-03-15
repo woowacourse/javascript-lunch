@@ -1,12 +1,15 @@
-@import "./src/css/header.css";
-@import "./src/css/foodItem.css";
-@import "./src/css/alert.css";
-@import "./src/css/modal.css";
-@import "./src/css/form.css";
-@import "./src/css/button.css";
-@import "./src/css/filter.css";
-@import "./src/css/iconButton.css";
-@import "./src/css/tabMenu.css";
+@import "./src/component/layout/header/header.css";
+@import "./src/component/food-item/food-item.css";
+@import "./src/component/layout/alert/alert.css";
+@import "./src/component/layout/modal/modal.css";
+@import "./src/component/food-form/food-form.css";
+@import "./src/component/button/button/button.css";
+@import "./src//component/button/button-container/button-container.css";
+@import "./src/component/dropdown/dropdown.css";
+@import "./src/component/button/icon-button/iconButton.css";
+@import "./src/component/tab-menu/tabMenu.css";
+@import "./src/component/input/input.css";
+@import "./src/component/food-list/food-list.css";
 
 * {
   padding: 0;
@@ -24,6 +27,7 @@ body {
   font-family: sans-serif;
   font-size: 16px;
 }
+
 button {
   background-color: white;
   border: none;

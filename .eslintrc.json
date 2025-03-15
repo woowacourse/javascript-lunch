@@ -5,7 +5,8 @@
     "prefer-template": "error",
     "jsx-quotes": ["error", "prefer-double"],
     "import/prefer-default-export": "off",
-    "newline-before-return": "error"
+    "newline-before-return": "error",
+    "padding-line-between-statements": ["error", { "blankLine": "always", "prev": "function", "next": "function" }]
   },
   "env": {
     "es6": true,
