@@ -200,7 +200,7 @@ select {
 .restaurant__star {
   width: 30px;
   height: 30px;
-  background-image: url('public/images/star_empty.png');
+  background-image: url('/images/star_empty.png');
   background-image: no-repeat;
   background-size: 100% 100%;
   cursor: pointer;
@@ -209,7 +209,7 @@ select {
 }
 
 .restaurant__star--clicked {
-  background-image: url('public/images/star_fill.png');
+  background-image: url('/images/star_fill.png');
 }
 
 .restaurant__column {
