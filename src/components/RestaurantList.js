@@ -1,14 +1,12 @@
-import Restaurant from "./Restaurant.js";
-import Component from "../core/Component.js";
+import Restaurant from './Restaurant.js';
+import Component from '../core/Component.js';
 
 class RestaurantList extends Component {
   template() {
     return `
       <section class="restaurant-list-container">
         <ul class="restaurant-list">
-          ${this.props.restaurantList
-            .map((restaurant) => new Restaurant(restaurant).template())
-            .join("")}
+          ${this.props.restaurantList.map((restaurant) => new Restaurant(restaurant).template()).join('')}
         </ul>
       </section>
     `;
