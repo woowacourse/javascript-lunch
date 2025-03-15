@@ -1,6 +1,9 @@
+import SELECT_OPTION from "../../constants/selectOption.js";
 import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import createElement from "../../util/createElement";
 import Select from "../common/Select";
+
+const SORTING_OPTIONS = ["이름순", "거리순"];
 
 export default function RestaurantFilters() {
   const $filterContainer = createElement({
@@ -12,7 +15,7 @@ export default function RestaurantFilters() {
     name: "category",
     id: "category-filter",
     classNames: ["restaurant-filter"],
-    options: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
+    options: ["전체", ...SELECT_OPTION.category],
     isDefaultOption: false,
   });
 
@@ -20,7 +23,7 @@ export default function RestaurantFilters() {
     name: "sorting",
     id: "sorting-filter",
     classNames: ["restaurant-filter"],
-    options: ["이름순", "거리순"],
+    options: SORTING_OPTIONS,
     values: ["name", "distance"],
     isDefaultOption: false,
   });

@@ -6,8 +6,8 @@ import TextArea from "../../common/TextArea.js";
 import RestaurantAddModalButtonContainer from "./RestaurantAddModalButtonContainer.js";
 import restaurantDataList from "../../../domain/RestaurantDataList.ts";
 import { removeModal } from "../Modal.js";
+import SELECT_OPTION from "../../../constants/selectOption.js";
 
-const CATEGORY_OPTIONS = ["한식", "중식", "일식", "양식", "아시안", "기타"];
 const DISTANCE_OPTIONS = ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"];
 
 export default function RestaurantAddModal() {
@@ -58,7 +58,7 @@ function createFormItems() {
         Select({
           name: "category",
           id: "category",
-          options: CATEGORY_OPTIONS,
+          options: SELECT_OPTION.category,
           isRequired: true,
         }),
     },

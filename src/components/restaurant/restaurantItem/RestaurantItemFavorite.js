@@ -1,5 +1,6 @@
 import createElement from "../../../util/createElement";
 import restaurantDataList from "../../../domain/RestaurantDataList.ts";
+import CLASS_NAME from "../../../constants/className.js";
 
 export default function RestaurantItemFavorite({ isFavorite, id }) {
   const $favoriteWrap = createElement({
@@ -7,8 +8,8 @@ export default function RestaurantItemFavorite({ isFavorite, id }) {
   });
   const $favorite = createElement({
     tag: "img",
-    name: "favorite__star",
-    classNames: ["favorite__star"],
+    name: CLASS_NAME.favoriteIcon,
+    classNames: [CLASS_NAME.favoriteIcon],
     src: isFavorite ? "./fill-star.png" : "./empty-star.png",
     alt: isFavorite ? "좋아요한 별" : "좋아요안한 별",
   });

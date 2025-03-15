@@ -40,7 +40,3 @@ export default function RestaurantNav() {
   $nav.append($allRestaurant, $favoriteRestaurant);
   return $nav;
 }
-
-function onClickAllRestaurant() {
-  select = "all-restaurant";
-}
