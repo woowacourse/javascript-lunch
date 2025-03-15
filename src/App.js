@@ -21,12 +21,15 @@ import sortAndFilter from "./utils/sortAndFilter.js";
 import emptyStar from "../public/icons/emptyStar.svg";
 import filledStar from "../public/icons/filledStar.svg";
 
+import TabNavigation from "./components/TabNavigation.js";
+
 class App extends Component {
   setup() {
     this.state = {
       restaurants: sortAndFilter(
         this.props.getItemFromLocalStorage(this.props.KEY)
       ),
+      activeTab: "all",
     };
   }
 
@@ -74,6 +77,24 @@ class App extends Component {
     $targetRestaurant.remove();
   }
 
+  handleTabChange(tab) {
+    this.setState({ activeTab: tab });
+    const restaurantSection = $(document, ".restaurant-list-container");
+    restaurantSection.remove();
+
+    const $restaurantFilterContainer = $(
+      document,
+      ".restaurant-filter-container"
+    );
+    $restaurantFilterContainer.replaceChildren();
+
+    if (tab === "favorite") {
+      this.renderFavorite();
+    } else {
+      this.renderAll();
+    }
+  }
+
   template() {
     return /*html*/ `
         <main>
@@ -85,31 +106,7 @@ class App extends Component {
 
   componentDidUpdate() {}
 
-  componentDidMount() {
-    const $modal = new AddRestaurantModal($(document, "#modal"), {
-      updateRestaurant: this.updateRestaurant.bind(this),
-    });
-
-    const openModal = () => {
-      if (!$modal) {
-        return;
-      }
-      $modal.open();
-    };
-
-    const $header = new Header($(document, "#app"), {
-      data: {
-        title: "점심 뭐 먹지",
-        ariaLabel: "음식점 추가",
-        dataTestId: "open-add-restaurant-modal-button",
-        iconImageSource: "./icons/add-button.png",
-        alt: "음식점 추가",
-      },
-      buttonCallback: openModal,
-    });
-
-    this.renderRestaurantList(this.state.restaurants);
-
+  renderAll() {
     const $restaurantFilterContainer = $(
       document,
       ".restaurant-filter-container"
@@ -155,6 +152,45 @@ class App extends Component {
         sortAndFilter(restaurantList, sorting, category)
       );
     });
+
+    this.renderRestaurantList(sortAndFilter(this.state.restaurants));
+  }
+
+  renderFavorite() {
+    const favoriteRestaurants = this.state.restaurants.filter(
+      ({ isFavorite }) => isFavorite
+    );
+    this.renderRestaurantList(sortAndFilter(favoriteRestaurants));
+  }
+
+  componentDidMount() {
+    const $modal = new AddRestaurantModal($(document, "#modal"), {
+      updateRestaurant: this.updateRestaurant.bind(this),
+    });
+
+    const openModal = () => {
+      if (!$modal) {
+        return;
+      }
+      $modal.open();
+    };
+
+    const $header = new Header($(document, "#app"), {
+      data: {
+        title: "점심 뭐 먹지",
+        ariaLabel: "음식점 추가",
+        dataTestId: "open-add-restaurant-modal-button",
+        iconImageSource: "./icons/add-button.png",
+        alt: "음식점 추가",
+      },
+      buttonCallback: openModal,
+    });
+
+    new TabNavigation($(document, "main"), {
+      onTabChange: this.handleTabChange.bind(this),
+    });
+
+    this.renderAll();
   }
 
   renderRestaurantList(restaurants) {
