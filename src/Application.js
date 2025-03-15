@@ -46,6 +46,7 @@ class Application extends Component {
         name: 'category',
         optionList: ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'],
         filterCategory: this.filterCategory.bind(this),
+        category: this.state.category,
       },
       this.element,
     );
