@@ -2,12 +2,12 @@ import { restaurantStore } from '../store/restaurantStore.ts';
 import { reRenderRestaurantList } from '../utils/renderUtils.ts';
 
 export function handleCategoryFilter(selectedCategory: string) {
-  let filteredRestaurants;
   if (selectedCategory === '전체') {
-    filteredRestaurants = restaurantStore;
-  } else {
-    filteredRestaurants = restaurantStore.filter((restaurant) => restaurant.category === selectedCategory);
+    reRenderRestaurantList(restaurantStore);
+    return;
   }
+
+  const filteredRestaurants = restaurantStore.filter((restaurant) => restaurant.category === selectedCategory);
   reRenderRestaurantList(filteredRestaurants);
 }
 
