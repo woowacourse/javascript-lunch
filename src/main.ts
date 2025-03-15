@@ -15,9 +15,12 @@ import {
   DELETE_BUTTON,
   CLOSE_BUTTON,
 } from './constants/constants.ts';
-import { RESTAURANTS } from './data/restaurantData.ts';
 import eventHandlers, { handleStarToggle } from './handlers/eventHandlers.ts';
-import { handleCategoryFilter, registerCategoryFilter } from '../src/handlers/filterHandlers.ts';
+import {
+  applyFilters,
+  registerCategoryFilter,
+  registerSortingFilter,
+} from '../src/handlers/filterHandlers.ts';
 
 import {
   createButton,
@@ -49,6 +52,7 @@ addEventListener('load', () => {
 
   eventHandlers.registerEventHandlers(addNewRestaurantItem, openRestaurantModal);
   registerCategoryFilter();
+  registerSortingFilter();
 });
 
 function appendHeader() {
@@ -59,10 +63,7 @@ function appendHeader() {
 }
 
 function addNewRestaurantItem() {
-  const categoryFilter = document.getElementById('category-filter') as HTMLSelectElement;
-  const currentFilter = categoryFilter ? categoryFilter.value : '전체';
-
-  handleCategoryFilter(currentFilter);
+  applyFilters();
 }
 
 function setRequired(element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
@@ -113,13 +114,7 @@ function appendModalButton(form: HTMLFormElement) {
 }
 
 function initRestaurantItems() {
-  const ul = document.querySelector('.restaurant-list');
-  if (!ul) return;
-  const items: string = RESTAURANTS.map((restaurant) => {
-    return createRestaurantItem(restaurant);
-  }).join('');
-
-  ul.insertAdjacentHTML('beforeend', items);
+  applyFilters();
 }
 
 function appendCategoryFilterSelect(fieldName: multiSelect) {
