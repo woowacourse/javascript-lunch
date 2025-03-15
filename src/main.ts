@@ -7,6 +7,8 @@ import { handleSort } from "./event-handler/sortFilterHandlers.js";
 
 import bindEventHandlers from "./event-binder/event-binder.ts";
 import type { AppState } from "../types/restaurantTypes.js";
+import StorageManager from "./localStorage/StorageManager.ts";
+import { STORAGE_KEYS } from "./settings/localStorage.ts";
 function initializeApp(): AppState {
   const modalContainer = document.querySelector(
     ".modal-container"
@@ -39,9 +41,12 @@ function initializeApp(): AppState {
 }
 
 function loadRestaurantList() {
-  const savedList = localStorage.getItem("restaurantList");
-  const initialList = JSON.parse(savedList) ?? [...INITIAL_RESTAURANT];
-  localStorage.setItem("restaurantList", JSON.stringify(initialList));
+  const initialRestaurant = StorageManager.getItem(
+    STORAGE_KEYS.RESTAURANT_LIST,
+    INITIAL_RESTAURANT
+  );
+  StorageManager.setItem(STORAGE_KEYS.RESTAURANT_LIST, initialRestaurant);
+
   // 이것을 주석을 해제 해서 favorite와 filter 또한 미리 불러 올수 있습니다.
   // 다만, 이러면 새로 고침을 했을때 초기의 페이지를 바라는 사용자의 기대와
   // 다른 behavior라 생각되어 주석 처리 했습니다.
@@ -57,7 +62,7 @@ function loadRestaurantList() {
   //     localStorage.getItem("filter");
   // }
 
-  return new RestaurantList(initialList);
+  return new RestaurantList(initialRestaurant);
 }
 
 function renderRestaurantList(

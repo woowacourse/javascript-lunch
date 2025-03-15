@@ -2,6 +2,8 @@ import { extractFormData } from "../utils/extract";
 import { restaurantFormValidation } from "../validation/restaurantFormValidation";
 import createRestaurantItem from "../components/restaurant/item/item";
 import Toast from "../components/Toast/Toast";
+import StorageManager from "../localStorage/StorageManager";
+import { STORAGE_KEYS } from "../settings/localStorage";
 function toggleRestaurantVisibility(restaurantName, isVisible) {
   const restaurant = document.getElementById(restaurantName);
   if (!restaurant) return;
@@ -40,7 +42,7 @@ export function handleFavoriteToggle(
   if (!restaurant) return;
 
   restaurantList.toggleFavoriteRestaurant(restaurant);
-  localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+  StorageManager.setItem(STORAGE_KEYS.RESTAURANT_LIST, restaurantList.List);
   toggleFavoriteRestaurantByName(name);
 
   const isFavoriteFilterOn =
@@ -83,7 +85,7 @@ export function handleAddRestaurantFormSubmit(
 
 function addRestaurantToList(restaurantList, restaurant) {
   restaurantList.addRestaurant(restaurant);
-  localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+  StorageManager.setItem(STORAGE_KEYS.RESTAURANT_LIST, restaurantList.List);
 }
 
 function updateRestaurantListUI(restaurant, restaurantForm) {
@@ -114,7 +116,7 @@ export function handleDeleteRestaurant(
 
     restaurantList.deleteRestaurant(name);
 
-    localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
+    StorageManager.setItem(STORAGE_KEYS.RESTAURANT_LIST, restaurantList.List);
 
     deleteRestaurantElementByName(name);
 
