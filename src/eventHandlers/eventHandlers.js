@@ -95,12 +95,6 @@ function readNewRestaurant(callback) {
   });
 }
 
-function detectStorageEvent(callback) {
-  window.addEventListener('storage', () => {
-    callback();
-  });
-}
-
 function switchTab(callback) {
   let selected;
 
@@ -180,7 +174,6 @@ const eventHandlers = {
   openRestaurantInfoModal,
   closeModal,
   readNewRestaurant,
-  detectStorageEvent,
   switchTab,
   sortRestaurantItems,
   filteringRestaurantItems,

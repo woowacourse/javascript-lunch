@@ -97,7 +97,6 @@ function addEventHandlers() {
   eventHandlers.closeModal();
   eventHandlers.switchTab(updateRestaurantElements);
   eventHandlers.sortRestaurantItems(updateRestaurantElements);
-  eventHandlers.detectStorageEvent(updateRestaurantElements);
   eventHandlers.filteringRestaurantItems(updateRestaurantElements);
   eventHandlers.toggleFavoriteRestaurant(updateRestaurantElements);
 }
