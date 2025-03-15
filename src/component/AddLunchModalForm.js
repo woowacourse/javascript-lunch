@@ -37,6 +37,7 @@ function AddLunchModalForm(restaurantList, modalId) {
         name: name,
         distance: Number(distance),
         description,
+        link: link,
       });
 
       event.target.reset();

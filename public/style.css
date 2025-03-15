@@ -298,3 +298,18 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+/* 음식점 상세 모달 *****************************************/
+.restaurant__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.restaurant__detial__description {
+  padding-top: 8px;
+}
+
+.restaurant__detial__link {
+  padding-top: 8px;
+}
