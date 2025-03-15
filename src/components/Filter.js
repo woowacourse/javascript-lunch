@@ -7,6 +7,14 @@ class Filter extends Component {
              ${this.props.optionList.map((option) => `<option value="${option}">${option}</option>`)}
           </select>`;
   }
+
+  onRender() {
+    const $categorySelect = this.element.querySelector(`#${this.props.name}-filter`);
+
+    $categorySelect.addEventListener('change', (e) => {
+      this.props.filterCategory(e.target.value);
+    });
+  }
 }
 
 export default Filter;
