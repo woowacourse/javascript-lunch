@@ -43,7 +43,13 @@ addEventListener("load", () => {
 
   // 음식점 상세 정보
   querySelector(".restaurant-list").addEventListener("click", (e) => {
-    storeRenderer.toggleFavorite(storeList, e);
+    const starIcon = e.target.closest(".star-icon");
+    if (starIcon) {
+      const store = e.target.closest(".restaurant");
+      const storeId = store.getAttribute("id");
+      const icon = store.querySelector(".star-icon");
+      storeRenderer.toggleFavorite(storeList, icon, storeId);
+    }
 
     const storeInfo = e.target.closest(".restaurant__info");
     if (!storeInfo) return;
@@ -61,6 +67,17 @@ addEventListener("load", () => {
 
     querySelector("#delete-button").addEventListener("click", () => {
       storeRenderer.deleteStore(storeList);
+    });
+
+    const icon = querySelector(".modal-container").querySelector(".star-icon");
+    icon.addEventListener("click", (e) => {
+      console.log(e.target);
+      const storeId = e.target.closest(".modal-container").getAttribute("id");
+      storeRenderer.toggleFavorite(storeList, icon, storeId);
+      storeRenderer.removeStoreElements();
+      storeList.filteredList.forEach((store) => {
+        storeRenderer.addStore(store);
+      });
     });
   });
 

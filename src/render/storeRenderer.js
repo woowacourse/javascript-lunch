@@ -87,14 +87,13 @@ const storeRenderer = {
     });
   },
 
-  toggleFavorite: (storeList, e) => {
-    const starIcon = e.target.closest(".star-icon");
+  toggleFavorite: (storeList, starIcon, storeId) => {
+    // const starIcon = e.target.closest(".star-icon");
 
-    if (!starIcon) return;
+    // if (!starIcon) return;
 
-    const store = e.target.closest(".restaurant");
-    // const storeName = store.querySelector(".restaurant__name").textContent;
-    const storeId = store.getAttribute("id");
+    // const store = e.target.closest(".restaurant");
+    // const storeId = store.getAttribute("id");
     console.log(storeId);
     const storeInfo = storeList.list.find((store) => store.id === storeId);
     storeInfo.isFavorite = !storeInfo.isFavorite;
