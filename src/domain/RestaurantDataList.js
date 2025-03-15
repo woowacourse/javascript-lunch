@@ -2,7 +2,9 @@ import RestaurantData from "./RestaurantData";
 
 class RestaurantDataList {
   #dataList;
-  constructor(dataList) {
+  constructor() {
+    const dataList = this.getLocalStorage();
+    this.setLocalStorage(dataList);
     this.#dataList = dataList.map((data) => {
       return this.createData(data);
     });
@@ -22,6 +24,7 @@ class RestaurantDataList {
 
   addData(data) {
     this.#dataList.push(this.createData(data));
+    this.setLocalStorage(this.#dataList);
   }
 
   createData(data) {
@@ -39,11 +42,22 @@ class RestaurantDataList {
   updateIsWish(id) {
     const filteredData = this.getData(id);
     filteredData.toggleIsWish();
+    this.setLocalStorage(this.#dataList);
     return filteredData.isWish;
   }
 
   deleteDataList(id) {
     this.#dataList = this.#dataList.filter((data) => data.getId() !== id);
+    this.setLocalStorage(this.#dataList);
+  }
+
+  getLocalStorage() {
+    const dataList = JSON.parse(localStorage.getItem("dataList"));
+    return dataList;
+  }
+
+  setLocalStorage(dataList) {
+    return localStorage.setItem("dataList", JSON.stringify(dataList));
   }
 }
 

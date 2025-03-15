@@ -10,52 +10,52 @@ const CATEGORY_IMAGE = Object.freeze({
 });
 
 export default class RestaurantData {
-  #id;
-  #src;
-  #alt;
-  #name;
-  #distance;
-  #description;
-  #link;
-  #category;
-  #isWish;
+  id;
+  src;
+  alt;
+  name;
+  distance;
+  description;
+  link;
+  category;
+  isWish;
 
   constructor({ id, name, distance, description = "", link = "", category, isWish}) {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
 
-    this.#id = id || crypto.randomUUID();
-    this.#src = CATEGORY_IMAGE[category];
-    this.#alt = category;
-    this.#name = name;
-    this.#distance = Number(distance);
-    this.#description = description;
-    this.#link = link;
-    this.#category = category;
-    this.#isWish = isWish;
+    this.id = id || crypto.randomUUID();
+    this.src = CATEGORY_IMAGE[category];
+    this.alt = category;
+    this.name = name;
+    this.distance = Number(distance);
+    this.description = description;
+    this.link = link;
+    this.category = category;
+    this.isWish = isWish;
   }
 
   getData() {
     return {
-      id: this.#id,
-      alt: this.#alt,
-      src: this.#src,
-      name: this.#name,
-      distance: this.#distance,
-      description: this.#description,
-      link: this.#link,
-      category: this.#category,
-      isWish: this.#isWish
+      id: this.id,
+      alt: this.alt,
+      src: this.src,
+      name: this.name,
+      distance: this.distance,
+      description: this.description,
+      link: this.link,
+      category: this.category,
+      isWish: this.isWish
     };
   }
 
   getId() {
-    return this.#id;
+    return this.id;
   }
   
   toggleIsWish() {
-    this.#isWish = !this.#isWish;
+    this.isWish = !this.isWish;
   }
   
   isValidateOption(value) {
