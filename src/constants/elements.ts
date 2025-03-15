@@ -92,7 +92,7 @@ export const IMAGE = new Map([
 
 export const TOTAL_ITEMS_TAB = {
   type: 'button',
-  classNames: ['tab'],
+  classNames: ['tab', 'selected'],
   content: '모든 음식점',
 };
 

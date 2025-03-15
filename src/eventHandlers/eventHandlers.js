@@ -96,7 +96,7 @@ function readNewRestaurant(callback) {
 }
 
 function switchTab(callback) {
-  let selected;
+  let selected = document.querySelector('.selected');
 
   const handleTabClick = (event) => {
     const { target } = event;
