@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/errorMessage.js";
+import { ERROR_MESSAGE } from "../constants/errorMessage.ts";
 
 export function validateRequiredInput(input: string) {
   if (input.length === 0) {

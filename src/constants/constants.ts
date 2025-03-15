@@ -17,8 +17,19 @@ export const SELECT_OPTIONS = {
 };
 
 export const DROPDOWN_OPTIONS = {
-  CATEGORTY: ["전체", "한식", "중식", "일식", "양식", "아시안", "기타"],
-  SORT: ["이름순", "거리순"],
+  category: [
+    { value: "", label: "전체" },
+    { value: "한식", label: "한식" },
+    { value: "중식", label: "중식" },
+    { value: "일식", label: "일식" },
+    { value: "양식", label: "양식" },
+    { value: "아시안", label: "아시안" },
+    { value: "기타", label: "기타" },
+  ],
+  sort: [
+    { value: "name", label: "이름순" },
+    { value: "distance", label: "거리순" },
+  ],
 };
 
 export const NAME_MAX_LENGTH = 20;

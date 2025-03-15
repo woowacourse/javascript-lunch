@@ -1,5 +1,5 @@
 import { DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, SELECT_OPTIONS } from "../constants/constants.js";
-import { CAPTION } from "../constants/systemMessage.js";
+import { CAPTION } from "../constants/systemMessage.ts";
 import { validateLength, validateRequiredInput, validateURL } from "../validate/validateCondition.js";
 import { Button } from "./button/Button.js";
 import { ButtonContainer } from "./button/ButtonContainer.js";

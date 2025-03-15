@@ -1,12 +1,19 @@
+import { notifyFilterChange } from "../../managers/eventManagers.ts";
+
+interface OptionType {
+  value: string;
+  label: string;
+}
+
 interface DropdownOption {
   name: string;
-  options: string[];
+  options: OptionType[];
 }
 
 export class Dropdown {
   container: HTMLElement;
   name: string;
-  options: string[];
+  options: OptionType[];
 
   #selectValue: string;
 
@@ -18,7 +25,7 @@ export class Dropdown {
     this.#selectValue = "";
 
     this.render();
-    this.setSelectValue();
+    this.setDropdownValue();
   }
 
   get selectValue() {
@@ -32,19 +39,24 @@ export class Dropdown {
   render() {
     this.container.innerHTML = `
         <select name=${this.name} id=${this.name}>
-            ${this.options.map((option: string) => `<option value="${option}">${option}</option>`).join("")}
+            ${this.options.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
         </select>
     `;
   }
 
-  setSelectValue() {
+  setDropdownValue() {
     this.container.querySelectorAll("select").forEach((element) =>
-      element.addEventListener("click", (event: Event) => {
+      element.addEventListener("change", (event: Event) => {
         const target = event.target as HTMLSelectElement;
         if (target) {
           this.#selectValue = target.value;
+          notifyFilterChange(this.#selectValue);
         }
       }),
     );
+  }
+
+  resetDropdownValue() {
+    this.#selectValue = "";
   }
 }

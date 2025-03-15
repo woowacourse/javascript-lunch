@@ -1,4 +1,4 @@
-import { DELETE } from "../constants/systemMessage.js";
+import { DELETE } from "../constants/systemMessage.ts";
 import { notifyDeleteChange } from "../managers/eventManagers.js";
 import { removeStoredFoodItem, toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
@@ -19,9 +19,9 @@ export default class FoodItem {
 
   #data: FoodItemType;
   #id: string;
-  #category: Category;
+  #category: CategoryType;
   #name: string;
-  #distance: Distance;
+  #distance: DistanceType;
   #description: string;
   #link: string;
 

@@ -5,7 +5,7 @@ import FoodList from "../component/FoodList.ts";
 import { Header } from "../component/layout/Header.js";
 import Modal from "../component/layout/modal/Modal.js";
 import TabMenu from "../component/TabMenu.js";
-import { DROPDOWN_OPTIONS } from "../constants/constants.js";
+import { DROPDOWN_OPTIONS } from "../constants/constants.ts";
 import { getStoredFoodItems } from "../managers/storageManagers.js";
 
 export default class MainPage {
@@ -34,8 +34,8 @@ export default class MainPage {
     };
 
     const dropdowns = [
-      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.CATEGORTY }),
-      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.SORT }),
+      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.category }),
+      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.sort }),
     ];
     this.dropdownContainer = new DropdownContainer({ dropdowns: dropdowns });
 
@@ -56,7 +56,7 @@ export default class MainPage {
       this.foodList.filterFavoriteItem();
       return this.foodList.element;
     }
-    this.foodList.resetFilter();
+    this.foodList.resetFavoriteFilter();
     return this.foodList.element;
   }
 
