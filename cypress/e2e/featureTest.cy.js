@@ -258,3 +258,16 @@ describe('기능 테스트: 자주 가는 음식점 해제 테스트', () => {
     cy.get('.restaurant-list-container .restaurant').should('not.exist');
   });
 });
+
+describe('기능 테스트: 음식점 필터링 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
+    setLocalStorage();
+  });
+
+  it('사용자가 카테고리를 선택하여 원하는 음식점만 확인하는 시나리오 테스트', () => {
+    cy.get('#category-filter').select('ASIAN');
+
+    cy.get('.restaurant__category > img').should('have.attr', 'alt', 'ASIAN');
+  });
+});
