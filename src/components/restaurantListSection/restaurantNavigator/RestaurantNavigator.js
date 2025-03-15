@@ -5,12 +5,14 @@ export default class RestaurantNavigator {
   #updateSelected;
   #list;
   #updateList;
+  #selectValue;
 
-  constructor(selectedTab, updateSelected, list, updateList) {
+  constructor(selectedTab, updateSelected, list, updateList, selectValue) {
     this.#selectedTab = selectedTab;
     this.#updateSelected = updateSelected;
     this.#list = list;
     this.#updateList = updateList;
+    this.#selectValue = selectValue;
 
     this.$restaurantLitsHeader = document.createElement("div");
   }
@@ -56,6 +58,24 @@ export default class RestaurantNavigator {
     }
     if (id === "bookmark") {
       filteredList = this.#list.filter((restaurant) => restaurant.bookmark);
+    }
+
+    const { category, sorting } = this.#selectValue;
+
+    if (category !== "전체") {
+      filteredList = filteredList.filter(
+        (restaurant) => restaurant.category === category
+      );
+    }
+
+    if (sorting === "이름순") {
+      filteredList = filteredList.sort((a, b) =>
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      );
+    }
+
+    if (sorting === "거리순") {
+      filteredList = filteredList.sort((a, b) => a.distance - b.distance);
     }
 
     this.#updateSelected(id);

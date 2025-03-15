@@ -40,6 +40,18 @@ export default class App {
         this.#updateSelectValue
       ).render()
     );
+
+    const $tap = document.querySelector(".restaurant-list-header");
+
+    $tap.replaceWith(
+      new RestaurantNavigator(
+        this.#selectedTab,
+        this.#updateSelected,
+        this.restaurantListModel.getRestaurantList(),
+        this.#updateRestautantList,
+        { category: this.#category, sorting: this.#sorting }
+      ).render()
+    );
   };
 
   #updateRestautantList = (newRestaurantList) => {
@@ -64,7 +76,8 @@ export default class App {
         this.#selectedTab,
         this.#updateSelected,
         restaurantList,
-        this.#updateRestautantList
+        this.#updateRestautantList,
+        { category: this.#category, sorting: this.#sorting }
       ).render()
     );
 
@@ -129,7 +142,8 @@ export default class App {
         this.#selectedTab,
         this.#updateSelected,
         restaurantList,
-        this.#updateRestautantList
+        this.#updateRestautantList,
+        { category: this.#category, sorting: this.#sorting }
       ).render()
     );
   }
@@ -148,7 +162,8 @@ export default class App {
       this.#selectedTab,
       this.#updateSelected,
       this.#restaurantList,
-      this.#updateRestautantList
+      this.#updateRestautantList,
+      { category: this.#category, sorting: this.#sorting }
     ).render();
 
     this.$listSection.appendChild(
