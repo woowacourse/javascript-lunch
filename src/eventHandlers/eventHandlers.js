@@ -100,7 +100,7 @@ function switchTab(callback) {
 
   const handleTabClick = (event) => {
     const { target } = event;
-    const tab = target.closest('.tab-container');
+    const tab = target.classList.contains('tab');
     if (!tab) {
       return;
     }
