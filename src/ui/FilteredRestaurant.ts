@@ -44,8 +44,7 @@ function FilterByValueEvent({
 
 function updateRestaurantList(
   $restaurantList: HTMLDivElement,
-  items: HTMLElement[]
+  filteredRestaurants: HTMLElement[]
 ) {
-  $restaurantList.innerHTML = "";
-  items.forEach((item) => $restaurantList.appendChild(item));
+  $restaurantList.replaceChildren(...filteredRestaurants);
 }
