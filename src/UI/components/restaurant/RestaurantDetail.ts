@@ -1,8 +1,11 @@
 import RestaurantIcon from './RestaurantIcon';
 import FavoriteIcon from './FavoriteIcon';
+import Restaurant from '../../../Domain/Restaurant';
 
 class RestaurantDetail {
   private element: HTMLDivElement;
+  private restaurant: Restaurant | null;
+  private onFavoriteToggle: ((isFavorite: boolean) => void) | null;
 
   constructor(
     name: string,
@@ -11,7 +14,11 @@ class RestaurantDetail {
     description: string,
     link: string,
     isFavorite: boolean = false,
+    restaurant: Restaurant | null = null,
+    onFavoriteToggle: ((isFavorite: boolean) => void) | null = null,
   ) {
+    this.restaurant = restaurant;
+    this.onFavoriteToggle = onFavoriteToggle;
     this.element = this.#createRestaurantDetail(name, distance, category, description, link, isFavorite);
   }
 
@@ -67,7 +74,13 @@ class RestaurantDetail {
   }
 
   #createFavoriteIcon(isFavorite: boolean): HTMLElement {
-    const favoriteIcon = new FavoriteIcon(isFavorite);
+    const handleFavoriteToggle = (newIsFavorite: boolean) => {
+      if (this.onFavoriteToggle) {
+        this.onFavoriteToggle(newIsFavorite);
+      }
+    };
+
+    const favoriteIcon = new FavoriteIcon(isFavorite, this.restaurant ? handleFavoriteToggle : null, true);
     return favoriteIcon.getElement();
   }
 

@@ -4,12 +4,23 @@ class FavoriteIcon {
   private element: HTMLDivElement;
   private isFavorite: boolean;
   private imgElement: HTMLImageElement;
+  private onFavoriteToggle: ((isFavorite: boolean) => void) | null;
+  private isClickable: boolean;
 
-  constructor(isFavorite: boolean) {
+  constructor(
+    isFavorite: boolean,
+    onFavoriteToggle: ((isFavorite: boolean) => void) | null = null,
+    isClickable: boolean = true,
+  ) {
     this.isFavorite = isFavorite;
+    this.onFavoriteToggle = onFavoriteToggle;
+    this.isClickable = isClickable;
     this.element = this.#createFavoriteIcon();
     this.imgElement = this.element.querySelector('img') as HTMLImageElement;
-    this.#addEventListeners();
+
+    if (this.isClickable) {
+      this.#addEventListeners();
+    }
   }
 
   #createFavoriteIcon(): HTMLDivElement {
@@ -22,6 +33,11 @@ class FavoriteIcon {
     img.alt = this.isFavorite ? '즐겨찾기' : '즐겨찾기 아님';
 
     favoriteIcon.appendChild(img);
+
+    if (!this.isClickable) {
+      favoriteIcon.classList.add('favorite-icon--disabled');
+    }
+
     return favoriteIcon;
   }
 
@@ -32,6 +48,10 @@ class FavoriteIcon {
   #handleFavoriteClick(): void {
     this.isFavorite = !this.isFavorite;
     this.#updateFavoriteIcon();
+
+    if (this.onFavoriteToggle) {
+      this.onFavoriteToggle(this.isFavorite);
+    }
   }
 
   #updateFavoriteIcon(): void {

@@ -2,7 +2,7 @@ import Button from '../../../components/button/Button';
 import Modal from '../../../components/modal/Modal';
 import Restaurant from '../../../../Domain/Restaurant';
 import RestaurantDetail from '../../../components/restaurant/RestaurantDetail';
-import { deleteRestaurant } from '../../../../Domain/services/RestaurantService';
+import { deleteRestaurant, toggleFavorite } from '../../../../Domain/services/RestaurantService';
 
 class RestaurantDetailModal {
   #modal: Modal;
@@ -28,6 +28,8 @@ class RestaurantDetailModal {
       this.#restaurant.getDescription(),
       this.#restaurant.getLink(),
       this.#restaurant.isFavorite(),
+      this.#restaurant,
+      (isFavorite) => this.#handleFavoriteToggle(isFavorite),
     );
     this.#cancelButton = new Button('button', 'button--secondary', '취소하기', () => this.#handleCancelButton());
     this.#deleteButton = new Button('button', 'button--primary', '삭제하기', (event: MouseEvent) =>
@@ -52,6 +54,10 @@ class RestaurantDetailModal {
     buttonContainer.appendChild(this.#deleteButton.getElement());
 
     return buttonContainer;
+  }
+
+  #handleFavoriteToggle(isFavorite: boolean): void {
+    toggleFavorite(this.#restaurant);
   }
 
   handleToggleModal(): void {

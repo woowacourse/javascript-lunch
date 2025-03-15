@@ -3,10 +3,30 @@ import { validateDropDown, validateName, validateDescription, validateLink } fro
 import { mockRestaurantData } from '../data/MockRestaurantData';
 import { RestaurantData } from '../types/RestaurantTypes';
 
+export type RestaurantEventType = 'add' | 'delete' | 'favorite' | 'update';
+export type RestaurantEventListener = (eventType: RestaurantEventType, restaurant: Restaurant) => void;
+
 let restaurantList: Restaurant[] = mockRestaurantData.map(
   (data) =>
     new Restaurant(data.name, data.distance, data.category, data.description, data.link, data.isFavorite || false),
 );
+
+const eventListeners: RestaurantEventListener[] = [];
+
+export const addRestaurantEventListener = (listener: RestaurantEventListener): void => {
+  eventListeners.push(listener);
+};
+
+export const removeRestaurantEventListener = (listener: RestaurantEventListener): void => {
+  const index = eventListeners.indexOf(listener);
+  if (index !== -1) {
+    eventListeners.splice(index, 1);
+  }
+};
+
+const notifyListeners = (eventType: RestaurantEventType, restaurant: Restaurant): void => {
+  eventListeners.forEach((listener) => listener(eventType, restaurant));
+};
 
 export const getRestaurantList = (): Restaurant[] => [...restaurantList];
 
@@ -57,9 +77,20 @@ export const addRestaurant = (restaurantData: RestaurantData): Restaurant => {
   );
 
   restaurantList = [...restaurantList, newRestaurant];
+
+  notifyListeners('add', newRestaurant);
+
   return newRestaurant;
 };
 
 export const deleteRestaurant = (restaurant: Restaurant): void => {
   restaurantList = restaurantList.filter((r) => r !== restaurant);
+
+  notifyListeners('delete', restaurant);
+};
+
+export const toggleFavorite = (restaurant: Restaurant): void => {
+  restaurant.toggleFavorite();
+
+  notifyListeners('favorite', restaurant);
 };

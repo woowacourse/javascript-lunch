@@ -2,14 +2,29 @@ import { DOM } from '../../../dom';
 import Restaurant from '../../../Domain/Restaurant';
 import RestaurantItem from './RestaurantItem';
 import RestaurantDetailModal from '../../pages/modal/components/RestaurantDetailModal';
-import { getFilteredRestaurants } from '../../../Domain/services/RestaurantService';
+import {
+  getFilteredRestaurants,
+  addRestaurantEventListener,
+  removeRestaurantEventListener,
+  RestaurantEventType,
+} from '../../../Domain/services/RestaurantService';
 
 class RestaurantListRenderer {
   private static instance: RestaurantListRenderer;
   private currentCategory: string = '전체';
   private currentSortBy: string = 'name';
 
-  private constructor() {}
+  private constructor() {
+    this.registerEventListeners();
+  }
+
+  private registerEventListeners(): void {
+    addRestaurantEventListener(this.handleRestaurantEvent.bind(this));
+  }
+
+  private handleRestaurantEvent(eventType: RestaurantEventType, restaurant: Restaurant): void {
+    this.refreshRestaurantList();
+  }
 
   public static getInstance(): RestaurantListRenderer {
     if (!RestaurantListRenderer.instance) {

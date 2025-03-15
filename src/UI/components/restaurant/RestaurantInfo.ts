@@ -50,7 +50,7 @@ class RestaurantInfo {
   }
 
   #createFavoriteIcon(): HTMLDivElement {
-    const favoriteIcon = new FavoriteIcon(this.restaurant.isFavorite());
+    const favoriteIcon = new FavoriteIcon(this.restaurant.isFavorite(), null, false);
     return favoriteIcon.getElement();
   }
 
