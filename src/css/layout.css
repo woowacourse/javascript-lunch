@@ -1,12 +1,26 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  height: 100%;
+}
+
 #app {
+  display: flex;
+  flex-direction: column;
   width: var(--app-width);
-  height: var(--app-height);
+  height: 100%;
   margin: auto;
   position: relative;
 }
 
 main {
-  height: calc(100% - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 /* GNB ********************************************/
@@ -14,6 +28,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
   height: 64px;
 
   padding: 0 16px;
@@ -47,14 +62,22 @@ main {
 
 .tab {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: end;
   height: 64px;
   padding: 0 16px;
   cursor: pointer;
 }
+.tab div {
+  width: 180px;
+  text-align: center;
+  height: 30px;
+  border-bottom: 2px solid var(--grey-200);
+  font-weight: 700;
+  font-size: 16px;
+}
 
-.tab--selected {
+.tab div.tab--selected {
   color: var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
 }

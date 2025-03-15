@@ -1,13 +1,9 @@
 import createElement from "../../utils/createElement/createElement";
 
-const Description = (text, ellipsis) =>
+const Description = (text) =>
   createElement({
     tagName: "p",
-    classNames: [
-      "restaurant__description",
-      "text-body",
-      ellipsis ? "text-ellipsis" : "",
-    ],
+    classNames: ["restaurant__description", "text-body"],
     text,
   });
 
