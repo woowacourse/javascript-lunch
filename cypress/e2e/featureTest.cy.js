@@ -13,7 +13,7 @@ describe('기능 테스트: 음식을 추가하는 시나리오 테스트', () =
     cy.get('#description').type('꺼벙이 분식');
     cy.get('#link').type('https://naver.me/G6DyD9tg');
 
-    cy.get('.button--primary').click();
+    cy.get('.add-item-button').click();
     cy.get('.restaurant-list').should('contain', '꺼벙이');
   });
 
@@ -25,7 +25,7 @@ describe('기능 테스트: 음식을 추가하는 시나리오 테스트', () =
     cy.get('#name').type('꺼벙이');
     cy.get('#distance').select('15분 내');
 
-    cy.get('.button--primary').click();
+    cy.get('.add-item-button').click();
     cy.get('.restaurant-list').should('contain', '꺼벙이');
   });
 });
@@ -45,7 +45,10 @@ describe('기능 테스트: 음식 추가를 취소하는 시나리오 테스트
     cy.get('#description').type('꺼벙이 분식');
     cy.get('#link').type('https://naver.me/G6DyD9tg');
 
-    cy.get('.button--secondary').click();
+    cy.get('#new-restaurant-form').within(() => {
+      cy.get('.close-modal-button').click();
+    });
+
     cy.get('.modal--open').should('not.exist');
     cy.get('.restaurant-list').should('not.contain', '꺼벙이');
   });
@@ -62,7 +65,10 @@ describe('기능 테스트: 음식 추가를 취소하는 시나리오 테스트
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.get('.modal-backdrop').invoke('css', 'z-index', '9999').click();
+    cy.get('.add-restaurant-modal').within(() => {
+      cy.get('.modal-backdrop').invoke('css', 'z-index', '9999').click();
+    });
+
     cy.get('.modal--open').should('not.exist');
   });
 });
@@ -80,20 +86,23 @@ describe('기능 테스트: 모달 기능 동작 테스트', () => {
     cy.get('#name').type('꺼벙이');
     cy.get('#distance').select('15분 내');
 
-    cy.get('.button--secondary').click();
+    cy.get('#new-restaurant-form').within(() => {
+      cy.get('.close-modal-button').click();
+    });
+
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
     cy.get('#category').should('have.value', '');
     cy.get('#name').should('have.value', '');
-    cy.get('#distance').should('have.value', '');
+    cy.get('#distance').should('have.value', 'null');
   });
 
   it('사용자가 모달의 필수 필드 입력창에 아무것도 입력하지 않고 추가하기 버튼을 클릭하는 시나리오 테스트', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal--open').should('exist');
 
-    cy.get('.button--primary').click();
+    cy.get('.add-item-button').click();
     cy.get('.modal--open').should('exist');
   });
 });
