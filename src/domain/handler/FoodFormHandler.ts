@@ -1,3 +1,4 @@
+import { Category } from "../../types/domain/FoodFormHandlerType";
 import { getInput } from "../../util/getInput";
 import { validateFoodItem } from "../../validate/validateFoodItem";
 
@@ -27,7 +28,7 @@ export function getFormFoodItem() {
   }
 }
 
-function getImgSrcAlt(category) {
+function getImgSrcAlt(category: Category) {
   const categoryMap = {
     한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },
     중식: { imgAlt: "중식", imgSrc: "./category-chinese.png" },

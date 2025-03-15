@@ -1,4 +1,11 @@
-export function TextareaInput({ isRequired = false, label, caption, name }) {
+import { TextareaInputType } from "../../types/component/InputType";
+
+export function TextareaInput({
+  isRequired = false,
+  label,
+  caption,
+  name,
+}: TextareaInputType) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {
@@ -6,7 +13,7 @@ export function TextareaInput({ isRequired = false, label, caption, name }) {
   }
 
   container.innerHTML = `
-                <label for=${name} text-caption">설명</label>
+                <label for=${name} text-caption">${label}</label>
               <textarea
                 name=${name}
                 id=${name}
@@ -14,7 +21,7 @@ export function TextareaInput({ isRequired = false, label, caption, name }) {
                 rows="5"
               ></textarea>
               <span class="help-text text-caption"
-                >메뉴 등 추가 정보를 입력해 주세요.</span
+                >${caption}</span
               >
   `;
   return container;

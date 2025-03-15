@@ -81,7 +81,7 @@ export function FoodForm(filter) {
         Button({
           cssType: "secondary",
           innerText: "취소하기",
-          onClick: Modal.close,
+          onClick: () => Modal.close({ filter: null }),
         }),
         Button({
           cssType: "primary",

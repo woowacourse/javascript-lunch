@@ -1,4 +1,6 @@
-export function Button({ cssType, innerText, onClick = () => {} }) {
+import { ButtonType } from "../../types/component/ButtonType";
+
+export function Button({ cssType, innerText, onClick = () => {} }: ButtonType) {
   const button = document.createElement("button");
   button.type = "button";
   button.classList.add("button");

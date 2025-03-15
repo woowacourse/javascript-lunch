@@ -1,3 +1,4 @@
+import { SortByType } from "../types/domain/FilterType";
 import { readStorageFoodList } from "./handler/FoodStorageHandler";
 
 export class Filter {
@@ -10,13 +11,18 @@ export class Filter {
   }
 
   changeCategory() {
-    const filterOption = document.querySelector("select[name=category]").value;
+    const filterOption = (
+      document.querySelector("select[name=category]") as HTMLSelectElement
+    )?.value;
+
     this.#categoryFilter = filterOption;
     return this.#updateFilterItem();
   }
 
   changeSorting() {
-    const filterOption = document.querySelector("select[name=sorting]").value;
+    const filterOption = (
+      document.querySelector("select[name=sorting]") as HTMLSelectElement
+    )?.value;
     this.#sortingFilter = filterOption;
     return this.#updateFilterItem();
   }
@@ -29,11 +35,11 @@ export class Filter {
         if (this.#categoryFilter === "전체") return foodItem;
         return foodItem.imgAlt === this.#categoryFilter;
       })
-      .sort((a, b) => this.sortBy(a, b));
+      .sort((a, b) => this.sortBy({ a, b }));
     return filteredItems;
   }
 
-  sortBy(a, b) {
+  sortBy({ a, b }: SortByType) {
     if (this.#sortingFilter === "이름순") {
       return a.name.localeCompare(b.name, "ko");
     }
@@ -44,8 +50,11 @@ export class Filter {
   }
 
   reset() {
-    document.querySelector("#category-filter").value = "전체";
-    document.querySelector("#sorting-filter").value = "이름순";
+    (document.querySelector("#category-filter") as HTMLSelectElement).value =
+      "전체";
+    (document.querySelector("#sorting-filter") as HTMLSelectElement).value =
+      "이름순";
+
     this.#categoryFilter = "전체";
     this.#sortingFilter = "이름순";
   }

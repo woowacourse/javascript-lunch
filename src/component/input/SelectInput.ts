@@ -1,9 +1,11 @@
+import { SelectInputType } from "../../types/component/InputType";
+
 export function SelectInput({
   isRequired = false,
   name,
   label,
   optionList = [],
-}) {
+}: SelectInputType) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {

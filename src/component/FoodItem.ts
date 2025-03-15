@@ -1,10 +1,11 @@
+import { FoodItemType } from "../types/component/FoodItemType";
 import { IconButton } from "./button/IconButton";
 
-export function FoodItem(
+export function FoodItem({
   foodItem,
   handleModal = () => {},
-  handleFavoriteButton = () => {}
-) {
+  handleFavoriteButton = () => {},
+}: FoodItemType) {
   const {
     imgSrc,
     imgAlt,
@@ -26,10 +27,10 @@ export function FoodItem(
   const favoriteIcon = IconButton({
     imgSrc: convertStarImg,
     label: "즐겨찾기 버튼",
-    onClick: (event) => handleFavoriteButton(event, foodItem),
+    onClick: (event: Event) => handleFavoriteButton(event, foodItem),
   });
 
-  favoriteIcon.classList.add("restaurant-star");
+  favoriteIcon?.classList.add("restaurant-star");
 
   itemContainer.innerHTML = `
         <div class="restaurant__category">
@@ -42,7 +43,7 @@ export function FoodItem(
         </div>
           `;
 
-  itemContainer.appendChild(favoriteIcon);
+  favoriteIcon && itemContainer.appendChild(favoriteIcon);
 
   return itemContainer;
 }

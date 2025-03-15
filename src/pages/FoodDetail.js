@@ -50,12 +50,12 @@ function closeButton(filter) {
     readFoodList(filter, true);
   } else readFoodList(filter);
 
-  Modal.close();
+  Modal.close({ filter: null });
 }
 
 function handleFavoriteButton(event, foodItem, filter) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateStorageFoodList(foodItem);
-  Modal.setContent(FoodDetail(filter, foodItem), filter);
+  Modal.setContent(FoodDetail(filter, foodItem));
 }
