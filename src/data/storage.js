@@ -21,6 +21,16 @@ const storage = {
     console.log(items);
     return items;
   },
+
+  updateIsFavorite(id) {
+    const store = JSON.parse(window.localStorage.getItem(JSON.stringify(id)));
+    console.log(store);
+    store.isFavorite = !store.isFavorite;
+    window.localStorage.setItem(
+      JSON.stringify(store.id),
+      JSON.stringify(store)
+    );
+  },
 };
 
 export default storage;

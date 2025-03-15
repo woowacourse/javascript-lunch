@@ -1,5 +1,6 @@
 import Store from "../components/Store.js";
 import IMG_SRC from "../constants/imgSrc.js";
+import storage from "../data/storage.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
 import modalRenderer from "./modalRenderer.js";
@@ -92,14 +93,18 @@ const storeRenderer = {
     if (!starIcon) return;
 
     const store = e.target.closest(".restaurant");
-    const storeName = store.querySelector(".restaurant__name").textContent;
-    const storeInfo = storeList.list.find((store) => store.name === storeName);
+    // const storeName = store.querySelector(".restaurant__name").textContent;
+    const storeId = store.getAttribute("id");
+    console.log(storeId);
+    const storeInfo = storeList.list.find((store) => store.id === storeId);
     storeInfo.isFavorite = !storeInfo.isFavorite;
 
     starIcon.setAttribute(
       "src",
       storeInfo.isFavorite ? IMG_SRC.STAR_ICON_FILLED : IMG_SRC.STAR_ICON_LINED
     );
+
+    storage.updateIsFavorite(storeId);
   },
 
   setMenuBar: (storeList, e) => {

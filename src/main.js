@@ -17,6 +17,7 @@ addEventListener("load", () => {
   MenuBar();
   const storeList = initRenderer.setStoreList();
 
+  // 메뉴 추가 버튼
   querySelector(".gnb__button").addEventListener("click", () => {
     initRenderer.setModal();
     querySelector(".modal").classList.add("modal--open");
@@ -32,6 +33,7 @@ addEventListener("load", () => {
     );
   });
 
+  // 음식점 필터/정렬
   querySelector("#category-filter").addEventListener("change", (e) =>
     storeRenderer.filterStore(storeList, e)
   );
@@ -39,6 +41,7 @@ addEventListener("load", () => {
     storeRenderer.sortStore(storeList, e)
   );
 
+  // 음식점 상세 정보
   querySelector(".restaurant-list").addEventListener("click", (e) => {
     storeRenderer.toggleFavorite(storeList, e);
 
@@ -61,6 +64,7 @@ addEventListener("load", () => {
     });
   });
 
+  // 전체/자주 가는 음식점 메뉴바
   querySelector(".restaurant-menuBar-container").addEventListener(
     "click",
     (e) => {
