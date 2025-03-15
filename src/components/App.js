@@ -1,10 +1,7 @@
 import Header from "./Header/Header.js";
 import Component from "./Component.js";
 import Modal from "./Modal/Modal.js";
-import {
-  RestaurantData,
-  mappedRestaurantData,
-} from "../constants/RestaurantData.js";
+import { RestaurantData } from "../constants/RestaurantData.js";
 import {
   addResturantContent,
   restaurantInfoContent,
@@ -21,16 +18,20 @@ class App extends Component {
   constructor($target) {
     super($target);
     this.state = this.initState();
-    this.addNewRestaurant = this.addNewRestaurant.bind(this);
-    document.addEventListener("restaurantUpdated", this.addNewRestaurant);
+    this.getNewRestaurant = this.getNewRestaurant.bind(this);
+    this.deleteRestaurant = this.deleteRestaurant.bind(this);
+    document.addEventListener("restaurantUpdated", this.getNewRestaurant);
+    document.addEventListener("restaurantDeleted", this.deleteRestaurant);
   }
 
   initState() {
-    localStorage.setItem("restaurantList", JSON.stringify(RestaurantData));
-
+    const savedData = localStorage.getItem("restaurantList");
+    if (!savedData) {
+      localStorage.setItem("restaurantList", JSON.stringify(RestaurantData));
+    }
     return {
       isModalOpen: false,
-      restaurantList: [...RestaurantData],
+      restaurantList: savedData ? JSON.parse(savedData) : [...RestaurantData],
       selectedCategory: "전체",
       sortOption: "name",
       selectedRestaurant: null,
@@ -55,8 +56,9 @@ class App extends Component {
       isModalOpen: this.state.isModalOpen,
       toggleModal: () => this.toggleModal(),
       content: this.state.selectedRestaurant
-        ? restaurantInfoContent(this.state.selectedRestaurant) // ✅ 선택된 레스토랑 정보
+        ? restaurantInfoContent(this.state.selectedRestaurant)
         : addResturantContent(),
+      modalType: this.state.selectedRestaurant ? "info" : "add",
     });
   }
 
@@ -69,7 +71,10 @@ class App extends Component {
   }
 
   filterRestaurants(selectedCategory) {
-    const filtered = filterByCategory(RestaurantData, selectedCategory);
+    const filtered = filterByCategory(
+      JSON.parse(localStorage.getItem("restaurantList")),
+      selectedCategory,
+    );
     this.setState({
       restaurantList: filtered,
       selectedCategory,
@@ -84,14 +89,36 @@ class App extends Component {
     });
   }
 
-  addNewRestaurant() {
-    const newRestaurantList = JSON.parse(
-      localStorage.getItem("restaurantList"),
-    );
+  getNewRestaurant(event) {
+    const newRestaurantList = [...this.state.restaurantList];
+    newRestaurantList.push(event.detail.information);
+    localStorage.setItem("restaurantList", JSON.stringify(newRestaurantList));
+
     this.setState({
       restaurantList: newRestaurantList,
       selectedCategory: this.state.selectedCategory,
       sortOption: this.state.sortOption,
+    });
+  }
+
+  deleteRestaurant(event) {
+    const restaurantId = event.detail.restaurantId;
+    let restaurantIndex = -1;
+    this.state.restaurantList.forEach((restaurant, index) => {
+      if (restaurant.id === restaurantId) {
+        restaurantIndex = index;
+      }
+    });
+    const removed = this.state.restaurantList.splice(restaurantIndex, 1);
+    localStorage.setItem(
+      "restaurantList",
+      JSON.stringify([...this.state.restaurantList]),
+    );
+    this.setState({
+      restaurantList: this.state.restaurantList,
+      selectedCategory: this.state.selectedCategory,
+      sortOption: this.state.sortOption,
+      selectedRestaurant: null,
     });
   }
 }

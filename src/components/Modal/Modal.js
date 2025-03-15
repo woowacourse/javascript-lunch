@@ -64,11 +64,15 @@ class Modal extends Component {
     );
     if (deleteButton) {
       deleteButton.addEventListener("click", () => {
-        // 삭제 로직 (필요하다면)
+        const element = this.$target.querySelector("[data-restaurant-id]");
+        document.dispatchEvent(
+          new CustomEvent("restaurantDeleted", {
+            detail: { restaurantId: element.dataset.restaurantId },
+          }),
+        );
         this.props.toggleModal();
       });
     }
-   
   }
 
   addSubmitEvent() {
