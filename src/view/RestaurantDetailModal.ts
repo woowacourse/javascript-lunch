@@ -1,7 +1,10 @@
-import DetailModal from "../components/DetailModal";
 import { Restaurant } from "../shared/types";
-import { DeleteRestaurant, GetAllRestaurants } from "./RestaurantStorage";
-import { SaveFavoriteRestaurantInModal } from "./SaveFavoriteRestaurant";
+import {
+  DeleteRestaurant,
+  GetAllRestaurants,
+} from "../domain/RestaurantStorage";
+import { SaveFavoriteRestaurantInModal } from "../ui/SaveFavoriteRestaurant";
+import DetailModal from "../ui/DetailModal";
 
 export default function RestaurantDetailModal() {
   const $app = document.getElementById("app") as HTMLElement;

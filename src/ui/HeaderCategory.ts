@@ -1,5 +1,5 @@
-import { CreateRestaurantList } from "../components/CreateRestaurantList";
-import { GetAllRestaurants } from "./RestaurantStorage";
+import { CreateRestaurantList } from "./CreateRestaurantList";
+import { GetAllRestaurants } from "../domain/RestaurantStorage";
 import FilterByValue from "./FilterByValue";
 import OrderByValue from "./OrderByValue";
 import { Restaurant } from "../shared/types";

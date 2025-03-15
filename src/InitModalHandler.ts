@@ -1,4 +1,3 @@
-import AddRestaurantModal from "./components/AddRestaurantModal";
 import { AddNewRestaurant } from "./domain/RestaurantStorage";
 import { categoryMapping } from "./utils/categoryMapping";
 import {
@@ -6,6 +5,7 @@ import {
   validateNameInput,
   validateSelectInput,
 } from "./validation/validator";
+import AddRestaurantModal from "./view/AddRestaurantModal";
 
 export default function InitModalHandler() {
   const $modalButton = document.getElementById(

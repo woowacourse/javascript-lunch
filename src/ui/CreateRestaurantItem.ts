@@ -1,6 +1,6 @@
 import { Restaurant } from "../shared/types";
 
-export function createRestaurantItem(
+export function CreateRestaurantItem(
   container: HTMLElement,
   inputValue: Restaurant
 ): void {
