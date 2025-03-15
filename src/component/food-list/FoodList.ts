@@ -1,9 +1,9 @@
-import { addDeleteItemChangeListeners } from "../managers/eventManager/deleteEventManager.ts";
-import { addFavoriteChangeListeners } from "../managers/eventManager/favoriteEventManager.ts";
-import { addFilterChangeListeners } from "../managers/eventManager/filterEventManager.ts";
-import { addSortChangeListeners } from "../managers/eventManager/sortEventManager.ts";
-import { storeFoodItems } from "../managers/storageManagers.ts";
-import FoodItem from "./foodItem/FoodItem.ts";
+import { addDeleteItemChangeListeners } from "../../managers/eventManager/deleteEventManager.ts";
+import { addFavoriteChangeListeners } from "../../managers/eventManager/favoriteEventManager.ts";
+import { addFilterChangeListeners } from "../../managers/eventManager/filterEventManager.ts";
+import { addSortChangeListeners } from "../../managers/eventManager/sortEventManager.ts";
+import { storeFoodItems } from "../../managers/storageManagers.ts";
+import FoodItem from "../food-item/FoodItem.ts";
 
 type CategoryDropdownValue = "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
 type SortDropdownValue = "이름순" | "거리순";
