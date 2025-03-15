@@ -7,6 +7,6 @@ export default defineConfig({
   e2e: {
     viewportHeight: 1000,
     experimentalStudio: true,
-    baseUrl: process.env.BASE_URL,
+    baseUrl: process.env.BASE_URL ?? 'http://localhost:5173',
   },
 });
