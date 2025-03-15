@@ -5,5 +5,4 @@ export const categoryMapping = {
   양식: "western",
   아시안: "asian",
   기타: "etc",
-  에러: "error_category",
-};
+} as const;

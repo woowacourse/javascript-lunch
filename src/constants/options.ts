@@ -1,11 +1,11 @@
 type CategoryOption = {
   value: "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
-  text: string;
+  text: "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
 };
 
 type DistanceOption = {
   value: 5 | 10 | 15 | 20 | 30;
-  text: string;
+  text: "5분 내" | "10분 내" | "15분 내" | "20분 내" | "30분 내";
 };
 
 export const CATEGORY_OPTIONS: CategoryOption[] = [
