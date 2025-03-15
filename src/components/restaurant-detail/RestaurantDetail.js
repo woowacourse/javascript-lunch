@@ -14,47 +14,39 @@ export default class RestaurantDetail {
     this.onDelete = onDelete;
     this.onClose = onClose;
 
-    this.$form = document.createElement("form");
+    this.#initializeDOM();
+    this.#initializeEventListeners();
   }
 
-  render() {
-    this.$form.innerHTML = "";
+  #initializeDOM() {
+    this.$form = document.createElement("form");
 
     const $category = document.createElement("div");
     $category.className = "restaurant__category";
 
-    const $categoryImg = document.createElement("img");
-    $categoryImg.className = "category-icon";
-    $categoryImg.setAttribute("src", CATEGORY_ASSETS[this.category]);
-    $categoryImg.setAttribute("alt", this.category);
+    this.$categoryImg = document.createElement("img");
+    this.$categoryImg.className = "category-icon";
 
     const $info = document.createElement("div");
     $info.className = "restaurant__info";
 
-    const $name = document.createElement("h3");
-    $name.className = "restaurant__name text-subtitle";
-    $name.textContent = this.name;
+    this.$name = document.createElement("h3");
+    this.$name.className = "restaurant__name text-subtitle";
 
-    const $distance = document.createElement("span");
-    $distance.className = "restaurant__distance text-body";
-    $distance.textContent = `캠퍼스부터 ${this.distance}분 내`;
+    this.$distance = document.createElement("span");
+    this.$distance.className = "restaurant__distance text-body";
 
-    const $description = document.createElement("p");
-    $description.className = "restaurant__description text-body";
-    $description.textContent = this.description;
+    this.$description = document.createElement("p");
+    this.$description.className = "restaurant__description text-body";
 
-    const $favoriteButton = document.createElement("button");
-    $favoriteButton.className = "favorite-button";
-    $favoriteButton.setAttribute("aria-label", "자주 가는 음식점 추가");
-    $favoriteButton.type = "button";
+    this.$favoriteButton = document.createElement("button");
+    this.$favoriteButton.className = "favorite-button";
+    this.$favoriteButton.setAttribute("aria-label", "자주 가는 음식점 추가");
+    this.$favoriteButton.type = "button";
 
-    const $favoriteImg = document.createElement("img");
-    $favoriteImg.className = "favorite-icon";
-    $favoriteImg.setAttribute(
-      "src",
-      this.isFavorite ? FAVORITE_ASSETS.filled : FAVORITE_ASSETS.lined
-    );
-    $favoriteImg.setAttribute("alt", "자주 가는 음식점 추가");
+    this.$favoriteImg = document.createElement("img");
+    this.$favoriteImg.className = "favorite-icon";
+    this.$favoriteImg.setAttribute("alt", "자주 가는 음식점 추가");
 
     const $buttonContainer = document.createElement("div");
     $buttonContainer.className = "button-container";
@@ -65,26 +57,47 @@ export default class RestaurantDetail {
       action: BUTTON_TYPES.delete,
     }).render();
 
-    const $closeButton = new Button({
+    this.$closeButton = new Button({
       text: BUTTON_TEXTS.close,
       action: BUTTON_TYPES.close,
     }).render();
 
-    this.$form.append($category, $info, $favoriteButton, $buttonContainer);
-    $category.append($categoryImg);
-    $info.append($name, $distance, $description);
-    $favoriteButton.append($favoriteImg);
-    $buttonContainer.append($deleteButton, $closeButton);
+    this.$form.append($category, $info, this.$favoriteButton, $buttonContainer);
+    $category.append(this.$categoryImg);
+    $info.append(this.$name, this.$distance, this.$description);
+    this.$favoriteButton.append(this.$favoriteImg);
+    $buttonContainer.append($deleteButton, this.$closeButton);
+  }
 
-    $favoriteButton.addEventListener(EVENT_TYPES.click, () =>
+  #initializeEventListeners() {
+    this.$favoriteButton.addEventListener(EVENT_TYPES.click, () =>
       this.onToggleFavorite(this.id)
     );
-    $closeButton.addEventListener(EVENT_TYPES.click, this.onClose.bind(this));
+    this.$closeButton.addEventListener(
+      EVENT_TYPES.click,
+      this.onClose.bind(this)
+    );
     this.$form.addEventListener(
       EVENT_TYPES.submit,
       this.#handleSubmit.bind(this)
     );
+  }
 
+  #updateContent() {
+    this.$categoryImg.setAttribute("src", CATEGORY_ASSETS[this.category]);
+    this.$categoryImg.setAttribute("alt", this.category);
+
+    this.$name.textContent = this.name;
+    this.$distance.textContent = `캠퍼스부터 ${this.distance}분 내`;
+    this.$description.textContent = this.description;
+
+    this.$favoriteImg.setAttribute(
+      "src",
+      this.isFavorite ? FAVORITE_ASSETS.filled : FAVORITE_ASSETS.lined
+    );
+  }
+
+  render() {
     return this.$form;
   }
 
@@ -103,6 +116,6 @@ export default class RestaurantDetail {
     this.link = link;
     this.isFavorite = isFavorite;
 
-    this.render();
+    this.#updateContent();
   }
 }
