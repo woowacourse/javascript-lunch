@@ -1,8 +1,6 @@
 import Component from "../../core/Component";
 import Restaurant from "../../domain/Restaurant.js";
-import { styleStr } from "../../utils/styleStr";
-import AllLunchList from "../feature/AllLunchList.js";
-import { LunchList } from "../feature/index.js";
+import { AllLunchList, LunchList } from "../feature/index.js";
 
 export default class Tab extends Component {
   setDefaultProps() {

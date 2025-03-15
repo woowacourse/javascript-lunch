@@ -5,6 +5,7 @@ import Header from "./Header.js";
 import Icon from "./Icon.js";
 import Layout from "./Layout.js";
 import Select from "./Select.js";
+import Tab from "./Tab.js";
 import Text from "./Text.js";
 import TextArea from "./TextArea.js";
 
@@ -16,6 +17,7 @@ export {
   Icon,
   Layout,
   Select,
+  Tab,
   Text,
   TextArea,
 };
