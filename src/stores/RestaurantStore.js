@@ -11,26 +11,11 @@ export default class RestaurantStore {
 
   #loadFromLocalStorage() {
     const savedRestaurants = localStorage.getItem("restaurants");
-    const savedFavorites = localStorage.getItem("favorites");
-
-    this.#restaurants = savedRestaurants
-      ? JSON.parse(savedRestaurants).map((restaurant) => ({
-          ...restaurant,
-          isFavorite: savedFavorites
-            ? JSON.parse(savedFavorites).includes(restaurant.id)
-            : false,
-        }))
-      : [];
+    this.#restaurants = savedRestaurants ? JSON.parse(savedRestaurants) : [];
   }
 
   #saveToLocalStorage() {
     localStorage.setItem("restaurants", JSON.stringify(this.#restaurants));
-
-    const favorites = this.#restaurants
-      .filter((restaurant) => restaurant.isFavorite)
-      .map((restaurant) => restaurant.id);
-
-    localStorage.setItem("favorites", JSON.stringify(favorites));
   }
 
   addRestaurant(restaurant) {
