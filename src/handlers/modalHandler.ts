@@ -46,6 +46,10 @@ export const modalHandler = {
       restaurantHandler.removeRestaurant(restaurantDetail.name);
       modalHandler.closeModal();
     });
+
+    querySelector("#close-button").addEventListener("click", () => {
+      modalHandler.closeModal();
+    });
   },
 
   addForm: () => {
