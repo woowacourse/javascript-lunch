@@ -11,7 +11,7 @@ class RestaurantList {
     return this.#list;
   }
 
-  updateList(restaurant: RestaurantItem) {
+  addRestaurant(restaurant: RestaurantItem) {
     this.#list.push(restaurant);
   }
 }

@@ -29,7 +29,7 @@ export const restaurantHandler = {
       validate.descLength(newRestaurant.description);
       validate.linkForm(newRestaurant.link);
 
-      restaurantList.updateList(newRestaurant);
+      restaurantList.addRestaurant(newRestaurant);
       restaurantHandler.addRestaurantItem(newRestaurant);
 
       modalHandler.closeModal();
