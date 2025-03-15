@@ -44,7 +44,7 @@ function HandleAddRestaurant(e: Event) {
   const $link = document.getElementById("link") as HTMLInputElement;
 
   try {
-    const categoryValue = $category.value;
+    const categoryValue = $category.value as keyof typeof categoryMapping;
     validateSelectInput(categoryValue, "카테고리");
     const nameValue = $name.value.trim();
     validateNameInput(nameValue);
@@ -52,6 +52,7 @@ function HandleAddRestaurant(e: Event) {
     validateSelectInput(distanceValue, "거리");
     const descriptionValue = $description.value;
     validateDescriptionInput(descriptionValue);
+
     const category = categoryMapping[categoryValue];
     const link = $link.value;
 
