@@ -1,10 +1,10 @@
 import { Dropdown } from "../component/dropdown/Dropdown.ts";
 import { DropdownContainer } from "../component/dropdown/DropdownContainer.ts";
-import FoodForm from "../component/FoodForm.ts";
+import FoodForm from "../component/foodform/FoodForm.ts";
 import FoodList from "../component/FoodList.ts";
-import { Header } from "../component/layout/Header.js";
+import { Header } from "../component/layout/header/Header.js";
 import Modal from "../component/layout/modal/Modal.js";
-import TabMenu from "../component/TabMenu.js";
+import TabMenu from "../component/tab-menu/TabMenu.ts";
 import { DROPDOWN_OPTIONS } from "../constants/constants.ts";
 import { getStoredFoodItems } from "../managers/storageManagers.js";
 

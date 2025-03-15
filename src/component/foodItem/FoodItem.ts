@@ -1,10 +1,10 @@
-import { DELETE } from "../constants/systemMessage.ts";
-import { notifyDeleteChange } from "../managers/eventManager/deleteEventManager.ts";
-import { removeStoredFoodItem, toggleFavorite } from "../managers/storageManagers.js";
-import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
-import { Button } from "./button/Button.js";
-import { ButtonContainer } from "./button/ButtonContainer.js";
-import Modal from "./layout/modal/Modal.js";
+import { DELETE } from "../../constants/systemMessage.ts";
+import { notifyDeleteChange } from "../../managers/eventManager/deleteEventManager.ts";
+import { removeStoredFoodItem, toggleFavorite } from "../../managers/storageManagers.js";
+import { getImgSrcAlt } from "../../util/getImgSrcAlt.js";
+import { Button } from "../button/button/Button.js";
+import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
+import Modal from "../layout/modal/Modal.js";
 
 type CssTypeProps = "row" | "column";
 

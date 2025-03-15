@@ -1,4 +1,4 @@
-import { MenuProps } from "../types/menu.ts";
+import { MenuProps } from "../../types/menu.ts";
 
 export default class TabMenu {
   container: HTMLElement;

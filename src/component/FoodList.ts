@@ -3,7 +3,7 @@ import { addFavoriteChangeListeners } from "../managers/eventManager/favoriteEve
 import { addFilterChangeListeners } from "../managers/eventManager/filterEventManager.ts";
 import { addSortChangeListeners } from "../managers/eventManager/sortEventManager.ts";
 import { storeFoodItems } from "../managers/storageManagers.ts";
-import FoodItem from "./FoodItem.ts";
+import FoodItem from "./foodItem/FoodItem.ts";
 
 type CategoryDropdownValue = "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
 type SortDropdownValue = "이름순" | "거리순";
@@ -22,7 +22,6 @@ export default class FoodList {
     this.#renderFoodItems = foodItems;
 
     this.foodList = document.createElement("ul");
-    this.foodList.classList.add("restaurant-list");
 
     this.updateSortItem("이름순");
 

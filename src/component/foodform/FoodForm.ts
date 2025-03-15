@@ -1,12 +1,12 @@
-import { DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, SELECT_OPTIONS } from "../constants/constants.js";
-import { CAPTION } from "../constants/systemMessage.ts";
-import { validateLength, validateRequiredInput, validateURL } from "../validate/validateCondition.js";
-import { Button } from "./button/Button.js";
-import { ButtonContainer } from "./button/ButtonContainer.js";
-import { Input } from "./input/Input.js";
-import { SelectInput } from "./input/SelectInput.js";
-import { TextareaInput } from "./input/TextareaInput";
-import { alertError } from "./layout/alert/alertError.js";
+import { DESCRIPTION_MAX_LENGTH, NAME_MAX_LENGTH, SELECT_OPTIONS } from "../../constants/constants.js";
+import { CAPTION } from "../../constants/systemMessage.ts";
+import { validateLength, validateRequiredInput, validateURL } from "../../validate/validateCondition.js";
+import { Button } from "../button/button/Button.js";
+import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
+import { Input } from "../input/Input.js";
+import { SelectInput } from "../input/SelectInput.js";
+import { TextareaInput } from "../input/TextareaInput";
+import { alertError } from "../layout/alert/alertError.js";
 
 interface FoodFormOptions {
   onModalClose: () => void;
