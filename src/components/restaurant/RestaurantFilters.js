@@ -1,6 +1,5 @@
 import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import createElement from "../../util/createElement";
-import { $ } from "../../util/querySelector";
 import Select from "../common/Select";
 
 export default function RestaurantFilters() {
@@ -26,19 +25,24 @@ export default function RestaurantFilters() {
     isDefaultOption: false,
   });
 
-  $categoryFilter.addEventListener("change", (event) => {
-    const selectedCategory = event.target.value;
-    restaurantDataList.setCategory(selectedCategory);
-    restaurantDataList.renderRestaurantList();
-  });
-
-  $sortingFilter.addEventListener("change", (event) => {
-    const selectedSorting = event.target.value;
-    restaurantDataList.setSortedFlag(selectedSorting);
-    restaurantDataList.renderRestaurantList();
-  });
+  $categoryFilter.addEventListener("change", (event) =>
+    handleSelectionChange(event, true)
+  );
+  $sortingFilter.addEventListener("change", (event) =>
+    handleSelectionChange(event, false)
+  );
 
   $filterContainer.append($categoryFilter, $sortingFilter);
 
   return $filterContainer;
+}
+
+function handleSelectionChange(event, isCategory) {
+  const selectedValue = event.target.value;
+  if (isCategory) {
+    restaurantDataList.setCategory(selectedValue);
+  } else {
+    restaurantDataList.setSortedFlag(selectedValue);
+  }
+  restaurantDataList.renderRestaurantList();
 }
