@@ -1,14 +1,13 @@
 import CustomButton from "../shared/CustomButton.js";
 import RestaurantItem from "./RestaurantItem.js";
 
-
 export function AddDetailModal(container, selectedRestaurant) {
-  const cancelButton = CustomButton(
-    "close-modal",
+  const deleteButton = CustomButton(
+    "delete--restaurant",
     "button--secondary",
-    "취소하기",
+    "삭제하기",
   );
-  const submitButton = CustomButton("", "button--primary", "추가하기");
+  const cancelButton = CustomButton("close--modal", "button--primary", "닫기");
 
   container.innerHTML += /* html */ `
       <div class="modal modal--open">
@@ -16,8 +15,8 @@ export function AddDetailModal(container, selectedRestaurant) {
         <div class="modal-container">
           ${RestaurantItem(selectedRestaurant, true)}
             <div class="button-container">
+              ${deleteButton}
               ${cancelButton}
-              ${submitButton}
             </div>
         </div>
       </div>

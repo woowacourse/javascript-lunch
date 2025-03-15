@@ -7,6 +7,16 @@ import {
 import removeModal from "../utils/removeModal.js";
 import { ERROR_TYPES } from "../constants/errors.js";
 
+export function handleDeleteRestaurant(e) {
+  e.preventDefault();
+  const $restaurantList = document.querySelector(".restaurant-list");
+  if ($restaurantList) {
+    $restaurantList.innerHTML = "";
+  } else {
+    console.warn("레스토랑 목록을 DOM에서 찾을 수 없습니다.");
+  }
+}
+
 export function handleAddRestaurant(e) {
   e.preventDefault();
 

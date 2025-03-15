@@ -20,7 +20,6 @@ function setupModalEventListeners() {
     console.warn("모달 닫기 버튼을 DOM에서 찾을 수 없습니다.");
   }
 }
-
 export function setupAddRestaurantModal($container) {
   AddRestaurantModal($container);
   setupModalEventListeners();
