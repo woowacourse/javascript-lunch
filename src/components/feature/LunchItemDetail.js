@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import Restaurant from "../../domain/Restaurant";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
 import { Button, CircleIcon, Icon, Text } from "../common/index.js";
 import { CATEGORY_IMAGE } from "./LunchItem.js";
 
@@ -109,13 +109,13 @@ export default class LunchItemDetail extends Component {
 
   handleToggleFavorite() {
     this.props.isFavorite = !this.props.isFavorite;
-    Restaurant.toggleFavorite(this.props.id);
+    RestaurantFacade.toggleFavorite(this.props.id);
     document.dispatchEvent(new CustomEvent("itemChange"));
   }
 
   handleDeleteItem(e) {
     e.stopPropagation();
-    Restaurant.removeItemById(this.props.id);
+    RestaurantFacade.removeById(this.props.id);
   }
 
   setEvent() {

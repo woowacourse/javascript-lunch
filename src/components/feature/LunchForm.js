@@ -4,8 +4,9 @@ import Select from "../common/Select.js";
 import TextArea from "../common/TextArea.js";
 import Button from "../common/Button.js";
 import BottomSheet from "../common/BottomSheet.js";
+import { categories, distances } from "../../types/restaurant.types.ts";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
 import Restaurant from "../../domain/Restaurant.js";
-import { categories, distances } from "../../types/restaurant.types.js";
 
 export default class LunchForm extends Component {
   initState() {
@@ -176,17 +177,15 @@ export default class LunchForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newId = Restaurant.getLastRestaurantId() + 1;
 
-    new Restaurant({
-      id: newId,
+    RestaurantFacade.create({
       storeName: this.state.storeName,
       distance: this.state.distance.replace("분", ""),
       category: this.state.category,
       description: this.state.description,
       link: this.state.link,
       isFavorite: false,
-    }).save();
+    });
 
     this.handleReset();
   }

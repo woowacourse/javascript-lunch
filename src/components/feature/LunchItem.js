@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import Restaurant from "../../domain/Restaurant.js";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
 import CircleIcon from "../common/CircleIcon.js";
 import Icon from "../common/Icon.js";
 import Text from "../common/Text.js";
@@ -89,7 +89,7 @@ export default class LunchItem extends Component {
   }
 
   dispatchFavoriteToggleEvent() {
-    Restaurant.toggleFavorite(this.props.id);
+    RestaurantFacade.toggleFavorite(this.props.id);
     document.dispatchEvent(new CustomEvent("itemChange"));
   }
 

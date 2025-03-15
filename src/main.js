@@ -2,11 +2,11 @@ import { BOTTOM_SHEET_MODES } from "./components/common/BottomSheet.js";
 import { Header, Layout, BottomSheet } from "./components/common/index.js";
 import Tab from "./components/common/Tab.js";
 import { storeData } from "./constants/store.data.ts";
-import Restaurant from "./domain/Restaurant.js";
+import { RestaurantFacade } from "./domain/RestaurantFacade.ts";
 
 const initializeLocalStorage = () => {
-  if (Restaurant.restaurantLocalStorage.length === 0) {
-    Restaurant.updateLocalStorage(storeData);
+  if (RestaurantFacade.getAll().length === 0) {
+    RestaurantFacade.importData(storeData);
   }
 };
 

@@ -1,5 +1,5 @@
 import Component from "../../core/Component";
-import Restaurant from "../../domain/Restaurant.js";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
 import { AllLunchList, LunchList } from "../feature/index.js";
 
 export default class Tab extends Component {
@@ -15,12 +15,12 @@ export default class Tab extends Component {
   initState() {
     this.state = {
       activeIndex: this.props.activeIndex || 0,
-      items: Restaurant.restaurantLocalStorage || [],
+      items: RestaurantFacade.getAll() || [],
     };
   }
 
   updateItems() {
-    this.setState({ items: Restaurant.restaurantLocalStorage || [] });
+    this.setState({ items: RestaurantFacade.getAll() || [] });
     this.render();
   }
 
