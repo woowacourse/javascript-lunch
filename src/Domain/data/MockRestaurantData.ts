@@ -1,12 +1,13 @@
 import { RestaurantData } from '../types/RestaurantTypes';
 
-export const mockRestaurantData: RestaurantData[] = [
+// 초기 레스토랑 데이터
+const initialRestaurantData: RestaurantData[] = [
   {
     name: '피양콩할마니',
     distance: '10',
     category: '한식',
     description:
-      '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로, ‘피양’은 평안도 사투리로 ‘평양’을 의미한다. 딸과 함께 운영하는 이곳에선 맷돌로 직접 간 콩만을 사용하며, 일체의 조미료를 넣지 않은 건강식을 선보인다. 콩비지와 피양 만두가 이곳의 대표 메뉴지만, 할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.',
+      "평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로, '피양'은 평안도 사투리로 '평양'을 의미한다. 딸과 함께 운영하는 이곳에선 맷돌로 직접 간 콩만을 사용하며, 일체의 조미료를 넣지 않은 건강식을 선보인다. 콩비지와 피양 만두가 이곳의 대표 메뉴지만, 할머니가 옛날 방식을 고수하며 만들어내는 비지전골 또한 이 집의 역사를 느낄 수 있는 특별한 메뉴다. 반찬은 손님들이 먹고 싶은 만큼 덜어 먹을 수 있게 준비돼 있다.",
     link: 'https://naver.me/5Rh0ttMw',
   },
   {
@@ -41,3 +42,52 @@ export const mockRestaurantData: RestaurantData[] = [
     description: '멕시칸 캐주얼 그릴',
   },
 ];
+
+// localStorage에서 데이터 가져오기 또는 초기 데이터 사용
+const getRestaurantData = (): RestaurantData[] => {
+  // 브라우저 환경인지 확인 (SSR 대응)
+  if (typeof window === 'undefined') {
+    return initialRestaurantData;
+  }
+
+  const storedData = localStorage.getItem('restaurantData');
+  return storedData ? JSON.parse(storedData) : initialRestaurantData;
+};
+
+// localStorage에 데이터 저장
+export const saveRestaurantData = (data: RestaurantData[]): void => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('restaurantData', JSON.stringify(data));
+  }
+};
+
+// 레스토랑 데이터 가져오기
+export let mockRestaurantData: RestaurantData[] = getRestaurantData();
+
+// 레스토랑 추가 함수
+export const addRestaurant = (restaurant: RestaurantData): void => {
+  const updatedData = [...mockRestaurantData, restaurant];
+  // 전역 변수 업데이트
+  mockRestaurantData = updatedData;
+  // localStorage에 저장
+  saveRestaurantData(updatedData);
+};
+
+// 레스토랑 수정 함수
+export const updateRestaurant = (index: number, restaurant: RestaurantData): void => {
+  const updatedData = [...mockRestaurantData];
+  updatedData[index] = restaurant;
+  // 전역 변수 업데이트
+  mockRestaurantData = updatedData;
+  // localStorage에 저장
+  saveRestaurantData(updatedData);
+};
+
+// 레스토랑 삭제 함수
+export const deleteRestaurant = (index: number): void => {
+  const updatedData = mockRestaurantData.filter((_, i) => i !== index);
+  // 전역 변수 업데이트
+  mockRestaurantData = updatedData;
+  // localStorage에 저장
+  saveRestaurantData(updatedData);
+};
