@@ -1,5 +1,6 @@
 import storage from "../../domain/storage.ts";
-import renderAllpage from "../../ui/renderAllpage";
+import renderFilteredRestaurants from "../../renderFilteredRestaurant.js";
+import renderAllpage from "../../ui/renderAllpage.js";
 import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";
 import { $ } from "../../utils/dom";
@@ -19,9 +20,7 @@ const Tab = (restaurantList) => {
 
         renderAllpage(restaurantList);
         $("#category").value = storage.loadCategory();
-        $("#category").dispatchEvent(new Event("change"));
         $("#sorting").value = storage.loadNameOrDistance();
-        $("#sorting").dispatchEvent(new Event("change"));
       },
     },
   });
