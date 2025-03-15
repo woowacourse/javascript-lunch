@@ -1,4 +1,5 @@
 import { categoryValue, distanceValue } from "../../constants/optionValue.js";
+import IconButton from "../Button/IconButton.js";
 import Dropdown from "../Dropdown/Dropdown.js";
 import Input from "../Input/Input.js";
 
@@ -18,17 +19,20 @@ export const addResturantContent = () => {
 };
 
 export const restaurantInfoContent = (data = {}) => {
+  const iconButton = new IconButton();
+
   return `
     <div id="restaurant_info_content">
-      <div class="modal-header">
-        <div class="restaurant__category">
-          <img src="${data.imgSrc}" alt="${data.imgAlt}" class="category-icon"/>
-          
-          </div>
-          <button class="favorite_add_button">
-            <img src="./favorite-icon-lined.png" alt="empty-star" class="favorite-icon"/>
-          </button>
+    <div class="modal-header">
+    <div class="restaurant__category">
+      <img src="${data.imgSrc}" alt="${data.imgAlt}" class="category-icon"/>
+      
+      
       </div>
+      <div class="restaurant__button">
+      ${iconButton.render()}
+    </div>
+    </div>
           <div class="restaurant__info" id="restaurant__info">
             <h3 class="restaurant__name text-subtitle">${data.name}</h3>
             <span class="restaurant__distance text-body">캠퍼스부터 ${data.distance}분 내</span>
