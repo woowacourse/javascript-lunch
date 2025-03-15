@@ -4,13 +4,22 @@ class Restaurant {
   #category: string;
   #description: string;
   #link: string;
+  #isFavorite: boolean;
 
-  constructor(name: string, distance: string, category: string, description: string = '', link: string = '') {
+  constructor(
+    name: string,
+    distance: string,
+    category: string,
+    description: string = '',
+    link: string = '',
+    isFavorite: boolean = false,
+  ) {
     this.#name = name;
     this.#distance = distance;
     this.#category = category;
     this.#description = description;
     this.#link = link;
+    this.#isFavorite = isFavorite;
   }
 
   getName(): string {
@@ -31,6 +40,14 @@ class Restaurant {
 
   getLink(): string {
     return String(this.#link);
+  }
+
+  isFavorite(): boolean {
+    return this.#isFavorite;
+  }
+
+  toggleFavorite(): void {
+    this.#isFavorite = !this.#isFavorite;
   }
 }
 

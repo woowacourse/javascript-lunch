@@ -4,7 +4,8 @@ import { mockRestaurantData } from '../data/MockRestaurantData';
 import { RestaurantData } from '../types/RestaurantTypes';
 
 let restaurantList: Restaurant[] = mockRestaurantData.map(
-  (data) => new Restaurant(data.name, data.distance, data.category, data.description, data.link),
+  (data) =>
+    new Restaurant(data.name, data.distance, data.category, data.description, data.link, data.isFavorite || false),
 );
 
 export const getRestaurantList = (): Restaurant[] => [...restaurantList];
@@ -52,6 +53,7 @@ export const addRestaurant = (restaurantData: RestaurantData): Restaurant => {
     restaurantData.category,
     restaurantData.description || '',
     restaurantData.link || '',
+    restaurantData.isFavorite || false,
   );
 
   restaurantList = [...restaurantList, newRestaurant];

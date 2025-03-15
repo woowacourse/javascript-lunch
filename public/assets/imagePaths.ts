@@ -15,4 +15,9 @@ const CATEGORY_IMAGE_SRC: ImagePath = Object.freeze({
   ETC: './public/assets/category-etc.png',
 });
 
-export { BUTTON_IMAGE_SRC, CATEGORY_IMAGE_SRC };
+const FAVORITE_IMAGE_SRC: ImagePath = Object.freeze({
+  FAVORITE: './public/assets/favorite-icon-filled.png',
+  UNFAVORITE: './public/assets/favorite-icon-lined.png',
+});
+
+export { BUTTON_IMAGE_SRC, CATEGORY_IMAGE_SRC, FAVORITE_IMAGE_SRC };

@@ -8,4 +8,5 @@ export interface RestaurantData {
   category: string; // 카테고리 (필수)
   description?: string; // 설명 (선택)
   link?: string; // 참조 링크 (선택)
+  isFavorite?: boolean; // 즐겨찾기 여부 (선택)
 }

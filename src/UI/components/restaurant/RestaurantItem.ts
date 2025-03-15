@@ -13,7 +13,7 @@ class RestaurantItem {
     const li = document.createElement('li');
 
     const icon = new RestaurantIcon(restaurant.getCategory());
-    const info = new RestaurantInfo(restaurant.getName(), restaurant.getDistance(), restaurant.getDescription());
+    const info = new RestaurantInfo(restaurant);
 
     li.classList.add('restaurant');
     li.appendChild(icon.getElement());

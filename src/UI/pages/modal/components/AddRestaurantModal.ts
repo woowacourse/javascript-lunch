@@ -108,6 +108,7 @@ class AddRestaurantModal {
       distance: formData.get('distance') as string,
       description: (formData.get('description') as string) || undefined,
       link: (formData.get('link') as string) || undefined,
+      isFavorite: false,
     };
 
     try {

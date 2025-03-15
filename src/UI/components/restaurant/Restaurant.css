@@ -31,6 +31,19 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.restaurant__name-distance {
+  display: flex;
+  flex-direction: column;
 }
 
 .restaurant__name {
@@ -43,7 +56,6 @@
 
 .restaurant__description {
   display: -webkit-box;
-
   padding-top: 8px;
 
   overflow: hidden;

@@ -1,0 +1,11 @@
+.favorite-icon {
+  width: 32px;
+  height: 32px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.favorite-img {
+  width: 100%;
+  height: 100%;
+}

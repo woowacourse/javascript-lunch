@@ -1,30 +1,65 @@
+import Restaurant from '../../../Domain/Restaurant';
+import FavoriteIcon from './FavoriteIcon';
+import './Restaurant.css';
+
 class RestaurantInfo {
+  private restaurant: Restaurant;
   private element: HTMLDivElement;
 
-  constructor(name: string, distance: string, description: string) {
-    this.element = this.#createRestaurantInfo(name, distance, description);
+  constructor(restaurant: Restaurant) {
+    this.restaurant = restaurant;
+    this.element = this.#createRestaurantInfo(restaurant);
   }
 
-  #createRestaurantInfo(name: string, distance: string, description: string): HTMLDivElement {
+  #createRestaurantInfo(restaurant: Restaurant): HTMLDivElement {
     const restaurantInfo = document.createElement('div');
     restaurantInfo.classList.add('restaurant__info');
 
+    restaurantInfo.appendChild(this.#createTopContainer());
+    restaurantInfo.appendChild(this.#createRestaurantDescription());
+
+    return restaurantInfo;
+  }
+
+  #createTopContainer(): HTMLDivElement {
+    const topContainer = document.createElement('div');
+    topContainer.classList.add('restaurant__top-container');
+
+    topContainer.appendChild(this.#createNameDistanceContainer());
+    topContainer.appendChild(this.#createFavoriteIcon());
+
+    return topContainer;
+  }
+
+  #createNameDistanceContainer(): HTMLDivElement {
+    const nameDistanceContainer = document.createElement('div');
+    nameDistanceContainer.classList.add('restaurant__name-distance');
+
     const restaurantName = document.createElement('h3');
     restaurantName.classList.add('restaurant__name', 'text-subtitle');
-    restaurantName.textContent = name;
+    restaurantName.textContent = this.restaurant.getName();
 
     const restaurantDistance = document.createElement('span');
     restaurantDistance.classList.add('restaurant__distance', 'text-body');
-    restaurantDistance.textContent = `캠퍼스부터 ${distance}분 내`;
+    restaurantDistance.textContent = `캠퍼스부터 ${this.restaurant.getDistance()}분 내`;
 
+    nameDistanceContainer.appendChild(restaurantName);
+    nameDistanceContainer.appendChild(restaurantDistance);
+
+    return nameDistanceContainer;
+  }
+
+  #createFavoriteIcon(): HTMLDivElement {
+    const favoriteIcon = new FavoriteIcon(this.restaurant.isFavorite());
+    return favoriteIcon.getElement();
+  }
+
+  #createRestaurantDescription(): HTMLParagraphElement {
     const restaurantDescription = document.createElement('p');
     restaurantDescription.classList.add('restaurant__description', 'text-body');
-    restaurantDescription.textContent = description;
+    restaurantDescription.textContent = this.restaurant.getDescription();
 
-    restaurantInfo.appendChild(restaurantName);
-    restaurantInfo.appendChild(restaurantDistance);
-    restaurantInfo.appendChild(restaurantDescription);
-    return restaurantInfo;
+    return restaurantDescription;
   }
 
   getElement(): HTMLDivElement {
