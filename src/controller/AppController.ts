@@ -57,12 +57,26 @@ class AppController {
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
-        // 활성 탭 변경
+        const currentTab = tabContainer.getAttribute('data-active');
+        const tabType = (tab as HTMLElement).dataset.tab || 'all';
+
+        if (currentTab === tabType) {
+          return;
+        }
+
         tabs.forEach((t) => t.classList.remove('active'));
         tab.classList.add('active');
 
-        // data-active 속성 변경
-        tabContainer.setAttribute('data-active', (tab as HTMLElement).dataset.tab || 'all');
+        tabContainer.setAttribute('data-active', tabType);
+
+        const main = $('main');
+        if (tabType === 'all') {
+          tabContainer.after(RestaurantFilterContainer());
+        } else if (tabType === 'favorite') {
+          const filterContainer = $('.restaurant-filter-container');
+          main?.removeChild(filterContainer);
+        }
+        this.updateRestaurantListByTab(tabType);
       });
     });
   }
@@ -158,6 +172,18 @@ class AppController {
     const restaurantList = RestaurantList({ restaurants: filteredRestaurants });
 
     restaurantListDOM?.replaceWith(restaurantList);
+  }
+
+  updateRestaurantListByTab(tabType: 'all' | 'favorite') {
+    const favoriteRestaurants = this.restaurants.getFavoriteRestaurants();
+
+    const restaurantListDOM = $('.restaurant-list');
+
+    if (tabType === 'all') {
+      restaurantListDOM?.replaceWith(RestaurantList({ restaurants: this.restaurants.items }));
+    } else if (tabType === 'favorite') {
+      restaurantListDOM?.replaceWith(RestaurantList({ restaurants: favoriteRestaurants }));
+    }
   }
 
   addRestaurantItem(restaurant: Restaurant) {

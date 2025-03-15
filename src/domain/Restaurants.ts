@@ -28,6 +28,10 @@ class Restaurants {
     return this.sortByOption(filteredRestaurants, sortOption);
   }
 
+  getFavoriteRestaurants() {
+    return this.#restaurants.filter((restaurant) => restaurant.isFavorite);
+  }
+
   filterByCategory(category: string) {
     if (category === 'all') {
       return [...this.#restaurants];
