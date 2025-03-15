@@ -351,7 +351,10 @@ input[name="link"] {
 .detail-restaurant {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+}
+
+.detail-restaurant .mb-16 {
+  margin-bottom: 16px;
 }
 
 .detail-restaurant .restaurant__category__star {
