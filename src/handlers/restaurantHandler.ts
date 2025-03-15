@@ -72,4 +72,16 @@ export const restaurantHandler = {
       link: formData.get("link") as RestaurantItem["link"],
     };
   },
+
+  removeRestaurant: (name: string) => {
+    const restaurantList = restaurantStorage.getRestaurantList();
+
+    restaurantStorage.setRestaurantList(
+      restaurantList.filter(
+        (restaurant: RestaurantItem) => restaurant.name !== name
+      )
+    );
+
+    window.location.reload();
+  },
 };

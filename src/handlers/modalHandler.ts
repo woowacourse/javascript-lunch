@@ -9,6 +9,7 @@ import RESTAURANT_ADD_FORM_SELECT_OPTIONS from "../constants/restaurantAddForm/s
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
 import { RestaurantItem } from "../types/restaurantItem.js";
+import { restaurantHandler } from "./restaurantHandler.js";
 
 export const modalHandler = {
   openModal: () => {
@@ -40,6 +41,11 @@ export const modalHandler = {
       modalContainer.appendChild(restaurantDetailItem);
       modalHandler.openModal();
     }
+
+    querySelector("#delete-button").addEventListener("click", () => {
+      restaurantHandler.removeRestaurant(restaurantDetail.name);
+      modalHandler.closeModal();
+    });
   },
 
   addForm: () => {
