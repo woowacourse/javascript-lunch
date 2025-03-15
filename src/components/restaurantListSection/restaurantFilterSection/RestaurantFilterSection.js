@@ -52,8 +52,21 @@ export default class RestaurantFilterSection {
 
   #handleCategoryChange = (e) => {
     const { value } = e.target;
-
     let filterBySelectTab = [...this.#restaurantList];
+
+    const sotring = document.querySelector("#sorting-filter").value;
+
+    if (sotring === "이름순") {
+      filterBySelectTab = filterBySelectTab.sort((a, b) =>
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      );
+    }
+
+    if (sotring === "거리순") {
+      filterBySelectTab = filterBySelectTab.sort(
+        (a, b) => a.distance - b.distance
+      );
+    }
 
     if (this.#selectedTab === "bookmark") {
       filterBySelectTab = filterBySelectTab.filter(
@@ -63,6 +76,7 @@ export default class RestaurantFilterSection {
 
     if (value === "전체") {
       this.#updateList(filterBySelectTab);
+      this.updateSelectValue(value, "category");
       return;
     }
 
@@ -76,8 +90,15 @@ export default class RestaurantFilterSection {
 
   #handleSortingChange = (e) => {
     const { value } = e.target;
-
     let filterBySelectTab = [...this.#restaurantList];
+
+    const category = document.querySelector("#category-filter").value;
+
+    if (category !== "전체") {
+      filterBySelectTab = filterBySelectTab.filter(
+        (restaurant) => restaurant.category === category
+      );
+    }
 
     if (this.#selectedTab === "bookmark") {
       filterBySelectTab = filterBySelectTab.filter(
