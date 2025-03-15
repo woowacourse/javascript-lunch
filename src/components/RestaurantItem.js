@@ -1,12 +1,13 @@
 import { IMAGE, FAV_STAR } from '../constants/constants.ts';
 import createFavoriteStar from './FavoriteStar.js'
 
-function createRestaurantItem({ category, name, distance, description, link }, isFavorite) {
+function createRestaurantItem({ id, category, name, distance, description, link, isFavorite }) {
   const favoriteStarConfig = {
     ...FAV_STAR,
     inactiveSrc: isFavorite ? FAV_STAR.activeSrc : FAV_STAR.inactiveSrc,
+    dataId: id,
   };
-  const item = `<li class="restaurant">
+  const item = `<li class="restaurant" data-id="${id}">
               <div class="restaurant__category">
                 <img src="${IMAGE.get(category)}" alt="${category}" class="category-icon" />
               </div>

@@ -1,6 +1,7 @@
 function createFavoriteStar(fieldName) {
-  const favoriteStar = `<img src="${fieldName.inactiveSrc}" class="${fieldName.className}">`
-  return favoriteStar
+  const dataIdAttr = fieldName.dataId ? `data-id="${fieldName.dataId}"` : '';
+  const favoriteStar = `<img src="${fieldName.inactiveSrc}" class="${fieldName.className}" ${dataIdAttr}>`;
+  return favoriteStar;
 }
 
 export default createFavoriteStar;
