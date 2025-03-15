@@ -37,7 +37,6 @@ export class Modal {
   }
 
   static close({ filter = null }: ModalCloseContentType) {
-    // const modalOpen = document.querySelector(".modal--open");
     const modalContent = document.querySelector(".modal");
     modalContent?.classList.remove("modal--open");
 

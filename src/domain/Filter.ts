@@ -16,20 +16,12 @@ export class Filter {
     this.#sortingFilter = "이름순";
   }
 
-  changeCategory({ foodList }: ChangeCategoryType) {
+  chageFilter({ foodList, filter }: ChangeCategoryType) {
     const filterOption = (
-      document.querySelector("select[name=category]") as HTMLSelectElement
+      document.querySelector(`select[name=${filter}]`) as HTMLSelectElement
     )?.value;
-
-    this.#categoryFilter = filterOption;
-    return this.updateFilterItem({ foodList });
-  }
-
-  changeSorting({ foodList }: ChangeSortingType) {
-    const filterOption = (
-      document.querySelector("select[name=sorting]") as HTMLSelectElement
-    )?.value;
-    this.#sortingFilter = filterOption;
+    if (filter === "category") this.#categoryFilter = filterOption;
+    else this.#sortingFilter = filterOption;
     return this.updateFilterItem({ foodList });
   }
 

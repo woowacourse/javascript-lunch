@@ -24,10 +24,9 @@ export interface OpenDetailModalType {
   foodItem: FoodType;
 }
 
-export interface HandleFavoriteButtonType {
-  event: Event;
-  foodItem: FoodType;
+export interface ShowConvertedItemType {
   filter: Filter | null;
+  favoriteFilter: boolean;
 }
 
 export interface ShowFoodItemType {

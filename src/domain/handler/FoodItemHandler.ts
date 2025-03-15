@@ -8,9 +8,9 @@ import {
   AddFoodItemType,
   ConvertStorageToLocalType,
   DeleteFoodItemType,
-  HandleFavoriteButtonType,
   OpenDetailModalType,
   ReadFoodListType,
+  ShowConvertedItemType,
   ShowFoodItemType,
   SortedFoodListType,
 } from "../../types/domain/FoodItemHandlerType";
@@ -20,6 +20,7 @@ import {
   readStorageFoodList,
   updateStorageFoodList,
 } from "./FoodStorageHandler";
+import { handleTabButton } from "./TabButtonHandler";
 
 // CRUD - create : mock Data
 export function readFoodList({ favoriteFilter }: ReadFoodListType) {
@@ -66,8 +67,8 @@ export function convertStorageToLocal({
     const foodComponent = FoodItem({
       foodItem: localFoodItem,
       handleModal: (foodItem) => openDetailModal({ filter, foodItem }),
-      handleFavoriteButton: (event, foodItem) =>
-        handleFavoriteButton({ event, foodItem, filter }),
+      handleTabButton: (event, foodItem) =>
+        handleTabButton({ event, foodItem, filter }),
     });
     return foodComponent;
   });
@@ -81,33 +82,15 @@ function openDetailModal({ filter, foodItem }: OpenDetailModalType) {
   Modal.open();
 }
 
-function handleFavoriteButton({
-  event,
-  foodItem,
+export function showConvertedItem({
+  favoriteFilter,
   filter,
-}: HandleFavoriteButtonType) {
-  const favoriteState = document.querySelector(
-    ".tab-button_favorite.selected-button"
-  );
-
-  const newFoodItem = foodItem;
-  newFoodItem.favorite = !foodItem.favorite;
-  updateStorageFoodList({ newFoodItem: foodItem });
-
-  if (favoriteState) {
-    const previousFoodList = readFoodList({ favoriteFilter: true });
-    convertStorageToLocal({
-      filter,
-      foodList: sortedFoodList({ filter, foodList: previousFoodList }),
-    });
-  } else {
-    const previousFoodList = readFoodList({ favoriteFilter: false });
-    convertStorageToLocal({
-      filter,
-      foodList: sortedFoodList({ filter, foodList: previousFoodList }),
-    });
-  }
-  event.stopPropagation();
+}: ShowConvertedItemType) {
+  const previousFoodList = readFoodList({ favoriteFilter });
+  convertStorageToLocal({
+    filter,
+    foodList: sortedFoodList({ filter, foodList: previousFoodList }),
+  });
 }
 
 export function showFoodItem({ foodListComponent }: ShowFoodItemType) {

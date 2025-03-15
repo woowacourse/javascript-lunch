@@ -51,9 +51,6 @@ export class InputGuide {
 
   static description({ input, maxLength }: DescriptionType) {
     const inputId = "description";
-    if (input.length === 0) {
-      return new InputGuide({ name: inputId, message: ERROR_MESSAGE.required });
-    }
     if (input.length > maxLength) {
       return new InputGuide({
         name: inputId,

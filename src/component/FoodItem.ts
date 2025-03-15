@@ -4,7 +4,7 @@ import { IconButton } from "./button/IconButton";
 export function FoodItem({
   foodItem,
   handleModal = () => {},
-  handleFavoriteButton = () => {},
+  handleTabButton = () => {},
 }: FoodItemType) {
   const {
     imgSrc,
@@ -27,7 +27,7 @@ export function FoodItem({
   const favoriteIcon = IconButton({
     imgSrc: convertStarImg,
     label: "즐겨찾기 버튼",
-    onClick: (event: Event) => handleFavoriteButton(event, foodItem),
+    onClick: (event: Event) => handleTabButton(event, foodItem),
   });
 
   favoriteIcon?.classList.add("restaurant-star");

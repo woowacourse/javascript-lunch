@@ -1,7 +1,7 @@
 export interface FoodItemType {
   foodItem: FoodType;
   handleModal: (foodItem: FoodType) => void;
-  handleFavoriteButton: (event: Event, foodItem: FoodType) => void;
+  handleTabButton: (event: Event, foodItem: FoodType) => void;
 }
 
 export interface FoodType {
@@ -14,7 +14,7 @@ export interface FoodType {
   favorite: boolean;
 }
 
-export interface handleFavoriteButton {
+export interface handleTabButton {
   event: Event;
   foodItem: FoodType;
 }

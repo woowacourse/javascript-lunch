@@ -5,8 +5,10 @@ export interface SortByType {
   b: FoodType;
 }
 
+export type FilterType = "category" | "sorting";
 export interface ChangeCategoryType {
   foodList: FoodType[];
+  filter: FilterType;
 }
 
 export interface ChangeSortingType {
