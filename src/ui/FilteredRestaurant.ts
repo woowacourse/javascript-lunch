@@ -1,10 +1,12 @@
+import { FilterRestaurantByCategory } from "../domain/FilterRestaurantByCategory";
+
 interface FilterProps {
   e: Event;
   $allRestaurants: HTMLElement[];
   $restaurantList: HTMLDivElement;
 }
 
-export default function FilterByValue() {
+export default function FilteredRestaurant() {
   const $categorySelect = document.getElementById(
     "category-filter"
   ) as HTMLSelectElement | null;
@@ -30,21 +32,14 @@ function FilterByValueEvent({
   const target = e.target as HTMLSelectElement | null;
   if (!target) return;
 
-  const selectedValue = target.value;
+  const categoryValue = target.value;
 
-  if (selectedValue === "전체") {
-    updateRestaurantList($restaurantList, $allRestaurants);
-    return;
-  }
+  const filteredRestaurants = FilterRestaurantByCategory(
+    categoryValue,
+    $allRestaurants
+  );
 
-  const filteredItems = $allRestaurants.filter((item) => {
-    const category = item.querySelector(
-      ".category-icon"
-    ) as HTMLImageElement | null;
-    return category?.alt === selectedValue;
-  });
-
-  updateRestaurantList($restaurantList, filteredItems);
+  updateRestaurantList($restaurantList, filteredRestaurants);
 }
 
 function updateRestaurantList(
