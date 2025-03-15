@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE } from "../constants/error";
 import { validateEmptyString } from "../validate/validateEmptyString";
+import { RestaurantValue } from "./types";
 
 class Restaurant {
   #value;
@@ -11,7 +12,7 @@ class Restaurant {
     description,
     link,
     isFavorite = false,
-  }) {
+  }: RestaurantValue) {
     this.#value = { category, name, distance, description, link, isFavorite };
     this.#validate();
   }

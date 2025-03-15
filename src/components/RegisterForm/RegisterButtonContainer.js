@@ -9,7 +9,7 @@ import Button from "../common/Button";
 import ErrorMessage from "../common/ErrorMessage";
 import createElement from "../../utils/createElement/createElement";
 import createRestaurantCards from "../../service/createRestaurantCards";
-import storage from "../../domain/storage";
+import storage from "../../domain/storage.ts";
 import changeModalContents from "../../changeModalContents";
 import renderFilteredRestaurants from "../../renderFilteredRestaurant";
 
@@ -58,9 +58,7 @@ const registerRestaurant = (e, restaurantList) => {
     const restaurant = new Restaurant(info);
 
     restaurantList.add(restaurant);
-    storage.saveRestaurantList(
-      restaurantList.list.map((restaurant) => restaurant.value)
-    );
+    storage.saveRestaurantList(restaurantList.list);
 
     $("#register-modal-backdrop").classList.remove("open");
     renderFilteredRestaurants(restaurantList);

@@ -9,7 +9,7 @@ import RestaurantList from "./domain/RestaurantList";
 import CategorySelector from "./components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "./components/FilterSelector/NameOrDistanceSelector";
 import Tab from "./components/Tab";
-import storage from "./domain/storage";
+import storage from "./domain/storage.ts";
 import { restaurants } from "./restaurantListData";
 import renderFavoritePage from "./ui/renderFavoritePage";
 
@@ -58,9 +58,7 @@ addEventListener("load", () => {
 
 const initStorage = () => {
   if (storage.loadRestaurantList() === null) {
-    storage.saveRestaurantList(
-      restaurants.map((restaurant) => restaurant.value)
-    );
+    storage.saveRestaurantList(restaurants);
   }
   if (storage.loadCategory() === null) {
     storage.saveCategory("");

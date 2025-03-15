@@ -1,23 +1,26 @@
-class RestaurantList {
-  #restaurantList = [];
-  #currentCategory = "";
-  #nameOrDistance = "";
+import Restaurant from "./Restaurant";
+import { Category, NameOrDistance } from "./types";
 
-  constructor(restaurantList = []) {
+class RestaurantList {
+  #restaurantList: Restaurant[] = [];
+  #currentCategory: Category = "";
+  #nameOrDistance: NameOrDistance = "";
+
+  constructor(restaurantList: Restaurant[] = []) {
     this.#restaurantList = restaurantList;
   }
 
-  add(restaurant) {
+  add(restaurant: Restaurant) {
     this.#restaurantList.push(restaurant);
   }
 
-  delete(restaurant) {
+  delete(restaurant: Restaurant) {
     this.#restaurantList = this.#restaurantList.filter(
       (item) => item !== restaurant
     );
   }
 
-  filter() {
+  filter(): Restaurant[] {
     let filteredList = this.#restaurantList;
     filteredList = this.filterByCategory(this.#currentCategory, filteredList);
 
@@ -31,7 +34,7 @@ class RestaurantList {
     return filteredList;
   }
 
-  getFavoriteList() {
+  getFavoriteList(): Restaurant[] {
     const favoriteList = this.#restaurantList.filter(
       (restaurant) => restaurant.value.isFavorite
     );
@@ -39,7 +42,7 @@ class RestaurantList {
     return favoriteList;
   }
 
-  filterByCategory(category, list) {
+  filterByCategory(category: Category, list: Restaurant[]) {
     if (category === "") {
       return list;
     }
@@ -47,23 +50,23 @@ class RestaurantList {
     return list.filter((restaurant) => restaurant.value.category === category);
   }
 
-  filterByName(list) {
+  filterByName(list: Restaurant[]): Restaurant[] {
     return [...list].sort((a, b) => a.value.name.localeCompare(b.value.name));
   }
 
-  filterByDistance(list) {
+  filterByDistance(list: Restaurant[]): Restaurant[] {
     return [...list].sort((a, b) => a.value.distance - b.value.distance);
   }
 
-  setCategory(category) {
+  setCategory(category: Category) {
     this.#currentCategory = category;
   }
 
-  setNameOrDistance(sortBy) {
+  setNameOrDistance(sortBy: NameOrDistance) {
     this.#nameOrDistance = sortBy;
   }
 
-  get list() {
+  get list(): Restaurant[] {
     return [...this.#restaurantList];
   }
 }

@@ -1,5 +1,5 @@
 import changeModalContents from "./changeModalContents";
-import storage from "./domain/storage";
+import storage from "./domain/storage.ts";
 import createRestaurantCards from "./service/createRestaurantCards";
 import renderRestaurants from "./ui/renderRestaurant";
 import { $ } from "./utils/dom";
@@ -12,9 +12,7 @@ const renderAllRestaurant = (restaurantList) => {
         changeModalContents(restaurant, restaurantList);
       },
       clickFavorite: () => {
-        storage.saveRestaurantList(
-          restaurantList.list.map((restaurant) => restaurant.value)
-        );
+        storage.saveRestaurantList(restaurantList.list);
       },
     })
   );

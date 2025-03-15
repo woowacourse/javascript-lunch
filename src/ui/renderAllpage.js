@@ -8,7 +8,7 @@ import RegisterForm from "../components/RegisterForm";
 import RestaurantCard from "../components/RestaurantCard";
 import RestaurantDetailButtonContainer from "../components/RestaurantDetailButtonContainer";
 import Restaurant from "../domain/Restaurant";
-import storage from "../domain/storage";
+import storage from "../domain/storage.ts";
 import renderAllRestaurant from "../renderAllRestaurant";
 import createRestaurantCards from "../service/createRestaurantCards";
 import createElement from "../utils/createElement/createElement";

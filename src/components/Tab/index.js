@@ -1,4 +1,4 @@
-import storage from "../../domain/storage";
+import storage from "../../domain/storage.ts";
 import renderAllpage from "../../ui/renderAllpage";
 import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";

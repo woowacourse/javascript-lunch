@@ -1,5 +1,5 @@
 import changeModalContents from "../../../changeModalContents";
-import storage from "../../../domain/storage";
+import storage from "../../../domain/storage.ts";
 import renderFilteredRestaurants from "../../../renderFilteredRestaurant";
 import createRestaurantCards from "../../../service/createRestaurantCards";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
