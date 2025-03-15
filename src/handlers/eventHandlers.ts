@@ -1,4 +1,5 @@
 import stateStore from '../store/stateStore.ts';
+import { restaurantStore, getNextRestaurantId, addRestaurant } from '../store/restaurantStore.ts';
 
 function handleOpenModal() {
   const modal = document.querySelector('.modal');
@@ -39,13 +40,16 @@ function handleNewRestaurantSubmit(event: SubmitEvent, addNewRestaurantItem: () 
     linkElement instanceof HTMLInputElement
   ) {
     const newRestaurantData = {
+      id: getNextRestaurantId(), 
       category: categoryElement.value,
       name: nameElement.value,
       distance: Number(distanceElement.value.replace('분 내', '')),
       description: descriptionElement.value,
       link: linkElement.value,
+      isFavorite: false,
     };
 
+    addRestaurant(newRestaurantData);
     stateStore.updateState(newRestaurantData);
     addNewRestaurantItem();
     handleCloseModal(event);
@@ -73,12 +77,22 @@ export function handleStarToggle(event: Event) {
   if (target instanceof HTMLImageElement) {
     const isActive = target.src.includes('favorite-icon-filled.png');
     target.src = isActive ? 'favorite-icon-lined.png' : 'favorite-icon-filled.png';
+
+    const restaurantId = target.getAttribute('data-id');
+    if (restaurantId) {
+      const idNumber = parseInt(restaurantId, 10);
+      const restaurant = restaurantStore.find((item) => item.id === idNumber);
+      if (restaurant) {
+        restaurant.isFavorite = !restaurant.isFavorite;
+      }
+    }
   }
 }
 
 function handleRestaurantClick(
   event: Event,
   openModal: (data: {
+    id: number;
     category: string;
     name: string;
     distance: string;
@@ -93,6 +107,7 @@ function handleRestaurantClick(
 
   if (!restaurantItem) return;
 
+  const restaurantId = restaurantItem.getAttribute('data-id') ? Number(restaurantItem.getAttribute('data-id')) : 0;
   const altValue = restaurantItem.querySelector('.category-icon')?.getAttribute('alt') || '';
   console.log(altValue);
   const restaurantName = restaurantItem.querySelector('.restaurant__name')?.textContent || '';
@@ -107,6 +122,7 @@ function handleRestaurantClick(
   const restaurantLink = restaurantItem.querySelector('.restaurant__link')?.getAttribute('href') || '';
 
   openModal({
+    id: restaurantId,
     category: altValue,
     name: restaurantName,
     distance: numericValue,
@@ -127,6 +143,7 @@ let formSubmitHandler: (event: SubmitEvent) => void;
 function registerEventHandlers(
   addNewRestaurantItem: () => void,
   openRestaurantModal: (data: {
+    id: number;
     category: string;
     name: string;
     distance: string;
