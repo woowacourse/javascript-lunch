@@ -28,12 +28,47 @@ class Modal extends Component {
       .addEventListener("click", () => {
         this.props.toggleModal();
       });
-    this.$target
-      .querySelector(".button.button--secondary.text-caption")
-      .addEventListener("click", () => {
+
+    if (this.props.modalType === "add") {
+      this.setupAddModalEvents();
+    } else if (this.props.modalType === "info") {
+      this.setupInfoModalEvents();
+    }
+  }
+
+  setupAddModalEvents() {
+    const cancelButton = this.$target.querySelector(
+      ".button.button--secondary.text-caption",
+    );
+    if (cancelButton) {
+      cancelButton.addEventListener("click", () => {
         this.props.toggleModal();
       });
+    }
+
     this.addSubmitEvent();
+  }
+
+  setupInfoModalEvents() {
+    const closeButton = this.$target.querySelector(
+      ".button.button--primary.text-caption",
+    );
+    if (closeButton) {
+      closeButton.addEventListener("click", () => {
+        this.props.toggleModal();
+      });
+    }
+
+    const deleteButton = this.$target.querySelector(
+      ".button.button--secondary.text-caption",
+    );
+    if (deleteButton) {
+      deleteButton.addEventListener("click", () => {
+        // 삭제 로직 (필요하다면)
+        this.props.toggleModal();
+      });
+    }
+   
   }
 
   addSubmitEvent() {
