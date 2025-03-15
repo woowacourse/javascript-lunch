@@ -42,6 +42,8 @@ export function handleAddRestaurant(e) {
       descriptionValue,
     };
 
+    console.log(inputValue);
+
     const $restaurantList = document.querySelector(".restaurant-list");
     if ($restaurantList) {
       // dataset.category 속성을 추가한 HTML을 생성하여 추가
