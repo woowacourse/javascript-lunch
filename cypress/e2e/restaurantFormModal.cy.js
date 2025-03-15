@@ -12,7 +12,7 @@ describe("유저가 음식점을 추가하고, 추가한 음식점을 목록에�
     it("정상적으로 음식점을 추가하면 목록에 반영된다.", () => {
       cy.get("#category").select("한식");
       cy.get("#name").type("더휴");
-      cy.get("#distance").select("5분 내");
+      cy.get("#distance").select(5);
       cy.get("#description").type("이집맛집임");
       cy.get("#link").type("http://restaurant.com");
 
@@ -51,7 +51,7 @@ describe("유저가 음식점을 추가하고, 추가한 음식점을 목록에�
     it("이름이 두 글자 이하일 경우 alert 메시지가 발생한다.", () => {
       cy.get("#category").select("한식");
       cy.get("#name").type("더");
-      cy.get("#distance").select("5분 내");
+      cy.get("#distance").select(5);
       cy.get(".button--primary").click();
       cy.on("window:alert", (text) => {
         expect(text).to.equal(ERROR_MESSAGE.name);
