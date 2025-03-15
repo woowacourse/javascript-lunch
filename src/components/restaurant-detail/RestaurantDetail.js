@@ -21,23 +21,34 @@ export default class RestaurantDetail {
   #initializeDOM() {
     this.$form = document.createElement("form");
 
+    const $formContainer = document.createElement("div");
+    $formContainer.className = "restaurant-detail__form-container";
+
+    const $detailInfo = document.createElement("div");
+    $detailInfo.className = "restaurant-detail__detail-info";
+
     const $category = document.createElement("div");
-    $category.className = "restaurant__category";
+    $category.className = "restaurant-detail__category";
 
     this.$categoryImg = document.createElement("img");
     this.$categoryImg.className = "category-icon";
 
     const $info = document.createElement("div");
-    $info.className = "restaurant__info";
+    $info.className = "restaurant-detail__info";
 
     this.$name = document.createElement("h3");
-    this.$name.className = "restaurant__name text-subtitle";
+    this.$name.className = "restaurant-detail__name text-subtitle";
 
     this.$distance = document.createElement("span");
-    this.$distance.className = "restaurant__distance text-body";
+    this.$distance.className = "restaurant-detail__distance text-body";
 
     this.$description = document.createElement("p");
-    this.$description.className = "restaurant__description text-body";
+    this.$description.className = "restaurant-detail__description text-body";
+
+    this.$link = document.createElement("a");
+    this.$link.className = "restaurant-detail__link";
+    this.$link.setAttribute("target", "_blank");
+    this.$link.setAttribute("rel", "noopener noreferrer");
 
     this.$favoriteButton = document.createElement("button");
     this.$favoriteButton.className = "favorite-button";
@@ -62,11 +73,13 @@ export default class RestaurantDetail {
       action: BUTTON_TYPES.close,
     }).render();
 
-    this.$form.append($category, $info, this.$favoriteButton, $buttonContainer);
     $category.append(this.$categoryImg);
-    $info.append(this.$name, this.$distance, this.$description);
+    $info.append(this.$name, this.$distance, this.$description, this.$link);
     this.$favoriteButton.append(this.$favoriteImg);
+    $detailInfo.append($category, $info);
+    $formContainer.append($detailInfo, this.$favoriteButton);
     $buttonContainer.append($deleteButton, this.$closeButton);
+    this.$form.append($formContainer, $buttonContainer);
   }
 
   #initializeEventListeners() {
@@ -90,6 +103,8 @@ export default class RestaurantDetail {
     this.$name.textContent = this.name;
     this.$distance.textContent = `캠퍼스부터 ${this.distance}분 내`;
     this.$description.textContent = this.description;
+    this.$link.textContent = this.link;
+    this.$link.setAttribute("href", this.link);
 
     this.$favoriteImg.setAttribute(
       "src",

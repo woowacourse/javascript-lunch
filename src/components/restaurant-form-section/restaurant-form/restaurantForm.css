@@ -52,7 +52,3 @@ input[name="name"],
 input[name="link"] {
   height: 44px;
 }
-
-.button-container {
-  display: flex;
-}

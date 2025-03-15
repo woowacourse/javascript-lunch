@@ -20,11 +20,6 @@
   background: var(--lighten-color);
 }
 
-.category-icon {
-  width: 36px;
-  height: 36px;
-}
-
 .restaurant__info {
   display: flex;
   flex-direction: column;
@@ -47,12 +42,4 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-}
-
-.favorite-button {
-  border: none;
-  background-color: transparent;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
 }

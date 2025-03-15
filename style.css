@@ -15,6 +15,12 @@ body {
   font-size: 16px;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -49,4 +55,14 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+
+/* Button Style *************************************/
+.button-container {
+  display: flex;
+}
+
+.favorite-button {
+  width: 36px;
+  height: 36px;
 }
