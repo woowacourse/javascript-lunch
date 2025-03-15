@@ -18,6 +18,9 @@ import CategoryFilter from "./components/CategoryFilter.js";
 import SortingFilter from "./components/SortingFilter.js";
 import sortAndFilter from "./utils/sortAndFilter.js";
 
+import emptyStar from "../public/icons/emptyStar.svg";
+import filledStar from "../public/icons/filledStar.svg";
+
 class App extends Component {
   setup() {
     this.state = {
@@ -166,11 +169,37 @@ class App extends Component {
         ({ id }) => id === restaurantItem.id
       );
 
+      const $button = event.target.closest("button");
+      if ($button && $button.dataset.buttonid === restaurantItem.id) {
+        const newRestaurant = {
+          ...restaurant,
+          isFavorite: !restaurant.isFavorite,
+        };
+        const newRestaurantList = [
+          ...restaurantList.filter(({ id }) => id !== restaurantItem.id),
+          newRestaurant,
+        ];
+
+        this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
+        this.setState({
+          restaurants: newRestaurantList,
+        });
+
+        const $img = $($button, ".favorite-icon");
+        $img.setAttribute(
+          "src",
+          newRestaurant.isFavorite ? filledStar : emptyStar
+        );
+        return;
+      }
+
       const restaurantInfoModal = new RestaurantInfoModal(
         $(document, "#modal"),
-        { deleteRestaurant: this.deleteRestaurant.bind(this) }
+        {
+          data: restaurant,
+          deleteRestaurant: this.deleteRestaurant.bind(this),
+        }
       );
-      restaurantInfoModal.setState({ data: restaurant });
       restaurantInfoModal.open();
     });
   }
@@ -182,6 +211,7 @@ const initializeRestaurantList = (restaurants) => {
   return restaurants.map((restaurant) => ({
     ...restaurant,
     id: makeUniqueId(restaurant.name), // id 추가
+    isFavorite: false,
   }));
 };
 
