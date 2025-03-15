@@ -34,12 +34,13 @@ export default class App {
     this.#selectedTab = selected;
 
     const $tap = document.querySelector(".restaurant-list-header");
+    const restaurantList = this.restaurantListModel.getRestaurantList();
 
     $tap.replaceWith(
       new RestaurantNavigator(
         this.#selectedTab,
         this.#updateSelected,
-        this.#restaurantList,
+        restaurantList,
         this.#updateRestautantList
       ).render()
     );
@@ -49,7 +50,7 @@ export default class App {
     );
     $filterSection.replaceWith(
       new RestaurantFilterSection(
-        this.#restaurantList,
+        restaurantList,
         this.#updateRestautantList,
         this.#selectedTab
       ).render()
@@ -79,12 +80,14 @@ export default class App {
       $listContainer
     );
 
+    const restaurantList = this.restaurantListModel.getRestaurantList();
+
     const $filterSection = document.querySelector(
       ".restaurant-filter-container"
     );
     $filterSection.replaceWith(
       new RestaurantFilterSection(
-        this.#restaurantList,
+        restaurantList,
         this.#updateRestautantList,
         this.#selectedTab
       ).render()
@@ -96,7 +99,7 @@ export default class App {
       new RestaurantNavigator(
         this.#selectedTab,
         this.#updateSelected,
-        this.#restaurantList,
+        restaurantList,
         this.#updateRestautantList
       ).render()
     );
