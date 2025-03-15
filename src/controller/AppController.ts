@@ -38,6 +38,8 @@ class AppController {
       right: PlusButton({
         onclick: () => {
           this.modalController.switchContent(RestaurantAddModalContent());
+          this.modalController.attachModalEvents();
+          this.modalController.attachFormSubmitEvent((data) => this.addRestaurantItem(data));
           this.modalController.open();
         },
       }),
