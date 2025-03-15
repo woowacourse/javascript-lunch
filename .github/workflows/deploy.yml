@@ -7,10 +7,6 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -45,6 +41,8 @@ jobs:
 
       - name: E2E
         uses: cypress-io/github-action@v6
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
         with:
           build: npm run build
           start: npm run preview
