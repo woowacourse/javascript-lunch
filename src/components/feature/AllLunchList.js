@@ -1,7 +1,7 @@
-import Component from "../../core/Component";
+import Component from "../../core/Component.js";
 import { categories } from "../../types/restaurant.types";
-import { Select } from "../common";
-import LunchList from "./LunchList";
+import { Select } from "../common/index.js";
+import LunchList from "./LunchList.js";
 
 export default class AllLunchList extends Component {
   setDefaultProps() {

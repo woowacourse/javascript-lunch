@@ -1,7 +1,7 @@
-import Component from "../../core/Component";
+import Component from "../../core/Component.js";
 import Restaurant from "../../domain/Restaurant";
-import { Button, CircleIcon, Icon, Text } from "../common";
-import { CATEGORY_IMAGE } from "./LunchItem";
+import { Button, CircleIcon, Icon, Text } from "../common/index.js";
+import { CATEGORY_IMAGE } from "./LunchItem.js";
 
 export default class LunchItemDetail extends Component {
   setDefaultProps() {
@@ -87,7 +87,7 @@ export default class LunchItemDetail extends Component {
     const deleteBtn = this.addChild(Button, {
       text: "삭제하기",
       variant: "secondary",
-      onClick: this.handleDeleteItem.bind(this),
+      onClick: (e) => this.handleDeleteItem(e),
       classList: ["w-full"],
       id: "delete-btn",
     });
@@ -107,15 +107,14 @@ export default class LunchItemDetail extends Component {
     `;
   }
 
-  toggleFavorite() {
+  handleToggleFavorite() {
     this.props.isFavorite = !this.props.isFavorite;
     Restaurant.toggleFavorite(this.props.id);
-
-    const event = new CustomEvent("favoriteToggled");
-    document.dispatchEvent(event);
+    document.dispatchEvent(new CustomEvent("itemChange"));
   }
 
-  handleDeleteItem() {
+  handleDeleteItem(e) {
+    e.stopPropagation();
     Restaurant.removeItemById(this.props.id);
   }
 
@@ -127,7 +126,7 @@ export default class LunchItemDetail extends Component {
       const favoriteButton = e.target.closest("#favorite-detail-button");
       if (favoriteButton && favoriteButton.dataset.id == this.props.id) {
         e.preventDefault();
-        this.toggleFavorite();
+        this.handleToggleFavorite();
         favoriteButton.innerHTML = this.renderFavoriteIcon();
       }
     };

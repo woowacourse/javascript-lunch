@@ -90,8 +90,7 @@ export default class LunchItem extends Component {
 
   dispatchFavoriteToggleEvent() {
     Restaurant.toggleFavorite(this.props.id);
-    const event = new CustomEvent("favoriteToggled");
-    document.dispatchEvent(event);
+    document.dispatchEvent(new CustomEvent("itemChange"));
   }
 
   handleFavoriteButtonClick(e) {
