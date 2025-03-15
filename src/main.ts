@@ -26,29 +26,47 @@ addEventListener("load", () => {
   const tabbar = $tabbar();
   main.prepend(tabbar);
 
-  let selectedTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
-  // 여기까지 함
-  // 자주 가는 음식점 선택한 경우 즐찾한 음식점 목록만 뜨도록 수정하기
-  
-  tabbar.addEventListener("change", () => {
-    selectedTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
-    if (selectedTab.value === "frequent") {
-      console.log("화면 전환");
+  let selectedTab = document.querySelector(
+    'input[name="tab"]:checked'
+  ) as HTMLInputElement;
+
+  const updateRestaurantFilter = () => {
+    const restaurantFilter = document.querySelector(
+      ".restaurant-filter-container"
+    );
+    if (!restaurantFilter) return;
+
+    if (selectedTab.value === "all") {
+      restaurantFilter.classList.remove("hidden");
+      restaurantFilter.innerHTML = "";
+      const listFilters = [$filter(FILTERS.CATEGORY), $filter(FILTERS.SORT)];
+      listFilters.forEach((data) => {
+        restaurantFilter.appendChild(data);
+      });
+    } else if (selectedTab.value === "frequent") {
+      restaurantFilter.classList.add("hidden");
     }
-  });
-  
 
-  // 카테고리 / 정렬 필터
-  const restaurantFilter = document.querySelector(
-    ".restaurant-filter-container"
-  );
-  if (!restaurantFilter) return;
+    const newCategoryFilter = document.querySelector("#category-filter");
+    const newSortingFilter = document.querySelector("#sorting-filter");
 
-  const listFilters = [$filter(FILTERS.CATEGORY), $filter(FILTERS.SORT)];
+    if (newCategoryFilter) {
+      newCategoryFilter.addEventListener("change", (e) => {
+        selectedCategory = (e.target as HTMLSelectElement)?.value || "";
+        updateList();
+      });
+    }
 
-  listFilters.forEach((data) => {
-    restaurantFilter.appendChild(data);
-  });
+    if (newSortingFilter) {
+      newSortingFilter.addEventListener("change", (e) => {
+        selectedSorting =
+          (e.target as HTMLSelectElement)?.value || selectedSorting;
+        updateList();
+      });
+    }
+  };
+
+  updateRestaurantFilter();
 
   const categoryFilter = document.querySelector("#category-filter");
   const sortingFilter = document.querySelector("#sorting-filter");
@@ -61,11 +79,71 @@ addEventListener("load", () => {
   let selectedCategory = "";
   let selectedSorting = "name";
 
+  tabbar.addEventListener("change", () => {
+    selectedTab = document.querySelector(
+      'input[name="tab"]:checked'
+    ) as HTMLInputElement;
+    updateRestaurantFilter();
+    selectedCategory = "";
+    selectedSorting = "name";
+    updateList();
+  });
+
+  const bindFavoriteEvents = () => {
+    const favButtons = document.querySelectorAll(
+      ".button-favorite"
+    ) as NodeListOf<FavoriteImageElement>;
+
+    favButtons.forEach((favButton) => {
+      const restaurantId = favButton.getAttribute("data-restaurant-id");
+      if (!restaurantId) return;
+
+      const restaurant = currentRestaurantData.find(
+        (r) => r.dataId.toString() === restaurantId
+      );
+      if (!restaurant) return;
+
+      favButton.addEventListener("mouseover", () => {
+        if (!restaurant.isFavorite) favButton.src = "images/star-filled.png";
+      });
+
+      favButton.addEventListener("mouseout", () => {
+        if (!restaurant.isFavorite) favButton.src = "images/star-outline.png";
+      });
+
+      favButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        restaurant.isFavorite = !restaurant.isFavorite;
+        favButton.src = restaurant.isFavorite
+          ? "images/star-filled.png"
+          : "images/star-outline.png";
+        if (selectedTab.value === "frequent") updateList();
+
+        saveRestaurantsToLocalStorage(currentRestaurantData);
+      });
+    });
+  };
+
   const updateList = () => {
-    const filtered = filterRestaurants(currentRestaurantData, selectedCategory);
-    const sorted = sortRestaurants(filtered, selectedSorting);
+    let filteredRestaurants: typeof currentRestaurantData = [];
+
+    if (selectedTab.value === "all") {
+      filteredRestaurants = filterRestaurants(
+        currentRestaurantData,
+        selectedCategory
+      );
+    } else if (selectedTab.value === "frequent") {
+      filteredRestaurants = currentRestaurantData.filter(
+        (restaurant) => restaurant.isFavorite
+      );
+    }
+
+    const sorted = sortRestaurants(filteredRestaurants, selectedSorting);
     renderRestaurants(restaurantList, sorted);
     saveRestaurantsToLocalStorage(currentRestaurantData);
+
+    bindFavoriteEvents();
   };
 
   restaurantList.addEventListener("click", (e) => {
@@ -83,16 +161,6 @@ addEventListener("load", () => {
     const modal = $restaurantDetailModal(restaurant);
     main.appendChild(modal);
     handleRestaurantDetailModalOpen();
-  });
-
-  categoryFilter.addEventListener("change", (e) => {
-    selectedCategory = (e.target as HTMLSelectElement)?.value || "";
-    updateList();
-  });
-
-  sortingFilter.addEventListener("change", (e) => {
-    selectedSorting = (e.target as HTMLSelectElement)?.value || selectedSorting;
-    updateList();
   });
 
   updateList();
@@ -120,38 +188,6 @@ addEventListener("load", () => {
 
   const addButton = document.querySelector("#restaurant-add-button");
   if (addButton) addButton.addEventListener("click", handleAddRestaurant);
-  
-  const favButtons = document.querySelectorAll(".button-favorite") as NodeListOf<FavoriteImageElement>;
-  console.log(favButtons[0]);
-
-  favButtons.forEach((favButton) => {
-    const restaurantId = favButton.getAttribute("data-restaurant-id");
-      if (!restaurantId) return;
-
-      const restaurant = currentRestaurantData.find(
-        (r) => r.dataId.toString() === restaurantId
-      );
-      if (!restaurant) return;
-
-    favButton.addEventListener("mouseover", () => {
-      if (!restaurant.isFavorite) favButton.src = "images/star-filled.png";
-    });
-
-    favButton.addEventListener("mouseout", () => {
-      if (!restaurant.isFavorite) favButton.src = "images/star-outline.png";
-    });
-
-    favButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-  
-      restaurant.isFavorite = !restaurant.isFavorite;
-      favButton.src = restaurant.isFavorite
-        ? "images/star-filled.png"
-        : "images/star-outline.png";
-  
-      saveRestaurantsToLocalStorage(currentRestaurantData);
-    });
-  });
 });
 
 // 음식점 상세 정보 버튼 이벤트 처리

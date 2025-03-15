@@ -414,3 +414,7 @@ input[name="link"] {
 .tab:checked + .tab_label {
   color: var(--primary-color);
 }
+
+.hidden {
+  display: none;
+}
