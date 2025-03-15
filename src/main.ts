@@ -16,9 +16,14 @@ import { FILTERS } from "./constants/filters.ts";
 import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
 import { renderRestaurants } from "./utils/renderUtils.ts";
 import { saveRestaurantsToLocalStorage } from "./data/restaurant.ts";
+import $tabbar from "./components/common/tabBar.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
+
+  const main = document.querySelector("main");
+  if (!main) return;
+  main.prepend($tabbar());
 
   // 카테고리 / 정렬 필터
   const restaurantFilter = document.querySelector(
@@ -63,7 +68,7 @@ addEventListener("load", () => {
     if (!restaurant) return;
 
     const modal = $restaurantDetailModal(restaurant);
-    document.querySelector("main")?.appendChild(modal);
+    main.appendChild(modal);
     handleRestaurantDetailModalOpen();
   });
 
@@ -95,8 +100,6 @@ addEventListener("load", () => {
     submitCancelButtons,
   ];
 
-  const main = document.querySelector("main");
-  if (!main) return;
   main.appendChild($addRestaurantModal({ form: restaurantAddForm }));
 
   const cancelButton = document.querySelector("#cancel-restaurant-add-button");

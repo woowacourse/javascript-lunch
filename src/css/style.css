@@ -342,3 +342,72 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+
+/* 탭바 */
+.tab-container {
+  position: relative;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 360px;
+  padding: 2px;
+  margin: 10px auto;
+}
+
+.indicator {
+  content: "";
+  width: 180px;
+  height: 50px;
+
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 9999;
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  transition: all 0.2s ease-out;
+}
+
+.tab {
+  width: 180px;
+  height: 50px;
+  position: absolute;
+  z-index: 99;
+  outline: none;
+  opacity: 0;
+}
+
+.tab_label {
+  width: 180px;
+  height: 50px;
+
+  position: relative;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+
+  font-size: 15px;
+  color: var(--grey-400);
+
+  cursor: pointer;
+  border-bottom: 1.5px solid var(--grey-200);
+}
+
+.tab--1:checked ~ .indicator {
+  left: 2px;
+}
+
+.tab--2:checked ~ .indicator {
+  left: calc(180px);
+}
+
+.tab:checked + .tab_label {
+  color: var(--primary-color);
+}
