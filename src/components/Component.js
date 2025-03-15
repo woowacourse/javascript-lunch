@@ -21,7 +21,7 @@ class Component {
   setEvent() {}
 
   setState(newState) {
-    this.state = { ...this.setState, ...newState };
+    this.state = { ...this.state, ...newState };
     this.render();
   }
 }
