@@ -1,6 +1,10 @@
 import selectedFilterValue from "../../domain/SelectedFilterValue";
 import createElement from "../../util/createElement";
+import createTabButton from "../../util/createTabButton";
 import Restaurant from "./Restaurant";
+
+const TAB_TITLE_ALL = "모든 음식점"
+const TAB_TITLE_WISH = "자주 가는 음식점"
 
 export default function RestaurantFilterTabs() {    
     const $restaurantFilterContainer = createElement({
@@ -8,45 +12,44 @@ export default function RestaurantFilterTabs() {
         classNames: ["restaurant-filter-tabs"],
     });
     
-    const $allTab = createElement({
-        tag: "button",
-        classNames: ["restaurant-tab", "all-tab"],
+    const $allTab = createTabButton({
+        className: "all-tab",
+        text: TAB_TITLE_ALL,
+        isWishTab: false,
     });
 
-    const $wishTab = createElement({
-        tag: "button",
-        classNames: ["restaurant-tab", "wish-tab"],
+    const $wishTab = createTabButton({
+        className: "wish-tab",
+        text: TAB_TITLE_WISH,
+        isWishTab: true,
     });
-
-    $allTab.textContent = "모든 음식점";
-    $wishTab.textContent = "자주 가는 음식점";
 
     $restaurantFilterContainer.appendChild($allTab);
     $restaurantFilterContainer.appendChild($wishTab);
 
-    function wishListClassToggle() {
-        if(selectedFilterValue.getIsWishList()) {
-            $wishTab.classList.add("active");
-            $allTab.classList.remove("active");
-        } else {
-            $allTab.classList.add("active");
-            $wishTab.classList.remove("active");
-        }
+    updateActiveTab();
+
+    function updateActiveTab() {
+        const isWishList = selectedFilterValue.getIsWishList();
+        [$allTab, $wishTab].forEach($tab => 
+            $tab.classList.toggle("active", $tab.dataset.wish === String(isWishList))
+        );
+    }
+    
+    function changeTab(event) {
+        const isWish = event.target.dataset.wish === "true";
+        selectedFilterValue.updateSelectedFilterValue("restaurant-tab", isWish);
+        updateActiveTab();
+        Restaurant({ isReRender: true });
     }
 
-    wishListClassToggle();
+    [$allTab, $wishTab].forEach($tab => 
+        $tab.addEventListener("click", (event) => {
+        changeTab(event);
+    }));
 
-
-    $allTab.addEventListener("click", () => {
-        selectedFilterValue.updateSelectedFilterValue("restaurant-tab", false);
-        wishListClassToggle();
-        Restaurant({isReRender: true});
-    });
-
-    $wishTab.addEventListener("click", () => {
-        selectedFilterValue.updateSelectedFilterValue("restaurant-tab", true);
-        wishListClassToggle();
-        Restaurant({isReRender: true});
+    $wishTab.addEventListener("click", (event) => {
+        changeTab(event);
     });
 
     return $restaurantFilterContainer;
