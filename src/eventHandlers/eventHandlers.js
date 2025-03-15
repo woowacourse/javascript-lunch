@@ -1,6 +1,6 @@
-import storeService from '../database/storeService.js';
-import filterByCategory from '../domain/filterByCategory.js';
-import sortRestaurants from '../domain/sortRestaurants.js';
+import storeService from '../database/storeService.ts';
+import filterByCategory from '../domain/filterByCategory.ts';
+import sortRestaurants from '../domain/sortRestaurants.ts';
 import stateStore from '../domain/stateStore.ts';
 
 function openAddRestaurantModal() {
