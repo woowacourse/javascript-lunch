@@ -18,6 +18,7 @@ const storeRenderer = {
   },
   //---
   updateStore: (storeList, e) => {
+    console.log("click");
     const newStore = storeRenderer.createStore(e);
 
     try {
@@ -29,15 +30,24 @@ const storeRenderer = {
       validate.descLength(newStore.description);
       validate.linkForm(newStore.link);
 
-      storeList.updateList(newStore);
+      storeList.updateList(newStore, false);
       window.localStorage.setItem(
         JSON.stringify(newStore.id),
         JSON.stringify(newStore)
       );
+
+      querySelector(".all-restaurant-button").classList.add("onMenuBar");
+      querySelector(".favorite-restaurant-button").classList.remove(
+        "onMenuBar"
+      );
+
       storeRenderer.removeStoreElements();
-      storeList.filteredList.forEach((store) => {
+      storeList.list.forEach((store) => {
         storeRenderer.addStore(store);
       });
+
+      querySelector("#category-filter").value = "전체";
+      querySelector("#sorting-filter").value = "name";
 
       modalRenderer.closeModal();
     } catch (error) {
@@ -72,7 +82,10 @@ const storeRenderer = {
   },
 
   filterStore: (storeList, e) => {
-    storeList.filterStoreList(e.target.value);
+    const isFavorite = querySelector(".onMenuBar").classList.contains(
+      "favorite-restaurant-button"
+    );
+    storeList.filterStoreList(e.target.value, isFavorite);
     storeRenderer.removeStoreElements();
     storeList.filteredList.forEach((store) => {
       storeRenderer.addStore(store);
@@ -80,21 +93,18 @@ const storeRenderer = {
   },
 
   sortStore: (storeList, e) => {
+    const isFavorite = querySelector(".onMenuBar").classList.contains(
+      "favorite-restaurant-button"
+    );
     storeList.sortStoreList(e.target.value);
     storeRenderer.removeStoreElements();
+
     storeList.filteredList.forEach((store) => {
       storeRenderer.addStore(store);
     });
   },
 
   toggleFavorite: (storeList, starIcon, storeId) => {
-    // const starIcon = e.target.closest(".star-icon");
-
-    // if (!starIcon) return;
-
-    // const store = e.target.closest(".restaurant");
-    // const storeId = store.getAttribute("id");
-    console.log(storeId);
     const storeInfo = storeList.list.find((store) => store.id === storeId);
     storeInfo.isFavorite = !storeInfo.isFavorite;
 
@@ -111,27 +121,39 @@ const storeRenderer = {
 
     const buttonText = button.querySelector(".button-text").textContent;
     let filteredList = [];
-    if (buttonText === "모든 음식점")
+    if (buttonText === "모든 음식점") {
       filteredList = storeList.filterByMenuBar(false);
-    if (buttonText === "자주 가는 음식점")
+      querySelector(".all-restaurant-button").classList.add("onMenuBar");
+      querySelector(".favorite-restaurant-button").classList.remove(
+        "onMenuBar"
+      );
+    }
+    if (buttonText === "자주 가는 음식점") {
       filteredList = storeList.filterByMenuBar(true);
 
-    document.querySelectorAll(".menuBar-button").forEach((button) => {
-      button.classList.toggle("onMenuBar");
-    });
+      querySelector(".favorite-restaurant-button").classList.add("onMenuBar");
+      querySelector(".all-restaurant-button").classList.remove("onMenuBar");
+    }
 
     storeRenderer.removeStoreElements();
 
     filteredList.forEach((store) => {
       storeRenderer.addStore(store);
     });
+
+    querySelector("#category-filter").value = "전체";
+    querySelector("#sorting-filter").value = "name";
   },
 
   deleteStore: (storeList) => {
     const storeId = querySelector(".modal-container").getAttribute("id");
     window.localStorage.removeItem(JSON.stringify(storeId));
 
-    storeList.deleteStore(storeId);
+    const isFavorite = querySelector(".onMenuBar").classList.contains(
+      "favorite-restaurant-button"
+    );
+
+    storeList.deleteStore(storeId, isFavorite);
     console.log(storeList.length);
 
     modalRenderer.closeModal();
@@ -139,6 +161,9 @@ const storeRenderer = {
     storeList.filteredList.forEach((store) => {
       storeRenderer.addStore(store);
     });
+
+    querySelector("#category-filter").value = "전체";
+    querySelector("#sorting-filter").value = "name";
   },
 };
 

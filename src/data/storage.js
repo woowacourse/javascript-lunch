@@ -18,7 +18,6 @@ const storage = {
     for (const key of keys) {
       items.push(JSON.parse(window.localStorage.getItem(key)));
     }
-    console.log(items);
     return items;
   },
 
