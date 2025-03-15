@@ -1,7 +1,11 @@
 import { TAB } from '../constants/SETTING.js';
 import createElement from '../utils/createElement.js';
 import createSectionContainer from './common/SectionContainer.js';
-import { createSelectBox } from './common/SelectBox.js';
+
+function toggleTab(allTabDiv, favoriteTabDiv) {
+  allTabDiv.classList.toggle('tab-item-selected');
+  favoriteTabDiv.classList.toggle('tab-item-selected');
+}
 
 function createTabBar(onClick) {
   const section = createSectionContainer('restaurant-tab-bar-container');
@@ -23,7 +27,7 @@ function createTabBar(onClick) {
   });
 
   allTabDiv.addEventListener('click', (event) => {
-    const id = event.target.id;
+    const { id } = event.target;
 
     if (
       (id === TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
@@ -37,7 +41,7 @@ function createTabBar(onClick) {
   });
 
   favoriteTabDiv.addEventListener('click', (event) => {
-    const id = event.target.id;
+    const { id } = event.target;
     if (
       (id === TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
       (id === TAB.FAVORITE && favoriteTabDiv.classList.contains('tab-item-selected'))
@@ -52,11 +56,6 @@ function createTabBar(onClick) {
   section.append(allTabDiv, favoriteTabDiv);
 
   return section;
-}
-
-function toggleTab(allTabDiv, favoriteTabDiv) {
-  allTabDiv.classList.toggle('tab-item-selected');
-  favoriteTabDiv.classList.toggle('tab-item-selected');
 }
 
 export default createTabBar;

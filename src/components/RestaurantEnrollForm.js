@@ -2,12 +2,11 @@ import createElement from '../utils/createElement.js';
 import createButton from './common/Button.js';
 import createSectionContainer from './common/SectionContainer.js';
 import createTextArea from './common/TextArea.js';
-import RestaurantValidator from '../validators/RestaurantValidator.js';
 import createInputBox from './common/InputBox.js';
 import { createLabeldSelectBox } from './common/SelectBox.js';
 import { CATEGORY, CATEGORY_KEY, DISTANCE_OPTIONS } from '../constants/SETTING.js';
 
-function createRestaurantEnrollForm(restaurantInput, onEnroll, onCancel) {
+function createRestaurantEnrollForm({ restaurantInput, onEnroll, onCancel }) {
   const $enrollForm = createElement({ tag: 'form' });
 
   const $categoryBox = createLabeldSelectBox({

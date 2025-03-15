@@ -7,9 +7,8 @@ import {
 } from '../components/RestaurantList.js';
 import createTabBar from '../components/TabBar.js';
 import { CATEGORY, MODAL_TYPE, ORDER, STATE_KEY, TAB } from '../constants/SETTING.js';
-import RestaurantList from '../domains/RestaurantList.js';
 import ModalService from '../services/ModalService.js';
-import RestaurantService from '../services/RestaurantService.js';
+import RestaurantService from '../services/RestaurantService.ts';
 
 class RestaurantController {
   #restaurantService = null;
@@ -45,11 +44,11 @@ class RestaurantController {
 
     const $listContainer = createSectionContainer('restaurant-list-container');
     $listContainer.appendChild(
-      createRestaurantList(
-        this.#restaurantService.getOrderedRestaurants(this.#state.order),
-        this.#handleClickItem,
-        this.#handleClickStar
-      )
+      createRestaurantList({
+        datas: this.#restaurantService.getOrderedRestaurants(this.#state.order),
+        onClickItem: this.#handleClickItem,
+        onClickStar: this.#handleClickStar,
+      })
     );
 
     this.#main.append($tabBar, $filterContainer, $listContainer);
@@ -118,12 +117,16 @@ class RestaurantController {
     this.#modalService.toggleModal(MODAL_TYPE.DETAIL);
   };
 
-  #handleAddRestaurant = (inputData) => {
+  #handleAddRestaurant = (data) => {
     if (window.confirm('해당 음식점을 추가하시겠습니까?')) {
-      addRestaurantList(inputData, this.#handleClickItem, this.#handleClickStar);
+      addRestaurantList({
+        data,
+        onClickItem: this.#handleClickItem,
+        onClickStar: this.#handleClickStar,
+      });
       this.#updateRestaurantUI(
         this.#restaurantService.addRestaurant({
-          data: inputData,
+          data,
           tab: this.#state.tab,
           order: this.#state.order,
           category: this.#state.category,
@@ -135,11 +138,11 @@ class RestaurantController {
   };
 
   #updateRestaurantUI(restaurantList) {
-    const $restaurants = updateRestaurantList(
-      restaurantList,
-      this.#handleClickItem,
-      this.#handleClickStar
-    );
+    const $restaurants = updateRestaurantList({
+      datas: restaurantList,
+      onClickItem: this.#handleClickItem,
+      onClickStar: this.#handleClickStar,
+    });
     this.#main.appendChild($restaurants);
   }
 

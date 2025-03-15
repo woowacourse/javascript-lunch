@@ -1,8 +1,7 @@
 import createElement from '../utils/createElement.js';
-import RestaurantValidator from '../validators/RestaurantValidator.js';
+import RestaurantValidator from '../validators/RestaurantValidator.ts';
 import Modal from './common/Modal.js';
 import createRestaurantEnrollForm from './RestaurantEnrollForm.js';
-import { addRestaurantList } from './RestaurantList.js';
 
 class RestaurantEnrollModal {
   #restaurantInput;
@@ -30,18 +29,18 @@ class RestaurantEnrollModal {
       textContent: '새로운 음식점',
     });
 
-    const $enrollForm = createRestaurantEnrollForm(
-      this.#restaurantInput,
-      (event) => this.handleSubmit(event),
-      () => this.handleCancel()
-    );
+    const $enrollForm = createRestaurantEnrollForm({
+      restaurantInput: this.#restaurantInput,
+      onEnroll: (event) => this.handleSubmit(event),
+      onCancel: () => this.handleCancel(),
+    });
 
     const fragment = new DocumentFragment();
     fragment.append($modalTitle, $enrollForm);
     this.#enrollModal.appendModalContent(fragment);
   }
 
-  handleSubmit(event) {
+  handleSubmit() {
     const isValidate = RestaurantValidator.validate(this.#restaurantInput);
     if (!isValidate) return;
 

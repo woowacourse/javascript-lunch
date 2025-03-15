@@ -1,11 +1,7 @@
-import createElement from '../utils/createElement.js';
-import RestaurantValidator from '../validators/RestaurantValidator.js';
 import createButton from './common/Button.js';
 import Modal from './common/Modal.js';
 import createSectionContainer from './common/SectionContainer.js';
-import createRestaurantEnrollForm from './RestaurantEnrollForm.js';
 import createRestaurantItem from './RestaurantItem.js';
-import { addRestaurantList } from './RestaurantList.js';
 
 class RestaurantDetailModal {
   #detailModal;
@@ -15,7 +11,7 @@ class RestaurantDetailModal {
   }
 
   updateModalContent({ data, onClickStar, onDelete }) {
-    const $restaurantItem = createRestaurantItem(data, null, onClickStar, true);
+    const $restaurantItem = createRestaurantItem({ data, onClickStar, detail: true });
     $restaurantItem.classList.add('restaurant__column');
 
     const $buttonContainer = createSectionContainer('button-container');

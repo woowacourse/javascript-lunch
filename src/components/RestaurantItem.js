@@ -32,7 +32,7 @@ function createTags(data) {
   return { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara };
 }
 
-function createRestaurantItem(data, onClickItem, onClickStar, detail = false) {
+function createRestaurantItem({ data, onClickItem, onClickStar, detail = false }) {
   const restaurantItem = createElement({ tag: 'li', className: 'restaurant' });
   const categoryDiv = createElement({ tag: 'div', className: 'restaurant__category' });
   const infoDiv = createElement({ tag: 'div', className: 'restaurant__info' });
