@@ -1,4 +1,3 @@
-import { UI_CONFIG } from "../../constants/uiConfig";
 import $favoriteButton from "../common/favorite-button";
 
 type RestaurantItemProps = {
@@ -9,9 +8,19 @@ type RestaurantItemProps = {
   distance: number;
   distanceCaption: string;
   description: string;
-}
+  isFavorite: boolean;
+};
 
-const $restaurantItem = ({ dataId, categoryIcon, categoryTitle, name, distance, distanceCaption, description }: RestaurantItemProps): HTMLLIElement => {
+const $restaurantItem = ({
+  dataId,
+  categoryIcon,
+  categoryTitle,
+  name,
+  distance,
+  distanceCaption,
+  description,
+  isFavorite,
+}: RestaurantItemProps): HTMLLIElement => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
   restaurantItem.setAttribute("data-id", dataId.toString());
@@ -46,7 +55,9 @@ const $restaurantItem = ({ dataId, categoryIcon, categoryTitle, name, distance, 
   restaurantDetails.appendChild(restaurantDistance);
   restaurantHeader.appendChild(restaurantDetails);
 
-  restaurantHeader.appendChild($favoriteButton(UI_CONFIG.BUTTONS.FAVORITE));
+  const favButton = $favoriteButton({ isFavorite: isFavorite, className: ["button-favorite"]});
+  favButton.setAttribute("data-restaurant-id", dataId.toString());
+  restaurantHeader.appendChild(favButton);
   info.appendChild(restaurantHeader);
 
   const restaurantDescription = document.createElement("p");

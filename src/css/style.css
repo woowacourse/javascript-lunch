@@ -214,6 +214,7 @@ body {
   width: 27px;
   height: 27px;
   cursor: pointer;
+  /* z-index: 1; */
 }
 
 /* 음식점 추가 모달 *****************************************/
@@ -227,6 +228,7 @@ body {
 
 .modal--open {
   display: block;
+  /* z-index: 99999; */
 }
 
 .modal-backdrop {
@@ -355,6 +357,7 @@ input[name="link"] {
   width: 360px;
   padding: 2px;
   margin: 10px auto;
+  z-index: 0;
 }
 
 .indicator {

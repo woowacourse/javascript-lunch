@@ -5,6 +5,7 @@ import $button from "./components/common/button.ts";
 import $buttonContainer from "./components/layout/button-container.ts";
 import $filter from "./components/common/filter.ts";
 import $restaurantDetailModal from "./components/modal/restaurant-detail-modal.ts";
+import $tabbar from "./components/common/tabBar.ts";
 import { handleModalClose } from "./components/modal/add-restaurant-modal.ts";
 import { handleAddRestaurant } from "./components/form-elements/form.ts";
 import { handleRestaurantDetailModalClose } from "./components/modal/restaurant-detail-modal.ts";
@@ -16,7 +17,7 @@ import { FILTERS } from "./constants/filters.ts";
 import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
 import { renderRestaurants } from "./utils/renderUtils.ts";
 import { saveRestaurantsToLocalStorage } from "./data/restaurant.ts";
-import $tabbar from "./components/common/tabBar.ts";
+import { FavoriteImageElement } from "./components/common/favorite-button.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
@@ -107,18 +108,35 @@ addEventListener("load", () => {
 
   const addButton = document.querySelector("#restaurant-add-button");
   if (addButton) addButton.addEventListener("click", handleAddRestaurant);
-
-  const favButtons = document.querySelectorAll(
-    ".button-favorite"
-  ) as NodeListOf<HTMLImageElement>;
+  
+  const favButtons = document.querySelectorAll(".button-favorite") as NodeListOf<FavoriteImageElement>;
 
   favButtons.forEach((favButton) => {
     favButton.addEventListener("mouseover", () => {
-      favButton.src = "images/star-filled.png";
+      if (!favButton.isFavorite) favButton.src = "images/star-filled.png";
     });
 
     favButton.addEventListener("mouseout", () => {
-      favButton.src = "images/star-outline.png";
+      if (!favButton.isFavorite) favButton.src = "images/star-outline.png";
+    });
+
+    favButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const restaurantId = favButton.getAttribute("data-restaurant-id");
+      if (!restaurantId) return;
+  
+      const restaurant = currentRestaurantData.find(
+        (r) => r.dataId.toString() === restaurantId
+      );
+      if (!restaurant) return;
+  
+      restaurant.isFavorite = !restaurant.isFavorite;
+      favButton.isFavorite = restaurant.isFavorite;
+      favButton.src = restaurant.isFavorite
+        ? "images/star-filled.png"
+        : "images/star-outline.png";
+  
+      saveRestaurantsToLocalStorage(currentRestaurantData);
     });
   });
 });

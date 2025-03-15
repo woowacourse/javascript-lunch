@@ -25,11 +25,23 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   restaurantHeader.appendChild(favButton);
 
   favButton.addEventListener("mouseover", () => {
-    favButton.src = "images/star-filled.png";
+    if (!favButton.isFavorite) favButton.src = "images/star-filled.png";
   });
 
   favButton.addEventListener("mouseout", () => {
-    favButton.src = "images/star-outline.png";
+    if (!favButton.isFavorite) favButton.src = "images/star-outline.png";
+  });
+
+  favButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (!favButton.isFavorite) {
+      favButton.src = "images/star-filled.png";
+      favButton.isFavorite = true;
+    }
+    else {
+      favButton.src = "images/star-outline.png";
+      favButton.isFavorite = false;
+    }
   });
 
   info.appendChild(restaurantHeader);

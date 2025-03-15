@@ -15,6 +15,7 @@ export const handleAddRestaurant = (e: Event) => {
       distance: formData.get("distance") ? Number(formData.get("distance")) : 0,
       description: formData.get("description") as string,
       link: formData.get("link") as string,
+      isFavorite: false,
     };
 
     validateForm(form);

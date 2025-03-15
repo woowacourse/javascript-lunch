@@ -2,7 +2,6 @@ import $restaurantDetailContent from "../restaurant/restaurant-detail-content.ts
 import { Restaurant } from "../../data/restaurant.ts";
 
 export const handleRestaurantDetailModalClose = (): void => {
-console.log('실행됐어여 ~');
   const modal = document.querySelector(".restaurant-detail-modal");
   if (!modal) return;
   modal.classList.remove("modal--open");

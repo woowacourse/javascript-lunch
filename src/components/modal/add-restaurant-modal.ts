@@ -10,6 +10,7 @@ export type RestaurantProps = {
   distance: number;
   description: string;
   link: string;
+  isFavorite: boolean;
 };
 
 type ModalProps = {
@@ -32,12 +33,11 @@ export const addRestaurant = (data: RestaurantProps): void => {
     distanceCaption: `캠퍼스부터 ${data.distance}분 내`,
     description: data.description,
     link: data.link,
+    isFavorite: data.isFavorite,
   };
 
-  console.log('기존 음식점 목록: ', currentRestaurantData);
   currentRestaurantData.push(newRestaurant);
   saveRestaurantsToLocalStorage(currentRestaurantData);
-  console.log('현재 음식점 목록: ', currentRestaurantData);
 
   const restaurantList = document.querySelector(".restaurant-list");
   if (!restaurantList) return;
