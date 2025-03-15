@@ -1,0 +1,21 @@
+.restaurant__detail {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 32px;
+}
+
+.restaurant__detail__name {
+  margin: 0;
+}
+
+.restaurant__detail__distance {
+  color: var(--primary-color);
+}
+
+.restaurant__detail__link {
+  color: inherit;
+  text-decoration: none;
+  text-decoration: underline;
+}

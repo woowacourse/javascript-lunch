@@ -5,6 +5,7 @@ import Header from './UI/components/header/Header';
 import RestaurantItem from './UI/components/restaurant/RestaurantItem';
 import AddRestaurantModal from './UI/pages/modal/components/AddRestaurantModal';
 import RestaurantFilterContainer from './UI/pages/filter/RestaurantFilterContainer';
+import RestaurantDetailModal from './UI/pages/modal/components/RestaurantDetailModal';
 
 const addRestaurantModal = new AddRestaurantModal();
 new Header(() => addRestaurantModal.handleToggleModal());
@@ -16,6 +17,12 @@ const renderRestaurantList = (restaurantList: Restaurant[]) => {
 
   restaurantList.forEach((restaurant: Restaurant) => {
     const restaurantItem = new RestaurantItem(restaurant).getElement();
+
+    restaurantItem.addEventListener('click', () => {
+      const detailModal = new RestaurantDetailModal(restaurant);
+      detailModal.handleToggleModal();
+    });
+
     DOM.RESTAURANT_LIST!.appendChild(restaurantItem as unknown as Node);
   });
 };

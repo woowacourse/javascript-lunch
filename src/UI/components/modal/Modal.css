@@ -40,3 +40,8 @@
 .button-container {
   display: flex;
 }
+
+.detail-modal {
+  display: flex;
+  flex-direction: column;
+}

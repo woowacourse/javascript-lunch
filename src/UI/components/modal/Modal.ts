@@ -61,6 +61,10 @@ class Modal {
   #handleToggleModal(): void {
     this.toggleModal();
   }
+
+  getElement(): HTMLDivElement {
+    return this.#modal;
+  }
 }
 
 export default Modal;
