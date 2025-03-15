@@ -3,7 +3,10 @@ import $button from "../common/button.ts";
 import { Restaurant } from "../../data/restaurant.ts";
 import { UI_CONFIG } from "../../constants/uiConfig.ts";
 import $favoriteButton from "../common/favorite-button.ts";
-import { saveRestaurantsToLocalStorage, currentRestaurantData } from "../../data/restaurant.ts";
+import {
+  saveRestaurantsToLocalStorage,
+  currentRestaurantData,
+} from "../../data/restaurant.ts";
 
 const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   const info = document.createElement("div");
@@ -22,7 +25,10 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
 
   iconContainer.appendChild(categoryIcon);
   restaurantHeader.appendChild(iconContainer);
-  const favButton = $favoriteButton({ isFavorite: restaurant.isFavorite, className: ["button-favorite"]});
+  const favButton = $favoriteButton({
+    isFavorite: restaurant.isFavorite,
+    className: ["button-favorite"],
+  });
   favButton.setAttribute("data-restaurant-id", restaurant.dataId.toString());
   restaurantHeader.appendChild(favButton);
 
@@ -38,9 +44,9 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
     e.stopPropagation();
 
     restaurant.isFavorite = !restaurant.isFavorite;
-      favButton.src = restaurant.isFavorite
-        ? "images/star-filled.png"
-        : "images/star-outline.png";
+    favButton.src = restaurant.isFavorite
+      ? "images/star-filled.png"
+      : "images/star-outline.png";
 
     saveRestaurantsToLocalStorage(currentRestaurantData);
     location.reload();
@@ -73,11 +79,12 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   link.innerText = restaurant.link;
   info.appendChild(link);
 
+  const deleteButton = $button(UI_CONFIG.BUTTONS.DELETE);
+  deleteButton.setAttribute("data-restaurant-id", restaurant.dataId.toString());
+  const closeButton = $button(UI_CONFIG.BUTTONS.CLOSE);
+
   const submitCancelButtons = $buttonContainer({
-    buttons: [
-      $button(UI_CONFIG.BUTTONS.DELETE),
-      $button(UI_CONFIG.BUTTONS.CLOSE),
-    ],
+    buttons: [deleteButton, closeButton],
   });
 
   info.appendChild(submitCancelButtons);

@@ -1,5 +1,5 @@
 import $restaurantDetailContent from "../restaurant/restaurant-detail-content.ts";
-import { Restaurant } from "../../data/restaurant.ts";
+import { Restaurant, currentRestaurantData, saveRestaurantsToLocalStorage } from "../../data/restaurant.ts";
 
 export const handleRestaurantDetailModalClose = (): void => {
   const modal = document.querySelector(".restaurant-detail-modal");
@@ -12,6 +12,15 @@ export const handleRestaurantDetailModalOpen = (): void => {
   const modal = document.querySelector(".restaurant-detail-modal");
   if (!modal) return;
   modal.classList.add("modal--open");
+};
+
+export const handleDeleteRestaurant = (id: number): void => {
+  const updatedRestaurants = currentRestaurantData.filter(
+    (restaurant: { dataId: number }) => restaurant.dataId !== id
+  );
+
+  saveRestaurantsToLocalStorage(updatedRestaurants);
+  location.reload();
 };
 
 const $restaurantDetailModal = (restaurant: Restaurant): HTMLDivElement => {
