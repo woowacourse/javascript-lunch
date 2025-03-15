@@ -59,9 +59,9 @@ export default class FoodItem {
 
   getBookmarkIconSrc() {
     if (this.#isFavorite) {
-      return "/favorite-icon-filled.png";
+      return "./favorite-icon-filled.png";
     }
-    return "/favorite-icon-lined.png";
+    return "./favorite-icon-lined.png";
   }
 
   setCss() {
