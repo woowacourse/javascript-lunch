@@ -2,6 +2,7 @@ import Button from "./Button.js";
 import Component from "../core/Component.js";
 import InputBox from "./InputBox.js";
 import { FOOD_CATEGORY } from "../constants/constants.js";
+import CatagorySelect from "./CatagorySelect.js";
 
 class Modal extends Component {
   constructor(props, parent) {
@@ -11,16 +12,7 @@ class Modal extends Component {
   template() {
     const inputBoxList = [
       new InputBox({
-        input: ` 
-          <select name="category" id="category" required >
-            <option value="">선택해 주세요</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
-            <option value="일식">일식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="기타">기타</option>
-          </select>`,
+        input: new CatagorySelect().template(),
         section: "category",
         label: "카테고리",
         isRequired: true,
