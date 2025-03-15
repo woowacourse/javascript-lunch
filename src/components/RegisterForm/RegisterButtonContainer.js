@@ -9,8 +9,10 @@ import Button from "../common/Button";
 import ErrorMessage from "../common/ErrorMessage";
 import createElement from "../../utils/createElement/createElement";
 import createRestaurantCards from "../../service/createRestaurantCards";
+import storage from "../../domain/storage";
+import changeModalContents from "../../changeModalContents";
 
-const ButtonContainer = (restaurantList) => {
+const RegisterButtonContainer = (restaurantList) => {
   const cancelButton = Button({
     text: BUTTON_TEXT.CANCEL,
     style: "button--secondary",
@@ -35,7 +37,7 @@ const ButtonContainer = (restaurantList) => {
   return buttonContainer;
 };
 
-export default ButtonContainer;
+export default RegisterButtonContainer;
 
 const BUTTON_TEXT = {
   CANCEL: "취소하기",
@@ -52,18 +54,34 @@ const registerRestaurant = (e, restaurantList) => {
   e.preventDefault();
   try {
     const info = getInfo();
-
     const restaurant = new Restaurant(info);
 
     restaurantList.add(restaurant);
+    storage.saveRestaurantList(
+      restaurantList.list.map((restaurant) => restaurant.value)
+    );
 
     $("#register-modal-backdrop").classList.remove("open");
-    renderRestaurants(createRestaurantCards(restaurantList.filter()));
+    renderRestaurants(
+      createRestaurantCards(restaurantList.filter(), {
+        clickCard: (restaurant) => {
+          $("#restaurant-detail-modal-backdrop").classList.add("open");
+          changeModalContents(restaurant, restaurantList);
+        },
+        clickFavorite: () => {
+          storage.saveRestaurantList(
+            restaurantList.list.map((restaurant) => restaurant.value)
+          );
+        },
+      })
+    );
 
     clearInput("#register-form");
   } catch (e) {
     console.log(e.message);
+
     const currentInputField = $(`#${e.cause}-form-item`);
+
     currentInputField.appendChild(ErrorMessage(e.message));
   }
 };

@@ -7,7 +7,7 @@ import Input from "../common/Input";
 import InputField from "../common/InputField";
 import Select from "../common/Select";
 import TextArea from "../common/TextArea";
-import ButtonContainer from "./RegisterButtonContainer";
+import RegisterButtonContainer from "./RegisterButtonContainer";
 
 const RegisterForm = (restaurantList) => {
   const foodCategoryField = InputField({
@@ -45,7 +45,7 @@ const RegisterForm = (restaurantList) => {
         inputType: "input",
         infoType: "link",
       }),
-      ButtonContainer(restaurantList),
+      RegisterButtonContainer(restaurantList),
     ],
   });
 

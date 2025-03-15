@@ -1,7 +1,7 @@
 import { WALK_TIME_MINUTES } from "./components/RegisterForm/walkTimeMinutes";
 import Restaurant from "./domain/Restaurant";
 
-export const restaurantListData = [
+export const restaurants = [
   new Restaurant({
     category: "한식",
     name: "피양콩할마니",

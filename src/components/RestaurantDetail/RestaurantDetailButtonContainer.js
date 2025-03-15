@@ -13,7 +13,6 @@ const RestaurantDetailButtonContainer = (restaurant, clickDelete) => {
     text: BUTTON_TEXT.DELETE,
     style: "button--secondary",
     onClick: () => {
-      console.log("삭제하기 클릭");
       $("#restaurant-detail-modal-backdrop").classList.remove("open");
       clickDelete(restaurant);
     },
@@ -23,7 +22,6 @@ const RestaurantDetailButtonContainer = (restaurant, clickDelete) => {
     text: BUTTON_TEXT.CLOSE,
     style: "button--primary",
     onClick: () => {
-      console.log("닫기 클릭");
       $("#restaurant-detail-modal-backdrop").classList.remove("open");
     },
   });

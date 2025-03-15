@@ -1,3 +1,4 @@
+import storage from "../../domain/storage";
 import renderAllpage from "../../ui/renderAllpage";
 import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";
@@ -11,12 +12,16 @@ const Tab = (restaurantList) => {
     classNames: ["tab__item--all"],
     events: {
       click: (e) => {
-        if (e.target.classList.contains("tab--selected")) return;
+        storage.saveTabInfo("all");
 
         $(".tab--selected").classList.remove("tab--selected");
         e.target.classList.add("tab--selected");
 
         renderAllpage(restaurantList);
+        $("#category").value = storage.loadCategory();
+        $("#category").dispatchEvent(new Event("change"));
+        $("#sorting").value = storage.loadNameOrDistance();
+        $("#sorting").dispatchEvent(new Event("change"));
       },
     },
   });
@@ -27,7 +32,7 @@ const Tab = (restaurantList) => {
     classNames: ["tab__item--favorites"],
     events: {
       click: (e) => {
-        if (e.target.classList.contains("tab--selected")) return;
+        storage.saveTabInfo("favorites");
 
         $(".tab--selected").classList.remove("tab--selected");
         e.target.classList.add("tab--selected");
