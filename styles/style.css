@@ -1,10 +1,27 @@
 @import url("global.css");
 @import url("theme.css");
-/* 카테고리/정렬 필터 */
+
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px;
+}
+.tab {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 10px;
+  border-bottom: 2px solid #d0d5dd;
+  cursor: pointer;
+}
+.tab.active {
+  border-color: var(--primary-color);
+}
+
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
-
   padding: 0 16px;
   margin-top: 24px;
 }
