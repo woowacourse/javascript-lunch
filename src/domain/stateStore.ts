@@ -10,7 +10,6 @@ type State = RestaurantState[StateKey];
 interface StateStore {
   restaurantState: RestaurantState;
   updateState: (stateKey: StateKey, state: State) => void;
-  initState: () => void;
   getState: () => RestaurantState;
 }
 
@@ -30,14 +29,6 @@ const stateStore: StateStore = {
       ...this.restaurantState,
       [stateKey]: state,
     };
-  },
-
-  initState() {
-    const currentState = this.restaurantState;
-
-    currentState.sort = 'name';
-    currentState.category = '';
-    currentState.isFavoriteTab = false;
   },
 
   getState() {

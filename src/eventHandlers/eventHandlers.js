@@ -40,21 +40,21 @@ function closeModal() {
   const handleCloseButtonClick = (event) => {
     const targetModal = event.target.closest('.modal');
 
-    resetFormAndState();
+    resetForm();
     targetModal.classList.remove('modal--open');
   };
 
   const handleBackdropClick = (event) => {
     const targetModal = event.target.closest('.modal');
 
-    resetFormAndState();
+    resetForm();
     targetModal.classList.remove('modal--open');
   };
 
   const handleEscapeKeydown = (event) => {
     const openedModals = document.querySelectorAll('.modal--open');
     if (event.key === 'Escape' && openedModals.length > 0) {
-      resetFormAndState();
+      resetForm();
 
       const targetModal = openedModals.pop();
       targetModal.classList.remove('modal--open');
@@ -88,7 +88,7 @@ function readNewRestaurant(callback) {
 
     const id = storeService.getNewRestaurantId();
     storeService.updateRestaurantById(id, { ...newRestaurantData, id });
-    resetFormAndState();
+    resetForm();
     modal.classList.remove('modal--open');
 
     callback();
@@ -130,15 +130,6 @@ function switchTab(callback) {
 function resetForm() {
   const form = document.querySelector('#new-restaurant-form');
   form.reset();
-}
-
-function resetState() {
-  stateStore.initState();
-}
-
-function resetFormAndState() {
-  resetForm();
-  resetState();
 }
 
 function sortRestaurantItems(callback) {
