@@ -118,7 +118,9 @@ function switchTab(callback) {
     selected = target;
     selected.classList.add('selected');
 
-    callback(target.dataset.tab === 'favorite');
+    const isFavoriteTab = target.dataset.tab === 'favorite';
+    stateStore.updateState('isFavoriteTab', isFavoriteTab);
+    callback();
   };
 
   const tabContainer = document.querySelector('.tab-container');
