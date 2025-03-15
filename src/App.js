@@ -109,7 +109,6 @@ export default class App {
       }).render()
     );
   };
-  //
 
   #updateSelectValue = (value, type) => {
     if (type === "category") this.#category = value;
@@ -255,19 +254,18 @@ export default class App {
       { category: this.#category, sorting: this.#sorting }
     ).render();
 
-    this.$listSection.appendChild(
-      new RestaurantFilterSection(
-        this.#restaurantList,
-        this.#updateRestautantList,
-        this.#selectedTab,
-        this.#category,
-        this.#sorting,
-        this.#updateSelectValue
-      ).render()
-    );
+    const $filterSection = new RestaurantFilterSection(
+      this.#restaurantList,
+      this.#updateRestautantList,
+      this.#selectedTab,
+      this.#category,
+      this.#sorting,
+      this.#updateSelectValue
+    ).render();
 
     this.$listSection.append(
       $listHeader,
+      $filterSection,
       new RestaurantList(
         this.#restaurantList.sort((a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
