@@ -51,6 +51,40 @@ body {
   font-weight: 400;
 }
 
+/* 토글 목록 *****************************************/
+.restaurant-toggle-container {
+  margin: 16px;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.restaurant-toggle {
+  display: flex;
+  gap: 16px;
+}
+
+.restaurant-toggle-item {
+  padding: 8px 0;
+  cursor: pointer;
+  position: relative;
+  color: var(--grey-300);
+  text-align: center;
+  flex: 1;
+}
+
+.restaurant-toggle-item.active {
+  color: var(--primary-color);
+}
+
+.restaurant-toggle-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
 /* 음식점 목록 *****************************************/
 
 /* 음식점 목록 */
@@ -63,5 +97,5 @@ body {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none !important;
 }
