@@ -1,45 +1,46 @@
 import { applyFilter } from "./filterHandler.js";
 import { initialRestaurants } from "../data/initialRestaurants.js";
+import { storeRestaurants } from "../utils/localStorage.js";
 
-export function handleFavoriteToggle(e) {
-  const button = e.currentTarget;
-  const restaurantItem = button.closest(".restaurant");
-  const starIcon = button.querySelector("img");
+export function handleFavoriteClick(e) {
+  e.stopPropagation();
 
-  if (!restaurantItem) return;
+  const $favoriteButton = e.target.closest(".favorite-button");
+  const restaurantId = Number($favoriteButton.dataset.restaurantId);
 
-  // 일단 별을 누른 해당 레스토랑의 favorite 값을 swap한다.
-  const isFavorite = restaurantItem.dataset.favorites === "true";
-  const newFavoriteState = !isFavorite;
-  restaurantItem.dataset.favorites = newFavoriteState ? "true" : "false";
+  const updatedRestaurants = initialRestaurants.map((restaurant) => {
+    if (restaurant.id === restaurantId) {
+      return {
+        ...restaurant,
+        favorites: !restaurant.favorites,
+      };
+    }
+    return restaurant;
+  });
 
-  // 아이콘 시각적으로 변경하기
-  if (starIcon) {
-    starIcon.src = newFavoriteState ? "./fill-star.png" : "./blank-star.png";
-    starIcon.classList.add("star-animation");
-  }
+  console.log(updatedRestaurants);
 
-  const { restaurantId } = button.dataset;
-  if (restaurantId) {
-    updateOriginalData(parseInt(restaurantId), newFavoriteState);
-  }
-  // 한번더 정렬한다.
+  // initialRestaurants 업데이트
+  Object.assign(initialRestaurants, updatedRestaurants);
+
+  // localStorage 업데이트
+  storeRestaurants(updatedRestaurants);
+
+  // UI 업데이트
+  const $starImg = $favoriteButton.querySelector("img");
+  const newFavoriteState = !(
+    $favoriteButton.closest(".restaurant").dataset.favorites === "true"
+  );
+  $starImg.src = `./${newFavoriteState ? "fill-star" : "blank-star"}.png`;
+  $favoriteButton.closest(".restaurant").dataset.favorites =
+    String(newFavoriteState);
+
   applyFilter();
 }
 
-// initial의 값도 바꾼다.
-function updateOriginalData(restaurantId, isFavorite) {
-  const restaurant = initialRestaurants.find((r) => r.id === restaurantId);
-  if (restaurant) {
-    restaurant.favorites = isFavorite;
-  }
-}
 export function setupFavoriteEventListeners() {
-  const favoriteButtons = document.querySelectorAll(".favorite-button");
-  favoriteButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
-      handleFavoriteToggle(event);
-    });
+  const $favoriteButtons = document.querySelectorAll(".favorite-button");
+  $favoriteButtons.forEach((button) => {
+    button.addEventListener("click", handleFavoriteClick);
   });
 }

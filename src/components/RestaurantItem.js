@@ -13,7 +13,7 @@ export default function RestaurantItem(restaurant, isDetailModal = false) {
             <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}</span>
           </div>
           <button class="favorite-button" data-restaurant-id="${restaurant.id}">
-            <img src="./${restaurant.favorites === "true" ? "filled-star" : "blank-star"}.png"/>
+            <img src="./${restaurant.favorites ? "fill-star" : "blank-star"}.png"/>
           </button>
         </div>
         <p class="restaurant__description text-body">${restaurant.description}</p>
