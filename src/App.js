@@ -66,18 +66,20 @@ export default class App {
 
   #renderRestaurantList() {
     const restaurantList = this.restaurantService.getRestaurants();
-    this.$restaurantList = new RestaurantList(
-      restaurantList,
-      this.restaurantService,
-      {
-        onOpenDetail: (restaurantId) => {
-          const restaurantInfo =
-            this.restaurantService.getRestaurantInfo(restaurantId);
-          this.$restaurantDetail.openDetail(restaurantInfo);
-          this.$openDetailBottomSheet.open();
-        },
-      }
-    );
+    this.$restaurantList = new RestaurantList(restaurantList, {
+      getRestaurants: (options) => {
+        return this.restaurantService.getRestaurants(options);
+      },
+      onToggleFavorite: (restaurantId) => {
+        this.restaurantService.toggleFavorite(restaurantId);
+      },
+      onOpenDetail: (restaurantId) => {
+        const restaurantInfo =
+          this.restaurantService.getRestaurantInfo(restaurantId);
+        this.$restaurantDetail.openDetail(restaurantInfo);
+        this.$openDetailBottomSheet.open();
+      },
+    });
     this.$main.append(this.$restaurantList.render());
   }
 
@@ -104,6 +106,9 @@ export default class App {
     this.$restaurantDetail = new RestaurantDetail({
       onToggleFavorite: (restaurantId) => {
         this.restaurantService.toggleFavorite(restaurantId);
+        const updatedInfo =
+          this.restaurantService.getRestaurantInfo(restaurantId);
+        this.$restaurantDetail.openDetail(updatedInfo);
       },
       onDelete: (restaurantId) => {
         this.restaurantService.deleteRestaurant(restaurantId);

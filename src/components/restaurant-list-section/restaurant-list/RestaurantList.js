@@ -7,9 +7,13 @@ import RestaurantListItem from "../restaurant-list-item/RestaurantListItem.js";
 import "./restaurantList.css";
 
 export default class RestaurantList {
-  constructor(restaurantList, restaurantService, { onOpenDetail }) {
+  constructor(
+    restaurantList,
+    { getRestaurants, onToggleFavorite, onOpenDetail }
+  ) {
     this.restaurantList = restaurantList;
-    this.restaurantService = restaurantService;
+    this.getRestaurants = getRestaurants;
+    this.onToggleFavorite = onToggleFavorite;
     this.onOpenDetail = onOpenDetail;
 
     this.$listSection = document.createElement("section");
@@ -24,9 +28,7 @@ export default class RestaurantList {
     this.restaurantList.forEach((restaurantInfo) => {
       const $listItem = new RestaurantListItem(
         restaurantInfo,
-        (restaurantId) => {
-          this.restaurantService.toggleFavorite(restaurantId);
-        },
+        this.onToggleFavorite,
         this.onOpenDetail
       );
       this.$list.append($listItem.render());
@@ -44,7 +46,7 @@ export default class RestaurantList {
       },
     }
   ) {
-    this.restaurantList = this.restaurantService.getRestaurants(options);
+    this.restaurantList = this.getRestaurants(options);
     this.render();
   }
 }
