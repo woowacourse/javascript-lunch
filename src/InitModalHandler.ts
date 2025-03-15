@@ -1,4 +1,8 @@
-import { AddNewRestaurant } from "./domain/RestaurantStorage";
+import { ERRORS } from "./constants/errors";
+import {
+  AddNewRestaurant,
+  GetAllRestaurants,
+} from "./domain/RestaurantStorage";
 import { categoryMapping } from "./utils/categoryMapping";
 import {
   validateDescriptionInput,
@@ -66,6 +70,14 @@ function HandleAddRestaurant(e: Event) {
       favorite: false,
     };
 
+    const allRestaurants = GetAllRestaurants();
+    if (
+      allRestaurants.some(
+        (restaurant) => restaurant.nameValue === inputValue.nameValue
+      )
+    ) {
+      throw new Error(ERRORS.DUPLICATE_RESTAURANT_NAME);
+    }
     AddNewRestaurant({ restaurant: inputValue });
 
     location.reload();
