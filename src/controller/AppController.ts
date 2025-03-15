@@ -3,13 +3,11 @@ import PlusButton from '../components/button/PlusButton';
 import RestaurantFilterContainer from '../components/filter/RestaurantFilterContainer';
 import Header from '../components/Header';
 import RestaurantDetailModalContent from '../components/modal/RestaurantDetailModalContent';
-import RestaurantItem from '../components/restaurant/RestaurantItem';
-import RestaurantList from '../components/restaurant/RestaurantList';
-import RestaurantListContainer from '../components/restaurant/RestaurantListContainer';
 import RestaurantTabContainer from '../components/tab/RestaurantTabContainer';
 import Restaurants from '../domain/Restaurants';
 import { Restaurant } from '../types/types';
 import { $ } from '../util/selector';
+import RestaurantListView from '../view/RestaurantListView';
 import ModalController from './modalController';
 
 class AppController {
@@ -94,12 +92,11 @@ class AppController {
   }
 
   renderRestaurantListContainer() {
-    const main = $('main');
-    const container = RestaurantListContainer({ restaurants: this.restaurants.items });
+    RestaurantListView.render(this.restaurants.items);
 
-    main?.appendChild(container);
+    const container = $('.restaurant-list-container');
 
-    container.addEventListener('click', (event) => {
+    container?.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       const restaurantElement = target.closest('.restaurant');
       const restaurantFavoriteButton = target.closest('.restaurant__favorite-button');
@@ -138,7 +135,7 @@ class AppController {
             if (deleteButton) {
               this.restaurants.removeRestaurant(selectedRestaurant.name);
               this.modalController.close();
-              this.removeRestaurantItem(selectedRestaurant.name);
+              RestaurantListView.removeItem(selectedRestaurant.name);
             }
           });
         }
@@ -158,38 +155,22 @@ class AppController {
       sortFilterValue ?? 'latest',
     );
 
-    const restaurantListDOM = $('.restaurant-list');
-    const restaurantList = RestaurantList({ restaurants: filteredRestaurants });
-
-    restaurantListDOM?.replaceWith(restaurantList);
+    RestaurantListView.updateList(filteredRestaurants);
   }
 
   updateRestaurantListByTab(tabType: 'all' | 'favorite') {
     const favoriteRestaurants = this.restaurants.getFavoriteRestaurants();
 
-    const restaurantListDOM = $('.restaurant-list');
-
     if (tabType === 'all') {
-      restaurantListDOM?.replaceWith(RestaurantList({ restaurants: this.restaurants.items }));
+      RestaurantListView.updateList(this.restaurants.items);
     } else if (tabType === 'favorite') {
-      restaurantListDOM?.replaceWith(RestaurantList({ restaurants: favoriteRestaurants }));
+      RestaurantListView.updateList(favoriteRestaurants);
     }
   }
 
   addRestaurantItem(restaurant: Restaurant) {
-    const item = RestaurantItem({ restaurant });
-
-    $('.restaurant-list')?.appendChild(item);
+    RestaurantListView.addItem(restaurant);
     this.restaurants.addRestaurant({ ...restaurant, isFavorite: false });
-  }
-
-  removeRestaurantItem(restaurantName: string) {
-    const restaurantList = $('.restaurant-list-container');
-
-    if (restaurantList) {
-      const target = restaurantList.querySelector(`[data-id="${restaurantName}"]`);
-      target?.remove();
-    }
   }
 }
 
