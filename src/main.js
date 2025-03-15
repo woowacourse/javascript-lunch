@@ -98,7 +98,7 @@ function addEventHandlers() {
   eventHandlers.switchTab(updateRestaurantElements);
   eventHandlers.sortRestaurantItems(updateRestaurantElements);
   eventHandlers.filteringRestaurantItems(updateRestaurantElements);
-  eventHandlers.toggleFavoriteRestaurant(updateRestaurantElements);
+  eventHandlers.toggleFavoriteRestaurant(updateFavoriteIcon);
 }
 
 function setRequired(element) {
@@ -210,4 +210,14 @@ function appendInfoModalButton(parent) {
 
   buttonDiv.insertAdjacentHTML('beforeend', deleteInfoButton);
   buttonDiv.insertAdjacentHTML('beforeend', closeInfoButton);
+}
+
+function updateFavoriteIcon(id, favorite) {
+  const targetItems = document.querySelectorAll(`[data-id="${id}"]`);
+
+  targetItems.forEach((target) => {
+    const imageElement = target.querySelector('.restaurant__favorite > img');
+
+    imageElement.src = favorite ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png';
+  });
 }

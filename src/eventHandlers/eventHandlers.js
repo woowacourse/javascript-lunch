@@ -162,7 +162,7 @@ function toggleFavoriteRestaurant(callback) {
     const updateData = { ...targetData, favorite: !targetData.favorite };
     storeService.updateRestaurantById(id, updateData);
 
-    callback();
+    callback(id, updateData.favorite);
   };
 
   const restaurantItems = document.querySelector('.restaurant-list');
