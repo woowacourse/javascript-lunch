@@ -34,8 +34,8 @@ export default class MainPage {
     };
 
     const dropdowns = [
-      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.category }),
-      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.sort }),
+      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.category, type: "filter" }),
+      new Dropdown({ name: "sort", options: DROPDOWN_OPTIONS.sort, type: "sort" }),
     ];
     this.dropdownContainer = new DropdownContainer({ dropdowns: dropdowns });
 

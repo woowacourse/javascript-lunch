@@ -1,8 +1,9 @@
-import { addFavoriteChangeListeners, addDeleteItemChangeListeners, addFilterChangeListeners } from "../managers/eventManagers.ts";
+import { addFavoriteChangeListeners, addDeleteItemChangeListeners, addFilterChangeListeners, addSortChangeListeners } from "../managers/eventManagers.ts";
 import { storeFoodItems } from "../managers/storageManagers.ts";
 import FoodItem from "./FoodItem.ts";
 
 type CategoryDropdownValue = "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+type SortDropdownValue = "이름순" | "거리순";
 
 interface FoodListOptions {
   foodItems: FoodItemType[];
@@ -20,9 +21,12 @@ export default class FoodList {
     this.foodList = document.createElement("ul");
     this.foodList.classList.add("restaurant-list");
 
+    this.updateSortItem("이름순");
+
     addFavoriteChangeListeners(this.updateFavoriteItem.bind(this));
     addDeleteItemChangeListeners(this.updateDeleteItem.bind(this));
     addFilterChangeListeners(this.updateFilterItem.bind(this));
+    addSortChangeListeners(this.updateSortItem.bind(this));
 
     this.render();
   }
@@ -107,8 +111,17 @@ export default class FoodList {
       this.render();
       return;
     }
-    console.log(category);
     this.#renderFoodItems = this.#originFoodItems.filter((foodItem) => foodItem.category === category);
+    this.render();
+  }
+
+  updateSortItem(sortType: SortDropdownValue) {
+    if (sortType === "이름순") {
+      this.#renderFoodItems.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    if (sortType === "거리순") {
+      this.#renderFoodItems.sort((a, b) => a.distance - b.distance);
+    }
     this.render();
   }
 }

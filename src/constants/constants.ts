@@ -27,8 +27,8 @@ export const DROPDOWN_OPTIONS = {
     { value: "기타", label: "기타" },
   ],
   sort: [
-    { value: "name", label: "이름순" },
-    { value: "distance", label: "거리순" },
+    { value: "이름순", label: "이름순" },
+    { value: "거리순", label: "거리순" },
   ],
 };
 
