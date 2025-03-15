@@ -17,7 +17,11 @@ const addData = () => {
     category: `${categoryValue[submittedData.category as string]}`,
   };
   RestaurantData.push(information as Restaurant);
-  localStorage.setItem("restaurantList", JSON.stringify([...RestaurantData]));
+  localStorage.setItem(
+    `${RestaurantData.length - 1}`,
+    JSON.stringify(information),
+  ),
+    localStorage.setItem("restaurantList", JSON.stringify([...RestaurantData]));
   document.dispatchEvent(new CustomEvent("restaurantUpdated"));
 };
 
