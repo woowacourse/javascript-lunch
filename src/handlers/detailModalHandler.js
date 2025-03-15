@@ -1,6 +1,7 @@
 import { AddDetailModal } from "../components/AddDetailModal.js";
 import { initialRestaurants } from "../data/initialRestaurants.js";
 import removeModal from "../utils/removeModal.js";
+import { setupFavoriteEventListeners } from "./favoriteHandler.js";
 
 let selectedRestaurantId = null;
 export function handleRestaurantClick(e) {
@@ -70,4 +71,5 @@ export function setupRestaurantItemEventListeners() {
 export function setupAddDetailtModal($container, selectedRestaurant) {
   AddDetailModal($container, selectedRestaurant);
   setupRestaurantItemEventListeners();
+  setupFavoriteEventListeners();
 }
