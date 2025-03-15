@@ -87,7 +87,7 @@ export default class FoodItem {
               <span class="restaurant__distance text-body"
                 >캠퍼스부터 ${this.#distance}분 내</span
               >
-              <p class="restaurant__description text-body">
+              <p class="restaurant__description ${this.#cssType === "column" ? "restaurant__description-detail" : ""} text-body">
                ${this.#description}
               </p>
               ${this.#cssType === "column" && this.#link ? `<p>${this.#link}</p>` : ""}
