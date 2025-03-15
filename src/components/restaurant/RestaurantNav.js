@@ -7,12 +7,14 @@ export default function RestaurantNav() {
   const $nav = createElement({ tag: "nav", classNames: ["restaurant-nav"] });
   const $allRestaurant = createElement({
     tag: "div",
+    id: "all-restaurant",
     classNames: ["restaurant-nav-item", "text-subtitle", "select"],
     name: "all-restaurant",
     textContent: "모든 음식점",
   });
   const $favoriteRestaurant = createElement({
     tag: "div",
+    id: "favorite-Restaurant",
     classNames: ["restaurant-nav-item", "text-subtitle"],
     name: "favorite-Restaurant",
     textContent: "자주 가는 음식점",
