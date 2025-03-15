@@ -10,14 +10,37 @@ import { setItem, RESTAURANT_LIST_KEY } from "./components/utils/storage.js";
 export default class App {
   #selectedTab;
   #restaurantList;
+  #category;
+  #sorting;
 
   constructor() {
     this.restaurantListModel = new RestaurantListModel();
     this.#selectedTab = "all";
     this.#restaurantList = this.restaurantListModel.getRestaurantList();
+    this.#category = "전체";
+    this.#sorting = "이름순";
 
     this.#initElement();
   }
+
+  #updateSelectValue = (value, type) => {
+    if (type === "category") this.#category = value;
+    if (type === "sorting") this.#sorting = value;
+
+    const $filterSection = document.querySelector(
+      ".restaurant-filter-container"
+    );
+    $filterSection.replaceWith(
+      new RestaurantFilterSection(
+        this.restaurantListModel.getRestaurantList(),
+        this.#updateRestautantList,
+        this.#selectedTab,
+        this.#category,
+        this.#sorting,
+        this.#updateSelectValue
+      ).render()
+    );
+  };
 
   #updateRestautantList = (newRestaurantList) => {
     this.#restaurantList = newRestaurantList;
@@ -52,7 +75,10 @@ export default class App {
       new RestaurantFilterSection(
         restaurantList,
         this.#updateRestautantList,
-        this.#selectedTab
+        this.#selectedTab,
+        this.#category,
+        this.#sorting,
+        this.#updateSelectValue
       ).render()
     );
   };
@@ -89,7 +115,10 @@ export default class App {
       new RestaurantFilterSection(
         restaurantList,
         this.#updateRestautantList,
-        this.#selectedTab
+        this.#selectedTab,
+        this.#category,
+        this.#sorting,
+        this.#updateSelectValue
       ).render()
     );
 
@@ -126,7 +155,10 @@ export default class App {
       new RestaurantFilterSection(
         this.#restaurantList,
         this.#updateRestautantList,
-        this.#selectedTab
+        this.#selectedTab,
+        this.#category,
+        this.#sorting,
+        this.#updateSelectValue
       ).render()
     );
 

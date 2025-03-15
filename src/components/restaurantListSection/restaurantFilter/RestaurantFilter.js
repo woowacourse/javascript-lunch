@@ -4,11 +4,13 @@ export default class RestaurantFilter {
   #options;
   #type;
   #onChange;
+  #value;
 
-  constructor(options, type, onChange) {
+  constructor(options, type, onChange, value) {
     this.#options = options;
     this.#type = type;
     this.#onChange = onChange;
+    this.#value = value;
   }
 
   render() {
@@ -29,6 +31,8 @@ export default class RestaurantFilter {
       $option.textContent = option;
       $select.appendChild($option);
     });
+
+    $select.value = this.#value;
 
     $select.addEventListener("change", this.#onChange);
 

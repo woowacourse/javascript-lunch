@@ -6,11 +6,23 @@ export default class RestaurantFilterSection {
   #restaurantList;
   #updateList;
   #selectedTab;
+  #category;
+  #sorting;
 
-  constructor(restaurantList, updateList, selectedTab) {
+  constructor(
+    restaurantList,
+    updateList,
+    selectedTab,
+    category,
+    sorting,
+    updateSelectValue
+  ) {
     this.#restaurantList = restaurantList;
     this.#updateList = updateList;
     this.#selectedTab = selectedTab;
+    this.#category = category;
+    this.#sorting = sorting;
+    this.updateSelectValue = updateSelectValue;
   }
 
   render() {
@@ -21,7 +33,8 @@ export default class RestaurantFilterSection {
       new RestaurantFilter(
         ["전체", ...CATEGORY],
         "category",
-        this.#handleCategoryChange
+        this.#handleCategoryChange,
+        this.#category
       ).render()
     );
 
@@ -29,7 +42,8 @@ export default class RestaurantFilterSection {
       new RestaurantFilter(
         SORTING,
         "sorting",
-        this.#handleSortingChange
+        this.#handleSortingChange,
+        this.#sorting
       ).render()
     );
 
@@ -55,7 +69,9 @@ export default class RestaurantFilterSection {
     const filteredList = filterBySelectTab.filter(
       (restaurant) => restaurant.category === value
     );
+
     this.#updateList(filteredList);
+    this.updateSelectValue(value, "category");
   };
 
   #handleSortingChange = (e) => {
@@ -81,5 +97,7 @@ export default class RestaurantFilterSection {
         filterBySelectTab.sort((a, b) => a.distance - b.distance)
       );
     }
+
+    this.updateSelectValue(value, "sorting");
   };
 }
