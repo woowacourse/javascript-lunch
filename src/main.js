@@ -154,7 +154,10 @@ function appendModalButton(parent) {
 }
 
 function initRestaurantItems() {
-  storeService.updateRestaurants([...RESTAURANTS]);
+  const restaurants = storeService.getRestaurants();
+  if (!restaurants) {
+    storeService.updateRestaurants([...RESTAURANTS]);
+  }
 }
 
 function updateRestaurantElements() {
