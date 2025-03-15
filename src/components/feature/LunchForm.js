@@ -19,26 +19,24 @@ export default class LunchForm extends Component {
   }
 
   renderLunchText() {
-    const lunchText = this.addChild(Text);
-    lunchText.setProps({
+    const lunchText = this.addChild(Text, {
       content: "새로운 음식점",
       classList: ["w-full", "text-2xl"],
       id: "lunch-form-title",
     });
+
     return lunchText.template();
   }
 
   renderCategory() {
-    const categoryLabel = this.addChild(Text);
-    categoryLabel.setProps({
+    const categoryLabel = this.addChild(Text, {
       content: "카테고리",
       required: true,
       classList: ["text-lg", "slate-500"],
       id: "category-label",
     });
 
-    const categorySelect = this.addChild(Select);
-    categorySelect.setProps({
+    const categorySelect = this.addChild(Select, {
       options: categories,
       onChange: (value) => this.setState({ category: value }),
       id: "category-select",
@@ -53,16 +51,14 @@ export default class LunchForm extends Component {
   }
 
   renderStoreName() {
-    const storeNameLabel = this.addChild(Text);
-    storeNameLabel.setProps({
+    const storeNameLabel = this.addChild(Text, {
       content: "이름",
       required: true,
       classList: ["text-lg", "slate-500"],
       id: "store-name-label",
     });
 
-    const storeName = this.addChild(TextArea);
-    storeName.setProps({
+    const storeName = this.addChild(TextArea, {
       rows: 1,
       maxLength: 14,
       placeHolder: "피양콩할마니",
@@ -81,16 +77,14 @@ export default class LunchForm extends Component {
   }
 
   renderDistance() {
-    const distanceLabel = this.addChild(Text);
-    distanceLabel.setProps({
+    const distanceLabel = this.addChild(Text, {
       content: "거리(도보 이동 시간)",
       required: true,
       classList: ["text-lg", "slate-500"],
       id: "distance-label",
     });
 
-    const distance = this.addChild(Select);
-    distance.setProps({
+    const distance = this.addChild(Select, {
       options: distances.map((distance) => `${distance}분`),
       onChange: (value) => this.setState({ distance: value }),
       id: "distance-select",
@@ -105,16 +99,14 @@ export default class LunchForm extends Component {
   }
 
   renderDescription() {
-    const descriptionLabel = this.addChild(Text);
-    descriptionLabel.setProps({
+    const descriptionLabel = this.addChild(Text, {
       content: "설명",
       required: false,
       classList: ["text-lg", "slate-500"],
       id: "description-label",
     });
 
-    const description = this.addChild(TextArea);
-    description.setProps({
+    const description = this.addChild(TextArea, {
       rows: 3,
       maxLength: 255,
       isRequired: false,
@@ -133,15 +125,13 @@ export default class LunchForm extends Component {
   }
 
   renderLink() {
-    const linkLabel = this.addChild(Text);
-    linkLabel.setProps({
+    const linkLabel = this.addChild(Text, {
       content: "참고 링크",
       classList: ["text-lg", "slate-500"],
       id: "link-label",
     });
 
-    const link = this.addChild(TextArea);
-    link.setProps({
+    const link = this.addChild(TextArea, {
       rows: 1,
       maxLength: 100,
       isRequired: false,
@@ -160,8 +150,7 @@ export default class LunchForm extends Component {
   }
 
   renderButton() {
-    const cancelBtn = this.addChild(Button);
-    cancelBtn.setProps({
+    const cancelBtn = this.addChild(Button, {
       text: "취소하기",
       variant: "secondary",
       classList: ["w-full"],
@@ -169,8 +158,7 @@ export default class LunchForm extends Component {
       id: "cancel-btn",
     });
 
-    const submitBtn = this.addChild(Button);
-    submitBtn.setProps({
+    const submitBtn = this.addChild(Button, {
       text: "추가하기",
       variant: "primary",
       classList: ["w-full"],
@@ -188,8 +176,8 @@ export default class LunchForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const lastId = Restaurant.getLastRestaurantId();
-    const newId = lastId + 1;
+    const newId = Restaurant.getLastRestaurantId() + 1;
+
     new Restaurant({
       id: newId,
       storeName: this.state.storeName,
@@ -211,12 +199,6 @@ export default class LunchForm extends Component {
       description: "",
       link: "",
     });
-  }
-
-  validateLunchForm() {
-    Validator.category(this.state.category);
-    Validator.distance(this.state.distance);
-    Validator.link(this.state.link);
   }
 
   template() {
