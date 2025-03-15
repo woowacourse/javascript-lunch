@@ -220,4 +220,9 @@ function updateFavoriteIcon(id, favorite) {
 
     imageElement.src = favorite ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png';
   });
+
+  const { isFavoriteTab } = stateStore.getState();
+  if (isFavoriteTab) {
+    updateRestaurantElements();
+  }
 }
