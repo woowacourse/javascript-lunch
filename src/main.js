@@ -183,6 +183,9 @@ function appendRestaurantInfo() {
   const modal = createModal(RESTAURANT_INFO_MODAL);
 
   main.insertAdjacentHTML('beforeend', modal);
+
+  const targetModal = document.querySelector('.restaurant-info-modal > .modal-container');
+  appendInfoModalButton(targetModal);
 }
 
 function appendRestaurantInfoContents(id) {
@@ -190,14 +193,13 @@ function appendRestaurantInfoContents(id) {
   const contents = createRestaurantInfo(targetData);
 
   const targetModal = document.querySelector('.restaurant-info-modal > .modal-container');
+  const prevInformation = targetModal.querySelector('.restaurant');
 
-  if (targetModal.hasChildNodes) {
-    targetModal.replaceChildren();
+  if (prevInformation) {
+    targetModal.replaceChild(prevInformation);
   }
 
-  targetModal.insertAdjacentHTML('beforeend', contents);
-
-  appendInfoModalButton(targetModal);
+  targetModal.insertAdjacentHTML('afterbegin', contents);
 }
 
 function appendInfoModalButton(parent) {
