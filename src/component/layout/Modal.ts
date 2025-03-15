@@ -1,7 +1,4 @@
-import {
-  convertStorageToLocal,
-  readFoodList,
-} from "../../domain/handler/FoodItemHandler";
+import { showConvertedItem } from "../../domain/handler/FoodItemHandler";
 
 import { isFavoriteState } from "../../domain/handler/TabButtonHandler";
 import {
@@ -23,12 +20,12 @@ export class Modal {
     if (mainCotainer) mainCotainer.appendChild(container);
   }
 
-  static setContent({ modalContent }: ModalSetContentType) {
+  static setContent({ filter, modalContent }: ModalSetContentType) {
     const modalContainer = document.querySelector(".modal-container");
     modalContainer && (modalContainer.innerHTML = "");
     modalContainer?.appendChild(modalContent);
     document.querySelector(".modal-backdrop")?.addEventListener("click", () => {
-      Modal.close({ filter: null });
+      Modal.close({ filter });
     });
   }
 
@@ -37,16 +34,9 @@ export class Modal {
     modal?.classList.add("modal--open");
   }
 
-  static close({ filter = null }: ModalCloseContentType) {
+  static close({ filter }: ModalCloseContentType) {
     const modalContent = document.querySelector(".modal");
     modalContent?.classList.remove("modal--open");
-
-    if (filter) {
-      const previousFoodList = readFoodList({
-        favoriteFilter: isFavoriteState(),
-      });
-      const foodList = filter.sortedFoodList({ foodList: previousFoodList });
-      convertStorageToLocal({ filter, foodList });
-    }
+    showConvertedItem({ favoriteFilter: isFavoriteState(), filter });
   }
 }

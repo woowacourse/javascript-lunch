@@ -6,19 +6,10 @@ export function handleTabButton({
   foodItem,
   filter,
 }: HandleFavoriteButtonType) {
-  const favoriteState = document.querySelector(
-    ".tab-button_favorite.selected-button"
-  );
-
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });
-
-  if (favoriteState) {
-    showConvertedItem({ filter, favoriteFilter: true });
-  } else {
-    showConvertedItem({ filter, favoriteFilter: false });
-  }
+  showConvertedItem({ filter, favoriteFilter: isFavoriteState() });
   event.stopPropagation();
 }
 

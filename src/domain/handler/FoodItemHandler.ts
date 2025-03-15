@@ -34,7 +34,7 @@ export function readFoodList({ favoriteFilter }: ReadFoodListType) {
   return previousFoodList;
 }
 
-// CRUD - update
+// CRUD - update(add)
 export function addFoodFormItem({ filter }: AddFoodItemType) {
   const foodItem = getFormFoodItem();
   if (!foodItem) return;
@@ -42,17 +42,18 @@ export function addFoodFormItem({ filter }: AddFoodItemType) {
   Modal.close({ filter });
 }
 
+// CRUD - update
 export function updateFoodList({ foodItem }: UpdateFoodListType) {
   updateStorageFoodList({ newFoodItem: foodItem });
 }
 
+// CRUD - delete
 export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {
   deleteStorageFoodList({ newFoodItem });
   Modal.close({ filter });
 }
 
-// FoodItem-Data 관련 부가적인 기능
-
+// < FoodItem-Data 관련 부가적인 기능 >
 // 화면에 보여주기
 export function convertStorageToLocal({
   filter,
@@ -72,11 +73,21 @@ export function convertStorageToLocal({
 
 function openDetailModal({ filter, foodItem }: OpenDetailModalType) {
   Modal.setContent({
+    filter,
     modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
   });
   Modal.open();
 }
 
+function showFoodItem({ foodListComponent }: ShowFoodItemType) {
+  const foodListContainer = document.querySelector(".restaurant-list");
+  if (foodListContainer) foodListContainer.innerHTML = "";
+  [...foodListComponent].forEach((item) => {
+    foodListContainer?.appendChild(item);
+  });
+}
+
+// 필더링된 데이터를 읽고 화면에 보여주기
 export function showConvertedItem({
   favoriteFilter,
   filter,
@@ -85,13 +96,5 @@ export function showConvertedItem({
   convertStorageToLocal({
     filter,
     foodList: filter.sortedFoodList({ foodList: previousFoodList }),
-  });
-}
-
-export function showFoodItem({ foodListComponent }: ShowFoodItemType) {
-  const foodListContainer = document.querySelector(".restaurant-list");
-  if (foodListContainer) foodListContainer.innerHTML = "";
-  [...foodListComponent].forEach((item) => {
-    foodListContainer?.appendChild(item);
   });
 }

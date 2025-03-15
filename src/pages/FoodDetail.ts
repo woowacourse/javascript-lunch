@@ -4,12 +4,11 @@ import { FoodItem } from "../component/FoodItem";
 import { Modal } from "../component/layout/Modal";
 import {
   deleteFoodItem,
-  showConvertedItem,
   updateFoodList,
 } from "../domain/handler/FoodItemHandler";
 import { HandleFavoriteButtonType } from "../types/domain/TabButtonHandlerType";
 
-import { CloseButtonType, FoodDetailType } from "../types/pages/FoodDetailType";
+import { FoodDetailType } from "../types/pages/FoodDetailType";
 
 export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
   const container = document.createElement("div");
@@ -20,15 +19,15 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
     handleTabButton: (event, foodItem) =>
       handleTabButton({ event, foodItem, filter }),
   });
+
   const linkCompennt = document.createElement("div");
   linkCompennt.innerHTML = foodDetailItem.link;
 
   foodDetailInfo.appendChild(linkCompennt);
-
   foodDetailInfo.style.flexDirection = "column";
   foodDetailInfo.style.gap = "16px";
-  container.appendChild(foodDetailInfo);
 
+  container.appendChild(foodDetailInfo);
   container.appendChild(
     ButtonContainer({
       buttons: [
@@ -41,7 +40,7 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
         Button({
           cssType: "primary",
           innerText: "닫기",
-          onClick: () => closeButton({ filter }),
+          onClick: () => Modal.close({ filter }),
         }),
       ],
     })
@@ -50,25 +49,13 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
   return container;
 }
 
-function closeButton({ filter }: CloseButtonType) {
-  const favoriteState = document.querySelector(
-    ".tab-button_favorite.selected-button"
-  );
-  if (favoriteState) {
-    showConvertedItem({ filter, favoriteFilter: true });
-  } else {
-    showConvertedItem({ filter, favoriteFilter: false });
-  }
-
-  Modal.close({ filter: null });
-}
-
 function handleTabButton({ foodItem, filter }: HandleFavoriteButtonType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });
 
   Modal.setContent({
+    filter,
     modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
   });
 }

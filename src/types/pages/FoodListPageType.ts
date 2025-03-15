@@ -3,6 +3,10 @@ export interface FoodListPageType {
   iconButton: Element | null;
 }
 
+export interface LoadFoodListType {
+  title: string;
+}
+
 export interface LoadHeaderType {
   title: string;
   iconButton: Element | null;

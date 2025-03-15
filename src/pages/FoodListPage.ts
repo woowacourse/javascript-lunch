@@ -1,6 +1,8 @@
+import { IconButton } from "../component/button/IconButton.js";
 import { Header } from "../component/layout/Header.js";
 import {
   FoodListPageType,
+  LoadFoodListType,
   LoadHeaderType,
 } from "../types/pages/FoodListPageType.js";
 
@@ -31,6 +33,16 @@ export class FoodListPage {
     this.loadTabButton();
     this.loadFilter();
     this.loadFoodList();
+  }
+
+  static loadPage({ title }: LoadFoodListType) {
+    const AddFoodItemIcon = IconButton({
+      imgSrc: "./add-button.png",
+      label: "음식점 추가",
+      onClick: () => {},
+    });
+
+    return new FoodListPage({ title, iconButton: AddFoodItemIcon });
   }
 
   loadHeader({ title, iconButton }: LoadHeaderType) {

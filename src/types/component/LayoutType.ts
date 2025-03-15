@@ -10,9 +10,10 @@ export interface HeaderType {
 }
 
 export interface ModalSetContentType {
+  filter: Filter;
   modalContent: Element;
 }
 
 export interface ModalCloseContentType {
-  filter: Filter | null;
+  filter: Filter;
 }

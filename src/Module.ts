@@ -28,7 +28,7 @@ export class Module {
       const formContainer = document.createElement("div");
       formContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
       formContainer.appendChild(FoodForm({ filter: this.#filter }));
-      Modal.setContent({ modalContent: formContainer });
+      Modal.setContent({ filter: this.#filter, modalContent: formContainer });
       Modal.open();
     });
   }
