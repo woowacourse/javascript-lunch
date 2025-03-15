@@ -15,8 +15,11 @@ body {
   font-size: 16px;
 }
 
-body {
+body,
+.modal-container {
   min-width: 300px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 select {
