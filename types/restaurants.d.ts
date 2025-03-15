@@ -1,6 +1,8 @@
+import { CATEGORY, ORDER, TAB } from '../src/constants/SETTING.js';
+
 export interface IRestaurantInfo {
   id?: number;
-  category: string;
+  category: CategoryType;
   name: string;
   distance: number;
   description?: string;
@@ -21,7 +23,7 @@ export interface ISortResult {
 }
 
 export interface IAddRestaurantParams {
-  data: Omit<IRestaurantInfo, 'id'> & { id?: number };
+  data: IRestaurantInfo;
   tab: TabType;
   order: OrderType;
   category: CategoryType;
@@ -33,6 +35,6 @@ export interface ISortOptionsParams {
   category: CategoryType;
 }
 
-export type OrderType = '이름순' | '거리순';
-export type TabType = 'all' | 'favorite';
-export type CategoryType = '전체' | '한식' | '중식' | '일식' | '양식' | '아시안' | '기타';
+export type OrderType = (typeof ORDER)[keyof typeof ORDER];
+export type TabType = (typeof TAB)[keyof typeof TAB];
+export type CategoryType = (typeof CATEGORY)[keyof typeof CATEGORY];

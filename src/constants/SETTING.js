@@ -30,3 +30,15 @@ export const STATE_KEY = {
   CATEGORY: 'category',
   TAB: 'tab',
 };
+
+export const DISTANCE_OPTIONS = [5, 10, 15, 20, 30];
+
+export const CATEGORY_KEY = {
+  전체: 'all',
+  한식: 'korean',
+  중식: 'chinese',
+  일식: 'japanese',
+  양식: 'western',
+  아시안: 'asian',
+  기타: 'etc',
+};

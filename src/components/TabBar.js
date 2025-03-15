@@ -1,4 +1,3 @@
-import { CATEGORY_OPTIONS, SORT_OPTIONS } from '../../public/restaurantData.js';
 import { TAB } from '../constants/SETTING.js';
 import createElement from '../utils/createElement.js';
 import createSectionContainer from './common/SectionContainer.js';
@@ -11,7 +10,7 @@ function createTabBar(onClick) {
     className: 'tab-item tab-item-selected',
     textContent: '모든 음식점',
     attributes: {
-      id: 'all',
+      id: TAB.ALL,
     },
   });
   const favoriteTabDiv = createElement({
@@ -19,7 +18,7 @@ function createTabBar(onClick) {
     className: 'tab-item',
     textContent: '자주 가는 음식점',
     attributes: {
-      id: 'favorite',
+      id: TAB.FAVORITE,
     },
   });
 

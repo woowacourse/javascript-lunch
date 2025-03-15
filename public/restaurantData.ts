@@ -1,4 +1,6 @@
-const RESTAURANT_DATA = [
+import { CategoryType, IRestaurantInfo } from '../types/restaurants';
+
+const RESTAURANT_DATA: IRestaurantInfo[] = [
   {
     id: 1,
     category: 'korean',
@@ -68,17 +70,4 @@ const RESTAURANT_DATA = [
   },
 ];
 
-const SORT_OPTIONS = ['이름순', '거리순'];
-const CATEGORY_OPTIONS = ['한식', '중식', '일식', '양식', '아시안', '기타'];
-const DISTANCE_OPTIONS = [5, 10, 15, 20, 30];
-
-const CATEGORY_KEY = {
-  한식: 'korean',
-  중식: 'chinese',
-  일식: 'japanese',
-  양식: 'western',
-  아시안: 'asian',
-  기타: 'etc',
-};
-
-export { RESTAURANT_DATA, CATEGORY_OPTIONS, DISTANCE_OPTIONS, CATEGORY_KEY, SORT_OPTIONS };
+export { RESTAURANT_DATA };

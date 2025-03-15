@@ -1,4 +1,3 @@
-import { CATEGORY_KEY, CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 import createButton from './common/Button.js';
 import createSectionContainer from './common/SectionContainer.js';
@@ -6,12 +5,13 @@ import createTextArea from './common/TextArea.js';
 import RestaurantValidator from '../validators/RestaurantValidator.js';
 import createInputBox from './common/InputBox.js';
 import { createLabeldSelectBox } from './common/SelectBox.js';
+import { CATEGORY, CATEGORY_KEY, DISTANCE_OPTIONS } from '../constants/SETTING.js';
 
 function createRestaurantEnrollForm(restaurantInput, onEnroll, onCancel) {
   const $enrollForm = createElement({ tag: 'form' });
 
   const $categoryBox = createLabeldSelectBox({
-    options: CATEGORY_OPTIONS,
+    options: Object.values(CATEGORY),
     label: '카테고리',
     isRequired: true,
     type: 'category',

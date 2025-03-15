@@ -1,4 +1,3 @@
-import { CATEGORY_KEY } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
 
 function createTags(data) {

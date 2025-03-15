@@ -1,4 +1,3 @@
-import { CATEGORY_KEY } from '../../public/restaurantData.js';
 import {
   CategoryType,
   IAddRestaurantParams,
@@ -8,7 +7,7 @@ import {
   ISortResult,
   OrderType,
 } from '../../types/restaurants.js';
-import { ORDER, TAB } from '../constants/SETTING.js';
+import { CATEGORY_KEY, ORDER, TAB } from '../constants/SETTING.js';
 
 class RestaurantList {
   #restaurants: IRestaurantInfo[] = [];
@@ -82,7 +81,7 @@ class RestaurantList {
       filteredRestaurants = [...this.#restaurants];
     } else {
       filteredRestaurants = this.#restaurants.filter(
-        (data) => data.category === CATEGORY_KEY[category]
+        (data) => data.category === CATEGORY_KEY[category as keyof typeof CATEGORY_KEY]
       );
     }
 
