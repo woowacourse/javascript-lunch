@@ -27,6 +27,7 @@ class RestaurantDetailModal {
       this.#restaurant.getCategory(),
       this.#restaurant.getDescription(),
       this.#restaurant.getLink(),
+      this.#restaurant.isFavorite(),
     );
     this.#cancelButton = new Button('button', 'button--secondary', '취소하기', () => this.#handleCancelButton());
     this.#deleteButton = new Button('button', 'button--primary', '삭제하기', (event: MouseEvent) =>

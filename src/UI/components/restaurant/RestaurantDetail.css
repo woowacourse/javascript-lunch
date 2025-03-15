@@ -6,6 +6,13 @@
   padding-bottom: 32px;
 }
 
+.restaurant__detail__icon__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
 .restaurant__detail__name {
   margin: 0;
 }

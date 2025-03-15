@@ -1,10 +1,18 @@
 import RestaurantIcon from './RestaurantIcon';
+import FavoriteIcon from './FavoriteIcon';
 
 class RestaurantDetail {
   private element: HTMLDivElement;
 
-  constructor(name: string, distance: string, category: string, description: string, link: string) {
-    this.element = this.#createRestaurantDetail(name, distance, category, description, link);
+  constructor(
+    name: string,
+    distance: string,
+    category: string,
+    description: string,
+    link: string,
+    isFavorite: boolean = false,
+  ) {
+    this.element = this.#createRestaurantDetail(name, distance, category, description, link, isFavorite);
   }
 
   #createRestaurantDetail(
@@ -13,12 +21,13 @@ class RestaurantDetail {
     category: string,
     description: string,
     link: string,
+    isFavorite: boolean,
   ): HTMLDivElement {
     const restaurantDetail = document.createElement('div');
     restaurantDetail.classList.add('restaurant__detail');
 
-    const restaurantIcon = this.#createRestaurantIcon(category);
-    restaurantDetail.appendChild(restaurantIcon);
+    const iconContainer = this.#createIconContainer(category, isFavorite);
+    restaurantDetail.appendChild(iconContainer);
 
     const restaurantName = this.#createRestaurantName(name);
     restaurantDetail.appendChild(restaurantName);
@@ -39,9 +48,27 @@ class RestaurantDetail {
     return restaurantDetail;
   }
 
+  #createIconContainer(category: string, isFavorite: boolean): HTMLDivElement {
+    const iconContainer = document.createElement('div');
+    iconContainer.classList.add('restaurant__detail__icon__container');
+
+    const restaurantIcon = this.#createRestaurantIcon(category);
+    iconContainer.appendChild(restaurantIcon);
+
+    const favoriteIcon = this.#createFavoriteIcon(isFavorite);
+    iconContainer.appendChild(favoriteIcon);
+
+    return iconContainer;
+  }
+
   #createRestaurantIcon(category: string): HTMLElement {
     const restaurantIcon = new RestaurantIcon(category);
     return restaurantIcon.getElement();
+  }
+
+  #createFavoriteIcon(isFavorite: boolean): HTMLElement {
+    const favoriteIcon = new FavoriteIcon(isFavorite);
+    return favoriteIcon.getElement();
   }
 
   #createRestaurantName(name: string): HTMLHeadingElement {
