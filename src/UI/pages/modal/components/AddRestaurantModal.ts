@@ -3,7 +3,7 @@ import InputDropDown from '../../../components/input/InputDropDown';
 import InputText from '../../../components/input/InputText';
 import Modal from '../../../components/modal/Modal';
 import { addRestaurant } from '../../../../Domain/services/RestaurantService';
-import { RestaurantFormData } from '../../../../Domain/types/RestaurantTypes';
+import { RestaurantData } from '../../../../Domain/types/RestaurantTypes';
 
 const CATEGORY_LIST = [
   ['한식', '한식'],
@@ -101,9 +101,8 @@ class AddRestaurantModal {
   #handleAddButton(event: Event): void {
     event.preventDefault();
 
-    // FormData를 직접 처리하여 필요한 데이터 추출
     const formData = new FormData(this.#modalForm);
-    const restaurantData: RestaurantFormData = {
+    const restaurantData: RestaurantData = {
       name: formData.get('name') as string,
       category: formData.get('category') as string,
       distance: formData.get('distance') as string,

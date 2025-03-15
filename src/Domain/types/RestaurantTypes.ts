@@ -9,9 +9,3 @@ export interface RestaurantData {
   description?: string; // 설명 (선택)
   link?: string; // 참조 링크 (선택)
 }
-
-/**
- * 폼에서 입력받는 레스토랑 데이터 타입
- * RestaurantData와 동일한 구조를 가지므로 타입 별칭으로 정의
- */
-export type RestaurantFormData = RestaurantData;
