@@ -26,3 +26,26 @@
 .modal-title {
   margin-bottom: 36px;
 }
+
+.restaurant-detail-modal .restaurant {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.restaurant-detail-modal .restaurant__description {
+  display: block;
+}
+
+.restaurant-detail-modal .restaurant__info {
+  gap: 12px;
+}
+
+.restaurant-detail-modal .restaurant__link {
+  display: block;
+}
+
+.restaurant-detail-modal .restaurant__favorite {
+  position: absolute;
+  right: 0px;
+}
