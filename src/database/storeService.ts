@@ -6,7 +6,6 @@ import { STORE } from '../constants/database.ts';
 interface StoreService {
   getRestaurants(): Restaurant[];
   findRestaurantById(id: number): Restaurant;
-  findRestaurantsByCategory(category: string): Restaurant[];
   updateRestaurantById(id: number, data: Restaurant): void;
   updateRestaurants(dataList: Restaurant[]): void;
   deleteRestaurantById(id: number): void;
@@ -27,13 +26,6 @@ const storeService: StoreService = {
     const parsedKey = parseStorageKey(STORE.keyPrefix, id);
     const target = store.getData(parsedKey) ?? '';
     return parseJSON(target);
-  },
-
-  findRestaurantsByCategory(category) {
-    const restaurants = this.getRestaurants();
-    return restaurants.filter((restaurant) => {
-      return restaurant.category === category;
-    });
   },
 
   updateRestaurantById(id, data) {

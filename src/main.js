@@ -154,9 +154,7 @@ function appendModalButton(parent) {
 }
 
 function initRestaurantItems() {
-  RESTAURANTS.forEach((restaurant) => {
-    storeService.updateRestaurantById(restaurant.id, restaurant);
-  });
+  storeService.updateRestaurants([...RESTAURANTS]);
 }
 
 function updateRestaurantElements() {
