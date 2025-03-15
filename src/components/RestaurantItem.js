@@ -1,6 +1,8 @@
-export default function RestaurantItem(restaurant) {
+export default function RestaurantItem(restaurant, isDetailModal = false) {
+  const modalStyle = isDetailModal ? ' style="flex-direction: column;"' : "";
+
   return `
-    <li class="restaurant" data-category="${restaurant.category}" data-favorites="${restaurant.favorites}">
+    <li class="restaurant"${modalStyle} data-category="${restaurant.category}" data-favorites="${restaurant.favorites}">
       <div class="restaurant__category">
         <img src="./category-${restaurant.category}.png" alt="${restaurant.categoryName}" class="category-icon" />
       </div>

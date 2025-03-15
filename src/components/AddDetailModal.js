@@ -1,4 +1,6 @@
 import CustomButton from "../shared/CustomButton.js";
+import RestaurantItem from "./RestaurantItem.js";
+import { initialRestaurants } from "../data/initialRestaurants.js";
 
 export function AddDetailModal(container) {
   const cancelButton = CustomButton(
@@ -12,13 +14,11 @@ export function AddDetailModal(container) {
       <div class="modal modal--open">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
-          <h2 class="modal-title text-title">새로운 음식점</h2>
-          <form>
+          ${RestaurantItem(initialRestaurants[0], true)}
             <div class="button-container">
               ${cancelButton}
               ${submitButton}
             </div>
-          </form>
         </div>
       </div>
     `;

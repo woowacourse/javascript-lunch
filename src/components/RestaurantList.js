@@ -5,13 +5,17 @@ export default function RestaurantList(
   container,
   restaurants = initialRestaurants,
 ) {
-  const restaurantItemsHTML = restaurants
-    .map((restaurant) => RestaurantItem(restaurant))
-    .join("");
+  const render = () => {
+    const $restaurantList = document.createElement("ul");
+    $restaurantList.className = "restaurant-list";
 
-  container.innerHTML += `
-    <ul class="restaurant-list">
-      ${restaurantItemsHTML}
-    </ul>
-  `;
+    const restaurantItemsHTML = restaurants
+      .map((restaurant) => RestaurantItem(restaurant))
+      .join("");
+
+    $restaurantList.innerHTML = restaurantItemsHTML;
+    container.appendChild($restaurantList);
+  };
+
+  render();
 }
