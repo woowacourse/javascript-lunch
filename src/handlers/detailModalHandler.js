@@ -2,10 +2,12 @@ import { AddDetailModal } from "../components/AddDetailModal.js";
 import { initialRestaurants } from "../data/initialRestaurants.js";
 import removeModal from "../utils/removeModal.js";
 
+let selectedRestaurantId = null;
 export function handleRestaurantClick(e) {
   const $clickedItem = e.target.closest(".restaurant");
   const { restaurantId } = $clickedItem.dataset;
 
+  selectedRestaurantId = Number(restaurantId);
   const selectedRestaurant = initialRestaurants.find(
     (restaurant) => restaurant.id === Number(restaurantId),
   );
@@ -21,11 +23,8 @@ export function handleDeleteRestaurant(e) {
 
   $restaurantItems.forEach((item) => {
     console.log(item.dataset.restaurantId);
-    console.log(e.target.dataset.restaurantId);
-    if (
-      Number(item.dataset.restaurantId) ===
-      Number(e.target.dataset.restaurantId)
-    ) {
+    console.log(selectedRestaurantId);
+    if (Number(item.dataset.restaurantId) === Number(selectedRestaurantId)) {
       item.remove();
     }
   });

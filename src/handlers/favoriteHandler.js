@@ -1,4 +1,5 @@
 import { applyFilter } from "./filterHandler.js";
+import { initialRestaurants } from "../data/initialRestaurants.js";
 
 export function handleFavoriteToggle(e) {
   const button = e.currentTarget;
@@ -36,6 +37,9 @@ function updateOriginalData(restaurantId, isFavorite) {
 export function setupFavoriteEventListeners() {
   const favoriteButtons = document.querySelectorAll(".favorite-button");
   favoriteButtons.forEach((button) => {
-    button.addEventListener("click", handleFavoriteToggle);
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      handleFavoriteToggle(event);
+    });
   });
 }
