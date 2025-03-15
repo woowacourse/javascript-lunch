@@ -1,3 +1,6 @@
+import DetailModalContent from "./DetailModal/DetailModalContent.js";
+import Modal from "./Modal.js";
+
 const LunchInfoCard = {
   create({ id, src, name, label, distance, description, favorite }) {
     const LunchInfoCardElement = document.createElement("li");
@@ -16,8 +19,28 @@ const LunchInfoCard = {
       </div>
     `;
 
+    LunchInfoCardElement.addEventListener("click", (e) => {
+      if (e.target.classList.contains("restaurant__favorite")) return;
+
+      Modal.open("detail");
+      DetailModalContent.set({
+        id,
+        favorite,
+        src,
+        label,
+        name,
+        distance,
+        description,
+        link,
+      });
+    });
+
     return LunchInfoCardElement;
   },
+
+  onClickFavorite(id, event) {},
+
+  onClickCard(id, event) {},
 };
 
 export default LunchInfoCard;

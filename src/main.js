@@ -11,13 +11,15 @@ import {
 import { $, $$ } from "./utils/querySelectors.js";
 import RestaurantListUtils from "./utils/RestaurantListUtils.js";
 import data from "./data.js";
+import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
 
 DOM.$body.prepend(Header.create());
 initNavigationButton();
 initFilterSelect();
 initRestaurantList();
-initAddLunchModal();
 initFavoriteList();
+initAddLunchModal();
+initDetailModal();
 
 function initNavigationButton() {
   $(".navigation-bar-container").addEventListener("click", (e) => {
@@ -64,12 +66,18 @@ function initRestaurantList() {
   RestaurantList.applyData("allRestaurant");
 }
 
+function initFavoriteList() {
+  DOM.$favoriteContainer.append(RestaurantList.create("favoriteRestaurant"));
+}
+
 function initAddLunchModal() {
   const addLunchModalContent = AddLunchModalForm.create();
   const addLunchModalElement = Modal.create("addLunch", addLunchModalContent);
   DOM.$main.append(addLunchModalElement);
 }
 
-function initFavoriteList() {
-  DOM.$favoriteContainer.append(RestaurantList.create("favoriteRestaurant"));
+function initDetailModal() {
+  const detailModalContent = DetailModalContent.create();
+  const detailModalElement = Modal.create("detail", detailModalContent);
+  DOM.$main.append(detailModalElement);
 }

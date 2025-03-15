@@ -1,4 +1,4 @@
-describe("Modal 테스트", () => {
+describe("AddLunchModal 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
     cy.viewport(1920, 975);
@@ -20,7 +20,7 @@ describe("Modal 테스트", () => {
   });
 
   it("모달 바깥 backdrop을 누르면 모달이 닫힌다", () => {
-    cy.get(".modal-backdrop").click({ force: true });
+    cy.get(".modal[id=addLunch] .modal-backdrop").click({ force: true });
     cy.get(".modal-container").should("not.be.visible");
   });
 

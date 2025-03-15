@@ -154,6 +154,11 @@ body {
   border-bottom: 1px solid #e9eaed;
 }
 
+.restaurant-detail {
+  position: relative;
+  padding: 16px 8px;
+}
+
 .restaurant__category {
   display: flex;
   justify-content: center;
