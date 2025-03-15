@@ -130,6 +130,8 @@ body {
 }
 
 .restaurant {
+  position: relative;
+
   display: flex;
   align-items: flex-start;
 
@@ -166,11 +168,6 @@ body {
   justify-content: flex-start;
 }
 
-.restaurant__header {
-  display: flex;
-  justify-content: space-between;
-}
-
 .restaurant__name {
   margin: 0;
 }
@@ -180,6 +177,9 @@ body {
 }
 
 .restaurant__favorite {
+  position: absolute;
+  right: 0px;
+
   width: 32px !important;
   height: 32px !important;
 
