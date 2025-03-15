@@ -1,3 +1,3 @@
 export const STORE = {
-  keyPrefix: 'lunch_',
+  restaurantsKey: 'restaurants',
 };

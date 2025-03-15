@@ -178,7 +178,7 @@ function deleteRestaurantItem(callback) {
     const parent = target.closest('.modal-container');
     const restaurantItem = parent.querySelector('.restaurant');
 
-    const id = restaurantItem.dataset.id;
+    const id = Number(restaurantItem.dataset.id);
     storeService.deleteRestaurantById(id);
 
     callback();

@@ -1,6 +1,6 @@
 import { Restaurant } from '../../types/domain';
 import store from './store.ts';
-import { parseJSON, parseStorageKey, stringifyJSON } from '../utils/data.ts';
+import { parseJSON, stringifyJSON } from '../utils/data.ts';
 import { STORE } from '../constants/database.ts';
 
 interface StoreService {
@@ -14,24 +14,29 @@ interface StoreService {
 
 const storeService: StoreService = {
   getRestaurants() {
-    const keys = Object.keys(store.storage).filter((key) => {
-      return key.startsWith(STORE.keyPrefix);
-    });
-
-    const restaurants = keys.map((key) => parseJSON(store.getData(key) ?? '[]'));
-    return restaurants;
+    return parseJSON(store.getData(STORE.restaurantsKey) ?? '[]');
   },
 
   findRestaurantById(id) {
-    const parsedKey = parseStorageKey(STORE.keyPrefix, id);
-    const target = store.getData(parsedKey) ?? '';
-    return parseJSON(target);
+    const totalRestaurants = this.getRestaurants();
+    const target = totalRestaurants.find((restaurant) => restaurant.id === id);
+    if (!target) {
+      throw new Error('음식점 정보가 없습니다. id를 확인해주세요.');
+    }
+
+    return target;
   },
 
   updateRestaurantById(id, data) {
-    const parsedKey = parseStorageKey(STORE.keyPrefix, id);
-    const stringData = stringifyJSON(data);
-    store.setData(parsedKey, stringData);
+    const totalRestaurants = this.getRestaurants();
+    const maintainedRestaurants = totalRestaurants.filter((restaurant) => {
+      return restaurant.id !== id;
+    });
+
+    const newRestaurants = [...maintainedRestaurants, data];
+    const stringData = stringifyJSON(newRestaurants);
+
+    store.setData(STORE.restaurantsKey, stringData);
   },
 
   updateRestaurants(dataList) {
@@ -41,16 +46,19 @@ const storeService: StoreService = {
   },
 
   deleteRestaurantById(id) {
-    const parsedKey = parseStorageKey(STORE.keyPrefix, id);
-    store.removeData(parsedKey);
+    const totalRestaurants = this.getRestaurants();
+    const maintainedRestaurants = totalRestaurants.filter((restaurant) => {
+      return restaurant.id !== id;
+    });
+
+    const stringData = stringifyJSON(maintainedRestaurants);
+
+    store.setData(STORE.restaurantsKey, stringData);
   },
 
   getNewRestaurantId() {
-    const keys = Object.keys(store.storage).filter((key) => {
-      return key.startsWith(STORE.keyPrefix);
-    });
-
-    return keys.length;
+    const totalRestaurants = this.getRestaurants();
+    return totalRestaurants.length;
   },
 };
 
