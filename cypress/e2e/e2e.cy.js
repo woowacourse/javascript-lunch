@@ -3,7 +3,7 @@ describe("E2E 테스트", () => {
     cy.visit("http://localhost:5173/");
   });
 
-  it("성공 시나리오: 모든 필수 필드 입력 후 모달 닫힘", () => {
+  it("성공 시나리오: 레스토랑 생성 후 필터링", () => {
     // 모달 열기
     cy.get(".gnb__button").should("exist").click();
     cy.get(".modal.modal--open").should("exist");
@@ -24,7 +24,18 @@ describe("E2E 테스트", () => {
     // 제출 후 모달이 닫히고, 레스토랑 이름이 올바르게 표시되는지 확인
     cy.get(".button.button--primary.text-caption").should("be.visible").click();
     cy.get(".modal").should("not.have.class", "modal--open");
-    cy.get(".restaurant__name").should("contain.text", "마담밍");
+
+    // 중식 필터링
+    cy.get("#category-filter").should("be.visible").select("중식");
+    cy.get(".restaurant").should("have.length", 2);
+    cy.get(".restaurant__name").eq(0).should("contain.text", "마담밍");
+    cy.get(".restaurant__name").eq(1).should("contain.text", "친친");
+
+    // 거리순 필터링
+    cy.get("#sorting-filter").should("be.visible").select("거리순");
+    cy.get(".restaurant").should("have.length", 2);
+    cy.get(".restaurant__name").eq(0).should("contain.text", "친친");
+    cy.get(".restaurant__name").eq(1).should("contain.text", "마담밍");
   });
 
   it("성공 시나리오: 좋아요 클릭 후 자주가는 음식점 클릭 시 해당 식당 랜더링", () => {
@@ -46,6 +57,12 @@ describe("E2E 테스트", () => {
     cy.get(".favorite").click();
     cy.get(".restaurant").should("have.length", 1);
     cy.get(".restaurant__name").should("contain.text", targetName);
+  });
+
+  it("성공 시나리오: 레스토랑 삭제 시 화면에서 제거", () => {
+    cy.get(".restaurant").eq(0).click();
+    cy.get("#delete_button").click();
+    cy.get(".restaurant").should("not.contain.text", "도스타코스 선릉점");
   });
 
   it("실패 시나리오: 필수 필드 누락 시 모달 유지", () => {
