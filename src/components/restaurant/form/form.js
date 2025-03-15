@@ -3,8 +3,8 @@ import createDropdownBox from "../../dropdown/dropdown.js";
 import createInputBox from "../../input/input.js";
 import createTextAreaBox from "../../textarea/textarea.js";
 import {
-  FOOD_CATEGORY,
-  RESTAURANT_DISTANCE,
+  FOOD_CATEGORY_VALUES,
+  RESTAURANT_DISTANCE_VALUES,
 } from "../../../settings/settings.ts";
 import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.ts";
 
@@ -23,7 +23,7 @@ export default function createRestaurantForm(restaurantList) {
     createDropdownBox({
       labelText: "카테고리",
       id: "category",
-      dropdownList: FOOD_CATEGORY,
+      dropdownList: FOOD_CATEGORY_VALUES,
       required: true,
     }),
     createInputBox({
@@ -36,7 +36,7 @@ export default function createRestaurantForm(restaurantList) {
     createDropdownBox({
       labelText: "거리(도보 이동 시간)",
       id: "distance",
-      dropdownList: RESTAURANT_DISTANCE,
+      dropdownList: RESTAURANT_DISTANCE_VALUES,
       required: true,
     }),
     createTextAreaBox({

@@ -1,18 +1,20 @@
 import {
-  FOOD_CATEGORY,
+  FOOD_CATEGORY_VALUES,
   ERROR_MESSAGE,
   RESTAURANT_FIELD_LENGTH,
-  RESTAURANT_DISTANCE,
+  RESTAURANT_DISTANCE_VALUES,
 } from "../settings/settings.ts";
-import { extractByKey } from "../utils/extract.ts";
+
 import { isInRange } from "../utils/predicate.ts";
-import { Restaurant, RestaurantForm } from "../../types/restaurantTypes.ts";
+import type {
+  Restaurant,
+  RestaurantForm,
+} from "../../types/restaurantTypes.ts";
 
-const categoryList: string[] = extractByKey(FOOD_CATEGORY, "value");
-const distanceList: string[] = extractByKey(RESTAURANT_DISTANCE, "value");
-
-export function _validateRestaurantCategory(category: string): void {
-  if (!categoryList.includes(category)) {
+export function _validateRestaurantCategory(
+  category: "한식" | "중식" | "일식" | "아시안" | "양식" | "기타"
+): void {
+  if (!FOOD_CATEGORY_VALUES.includes(category)) {
     throw new Error(ERROR_MESSAGE.INVALID_CATEGORY);
   }
 }
@@ -30,7 +32,7 @@ export function _validateRestaurantName(restaurantName: string): void {
 }
 
 export function _validateRestaurantDistance(distance: number): void {
-  if (!distanceList.includes(distance.toString())) {
+  if (!RESTAURANT_DISTANCE_VALUES.includes(distance.toString())) {
     throw new Error(ERROR_MESSAGE.INVALID_RESTAURANT_DISTANCE);
   }
 }

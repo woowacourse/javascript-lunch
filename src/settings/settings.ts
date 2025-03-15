@@ -6,21 +6,20 @@ export const CATEGORY_ICON = {
   아시안: "./category-asian.png",
   기타: "./category-etc.png",
 } as const;
-export const FOOD_CATEGORY = [
-  { value: "한식", text: "한식" },
-  { value: "중식", text: "중식" },
-  { value: "일식", text: "일식" },
-  { value: "아시안", text: "아시안" },
-  { value: "양식", text: "양식" },
-  { value: "기타", text: "기타" },
+export const FOOD_CATEGORY_VALUES = [
+  "한식",
+  "중식",
+  "일식",
+  "아시안",
+  "양식",
+  "기타",
 ] as const;
-
-export const RESTAURANT_DISTANCE = [
-  { value: "5", text: "5분 내" },
-  { value: "10", text: "10분 내" },
-  { value: "15", text: "15분 내" },
-  { value: "20", text: "20분 내" },
-  { value: "30", text: "30분 내" },
+export const RESTAURANT_DISTANCE_VALUES = [
+  "5",
+  "10",
+  "15",
+  "20",
+  "30",
 ] as const;
 
 export const RESTAURANT_FIELD_LENGTH = {
@@ -140,11 +139,7 @@ export const DICTIONARY = {
   all: "모든 음식점",
   favorite: "자주 가는 음식점",
   전체: "전체",
-  ...FOOD_CATEGORY.reduce(
-    (acc, category) => ({
-      ...acc,
-      [category.value]: category.text,
-    }),
-    {}
-  ),
+  ...FOOD_CATEGORY_VALUES.reduce((acc, cur) => {
+    return { ...acc, [cur]: cur };
+  }, {} as Record<string, string>),
 } as const;
