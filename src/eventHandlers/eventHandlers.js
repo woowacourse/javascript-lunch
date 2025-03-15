@@ -175,9 +175,10 @@ function toggleFavoriteRestaurant(callback) {
 function deleteRestaurantItem(callback) {
   const handleDeleteClick = (event) => {
     const { target } = event;
-    const targetItem = target.closest('.restaurant');
+    const parent = target.closest('.modal-container');
+    const restaurantItem = parent.querySelector('.restaurant');
 
-    const id = target.dataset.id;
+    const id = restaurantItem.dataset.id;
     storeService.deleteRestaurantById(id);
 
     callback();
