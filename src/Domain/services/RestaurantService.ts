@@ -57,3 +57,7 @@ export const addRestaurant = (restaurantData: RestaurantData): Restaurant => {
   restaurantList = [...restaurantList, newRestaurant];
   return newRestaurant;
 };
+
+export const deleteRestaurant = (restaurant: Restaurant): void => {
+  restaurantList = restaurantList.filter((r) => r !== restaurant);
+};

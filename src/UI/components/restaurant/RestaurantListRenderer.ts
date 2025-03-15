@@ -27,7 +27,7 @@ class RestaurantListRenderer {
       const restaurantItem = new RestaurantItem(restaurant).getElement();
 
       restaurantItem.addEventListener('click', () => {
-        const detailModal = new RestaurantDetailModal(restaurant);
+        const detailModal = new RestaurantDetailModal(restaurant, () => this.refreshRestaurantList());
         detailModal.handleToggleModal();
       });
 

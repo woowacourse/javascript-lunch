@@ -2,6 +2,7 @@ import Button from '../../../components/button/Button';
 import Modal from '../../../components/modal/Modal';
 import Restaurant from '../../../../Domain/Restaurant';
 import RestaurantDetail from '../../../components/restaurant/RestaurantDetail';
+import { deleteRestaurant } from '../../../../Domain/services/RestaurantService';
 
 class RestaurantDetailModal {
   #modal: Modal;
@@ -9,10 +10,12 @@ class RestaurantDetailModal {
   #restaurantDetail!: RestaurantDetail;
   #cancelButton!: Button;
   #deleteButton!: Button;
+  #onRestaurantDeleted: () => void;
 
-  constructor(restaurant: Restaurant) {
+  constructor(restaurant: Restaurant, onRestaurantDeleted: () => void = () => {}) {
     this.#restaurant = restaurant;
     this.#modal = new Modal();
+    this.#onRestaurantDeleted = onRestaurantDeleted;
     this.#init();
     this.#createDetailModal();
   }
@@ -60,8 +63,20 @@ class RestaurantDetailModal {
 
   #handleDeleteButton(event: MouseEvent): void {
     event.preventDefault();
-    console.log(`'${this.#restaurant.getName()}' 레스토랑 삭제 요청`);
-    this.handleToggleModal();
+
+    try {
+      deleteRestaurant(this.#restaurant);
+
+      this.#onRestaurantDeleted();
+
+      this.handleToggleModal();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert('알 수 없는 오류가 발생했습니다.');
+      }
+    }
   }
 
   getElement(): HTMLDivElement {
