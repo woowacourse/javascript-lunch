@@ -55,17 +55,12 @@ function closeButton({ filter }: CloseButtonType) {
   Modal.close({ filter: null });
 }
 
-function handleFavoriteButton({
-  event,
-  foodItem,
-  filter,
-}: HandleFavoriteButtonType) {
+function handleFavoriteButton({ foodItem, filter }: HandleFavoriteButtonType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateStorageFoodList({ newFoodItem: foodItem });
 
   Modal.setContent({
-    filter,
     modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
   });
   // Modal.setContent({

@@ -84,7 +84,6 @@ export function convertStorageToLocal({
 
 function openDetailModal({ filter, foodItem }: OpenDetailModalType) {
   Modal.setContent({
-    filter,
     modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
   });
   Modal.open();

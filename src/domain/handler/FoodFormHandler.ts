@@ -1,14 +1,15 @@
 import { Category } from "../../types/domain/FoodFormHandlerType";
+import { ValidateFoodItemType } from "../../types/vaildate/ValidateFoodItemType";
 import { getInput } from "../../util/getInput";
 import { validateFoodItem } from "../../validate/validateFoodItem";
 
 export function getFormFoodItem() {
-  const foodItem = {
-    category: getInput("category"),
-    name: getInput("name"),
-    distance: getInput("distance"),
-    description: getInput("description"),
-    link: getInput("link"),
+  const foodItem: ValidateFoodItemType = {
+    category: getInput({ name: "category" }) as Category,
+    name: getInput({ name: "name" }),
+    distance: getInput({ name: "distance" }),
+    description: getInput({ name: "description" }),
+    link: getInput({ name: "link" }),
   };
 
   const { imgSrc, imgAlt } = getImgSrcAlt(foodItem.category);

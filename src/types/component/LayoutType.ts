@@ -6,12 +6,11 @@ export interface AlertType {
 
 export interface HeaderType {
   title: string;
-  icon: HTMLElement | null;
+  icon: Element | null;
 }
 
 export interface ModalSetContentType {
-  filter: Filter | null;
-  modalContent: HTMLElement;
+  modalContent: Element;
 }
 
 export interface ModalCloseContentType {

@@ -7,21 +7,20 @@ import {
   readFoodList,
 } from "./domain/handler/FoodItemHandler.js";
 import { FoodListPage } from "./pages/FoodListPage.js";
-import { foodItems } from "./mocks/foodItems.js";
 
 addEventListener("load", () => {
   const AddFoodItemIcon = IconButton({
     imgSrc: "./add-button.png",
     label: "음식점 추가",
+    onClick: () => {},
   });
 
   const filter = new Filter();
 
-  const foodListPage = new FoodListPage(
-    "점심 뭐 먹지",
-    AddFoodItemIcon,
-    filter
-  );
+  const foodListPage = new FoodListPage({
+    title: "점심 뭐 먹지",
+    iconButton: AddFoodItemIcon,
+  });
 
   Modal.setDefaultModal();
   setFoodFormMoal(filter);
@@ -29,48 +28,48 @@ addEventListener("load", () => {
   setFavoriteButton(filter);
 });
 
-function setFoodFormMoal(filter) {
-  document.querySelector(".gnb__button").addEventListener("click", () => {
-    Modal.setContent(FoodForm(filter));
+function setFoodFormMoal(filter: Filter) {
+  document.querySelector(".gnb__button")?.addEventListener("click", () => {
+    Modal.setContent({ modalContent: FoodForm({ filter }) });
     Modal.open();
   });
 }
 
-function setFilteredItems(filter) {
+function setFilteredItems(filter: Filter) {
   document
     .querySelector("select[name=category]")
-    .addEventListener("change", () => {
+    ?.addEventListener("change", () => {
       const filteredItems = filter.changeCategory();
-      convertStorageToLocal(filter, filteredItems);
+      convertStorageToLocal({ filter, foodList: filteredItems });
     });
 
   document
     .querySelector("select[name=sorting]")
-    .addEventListener("change", () => {
+    ?.addEventListener("change", () => {
       const filteredItems = filter.changeSorting();
-      convertStorageToLocal(filter, filteredItems);
+      convertStorageToLocal({ filter, foodList: filteredItems });
     });
 }
 
-function setFavoriteButton(filter) {
+function setFavoriteButton(filter: Filter) {
   const totalButton = document.querySelector(".tab-button .tab-button_all");
-  totalButton.classList.toggle("selected-button");
+  totalButton?.classList.toggle("selected-button");
   const favoriteButton = document.querySelector(
     ".tab-button .tab-button_favorite"
   );
-  readFoodList(filter);
+  readFoodList({ filter, favoriteFilter: false });
 
-  totalButton.addEventListener("click", () => {
+  totalButton?.addEventListener("click", () => {
     if (totalButton.classList.contains("selected-button")) return;
     totalButton.classList.toggle("selected-button");
-    favoriteButton.classList.remove("selected-button");
-    readFoodList(filter);
+    favoriteButton?.classList.remove("selected-button");
+    readFoodList({ filter, favoriteFilter: false });
   });
 
-  favoriteButton.addEventListener("click", () => {
+  favoriteButton?.addEventListener("click", () => {
     if (favoriteButton.classList.contains("selected-button")) return;
     favoriteButton.classList.toggle("selected-button");
-    totalButton.classList.remove("selected-button");
-    readFoodList(filter, true);
+    totalButton?.classList.remove("selected-button");
+    readFoodList({ filter, favoriteFilter: true });
   });
 }
