@@ -90,13 +90,6 @@ function appendItemsController() {
   itemsController.insertAdjacentHTML('beforeend', sortSelector);
 }
 
-// function addNewRestaurantItem() {
-//   const ul = document.querySelector('.restaurant-list');
-//   const newRestaurantData = stateStore.getState();
-//   const newItem = createRestaurantItem(newRestaurantData);
-//   ul.insertAdjacentHTML('beforeend', newItem);
-// }
-
 function addEventHandlers() {
   eventHandlers.openAddRestaurantModal();
   eventHandlers.openRestaurantInfoModal(appendRestaurantInfoContents);
