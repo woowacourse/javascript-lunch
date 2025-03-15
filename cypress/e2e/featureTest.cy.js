@@ -106,3 +106,52 @@ describe('기능 테스트: 모달 기능 동작 테스트', () => {
     cy.get('.modal--open').should('exist');
   });
 });
+
+describe('기능 테스트: 음식점 상세 정보 확인 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
+    cy.clearLocalStorage();
+    cy.window()
+      .its('localStorage')
+      .invoke(
+        'setItem',
+        'restaurants',
+        JSON.stringify([
+          {
+            id: 0,
+            category: 'WESTERN',
+            name: '이태리키친',
+            distance: 20,
+            description: '늘 변화를 추구하는 이태리키친입니다.',
+            link: '',
+            favorite: false,
+          },
+          {
+            id: 1,
+            category: 'ASIAN',
+            name: '호아빈 삼성점',
+            distance: 15,
+            description: '푸짐한 양에 국물이 일품인 쌀국수',
+            link: '',
+            favorite: false,
+          },
+        ]),
+      );
+
+    cy.reload();
+  });
+
+  it('사용자가 음식점 아이템을 클릭하여 상세 정보 확인하는 시나리오 테스트', () => {
+    cy.window().then((win) => {
+      expect(win.localStorage.getItem('restaurants')).not.to.be.null;
+    });
+    cy.get('.restaurant').first().click();
+    cy.get('.modal--open').should('exist');
+
+    cy.get('.restaurant__category > img').should('have.attr', 'alt', 'WESTERN');
+    cy.get('.restaurant__name').should('exist').contains('이태리키친');
+    cy.get('.restaurant__distance').should('exist').contains(20);
+
+    cy.get('.restaurant__favorite').should('exist');
+  });
+});
