@@ -22,10 +22,7 @@ import {
 } from "./FoodStorageHandler";
 
 // CRUD - create : mock Data
-export function readFoodList({
-  filter,
-  favoriteFilter = false,
-}: ReadFoodListType) {
+export function readFoodList({ favoriteFilter }: ReadFoodListType) {
   const previousFoodList = readStorageFoodList().filter((item: FoodType) => {
     if (favoriteFilter) return item.favorite === true;
     return item;
@@ -33,10 +30,7 @@ export function readFoodList({
   if (previousFoodList.length === 0 && !favoriteFilter) {
     localStorage.setItem("foodList", JSON.stringify(foodItems));
   }
-  convertStorageToLocal({
-    filter,
-    foodList: sortedFoodList({ filter, foodList: previousFoodList }),
-  });
+  return previousFoodList;
 }
 
 // CRUD - update
@@ -47,11 +41,6 @@ export function addFoodFormItem(filter: AddFoodItemType) {
   Modal.close(filter);
 }
 
-// function addFoodItem(filter, newFoodItem) {
-//   const updatedFoodList = updateStorageFoodList(newFoodItem);
-//   Modal.close({ filter });
-// }
-
 export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {
   deleteStorageFoodList({ newFoodItem });
   Modal.close({ filter });
@@ -59,8 +48,11 @@ export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {
 
 export function sortedFoodList({ filter, foodList }: SortedFoodListType) {
   if (filter) {
-    filter.reset();
-    return foodList.sort((a, b) => filter.sortBy({ a, b }));
+    return (
+      filter
+        .updateFilterItem({ foodList })
+        ?.sort((a, b) => filter.sortBy({ a, b })) || []
+    );
   }
   return foodList;
 }
@@ -79,7 +71,7 @@ export function convertStorageToLocal({
     });
     return foodComponent;
   });
-  showFoodItem({ foodListComponent: FoodItemListComponent });
+  showFoodItem({ foodListComponent: FoodItemListComponent || [] });
 }
 
 function openDetailModal({ filter, foodItem }: OpenDetailModalType) {
@@ -103,8 +95,18 @@ function handleFavoriteButton({
   updateStorageFoodList({ newFoodItem: foodItem });
 
   if (favoriteState) {
-    readFoodList({ filter, favoriteFilter: true });
-  } else readFoodList({ filter, favoriteFilter: false });
+    const previousFoodList = readFoodList({ favoriteFilter: true });
+    convertStorageToLocal({
+      filter,
+      foodList: sortedFoodList({ filter, foodList: previousFoodList }),
+    });
+  } else {
+    const previousFoodList = readFoodList({ favoriteFilter: false });
+    convertStorageToLocal({
+      filter,
+      foodList: sortedFoodList({ filter, foodList: previousFoodList }),
+    });
+  }
   event.stopPropagation();
 }
 

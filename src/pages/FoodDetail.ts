@@ -3,8 +3,10 @@ import { ButtonContainer } from "../component/button/ButtonContainer";
 import { FoodItem } from "../component/FoodItem";
 import { Modal } from "../component/layout/Modal";
 import {
+  convertStorageToLocal,
   deleteFoodItem,
   readFoodList,
+  sortedFoodList,
 } from "../domain/handler/FoodItemHandler";
 import { updateStorageFoodList } from "../domain/handler/FoodStorageHandler";
 import { HandleFavoriteButtonType } from "../types/domain/FoodItemHandlerType";
@@ -54,8 +56,18 @@ function closeButton({ filter }: CloseButtonType) {
     ".tab-button_favorite.selected-button"
   );
   if (favoriteState) {
-    readFoodList({ filter, favoriteFilter: true });
-  } else readFoodList({ filter, favoriteFilter: false });
+    const previousFoodList = readFoodList({ favoriteFilter: true });
+    convertStorageToLocal({
+      filter,
+      foodList: sortedFoodList({ filter, foodList: previousFoodList }),
+    });
+  } else {
+    const previousFoodList = readFoodList({ favoriteFilter: false });
+    convertStorageToLocal({
+      filter,
+      foodList: sortedFoodList({ filter, foodList: previousFoodList }),
+    });
+  }
 
   Modal.close({ filter: null });
 }
@@ -68,7 +80,4 @@ function handleFavoriteButton({ foodItem, filter }: HandleFavoriteButtonType) {
   Modal.setContent({
     modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
   });
-  // Modal.setContent({
-  //   modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
-  // });
 }

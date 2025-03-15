@@ -2,7 +2,6 @@ import { Filter } from "../../domain/Filter";
 import { FoodType } from "../component/FoodItemType";
 
 export interface ReadFoodListType {
-  filter: Filter | null;
   favoriteFilter: boolean;
 }
 

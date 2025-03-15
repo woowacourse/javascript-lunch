@@ -1,4 +1,10 @@
-import { SortByType } from "../types/domain/FilterType";
+import { FoodType } from "../types/component/FoodItemType";
+import {
+  ChangeCategoryType,
+  ChangeSortingType,
+  SortByType,
+  UpdateFilterItemType,
+} from "../types/domain/FilterType";
 import { readStorageFoodList } from "./handler/FoodStorageHandler";
 
 export class Filter {
@@ -10,33 +16,33 @@ export class Filter {
     this.#sortingFilter = "이름순";
   }
 
-  changeCategory() {
+  changeCategory({ foodList }: ChangeCategoryType) {
     const filterOption = (
       document.querySelector("select[name=category]") as HTMLSelectElement
     )?.value;
 
     this.#categoryFilter = filterOption;
-    return this.#updateFilterItem();
+    return this.updateFilterItem({ foodList });
   }
 
-  changeSorting() {
+  changeSorting({ foodList }: ChangeSortingType) {
     const filterOption = (
       document.querySelector("select[name=sorting]") as HTMLSelectElement
     )?.value;
     this.#sortingFilter = filterOption;
-    return this.#updateFilterItem();
+    return this.updateFilterItem({ foodList });
   }
 
-  #updateFilterItem() {
-    const FoodInventory = readStorageFoodList();
-    const foodItems = [...FoodInventory];
+  updateFilterItem({ foodList }: UpdateFilterItemType) {
+    const foodItems = [...foodList];
     const filteredItems = foodItems
-      .filter((foodItem) => {
+      ?.filter((foodItem) => {
         if (this.#categoryFilter === "전체") return foodItem;
         return foodItem.imgAlt === this.#categoryFilter;
       })
       .sort((a, b) => this.sortBy({ a, b }));
-    return filteredItems;
+
+    return filteredItems || [];
   }
 
   sortBy({ a, b }: SortByType) {
