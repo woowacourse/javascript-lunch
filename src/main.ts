@@ -59,11 +59,10 @@ function appendHeader() {
 }
 
 function addNewRestaurantItem() {
-  const ul = document.querySelector('.restaurant-list');
-  if (!ul) return;
-  const newRestaurantData = stateStore.getState();
-  const newItem = createRestaurantItem(newRestaurantData);
-  ul.insertAdjacentHTML('beforeend', newItem);
+  const categoryFilter = document.getElementById('category-filter') as HTMLSelectElement;
+  const currentFilter = categoryFilter ? categoryFilter.value : '전체';
+
+  handleCategoryFilter(currentFilter);
 }
 
 function setRequired(element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
