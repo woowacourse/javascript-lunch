@@ -17,7 +17,7 @@ import {
 } from './constants/constants.ts';
 import { RESTAURANTS } from './data/restaurantData.ts';
 import eventHandlers, { handleStarToggle } from './handlers/eventHandlers.ts';
-import stateStore from './store/stateStore.ts';
+import { handleCategoryFilter, registerCategoryFilter } from '../src/handlers/filterHandlers.ts';
 
 import {
   createButton,
@@ -48,6 +48,7 @@ addEventListener('load', () => {
   }
 
   eventHandlers.registerEventHandlers(addNewRestaurantItem, openRestaurantModal);
+  registerCategoryFilter();
 });
 
 function appendHeader() {
