@@ -1,12 +1,9 @@
+/* 1. 기본 리셋 및 공통 스타일 
+   ========================================== */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
-
-ul,
-li {
-  list-style: none;
 }
 
 html,
@@ -15,8 +12,15 @@ body {
   font-size: 16px;
 }
 
-/* Colors *****************************************/
+ul,
+li {
+  list-style: none;
+}
+
+/* 2. 변수 정의 (색상 시스템)
+     ========================================== */
 :root {
+  /* 색상 시스템 */
   --primary-color: #ec4a0a;
   --lighten-color: #f6a88a;
   --grey-100: #ffffff;
@@ -26,7 +30,8 @@ body {
   --grey-500: #000000;
 }
 
-/* Typography *************************************/
+/* 3. 타이포그래피 시스템
+     ========================================== */
 .text-title {
   font-size: 20px;
   line-height: 24px;
@@ -51,15 +56,46 @@ body {
   font-weight: 400;
 }
 
-/* GNB ********************************************/
+/* 4. 버튼 컴포넌트
+     ========================================== */
+.button {
+  width: 100%;
+  height: 44px;
+  margin-right: 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:last-child {
+  margin-right: 0;
+}
+
+.button--secondary {
+  border: 1px solid var(--grey-300);
+  background: transparent;
+  color: var(--grey-300);
+}
+
+.button--primary {
+  background: var(--primary-color);
+  color: var(--grey-100);
+}
+
+.button-container {
+  display: flex;
+}
+
+/* 5. 헤더 영역
+     ========================================== */
+/* GNB */
 .gnb {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 64px;
-
   padding: 0 16px;
-
   background-color: var(--primary-color);
 }
 
@@ -69,11 +105,9 @@ body {
 
 .gnb__button {
   height: 40px;
-
   border: none;
   border-radius: 8px;
   background: transparent;
-
   font-size: 24px;
   cursor: pointer;
 }
@@ -85,13 +119,44 @@ body {
   object-fit: contain;
 }
 
-/* 음식점 목록 *****************************************/
+/* 카테고리 헤더 */
+.header-category {
+  width: 100%;
+  height: 44px;
+  margin-top: 30px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
 
-/* 카테고리/정렬 필터 */
+.header-category-button {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--grey-300);
+  padding: 20px;
+  cursor: pointer;
+}
+
+.header-category-button:hover {
+  background-color: #e8e8e8;
+  transition: background-color 0.3s ease;
+}
+
+.header-category-button.active {
+  border-bottom: 3px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* 6. 음식점 필터링 영역
+     ========================================== */
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
-
   padding: 0 16px;
   margin-top: 24px;
 }
@@ -103,11 +168,9 @@ body {
 .restaurant-filter-container select {
   height: 44px;
   min-width: 125px;
-
-  border: 1px solid #d0d5dd;
+  border: 1px solid var(--grey-200);
   border-radius: 8px;
   background: transparent;
-
   font-size: 16px;
 }
 
@@ -115,11 +178,11 @@ body {
   padding: 8px;
 }
 
-/* 음식점 목록 */
+/* 7. 음식점 목록 레이아웃
+     ========================================== */
 .restaurant-list-container {
   display: flex;
   flex-direction: column;
-
   padding: 0 16px;
   margin: 16px 0;
 }
@@ -127,12 +190,12 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
 }
 
+/* 8. 음식점 아이템 컴포넌트
+     ========================================== */
 .restaurant__category {
   display: flex;
   justify-content: center;
@@ -141,9 +204,7 @@ body {
   height: 64px;
   min-width: 64px;
   min-height: 64px;
-
   margin-right: 16px;
-
   border-radius: 50%;
   background: var(--lighten-color);
 }
@@ -160,6 +221,13 @@ body {
   justify-content: flex-start;
 }
 
+.restaurant-info-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .restaurant__name {
   margin: 0;
 }
@@ -168,18 +236,9 @@ body {
   color: var(--primary-color);
 }
 
-.restaurant-info-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .restaurant__description {
   display: -webkit-box;
-
   padding-top: 8px;
-
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
@@ -212,7 +271,8 @@ body {
   border: none;
 }
 
-/* 음식점 추가 모달 *****************************************/
+/* 9. 모달 공통 스타일
+     ========================================== */
 .modal {
   display: none;
 }
@@ -227,7 +287,6 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-
   background: rgba(0, 0, 0, 0.35);
 }
 
@@ -235,9 +294,7 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-
   padding: 32px 16px;
-
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
 }
@@ -246,10 +303,11 @@ body {
   margin-bottom: 36px;
 }
 
+/* 10. 음식점 추가 폼 스타일
+     ========================================== */
 .form-item {
   display: flex;
   flex-direction: column;
-
   margin-bottom: 36px;
 }
 
@@ -260,7 +318,6 @@ body {
 
 .form-item--required label::after {
   padding-left: 4px;
-
   color: var(--primary-color);
   content: "*";
 }
@@ -274,10 +331,8 @@ body {
 .form-item select {
   padding: 8px;
   margin: 6px 0;
-
   border: 1px solid var(--grey-200);
   border-radius: 8px;
-
   font-size: 16px;
 }
 
@@ -287,12 +342,9 @@ body {
 
 .form-item select {
   height: 44px;
-
   padding: 8px;
-
   border: 1px solid var(--grey-200);
   border-radius: 8px;
-
   color: var(--grey-300);
 }
 
@@ -301,72 +353,8 @@ input[name="link"] {
   height: 44px;
 }
 
-.button-container {
-  display: flex;
-}
-
-.button {
-  width: 100%;
-  height: 44px;
-
-  margin-right: 16px;
-
-  border: none;
-  border-radius: 8px;
-
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.button:last-child {
-  margin-right: 0;
-}
-
-.button--secondary {
-  border: 1px solid var(--grey-300);
-  background: transparent;
-
-  color: var(--grey-300);
-}
-
-.button--primary {
-  background: var(--primary-color);
-
-  color: var(--grey-100);
-}
-
-.header-category {
-  width: 100%;
-  height: 44px;
-  margin-top: 30px;
-  padding: 0 16px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.header-category-button {
-  width: 100%;
-  background: none;
-  border: none;
-  border-bottom: 2px solid #d0d5dd;
-  font-size: 16px;
-  font-weight: 700;
-  color: #667085;
-  padding: 20px;
-  cursor: pointer;
-}
-
-.header-category-button:hover {
-  background-color: #e8e8e8;
-  transition: background-color 0.3s ease;
-}
-
-.header-category-button.active {
-  border-bottom: 3px solid red;
-  color: red;
-}
-
+/* 11. 음식점 상세 모달
+     ========================================== */
 .restaurant-detail-modal-background {
   position: fixed;
   top: 0;
@@ -418,8 +406,8 @@ input[name="link"] {
   font-size: 16px;
   font-weight: 700;
   background-color: white;
-  color: #667085;
-  border-color: #667085;
+  color: var(--grey-300);
+  border-color: var(--grey-300);
   padding: 15px 50px;
   border-radius: 8px;
   cursor: pointer;
@@ -434,7 +422,7 @@ input[name="link"] {
 .restaurant-detail-modal-close-button {
   font-size: 16px;
   font-weight: 700;
-  background-color: red;
+  background-color: var(--primary-color);
   color: white;
   padding: 15px 50px;
   border: none;
