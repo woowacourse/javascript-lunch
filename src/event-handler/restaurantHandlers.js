@@ -66,15 +66,20 @@ export function handleAddRestaurantFormSubmit(
 
   try {
     const restaurantForm = extractFormData(restaurantAddForm);
-
+    // 만약 레스토랑이 Invalid 하다면(글자수 제한, 중복등) 이 라인에서 함수 실행은 종료됩니다.
     const restaurant = restaurantFormValidation(restaurantForm);
     const restaurantListElement = document.querySelector(".restaurant-list");
 
     restaurantList.addRestaurant(restaurant);
 
     localStorage.setItem("restaurantList", JSON.stringify(restaurantList.List));
-    restaurantListElement.appendChild(createRestaurantItem(restaurantForm));
+    const isFavoriteFilterOn =
+      document.querySelector('input[name="favoriteFilter"]:checked').value ===
+      "favorite";
 
+    if (!isFavoriteFilterOn) {
+      restaurantListElement.appendChild(createRestaurantItem(restaurantForm));
+    }
     Toast.showToast(`${restaurant.name} 음식점을 추가했습니다.`, "success");
     const formModal = document.querySelector(".form-modal");
     restaurantAddForm.reset();
