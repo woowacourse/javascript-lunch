@@ -5,7 +5,6 @@ import Input from "../../common/Input.js";
 import TextArea from "../../common/TextArea.js";
 import RestaurantAddModalButtonContainer from "./RestaurantAddModalButtonContainer.js";
 import restaurantDataList from "../../../domain/RestaurantDataList.ts";
-import { $ } from "../../../util/querySelector.js";
 import { removeModal } from "../Modal.js";
 
 const CATEGORY_OPTIONS = ["한식", "중식", "일식", "양식", "아시안", "기타"];
@@ -40,7 +39,6 @@ function createRestaurantItem(event) {
     event.preventDefault();
 
     const restaurantData = Object.fromEntries(new FormData(event.target));
-    console.log(restaurantData);
     restaurantDataList.addData(restaurantData);
     restaurantDataList.renderRestaurantList();
 
