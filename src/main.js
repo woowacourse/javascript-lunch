@@ -19,7 +19,7 @@ $("body").prepend(
   )
 );
 
-const restaurantList = new RestaurantList(MOCK_ITEM.restaurantList);
+const restaurantList = new RestaurantList();
 
 $("section").append(
   Select(
