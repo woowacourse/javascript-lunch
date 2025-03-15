@@ -35,9 +35,18 @@ class DetailModal extends Modal {
     return divButton;
   }
 
-  addRestaurant(restaurant) {
+  #setRestaurantStyle(restaurant) {
     restaurant.style.flexDirection = 'column';
 
+    const description = restaurant.querySelector('.restaurant__description');
+    if (description) {
+      description.style.display = 'block';
+      description.style.overflow = 'visible';
+    }
+  }
+
+  addRestaurant(restaurant) {
+    this.#setRestaurantStyle(restaurant);
     this.addElement(restaurant);
     const divButton = this.#createButton();
     this.addElement(divButton);

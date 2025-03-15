@@ -38,6 +38,7 @@ class RestaurantItem {
 
       const clonedElement = this.#restaurant.cloneNode(true);
       clonedElement.id = 'restaurant-in-modal';
+
       this.#restaurantModal.addRestaurant(clonedElement);
       this.#restaurantModal.openModal();
     });
