@@ -1,5 +1,3 @@
-import { RestaurantData } from "../../constants/RestaurantData.js";
-import type { Restaurant } from "../../../types/global.d.ts";
 import { categoryValue } from "../../constants/optionValue.js";
 
 const addData = () => {
@@ -15,14 +13,13 @@ const addData = () => {
     imgSrc: `./category-${submittedData.category}.png`,
     imgAlt: `${categoryValue[submittedData.category as string]}`,
     category: `${categoryValue[submittedData.category as string]}`,
+    link: `${submittedData.link}`,
+    id: `restaurant-${Date.now()}`,
   };
-  RestaurantData.push(information as Restaurant);
-  localStorage.setItem(
-    `${RestaurantData.length - 1}`,
-    JSON.stringify(information),
-  ),
-    localStorage.setItem("restaurantList", JSON.stringify([...RestaurantData]));
-  document.dispatchEvent(new CustomEvent("restaurantUpdated"));
+
+  document.dispatchEvent(
+    new CustomEvent("restaurantUpdated", { detail: { information } }),
+  );
 };
 
 export default addData;
