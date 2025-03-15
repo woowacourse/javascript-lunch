@@ -3,31 +3,50 @@ import { getStorage, setStorage } from "../utils/storage.ts";
 import { getHTML, createElement } from "../utils/utils.ts";
 import { LunchItem } from "./LunchItem.ts";
 
-export function LunchList(targetID: string = "restaurantListSection") {
-  // 런치아이템 데이터를 가진 객체들이 배열로 받음
+export function LunchList(
+  lunchListID: string = "restaurantListSection",
+  favoriteTargetID: string = "restaurantFavoriteSection"
+) {
   const lunchItems = getStorage("lunchItems") as ILunchItem[];
 
-  function template() {
+  function template<T extends ILunchItem>(items: T[], indexMap?: number[]) {
     const ul = createElement("ul");
     ul.classList.add("restaurant-list");
 
-    if (lunchItems.length > 0) {
-      lunchItems.forEach((item, index: number) => {
-        ul.appendChild(LunchItem(item, String(index)));
+    if (items.length > 0) {
+      items.forEach((item, index) => {
+        const originalIndex = indexMap ? indexMap[index] : index;
+        ul.appendChild(LunchItem(item, String(originalIndex)));
       });
     } else {
       ul.innerHTML = `<p class="empty-message">목록이 없습니다.</p>`;
     }
-    return ul.outerHTML;
+    return ul;
   }
 
   function render() {
-    console.log("실행됨실행됨");
-    getHTML(targetID).innerHTML = "";
-    getHTML(targetID).innerHTML = template();
+    const ul = template(lunchItems);
+    getHTML(lunchListID).innerHTML = "";
+    getHTML(lunchListID).innerHTML = ul.outerHTML;
   }
 
-  // submit 일어나면 lunchItems에 새 데이터 객체 추가
+  function renderFavorites() {
+    const favorites = lunchItems
+      .map((item, index) => ({ ...item, originalIndex: index }))
+      .filter((item) => item.isFavorite);
+
+    const items = favorites.map((item) => {
+      const { originalIndex, ...rest } = item;
+      return rest;
+    });
+
+    const indexMap = favorites.map((item) => item.originalIndex);
+
+    const ul = template(items, indexMap);
+    getHTML(favoriteTargetID).innerHTML = "";
+    getHTML(favoriteTargetID).appendChild(ul);
+  }
+
   function addRestaurantItem({
     category,
     name,
@@ -51,6 +70,6 @@ export function LunchList(targetID: string = "restaurantListSection") {
   return {
     render,
     addRestaurantItem,
-    template,
+    renderFavorites,
   };
 }

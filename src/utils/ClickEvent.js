@@ -1,3 +1,5 @@
+import { LunchItem } from "../components/LunchItem.js";
+import { LunchList } from "../components/LunchList.js";
 import { openModal } from "../components/modal.js";
 import { getStorage, setStorage } from "./storage.js";
 
@@ -41,22 +43,27 @@ class ClickEvent {
     openModal("storeDelete", target);
   }
 
-  // deleteStore(target) {
-  //   const storageLunchItem = getStorage("lunchItems");
-  //   // console.log("target => ", target);
-  //   // console.log("타겟의 엘리먼트 li 확인", target.closest("li"));
-  //   // const lunchItemIndex = Number(target.closest("li").dataset.value);
-  //   storageLunchItem.splice(lunchItemIndex, 1);
-
-  //   setStorage("lunchItems", storageLunchItem);
-  //   document.getElementById("modalBackground")?.classList.remove("show");
-  // }
-
   removeModal(element) {
     if (element.id === "closeModalBtn") {
       document.getElementById("modalBackground")?.classList.remove("show");
       return;
     }
+  }
+
+  toggleFavorite(target) {
+    const li = target.closest("li");
+    if (!li) return;
+
+    const index = li.getAttribute("data-index");
+    if (!index) return;
+
+    const isFavorite = li.getAttribute("data-favorite") === "true";
+
+    const storageLunchItems = getStorage("lunchItems");
+    storageLunchItems[index].isFavorite = !storageLunchItems[index].isFavorite;
+    setStorage("lunchItems", storageLunchItems);
+    LunchList().render();
+    LunchList().renderFavorites();
   }
 
   onClick(event) {
