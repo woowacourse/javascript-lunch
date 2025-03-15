@@ -2,9 +2,10 @@ import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
 import "./restaurantList.css";
 
 export default class RestaurantList {
-  constructor(restaurantList, updateList) {
+  constructor(restaurantList, updateList, onRestaurantItemClick) {
     this.restaurantList = restaurantList;
     this.updateList = updateList;
+    this.onRestaurantItemClick = onRestaurantItemClick;
   }
 
   render() {
@@ -25,6 +26,7 @@ export default class RestaurantList {
       )
     );
 
+    $list.addEventListener("click", this.onRestaurantItemClick);
     return $listSection;
   }
 }

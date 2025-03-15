@@ -6,6 +6,7 @@ import RestaurantListModel from "./domain/RestaurantListModel.js";
 import RestaurantNavigator from "./components/restaurantListSection/restaurantNavigator/RestaurantNavigator.js";
 import RestaurantFilterSection from "./components/restaurantListSection/restaurantFilterSection/RestaurantFilterSection.js";
 import { setItem, RESTAURANT_LIST_KEY } from "./components/utils/storage.js";
+import RestaurantDetail from "./components/restaurantDetail/RestaurantDetail.js";
 
 export default class App {
   #selectedTab;
@@ -15,6 +16,7 @@ export default class App {
 
   #addModalShow;
   #detailModalShow;
+  #selectedRestaurant;
 
   constructor() {
     this.restaurantListModel = new RestaurantListModel();
@@ -24,13 +26,51 @@ export default class App {
     this.#sorting = "이름순";
     this.#addModalShow = false;
     this.#detailModalShow = false;
+    this.#selectedRestaurant = {};
 
     this.#initElement();
   }
 
+  onRestaurantItemClick = (e) => {
+    if (e.target.closest(".restaurant__bookmark")) return;
+
+    const id = Number(e.target.closest(".restaurant").id);
+
+    const restaurant = this.#restaurantList.find(
+      (restaurant) => restaurant.id === id
+    );
+
+    this.#selectedRestaurant = restaurant;
+    this.#toggleDetailModalShow();
+  };
+
+  #toggleDetailModalShow = () => {
+    this.#detailModalShow = !this.#detailModalShow;
+    this.#renderDetailModal();
+  };
+
   #toggleAddModalShow = () => {
     this.#addModalShow = !this.#addModalShow;
     this.#renderAddModal();
+  };
+
+  #renderDetailModal = () => {
+    const $modal = document.querySelector("#datail-modal");
+
+    const $restaurantDetail = new RestaurantDetail(
+      this.#selectedRestaurant,
+      this.#updateRestautantList,
+      this.#toggleDetailModalShow
+    ).render();
+
+    $modal.replaceWith(
+      new BottomSheetBase({
+        $children: $restaurantDetail,
+        show: this.#detailModalShow,
+        toggleShow: this.#toggleDetailModalShow,
+        id: "datail-modal",
+      }).render()
+    );
   };
 
   #renderAddModal = () => {
@@ -144,7 +184,8 @@ export default class App {
     this.$listSection.replaceChild(
       new RestaurantList(
         this.#restaurantList,
-        this.#updateLocalRestautantList
+        this.#updateLocalRestautantList,
+        this.onRestaurantItemClick
       ).render(),
       $listContainer
     );
@@ -213,7 +254,8 @@ export default class App {
         this.#restaurantList.sort((a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
         ),
-        this.#updateLocalRestautantList
+        this.#updateLocalRestautantList,
+        this.onRestaurantItemClick
       ).render()
     );
     $main.appendChild(this.$listSection);
@@ -230,6 +272,14 @@ export default class App {
         show: this.#addModalShow,
         toggleShow: this.#toggleAddModalShow,
         id: "add-modal",
+      }).render()
+    );
+
+    $main.appendChild(
+      new BottomSheetBase({
+        show: this.#detailModalShow,
+        toggleShow: this.#toggleDetailModalShow,
+        id: "datail-modal",
       }).render()
     );
   }
