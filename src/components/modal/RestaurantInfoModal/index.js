@@ -26,15 +26,18 @@ class RestaurantInfoModal extends Modal {
       <button data-buttonId="${id}" type='button' class="favorite-icon-button">
         <img src=${isFavorite ? filledStar : emptyStar} class="favorite-icon"/>
       </button> 
-      <div class="restaurant__category">
+      <div class="restaurant__detail__category">
         <img src="./icons/${imageSource(
           category
         )}" alt="${category}" class="category-icon">
       </div>
-      <div class="restaurant__info">
-        <h2 class="restaurant__name text-subtitle">${name}</h2>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+      <div class="restaurant__detail__info">
+        <h2 class="restaurant__detail__name text-subtitle">${name}</h2>
+        <span class="restaurant__detail__distance text-body">캠퍼스부터 ${distance}분 내</span>
         <p class="text-body">${description}</p>
+        ${
+          link && `<a href=${link} class="restaurant__detail__link">${link}</a>`
+        }
       </div>
       <div class="button-container">
         <button id="delete-restaurant-info" class="button button--secondary text-caption">삭제하기</button>
