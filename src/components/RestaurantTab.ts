@@ -1,6 +1,7 @@
 import Component from '../core/Component.ts';
 import type { TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
+import { forEach } from '@fxts/core';
 
 interface RestaurantTabProps {
   focusedTab: TabType;
@@ -30,10 +31,13 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
   }
 
   override attachEventListener() {
-    this.element?.querySelectorAll('.restaurant__tab-item').forEach((tabItem) => {
-      tabItem.addEventListener('click', (event) => {
-        this.props?.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab as TabType);
-      });
-    });
+    forEach(
+      (tabItem) => {
+        tabItem.addEventListener('click', (event) => {
+          this.props?.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab as TabType);
+        });
+      },
+      this.element?.querySelectorAll('.restaurant__tab-item') as NodeListOf<HTMLDivElement>,
+    );
   }
 }

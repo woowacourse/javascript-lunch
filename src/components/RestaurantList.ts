@@ -1,3 +1,4 @@
+import { filter, forEach, pipe, sort, toArray } from '@fxts/core';
 import Component from '../core/Component.ts';
 import { DEFAULT_RESTAURANT_LIST, FILTERS, SORTS } from '../lib/constants.ts';
 import LocalStorage from '../lib/LocalStorage.ts';
@@ -97,18 +98,21 @@ export default class RestaurantList extends Component<RestaurantListState> {
   private _appendRestaurants() {
     const filteredRestaurants = this._getFilteredRestaurants();
 
-    filteredRestaurants.forEach((restaurant) => {
+    forEach((restaurant) => {
       this.appendChild(new RestaurantItem(restaurant).element, '.restaurant-list');
-    });
+    }, filteredRestaurants);
   }
 
   private _getFilteredRestaurants() {
-    return [...this.state.restaurants]
-      .filter((restaurant) => this.state.tab === 'all' || restaurant.isLike)
-      .filter((restaurant) => this.state.filter === '전체' || restaurant.category === this.state.filter)
-      .sort((a, b) =>
+    return pipe(
+      [...this.state.restaurants],
+      filter((restaurant) => this.state.tab === 'all' || restaurant.isLike),
+      filter((restaurant) => this.state.filter === '전체' || restaurant.category === this.state.filter),
+      sort((a, b) =>
         this.state.sort === '이름순' ? (a.name < b.name ? -1 : a.name > b.name ? 1 : 0) : a.distance - b.distance,
-      );
+      ),
+      toArray,
+    );
   }
 
   private _appendRestaurantAddModal() {
@@ -165,7 +169,11 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   private _deleteRestaurant(id: string) {
     this.setState({
-      restaurants: this.state.restaurants.filter((restaurant) => restaurant.id !== id),
+      restaurants: pipe(
+        this.state.restaurants,
+        filter((restaurant) => restaurant.id !== id),
+        toArray,
+      ),
     });
     LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
   }
