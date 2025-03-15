@@ -299,8 +299,6 @@ input[name='link'] {
   width: 100%;
   height: 44px;
 
-  margin-right: 16px;
-
   border: none;
   border-radius: 8px;
 
@@ -309,6 +307,7 @@ input[name='link'] {
 }
 
 .button:last-child {
+  margin-left: 16px;
   margin-right: 0;
 }
 
