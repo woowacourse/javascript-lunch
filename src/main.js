@@ -100,12 +100,12 @@ function appendItemsController() {
 function addEventHandlers() {
   eventHandlers.openAddRestaurantModal();
   eventHandlers.openRestaurantInfoModal(appendRestaurantInfoContents);
-  eventHandlers.readNewRestaurant();
+  eventHandlers.readNewRestaurant(updateRestaurantElements);
   eventHandlers.closeModal();
-  eventHandlers.switchTab();
-  eventHandlers.sortRestaurantItems(appendRestaurantItems);
+  eventHandlers.switchTab(updateRestaurantElements);
+  eventHandlers.sortRestaurantItems(updateRestaurantElements);
   eventHandlers.detectStorageEvent(updateRestaurantElements);
-  eventHandlers.filteringRestaurantItems(appendRestaurantItems);
+  eventHandlers.filteringRestaurantItems(updateRestaurantElements);
   eventHandlers.toggleFavoriteRestaurant(updateRestaurantElements);
 }
 

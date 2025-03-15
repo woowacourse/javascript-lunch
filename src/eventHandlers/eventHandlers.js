@@ -72,7 +72,7 @@ function closeModal() {
   document.addEventListener('keydown', handleEscapeKeydown);
 }
 
-function readNewRestaurant() {
+function readNewRestaurant(callback) {
   const modal = document.querySelector('.modal');
   const form = document.querySelector('#new-restaurant-form');
   form.addEventListener('submit', (event) => {
@@ -90,6 +90,8 @@ function readNewRestaurant() {
     window.dispatchEvent(new Event('storage'));
     resetFormAndState();
     modal.classList.remove('modal--open');
+
+    callback();
   });
 }
 
@@ -116,7 +118,7 @@ function switchTab(callback) {
     selected = target;
     selected.classList.add('selected');
 
-    callback(target);
+    callback(target.dataset.tab === 'favorite');
   };
 
   const tabContainer = document.querySelector('.tab-container');
@@ -137,21 +139,25 @@ function resetFormAndState() {
   resetState();
 }
 
-function sortRestaurantItems() {
+function sortRestaurantItems(callback) {
   const sortSelector = document.querySelector('#sort-selector');
 
   sortSelector.addEventListener('change', (event) => {
     const sortKey = event.target.value;
     stateStore.updateState('sort', sortKey);
+
+    callback();
   });
 }
 
-function filteringRestaurantItems() {
+function filteringRestaurantItems(callback) {
   const categoryFilter = document.querySelector('#category-filter');
 
   categoryFilter.addEventListener('change', (event) => {
     const filteringKey = event.target.value;
     stateStore.updateState('category', filteringKey);
+
+    callback();
   });
 }
 
