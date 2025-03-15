@@ -1,8 +1,17 @@
 import { Header, Layout, BottomSheet } from "./components/common/index.js";
 import Tab from "./components/common/Tab.js";
+import { storeData } from "./constants/store.data.ts";
 import Restaurant from "./domain/Restaurant.js";
 
+const initializeLocalStorage = () => {
+  if (Restaurant.restaurantLocalStorage.length === 0) {
+    Restaurant.updateLocalStorage(storeData);
+  }
+};
+
 addEventListener("load", () => {
+  initializeLocalStorage();
+
   const layout = new Layout();
   const bottomSheet = new BottomSheet();
 
