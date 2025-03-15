@@ -6,14 +6,13 @@ import CategorySelector from "../components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "../components/FilterSelector/NameOrDistanceSelector";
 import RegisterForm from "../components/RegisterForm";
 import RestaurantCard from "../components/RestaurantCard";
-import RestaurantDetailButtonContainer from "../components/RestaurantDetail/RestaurantDetailButtonContainer";
+import RestaurantDetailButtonContainer from "../components/RestaurantDetailButtonContainer";
 import Restaurant from "../domain/Restaurant";
 import storage from "../domain/storage";
 import renderAllRestaurant from "../renderAllRestaurant";
 import createRestaurantCards from "../service/createRestaurantCards";
 import createElement from "../utils/createElement/createElement";
 import { $ } from "../utils/dom";
-import renderRestaurants from "./renderRestaurant";
 
 const renderAllpage = (restaurantList) => {
   $(".restaurant-filter-container").innerHTML = "";

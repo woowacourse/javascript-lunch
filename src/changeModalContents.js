@@ -1,9 +1,8 @@
 import RestaurantCard from "./components/RestaurantCard";
-import RestaurantDetailButtonContainer from "./components/RestaurantDetail/RestaurantDetailButtonContainer";
+import RestaurantDetailButtonContainer from "./components/RestaurantDetailButtonContainer";
 import storage from "./domain/storage";
-import renderAllRestaurant from "./renderAllRestaurant";
+import renderFilteredRestaurants from "./renderFilteredRestaurant";
 import createRestaurantCards from "./service/createRestaurantCards";
-import renderRestaurants from "./ui/renderRestaurant";
 import { $ } from "./utils/dom";
 
 const changeModalContents = (restaurant, restaurantList) => {
@@ -16,19 +15,7 @@ const changeModalContents = (restaurant, restaurantList) => {
         storage.saveRestaurantList(
           restaurantList.list.map((restaurant) => restaurant.value)
         );
-        renderRestaurants(
-          createRestaurantCards(restaurantList.filter(), {
-            clickCard: (restaurant) => {
-              $("#restaurant-detail-modal-backdrop").classList.add("open");
-              changeModalContents(restaurant, restaurantList);
-            },
-            clickFavorite: () => {
-              storage.saveRestaurantList(
-                restaurantList.list.map((restaurant) => restaurant.value)
-              );
-            },
-          })
-        );
+        renderFilteredRestaurants(restaurantList);
       },
     })
   );
@@ -47,19 +34,7 @@ const clickDelete = (restaurant, restaurantList) => {
     restaurantList.list.map((restaurant) => restaurant.value)
   );
 
-  renderRestaurants(
-    createRestaurantCards(restaurantList.filter(), {
-      clickCard: (restaurant) => {
-        $("#restaurant-detail-modal-backdrop").classList.add("open");
-        changeModalContents(restaurant, restaurantList);
-      },
-      clickFavorite: () => {
-        storage.saveRestaurantList(
-          restaurantList.list.map((restaurant) => restaurant.value)
-        );
-      },
-    })
-  );
+  renderFilteredRestaurants(restaurantList);
 };
 
 export default changeModalContents;

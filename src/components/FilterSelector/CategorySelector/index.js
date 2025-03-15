@@ -1,6 +1,7 @@
 import changeModalContents from "../../../changeModalContents";
 import { FOOD_CATEGORY } from "../../../constants/foodCategory";
 import storage from "../../../domain/storage";
+import renderFilteredRestaurants from "../../../renderFilteredRestaurant";
 import createRestaurantCards from "../../../service/createRestaurantCards";
 import renderRestaurants from "../../../ui/renderRestaurant";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
@@ -12,19 +13,7 @@ const CategorySelector = (restaurantList) => {
     change: (e) => {
       storage.saveCategory(e.target.value);
       restaurantList.setCategory(e.target.value);
-      renderRestaurants(
-        createRestaurantCards(restaurantList.filter(), {
-          clickCard: (restaurant) => {
-            $("#restaurant-detail-modal-backdrop").classList.add("open");
-            changeModalContents(restaurant, restaurantList);
-          },
-          clickFavorite: () => {
-            storage.saveRestaurantList(
-              restaurantList.list.map((restaurant) => restaurant.value)
-            );
-          },
-        })
-      );
+      renderFilteredRestaurants(restaurantList);
     },
   };
 

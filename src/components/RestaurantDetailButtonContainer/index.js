@@ -1,4 +1,3 @@
-import renderRestaurants from "../../ui/renderRestaurant";
 import createElement from "../../utils/createElement/createElement";
 import { $ } from "../../utils/dom";
 import Button from "../common/Button";

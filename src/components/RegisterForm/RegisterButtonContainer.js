@@ -11,6 +11,7 @@ import createElement from "../../utils/createElement/createElement";
 import createRestaurantCards from "../../service/createRestaurantCards";
 import storage from "../../domain/storage";
 import changeModalContents from "../../changeModalContents";
+import renderFilteredRestaurants from "../../renderFilteredRestaurant";
 
 const RegisterButtonContainer = (restaurantList) => {
   const cancelButton = Button({
@@ -62,20 +63,7 @@ const registerRestaurant = (e, restaurantList) => {
     );
 
     $("#register-modal-backdrop").classList.remove("open");
-    renderRestaurants(
-      createRestaurantCards(restaurantList.filter(), {
-        clickCard: (restaurant) => {
-          $("#restaurant-detail-modal-backdrop").classList.add("open");
-          changeModalContents(restaurant, restaurantList);
-        },
-        clickFavorite: () => {
-          storage.saveRestaurantList(
-            restaurantList.list.map((restaurant) => restaurant.value)
-          );
-        },
-      })
-    );
-
+    renderFilteredRestaurants(restaurantList);
     clearInput("#register-form");
   } catch (e) {
     console.log(e.message);
