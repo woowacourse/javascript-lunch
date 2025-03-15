@@ -34,7 +34,6 @@ export default function RestaurantFilters() {
   $sortingFilter.addEventListener("change", (event) =>
     handleSelectionChange(event, false)
   );
-
   $filterContainer.append($categoryFilter, $sortingFilter);
 
   return $filterContainer;
