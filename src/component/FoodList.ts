@@ -22,6 +22,7 @@ export default class FoodList {
     this.#renderFoodItems = foodItems;
 
     this.foodList = document.createElement("ul");
+    this.foodList.className = "restaurant-list";
 
     this.updateSortItem("이름순");
 
