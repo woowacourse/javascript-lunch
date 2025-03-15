@@ -8,10 +8,6 @@ import Component from "./core/Component.js";
 import { defaultRestaurantList } from "./data/defaultRestaurantList.js";
 
 class Application extends Component {
-  constructor() {
-    super();
-  }
-
   setup() {
     this.setState({ restaurantList: defaultRestaurantList });
   }

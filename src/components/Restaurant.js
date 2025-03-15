@@ -1,10 +1,6 @@
 import Component from "../core/Component.js";
 
 class Restaurant extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   template() {
     return `  <li class="restaurant">
     <div class="restaurant__category">

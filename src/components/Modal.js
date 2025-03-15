@@ -5,10 +5,6 @@ import { FOOD_CATEGORY } from "../constants/constants.js";
 import CatagorySelect from "./CatagorySelect.js";
 
 class Modal extends Component {
-  constructor(props, parent) {
-    super(props, parent);
-  }
-
   template() {
     const inputBoxList = [
       new InputBox({
