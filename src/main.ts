@@ -1,5 +1,5 @@
 import RestaurantList from "./model/RestaurantList.js";
-import { INITIAL_RESTAURANT } from "./settings/settings.js";
+import { INITIAL_RESTAURANT } from "./settings/restaurant.ts";
 import createRestaurantForm from "./components/restaurant/form/form.js";
 import createRestaurantItem from "./components/restaurant/item/item.js";
 

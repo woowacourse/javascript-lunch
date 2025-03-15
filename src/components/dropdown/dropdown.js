@@ -1,4 +1,4 @@
-import { RESTAURANT_DISTANCE_VALUES } from "../../settings/settings";
+import { RESTAURANT_DISTANCE_VALUES } from "../../settings/restaurant";
 function appendStringForValue(array, string) {
   return array.map((ele) => ({ key: ele, value: ele + string }));
 }

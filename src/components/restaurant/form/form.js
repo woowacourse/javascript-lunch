@@ -2,16 +2,14 @@ import createButton from "../../button/button.js";
 import createDropdownBox from "../../dropdown/dropdown.js";
 import createInputBox from "../../input/input.js";
 import createTextAreaBox from "../../textarea/textarea.js";
-import {
-  FOOD_CATEGORY_VALUES,
-  RESTAURANT_DISTANCE_VALUES,
-} from "../../../settings/settings.ts";
+import { FOOD_CATEGORY_VALUES } from "../../../settings/category.ts";
+import { RESTAURANT_DISTANCE_VALUES } from "../../../settings/restaurant.ts";
 import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.ts";
 
 import createRestaurantItem from "../item/item.js";
 import Toast from "../../Toast/Toast.js";
 import { createElement } from "../../../utils/dom.ts";
-import { RESTAURANT_FIELD_LENGTH } from "../../../settings/settings.ts";
+import { RESTAURANT_FIELD_LENGTH } from "../../../settings/restaurant.ts";
 
 export default function createRestaurantForm(restaurantList) {
   const restaurantAddForm = createElement("form", {

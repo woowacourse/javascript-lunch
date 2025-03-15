@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../../../src/settings/settings.ts";
+import { ERROR_MESSAGE } from "../../../src/settings/errorMessages";
 
 describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
   beforeEach(() => {

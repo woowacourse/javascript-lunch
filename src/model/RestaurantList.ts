@@ -1,5 +1,5 @@
 import type { Restaurant, RestaurantForm } from "../../types/restaurantTypes";
-import { ERROR_MESSAGE } from "../settings/settings";
+import { ERROR_MESSAGE } from "../settings/errorMessages";
 import { restaurantFormValidation } from "../validation/restaurantFormValidation";
 
 class RestaurantList {

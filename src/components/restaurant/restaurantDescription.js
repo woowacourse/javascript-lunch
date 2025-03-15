@@ -1,4 +1,5 @@
-import { CATEGORY_ICON } from "../../settings/settings";
+import { CATEGORY_ICON } from "../../settings/category";
+
 export default function createRestaurantDescription({
   category,
   name,

@@ -1,6 +1,6 @@
 import createRestaurantItem from "../components/restaurant/item/item";
 import Toast from "../components/Toast/Toast";
-import { DICTIONARY } from "../settings/settings";
+import { DICTIONARY } from "../settings/dictionary";
 
 export function handleSort(sortFor, restaurantList, restaurantListElement) {
   const restaurantItems = Array.from(restaurantListElement.children);

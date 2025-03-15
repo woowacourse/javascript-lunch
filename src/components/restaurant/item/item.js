@@ -1,4 +1,4 @@
-import { CATEGORY_ICON } from "../../../settings/settings";
+import { CATEGORY_ICON } from "../../../settings/category";
 
 function setDataset(element, data) {
   Object.keys(data).forEach((key) => {

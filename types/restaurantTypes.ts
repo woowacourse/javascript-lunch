@@ -1,7 +1,5 @@
-import type {
-  FOOD_CATEGORY_VALUES,
-  RESTAURANT_DISTANCE_VALUES,
-} from "../src/settings/settings";
+import type { FOOD_CATEGORY_VALUES } from "../src/settings/category";
+import type { RESTAURANT_DISTANCE_VALUES } from "../src/settings/restaurant";
 import type RestaurantList from "../src/model/RestaurantList";
 
 type FoodCategory = (typeof FOOD_CATEGORY_VALUES)[number];

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../settings/settings.ts";
+import { ERROR_MESSAGE } from "../settings/errorMessages.ts";
 import {
   _validateRestaurantCategory,
   _validateRestaurantName,

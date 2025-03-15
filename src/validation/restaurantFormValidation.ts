@@ -1,10 +1,9 @@
+import { FOOD_CATEGORY_VALUES } from "../settings/category.ts";
 import {
-  FOOD_CATEGORY_VALUES,
-  ERROR_MESSAGE,
   RESTAURANT_FIELD_LENGTH,
   RESTAURANT_DISTANCE_VALUES,
-} from "../settings/settings.ts";
-
+} from "../settings/restaurant.ts";
+import { ERROR_MESSAGE } from "../settings/errorMessages.ts";
 import { isInRange } from "../utils/predicate.ts";
 import type {
   Restaurant,

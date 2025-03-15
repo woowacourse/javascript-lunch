@@ -1,6 +1,7 @@
-import { ERROR_MESSAGE } from "../settings/settings.ts";
+import { ERROR_MESSAGE } from "../settings/errorMessages.ts";
 import RestaurantList from "./RestaurantList.ts";
-import { INITIAL_RESTAURANT } from "../settings/settings.ts";
+
+import { INITIAL_RESTAURANT } from "../settings/restaurant.ts";
 
 describe("RestaurantList test", () => {
   it("should throw error when adding duplicated restaurant", () => {
