@@ -159,11 +159,6 @@ export default class Select extends Component {
       this.updateSvgRotation(button);
     }
 
-    if (container.id !== this.props.id && button) {
-      container.innerHTML = this.template();
-    }
     this.updateDropdown(container);
-
-    return this;
   }
 }
