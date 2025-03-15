@@ -1,12 +1,12 @@
 import FavoriteButton from '../components/button/FavoriteButton';
 import PlusButton from '../components/button/PlusButton';
-import RestaurantFilterContainer from '../components/filter/RestaurantFilterContainer';
 import Header from '../components/Header';
 import RestaurantDetailModalContent from '../components/modal/RestaurantDetailModalContent';
 import RestaurantTabContainer from '../components/tab/RestaurantTabContainer';
 import Restaurants from '../domain/Restaurants';
 import { Restaurant } from '../types/types';
 import { $ } from '../util/selector';
+import RestaurantFilterView from '../view/RestaurantFilterView';
 import RestaurantListView from '../view/RestaurantListView';
 import ModalController from './modalController';
 
@@ -61,12 +61,10 @@ class AppController {
 
         tabContainer.setAttribute('data-active', tabType);
 
-        const main = $('main');
         if (tabType === 'all') {
-          tabContainer.after(RestaurantFilterContainer());
+          this.renderFilterContainer();
         } else if (tabType === 'favorite') {
-          const filterContainer = $('.restaurant-filter-container');
-          main?.removeChild(filterContainer);
+          RestaurantFilterView.remove();
         }
         this.updateRestaurantListByTab(tabType);
       });
@@ -74,10 +72,7 @@ class AppController {
   }
 
   renderFilterContainer() {
-    const main = $('main');
-
-    const filterContainer = RestaurantFilterContainer();
-    main?.appendChild(filterContainer);
+    RestaurantFilterView.render();
 
     $<HTMLSelectElement>('#category-filter')?.addEventListener('change', (event) => {
       const sortFilterValue = $<HTMLSelectElement>('#sort-filter')?.value;
