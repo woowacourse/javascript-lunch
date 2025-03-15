@@ -6,6 +6,7 @@ import storeData from "../data/storeData.js";
 import StoreList from "../class/StoreList.js";
 import storeRenderer from "./storeRenderer.js";
 import querySelector from "../utils/querySelector.js";
+import storage from "../data/storage.js";
 
 const initRenderer = {
   setHeader: (title) => {
@@ -36,10 +37,13 @@ const initRenderer = {
   },
 
   setStoreList: () => {
-    const storeList = new StoreList(storeData);
+    storage.setStorage();
+    const storeList = new StoreList(storage.getStorageItems());
+
     storeList.list.forEach((store) => {
       storeRenderer.addStore(store);
     });
+
     return storeList;
   },
 

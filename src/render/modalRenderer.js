@@ -114,6 +114,7 @@ const modalRenderer = {
 
   setStoreInfoModal: (store) => {
     const modalContainer = querySelector(".modal-container");
+    modalContainer.setAttribute("id", store.id);
     modalContainer.innerHTML = StoreDetail(store);
     modalContainer.appendChild(
       modalRenderer.addButtons([

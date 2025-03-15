@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 const storeRenderer = {
   addStore: (storeProps) => {
     const list = document.createElement("li");
+    list.setAttribute("id", storeProps.id);
     list.classList.add("restaurant");
     const starIconId = uuidv4();
     const store = Store(storeProps, starIconId);
@@ -28,6 +29,10 @@ const storeRenderer = {
       validate.linkForm(newStore.link);
 
       storeList.updateList(newStore);
+      window.localStorage.setItem(
+        JSON.stringify(newStore.id),
+        JSON.stringify(newStore)
+      );
       storeRenderer.removeStoreElements();
       storeList.filteredList.forEach((store) => {
         storeRenderer.addStore(store);
@@ -51,6 +56,7 @@ const storeRenderer = {
   createStore: (e) => {
     const data = new FormData(e.target);
     return {
+      id: uuidv4(),
       category: data.get("category"),
       name: data.get("name"),
       dist: data.get("distance"),
@@ -118,11 +124,15 @@ const storeRenderer = {
   },
 
   deleteStore: (storeList) => {
-    const storeName = querySelector(".restaurant__name").textContent;
-    storeList.deleteStore(storeName);
+    const storeId = querySelector(".modal-container").getAttribute("id");
+    window.localStorage.removeItem(JSON.stringify(storeId));
+
+    storeList.deleteStore(storeId);
+    console.log(storeList.length);
+
     modalRenderer.closeModal();
     storeRenderer.removeStoreElements();
-    storeList.list.forEach((store) => {
+    storeList.filteredList.forEach((store) => {
       storeRenderer.addStore(store);
     });
   },

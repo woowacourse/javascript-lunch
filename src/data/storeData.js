@@ -1,5 +1,6 @@
 const storeData = [
   {
+    id: "1",
     category: "한식",
     name: "피양콩할마니",
     dist: "10",
@@ -9,6 +10,7 @@ const storeData = [
     isFavorite: false,
   },
   {
+    id: "2",
     category: "중식",
     name: "친친",
     dist: "5",
@@ -18,6 +20,7 @@ const storeData = [
     isFavorite: false,
   },
   {
+    id: "3",
     category: "양식",
     name: "이태리키친",
     dist: "20",
@@ -26,6 +29,7 @@ const storeData = [
     isFavorite: false,
   },
   {
+    id: "4",
     category: "아시안",
     name: "호아빈 삼성점",
     dist: "15",
@@ -34,6 +38,7 @@ const storeData = [
     isFavorite: false,
   },
   {
+    id: "5",
     category: "기타",
     name: "도스타코스 선릉점",
     dist: "5",

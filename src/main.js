@@ -9,12 +9,9 @@ import storeRenderer from "./render/storeRenderer.js";
 import modalRenderer from "./render/modalRenderer.js";
 import IMG_SRC from "./constants/imgSrc.js";
 import MenuBar from "./components/MenuBar.js";
-import LocalStorage from "./class/LocalStorage.js";
 
 addEventListener("load", () => {
-  const myStorage = new LocalStorage();
-  console.log(myStorage);
-
+  // 초기 세팅
   initRenderer.setHeader("오늘 뭐 먹지");
   initRenderer.setRestaurantFilter();
   MenuBar();
