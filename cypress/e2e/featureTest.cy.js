@@ -271,3 +271,24 @@ describe('기능 테스트: 음식점 필터링 테스트', () => {
     cy.get('.restaurant__category > img').should('have.attr', 'alt', 'ASIAN');
   });
 });
+
+describe('기능 테스트: 음식점 정렬 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
+    setLocalStorage();
+  });
+
+  it('사용자가 정렬 기준을 이름순으로 선택하여 정렬하는 시나리오 테스트', () => {
+    cy.get('#sort-selector').select('name');
+
+    cy.get('.restaurant-list-container .restaurant__name').eq(0).should('have.text', '이태리키친');
+    cy.get('.restaurant-list-container .restaurant__name').eq(1).should('have.text', '호아빈 삼성점');
+  });
+
+  it('사용자가 정렬 기준을 거리순으로 선택하여 정렬하는 시나리오 테스트', () => {
+    cy.get('#sort-selector').select('distance');
+
+    cy.get('.restaurant-list-container .restaurant__distance').eq(0).should('contain.text', '15');
+    cy.get('.restaurant-list-container .restaurant__distance').eq(1).should('contain.text', '20');
+  });
+});
