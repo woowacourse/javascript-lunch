@@ -3,10 +3,12 @@ import InputForm from "./InputForm.js";
 import SelectForm from "./SelectForm.js";
 import ButtonContainer from "./ButtonContainer.js";
 import TextareaForm from "./TextareaForm.js";
-import { Validator } from "../validator/Validator.ts";
+import { Validator } from "../domain/Validator.ts";
 import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
+import { CATEGORY_DROPDOWN } from "../constants/constants.js";
+import RestaurantListContainer from "./RestaurantListContainer.ts";
 
 export function requiredClassName(required) {
   if (required) "form-item--required";
@@ -50,36 +52,7 @@ function AddLunchModalForm(restaurantList, modalId) {
     SelectForm({
       id: "category",
       label: "카테고리",
-      dropdownList: [
-        {
-          value: "",
-          label: "선택해 주세요",
-        },
-        {
-          value: "한식",
-          label: "한식",
-        },
-        {
-          value: "중식",
-          label: "중식",
-        },
-        {
-          value: "일식",
-          label: "일식",
-        },
-        {
-          value: "양식",
-          label: "양식",
-        },
-        {
-          value: "아시안",
-          label: "아시안",
-        },
-        {
-          value: "기타",
-          label: "기타",
-        },
-      ],
+      dropdownList: CATEGORY_DROPDOWN,
       required: true,
     }),
 

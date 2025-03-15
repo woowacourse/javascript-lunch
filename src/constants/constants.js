@@ -6,3 +6,34 @@ export const ERROR_MESSAGE = {
   DESCRIPTION_MAX: `설명은 ${DESCRIPTION_LENGTH_MAX}자를 넘을 수 없습니다.`,
   LINK: "유효하지 않은 링크입니다.",
 };
+
+export const CATEGORY_DROPDOWN = [
+  {
+    value: "",
+    label: "선택해 주세요",
+  },
+  {
+    value: "한식",
+    label: "한식",
+  },
+  {
+    value: "중식",
+    label: "중식",
+  },
+  {
+    value: "일식",
+    label: "일식",
+  },
+  {
+    value: "양식",
+    label: "양식",
+  },
+  {
+    value: "아시안",
+    label: "아시안",
+  },
+  {
+    value: "기타",
+    label: "기타",
+  },
+];
