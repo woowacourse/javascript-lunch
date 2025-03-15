@@ -21,10 +21,22 @@ import { FavoriteImageElement } from "./components/common/favorite-button.ts";
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
-
   const main = document.querySelector("main");
   if (!main) return;
-  main.prepend($tabbar());
+  const tabbar = $tabbar();
+  main.prepend(tabbar);
+
+  let selectedTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
+  // 여기까지 함
+  // 자주 가는 음식점 선택한 경우 즐찾한 음식점 목록만 뜨도록 수정하기
+  
+  tabbar.addEventListener("change", () => {
+    selectedTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
+    if (selectedTab.value === "frequent") {
+      console.log("화면 전환");
+    }
+  });
+  
 
   // 카테고리 / 정렬 필터
   const restaurantFilter = document.querySelector(
@@ -110,28 +122,29 @@ addEventListener("load", () => {
   if (addButton) addButton.addEventListener("click", handleAddRestaurant);
   
   const favButtons = document.querySelectorAll(".button-favorite") as NodeListOf<FavoriteImageElement>;
+  console.log(favButtons[0]);
 
   favButtons.forEach((favButton) => {
-    favButton.addEventListener("mouseover", () => {
-      if (!favButton.isFavorite) favButton.src = "images/star-filled.png";
-    });
-
-    favButton.addEventListener("mouseout", () => {
-      if (!favButton.isFavorite) favButton.src = "images/star-outline.png";
-    });
-
-    favButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const restaurantId = favButton.getAttribute("data-restaurant-id");
+    const restaurantId = favButton.getAttribute("data-restaurant-id");
       if (!restaurantId) return;
-  
+
       const restaurant = currentRestaurantData.find(
         (r) => r.dataId.toString() === restaurantId
       );
       if (!restaurant) return;
+
+    favButton.addEventListener("mouseover", () => {
+      if (!restaurant.isFavorite) favButton.src = "images/star-filled.png";
+    });
+
+    favButton.addEventListener("mouseout", () => {
+      if (!restaurant.isFavorite) favButton.src = "images/star-outline.png";
+    });
+
+    favButton.addEventListener("click", (e) => {
+      e.stopPropagation();
   
       restaurant.isFavorite = !restaurant.isFavorite;
-      favButton.isFavorite = restaurant.isFavorite;
       favButton.src = restaurant.isFavorite
         ? "images/star-filled.png"
         : "images/star-outline.png";

@@ -3,6 +3,7 @@ import $button from "../common/button.ts";
 import { Restaurant } from "../../data/restaurant.ts";
 import { UI_CONFIG } from "../../constants/uiConfig.ts";
 import $favoriteButton from "../common/favorite-button.ts";
+import { saveRestaurantsToLocalStorage, currentRestaurantData } from "../../data/restaurant.ts";
 
 const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   const info = document.createElement("div");
@@ -21,27 +22,28 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
 
   iconContainer.appendChild(categoryIcon);
   restaurantHeader.appendChild(iconContainer);
-  const favButton = $favoriteButton(UI_CONFIG.BUTTONS.FAVORITE);
+  const favButton = $favoriteButton({ isFavorite: restaurant.isFavorite, className: ["button-favorite"]});
+  favButton.setAttribute("data-restaurant-id", restaurant.dataId.toString());
   restaurantHeader.appendChild(favButton);
 
   favButton.addEventListener("mouseover", () => {
-    if (!favButton.isFavorite) favButton.src = "images/star-filled.png";
+    if (!restaurant.isFavorite) favButton.src = "images/star-filled.png";
   });
 
   favButton.addEventListener("mouseout", () => {
-    if (!favButton.isFavorite) favButton.src = "images/star-outline.png";
+    if (!restaurant.isFavorite) favButton.src = "images/star-outline.png";
   });
 
   favButton.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (!favButton.isFavorite) {
-      favButton.src = "images/star-filled.png";
-      favButton.isFavorite = true;
-    }
-    else {
-      favButton.src = "images/star-outline.png";
-      favButton.isFavorite = false;
-    }
+
+    restaurant.isFavorite = !restaurant.isFavorite;
+      favButton.src = restaurant.isFavorite
+        ? "images/star-filled.png"
+        : "images/star-outline.png";
+
+    saveRestaurantsToLocalStorage(currentRestaurantData);
+    location.reload();
   });
 
   info.appendChild(restaurantHeader);
