@@ -4,7 +4,7 @@ interface ICustomInput {
   label: string;
   name: string;
   id: string;
-  type: string;
+  type: HTMLInputElement["type"];
   required?: boolean;
 }
 
