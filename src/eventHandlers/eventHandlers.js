@@ -167,6 +167,9 @@ function toggleFavoriteRestaurant(callback) {
 
   const restaurantItems = document.querySelector('.restaurant-list');
   restaurantItems.addEventListener('click', handleFavoriteClick);
+
+  const restaurantInfoModal = document.querySelector('.restaurant-info-modal');
+  restaurantInfoModal.addEventListener('click', handleFavoriteClick);
 }
 
 const eventHandlers = {

@@ -1,7 +1,7 @@
 import { IMAGE } from '../constants/elements.js';
 
 function createRestaurantInfo({ id, category, name, distance, description, favorite }) {
-  const information = `<div class="restaurant__body" data-id="${id}">
+  const information = `<div class="restaurant restaurant__body" data-id="${id}">
               <div class="restaurant__header">
                 <div class="restaurant__category">
                   <img src="${IMAGE.get(category)}" alt="${category}" class="category-icon" />
