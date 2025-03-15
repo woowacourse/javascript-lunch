@@ -51,15 +51,15 @@ export default class Select extends Component {
   }
 
   setEvent() {
-    document.removeEventListener("click", this.handleClickOutside);
+    document.removeEventListener("click", this.handleClickSelect);
 
-    this.handleClickOutside = (e) => {
+    this.handleClickSelect = (e) => {
       if (this.handleToggleButtonClick(e)) return;
       if (this.handleDropdownOptionClick(e)) return;
       this.handleOutsideClick(e);
     };
 
-    document.addEventListener("click", this.handleClickOutside);
+    document.addEventListener("click", this.handleClickSelect);
   }
 
   createOptionItems() {
