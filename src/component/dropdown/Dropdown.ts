@@ -1,4 +1,5 @@
-import { notifyFilterChange, notifySortChange } from "../../managers/eventManagers.ts";
+import { notifyFilterChange } from "../../managers/eventManager/filterEventManager.ts";
+import { notifySortChange } from "../../managers/eventManager/sortEventManager.ts";
 
 type DropdownFeatureType = "filter" | "sort";
 

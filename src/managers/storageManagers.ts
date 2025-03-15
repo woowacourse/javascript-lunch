@@ -1,4 +1,4 @@
-import { notifyFavoriteChange } from "./eventManagers";
+import { notifyFavoriteChange } from "./eventManager/favoriteEventManager";
 
 export function storeFoodItems(foodItems: FoodItemType[]) {
   localStorage.setItem("foodItems", JSON.stringify(foodItems));

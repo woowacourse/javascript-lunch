@@ -1,5 +1,5 @@
 import { DELETE } from "../constants/systemMessage.ts";
-import { notifyDeleteChange } from "../managers/eventManagers.js";
+import { notifyDeleteChange } from "../managers/eventManager/deleteEventManager.ts";
 import { removeStoredFoodItem, toggleFavorite } from "../managers/storageManagers.js";
 import { getImgSrcAlt } from "../util/getImgSrcAlt.js";
 import { Button } from "./button/Button.js";

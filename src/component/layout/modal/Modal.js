@@ -19,17 +19,21 @@ export default class Modal {
 
     this.close();
   }
+
   open() {
     this.#isOpen = true;
     this.#container.classList.add("modal--open");
   }
+
   close() {
     this.#isOpen = false;
     this.#container.classList.remove("modal--open");
   }
+
   get isOpen() {
     return this.#isOpen;
   }
+
   get element() {
     return this.#container;
   }

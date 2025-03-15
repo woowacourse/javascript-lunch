@@ -19,6 +19,7 @@ export default class TabMenu {
     this.setActiveTabStyle();
     this.handleCurrentMenu();
   }
+
   handleCurrentMenu() {
     this.container.querySelectorAll(".tabmenu-item")?.forEach((tabMenu) =>
       tabMenu.addEventListener("click", (event: Event) => {
@@ -34,6 +35,7 @@ export default class TabMenu {
       }),
     );
   }
+
   setActiveTabStyle() {
     this.container.querySelector(".tabmenu--active")?.classList.remove("tabmenu--active");
     this.container.querySelector(`[data-tab=${this.#currentMenu}]`)?.classList.add("tabmenu--active");

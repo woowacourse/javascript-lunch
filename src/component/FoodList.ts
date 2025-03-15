@@ -1,4 +1,7 @@
-import { addFavoriteChangeListeners, addDeleteItemChangeListeners, addFilterChangeListeners, addSortChangeListeners } from "../managers/eventManagers.ts";
+import { addDeleteItemChangeListeners } from "../managers/eventManager/deleteEventManager.ts";
+import { addFavoriteChangeListeners } from "../managers/eventManager/favoriteEventManager.ts";
+import { addFilterChangeListeners } from "../managers/eventManager/filterEventManager.ts";
+import { addSortChangeListeners } from "../managers/eventManager/sortEventManager.ts";
 import { storeFoodItems } from "../managers/storageManagers.ts";
 import FoodItem from "./FoodItem.ts";
 
@@ -51,8 +54,6 @@ export default class FoodList {
     });
     this.foodList.appendChild(foodFragment);
   }
-
-  renderFavoriteItem() {}
 
   checkAndRenderEmptyList() {
     if (this.#originFoodItems.length === 0) {
