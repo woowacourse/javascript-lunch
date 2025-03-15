@@ -184,3 +184,19 @@ describe('기능 테스트: 음식점 상세 정보 모달 닫기 테스트', ()
     cy.get('.modal--open').should('not.exist');
   });
 });
+
+describe('기능 테스트: 음식점 삭제 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
+    setLocalStorage();
+  });
+
+  it('사용자가 상세 정보 모달의 "삭제하기" 버튼을 클릭하여 음식점을 삭제하는 시나리오 테스트', () => {
+    cy.get('.restaurant').first().click();
+    cy.get('.modal--open').should('exist');
+
+    cy.get('.delete-item-button').click();
+    cy.get('.modal--open').should('not.exist');
+    cy.get('.restaurant').should('not.have.attr', 'data-id', '0');
+  });
+});
