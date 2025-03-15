@@ -3,10 +3,15 @@ import CircleIcon from "../common/CircleIcon.js";
 import Text from "../common/Text.js";
 import LunchItem from "./LunchItem.js";
 
+const LUNCH_LIST_TYPE = {
+  ALL: "ALL",
+  FAVORITES: "FAVORITES",
+};
+
 export default class LunchList extends Component {
   setDefaultProps() {
     this.props = {
-      type: "ALL",
+      type: LUNCH_LIST_TYPE.ALL,
       items: [],
       onItemClick: () => {},
     };
@@ -20,7 +25,9 @@ export default class LunchList extends Component {
 
   filterItemsByType(items, type) {
     if (!items) return [];
-    return type === "ALL" ? items : items.filter((item) => item.isFavorite);
+    return type === LUNCH_LIST_TYPE.ALL
+      ? items
+      : items.filter((item) => item.isFavorite);
   }
 
   setProps(newProps) {
@@ -52,7 +59,7 @@ export default class LunchList extends Component {
   renderText() {
     const text = this.addChild(Text, {
       content:
-        this.props.type === "FAVORITES"
+        this.props.type === LUNCH_LIST_TYPE.FAVORITES
           ? "즐겨찾기한 음식점이 없습니다."
           : "아직 추가된 음식점이 없습니다.",
       classList: ["text-lg", "text-slate-500"],
@@ -72,7 +79,7 @@ export default class LunchList extends Component {
     const isEmpty = !items || items.length === 0;
 
     return `
-      <section id="lunch-list" class="lunch-list-container w-full flex flex-col justify-center items-center my-4">
+      <section id="lunch-list-container" class="w-full flex flex-col justify-center items-center my-4">
         <ul id="restaurant-list" class="w-full">
           ${
             isEmpty
@@ -87,7 +94,7 @@ export default class LunchList extends Component {
     `;
   }
 
-  render(props, targetElement = "#lunch-list") {
+  render(props, targetElement = "#lunch-list-container") {
     if (props) this.setProps(props);
   }
 }

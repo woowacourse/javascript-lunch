@@ -20,6 +20,7 @@ addEventListener("load", () => {
     iconName: "add-button",
     onIconClick: () => bottomSheet.openForm(),
   });
+
   const tab = layout.addChild(Tab, {
     tabs: ["모든 음식점", "자주 가는 음식점"],
     activeIndex: 0,
