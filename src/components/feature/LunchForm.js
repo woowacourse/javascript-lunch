@@ -194,7 +194,7 @@ export default class LunchForm extends Component {
     new Restaurant({
       id: newId,
       storeName: this.state.storeName,
-      distance: this.state.distance,
+      distance: this.state.distance.replace("분", ""),
       category: this.state.category,
       description: this.state.description,
       link: this.state.link,

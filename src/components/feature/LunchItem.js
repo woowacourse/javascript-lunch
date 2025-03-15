@@ -40,7 +40,7 @@ export default class LunchItem extends Component {
   renderDistance() {
     const distance = this.addChild(Text);
     distance.setProps({
-      content: `캠퍼스 내 ${this.props.distance}`,
+      content: `캠퍼스 내 ${this.props.distance}분`,
       classList: ["text-lg", "primary-500"],
       id: "distance-item",
     });
