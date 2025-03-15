@@ -85,6 +85,30 @@ body {
   object-fit: contain;
 }
 
+/* 음식점 navbar */
+.navigation-bar-container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0px;
+  padding: 0px 16px;
+}
+
+.navigation__button {
+  cursor: pointer;
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  background: none;
+  border: none;
+  color: var(--grey-300);
+  border-bottom: 3px solid var(--grey-200);
+}
+
+.activated {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
 /* 음식점 목록 *****************************************/
 
 /* 카테고리/정렬 필터 */
