@@ -1,5 +1,3 @@
-import { Restaurant } from "../../types/RestaurantType.js";
-
 const CATEGORY_ICON = {
   한식: "./category-korean.png",
   중식: "./category-chinese.png",
@@ -9,9 +7,9 @@ const CATEGORY_ICON = {
   기타: "./category-etc.png",
 };
 
-function LunchInfoCard({ category, name, distance, description }: Restaurant) {
+function LunchInfoCard({ category, name, distance, description }) {
   return `
-        <li class="restaurant">
+        <li class="restaurant" id="restaurant_${name}">
           <div class="restaurant__category">
               <img src=${CATEGORY_ICON[category]} alt=${category} />
           </div>
@@ -21,7 +19,7 @@ function LunchInfoCard({ category, name, distance, description }: Restaurant) {
               <p class="restaurant__description text-body">${description}</p>
           </div>
         </li>
-`;
+  `;
 }
 
 export default LunchInfoCard;

@@ -8,7 +8,6 @@ import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
 import { CATEGORY_DROPDOWN } from "../constants/constants.js";
-import RestaurantListContainer from "./RestaurantListContainer.ts";
 
 export function requiredClassName(required) {
   if (required) "form-item--required";

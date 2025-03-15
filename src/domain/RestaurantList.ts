@@ -1,5 +1,5 @@
 import { Category, Restaurant } from "../../types/RestaurantType.ts";
-import RestaurantListContainer from "../component/RestaurantListContainer.ts";
+import RestaurantListContainer from "../component/RestaurantListContainer.js";
 import MOCK_ITEM from "../mockItem.js";
 
 class RestaurantList {

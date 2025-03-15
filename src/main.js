@@ -6,8 +6,7 @@ import MOCK_ITEM from "./mockItem.js";
 import { $ } from "./utils/querySelectors.js";
 import Select from "./component/Select.js";
 import { CATEGORY_DROPDOWN } from "./constants/constants.js";
-import RestaurantListContainer from "./component/RestaurantListContainer.ts";
-import RestaurantList from "./domain/RestaurantList.ts";
+import RestaurantList from "./domain/RestaurantList.js";
 
 $("body").prepend(
   Header(
