@@ -22,7 +22,7 @@ export const restaurantInfoContent = (data = {}) => {
   const iconButton = new IconButton();
 
   return `
-    <div id="restaurant_info_content">
+    <div id="restaurant_info_content" data-restaurant-id="${data.id}">
     <div class="modal-header">
     <div class="restaurant__category">
       <img src="${data.imgSrc}" alt="${data.imgAlt}" class="category-icon"/>
