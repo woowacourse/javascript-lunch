@@ -65,7 +65,7 @@
 
 ## 💻 프로그래밍 요구사항
 
-    - [ ] 도메인 영역을 TypeScript으로 변환한다. (UI 영역은 선택)
-      - [ ] any를 사용하지 않는다.
-    - [ ] interface 또는 type alias 를 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
-    - [ ] 데이터 유지를 위해 localStorage를 활용한다.
+    - [x] 도메인 영역을 TypeScript으로 변환한다. (UI 영역은 선택)
+      - [x] any를 사용하지 않는다.
+    - [x] interface 또는 type alias 를 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
+    - [x] 데이터 유지를 위해 localStorage를 활용한다.
