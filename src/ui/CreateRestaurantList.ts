@@ -34,14 +34,14 @@ function createRestaurantItem(container: HTMLElement, inputValue: Restaurant) {
       </div>
       <div class="restaurant__info">
         <div class="restaurant-info-header">
-          <div class="restaurant__name-distance">
+          <button class="restaurant__name-distance">
             <h3 class="restaurant__name text-subtitle">${
               inputValue.nameValue
             }</h3>
             <span class="restaurant__distance text-body">
             캠퍼스부터 ${inputValue.distanceValue}분 내
             </span>
-          </div>
+          </button>
           <button class="restaurant-favorite-star-button">
             <img class="restaurant-favorite-star" src=${
               inputValue.favorite === false

@@ -190,6 +190,9 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: start;
+  border: none;
+  background-color: white;
 }
 
 .restaurant__name-distance:hover {
