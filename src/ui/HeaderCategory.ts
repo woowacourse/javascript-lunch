@@ -1,8 +1,8 @@
 import { CreateRestaurantList } from "./CreateRestaurantList";
 import { GetAllRestaurants } from "../domain/RestaurantStorage";
-import OrderByValue from "./OrderByValue";
 import { Restaurant } from "../shared/types";
 import FilteredRestaurant from "./FilteredRestaurant";
+import SortedRestaurant from "./SortedRestaurant";
 
 export default function HeaderCategory() {
   const $allButton = document.getElementById("all-button") as HTMLButtonElement;
@@ -11,7 +11,7 @@ export default function HeaderCategory() {
   ) as HTMLButtonElement;
 
   FilteredRestaurant();
-  OrderByValue();
+  SortedRestaurant();
 
   const restaurants: Restaurant[] = GetAllRestaurants();
   const favoriteList = restaurants.filter((restaurant) => restaurant.favorite);
