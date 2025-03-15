@@ -200,3 +200,29 @@ describe('기능 테스트: 음식점 삭제 테스트', () => {
     cy.get('.restaurant').should('not.have.attr', 'data-id', '0');
   });
 });
+
+describe('기능 테스트: 자주 가는 음식점 추가 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:5173');
+    setLocalStorage();
+  });
+
+  it('사용자가 음식점 상세 정보 모달에서 추가/해제 버튼을 클릭하여 추가하는 시나리오 테스트', () => {
+    cy.get('.restaurant').first().click();
+    cy.get('.modal--open').should('exist');
+
+    cy.get('.restaurant-info-modal .restaurant__favorite').click();
+    cy.get('.restaurant-info-modal .button--primary').click();
+    cy.get('.modal--open').should('not.exist');
+
+    cy.get('[data-tab="favorite"]').click();
+    cy.get('.restaurant').should('have.attr', 'data-id', '0');
+  });
+
+  it('사용자가 음식점 목록에서 추가/해제 버튼을 클릭하여 추가하는 시나리오 테스트', () => {
+    cy.get('.restaurant .restaurant__favorite').first().click();
+
+    cy.get('[data-tab="favorite"]').click();
+    cy.get('.restaurant').should('have.attr', 'data-id', '0');
+  });
+});
