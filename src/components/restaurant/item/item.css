@@ -25,3 +25,7 @@
   width: 32px;
   height: 32px;
 }
+
+.restaurant-list li {
+  cursor: pointer;
+}

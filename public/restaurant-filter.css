@@ -1,9 +1,43 @@
+.favorite-filter,
+.restaurant-filter-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 4px;
+  background: #fff;
+  padding: 4px;
+}
+
+.favorite-filter input[type="radio"] {
+  display: none;
+}
+
+.favorite-filter label {
+  flex: 1; /* 양쪽 라벨이 균등하게 차지 */
+  text-align: center;
+
+  font-weight: bold;
+  color: #666;
+
+  padding: 4px 0;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+/* 라디오 버튼 선택 시 라벨 강조 */
+.favorite-filter input[type="radio"]:checked + label {
+  color: var(--primary-color);
+  border-bottom: 3px solid var(--primary-color);
+}
+
 .restaurant-filter-container {
   display: flex;
   justify-content: space-between;
+  align-self: center;
 
-  padding: 0 16px;
-  margin-top: 24px;
+  padding: 0 16px 16px;
+
+  border-bottom: 1px solid #ddd;
 }
 
 .restaurant-filter-container select {
@@ -13,10 +47,10 @@
   border: 1px solid #d0d5dd;
   border-radius: 8px;
   background: transparent;
-
   font-size: 16px;
 }
 
 .restaurant-filter {
   padding: 8px;
+  border: 1px solid #ddd;
 }

@@ -12,41 +12,23 @@
     <div id="app">
       <!-- GNB -->
       <header class="gnb">
-        <h1 class="gnb__title text-title">점심 뭐먹지</h1>
-        <button type="button" class="gnb__button" aria-label="음식점 추가">
-          <img
-            class="restaurant-add-button"
-            src="./add-button.png"
-            alt="음식점 추가"
-          />
-        </button>
-      </header>
-      <main>
+        <div class="gnb__top">
+          <h1 class="gnb__title text-title">점심 뭐먹지</h1>
+          <button type="button" class="gnb__button" aria-label="음식점 추가">
+            <img class="restaurant-add-button" src="./add-button.png" alt="음식점 추가" />
+          </button>
+        </div>
+      
         <div id="favorite-filter" class="favorite-filter">
-          <input
-            type="radio"
-            id="filter-all"
-            name="favoriteFilter"
-            value="all"
-            checked
-          />
+          <input type="radio" id="filter-all" name="favoriteFilter" value="all" checked />
           <label for="filter-all">모든 음식점</label>
-
-          <input
-            type="radio"
-            id="filter-favorite"
-            name="favoriteFilter"
-            value="favorite"
-          />
+      
+          <input type="radio" id="filter-favorite" name="favoriteFilter" value="favorite" />
           <label for="filter-favorite">자주 가는 음식점</label>
         </div>
-
+      
         <section class="restaurant-filter-container">
-          <select
-            name="category"
-            id="category-filter"
-            class="restaurant-filter"
-          >
+          <select name="category" id="category-filter" class="restaurant-filter">
             <option value="전체">전체</option>
             <option value="한식">한식</option>
             <option value="중식">중식</option>
@@ -59,6 +41,9 @@
             <option value="name">이름순</option>
             <option value="distance">거리순</option>
           </select>
+        </section>
+      </header>
+      <main>
         </section>
         <section class="restaurant-list-container">
           <ul class="restaurant-list" id="restaurant-list"></ul>

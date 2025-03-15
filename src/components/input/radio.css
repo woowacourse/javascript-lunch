@@ -1,4 +1,4 @@
-.favorite-filter {
+/* .favorite-filter {
   display: flex;
   justify-content: center;
   border-bottom: 2px solid #ddd;
@@ -20,20 +20,4 @@
   font-weight: 500;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
-}
-
-.favorite-filter input[type="radio"]:checked + label {
-  color: #f60;
-  font-weight: 700;
-}
-
-.favorite-filter input[type="radio"]:checked + label::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 3px;
-  background-color: #f60;
-  border-radius: 2px;
-}
+} */
