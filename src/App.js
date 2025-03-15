@@ -4,6 +4,7 @@ import RestaurantForm from "./components/restaurant-form-section/restaurant-form
 import RestaurantList from "./components/restaurant-list-section/restaurant-list/RestaurantList.js";
 import RestaurantFilter from "./components/restaurant-filter-section/RestaurantFilter.js";
 import RestaurantNavBar from "./components/restaurant-nav-bar/RestaurantNavBar.js";
+import RestaurantDetail from "./components/restaurant-detail/RestaurantDetail.js";
 
 export default class App {
   constructor(restaurantStore, restaurantService) {
@@ -21,7 +22,9 @@ export default class App {
   }
 
   #renderHeader() {
-    const $header = new Header({ onOpen: () => this.$bottomSheet.open() });
+    const $header = new Header({
+      onOpen: () => this.$submitFormBottomSheet.open(),
+    });
     this.$body.append($header.render());
   }
 
@@ -32,7 +35,8 @@ export default class App {
     this.#renderRestaurantNavBar();
     this.#renderRestaurantFilter();
     this.#renderRestaurantList();
-    this.#renderBottomSheet();
+    this.#renderSubmitFormBottomSheet();
+    this.#renderOpenDetailBottomSheet();
   }
 
   #renderRestaurantNavBar() {
@@ -64,28 +68,54 @@ export default class App {
     const restaurantList = this.restaurantService.getRestaurants();
     this.$restaurantList = new RestaurantList(
       restaurantList,
-      this.restaurantService
+      this.restaurantService,
+      {
+        onOpenDetail: (restaurantId) => {
+          const restaurantInfo =
+            this.restaurantService.getRestaurantInfo(restaurantId);
+          this.$restaurantDetail.openDetail(restaurantInfo);
+          this.$openDetailBottomSheet.open();
+        },
+      }
     );
     this.$main.append(this.$restaurantList.render());
   }
 
-  #renderBottomSheet() {
+  #renderSubmitFormBottomSheet() {
     const $restaurantForm = new RestaurantForm({
       title: "새로운 음식점",
-      onSubmit: this.#handleFormSubmit.bind(this),
-      onCancel: () => this.$bottomSheet.close(),
+      onSubmit: this.#handleSubmitForm.bind(this),
+      onCancel: () => this.$submitFormBottomSheet.close(),
     });
 
-    this.$bottomSheet = new BottomSheetBase({
+    this.$submitFormBottomSheet = new BottomSheetBase({
       $children: $restaurantForm.render(),
     });
 
-    this.$main.append(this.$bottomSheet.render());
+    this.$main.append(this.$submitFormBottomSheet.render());
   }
 
-  #handleFormSubmit(newRestaurantInfo) {
+  #handleSubmitForm(newRestaurantInfo) {
     this.restaurantService.addRestaurant(newRestaurantInfo);
-    this.$bottomSheet.close();
+    this.$submitFormBottomSheet.close();
+  }
+
+  #renderOpenDetailBottomSheet() {
+    this.$restaurantDetail = new RestaurantDetail({
+      onToggleFavorite: (restaurantId) => {
+        this.restaurantService.toggleFavorite(restaurantId);
+      },
+      onDelete: (restaurantId) => {
+        this.restaurantService.deleteRestaurant(restaurantId);
+      },
+      onClose: () => this.$openDetailBottomSheet.close(),
+    });
+
+    this.$openDetailBottomSheet = new BottomSheetBase({
+      $children: this.$restaurantDetail.render(),
+    });
+
+    this.$main.append(this.$openDetailBottomSheet.render());
   }
 
   #updateRestaurantList() {

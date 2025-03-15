@@ -44,6 +44,14 @@ export default class RestaurantStore {
     this.#notifyListeners();
   }
 
+  deleteRestaurant(restaurantId) {
+    this.#restaurants = this.#restaurants.filter(
+      (restaurant) => restaurant.id !== restaurantId
+    );
+    this.#saveToLocalStorage();
+    this.#notifyListeners();
+  }
+
   getRestaurants({
     tabType,
     filterType: { categoryFilterType, sortFilterType },
@@ -78,6 +86,12 @@ export default class RestaurantStore {
     }
 
     return sortFilterTypeFn[sortFilterType](tabTypeFn[tabType](restaurants));
+  }
+
+  getRestaurantInfo(restaurantId) {
+    return this.#restaurants.find(
+      (restaurant) => restaurant.id === restaurantId
+    );
   }
 
   toggleFavorite(restaurantId) {

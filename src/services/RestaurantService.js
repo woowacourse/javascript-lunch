@@ -13,6 +13,10 @@ export default class RestaurantService {
     this.restaurantStore.addRestaurant(restaurantInfo);
   }
 
+  deleteRestaurant(restaurantId) {
+    this.restaurantStore.deleteRestaurant(restaurantId);
+  }
+
   getRestaurants(
     options = {
       tabType: NAV_BAR_KEYS.all,
@@ -25,7 +29,11 @@ export default class RestaurantService {
     return this.restaurantStore.getRestaurants(options);
   }
 
-  toggleFavorite(restaurantName) {
-    this.restaurantStore.toggleFavorite(restaurantName);
+  getRestaurantInfo(restaurantId) {
+    return this.restaurantStore.getRestaurantInfo(restaurantId);
+  }
+
+  toggleFavorite(restaurantId) {
+    this.restaurantStore.toggleFavorite(restaurantId);
   }
 }

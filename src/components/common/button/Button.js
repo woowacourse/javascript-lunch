@@ -1,9 +1,16 @@
+import { BUTTON_TYPES } from "../../../constants/constants.js";
 import "./button.css";
 
-const actionVariant = {
-  add: "primary",
-  cancel: "secondary",
-};
+const primaryActions = [BUTTON_TYPES.add, BUTTON_TYPES.close];
+const secondaryActions = [BUTTON_TYPES.cancel, BUTTON_TYPES.delete];
+
+const actionVariant = [...primaryActions, ...secondaryActions].reduce(
+  (acc, action) => ({
+    ...acc,
+    [action]: primaryActions.includes(action) ? "primary" : "secondary",
+  }),
+  {}
+);
 
 export default class Button {
   constructor({ type = "button", text, action }) {

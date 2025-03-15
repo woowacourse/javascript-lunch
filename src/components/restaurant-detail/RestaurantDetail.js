@@ -1,30 +1,24 @@
 import {
+  BUTTON_TEXTS,
+  BUTTON_TYPES,
   CATEGORY_ASSETS,
   EVENT_TYPES,
   FAVORITE_ASSETS,
-} from "../../../constants/constants.js";
-import "./restaurantListItem.css";
+} from "../../constants/constants.js";
+import Button from "../common/button/Button.js";
+import "./restaurantDetail.css";
 
-export default class RestaurantListItem {
-  constructor(
-    { id, name, category, description, distance, link, isFavorite },
-    onToggleFavorite,
-    onOpenDetail
-  ) {
-    this.id = id;
-    this.name = name;
-    this.category = category;
-    this.description = description;
-    this.distance = distance;
-    this.link = link;
-    this.isFavorite = isFavorite;
+export default class RestaurantDetail {
+  constructor({ onToggleFavorite, onDelete, onClose }) {
     this.onToggleFavorite = onToggleFavorite;
-    this.onOpenDetail = onOpenDetail;
+    this.onDelete = onDelete;
+    this.onClose = onClose;
+
+    this.$form = document.createElement("form");
   }
 
   render() {
-    const $item = document.createElement("li");
-    $item.className = "restaurant";
+    this.$form.innerHTML = "";
 
     const $category = document.createElement("div");
     $category.className = "restaurant__category";
@@ -62,22 +56,53 @@ export default class RestaurantListItem {
     );
     $favoriteImg.setAttribute("alt", "자주 가는 음식점 추가");
 
-    $item.append($category, $info, $favoriteButton);
+    const $buttonContainer = document.createElement("div");
+    $buttonContainer.className = "button-container";
+
+    const $deleteButton = new Button({
+      type: "submit",
+      text: BUTTON_TEXTS.delete,
+      action: BUTTON_TYPES.delete,
+    }).render();
+
+    const $closeButton = new Button({
+      text: BUTTON_TEXTS.close,
+      action: BUTTON_TYPES.close,
+    }).render();
+
+    this.$form.append($category, $info, $favoriteButton, $buttonContainer);
     $category.append($categoryImg);
     $info.append($name, $distance, $description);
     $favoriteButton.append($favoriteImg);
+    $buttonContainer.append($deleteButton, $closeButton);
 
-    $favoriteButton.addEventListener(EVENT_TYPES.click, (e) => {
-      e.stopPropagation();
-      this.onToggleFavorite(this.id);
-    });
+    $favoriteButton.addEventListener(EVENT_TYPES.click, () =>
+      this.onToggleFavorite(this.id)
+    );
+    $closeButton.addEventListener(EVENT_TYPES.click, this.onClose.bind(this));
+    this.$form.addEventListener(
+      EVENT_TYPES.submit,
+      this.#handleSubmit.bind(this)
+    );
 
-    $item.addEventListener(EVENT_TYPES.click, (e) => {
-      if (!e.target.closest(".favorite-button")) {
-        this.onOpenDetail(this.id);
-      }
-    });
+    return this.$form;
+  }
 
-    return $item;
+  #handleSubmit(e) {
+    e.preventDefault();
+    this.onDelete(this.id);
+    this.onClose();
+  }
+
+  openDetail({ id, category, name, distance, description, link, isFavorite }) {
+    this.id = id;
+    this.category = category;
+    this.name = name;
+    this.distance = distance;
+    this.description = description;
+    this.link = link;
+    this.isFavorite = isFavorite;
+
+    this.render();
   }
 }
