@@ -1,11 +1,16 @@
 import { AddDetailModal } from "../components/AddDetailModal.js";
 import { initialRestaurants } from "../data/initialRestaurants.js";
 import removeModal from "../utils/removeModal.js";
-import { storeRestaurants } from "../utils/localStorage.js";
 
 let selectedRestaurantId = null;
 export function handleRestaurantClick(e) {
   const $clickedItem = e.target.closest(".restaurant");
+
+  // 모달 내부의 레스토랑 아이템이면 클릭 이벤트 무시
+  if ($clickedItem.classList.contains("modal-restaurant")) {
+    return;
+  }
+
   const { restaurantId } = $clickedItem.dataset;
 
   selectedRestaurantId = Number(restaurantId);
@@ -29,13 +34,6 @@ export function handleDeleteRestaurant(e) {
       item.remove();
     }
   });
-
-  const updatedRestaurants = initialRestaurants.filter(
-    (restaurant) => restaurant.id !== selectedRestaurantId,
-  );
-
-  storeRestaurants(updatedRestaurants);
-
   removeModal();
 }
 

@@ -12,7 +12,6 @@ import { storeRestaurants } from "../utils/localStorage.js";
 import { initialRestaurants } from "../data/initialRestaurants.js";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.js";
-import { DISTANCE_OPTIONS } from "../constants/options.js";
 
 export function handleDeleteRestaurant(e) {
   e.preventDefault();
