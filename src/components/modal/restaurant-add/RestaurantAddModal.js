@@ -4,7 +4,7 @@ import RestaurantAddModalItem from "./RestaurantAddModalItem.js";
 import Input from "../../common/Input.js";
 import TextArea from "../../common/TextArea.js";
 import RestaurantAddModalButtonContainer from "./RestaurantAddModalButtonContainer.js";
-import restaurantDataList from "../../../domain/RestaurantDataList.js";
+import restaurantDataList from "../../../domain/RestaurantDataList.ts";
 import { $ } from "../../../util/querySelector.js";
 import { removeModal } from "../Modal.js";
 
@@ -40,6 +40,7 @@ function createRestaurantItem(event) {
     event.preventDefault();
 
     const restaurantData = Object.fromEntries(new FormData(event.target));
+    console.log(restaurantData);
     restaurantDataList.addData(restaurantData);
     restaurantDataList.renderRestaurantList();
 

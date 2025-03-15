@@ -1,5 +1,5 @@
 import createElement from "../../../util/createElement";
-import restaurantDataList from "../../../domain/RestaurantDataList";
+import restaurantDataList from "../../../domain/RestaurantDataList.ts";
 
 export default function RestaurantItemFavorite({ isFavorite, id }) {
   const $favoriteWrap = createElement({

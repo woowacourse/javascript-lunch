@@ -1,8 +1,7 @@
 import RestaurantHeader from "./RestaurantHeader.js";
 import RestaurantListContainer from "./RestaurantListContainer.js";
 import RestaurantNav from "./RestaurantNav.js";
-
-import restaurantDataList from "../../domain/RestaurantDataList.js";
+import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import RestaurantFilters from "./RestaurantFilters.js";
 
 export default function RestaurantApp() {

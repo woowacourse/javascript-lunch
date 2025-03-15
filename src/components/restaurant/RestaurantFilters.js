@@ -1,4 +1,4 @@
-import restaurantDataList from "../../domain/RestaurantDataList";
+import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import createElement from "../../util/createElement";
 import { $ } from "../../util/querySelector";
 import Select from "../common/Select";

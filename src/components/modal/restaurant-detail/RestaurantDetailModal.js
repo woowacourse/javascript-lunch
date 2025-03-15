@@ -1,4 +1,4 @@
-import restaurantDataList from "../../../domain/RestaurantDataList";
+import restaurantDataList from "../../../domain/RestaurantDataList.ts";
 import createElement from "../../../util/createElement";
 import RestaurantItemCategory from "../../restaurant/restaurantItem/RestaurantItemCategory";
 import RestaurantItemFavorite from "../../restaurant/restaurantItem/RestaurantItemFavorite";
