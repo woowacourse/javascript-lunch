@@ -79,7 +79,7 @@ export default class AllLunchList extends Component {
 
   renderLunchList() {
     const allLunchList = this.addChild(LunchList, {
-      type: "all",
+      type: "ALL",
       items: this.filterItems(),
       onItemClick: this.props.onItemClick,
     });

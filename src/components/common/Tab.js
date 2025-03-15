@@ -28,7 +28,7 @@ export default class Tab extends Component {
 
   renderAllList() {
     const list = this.addChild(AllLunchList, {
-      type: "all",
+      type: "ALL",
       items: this.state.items,
       onItemClick: this.props.onItemClick,
     });
@@ -38,7 +38,7 @@ export default class Tab extends Component {
 
   renderFavoritesList() {
     const favoritesList = this.addChild(LunchList, {
-      type: "favorites",
+      type: "FAVORITES",
       items: this.state.items.filter((item) => item.isFavorite),
       onItemClick: this.props.onItemClick,
     });
