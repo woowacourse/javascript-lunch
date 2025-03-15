@@ -197,7 +197,7 @@ function appendRestaurantInfoContents(id) {
   const prevInformation = targetModal.querySelector('.restaurant');
 
   if (prevInformation) {
-    targetModal.replaceChild(prevInformation);
+    targetModal.removeChild(prevInformation);
   }
 
   targetModal.insertAdjacentHTML('afterbegin', contents);
