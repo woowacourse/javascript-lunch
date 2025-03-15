@@ -91,6 +91,7 @@ export default class App {
     });
 
     this.$submitFormBottomSheet = new BottomSheetBase({
+      id: "submit-form",
       $children: $restaurantForm.render(),
     });
 
@@ -117,6 +118,7 @@ export default class App {
     });
 
     this.$openDetailBottomSheet = new BottomSheetBase({
+      id: "open-detail",
       $children: this.$restaurantDetail.render(),
     });
 

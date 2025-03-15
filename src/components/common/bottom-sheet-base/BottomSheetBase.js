@@ -2,13 +2,15 @@ import { EVENT_TYPES } from "../../../constants/constants.js";
 import "./bottomSheetBase.css";
 
 export default class BottomSheetBase {
-  constructor({ $children }) {
+  constructor({ id, $children }) {
+    this.id = id;
     this.$children = $children;
     this.$modal = document.createElement("div");
   }
 
   render() {
     this.$modal.className = "modal";
+    if (this.id) this.$modal.id = this.id;
 
     const $backdrop = document.createElement("div");
     $backdrop.className = "modal-backdrop";
