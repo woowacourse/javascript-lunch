@@ -15,15 +15,14 @@ export default class Button extends Component {
     };
   }
 
-  handleButtonClick = (e) => {
-    if (e.target.closest(`#${this.props.id}`)) {
-      this.props.onClick();
-    }
-  };
-
   setEvent() {
     if (!this.props) return;
     document.removeEventListener("click", this.handleButtonClick);
+    this.handleButtonClick = (e) => {
+      if (e.target.closest(`#${this.props.id}`)) {
+        this.props.onClick();
+      }
+    };
     document.addEventListener("click", this.handleButtonClick);
   }
 

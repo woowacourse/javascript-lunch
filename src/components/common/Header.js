@@ -32,17 +32,20 @@ export default class Header extends Component {
   }
 
   setEvent() {
-    document.addEventListener("click", (event) => {
+    document.removeEventListener("click", this.handleClick);
+    this.handleClick = (event) => {
       const headerIcon = document.querySelector("#header-icon");
+      const titleText = document.querySelector("#header-text");
+
       if (headerIcon === event.target) {
         this.props.onIconClick();
       }
 
-      const titleText = document.querySelector("#header-text");
       if (titleText === event.target) {
         location.reload();
       }
-    });
+    };
+    document.addEventListener("click", this.handleClick);
   }
 
   template() {
