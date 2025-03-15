@@ -168,10 +168,10 @@ export default class RestaurantList extends Component<RestaurantListState> {
     LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
   }
 
-  #toggleLike(restaurantName: string) {
+  #toggleLike(restaurantId: string) {
     const copiedRestaurants = [...this.state.restaurants];
 
-    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.id === restaurantName);
+    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.id === restaurantId);
     const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
 
     copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });
