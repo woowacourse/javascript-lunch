@@ -1,4 +1,6 @@
+import Button from "../components/Button.js";
 import DetailItem from "../components/DetailItem.js";
+import ButtonsForm from "../components/Form/ButtonsForm.js";
 import Modal from "../components/Modal.js";
 import EventHandler from "../utils/EventHandler.js";
 import CategoryFilterController from "./CategoryFilterController.js";
@@ -51,20 +53,35 @@ function MainController() {
     }
   });
 
+  const buttons = [
+    { type: "submit", stylingBased: "secondary", text: "삭제하기" },
+    { type: "button", stylingBased: "primary", text: "닫기" },
+  ];
+
   mainElement.addEventListener("click", (event) => {
     if (event.target.closest(".favorite-star")) return;
     const restaurantElement = event.target.closest("li.restaurant");
     if (!restaurantElement) return;
     const restaurantName = restaurantElement.dataset.name;
     const restaurant = restaurantList.getRestaurantByName(restaurantName);
-    const dummy = document.createElement("div");
     const detailItemElement = DetailItem(restaurant.information);
 
-    const modalElement = Modal([detailItemElement]);
+    const formButtons = buttons.map((buttonData) => Button(buttonData));
+    const buttonsFormElement = ButtonsForm(formButtons);
+    const modalElement = Modal([detailItemElement, buttonsFormElement]);
     mainElement.appendChild(modalElement);
 
     const modalBackdropElement = modalElement.querySelector(".modal-backdrop");
     modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(modalElement));
+    buttonsFormElement
+      .querySelector("button[type='button']")
+      .addEventListener("click", () => EventHandler.modalToggle(modalElement));
+    buttonsFormElement.querySelector("button[type='submit']").addEventListener("click", () => {
+      restaurantList.removeRestaurant(restaurantName);
+      updateList(categoryFilterElement.value, sortingFilterElement.value);
+      updateFavoriteList();
+      EventHandler.modalToggle(modalElement);
+    });
     EventHandler.modalToggle(modalElement);
   });
 }

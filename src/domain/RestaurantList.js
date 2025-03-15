@@ -29,6 +29,11 @@ class RestaurantList {
     this.updateLocalStorage();
   }
 
+  removeRestaurant(restaurantName) {
+    this.#restaurants = this.#restaurants.filter(({ information }) => information.name !== restaurantName);
+    this.updateLocalStorage();
+  }
+
   // 카테고리 필터링
   filterByCategory(category) {
     if (category === "전체") {
