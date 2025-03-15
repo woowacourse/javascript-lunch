@@ -12,8 +12,7 @@ export default class Header extends Component {
   }
 
   renderText() {
-    const text = this.addChild(Text);
-    text.setProps({
+    const text = this.addChild(Text, {
       content: this.props.title,
       classList: ["text-2xl cursor-pointer"],
       id: "header-text",
@@ -23,11 +22,11 @@ export default class Header extends Component {
   }
 
   renderIcon() {
-    const icon = this.addChild(Icon);
-    icon.setProps({
+    const icon = this.addChild(Icon, {
       iconName: this.props.iconName,
       id: "header-icon",
     });
+
     return icon.template();
   }
 

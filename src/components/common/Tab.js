@@ -27,22 +27,22 @@ export default class Tab extends Component {
   }
 
   renderAllList() {
-    const list = this.addChild(AllLunchList);
-    list.setProps({
+    const list = this.addChild(AllLunchList, {
       type: "all",
       items: this.state.items,
       onItemClick: this.props.onItemClick,
     });
+
     return list.template();
   }
 
   renderFavoritesList() {
-    const favoritesList = this.addChild(LunchList);
-    favoritesList.setProps({
+    const favoritesList = this.addChild(LunchList, {
       type: "favorites",
       items: this.state.items.filter((item) => item.isFavorite),
       onItemClick: this.props.onItemClick,
     });
+
     return favoritesList.template();
   }
 

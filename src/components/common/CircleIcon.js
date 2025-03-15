@@ -14,10 +14,10 @@ export default class CircleIcon extends Component {
   }
 
   renderIcon() {
-    const icon = new Icon();
-    icon.setProps({
+    const icon = this.addChild(Icon, {
       iconName: this.props.iconName,
     });
+
     return icon.template();
   }
 

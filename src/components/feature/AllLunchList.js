@@ -52,8 +52,7 @@ export default class AllLunchList extends Component {
   }
 
   renderCategoryFilter() {
-    const categoryFilterSelect = this.addChild(Select);
-    categoryFilterSelect.setProps({
+    const categoryFilterSelect = this.addChild(Select, {
       placeholder: "전체",
       options: ["전체", ...categories],
       onChange: (value) => this.setState({ category: value }),
@@ -66,8 +65,7 @@ export default class AllLunchList extends Component {
   }
 
   renderNameDistanceFilter() {
-    const nameDistanceFilterSelect = this.addChild(Select);
-    nameDistanceFilterSelect.setProps({
+    const nameDistanceFilterSelect = this.addChild(Select, {
       placeholder: "이름순",
       options: ["이름순", "거리순"],
       onChange: (value) => this.setState({ sortBy: value }),
@@ -75,16 +73,17 @@ export default class AllLunchList extends Component {
       dropDownClassList: ["w-125"],
       id: "name-distance-filter-select",
     });
+
     return nameDistanceFilterSelect.template();
   }
 
   renderLunchList() {
-    const allLunchList = this.addChild(LunchList);
-    allLunchList.setProps({
+    const allLunchList = this.addChild(LunchList, {
       type: "all",
       items: this.filterItems(),
       onItemClick: this.props.onItemClick,
     });
+
     return allLunchList.template();
   }
 
