@@ -1,26 +1,30 @@
 import FavoriteButton from '../components/button/FavoriteButton';
 import PlusButton from '../components/button/PlusButton';
 import Header from '../components/Header';
-import RestaurantTabContainer from '../components/tab/RestaurantTabContainer';
 import Restaurants from '../domain/Restaurants';
 import { Restaurant } from '../types/types';
 import { $ } from '../util/selector';
 import RestaurantFilterView from '../view/RestaurantFilterView';
 import RestaurantListView from '../view/RestaurantListView';
 import ModalController from './modalController';
+import TabController from './TabController';
 
 class AppController {
   modalController;
   restaurants;
+  tabController;
 
   constructor() {
+    this.tabController = new TabController((tabType) => {
+      this.#onTabChange(tabType);
+    });
     this.modalController = new ModalController();
     this.restaurants = new Restaurants();
   }
 
   init() {
     this.renderHeader();
-    this.renderTabContainer();
+    this.tabController.render();
     this.renderFilterContainer();
     this.renderRestaurantListContainer();
     this.modalController.renderModal();
@@ -38,36 +42,13 @@ class AppController {
     body?.prepend(header);
   }
 
-  renderTabContainer() {
-    const main = $('main');
-
-    const tabContainer = RestaurantTabContainer();
-    main?.prepend(tabContainer);
-
-    const tabs = document.querySelectorAll('.restaurant-tab');
-
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const currentTab = tabContainer.getAttribute('data-active');
-        const tabType = (tab as HTMLElement).dataset.tab || 'all';
-
-        if (currentTab === tabType) {
-          return;
-        }
-
-        tabs.forEach((t) => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        tabContainer.setAttribute('data-active', tabType);
-
-        if (tabType === 'all') {
-          this.renderFilterContainer();
-        } else if (tabType === 'favorite') {
-          RestaurantFilterView.remove();
-        }
-        this.updateRestaurantListByTab(tabType);
-      });
-    });
+  #onTabChange(tabType: 'all' | 'favorite') {
+    if (tabType === 'all') {
+      this.renderFilterContainer();
+    } else if (tabType === 'favorite') {
+      RestaurantFilterView.remove();
+    }
+    this.updateRestaurantListByTab(tabType);
   }
 
   renderFilterContainer() {

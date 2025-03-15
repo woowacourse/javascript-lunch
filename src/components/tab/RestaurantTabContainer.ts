@@ -1,10 +1,11 @@
+import { TabType } from '../../types/types';
 import createDOMElement from '../../util/createDomElement';
 
-function RestaurantTabContainer() {
+function RestaurantTabContainer(tabType: TabType) {
   return createDOMElement({
     tag: 'section',
     class: 'restaurant-tab-container',
-    'data-active': 'all',
+    'data-active': tabType,
     children: [
       createDOMElement({
         tag: 'div',

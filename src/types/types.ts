@@ -16,3 +16,5 @@ export type Restaurant = {
   link?: string;
   isFavorite: boolean;
 };
+
+export type TabType = 'all' | 'favorite';
