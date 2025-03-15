@@ -4,10 +4,11 @@ import SubmitEvent from "./utils/SubmitEvent.js";
 import { getHTML } from "./utils/utils.ts";
 
 const restaurantTabMenu = RestaurantTabMenu("restaurantMenuSection");
-const lunchList = LunchList("restaurantListSection");
+const lunchList = LunchList(
+  "restaurantListSection",
+  "restaurantFavoriteSection"
+);
 
 lunchList.render();
+lunchList.renderFavorites();
 SubmitEvent(lunchList);
-
-const lunchFavoriteList = LunchList("restaurantFavoriteSection");
-lunchFavoriteList.render();

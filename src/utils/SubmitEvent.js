@@ -33,6 +33,7 @@ function SubmitEvent(lunchList) {
 
     setStorage("lunchItems", storageLunchItems);
     LunchList().render();
+    LunchList().renderFavorites();
     closeModal();
   }
 
