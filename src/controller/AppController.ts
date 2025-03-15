@@ -1,7 +1,6 @@
 import FavoriteButton from '../components/button/FavoriteButton';
 import PlusButton from '../components/button/PlusButton';
 import Header from '../components/Header';
-import RestaurantDetailModalContent from '../components/modal/RestaurantDetailModalContent';
 import RestaurantTabContainer from '../components/tab/RestaurantTabContainer';
 import Restaurants from '../domain/Restaurants';
 import { Restaurant } from '../types/types';
@@ -24,7 +23,7 @@ class AppController {
     this.renderTabContainer();
     this.renderFilterContainer();
     this.renderRestaurantListContainer();
-    this.renderModal();
+    this.modalController.renderModal();
   }
 
   renderHeader() {
@@ -33,7 +32,7 @@ class AppController {
     const header = Header({
       title: '점심 뭐 먹지',
       right: PlusButton({
-        onclick: () => this.modalController.openRestaurantAddModal(this.addRestaurantItem),
+        onclick: () => this.modalController.openRestaurantAddModal((data) => this.addRestaurantItem(data)),
       }),
     });
     body?.prepend(header);
@@ -106,42 +105,10 @@ class AppController {
           this.restaurants.toggleFavoriteRestaurant(selectedRestaurant.name);
           restaurantFavoriteButton.replaceWith(FavoriteButton({ isFavorite: selectedRestaurant.isFavorite }));
         } else {
-          const modalContent = RestaurantDetailModalContent({ restaurant: selectedRestaurant });
-          this.modalController.openRestaurantDetailModal(modalContent);
-
-          modalContent.addEventListener('click', (event) => {
-            const target = event.target as HTMLElement;
-            const favoriteButton = target.closest('.restaurant__favorite-button');
-            const closeButton = target.closest('.button--secondary');
-            const deleteButton = target.closest('.button--primary');
-
-            if (favoriteButton) {
-              this.restaurants.toggleFavoriteRestaurant(selectedRestaurant.name);
-              favoriteButton.replaceWith(FavoriteButton({ isFavorite: selectedRestaurant.isFavorite, isDetail: true }));
-              const listRestaurantElement = $(`.restaurant[data-id="${selectedRestaurant.name}"]`, container);
-              if (listRestaurantElement) {
-                const listFavoriteButton = $('.restaurant__favorite-button', listRestaurantElement);
-                listFavoriteButton?.replaceWith(FavoriteButton({ isFavorite: selectedRestaurant.isFavorite }));
-              }
-            }
-            if (closeButton) {
-              this.modalController.close();
-            }
-            if (deleteButton) {
-              this.restaurants.removeRestaurant(selectedRestaurant.name);
-              this.modalController.close();
-              RestaurantListView.removeItem(selectedRestaurant.name);
-            }
-          });
+          this.modalController.openRestaurantDetailModal(selectedRestaurant, this.restaurants);
         }
       }
     });
-  }
-
-  renderModal() {
-    const main = $('main');
-
-    main?.appendChild(this.modalController.modal);
   }
 
   updateRestaurantListByFilter(categoryFilterValue?: string, sortFilterValue?: string) {

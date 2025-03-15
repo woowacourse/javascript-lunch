@@ -56,7 +56,10 @@ function RestaurantAddModalForm() {
       createDOMElement({
         tag: 'div',
         class: 'button-container',
-        children: [ActionButton({ text: '취소하기', type: 'button' }), CTAButton({ text: '추가하기', type: 'submit' })],
+        children: [
+          ActionButton({ id: 'restaurantAddModalCancelButton', text: '취소하기', type: 'button' }),
+          CTAButton({ id: 'restaurantAddModalSubmitButton', text: '추가하기', type: 'submit' }),
+        ],
       }),
     ],
   });
