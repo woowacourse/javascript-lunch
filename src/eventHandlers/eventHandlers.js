@@ -172,6 +172,21 @@ function toggleFavoriteRestaurant(callback) {
   restaurantInfoModal.addEventListener('click', handleFavoriteClick);
 }
 
+function deleteRestaurantItem(callback) {
+  const handleDeleteClick = (event) => {
+    const { target } = event;
+    const targetItem = target.closest('.restaurant');
+
+    const id = target.dataset.id;
+    storeService.deleteRestaurantById(id);
+
+    callback();
+  };
+
+  const deleteItemButton = document.querySelector('.delete-item-button');
+  deleteItemButton.addEventListener('click', handleDeleteClick);
+}
+
 const eventHandlers = {
   openAddRestaurantModal,
   openRestaurantInfoModal,
@@ -181,6 +196,7 @@ const eventHandlers = {
   sortRestaurantItems,
   filteringRestaurantItems,
   toggleFavoriteRestaurant,
+  deleteRestaurantItem,
 };
 
 export default eventHandlers;

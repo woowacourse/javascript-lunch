@@ -99,6 +99,7 @@ function addEventHandlers() {
   eventHandlers.sortRestaurantItems(updateRestaurantElements);
   eventHandlers.filteringRestaurantItems(updateRestaurantElements);
   eventHandlers.toggleFavoriteRestaurant(updateFavoriteIcon);
+  eventHandlers.deleteRestaurantItem(updateRestaurantElements);
 }
 
 function setRequired(element) {
