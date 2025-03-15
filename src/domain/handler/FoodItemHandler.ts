@@ -12,7 +12,7 @@ import {
   ReadFoodListType,
   ShowConvertedItemType,
   ShowFoodItemType,
-  SortedFoodListType,
+  UpdateFoodListType,
 } from "../../types/domain/FoodItemHandlerType";
 import { getFormFoodItem } from "./FoodFormHandler";
 import {
@@ -42,25 +42,20 @@ export function addFoodFormItem({ filter }: AddFoodItemType) {
   Modal.close({ filter });
 }
 
+export function updateFoodList({ foodItem }: UpdateFoodListType) {
+  updateStorageFoodList({ newFoodItem: foodItem });
+}
+
 export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {
   deleteStorageFoodList({ newFoodItem });
   Modal.close({ filter });
 }
 
-export function sortedFoodList({ filter, foodList }: SortedFoodListType) {
-  if (filter) {
-    return (
-      filter
-        .updateFilterItem({ foodList })
-        ?.sort((a, b) => filter.sortBy({ a, b })) || []
-    );
-  }
-  return foodList;
-}
+// FoodItem-Data 관련 부가적인 기능
 
-// 화면에 출력하기
+// 화면에 보여주기
 export function convertStorageToLocal({
-  filter = null,
+  filter,
   foodList,
 }: ConvertStorageToLocalType) {
   const FoodItemListComponent = foodList.map((localFoodItem) => {
@@ -89,7 +84,7 @@ export function showConvertedItem({
   const previousFoodList = readFoodList({ favoriteFilter });
   convertStorageToLocal({
     filter,
-    foodList: sortedFoodList({ filter, foodList: previousFoodList }),
+    foodList: filter.sortedFoodList({ foodList: previousFoodList }),
   });
 }
 

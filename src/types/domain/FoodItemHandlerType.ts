@@ -6,26 +6,25 @@ export interface ReadFoodListType {
 }
 
 export interface AddFoodItemType {
-  filter: Filter | null;
+  filter: Filter;
 }
 
 export interface DeleteFoodItemType {
-  filter: Filter | null;
+  filter: Filter;
   newFoodItem: FoodType;
 }
 
-export interface SortedFoodListType {
-  filter: Filter | null;
-  foodList: FoodType[];
+export interface UpdateFoodListType {
+  foodItem: FoodType;
 }
 
 export interface OpenDetailModalType {
-  filter: Filter | null;
+  filter: Filter;
   foodItem: FoodType;
 }
 
 export interface ShowConvertedItemType {
-  filter: Filter | null;
+  filter: Filter;
   favoriteFilter: boolean;
 }
 
@@ -34,6 +33,6 @@ export interface ShowFoodItemType {
 }
 
 export interface ConvertStorageToLocalType {
-  filter: Filter | null;
+  filter: Filter;
   foodList: FoodType[];
 }

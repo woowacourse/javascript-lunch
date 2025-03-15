@@ -4,5 +4,5 @@ import { FoodType } from "../component/FoodItemType";
 export interface HandleFavoriteButtonType {
   event: Event;
   foodItem: FoodType;
-  filter: Filter | null;
+  filter: Filter;
 }

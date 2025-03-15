@@ -1,6 +1,7 @@
 import {
   ChangeCategoryType,
   SortByType,
+  SortedFoodListType,
   UpdateFilterItemType,
 } from "../types/domain/FilterType";
 
@@ -29,12 +30,12 @@ export class Filter {
         if (this.#categoryFilter === "전체") return foodItem;
         return foodItem.imgAlt === this.#categoryFilter;
       })
-      .sort((a, b) => this.sortBy({ a, b }));
+      .sort((a, b) => this.#sortBy({ a, b }));
 
     return filteredItems || [];
   }
 
-  sortBy({ a, b }: SortByType) {
+  #sortBy({ a, b }: SortByType) {
     if (this.#sortingFilter === "이름순") {
       return a.name.localeCompare(b.name, "ko");
     }
@@ -42,5 +43,13 @@ export class Filter {
       return Number(a.distance) - Number(b.distance);
     }
     return 0;
+  }
+
+  sortedFoodList({ foodList }: SortedFoodListType) {
+    return (
+      this.updateFilterItem({ foodList })?.sort((a, b) =>
+        this.#sortBy({ a, b })
+      ) || []
+    );
   }
 }

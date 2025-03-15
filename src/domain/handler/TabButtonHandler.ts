@@ -1,6 +1,5 @@
 import { HandleFavoriteButtonType } from "../../types/domain/TabButtonHandlerType";
-import { showConvertedItem } from "./FoodItemHandler";
-import { updateStorageFoodList } from "./FoodStorageHandler";
+import { showConvertedItem, updateFoodList } from "./FoodItemHandler";
 
 export function handleTabButton({
   event,
@@ -13,7 +12,7 @@ export function handleTabButton({
 
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
-  updateStorageFoodList({ newFoodItem: foodItem });
+  updateFoodList({ foodItem });
 
   if (favoriteState) {
     showConvertedItem({ filter, favoriteFilter: true });

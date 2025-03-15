@@ -5,8 +5,8 @@ import { Modal } from "../component/layout/Modal";
 import {
   deleteFoodItem,
   showConvertedItem,
+  updateFoodList,
 } from "../domain/handler/FoodItemHandler";
-import { updateStorageFoodList } from "../domain/handler/FoodStorageHandler";
 import { HandleFavoriteButtonType } from "../types/domain/TabButtonHandlerType";
 
 import { CloseButtonType, FoodDetailType } from "../types/pages/FoodDetailType";
@@ -66,7 +66,7 @@ function closeButton({ filter }: CloseButtonType) {
 function handleTabButton({ foodItem, filter }: HandleFavoriteButtonType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
-  updateStorageFoodList({ newFoodItem: foodItem });
+  updateFoodList({ foodItem });
 
   Modal.setContent({
     modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
