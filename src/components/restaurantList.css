@@ -12,7 +12,7 @@
   align-items: flex-start;
 
   padding: 16px 8px;
-
+  z-index: 1;
   border-bottom: 1px solid #e9eaed;
 }
 
@@ -35,11 +35,18 @@
   width: 36px;
   height: 36px;
 }
-
+.restaurant__content {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+.restaurant__button {
+  margin-left: auto;
 }
 
 .restaurant__name {
