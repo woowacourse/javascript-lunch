@@ -52,7 +52,7 @@ function closeModal() {
   };
 
   const handleEscapeKeydown = (event) => {
-    const openedModals = document.querySelectorAll('.modal--open');
+    const openedModals = [...document.querySelectorAll('.modal--open')];
     if (event.key === 'Escape' && openedModals.length > 0) {
       resetForm();
 
