@@ -22,7 +22,7 @@ export default function RestaurantNav() {
     if (e.target.name === "all-restaurant") return;
     $allRestaurant.classList.add("select");
     $favoriteRestaurant.classList.remove("select");
-    // 모든 음식점 가져와서 render 함수 호출
+
     restaurantDataList.setViewState(VIEW_STATE.all);
     restaurantDataList.renderRestaurantList();
   });
@@ -31,7 +31,7 @@ export default function RestaurantNav() {
     if (e.target.name === "favorite-Restaurant") return;
     $allRestaurant.classList.remove("select");
     $favoriteRestaurant.classList.add("select");
-    // 좋아요 음식점 가져와서 render 함수 호출
+
     restaurantDataList.setViewState(VIEW_STATE.favorite);
     restaurantDataList.renderRestaurantList();
   });
