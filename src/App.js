@@ -9,26 +9,38 @@ import { setItem, RESTAURANT_LIST_KEY } from "./components/utils/storage.js";
 
 export default class App {
   #selectedTab;
+  #restaurantList;
 
   constructor() {
     this.restaurantListModel = new RestaurantListModel();
     this.#selectedTab = "all";
+    this.#restaurantList = this.restaurantListModel.getRestaurantList();
+
     this.#initElement();
   }
+
+  #updateRestautantList = (newRestaurantList) => {
+    this.#restaurantList = newRestaurantList;
+    this.updateRestaurantListUI();
+  };
+
+  #updateLocalRestautantList = (newRestaurantList) => {
+    this.restaurantListModel.updateRestautantList(newRestaurantList);
+    setItem(RESTAURANT_LIST_KEY, newRestaurantList);
+    this.#updateRestautantList(newRestaurantList);
+  };
 
   #updateSelected = (selected) => {
     this.#selectedTab = selected;
 
     const $tap = document.querySelector(".restaurant-list-header");
 
-    const restaurantList = this.restaurantListModel.getRestaurantList();
-
     $tap.replaceWith(
       new RestaurantNavigator(
         this.#selectedTab,
         this.#updateSelected,
-        restaurantList,
-        this.#updateList
+        this.#restaurantList,
+        this.#updateRestautantList
       ).render()
     );
 
@@ -37,27 +49,17 @@ export default class App {
     );
     $filterSection.replaceWith(
       new RestaurantFilterSection(
-        restaurantList,
-        this.#updateList,
+        this.#restaurantList,
+        this.#updateRestautantList,
         this.#selectedTab
       ).render()
     );
-  };
-
-  #updateList = (newRestaurantList) => {
-    this.updateRestautantList(newRestaurantList);
-    this.updateRestaurantListUI();
   };
 
   updateRestaurantListUI() {
     this.#renderRestaurantList();
     this.#resetForm();
   }
-
-  updateRestautantList = (newRestaurantList) => {
-    this.restaurantListModel.updateRestautantList(newRestaurantList);
-    setItem(RESTAURANT_LIST_KEY, newRestaurantList);
-  };
 
   #resetForm() {
     const $addButton = document.querySelector(".button--primary");
@@ -69,10 +71,34 @@ export default class App {
   #renderRestaurantList() {
     const $listContainer = document.querySelector(".restaurant-list-container");
 
-    const restaurantList = this.restaurantListModel.getRestaurantList();
     this.$listSection.replaceChild(
-      new RestaurantList(restaurantList, this.#updateList).render(),
+      new RestaurantList(
+        this.#restaurantList,
+        this.#updateLocalRestautantList
+      ).render(),
       $listContainer
+    );
+
+    const $filterSection = document.querySelector(
+      ".restaurant-filter-container"
+    );
+    $filterSection.replaceWith(
+      new RestaurantFilterSection(
+        this.#restaurantList,
+        this.#updateRestautantList,
+        this.#selectedTab
+      ).render()
+    );
+
+    const $tap = document.querySelector(".restaurant-list-header");
+
+    $tap.replaceWith(
+      new RestaurantNavigator(
+        this.#selectedTab,
+        this.#updateSelected,
+        this.#restaurantList,
+        this.#updateRestautantList
+      ).render()
     );
   }
 
@@ -86,19 +112,17 @@ export default class App {
     this.$listSection = document.createElement("div");
     this.$listSection.className = "list-section";
 
-    const restaurantList = this.restaurantListModel.getRestaurantList();
-
     const $listHeader = new RestaurantNavigator(
       this.#selectedTab,
       this.#updateSelected,
-      restaurantList,
-      this.#updateList
+      this.#restaurantList,
+      this.#updateRestautantList
     ).render();
 
     this.$listSection.appendChild(
       new RestaurantFilterSection(
-        restaurantList,
-        this.#updateList,
+        this.#restaurantList,
+        this.#updateRestautantList,
         this.#selectedTab
       ).render()
     );
@@ -106,17 +130,17 @@ export default class App {
     this.$listSection.append(
       $listHeader,
       new RestaurantList(
-        restaurantList.sort((a, b) =>
+        this.#restaurantList.sort((a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
         ),
-        this.#updateList
+        this.#updateLocalRestautantList
       ).render()
     );
     $main.appendChild(this.$listSection);
 
     const $restaurantForm = new RestaurantForm(
-      this.#updateList,
-      restaurantList
+      this.#updateLocalRestautantList,
+      this.#restaurantList
     ).render();
 
     $main.appendChild(
