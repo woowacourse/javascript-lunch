@@ -5,6 +5,7 @@ import {
 } from "../domain/RestaurantStorage";
 import { SaveFavoriteRestaurantInModal } from "../ui/SaveFavoriteRestaurant";
 import DetailModal from "../ui/DetailModal";
+import { CreateRestaurantList } from "../ui/CreateRestaurantList";
 
 export default function RestaurantDetailModal() {
   const $app = document.getElementById("app") as HTMLElement;
@@ -51,7 +52,13 @@ function DeleteModalEvent() {
 
     DeleteRestaurant($restaurantName);
     alert(`${$restaurantName} 음식점이 삭제되었습니다.`);
-    location.reload();
+
+    const $modal = document.querySelector(
+      ".restaurant-detail-modal-background"
+    );
+
+    $modal?.remove();
+    UpdateRestaurantList();
   });
 }
 
@@ -66,7 +73,7 @@ function CloseModalEvent() {
     );
 
     $modal?.remove();
-    location.reload();
+    UpdateRestaurantList();
   });
 
   CloseOnDarkBackground();
@@ -79,7 +86,12 @@ function CloseOnDarkBackground() {
   $modalBackground.addEventListener("click", (e: Event) => {
     if (e.target === $modalBackground) {
       $modalBackground.remove();
-      location.reload();
+      UpdateRestaurantList();
     }
   });
+}
+
+function UpdateRestaurantList() {
+  const restaurants = GetAllRestaurants();
+  CreateRestaurantList(restaurants);
 }
