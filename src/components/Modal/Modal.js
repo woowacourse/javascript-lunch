@@ -134,7 +134,7 @@ class Modal extends Component {
     restaurantItems.forEach((item) => {
       const title = item.querySelector(".restaurant__name").innerText;
       if (title === this.props.data.name) {
-        item.querySelector("#list__star").src = starImg;
+        item.querySelector(".list__star").src = starImg;
       }
     });
   }

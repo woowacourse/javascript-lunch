@@ -23,7 +23,7 @@ class Restaurant extends Component {
           <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
           <p class="restaurant__description text-body">${description}</p>
       </div>
-      <img src="${starImg}" id="list__star" class="restaurant__like"/>
+      <img src="${starImg}" class="restaurant__like list__star"/>
     `;
   }
 
@@ -34,7 +34,7 @@ class Restaurant extends Component {
         this.handleDetailModal();
       });
 
-    this.$target.querySelector("#list__star").addEventListener("click", () => {
+    this.$target.querySelector(".list__star").addEventListener("click", () => {
       this.handleLike();
     });
   }
@@ -48,7 +48,7 @@ class Restaurant extends Component {
     );
     setStoredRestaurantData(storedData);
     const starImg = this.props.like ? "/filledStar.png" : "/unFilledStar.png";
-    this.$target.querySelector("#list__star").src = starImg;
+    this.$target.querySelector(".list__star").src = starImg;
   }
 
   handleDetailModal() {
