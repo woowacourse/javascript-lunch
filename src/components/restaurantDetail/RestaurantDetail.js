@@ -5,12 +5,14 @@ import "./restaurantDetail.css";
 
 export default class RestaurantDetail {
   #restaurant;
+  #restaurantList;
   #updateList;
   #toggleModal;
   #onDelete;
 
-  constructor(restaurant, updateList, toggleModal, onDelete) {
+  constructor(restaurant, restaurantList, updateList, toggleModal, onDelete) {
     this.#restaurant = restaurant;
+    this.#restaurantList = restaurantList;
     this.#updateList = updateList;
     this.#toggleModal = toggleModal;
     this.#onDelete = onDelete;
@@ -35,7 +37,7 @@ export default class RestaurantDetail {
 
     const $item = new RestaurantListItem(
       this.#restaurant,
-      [], // 레스토랑 리스트
+      this.#restaurantList,
       this.#updateList
     ).render();
     $item.classList.add("restaurant-detail");

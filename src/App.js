@@ -75,7 +75,8 @@ export default class App {
 
     const $restaurantDetail = new RestaurantDetail(
       this.#selectedRestaurant,
-      this.#updateRestautantList,
+      this.#restaurantList,
+      this.#updateLocalRestautantList,
       this.#toggleDetailModalShow,
       this.#onRestaurantItemDelete
     ).render();
