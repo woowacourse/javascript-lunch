@@ -167,7 +167,7 @@ describe('기능 테스트: 음식점 상세 정보 모달 닫기 테스트', ()
   });
 
   it('사용자가 닫기 버튼을 클릭하여 음식점 상세 정보 모달을 닫는 시나리오 테스트', () => {
-    cy.get('.restaurant-info-modal .button--secondary').click();
+    cy.get('.restaurant-info-modal .button--primary').click();
     cy.get('.modal--open').should('not.exist');
   });
 
