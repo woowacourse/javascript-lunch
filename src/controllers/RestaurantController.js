@@ -56,59 +56,56 @@ class RestaurantController {
   }
 
   #handleClickStar = (event, id) => {
-    const { filteredList } = this.#restaurantService.toggleFavorite({
-      id,
-      tab: this.#state.tab,
-      category: this.#state.category,
-      order: this.#state.order,
-    });
-    this.#updateRestaurantUI(filteredList);
+    this.#updateRestaurantUI(
+      this.#restaurantService.toggleFavorite({
+        id,
+        tab: this.#state.tab,
+        category: this.#state.category,
+        order: this.#state.order,
+      }).filteredList
+    );
     event.target.classList.toggle('restaurant__star--clicked');
   };
 
   #handleChangeCategory = (event) => {
     this.#changeState(STATE_KEY.CATEGORY, event.target.value);
-    const restaurantList = this.#restaurantService.getFilteredRestaurants(
-      this.#state.category,
-      this.#state.order
+    this.#updateRestaurantUI(
+      this.#restaurantService.getFilteredRestaurants(this.#state.category, this.#state.order)
     );
-    this.#updateRestaurantUI(restaurantList);
   };
 
   #handleChangeFilter = (event) => {
     this.#changeState(STATE_KEY.ORDER, event.target.value);
-    const restaurantList = this.#restaurantService.getFilteredRestaurants(
-      this.#state.category,
-      this.#state.order
+    this.#updateRestaurantUI(
+      this.#restaurantService.getFilteredRestaurants(this.#state.category, this.#state.order)
     );
-    this.#updateRestaurantUI(restaurantList);
   };
 
   #handleTabBar = (event) => {
     document.querySelector('.restaurant-filter-container').classList.toggle('hidden');
 
     if (event.target.id === TAB.FAVORITE) {
-      const favoriteRestaurantList = this.#restaurantService.getFavoriteRestaurants();
-      this.#updateRestaurantUI(favoriteRestaurantList);
       this.#changeState(STATE_KEY.TAB, TAB.FAVORITE);
-      document.querySelector('select#category-filter').value = CATEGORY.ALL;
+      this.#updateRestaurantUI(this.#restaurantService.getFavoriteRestaurants());
     } else if (event.target.id === TAB.ALL) {
-      const allRestaurants = this.#restaurantService.getOrderedRestaurants(this.#state.order);
-      this.#updateRestaurantUI(allRestaurants);
+      this.#initialOptionState();
       this.#changeState(STATE_KEY.TAB, TAB.ALL);
+      this.#updateRestaurantUI(this.#restaurantService.getOrderedRestaurants(this.#state.order));
     }
   };
 
   #handleDelete = (event, id) => {
     if (window.confirm('해당 음식점을 삭제하시겠습니까?')) {
-      const { filteredList } = this.#restaurantService.deleteRestaurant({
-        id,
-        tab: this.#state.tab,
-        order: this.#state.order,
-        category: this.#state.category,
-      });
-      this.#updateRestaurantUI(filteredList);
+      this.#updateRestaurantUI(
+        this.#restaurantService.deleteRestaurant({
+          id,
+          tab: this.#state.tab,
+          order: this.#state.order,
+          category: this.#state.category,
+        }).filteredList
+      );
       this.#modalService.toggleModal(MODAL_TYPE.DETAIL);
+      window.alert('삭제되었습니다.');
     }
   };
 
@@ -124,15 +121,16 @@ class RestaurantController {
   #handleAddRestaurant = (inputData) => {
     if (window.confirm('해당 음식점을 추가하시겠습니까?')) {
       addRestaurantList(inputData, this.#handleClickItem, this.#handleClickStar);
-
-      const { filteredList } = this.#restaurantService.addRestaurant({
-        data: inputData,
-        tab: this.#state.tab,
-        order: this.#state.order,
-        category: this.#state.category,
-      });
-      this.#updateRestaurantUI(filteredList);
+      this.#updateRestaurantUI(
+        this.#restaurantService.addRestaurant({
+          data: inputData,
+          tab: this.#state.tab,
+          order: this.#state.order,
+          category: this.#state.category,
+        }).filteredList
+      );
       this.#modalService.toggleModal(MODAL_TYPE.ENROLL);
+      window.alert('추가되었습니다.');
     }
   };
 
@@ -147,6 +145,13 @@ class RestaurantController {
 
   #changeState(field, value) {
     this.#state[field] = value;
+  }
+
+  #initialOptionState() {
+    document.querySelector('select#category-filter').value = CATEGORY.ALL;
+    document.querySelector('select#sorting-filter').value = ORDER.NAME;
+    this.#changeState(STATE_KEY.CATEGORY, CATEGORY.ALL);
+    this.#changeState(STATE_KEY.ORDER, ORDER.NAME);
   }
 }
 
