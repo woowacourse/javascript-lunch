@@ -2,7 +2,7 @@ import selectedFilterValue from "../../domain/SelectedFilterValue";
 import createElement from "../../util/createElement";
 import Restaurant from "./Restaurant";
 
-export default function RestaurantFilterTabs() {
+export default function RestaurantFilterTabs() {    
     const $restaurantFilterContainer = createElement({
         tag: "div",
         classNames: ["restaurant-filter-tabs"],
@@ -24,6 +24,19 @@ export default function RestaurantFilterTabs() {
     $restaurantFilterContainer.appendChild($allTab);
     $restaurantFilterContainer.appendChild($wishTab);
 
+    function wishListClassToggle() {
+        if(selectedFilterValue.getIsWishList()) {
+            $wishTab.classList.add("active");
+            $allTab.classList.remove("active");
+        } else {
+            $allTab.classList.add("active");
+            $wishTab.classList.remove("active");
+        }
+    }
+
+    wishListClassToggle();
+
+
     $allTab.addEventListener("click", () => {
         selectedFilterValue.updateSelectedFilterValue("restaurant-tab", false);
         wishListClassToggle();
@@ -35,17 +48,6 @@ export default function RestaurantFilterTabs() {
         wishListClassToggle();
         Restaurant({isReRender: true});
     });
-
-    function wishListClassToggle() {
-        console.log("야!")
-        if(selectedFilterValue.getIsWishList()) {
-            $wishTab.classList.add("active");
-            $allTab.classList.remove("active");
-        } else {
-            $allTab.classList.add("active");
-            $wishTab.classList.remove("active");
-        }
-    }
 
     return $restaurantFilterContainer;
 }

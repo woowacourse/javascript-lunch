@@ -4,7 +4,6 @@ import Button from "../util/Button";
 import restaurantDataList from "../../domain/RestaurantDataList";
 
 export default function RestaurantItemDetailModalButtonContainer({restaurantId}) {
-  // console.log(restaurantId);
   
   const $div = createElement({
     tag: "div",
