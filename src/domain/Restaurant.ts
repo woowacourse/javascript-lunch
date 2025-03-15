@@ -60,12 +60,14 @@ export default class Restaurant {
   }
 
   static removeItemById(id: number) {
+    const Id = Number(id);
+
     const restaurants = Restaurant.restaurantLocalStorage.filter(
-      (r) => r.id !== id
+      (r) => Number(r.id) !== Id
     );
+
     Restaurant.updateLocalStorage(restaurants);
   }
-
   static updateLocalStorage(restaurants: RestaurantItem[]) {
     localStorage.setItem("restaurantItem", JSON.stringify(restaurants));
   }
