@@ -1,32 +1,32 @@
 export interface State {
+  id: number;
   category: string;
   name: string;
   distance: number;
   description: string;
   link: string;
+  isFavorite: boolean;
 }
 
+const initialState: State = {
+  id: 7,
+  category: '',
+  name: '',
+  distance: 0,
+  description: '',
+  link: '',
+  isFavorite: false,
+};
+
 const stateStore = {
-  state: {
-    category: '',
-    name: '',
-    distance: 0,
-    description: '',
-    link: '',
-  } as State,
+  state: { ...initialState },
 
   updateState(newState: State) {
     this.state = newState;
   },
 
   initState() {
-    this.state = {
-      category: '',
-      name: '',
-      distance: 0,
-      description: '',
-      link: '',
-    };
+    this.state = { ...initialState };
   },
 
   getState(): State {
