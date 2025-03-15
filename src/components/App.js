@@ -14,12 +14,18 @@ import {
 import renderRestaurants from "./renderRestaurants.js";
 import filterByCategory from "./filterRestaurants.js";
 import sortByOption from "./sortRestaurants.js";
+import Tab from "./Tab/tab.js";
 class App extends Component {
   constructor($target) {
     super($target);
     this.state = this.initState();
+    this.tab = new Tab(document.querySelector(".tab-container"), {
+      activeTab: this.state.activeTab,
+    });
+    this.activateMain = this.activateMain.bind(this);
     this.getNewRestaurant = this.getNewRestaurant.bind(this);
     this.deleteRestaurant = this.deleteRestaurant.bind(this);
+    document.addEventListener("tabClicked", this.activateMain);
     document.addEventListener("restaurantUpdated", this.getNewRestaurant);
     document.addEventListener("restaurantDeleted", this.deleteRestaurant);
   }
@@ -35,6 +41,7 @@ class App extends Component {
       selectedCategory: "전체",
       sortOption: "name",
       selectedRestaurant: null,
+      activeTab: "all",
     };
   }
 
@@ -43,15 +50,19 @@ class App extends Component {
       toggleModal: () => this.toggleModal(),
     });
 
-    renderRestaurants(this.state.restaurantList, (restaurant) => {
-      this.toggleModal(restaurant);
-    });
-    createCategoryFilter((selectedCategory) => {
-      this.filterRestaurants(selectedCategory);
-    }, this.state.selectedCategory);
-    createSortingFilter((sortOption) => {
-      this.sortRestaurants(sortOption);
-    }, this.state.sortOption);
+    if (this.state.activeTab === "all") {
+      renderRestaurants(this.state.restaurantList, (restaurant) => {
+        this.toggleModal(restaurant);
+      });
+      createCategoryFilter((selectedCategory) => {
+        this.filterRestaurants(selectedCategory);
+      }, this.state.selectedCategory);
+      createSortingFilter((sortOption) => {
+        this.sortRestaurants(sortOption);
+      }, this.state.sortOption);
+    } else {
+    }
+
     new Modal(document.querySelector(".modal"), {
       isModalOpen: this.state.isModalOpen,
       toggleModal: () => this.toggleModal(),
@@ -68,6 +79,16 @@ class App extends Component {
       restaurantList: this.state.restaurantList,
       selectedRestaurant: restaurantData,
     });
+  }
+
+  activateMain(event) {
+    const { targetTabTitle } = event.detail;
+
+    this.setState({
+      activeTab: targetTabTitle,
+    });
+
+    this.tab.updateActiveTab(targetTabTitle);
   }
 
   filterRestaurants(selectedCategory) {
