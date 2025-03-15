@@ -2,8 +2,6 @@ import Button from '../../../components/button/Button';
 import InputDropDown from '../../../components/input/InputDropDown';
 import InputText from '../../../components/input/InputText';
 import Modal from '../../../components/modal/Modal';
-import RestaurantItem from '../../../components/restaurant/RestaurantItem';
-import { DOM } from '../../../../dom';
 import { addRestaurant } from '../../../../Domain/services/RestaurantService';
 import { RestaurantFormData } from '../../../../Domain/types/RestaurantTypes';
 
