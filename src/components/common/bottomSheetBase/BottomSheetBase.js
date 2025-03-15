@@ -22,14 +22,18 @@ export default class BottomSheetBase {
     $container.className = "modal-container";
 
     const $title = document.createElement("h2");
-    $title.className = "modal-title text-title";
-    $title.textContent = this.title;
+    if (this.title) {
+      $title.className = "modal-title text-title";
+      $title.textContent = this.title;
+      $container.appendChild($title);
+    }
 
     this.$modal.appendChild($backdrop);
     this.$modal.appendChild($container);
 
-    $container.appendChild($title);
-    $container.appendChild(this.$children);
+    if (this.$children) {
+      $container.appendChild(this.$children);
+    }
 
     $backdrop.addEventListener(EVENT_TYPES.click, this.toggleShow);
 
