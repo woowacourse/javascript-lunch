@@ -7,6 +7,7 @@ import RestaurantDetailModalContent from '../components/modal/RestaurantDetailMo
 import RestaurantItem from '../components/restaurant/RestaurantItem';
 import RestaurantList from '../components/restaurant/RestaurantList';
 import RestaurantListContainer from '../components/restaurant/RestaurantListContainer';
+import RestaurantTabContainer from '../components/tab/RestaurantTabContainer';
 import Restaurants from '../domain/Restaurants';
 import { Restaurant } from '../types/types';
 import { $ } from '../util/selector';
@@ -23,6 +24,7 @@ class AppController {
 
   init() {
     this.renderHeader();
+    this.renderTabContainer();
     this.renderFilterContainer();
     this.renderRestaurantListContainer();
     this.renderModal();
@@ -45,11 +47,31 @@ class AppController {
     body?.prepend(header);
   }
 
+  renderTabContainer() {
+    const main = $('main');
+
+    const tabContainer = RestaurantTabContainer();
+    main?.prepend(tabContainer);
+
+    const tabs = document.querySelectorAll('.restaurant-tab');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        // 활성 탭 변경
+        tabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // data-active 속성 변경
+        tabContainer.setAttribute('data-active', (tab as HTMLElement).dataset.tab || 'all');
+      });
+    });
+  }
+
   renderFilterContainer() {
     const main = $('main');
 
     const filterContainer = RestaurantFilterContainer();
-    main?.prepend(filterContainer);
+    main?.appendChild(filterContainer);
 
     $<HTMLSelectElement>('#category-filter')?.addEventListener('change', (event) => {
       const sortFilterValue = $<HTMLSelectElement>('#sort-filter')?.value;
