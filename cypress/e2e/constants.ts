@@ -1,6 +1,3 @@
-export const LOCAL_HOST_URL = 'http://localhost:5173';
-export const PREVIEW_URL = 'http://localhost:4173';
-
 export const ERROR_MESSAGES = {
   selectInvalid: {
     en: 'Please select an item in the list.',

@@ -1,13 +1,16 @@
 import { DEFAULT_RESTAURANT_LIST, LOCAL_STORAGE_KEY_MAP } from '../../src/lib/constants';
-import { PREVIEW_URL } from './constants';
+import { ERROR_MESSAGES } from './constants';
+import { LanguageType } from './types';
 
-const URL = PREVIEW_URL; // TODO: 환경에 따라 다른 URL 사용
-
+let language: LanguageType = 'en';
 describe('애플리케이션 테스트 케이스', () => {
   beforeEach(() => {
-    cy.visit(URL);
+    cy.visit('/');
     localStorage.setItem(LOCAL_STORAGE_KEY_MAP.restaurants, JSON.stringify(DEFAULT_RESTAURANT_LIST));
+
+    language = navigator.language === 'ko' ? 'ko' : 'en';
   });
+
   describe('정상적인 경우', () => {
     describe('음식점 목록을 확인할 수 있다.', () => {
       describe('카테고리별로 필터링해서 확인할 수 있다.', () => {
@@ -100,37 +103,37 @@ describe('애플리케이션 테스트 케이스', () => {
     });
   });
 
-  // describe('예외적인 경우', () => {
-  //   it('카테고리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
-  //     cy.get('.gnb__button').click();
-  //     cy.get('#name').type('음식점 이름');
-  //     cy.get('#distance').select('5');
+  describe('예외적인 경우', () => {
+    it('카테고리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
+      cy.get('.gnb__button').click();
+      cy.get('#name').type('음식점 이름');
+      cy.get('#distance').select('5');
 
-  //     cy.get('#modal-add').click();
+      cy.get('#modal-add').click();
 
-  //     cy.get('select[name="category"]')
-  //       .invoke('prop', 'validationMessage')
-  //       .should('equal', ERROR_MESSAGES.selectInvalid[language]);
-  //   });
-  //   it('이름을 입력하지 않으면 음식점을 추가할 수 없다.', () => {
-  //     cy.get('.gnb__button').click();
-  //     cy.get('#category').select('한식');
-  //     cy.get('#distance').select('5');
+      cy.get('select[name="category"]')
+        .invoke('prop', 'validationMessage')
+        .should('equal', ERROR_MESSAGES.selectInvalid[language]);
+    });
+    it('이름을 입력하지 않으면 음식점을 추가할 수 없다.', () => {
+      cy.get('.gnb__button').click();
+      cy.get('#category').select('한식');
+      cy.get('#distance').select('5');
 
-  //     cy.get('#modal-add').click();
+      cy.get('#modal-add').click();
 
-  //     cy.get('input[name="name"]').invoke('prop', 'validationMessage').should('equal', ERROR_MESSAGES.input[language]);
-  //   });
-  //   it('거리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
-  //     cy.get('.gnb__button').click();
-  //     cy.get('#name').type('음식점 이름');
-  //     cy.get('#category').select('한식');
+      cy.get('input[name="name"]').invoke('prop', 'validationMessage').should('equal', ERROR_MESSAGES.input[language]);
+    });
+    it('거리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
+      cy.get('.gnb__button').click();
+      cy.get('#name').type('음식점 이름');
+      cy.get('#category').select('한식');
 
-  //     cy.get('#modal-add').click();
+      cy.get('#modal-add').click();
 
-  //     cy.get('select[name="distance"]')
-  //       .invoke('prop', 'validationMessage')
-  //       .should('equal', ERROR_MESSAGES.selectInvalid[language]);
-  //   });
-  // });
+      cy.get('select[name="distance"]')
+        .invoke('prop', 'validationMessage')
+        .should('equal', ERROR_MESSAGES.selectInvalid[language]);
+    });
+  });
 });
