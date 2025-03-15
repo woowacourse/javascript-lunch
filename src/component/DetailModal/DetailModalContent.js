@@ -1,10 +1,14 @@
 import { $ } from "../../utils/querySelectors.js";
 import LunchInfoCard from "../LunchInfoCard.js";
+import DetailModalButtonContainer from "./DetailModalButtonContainer.js";
 
 const DetailModalContent = {
   create() {
     const DetailModalContent = document.createElement("div");
-    DetailModalContent.setAttribute("class", "restaurant-detail");
+    const DetailModalList = document.createElement("li");
+    DetailModalList.setAttribute("class", "restaurant-detail");
+    DetailModalContent.appendChild(DetailModalList);
+    DetailModalContent.appendChild(DetailModalButtonContainer.create());
 
     return DetailModalContent;
   },

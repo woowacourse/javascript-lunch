@@ -1,16 +1,15 @@
 import TextButton from "../TextButton.js";
 import Modal from "../Modal.js";
 
-const AddLunchButtonContainer = {
+const DetailModalButtonContainer = {
   create() {
     const buttonContainerElement = document.createElement("div");
     buttonContainerElement.classList.add("button-container");
     buttonContainerElement.appendChild(
       TextButton.create(
         {
-          id: "cancel__button",
-          title: "취소하기",
-          onClick: () => Modal.close("addLunch"),
+          id: "delete__button",
+          title: "삭제하기",
         },
         "secondary"
       )
@@ -18,8 +17,9 @@ const AddLunchButtonContainer = {
     buttonContainerElement.appendChild(
       TextButton.create(
         {
-          id: "add__button",
-          title: "추가하기",
+          id: "close__button",
+          title: "닫기",
+          onClick: () => Modal.close("detail"),
         },
         "primary"
       )
@@ -29,4 +29,4 @@ const AddLunchButtonContainer = {
   },
 };
 
-export default AddLunchButtonContainer;
+export default DetailModalButtonContainer;

@@ -55,7 +55,6 @@ const RestaurantList = {
   },
 
   getRestaurantElementList(restaurantList) {
-    console.dir(restaurantList);
     return restaurantList.map(
       ({ id, name, distance, description, label, favorite, link }) =>
         LunchInfoCard.create({
