@@ -1,6 +1,6 @@
 import createDOMElement from '../util/createDomElement';
 
-function Modal({ content }: { content: HTMLElement }): { modal: HTMLElement; open: () => void; close: () => void } {
+function Modal({ content }: { content?: HTMLElement }): { modal: HTMLElement; open: () => void; close: () => void } {
   const modalBackdrop = createDOMElement({
     tag: 'div',
     class: 'modal-backdrop',

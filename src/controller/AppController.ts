@@ -2,7 +2,6 @@ import FavoriteButton from '../components/button/FavoriteButton';
 import PlusButton from '../components/button/PlusButton';
 import RestaurantFilterContainer from '../components/filter/RestaurantFilterContainer';
 import Header from '../components/Header';
-import RestaurantAddModalContent from '../components/modal/RestaurantAddModalContent';
 import RestaurantDetailModalContent from '../components/modal/RestaurantDetailModalContent';
 import RestaurantItem from '../components/restaurant/RestaurantItem';
 import RestaurantList from '../components/restaurant/RestaurantList';
@@ -36,12 +35,7 @@ class AppController {
     const header = Header({
       title: '점심 뭐 먹지',
       right: PlusButton({
-        onclick: () => {
-          this.modalController.switchContent(RestaurantAddModalContent());
-          this.modalController.attachModalEvents();
-          this.modalController.attachFormSubmitEvent((data) => this.addRestaurantItem(data));
-          this.modalController.open();
-        },
+        onclick: () => this.modalController.openRestaurantAddModal(this.addRestaurantItem),
       }),
     });
     body?.prepend(header);
@@ -121,8 +115,8 @@ class AppController {
           restaurantFavoriteButton.replaceWith(FavoriteButton({ isFavorite: selectedRestaurant.isFavorite }));
         } else {
           const modalContent = RestaurantDetailModalContent({ restaurant: selectedRestaurant });
-          this.modalController.switchContent(modalContent);
-          this.modalController.open();
+          this.modalController.openRestaurantDetailModal(modalContent);
+
           modalContent.addEventListener('click', (event) => {
             const target = event.target as HTMLElement;
             const favoriteButton = target.closest('.restaurant__favorite-button');
@@ -155,11 +149,7 @@ class AppController {
   renderModal() {
     const main = $('main');
 
-    if (main) {
-      this.modalController.attachTo(main);
-      this.modalController.attachModalEvents();
-      this.modalController.attachFormSubmitEvent((data) => this.addRestaurantItem(data));
-    }
+    main?.appendChild(this.modalController.modal);
   }
 
   updateRestaurantListByFilter(categoryFilterValue?: string, sortFilterValue?: string) {

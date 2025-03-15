@@ -1,4 +1,5 @@
-import RestaurantAddModal from '../components/modal/RestaurantAddModal';
+import Modal from '../components/Modal';
+import RestaurantAddModalContent from '../components/modal/RestaurantAddModalContent';
 import { Restaurant } from '../types/types';
 import { $ } from '../util/selector';
 
@@ -8,14 +9,34 @@ class ModalController {
   close;
 
   constructor() {
-    const { modal, open, close } = RestaurantAddModal();
+    const { modal, open, close } = Modal({});
     this.modal = modal;
     this.open = open;
     this.close = close;
   }
 
-  attachTo(parent: Element): void {
-    parent.appendChild(this.modal);
+  openRestaurantAddModal(addRestaurantItem: (data: Restaurant) => void) {
+    const modalContainer = $('.modal-container');
+    if (modalContainer) {
+      modalContainer?.replaceWith(RestaurantAddModalContent());
+    } else {
+      this.modal.appendChild(RestaurantAddModalContent());
+    }
+
+    this.attachModalEvents();
+    this.attachFormSubmitEvent(addRestaurantItem);
+    this.open();
+  }
+
+  openRestaurantDetailModal(content: HTMLElement) {
+    const modalContainer = $('.modal-container');
+    if (modalContainer) {
+      modalContainer?.replaceWith(content);
+    } else {
+      this.modal.appendChild(content);
+    }
+
+    this.open();
   }
 
   attachModalEvents() {
@@ -37,11 +58,6 @@ class ModalController {
       formElement.reset();
       this.close();
     });
-  }
-
-  switchContent(content: HTMLElement) {
-    const modalContainer = $('.modal-container');
-    modalContainer?.replaceWith(content);
   }
 }
 
