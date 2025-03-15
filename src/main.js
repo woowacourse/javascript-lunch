@@ -8,12 +8,22 @@ import {
   CATEGORY_FILTER_DROPDOWN_LIST,
   SORT_FILTER_DROPDOWN_LIST,
 } from "./constants/dropdownList.js";
-import { $ } from "./utils/querySelectors.js";
+import { $, $$ } from "./utils/querySelectors.js";
 
 DOM.$body.prepend(Header.create());
+initNavigationButton();
 initFilterSelect();
 initRestaurantList();
 initAddLunchModal();
+
+function initNavigationButton() {
+  $(".navigation-bar-container").addEventListener("click", (e) => {
+    $$(".navigation__button").forEach((btn) =>
+      btn.classList.remove("activated")
+    );
+    e.target.classList.add("activated");
+  });
+}
 
 function initFilterSelect() {
   const categoryFilter = FilterSelect.create({
