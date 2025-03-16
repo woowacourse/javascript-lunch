@@ -69,11 +69,11 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   private _appendRestaurantFilterSelectSort() {
     this.appendChild(
-      new Select({
+      new Select<FilterType>({
         options: FILTERS,
         setValue: (filter) =>
           this.setState({
-            filter: filter as FilterType,
+            filter,
           }),
         selected: this.state.filter,
         dataAction: 'filter',
@@ -81,11 +81,11 @@ export default class RestaurantList extends Component<RestaurantListState> {
       '.restaurant-filter-sort',
     );
     this.appendChild(
-      new Select({
+      new Select<SortType>({
         options: SORTS,
         setValue: (sort) =>
           this.setState({
-            sort: sort as SortType,
+            sort,
           }),
         selected: this.state.sort,
         dataAction: 'sort',

@@ -6,10 +6,10 @@ export const CATEGORY_MAP = {
   아시안: 'asian',
   기타: 'etc',
 } as const;
-export const CATEGORIES = Object.keys(CATEGORY_MAP);
-export const DISTANCES = [5, 10, 15, 20, 30];
-export const FILTERS = ['전체', ...CATEGORIES];
-export const SORTS = ['이름순', '거리순'];
+export const CATEGORIES = Object.keys(CATEGORY_MAP) as (keyof typeof CATEGORY_MAP)[];
+export const DISTANCES = [5, 10, 15, 20, 30] as const;
+export const FILTERS = ['전체', ...CATEGORIES] as const;
+export const SORTS = ['이름순', '거리순'] as const;
 
 export const DEFAULT_RESTAURANT_LIST = [
   {

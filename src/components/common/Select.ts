@@ -2,14 +2,14 @@ import Component from '../../core/Component.ts';
 import { html } from '../../lib/utils.ts';
 import EventHandler from '../../lib/EventHandler.ts';
 
-interface SelectProps {
-  options: string[];
-  selected: string;
-  setValue: (value: string) => void;
+interface SelectProps<T extends string> {
+  options: readonly T[];
+  selected: T;
+  setValue: (value: T) => void;
   dataAction: string;
 }
 
-export default class Select extends Component<null, SelectProps> {
+export default class Select<T extends string> extends Component<null, SelectProps<T>> {
   override template() {
     return html`
       <select name="select" data-action=${this.props.dataAction}>
@@ -27,7 +27,7 @@ export default class Select extends Component<null, SelectProps> {
     EventHandler.attachEventHandler(
       'change',
       (_, target) => {
-        this.props?.setValue((target as HTMLSelectElement)?.value);
+        this.props?.setValue((target as HTMLSelectElement)?.value as T);
       },
       this.props.dataAction,
     );
