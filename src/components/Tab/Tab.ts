@@ -19,21 +19,33 @@ class Tab extends Component {
     allTab.classList.add("selected");
     const favoriteTab = this.$target.querySelector(".favorite");
     allTab.addEventListener("click", () => {
-      document
-        .querySelector(".restaurant-filter-container")
-        ?.classList.toggle("filter-toggle");
+      this.filterToggle();
       this.renderAllRestaurants();
-      allTab.classList.toggle("selected");
-      favoriteTab.classList.toggle("selected");
+      allTab.classList.add("selected");
+      favoriteTab.classList.remove("selected");
     });
     favoriteTab.addEventListener("click", () => {
+      this.filterToggle();
+      this.renderFavoriteRestaurants();
+      allTab.classList.remove("selected");
+      favoriteTab.classList.add("selected");
+    });
+  }
+
+  filterToggle() {
+    if (
       document
         .querySelector(".restaurant-filter-container")
-        ?.classList.toggle("filter-toggle");
-      this.renderFavoriteRestaurants();
-      allTab.classList.toggle("selected");
-      favoriteTab.classList.toggle("selected");
-    });
+        ?.classList.contains("filter-toggle")
+    ) {
+      document
+        .querySelector(".restaurant-filter-container")
+        ?.classList.remove("filter-toggle");
+    } else {
+      document
+        .querySelector(".restaurant-filter-container")
+        ?.classList.add("filter-toggle");
+    }
   }
 
   renderAllRestaurants() {

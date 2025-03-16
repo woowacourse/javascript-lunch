@@ -12,7 +12,6 @@ class Restaurant extends Component {
   template() {
     const { name, distance, description, imgSrc, imgAlt, like } = this.props;
     const starImg = this.props.like ? "/filledStar.png" : "/unFilledStar.png";
-
     return /*html*/ ` 
       <div class="restaurant__category">
           <img src=${imgSrc} alt=${imgAlt} class="category-icon"/>
