@@ -9,7 +9,7 @@ const DETAIL_MODAL_BUTTONS = [
 ];
 
 function createDetailModalView(restaurant) {
-  const detailItemElement = DetailItem(restaurant.restaurant);
+  const detailItemElement = DetailItem(restaurant);
   const formButtons = DETAIL_MODAL_BUTTONS.map((buttonData) => Button(buttonData));
   const buttonsFormElement = ButtonsForm(formButtons);
   const modalElement = Modal([detailItemElement, buttonsFormElement]);

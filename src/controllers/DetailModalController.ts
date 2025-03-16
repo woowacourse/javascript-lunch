@@ -8,7 +8,7 @@ export function DetailModalController({
   updateCategorySortListView,
   updateFavoriteListView,
 }: detailModalControllerType) {
-  const restaurant = restaurantList.getRestaurantByName(restaurantName);
+  const restaurant = restaurantList.getRestaurantByName(restaurantName)?.restaurant;
   const modalElement = createDetailModalView(restaurant);
   DetailModalEventHandler({
     modalElement,
