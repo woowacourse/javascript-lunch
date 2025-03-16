@@ -14,6 +14,7 @@ export interface RestaurantService {
   deleteRestaurant: (id: number) => void;
   getFilteredRestaurants: (states: RestaurantState, restaurants: Restaurant[]) => Restaurant[];
   toggleFavorite: (id: number) => boolean;
+  checkHasRestaurantData: () => boolean;
 }
 
 const restaurantService: RestaurantService = {
@@ -62,6 +63,10 @@ const restaurantService: RestaurantService = {
     this.updateRestaurant(id, updateData);
 
     return updateData.favorite;
+  },
+
+  checkHasRestaurantData() {
+    return this.restaurantManager.checkHasKey();
   },
 };
 

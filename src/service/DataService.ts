@@ -63,6 +63,10 @@ class DataService<T extends BaseData> {
     const totalData = this.getDataList();
     return totalData.length;
   }
+
+  checkHasKey() {
+    return store.checkValidKey(this.#key);
+  }
 }
 
 export default DataService;

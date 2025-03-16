@@ -60,8 +60,8 @@ function addEventHandlers() {
 }
 
 function initRestaurantItems() {
-  const restaurants = restaurantService.getRestaurants();
-  if (!restaurants) {
+  const hasKey = restaurantService.checkHasRestaurantData();
+  if (!hasKey) {
     [...RESTAURANTS].forEach((restaurant) => {
       restaurantService.addRestaurant(restaurant);
     });

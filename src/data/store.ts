@@ -14,7 +14,7 @@ const store = {
   },
 
   checkValidKey(key: string) {
-    return this.storage.getItem(key) === null;
+    return this.storage.getItem(key) !== null;
   },
 };
 
