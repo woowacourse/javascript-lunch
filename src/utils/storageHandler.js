@@ -1,5 +1,3 @@
-import { STORAGE_KEY_NAME } from "../constants/storage.js";
-
 export const storageHandler = {
   getItem: (data) => JSON.parse(localStorage.getItem(data) ?? "[]") || [],
   setItem: (key, value) => localStorage.setItem(key, JSON.stringify(value)),
