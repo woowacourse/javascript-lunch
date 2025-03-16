@@ -1,76 +1,82 @@
+import { STORAGE_KEY_NAME } from "../constants/storage.js";
+
 export const storageHandler = {
   getItem: (data) => JSON.parse(localStorage.getItem(data) ?? "[]") || [],
   setItem: (key, value) => localStorage.setItem(key, JSON.stringify(value)),
   deleteItem: (key, value) => {
-    const newData = JSON.parse(localStorage.getItem(key)).filter(
-      (item) => item.id !== value
-    );
+    const newData = storageHandler
+      .getItem(key)
+      .filter((item) => item.id !== value);
 
-    localStorage.setItem(key, JSON.stringify(newData));
+    storageHandler.setItem(key, newData);
   },
   filterItem: (key, category, sort) => {
+    const allData = storageHandler.getItem(key);
+
+    if (!category && sort === "distance") {
+      return allData.sort((a, b) => a[sort] - b[sort]);
+    }
+
     if (!category) {
-      if (sort === "distance") {
-        return JSON.parse(localStorage.getItem(key)).sort(
-          (a, b) => a[sort] - b[sort]
-        );
-      }
-      return JSON.parse(localStorage.getItem(key)).sort((a, b) =>
+      return allData.sort((a, b) =>
         a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
       );
     }
 
-    const newData = JSON.parse(localStorage.getItem(key)).filter(
+    const categoryData = allData.filter(
       (item) => item.categoryTitle === category
     );
 
     if (sort === "distance") {
-      return newData.sort((a, b) => a[sort] - b[sort]);
+      return categoryData.sort((a, b) => a[sort] - b[sort]);
     }
 
-    return newData.sort((a, b) =>
+    return categoryData.sort((a, b) =>
       a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
     );
   },
   updateFavorite: (key, restaurantInfo) => {
-    const favoriteItem = JSON.parse(localStorage.getItem(key)).filter(
-      (item) => item.id === restaurantInfo.id
-    );
+    const favoriteData = storageHandler
+      .getItem(key)
+      .filter((item) => item.id === restaurantInfo.id);
 
-    const updateData = JSON.parse(localStorage.getItem(key)).map((item) => {
+    const updateData = storageHandler.getItem(key).map((item) => {
       if (item.id === restaurantInfo.id) {
-        restaurantInfo.isFavorite = !favoriteItem[0].isFavorite;
+        restaurantInfo.isFavorite = !favoriteData[0].isFavorite;
         return restaurantInfo;
       }
 
       return item;
     });
-    localStorage.setItem(key, JSON.stringify(updateData));
 
-    return favoriteItem.length > 0 ? favoriteItem[0].isFavorite : null;
+    storageHandler.setItem(key, updateData);
+
+    return favoriteData.length > 0 ? favoriteData[0].isFavorite : null;
   },
   findFavoriteItem: (key, category, sort) => {
-    const favoriteItems = JSON.parse(localStorage.getItem(key)).filter(
-      (item) => item.isFavorite === true
-    );
+    const favoriteData = storageHandler
+      .getItem(key)
+      .filter((item) => item.isFavorite === true);
+
+    if (!category && sort === "distance") {
+      return favoriteData.sort((a, b) => a[sort] - b[sort]);
+    }
+
     if (!category) {
-      if (sort === "distance") {
-        return favoriteItems.sort((a, b) => a[sort] - b[sort]);
-      }
-      return favoriteItems.sort((a, b) =>
+      return favoriteData.sort((a, b) =>
         a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
       );
     }
 
-    const newData = favoriteItems.filter(
+    const categoryData = favoriteData.filter(
       (item) => item.categoryTitle === category
     );
 
     if (sort === "distance") {
-      return newData.sort((a, b) => a[sort] - b[sort]);
+      return categoryData.sort((a, b) => a[sort] - b[sort]);
     }
 
-    return newData.sort((a, b) =>
+    return categoryData.sort((a, b) =>
       a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
     );
   },
