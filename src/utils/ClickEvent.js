@@ -1,6 +1,6 @@
-import { LunchItem } from "../components/LunchItem.js";
-import { LunchList } from "../components/LunchList.js";
-import { openModal } from "../components/modal.js";
+import { LunchItem } from "../components/function/LunchItem.js";
+import { LunchList } from "../components/function/LunchList.js";
+import { openModal } from "../components/function/modal.js";
 import { getStorage, setStorage } from "./storage.js";
 
 class ClickEvent {

@@ -123,7 +123,7 @@ main {
   bottom: 0;
   left: 0;
   height: 2px;
-  width: 50%; /* 기본적으로 첫 번째 탭의 크기만큼 설정 */
+  width: 50%;
   background-color: #d9534f;
   transition: left 0.3s ease, width 0.3s ease;
 }
@@ -259,11 +259,11 @@ main::-webkit-scrollbar-thumb:hover {
 }
 
 /* 카테고리/정렬 필터 */
-.restaurant-filter-container {
+.restaurant-filter-box {
   display: flex;
   justify-content: space-between;
-
-  padding: 0 16px;
+  margin-top: 16px;
+  gap: 80px;
 }
 
 .restaurant-filter-container select {
@@ -432,6 +432,7 @@ main::-webkit-scrollbar-thumb:hover {
 .form-item {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .form-item label {

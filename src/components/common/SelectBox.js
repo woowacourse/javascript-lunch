@@ -6,13 +6,17 @@ export function SelectBox({ id, name, label, optionName, required }) {
   function template() {
     return `
       <div class="form-item ${required ? "form-item--required" : ""}">
-        <label for="${id}" class="text-caption">${label}</label>
+        ${
+          label
+            ? `<label for="${id}" class="text-caption">${label}</label>`
+            : ""
+        }
         <select name="${name}" id="${id}" ${required ? "required" : ""}>
           ${options
             .map(
               (option) => `
                 <option value="${option.value}">${option.label}</option>
-              `,
+              `
             )
             .join("")}
         </select>

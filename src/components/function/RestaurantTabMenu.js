@@ -1,5 +1,5 @@
-import { getHTML } from "../utils/utils.ts";
-import { TabMenu } from "./common/TabMenu";
+import { getHTML } from "../../utils/utils.ts";
+import { TabMenu } from "../common/TabMenu.js";
 
 export function RestaurantTabMenu(targetID) {
   function render() {

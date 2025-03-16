@@ -1,5 +1,5 @@
-import { ILunchItem } from "../type.ts";
-import { createElement } from "../utils/utils.ts";
+import { ILunchItem } from "../../type.ts";
+import { createElement } from "../../utils/utils.ts";
 import { StoreInfo } from "./StoreInfo.ts";
 
 export function LunchItem(

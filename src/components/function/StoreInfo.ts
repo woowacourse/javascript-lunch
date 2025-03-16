@@ -1,6 +1,6 @@
-import { StarButton } from "./common/StarButton.js";
-import type { ILunchItem } from "../type.ts";
-import { CategoryIcon } from "./common/CategoryIcon.js";
+import { StarButton } from "../common/StarButton.js";
+import type { ILunchItem } from "../../type.ts";
+import { CategoryIcon } from "../common/CategoryIcon.js";
 
 interface StoreInfoProps extends ILunchItem {
   type: string;

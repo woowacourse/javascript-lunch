@@ -1,5 +1,5 @@
-import { LunchItem } from "../components/LunchItem.ts";
-import { LunchList } from "../components/LunchList.ts";
+import { LunchItem } from "../components/function/LunchItem.ts";
+import { LunchList } from "../components/function/LunchList.ts";
 import { getStorage, setStorage } from "./storage.ts";
 
 const getHTML = (id) => document.getElementById(id);

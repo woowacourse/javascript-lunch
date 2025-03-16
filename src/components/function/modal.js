@@ -1,11 +1,11 @@
-import { getHTML } from "../utils/utils.ts";
-import { Button } from "./common/Button.js";
-import { StoreAddForm } from "./common/StoreAddForm.js";
-import { FormButtons } from "./common/FormButtons.js";
-import { InputBox } from "./common/InputBox.js";
-import { SelectBox } from "./common/SelectBox.js";
-import { TextareaBox } from "./common/TextareaBox.js";
-import { StoreDeleteForm } from "./common/StoreDeleteForm.js";
+import { getHTML } from "../../utils/utils.ts";
+import { Button } from "../common/Button.js";
+import { StoreAddForm } from "../common/StoreAddForm.js";
+import { FormButtons } from "../common/FormButtons.js";
+import { InputBox } from "../common/InputBox.js";
+import { SelectBox } from "../common/SelectBox.js";
+import { TextareaBox } from "../common/TextareaBox.js";
+import { StoreDeleteForm } from "../common/StoreDeleteForm.js";
 
 export function openModal(formName, target) {
   getHTML("modalBackground").classList.add("show");

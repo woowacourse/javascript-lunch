@@ -1,5 +1,5 @@
 import { getStorage } from "../../utils/storage.js";
-import { StoreInfo } from "../StoreInfo.js";
+import { StoreInfo } from "../function/StoreInfo.js";
 import { Button } from "./Button.js";
 import { FormButtons } from "./FormButtons.js";
 import { InputBox } from "./InputBox.js";

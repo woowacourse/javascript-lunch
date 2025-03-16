@@ -1,10 +1,10 @@
-import { ILunchItem } from "../type.ts";
-import { getStorage, setStorage } from "../utils/storage.ts";
-import { getHTML, createElement } from "../utils/utils.ts";
+import { ILunchItem } from "../../type.ts";
+import { getStorage, setStorage } from "../../utils/storage.ts";
+import { getHTML, createElement } from "../../utils/utils.ts";
 import { LunchItem } from "./LunchItem.ts";
 
 export function LunchList(
-  lunchListID: string = "restaurantListSection",
+  lunchListID: string = "restaurantListBox",
   favoriteTargetID: string = "restaurantFavoriteSection"
 ) {
   const lunchItems = getStorage("lunchItems") as ILunchItem[];
