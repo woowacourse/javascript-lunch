@@ -3,7 +3,7 @@ import {
   setStoredRestaurantData,
 } from "../../domain/storeRestaurantData.js";
 import Component from "../Component.js";
-import Modal from "../Modal/Modal.js";
+import ModalDetail from "../Modal/ModalDetail.js";
 class Restaurant extends Component {
   constructor($target, props) {
     super($target, props);
@@ -52,7 +52,7 @@ class Restaurant extends Component {
   handleDetailModal() {
     const modalContainer = document.querySelector(".modal");
     modalContainer.classList.toggle("modal--open");
-    new Modal(modalContainer, {
+    new ModalDetail(modalContainer, {
       mode: "detail",
       data: this.props,
     });

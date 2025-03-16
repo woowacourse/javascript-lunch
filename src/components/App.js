@@ -26,10 +26,8 @@ class App extends Component {
     const filtersContainer = document.querySelector(
       ".restaurant-filter-container",
     );
-
     filtersContainer.addEventListener("change", (event) => {
       const target = event.target;
-
       if (target.id === "category-filter") {
         const currentSortType = localStorage.getItem("sortType");
         filterRestaurants(target.value, currentSortType);
