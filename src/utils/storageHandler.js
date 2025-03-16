@@ -8,20 +8,27 @@ export const storageHandler = {
 
     storageHandler.setItem(key, newData);
   },
-  filterItem: (key, category, sort) => {
-    const allData = storageHandler.getItem(key);
+  filterItem: (key, category, sort, id = "") => {
+    let restaurantData;
+    if (id === "all") {
+      restaurantData = storageHandler.getItem(key);
+    } else if (id === "favorite") {
+      restaurantData = storageHandler
+        .getItem(key)
+        .filter((item) => item.isFavorite === true);
+    }
 
     if (!category && sort === "distance") {
-      return allData.sort((a, b) => a[sort] - b[sort]);
+      return restaurantData.sort((a, b) => a[sort] - b[sort]);
     }
 
     if (!category) {
-      return allData.sort((a, b) =>
+      return restaurantData.sort((a, b) =>
         a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
       );
     }
 
-    const categoryData = allData.filter(
+    const categoryData = restaurantData.filter(
       (item) => item.categoryTitle === category
     );
 
@@ -50,32 +57,5 @@ export const storageHandler = {
     storageHandler.setItem(key, updateData);
 
     return favoriteData.length > 0 ? favoriteData[0].isFavorite : null;
-  },
-  findFavoriteItem: (key, category, sort) => {
-    const favoriteData = storageHandler
-      .getItem(key)
-      .filter((item) => item.isFavorite === true);
-
-    if (!category && sort === "distance") {
-      return favoriteData.sort((a, b) => a[sort] - b[sort]);
-    }
-
-    if (!category) {
-      return favoriteData.sort((a, b) =>
-        a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
-      );
-    }
-
-    const categoryData = favoriteData.filter(
-      (item) => item.categoryTitle === category
-    );
-
-    if (sort === "distance") {
-      return categoryData.sort((a, b) => a[sort] - b[sort]);
-    }
-
-    return categoryData.sort((a, b) =>
-      a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
-    );
   },
 };

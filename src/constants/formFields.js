@@ -1,7 +1,7 @@
 import $select from "../components/common/select.js";
 import $input from "../components/common/input.js";
 import $textarea from "../components/common/textarea.js";
-import $restaurantItem from "../components/restaurant/restaurantItem.js";
+import $createRestaurantList from "../components/restaurant/restaurantItemList.js";
 import {
   categoryOptions,
   distanceOptions,
@@ -10,9 +10,6 @@ import {
 } from "./selectOptions.js";
 import { validateRestaurantForm } from "../validation/validationForm.js";
 import { deepFreeze } from "../utils/deepFreeze.js";
-import { storageHandler } from "../utils/storageHandler.js";
-import { STORAGE_KEY_NAME } from "./storage.js";
-import $restaurantList from "../components/restaurant/restaurantItemList.js";
 
 const senseChangeRestaurantFormValue = () => {
   try {
@@ -27,23 +24,6 @@ const senseChangeRestaurantFormValue = () => {
     submitButton.classList.add("button--disabled");
     submitButton.disabled = true;
   }
-};
-
-const handleFilterItem = () => {
-  const restaurantContainer = document.querySelector(
-    ".restaurant-list-container"
-  );
-  restaurantContainer.replaceChildren();
-
-  const category = document.getElementById("category-filter").value || null;
-  const sort = document.getElementById("sorting-filter").value;
-  const restaurantItems = storageHandler.filterItem(
-    STORAGE_KEY_NAME,
-    category,
-    sort
-  );
-
-  restaurantContainer.appendChild($restaurantList(restaurantItems));
 };
 
 export const FORM_FIELDS = deepFreeze({
@@ -101,7 +81,7 @@ export const FORM_FIELDS = deepFreeze({
     categoryFilter: {
       options: categoryFilterOptions,
       eventType: "change",
-      event: handleFilterItem,
+      event: $createRestaurantList,
       attribute: {
         id: "category-filter",
         name: "restaurant-filter",
@@ -110,7 +90,7 @@ export const FORM_FIELDS = deepFreeze({
     sortingFilter: {
       options: sortingFilterOptions,
       eventType: "change",
-      event: handleFilterItem,
+      event: $createRestaurantList,
       attribute: {
         id: "sorting-filter",
         name: "restaurant-filter",

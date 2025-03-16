@@ -1,4 +1,6 @@
 import $restaurantItem from "./restaurantItem";
+import { STORAGE_KEY_NAME } from "../../constants/storage";
+import { storageHandler } from "../../utils/storageHandler";
 
 const $restaurantList = (restaurantItems) => {
   if (restaurantItems.length > 0) {
@@ -26,4 +28,23 @@ const $restaurantList = (restaurantItems) => {
   return noRestaurant;
 };
 
-export default $restaurantList;
+const $createRestaurantList = () => {
+  const restaurantContainer = document.querySelector(
+    ".restaurant-list-container"
+  );
+  restaurantContainer.replaceChildren();
+
+  const categoryFilter =
+    document.getElementById("category-filter").value || null;
+  const sortFilter = document.getElementById("sorting-filter").value;
+  const restaurantItems = storageHandler.filterItem(
+    STORAGE_KEY_NAME,
+    categoryFilter,
+    sortFilter,
+    document.querySelector(".select-tab-active").id
+  );
+
+  restaurantContainer.appendChild($restaurantList(restaurantItems));
+};
+
+export default $createRestaurantList;

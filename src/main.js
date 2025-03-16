@@ -1,27 +1,11 @@
 import $header from "./components/layout/header.js";
-import $restaurantItem from "./components/restaurant/restaurantItem.js";
-import $inputItem from "./components/form/input-item.js";
 import $modal from "./components/modal/modal.js";
-import $button from "./components/common/button.js";
-import $buttonContainer from "./components/layout/buttonContainer.js";
-import $select from "./components/common/select.js";
 import $filterContainer from "./components/layout/filterContainer.js";
 import $tabContainer from "./components/layout/tabContainer.js";
 import $tab from "./components/common/tab.js";
-import $restaurantList from "./components/restaurant/restaurantItemList.js";
+import $createRestaurantList from "./components/restaurant/restaurantItemList.js";
 import { FORM_FIELDS } from "./constants/formFields.js";
-import { storageHandler } from "./utils/storageHandler.js";
-import { STORAGE_KEY_NAME } from "./constants/storage.js";
 import { UI_CONFIG } from "./constants/uiConfig.js";
-
-const initialRestaurantData = () => {
-  const restaurantContainer = document.querySelector(
-    ".restaurant-list-container"
-  );
-  const restaurantItems = storageHandler.getItem(STORAGE_KEY_NAME);
-
-  restaurantContainer.appendChild($restaurantList(restaurantItems));
-};
 
 addEventListener("load", () => {
   document.body.prepend($header(UI_CONFIG.HEADER));
@@ -40,5 +24,5 @@ addEventListener("load", () => {
   document.querySelector("main").prepend(navigationTabs);
   document.querySelector("main").appendChild($modal());
 
-  initialRestaurantData();
+  $createRestaurantList();
 });
