@@ -244,4 +244,61 @@ describe('step2 기능 테스트', () => {
       cy.get('.modal--open').should('not.exist');
     });
   });
+
+  describe('음식점 삭제하기 테스트', () => {
+    it('사용자가 음식점 상세보기 모달에서 "삭제하기" 버튼을 누르면 음식점이 삭제된다.', () => {
+      cy.get('.restaurant-list .restaurant').first().as('firstRestaurant').click();
+      cy.get('.modal--open').should('exist');
+
+      cy.get('@firstRestaurant')
+        .find('.restaurant__name')
+        .invoke('text')
+        .then((restaurantName) => {
+          cy.get('.delete-button').click();
+          cy.get('.modal--open').should('not.exist');
+          cy.get('.restaurant-list .restaurant .restaurant__name')
+            .should('not.contain', restaurantName);
+        });
+    });
+
+    it('음식점을 삭제한 후 전체 음식점 리스트에서도 사라졌는지 확인한다.', () => {
+      cy.get('.restaurant-list .restaurant').first().as('firstRestaurant').click();
+      cy.get('.modal--open').should('exist');
+
+      cy.get('@firstRestaurant')
+        .find('.restaurant__name')
+        .invoke('text')
+        .then((restaurantName) => {
+          cy.get('.delete-button').click();
+          cy.get('.modal--open').should('not.exist');
+
+          cy.get('#all').click();
+          cy.get('.restaurant-list .restaurant .restaurant__name')
+            .should('not.contain', restaurantName);
+        });
+    });
+
+    it('자주 가는 음식점에서 삭제했을 때, 전체 목록에서도 사라지는지 확인한다.', () => {
+      cy.get('.restaurant-list .restaurant').first().as('firstRestaurant');
+
+      cy.get('@firstRestaurant').find('.favorite-star').click();
+      cy.get('#favorites').click();
+
+      cy.get('@firstRestaurant')
+        .find('.restaurant__name')
+        .invoke('text')
+        .then((restaurantName) => {
+          cy.get('.restaurant-list .restaurant').first().click();
+          cy.get('.modal--open').should('exist');
+          cy.get('.delete-button').click();
+          cy.get('.modal--open').should('not.exist');
+
+          cy.get('#favorites').click();
+
+
+          cy.get('#all').click();
+          cy.get('.restaurant-list').should('not.contain', restaurantName)
+        });
+    });
+  });
 });
