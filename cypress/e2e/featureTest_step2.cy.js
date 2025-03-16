@@ -208,4 +208,40 @@ describe('step2 기능 테스트', () => {
         });
     });
   });
+
+  describe('음식점 상세보기 테스트', () => {
+    it('음식점을 클릭하면 해당 음식점의 상세 모달이 열린다.', () => {
+      cy.get('.restaurant-list .restaurant').first().as('firstRestaurant').click();
+      cy.get('.modal--open').should('exist');
+
+      cy.get('@firstRestaurant')
+        .find('.restaurant__name')
+        .invoke('text')
+        .then((restaurantName) => {
+          cy.get('.restaurant__detail .restaurant .restaurant__name').should('have.text', restaurantName);
+        });
+    });
+
+    it('닫기 버튼을 누르면 모달이 닫힌다.', () => {
+      cy.get('.restaurant-list .restaurant').first().click();
+      cy.get('.modal--open').should('exist');
+      cy.get('.close-button').click();
+      cy.get('.modal--open').should('not.exist');
+    });
+
+    it('ESC 키를 누르면 모달이 닫힌다.', () => {
+      cy.get('.restaurant-list .restaurant').first().click();
+      cy.get('.modal--open').should('exist');
+      cy.get('body').type('{esc}');
+      cy.get('.modal--open').should('not.exist');
+    });
+
+    it('모달 바깥을 클릭하면 모달이 닫힌다.', () => {
+      cy.get('.restaurant-list .restaurant').first().click();
+      cy.get('.modal--open').should('exist');
+
+      cy.get('.restaurant-detail-modal .modal-backdrop').click();
+      cy.get('.modal--open').should('not.exist');
+    });
+  });
 });
