@@ -8,28 +8,37 @@ import { TextareaBox } from "./common/TextareaBox.js";
 import { StoreDeleteForm } from "./common/StoreDeleteForm.js";
 
 export function openModal(formName, target) {
-  //const lunchItemIndex = target.dataset.index;
-  const modalHTML = `<div class="modal modal--open">
-    <div class="modal-container">
-      ${
-        (formName === "storeAdd" &&
-          StoreAddForm({
-            id: "restaurantForm",
-            formName,
-            label: "새로운 음식점",
-          })) ||
-        ""
-      }
-
-      ${
-        (formName === "storeDelete" &&
-          StoreDeleteForm(Number(target.dataset.index))) ||
-        ""
-      }
-    </div>
-  </div>`;
-
-  getHTML("modalLayout").innerHTML = "";
-  getHTML("modalLayout").innerHTML = modalHTML;
   getHTML("modalBackground").classList.add("show");
+
+  function template() {
+    const templates = {
+      storeAdd: () =>
+        StoreAddForm({
+          id: "restaurantForm",
+          formName,
+          label: "새로운 음식점",
+        }),
+
+      storeDelete: () => StoreDeleteForm(Number(target?.dataset.index)),
+    };
+
+    const modalHTML = `
+    <div class="modal modal--open">
+      <div class="modal-container">
+        ${templates[formName] ? templates[formName]() : ""}
+      </div>
+    </div>`;
+
+    return modalHTML;
+  }
+
+  function render() {
+    const modalHTML = template();
+    getHTML("modalLayout").innerHTML = "";
+    getHTML("modalLayout").innerHTML = modalHTML;
+  }
+
+  render();
+
+  return { render };
 }
