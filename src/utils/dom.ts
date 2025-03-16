@@ -15,3 +15,17 @@ export const selectElements = (selector: string, ancestor: HTMLElement | Documen
 
   return element;
 };
+
+export const renderElement = (
+  selector: string,
+  component: HTMLElement | string,
+  position: InsertPosition = 'beforeend',
+) => {
+  const targetElement = selectElement(selector);
+
+  if (component instanceof HTMLElement) {
+    targetElement.insertAdjacentElement(position, component);
+  } else {
+    targetElement.insertAdjacentHTML(position, component);
+  }
+};
