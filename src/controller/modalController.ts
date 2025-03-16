@@ -2,10 +2,8 @@ import FavoriteButton from '../components/button/FavoriteButton';
 import Modal from '../components/Modal';
 import RestaurantAddModalContent from '../components/modal/RestaurantAddModalContent';
 import RestaurantDetailModalContent from '../components/modal/RestaurantDetailModalContent';
-import Restaurants from '../domain/Restaurants';
 import { Restaurant } from '../types/types';
 import { $ } from '../util/selector';
-import RestaurantListView from '../view/RestaurantListView';
 
 class ModalController {
   modal;
@@ -13,11 +11,23 @@ class ModalController {
   open;
   close;
 
-  constructor() {
+  #onAddRestaurant;
+  #onRemoveRestaurant;
+  #onToggleFavorite;
+
+  constructor(
+    onAddRestaurant: (data: Restaurant) => void,
+    onRemoveRestaurant: (restaurantName: string) => void,
+    onToggleFavorite: (restaurantName: string) => void,
+  ) {
     const { modal, open, close } = Modal({});
     this.modal = modal;
     this.open = open;
     this.close = close;
+
+    this.#onAddRestaurant = onAddRestaurant;
+    this.#onRemoveRestaurant = onRemoveRestaurant;
+    this.#onToggleFavorite = onToggleFavorite;
   }
 
   renderModal() {
@@ -25,20 +35,17 @@ class ModalController {
     main?.appendChild(this.modal);
   }
 
-  openRestaurantAddModal(addRestaurantItem: (data: Restaurant) => void) {
+  openRestaurantAddModal() {
     const restaurantAddModalContent = RestaurantAddModalContent();
     this.#renderModalContent(restaurantAddModalContent);
-
-    this.#attachCancelEvent();
-    this.#attachFormSubmitEvent(addRestaurantItem);
+    this.#bindAddModalEvents();
     this.open();
   }
 
-  openRestaurantDetailModal(restaurant: Restaurant, restaurantsModel: Restaurants) {
+  openRestaurantDetailModal(restaurant: Restaurant) {
     const restaurantDetailModalContent = RestaurantDetailModalContent({ restaurant });
     this.#renderModalContent(restaurantDetailModalContent);
-
-    this.#attachDetailModalEvents(restaurant, restaurantsModel);
+    this.#bindDetailModalEvents(restaurant);
     this.open();
   }
 
@@ -52,13 +59,10 @@ class ModalController {
     }
   }
 
-  #attachCancelEvent() {
+  #bindAddModalEvents() {
     const closeButton = $('#restaurantAddModalCancelButton');
+    closeButton?.addEventListener('click', () => this.close());
 
-    closeButton?.addEventListener('click', this.close);
-  }
-
-  #attachFormSubmitEvent(addRestaurantItem: (data: Restaurant) => void): void {
     const form = $('form');
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -66,14 +70,14 @@ class ModalController {
       const formElement = form as HTMLFormElement;
       const formData = new FormData(formElement);
       const data = Object.fromEntries(formData.entries());
-      addRestaurantItem(data as unknown as Restaurant);
+      this.#onAddRestaurant(data as unknown as Restaurant);
 
       formElement.reset();
       this.close();
     });
   }
 
-  #attachDetailModalEvents(restaurant: Restaurant, restaurantsModel: Restaurants) {
+  #bindDetailModalEvents(restaurant: Restaurant) {
     this.content?.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
       const favoriteButton = target.closest('.restaurant__favorite-button');
@@ -81,7 +85,7 @@ class ModalController {
       const closeButton = target.closest('.button--primary');
 
       if (favoriteButton) {
-        restaurantsModel.toggleFavoriteRestaurant(restaurant.name);
+        this.#onToggleFavorite(restaurant.name);
         favoriteButton.replaceWith(FavoriteButton({ isFavorite: restaurant.isFavorite, isDetail: true }));
         const listRestaurantElement = $(`.restaurant[data-id="${restaurant.name}"]`);
         if (listRestaurantElement) {
@@ -93,9 +97,8 @@ class ModalController {
         this.close();
       }
       if (deleteButton) {
-        restaurantsModel.removeRestaurant(restaurant.name);
+        this.#onRemoveRestaurant(restaurant.name);
         this.close();
-        RestaurantListView.removeItem(restaurant.name);
       }
     });
   }

@@ -5,6 +5,7 @@ import RestaurantListView from '../view/RestaurantListView';
 
 class RestaurantListController {
   #restaurants;
+
   #onToggleFavorite;
   #onSelectRestaurant;
 
@@ -30,6 +31,10 @@ class RestaurantListController {
 
   addItem(restaurant: Restaurant) {
     RestaurantListView.addItem(restaurant);
+  }
+
+  removeItem(restaurantName: string) {
+    RestaurantListView.removeItem(restaurantName);
   }
 
   #bindEvents() {

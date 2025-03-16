@@ -23,7 +23,18 @@ class AppController {
     this.filterController = new FilterController((type, value) => {
       this.#onFilterChange(type, value);
     });
-    this.modalController = new ModalController();
+    this.modalController = new ModalController(
+      (restaurant) => {
+        this.#addRestaurantItem(restaurant);
+      },
+      (restaurantName) => {
+        this.restaurants.removeRestaurant(restaurantName);
+        this.restaurantListController.removeItem(restaurantName);
+      },
+      (restaurantName) => {
+        this.restaurants.toggleFavoriteRestaurant(restaurantName);
+      },
+    );
     this.restaurants = new Restaurants(LocalStorage);
     this.restaurantListController = new RestaurantListController(
       this.restaurants.items,
@@ -31,7 +42,7 @@ class AppController {
         this.restaurants.toggleFavoriteRestaurant(restaurantName);
       },
       (restaurant) => {
-        this.modalController.openRestaurantDetailModal(restaurant, this.restaurants);
+        this.modalController.openRestaurantDetailModal(restaurant);
       },
     );
   }
@@ -50,7 +61,7 @@ class AppController {
     const header = Header({
       title: '점심 뭐 먹지',
       right: PlusButton({
-        onclick: () => this.modalController.openRestaurantAddModal((data) => this.#addRestaurantItem(data)),
+        onclick: () => this.modalController.openRestaurantAddModal(),
       }),
     });
     body?.prepend(header);
