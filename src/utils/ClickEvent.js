@@ -51,19 +51,23 @@ class ClickEvent {
   }
 
   toggleFavorite(target) {
-    const li = target.closest("li");
-    if (!li) return;
+    const indexElement = target.closest("[data-index]");
+    if (!indexElement) return;
 
-    const index = li.getAttribute("data-index");
+    const index = indexElement.getAttribute("data-index");
     if (!index) return;
 
-    const isFavorite = li.getAttribute("data-favorite") === "true";
+    const isFavorite = indexElement.getAttribute("data-favorite") === "true";
 
     const storageLunchItems = getStorage("lunchItems");
     storageLunchItems[index].isFavorite = !storageLunchItems[index].isFavorite;
     setStorage("lunchItems", storageLunchItems);
     LunchList().render();
     LunchList().renderFavorites();
+
+    const isModal = target.closest("#storeDeleteForm");
+
+    if (isModal) openModal("storeDelete", indexElement).render();
   }
 
   onClick(event) {
