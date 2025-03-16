@@ -14,7 +14,9 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
 
     // 폼 데이터 입력(이름 12글자 초과)
     cy.get("#category").select("한식");
-    cy.get("#name").type("대충이름이긴한식부페같은것마아앙");
+    cy.get("#name")
+      .invoke("val", "대충이름이긴한식부페같은것마아앙")
+      .trigger("input");
     cy.get("#distance").select("5");
     cy.get(".restaurant-add-form").submit();
     // 경고창 확인
@@ -62,9 +64,9 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
     cy.get("#category").select("한식");
     cy.get("#name").type("안녕하세요");
     cy.get("#distance").select("5");
-    cy.get("#description").type(
-      Array.from({ length: 301 }, () => "a").join("")
-    );
+    cy.get("#description")
+      .invoke("val", Array.from({ length: 301 }, () => "a").join(""))
+      .trigger("textarea");
     cy.get(".restaurant-add-form").submit();
     // 경고창 확인
     cy.get(".toast")
@@ -88,7 +90,9 @@ describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
     cy.get("#category").select("한식");
     cy.get("#name").type("맛집");
     cy.get("#distance").select("10");
-    cy.get("#link").type(Array.from({ length: 301 }, () => "a").join(""));
+    cy.get("#link")
+      .invoke("val", Array.from({ length: 301 }, () => "a").join(""))
+      .trigger("input");
     cy.get(".restaurant-add-form").submit();
     // 경고창 확인
     cy.get(".toast")
