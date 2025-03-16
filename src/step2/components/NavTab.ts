@@ -17,7 +17,8 @@ function NavTab({ setCurrentTab }: NavTabProps) {
     setCurrentTab(TAB.ALL);
   });
 
-  eventManager.addEvent('click', '#nav-tab-2', () => {
+  eventManager.addEvent('click', '#nav-tab-2', (e) => {
+    e.stopPropagation();
     handleTabChange(TAB.FAVORITE);
     setCurrentTab(TAB.FAVORITE);
   });
