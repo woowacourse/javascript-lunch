@@ -3,7 +3,7 @@ type ButtonProps = {
   id?: string;
   className?: string;
   text: string;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
 };
 
 const createButton = ({

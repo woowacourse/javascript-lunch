@@ -2,6 +2,7 @@ import createHeader from "./components/Header.ts";
 import createTab from "./components/Tab.ts";
 import createRestaurantItem from "./components/RestaurantItem.ts";
 import { createModal } from "./components/Modal.ts";
+import { createForm } from "./components/Form.ts";
 import validateRestaurant from "./validateRestaurant.js";
 import { restaurantsData } from "./restaurantsData.ts";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "./constants/constants.js";
@@ -42,19 +43,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const restaurantList = document.querySelector(".restaurant-list");
 
-  const handleFormSubmit = ({
-    form,
-    modal,
-  }: {
-    form: HTMLFormElement;
-    modal: HTMLDialogElement;
-  }) => {
-    const nameInput = form.querySelector<HTMLInputElement>("#name");
+  const handleFormSubmit = () => {
+    const addRestaurantDialogElemet = document.getElementById(
+      "add-restaurant-dialog"
+    );
+
+    if (!addRestaurantDialogElemet) {
+      throw new Error("다이얼로그 요소를 찾을 수 없습니다.");
+    }
+
+    const nameInput =
+      addRestaurantDialogElemet.querySelector<HTMLInputElement>("#name");
     const descriptionInput =
-      form.querySelector<HTMLTextAreaElement>("#description");
-    const categoryInput = form.querySelector<HTMLSelectElement>("#category");
-    const distanceInput = form.querySelector<HTMLSelectElement>("#distance");
-    const linkInput = form.querySelector<HTMLInputElement>("#link");
+      addRestaurantDialogElemet.querySelector<HTMLTextAreaElement>(
+        "#description"
+      );
+    const categoryInput =
+      addRestaurantDialogElemet.querySelector<HTMLSelectElement>("#category");
+    const distanceInput =
+      addRestaurantDialogElemet.querySelector<HTMLSelectElement>("#distance");
+    const linkInput =
+      addRestaurantDialogElemet.querySelector<HTMLInputElement>("#link");
 
     const restaurantsNameList = restaurantsData.map(
       (restaurant) => restaurant.name
@@ -87,15 +96,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const restaurantItem = createRestaurantItem(newRestaurant);
     restaurantList?.appendChild(restaurantItem);
 
-    form.reset();
-    modal.close();
+    formReset();
+  };
+
+  const formContent = createForm();
+  const formReset = () => {
+    const addRestaurantForm = document.querySelector<HTMLFormElement>(
+      "#add-restaurant-dialog form"
+    );
+    addRestaurantForm?.reset();
   };
 
   const addRestaurantModal = createModal({
+    id: "add-restaurant-dialog",
     title: "새로운 음식점",
-    isForm: true,
-    onSubmit: handleFormSubmit,
+    content: formContent,
+    options: {
+      close: {
+        label: "취소하기",
+        onClick: () => {
+          formReset();
+        },
+      },
+      submit: {
+        label: "추가하기",
+        onClick: handleFormSubmit,
+      },
+    },
   });
+
   body?.append(addRestaurantModal);
 
   const addRestaurantModalButton = header.querySelector(".gnb__button");

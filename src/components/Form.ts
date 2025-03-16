@@ -1,74 +1,51 @@
-import { createButton } from "./Button.ts";
-
 const createForm = () => {
-  const form = document.createElement("form");
-
-  form.innerHTML = `
-    <div class="form-item form-item--required">
-      <label for="category" class="text-caption">카테고리</label>
-      <select name="category" id="category" required>
-        <option value="">선택해 주세요</option>
-        <option value="한식">한식</option>
-        <option value="중식">중식</option>
-        <option value="일식">일식</option>
-        <option value="양식">양식</option>
-        <option value="아시안">아시안</option>
-        <option value="기타">기타</option>
-      </select>
-    </div>
-
-    <div class="form-item form-item--required">
-      <label for="name" class="text-caption">이름</label>
-      <input type="text" name="name" id="name" required />
-    </div>
-
-    <div class="form-item form-item--required">
-      <label for="distance" class="text-caption">거리(도보 이동 시간)</label>
-      <select name="distance" id="distance" required>
-        <option value="">선택해 주세요</option>
-        <option value="5">5분 내</option>
-        <option value="10">10분 내</option>
-        <option value="15">15분 내</option>
-        <option value="20">20분 내</option>
-        <option value="30">30분 내</option>
-      </select>
-    </div>
-
-    <div class="form-item">
-      <label for="description" class="text-caption">설명</label>
-      <textarea name="description" id="description" cols="30" rows="5"></textarea>
-      <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
-    </div>
-
-    <div class="form-item">
-      <label for="link" class="text-caption">참고 링크</label>
-      <input type="url" name="link" id="link" />
-      <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
-    </div>
+  const html = `
+  <form>
+      <div class="form-item form-item--required">
+        <label for="category" class="text-caption">카테고리</label>
+        <select name="category" id="category" required>
+          <option value="">선택해 주세요</option>
+          <option value="한식">한식</option>
+          <option value="중식">중식</option>
+          <option value="일식">일식</option>
+          <option value="양식">양식</option>
+          <option value="아시안">아시안</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+  
+      <div class="form-item form-item--required">
+        <label for="name" class="text-caption">이름</label>
+        <input type="text" name="name" id="name" required />
+      </div>
+  
+      <div class="form-item form-item--required">
+        <label for="distance" class="text-caption">거리(도보 이동 시간)</label>
+        <select name="distance" id="distance" required>
+          <option value="">선택해 주세요</option>
+          <option value="5">5분 내</option>
+          <option value="10">10분 내</option>
+          <option value="15">15분 내</option>
+          <option value="20">20분 내</option>
+          <option value="30">30분 내</option>
+        </select>
+      </div>
+  
+      <div class="form-item">
+        <label for="description" class="text-caption">설명</label>
+        <textarea name="description" id="description" cols="30" rows="5"></textarea>
+        <span class="help-text text-caption">메뉴 등 추가 정보를 입력해 주세요.</span>
+      </div>
+  
+      <div class="form-item">
+        <label for="link" class="text-caption">참고 링크</label>
+        <input type="url" name="link" id="link" />
+        <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
+      </div>
+      </form>
   `;
 
-  const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("button-container");
-
-  const cancelButton = createButton({
-    type: "button",
-    id: "cancel-dialog-btn",
-    className: "button button--secondary text-caption",
-    text: "취소하기",
-  });
-
-  const submitButton = createButton({
-    type: "submit",
-    id: "add-restaurant-btn",
-    className: "button button--primary text-caption",
-    text: "추가하기",
-  });
-
-  buttonContainer.appendChild(cancelButton);
-  buttonContainer.appendChild(submitButton);
-  form.appendChild(buttonContainer);
-
-  return form;
+  return html;
 };
 
 export { createForm };
