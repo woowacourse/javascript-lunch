@@ -1,3 +1,4 @@
+
 import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options.js";
 import CustomDropdown from "../shared/CustomDropdown.js";
 import CustomInput from "../shared/CustomInput.js";
@@ -95,6 +96,7 @@ export default function AddRestaurantModal(container) {
     "취소하기",
   );
   const submitButton = CustomButton("", "button--primary", "추가하기");
+
 
   container.innerHTML += /* html */ `
     <div class="modal modal--open">

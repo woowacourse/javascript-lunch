@@ -127,6 +127,7 @@ describe("E2E 테스트", () => {
         .contains(".restaurant__name", "tester") // tester라는 이름을 가진 레스토랑 요소 찾기
         .closest(".restaurant") // 해당 레스토랑의 부모 요소로 이동
         .within(() => {
+
           cy.get(".restaurant__distance")
             .should("be.visible")
             .should("contain", "5");

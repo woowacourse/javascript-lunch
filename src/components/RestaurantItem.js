@@ -1,3 +1,4 @@
+
 export default function RestaurantItem(restaurant, isDetailModal = false) {
   const modalStyle = isDetailModal ? ' style="flex-direction: column;"' : "";
   const modalClass = isDetailModal ? " modal-restaurant" : "";
@@ -18,6 +19,7 @@ export default function RestaurantItem(restaurant, isDetailModal = false) {
           </button>
         </div>
         <p class="restaurant__description text-body">${restaurant.description}</p>
+
       </div>
     </li>
   `;
