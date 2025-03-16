@@ -1,4 +1,4 @@
-import { createButton } from "./Button.js";
+import { createButton } from "./Button.ts";
 
 const createForm = () => {
   const form = document.createElement("form");

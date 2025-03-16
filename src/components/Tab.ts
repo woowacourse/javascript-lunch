@@ -1,4 +1,9 @@
-const createTab = ({ title, subTitle }) => {
+type TabProps = {
+  title: string;
+  subTitle: string;
+};
+
+const createTab = ({ title, subTitle }: TabProps) => {
   const tabContainer = document.createElement("div");
   tabContainer.classList.add("tab");
 

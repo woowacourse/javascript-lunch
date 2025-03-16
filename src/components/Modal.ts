@@ -1,7 +1,24 @@
-import { createForm } from "./Form.js";
-import { createButton } from "./Button.js";
+import { createForm } from "./Form.ts";
+import { createButton } from "./Button.ts";
 
-const createModal = ({ title, isForm, onSubmit, content, onClose }) => {
+type ModalProps = {
+  title?: string;
+  isForm?: boolean;
+  onSubmit?: (args: {
+    form: HTMLFormElement;
+    modal: HTMLDialogElement;
+  }) => void;
+  content?: string | HTMLElement;
+  onClose?: () => void;
+};
+
+const createModal = ({
+  title,
+  isForm,
+  onSubmit,
+  content,
+  onClose,
+}: ModalProps) => {
   const modal = document.createElement("dialog");
   modal.classList.add("modal");
 
@@ -21,13 +38,13 @@ const createModal = ({ title, isForm, onSubmit, content, onClose }) => {
     const form = createForm();
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      onSubmit?.(form, modal);
+      onSubmit?.({ form, modal });
     });
 
     modalContainer.appendChild(form);
 
     const cancelButton = form.querySelector("#cancel-dialog-btn");
-    cancelButton.addEventListener("click", () => {
+    cancelButton?.addEventListener("click", () => {
       form.reset();
       modal.close();
     });
@@ -67,7 +84,8 @@ const createModal = ({ title, isForm, onSubmit, content, onClose }) => {
   modal.appendChild(modalContainer);
 
   modal.addEventListener("click", (event) => {
-    if (!event.target.closest(".modal-container")) {
+    const target = event.target as Element;
+    if (!target.closest(".modal-container")) {
       modal.close();
       onClose?.();
     }

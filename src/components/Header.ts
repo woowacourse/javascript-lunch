@@ -1,4 +1,8 @@
-const createHeader = ({ title }) => {
+type HeaderProps = {
+  title: string;
+};
+
+const createHeader = ({ title }: HeaderProps) => {
   const header = document.createElement("header");
   header.classList.add("gnb");
 

@@ -1,15 +1,16 @@
-import createHeader from "./components/Header.js";
-import createTab from "./components/Tab.js";
-import createRestaurantItem from "./components/RestaurantItem.js";
-import { createModal } from "./components/Modal.js";
+import createHeader from "./components/Header.ts";
+import createTab from "./components/Tab.ts";
+import createRestaurantItem from "./components/RestaurantItem.ts";
+import { createModal } from "./components/Modal.ts";
 import validateRestaurant from "./validateRestaurant.js";
-import { restaurantsData } from "./restaurantsData.js";
+import { restaurantsData } from "./restaurantsData.ts";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "./constants/constants.js";
+import { Category, Restaurant } from "./types/restaurant.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.querySelector("body");
   const header = createHeader({ title: "점심 뭐 먹지" });
-  body.prepend(header);
+  body?.prepend(header);
 
   const tab = createTab({
     title: "모든 음식점",
@@ -23,39 +24,56 @@ document.addEventListener("DOMContentLoaded", () => {
     ".restaurant-filter-container"
   );
 
-  mainTab.classList.add("active");
+  mainTab?.classList.add("active");
 
-  mainTab.addEventListener("click", () => {
+  mainTab?.addEventListener("click", () => {
     mainTab.classList.add("active");
-    subTab.classList.remove("active");
+    subTab?.classList.remove("active");
     // TODO '모든 음식점' 목록을 렌더링
-    restaurantFilterContainer.classList.remove("hidden");
+    restaurantFilterContainer?.classList.remove("hidden");
   });
 
-  subTab.addEventListener("click", () => {
+  subTab?.addEventListener("click", () => {
     subTab.classList.add("active");
-    mainTab.classList.remove("active");
+    mainTab?.classList.remove("active");
     // TODO '자주 가는 음식점' 목록을 렌더링
-    restaurantFilterContainer.classList.add("hidden");
+    restaurantFilterContainer?.classList.add("hidden");
   });
 
   const restaurantList = document.querySelector(".restaurant-list");
 
-  const handleFormSubmit = (form, modal) => {
-    const nameInput = form.querySelector("#name");
-    const descriptionInput = form.querySelector("#description");
-    const categoryInput = form.querySelector("#category");
-    const distanceInput = form.querySelector("#distance");
-    const linkInput = form.querySelector("#link");
+  const handleFormSubmit = ({
+    form,
+    modal,
+  }: {
+    form: HTMLFormElement;
+    modal: HTMLDialogElement;
+  }) => {
+    const nameInput = form.querySelector<HTMLInputElement>("#name");
+    const descriptionInput =
+      form.querySelector<HTMLTextAreaElement>("#description");
+    const categoryInput = form.querySelector<HTMLSelectElement>("#category");
+    const distanceInput = form.querySelector<HTMLSelectElement>("#distance");
+    const linkInput = form.querySelector<HTMLInputElement>("#link");
 
     const restaurantsNameList = restaurantsData.map(
       (restaurant) => restaurant.name
     );
 
+    if (
+      !nameInput ||
+      !descriptionInput ||
+      !categoryInput ||
+      !distanceInput ||
+      !linkInput
+    ) {
+      throw new Error("필요한 입력 요소 중 하나 이상을 찾을 수 없습니다.");
+    }
+
     const newRestaurant = {
-      category: categoryInput.value,
+      category: categoryInput.value as Category,
       name: nameInput.value,
-      distance: `${distanceInput.value}분 내`,
+      distance: Number(distanceInput.value),
       description: descriptionInput.value,
       link: linkInput.value,
     };
@@ -67,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const restaurantItem = createRestaurantItem(newRestaurant);
-    restaurantList.appendChild(restaurantItem);
+    restaurantList?.appendChild(restaurantItem);
 
     form.reset();
     modal.close();
@@ -78,14 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
     isForm: true,
     onSubmit: handleFormSubmit,
   });
-  body.append(addRestaurantModal);
+  body?.append(addRestaurantModal);
 
   const addRestaurantModalButton = header.querySelector(".gnb__button");
-  addRestaurantModalButton.addEventListener("click", () => {
+  addRestaurantModalButton?.addEventListener("click", () => {
     addRestaurantModal.showModal();
   });
 
-  const showRestaurantDetail = (restaurant) => {
+  const showRestaurantDetail = (restaurant: Restaurant) => {
     const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[restaurant.category];
     const restaurantDetailContent = `
   <div class="detail-modal-content">
@@ -96,7 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="detail-modal-info">
         <h3 class="detail-modal-title">${restaurant.name}</h3>
-        <span class="detail-modal-distance">${restaurant.distance}</span>
+        <span class="detail-modal-distance">캠퍼스로부터 ${
+          restaurant.distance
+        }분 내</span>
       </div>
     </div>
     <p class="detail-modal-description">${restaurant.description ?? ""}</p>
@@ -114,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isForm: false,
       content: restaurantDetailContent,
     });
-    body.append(detailModal);
+    body?.append(detailModal);
     detailModal.showModal();
   };
 
@@ -125,6 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
       showRestaurantDetail(restaurant);
     });
 
-    restaurantList.appendChild(restaurantItem);
+    restaurantList?.appendChild(restaurantItem);
   });
 });
