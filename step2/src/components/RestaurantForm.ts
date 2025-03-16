@@ -4,6 +4,7 @@ import { CATEGORIES, DISTANCE_OPTIONS } from '../constants/options';
 import EventManager from '../utils/@common/EventManager';
 import { $ } from '../utils/@common/domHelper';
 import useRestaurantForm from '../hooks/useRestaurantForm';
+import Input from './@common/Input';
 
 interface RestaurantFormProps {
   closeModal: () => void;
@@ -24,6 +25,7 @@ function RestaurantForm(props: RestaurantFormProps) {
     closeModal();
     window.location.reload();
   });
+
   return `
     <form>
       <div class="form-item form-item--required">
@@ -44,7 +46,15 @@ function RestaurantForm(props: RestaurantFormProps) {
 
       <div class="form-item form-item--required">
         <label for="name" class="text-caption">이름</label>
-        <input type="text" name="name" id="name" required />
+        ${Input({
+          attribute: {
+            type: 'text',
+            name: 'name',
+            id: 'name',
+            class: 'form-item__input',
+            required: true,
+          },
+        })}
       </div>
 
       <div class="form-item form-item--required">
@@ -74,7 +84,14 @@ function RestaurantForm(props: RestaurantFormProps) {
 
       <div class="form-item">
         <label for="link" class="text-caption">참고 링크</label>
-        <input type="text" name="link" id="link" />
+        ${Input({
+          attribute: {
+            type: 'text',
+            name: 'link',
+            id: 'link',
+            class: 'form-item__input',
+          },
+        })}
         <span class="help-text text-caption">매장 정보를 확인할 수 있는 링크를 입력해 주세요.</span>
       </div>
 
