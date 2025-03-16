@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   header?.after(tab);
 
+  const restaurantList = document.querySelector(".restaurant-list");
+
   const mainTab = tab.querySelector(".tab__title");
   const subTab = tab.querySelector(".tab__subTitle");
   const restaurantFilterContainer = document.querySelector(
@@ -32,18 +34,61 @@ document.addEventListener("DOMContentLoaded", () => {
   mainTab?.addEventListener("click", () => {
     mainTab.classList.add("active");
     subTab?.classList.remove("active");
-    // TODO '모든 음식점' 목록을 렌더링
+
+    const restaurants: Restaurant[] = restaurantManager.getList("all");
+
+    if (!restaurantList) {
+      throw new Error("음식점 목록을 찾을 수 없습니다.");
+    }
+    restaurantList.innerHTML = "";
+
+    restaurants.forEach((restaurant: Restaurant) => {
+      const restaurantItem = createRestaurantItem(restaurant);
+
+      restaurantItem.addEventListener("click", (e) => {
+        if (
+          e.target instanceof HTMLImageElement &&
+          e.target.classList.contains("favorite-icon")
+        ) {
+          return;
+        }
+        showRestaurantDetail(restaurant);
+      });
+
+      restaurantList?.appendChild(restaurantItem);
+    });
+
     restaurantFilterContainer?.classList.remove("hidden");
   });
 
   subTab?.addEventListener("click", () => {
     subTab.classList.add("active");
     mainTab?.classList.remove("active");
-    // TODO '자주 가는 음식점' 목록을 렌더링
+    const restaurants: Restaurant[] = restaurantManager.getList("favorite");
+
+    if (!restaurantList) {
+      throw new Error("음식점 목록을 찾을 수 없습니다.");
+    }
+    restaurantList.innerHTML = "";
+
+    restaurants.forEach((restaurant: Restaurant) => {
+      const restaurantItem = createRestaurantItem(restaurant);
+
+      restaurantItem.addEventListener("click", (e) => {
+        if (
+          e.target instanceof HTMLImageElement &&
+          e.target.classList.contains("favorite-icon")
+        ) {
+          return;
+        }
+        showRestaurantDetail(restaurant);
+      });
+
+      restaurantList?.appendChild(restaurantItem);
+    });
+
     restaurantFilterContainer?.classList.add("hidden");
   });
-
-  const restaurantList = document.querySelector(".restaurant-list");
 
   const handleFormSubmit = () => {
     const addRestaurantDialogElement = document.getElementById(

@@ -29,6 +29,18 @@ const getInitialLoadRestaurantData = () => {
   return localStorageRestaurantData;
 };
 
+const getRestaurants = (type: "all" | "favorite") => {
+  const localStorageRestaurantData = localStorageUtils.get("restaurants") || [];
+
+  if (type === "all") {
+    return localStorageRestaurantData;
+  }
+
+  return localStorageRestaurantData.filter(
+    (restaurant: Restaurant) => restaurant.isFavorite
+  );
+};
+
 const addRestaurant = (restaurant: Restaurant) => {
   const localStorageRestaurantData = localStorageUtils.get("restaurants") || [];
 
@@ -68,6 +80,7 @@ const toggleFavoriteRestaurant = (id: string) => {
 export const restaurantManager = {
   getUniqueId: getUniqueRestaurantId,
   getInitialData: getInitialLoadRestaurantData,
+  getList: getRestaurants,
   add: addRestaurant,
   delete: deleteRestaurant,
   toggleFavorite: toggleFavoriteRestaurant,
