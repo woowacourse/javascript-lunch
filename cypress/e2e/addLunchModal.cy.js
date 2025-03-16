@@ -2,7 +2,9 @@ describe("addLunchModal 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
     cy.viewport(1920, 975);
-    cy.get(".gnb__button").click();
+    cy.get(".gnb").within(() => {
+      cy.get(".gnb__button").click();
+    });
   });
 
   it("아이콘 버튼을 클릭하면 모달이 열린다", () => {

@@ -4,15 +4,9 @@ import ButtonContainer from "./ButtonContainer.js";
 import TextButton from "./TextButton.js";
 import Modal from "./Modal.js";
 import RestaurantList from "../domain/RestaurantList.js";
-
-const CATEGORY_ICON = {
-  한식: "./category-korean.png",
-  중식: "./category-chinese.png",
-  일식: "./category-japanese.png",
-  양식: "./category-western.png",
-  아시안: "./category-asian.png",
-  기타: "./category-etc.png",
-};
+import { CATEGORY_ICON } from "../constants/constants.js";
+import FavoriteButton from "./FavoriteButton.js";
+import { $ } from "../utils/querySelectors.js";
 
 function RestaurantDetail({ category, name, distance, description, link }) {
   const $el = toElement(`<div class="restaurant__detail"></div>`);
@@ -21,9 +15,11 @@ function RestaurantDetail({ category, name, distance, description, link }) {
     $el,
     toElement(`
     <div class="restaurant__detail">
-        <div class="restaurant__category">
-              <img src=${CATEGORY_ICON[category]} alt=${category} />
-          </div>
+        <div class="restaurant__detail__top">
+          <div class="restaurant__category">
+                <img src=${CATEGORY_ICON[category]} alt=${category} />
+            </div>
+        </div>
         <h3 class="restaurant__name text-subtitle">${name}</h3>
         <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
         ${
@@ -54,6 +50,8 @@ function RestaurantDetail({ category, name, distance, description, link }) {
       })
     )
   );
+  const categoryElement = $el.querySelector(".restaurant__detail__top");
+  new FavoriteButton(categoryElement);
 
   return $el;
 }

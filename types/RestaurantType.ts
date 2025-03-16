@@ -8,4 +8,5 @@ export interface Restaurant {
   distance: number;
   description?: string;
   link?: string;
+  favorite: boolean;
 }

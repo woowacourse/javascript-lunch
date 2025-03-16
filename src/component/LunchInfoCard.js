@@ -1,13 +1,6 @@
-const CATEGORY_ICON = {
-  한식: "./category-korean.png",
-  중식: "./category-chinese.png",
-  일식: "./category-japanese.png",
-  양식: "./category-western.png",
-  아시안: "./category-asian.png",
-  기타: "./category-etc.png",
-};
+import { CATEGORY_ICON } from "../constants/constants.js";
 
-function LunchInfoCard({ category, name, distance, description }) {
+function LunchInfoCard({ category, name, distance, description, favorite }) {
   return `
         <li class="restaurant" id="restaurant_${name}">
           <div class="restaurant__category">

@@ -11,6 +11,7 @@ describe("restaurantDetailModal 테스트", () => {
               distance: 2000,
               description: "😠",
               link: "https://www.naver.com/",
+              favorite: true,
             },
             {
               category: "한식",
@@ -18,6 +19,7 @@ describe("restaurantDetailModal 테스트", () => {
               distance: 5,
               description: "😆",
               link: "https://www.naver.com/",
+              favorite: true,
             },
             {
               category: "한식",
@@ -25,6 +27,7 @@ describe("restaurantDetailModal 테스트", () => {
               distance: 10,
               description: "💖",
               link: "https://www.naver.com/",
+              favorite: true,
             },
           ])
         );
