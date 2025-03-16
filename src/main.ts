@@ -22,7 +22,7 @@ import {
   renderTabs,
   setRequired,
 } from './ui/renderer.ts';
-import { renderElement, selectElement, selectElements } from './utils/dom.ts';
+import { renderElement, selectElement } from './utils/dom.ts';
 import { RESTAURANTS } from './data/initialData.ts';
 import createRestaurantInfo from './components/RestaurantInfo.ts';
 
