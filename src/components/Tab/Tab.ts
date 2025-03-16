@@ -1,7 +1,7 @@
-import { filterRestaurants } from "../../domain/filterRestaurants";
-import { getStoredRestaurantData } from "../../domain/storeRestaurantData";
-import Component from "../Component";
-import { createRestaurant } from "../createRestaurant";
+import { filterRestaurants } from "../../domain/filterRestaurants.ts";
+import { getStoredRestaurantData } from "../../domain/storeRestaurantData.ts";
+import Component from "../Component.js";
+import { createRestaurant } from "../createRestaurant.js";
 
 class Tab extends Component {
   constructor($target: HTMLElement) {

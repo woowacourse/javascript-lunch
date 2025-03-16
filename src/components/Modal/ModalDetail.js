@@ -1,8 +1,8 @@
 import {
   getStoredRestaurantData,
   setStoredRestaurantData,
-} from "../../domain/storeRestaurantData.js";
-import { filterRestaurants } from "../../domain/filterRestaurants.js";
+} from "../../domain/storeRestaurantData.ts";
+import { filterRestaurants } from "../../domain/filterRestaurants.ts";
 import Modal from "./Modal.js";
 
 class ModalDetail extends Modal {

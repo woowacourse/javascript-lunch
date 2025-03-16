@@ -1,4 +1,4 @@
-import { getStoredRestaurantData } from "../domain/storeRestaurantData.js";
+import { getStoredRestaurantData } from "../domain/storeRestaurantData.ts";
 import Restaurant from "./Restaurant/Restaurant.js";
 
 const createList = () => {

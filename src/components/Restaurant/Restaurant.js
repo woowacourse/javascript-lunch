@@ -1,7 +1,7 @@
 import {
   getStoredRestaurantData,
   setStoredRestaurantData,
-} from "../../domain/storeRestaurantData.js";
+} from "../../domain/storeRestaurantData.ts";
 import Component from "../Component.js";
 import ModalDetail from "../Modal/ModalDetail.js";
 class Restaurant extends Component {

@@ -1,4 +1,4 @@
-import addData from "../../domain/addData.js";
+import addData from "../../domain/addData.ts";
 import createModalInputs from "./createModalInputs.js";
 import Modal from "./Modal.js";
 

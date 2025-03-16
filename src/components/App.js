@@ -2,7 +2,7 @@ import Header from "./Header/Header.js";
 import { createRestaurant, updateRestaurant } from "./createRestaurant.js";
 import Component from "./Component.js";
 import { filterRestaurants } from "../domain/filterRestaurants.ts";
-import { getStoredRestaurantData } from "../domain/storeRestaurantData.js";
+import { getStoredRestaurantData } from "../domain/storeRestaurantData.ts";
 import Tab from "./Tab/Tab.ts";
 class App extends Component {
   constructor($target) {

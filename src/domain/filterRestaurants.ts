@@ -1,5 +1,5 @@
-import { createRestaurant } from "../components/createRestaurant";
-import { getStoredRestaurantData } from "./storeRestaurantData";
+import { createRestaurant } from "../components/createRestaurant.js";
+import { getStoredRestaurantData } from "./storeRestaurantData.ts";
 
 export const filterRestaurants = (category: string, sort: string) => {
   let filteredData = getStoredRestaurantData();
