@@ -1,5 +1,5 @@
 import AddRestaurantModal from "../components/AddRestaurantModal.js";
-import { handleAddRestaurant } from "./restaurantHandler.js";
+import { handleAddRestaurant } from "./restaurantHandler.ts";
 import removeModal from "../utils/removeModal.js";
 
 function setupModalEventListeners() {

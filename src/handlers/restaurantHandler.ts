@@ -1,4 +1,3 @@
-import { categoryMapping } from "../utils/categoryMapping.ts";
 import {
   validateDescriptiontInput,
   validateNameInput,
@@ -12,8 +11,10 @@ import { storeRestaurants } from "../utils/localStorage.ts";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
 import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
+import { categoryMapping } from "../utils/categoryMapping.ts";
+import { Restaurant, Category,CategoryName } from "../../types/Restaurant.ts";
 
-export function handleDeleteRestaurant(e) {
+export function handleDeleteRestaurant(e : MouseEvent) : void {
   e.preventDefault();
   const $restaurantList = document.querySelector(".restaurant-list");
   if ($restaurantList) {
@@ -23,13 +24,13 @@ export function handleDeleteRestaurant(e) {
   }
 }
 
-export function handleAddRestaurant(e) {
+export function handleAddRestaurant(e : MouseEvent) : void{
   e.preventDefault();
 
-  const $category = document.getElementById("category");
-  const $name = document.getElementById("name");
-  const $distance = document.getElementById("distance");
-  const $description = document.getElementById("description");
+  const $category = document.getElementById("category") as HTMLSelectElement;
+  const $name = document.getElementById("name") as HTMLInputElement;
+  const $distance = document.getElementById("distance") as HTMLSelectElement;
+  const $description = document.getElementById("description") as HTMLTextAreaElement;
 
   if (!$category || !$name || !$distance || !$description) {
     alert("필수 입력 필드를 찾을 수 없습니다.");
@@ -47,14 +48,14 @@ export function handleAddRestaurant(e) {
     const descriptionValue = $description.value;
     validateDescriptiontInput(descriptionValue);
 
-    const category = categoryMapping[categoryValue];
+    const category = categoryMapping[categoryValue as keyof typeof categoryMapping];
     validateSelectInput(category, ERROR_TYPES.CATEGORY);
 
     // 새로운 레스토랑 객체 생성
-    const newRestaurant = {
+    const newRestaurant : Restaurant = {
       id: generateId(),
-      category,
-      categoryName: categoryValue,
+      category : category as Category,
+      categoryName: categoryValue as CategoryName,
       name: nameValue,
       distance: distanceValue,
       description: descriptionValue,
@@ -83,6 +84,6 @@ export function handleAddRestaurant(e) {
 
     removeModal();
   } catch (error) {
-    alert(error.message);
+    alert((error as Error).message);
   }
 }
