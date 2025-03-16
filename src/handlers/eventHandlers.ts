@@ -54,6 +54,7 @@ function handleNewRestaurantSubmit(event: SubmitEvent, addNewRestaurantItem: () 
     stateStore.updateState(newRestaurantData);
     addNewRestaurantItem();
     handleCloseModal(event);
+    updateRestaurantListBasedOnActiveTab();
   }
 }
 
