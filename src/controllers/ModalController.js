@@ -5,7 +5,7 @@ import { generateFormItems } from "../utils/formUtils.js";
 import EventHandler from "../utils/EventHandler.js";
 import Form from "../components/Form/Form.js";
 
-export function ModalController(mainElement, { updateList, restaurantList }) {
+export function ModalController(mainElement, { updateListView, restaurantList }) {
   const titleElement = Title(MODAL_TITLE);
   const { formItems, buttonsFormItems } = generateFormItems(MODAL_FORM_CONFIG);
   const formElement = Form(formItems, buttonsFormItems);
@@ -19,7 +19,7 @@ export function ModalController(mainElement, { updateList, restaurantList }) {
     const values = EventHandler.formDataParsing(event);
     restaurantList.addRestaurant(values);
     // List 재렌더링
-    updateList();
+    updateListView();
     EventHandler.modalToggle(modalElement, formElement);
   });
 

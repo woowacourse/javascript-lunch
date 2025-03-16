@@ -63,7 +63,7 @@
 - [x] ListController, favoriteListController 리팩토링 (listView 파일 생성)
   - [x] 클로저 기능 이용 (list create 후, update 함수 return )
 - [ ] tabController 리팩토링
-- [ ] categoryController 리팩토링
+- [x] categoryController 리팩토링
 - [ ] MainController 리팩토링
 - [ ] ButtonForm 컴포넌트 리팩토링 -> Button 컴포넌트에 종속 시키기 (Button을 모아주는 역할 밖에 안하기 때문에, 단순히 껍데기 역할)
 - [ ] Button 컴포넌트 이벤트 자체 처리 (컴포넌트 인자값으로 이벤트 넘기기)

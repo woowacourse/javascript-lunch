@@ -5,7 +5,7 @@ import Modal from "../components/Modal.js";
 import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
 import EventHandler from "../utils/EventHandler.js";
-import CategoryFilterController from "./CategoryFilterController.js";
+import CategorySortFilterController from "./CategorySortFilterController.js";
 import FavoriteListController from "./FavoriteListController.js";
 import HeaderController from "./HeaderController.js";
 import ListController from "./ListController.js";
@@ -22,14 +22,10 @@ function MainController() {
 
   const updateListView = ListController(allListContainerElement, restaurantList);
   const updateFavoriteListView = FavoriteListController(favoriteListContainerElement, restaurantList);
-
-  const { categoryFilterElement, sortingFilterElement } = CategoryFilterController(
-    allListContainerElement,
-    updateListView,
-  );
+  const updateCategorySortListView = CategorySortFilterController(allListContainerElement, updateListView);
 
   const modalElement = ModalController(mainElement, {
-    updateListView: () => updateListView(categoryFilterElement.value, sortingFilterElement.value),
+    updateListView: updateCategorySortListView,
     restaurantList,
   });
 
@@ -37,7 +33,7 @@ function MainController() {
     mainElement,
     { allListContainerElement, favoriteListContainerElement },
     {
-      updateListView: () => updateListView(categoryFilterElement.value, sortingFilterElement.value),
+      updateListView: updateCategorySortListView,
       updateFavoriteListView,
     },
   );
