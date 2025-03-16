@@ -24,5 +24,5 @@ Cypress.Commands.add('addRestaurant', (restaurantAdd: RestaurantAddType) => {
   if (restaurantAdd.description) cy.get('#description').type(restaurantAdd.description);
   if (restaurantAdd.url) cy.get('#url').type(restaurantAdd.url);
 
-  cy.get('#modal-add').click();
+  cy.get('[data-action="modal-add"]').click();
 });

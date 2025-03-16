@@ -1,7 +1,7 @@
 import Component from '../core/Component.ts';
 import type { TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
-import { forEach } from '@fxts/core';
+import EventHandler from '../lib/EventHandler.ts';
 
 interface RestaurantTabProps {
   focusedTab: TabType;
@@ -14,6 +14,7 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
       <div class="restaurant__tab-list">
         <div
           class="restaurant__tab-item ${this.props?.focusedTab === 'all' ? 'restaurant__tab-item--active' : ''}"
+          data-action="tab-change"
           data-tab="all"
           id="tab-all"
         >
@@ -21,6 +22,7 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
         </div>
         <div
           class="restaurant__tab-item ${this.props?.focusedTab === 'like' ? 'restaurant__tab-item--active' : ''}"
+          data-action="tab-change"
           data-tab="like"
           id="tab-like"
         >
@@ -31,13 +33,13 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
   }
 
   override attachEventListener() {
-    forEach(
-      (tabItem) => {
-        tabItem.addEventListener('click', (event) => {
-          this.props?.setTab((event?.currentTarget as HTMLDivElement)?.dataset.tab as TabType);
-        });
+    EventHandler.attachEventHandler(
+      'click',
+      (_, target) => {
+        const tab = (target.closest('[data-action="tab-change"]') as HTMLElement)?.dataset.tab;
+        this.props?.setTab(tab as TabType);
       },
-      this.element?.querySelectorAll('.restaurant__tab-item') as NodeListOf<HTMLDivElement>,
+      'tab-change',
     );
   }
 }

@@ -22,7 +22,7 @@ export default class Modal extends Component<ModalProps> {
   }
 
   private _attachClickEventListener() {
-    this.element?.querySelector('#modal-cancel')?.addEventListener('click', this.removeModal.bind(this));
+    this.element?.querySelector('[data-action="modal-cancel"]')?.addEventListener('click', this.removeModal.bind(this));
     this.element?.querySelector('.modal-backdrop')?.addEventListener('click', this.removeModal.bind(this));
   }
 

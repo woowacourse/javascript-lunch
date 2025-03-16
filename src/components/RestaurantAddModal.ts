@@ -4,6 +4,7 @@ import { Button, Modal } from './common/index.ts';
 import type { RestaurantType } from '../lib/types.ts';
 import { html, generateId } from '../lib/utils.ts';
 import { CATEGORIES, DISTANCES } from '../lib/constants.ts';
+import EventHandler from '../lib/EventHandler.ts';
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
@@ -59,22 +60,22 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
     const cancelButton = new Button({
       type: 'button',
       class: 'button--secondary',
-      id: 'modal-cancel',
       message: '취소하기',
+      dataAction: 'modal-cancel',
     });
 
     const addButton = new Button({
       type: 'submit',
       class: 'button--primary',
-      id: 'modal-add',
       message: '추가하기',
+      dataAction: 'modal-add',
     });
 
     const modal = new Modal({
       id: 'restaurant-add-modal',
       children: html`
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form>
+        <form data-action="restaurant-add">
           ${inputBoxList.map((input) => html`${input}`).join('')}
           <div class="button-container">${cancelButton} ${addButton}</div>
         </form>
@@ -85,14 +86,17 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
   }
 
   override attachEventListener() {
-    this.element?.querySelector('form')?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const id = generateId();
+    EventHandler.attachEventHandler(
+      'submit',
+      (_, target) => {
+        const id = generateId();
 
-      const formData = new FormData(event.target as HTMLFormElement);
-      const modalInput = { ...Object.fromEntries(formData), id };
+        const formData = new FormData(target as HTMLFormElement);
+        const modalInput = { ...Object.fromEntries(formData), id };
 
-      this.props?.addRestaurant(modalInput as unknown as RestaurantType);
-    });
+        this.props?.addRestaurant(modalInput as unknown as RestaurantType);
+      },
+      'restaurant-add',
+    );
   }
 }

@@ -4,11 +4,11 @@ import { html } from '../lib/utils.ts';
 export default abstract class Component<State = Record<string, any>, Props = Record<string, any>> {
   state = {} as State;
 
-  #props: Props | null;
+  #props: Props;
   #element: HTMLElement = document.createElement('div');
 
-  constructor(props?: Props) {
-    this.#props = props ?? null;
+  constructor(props: Props) {
+    this.#props = props;
     this.setup();
 
     this.render();

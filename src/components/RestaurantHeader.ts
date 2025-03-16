@@ -1,5 +1,6 @@
 import Component from '../core/Component.ts';
 import { html } from '../lib/utils.ts';
+import EventHandler from '../lib/EventHandler.ts';
 
 export default class RestaurantHeader extends Component {
   override template() {
@@ -14,8 +15,10 @@ export default class RestaurantHeader extends Component {
   }
 
   override attachEventListener() {
-    this.element?.querySelector('.gnb__button')?.addEventListener('click', () => {
-      document.querySelector('#restaurant-add-modal')?.classList.add('modal--open');
-    });
+    EventHandler.attachEventHandler(
+      'click',
+      () => document.querySelector('#restaurant-add-modal')?.classList.add('modal--open'),
+      'gnb__button',
+    );
   }
 }

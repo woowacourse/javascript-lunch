@@ -6,6 +6,7 @@ import type { FilterType, RestaurantType, SortType, TabType } from '../lib/types
 import { html } from '../lib/utils.ts';
 import { Select } from './common/index.ts';
 import { RestaurantAddModal, RestaurantDetailModal, RestaurantItem, RestaurantTab } from './index.ts';
+import EventHandler from '../lib/EventHandler.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -16,10 +17,6 @@ interface RestaurantListState {
 }
 
 export default class RestaurantList extends Component<RestaurantListState> {
-  constructor() {
-    super();
-  }
-
   override setup() {
     const localStorageRestaurants = LocalStorage.get('restaurants');
     const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : DEFAULT_RESTAURANT_LIST;
@@ -79,6 +76,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
             filter: filter as FilterType,
           }),
         selected: this.state.filter,
+        dataAction: 'filter',
       }).element,
       '.restaurant-filter-sort',
     );
@@ -90,6 +88,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
             sort: sort as SortType,
           }),
         selected: this.state.sort,
+        dataAction: 'sort',
       }).element,
       '.restaurant-filter-sort',
     );
@@ -140,31 +139,31 @@ export default class RestaurantList extends Component<RestaurantListState> {
    */
 
   override attachEventListener() {
-    this.element.addEventListener('click', (event) => {
-      if (!event.target) return;
+    EventHandler.attachEventHandler(
+      'click',
+      (_, target) => this._toggleLike(target.dataset.id ?? ''),
+      'like-restaurant',
+    );
 
-      const target = event.target as HTMLElement;
+    EventHandler.attachEventHandler(
+      'click',
+      () => this._deleteRestaurant(this.state.currentRestaurant?.id ?? ''),
+      'delete-restaurant',
+    );
 
-      if (target.closest('#like__button') && target.dataset.id) {
-        this._toggleLike(target.dataset.id);
-        return;
-      }
-
-      if (target.closest('.restaurant')) {
+    EventHandler.attachEventHandler(
+      'click',
+      (_, target) => {
         this.setState({
           currentRestaurant: this.state.restaurants.find(
-            (restaurant) => restaurant.id === (target.closest('.restaurant') as HTMLElement).dataset.id,
+            (restaurant) =>
+              restaurant.id === (target.closest('[data-action="restaurant-detail"]') as HTMLElement).dataset.id,
           ),
         });
         this.element.querySelector('#restaurant-detail-modal')?.classList.add('modal--open');
-        return;
-      }
-
-      if (target.closest('#delete-restaurant')) {
-        this._deleteRestaurant(this.state.currentRestaurant?.id ?? '');
-        return;
-      }
-    });
+      },
+      'restaurant-detail',
+    );
   }
 
   private _deleteRestaurant(id: string) {

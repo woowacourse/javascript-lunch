@@ -18,15 +18,15 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
     const deleteButton = new Button({
       type: 'button',
       class: 'button--secondary',
-      id: 'delete-restaurant',
       message: '삭제하기',
+      dataAction: 'delete-restaurant',
     });
 
     const cancelButton = new Button({
       type: 'button',
       class: 'button--primary',
-      id: 'modal-cancel',
       message: '닫기',
+      dataAction: 'modal-cancel',
     });
 
     this.appendChild(
@@ -45,7 +45,8 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
               <img
                 src="images/star${currentRestaurant?.isLike ? '_filled' : ''}.svg"
                 alt="음식점 추가"
-                id="like__button"
+                id=""
+                data-action="like-restaurant"
                 data-id="${currentRestaurant?.id ?? ''}"
               />
             </div>
