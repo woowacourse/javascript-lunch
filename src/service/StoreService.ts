@@ -7,16 +7,8 @@ class StoreService<T extends BaseData> {
   #totalData: T[];
 
   constructor(key: string) {
-    this.#key = this.#validateKey(key);
+    this.#key = key;
     this.#totalData = this.getDataList();
-  }
-
-  #validateKey(key: string) {
-    if (!store.checkValidKey(key)) {
-      throw new Error('유효하지 않는 key 입니다.');
-    }
-
-    return key;
   }
 
   getDataList(): T[] {
@@ -43,10 +35,18 @@ class StoreService<T extends BaseData> {
     store.setData(this.#key, stringData);
   }
 
-  updateDataList(dataList: T[]) {
-    dataList.forEach((data) => {
-      this.updateDataById(data.id, data);
-    });
+  addData(data: T) {
+    const newDataList = [...this.#totalData, data];
+    const stringData = stringifyJSON(newDataList);
+
+    store.setData(this.#key, stringData);
+  }
+
+  addDataList(dataList: T[]) {
+    const newDataList = [...this.#totalData, ...dataList];
+    const stringData = stringifyJSON(newDataList);
+
+    store.setData(this.#key, stringData);
   }
 
   deleteDataById(id: number) {

@@ -27,11 +27,12 @@ import {
   createSelect,
   createTextarea,
 } from './components/index.js';
-import storeService from './database/storeService.ts';
+import storeService from './service/StoreService.ts';
 import sortRestaurants from './domain/sortRestaurants.ts';
 import createRestaurantInfo from './components/RestaurantInfo.js';
 import filterByFavorite from './domain/filterByFavorite.ts';
 import filterByCategory from './domain/filterByCategory.ts';
+import restaurantService from './service/restaurantService.ts';
 
 addEventListener('load', () => {
   appendHeader();
@@ -154,21 +155,20 @@ function appendModalButton(parent) {
 }
 
 function initRestaurantItems() {
-  const restaurants = storeService.getRestaurants();
+  const restaurants = restaurantService.getRestaurants();
   if (!restaurants) {
-    storeService.updateRestaurants([...RESTAURANTS]);
+    [...RESTAURANTS].forEach((restaurant) => {
+      restaurantService.addRestaurant(restaurant);
+    });
   }
 }
 
 function updateRestaurantElements() {
-  const { sort, category, isFavoriteTab } = stateStore.getState();
-  const allRestaurants = storeService.getRestaurants();
+  const states = stateStore.getState();
+  const restaurants = restaurantService.getRestaurants();
+  const filteredRestaurants = restaurantService.getFilteredRestaurants(states, restaurants);
 
-  const favoriteFiltered = filterByFavorite(isFavoriteTab, allRestaurants);
-  const categoryFiltered = filterByCategory(category, favoriteFiltered);
-  const sortedRestaurants = sortRestaurants(sort, categoryFiltered);
-
-  appendRestaurantItems(sortedRestaurants);
+  appendRestaurantItems(filteredRestaurants);
 }
 
 function appendRestaurantItems(restaurants) {

@@ -30,7 +30,7 @@ const restaurantService: RestaurantService = {
     const id = this.restaurantManager.getNewDataId();
     const restaurant = { ...restaurantData, id, favorite: false };
 
-    this.restaurantManager.updateDataById(id, restaurant);
+    this.restaurantManager.addData(restaurant);
   },
 
   updateRestaurant(id, newProperty) {
