@@ -5,6 +5,7 @@ import { handleModalClose, handleModalOpen } from "../modal/modal.js";
 import { storageHandler } from "../../utils/storageHandler.js";
 import { STORAGE_KEY_NAME } from "../../constants/storage.js";
 import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon.js";
+import { USER_MESSAGE } from "../../constants/message.js";
 
 const $createRestaurantInfo = (restaurantInfo) => {
   const {
@@ -66,8 +67,10 @@ const $createRestaurantInfo = (restaurantInfo) => {
   container.appendChild(favoriteIcon);
 
   const itemDelete = () => {
-    document.querySelector(`[data-id="${id}"]`).remove();
-    storageHandler.deleteItem(STORAGE_KEY_NAME, id);
+    if (confirm(USER_MESSAGE.CONFIRM_DELETE)) {
+      document.querySelector(`[data-id="${id}"]`).remove();
+      storageHandler.deleteItem(STORAGE_KEY_NAME, id);
+    }
 
     handleModalClose();
   };
