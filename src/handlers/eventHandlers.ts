@@ -1,5 +1,6 @@
 import stateStore from '../store/stateStore.ts';
 import { restaurantStore, getNextRestaurantId, addRestaurant } from '../store/restaurantStore.ts';
+import { updateRestaurantListBasedOnActiveTab } from '../utils/updateRestaurantList.ts';
 
 function handleOpenModal() {
   const modal = document.querySelector('.modal');
@@ -97,6 +98,8 @@ export function handleStarToggle(event: Event) {
   if (modalIcon && modalIcon !== target && modalIcon instanceof HTMLImageElement) {
     modalIcon.src = newSrc;
   }
+
+  updateRestaurantListBasedOnActiveTab();
 }
 
 function handleRestaurantClick(
