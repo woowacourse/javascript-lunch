@@ -1,4 +1,4 @@
-import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants";
+import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.ts";
 import { Restaurant } from "../types/restaurant.ts";
 
 const createRestaurantItem = ({
