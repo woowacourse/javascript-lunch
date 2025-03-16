@@ -21,11 +21,6 @@ export default class InputBox extends Component<null, InputBoxProps> {
   }
 
   onRender(): void {
-    console.log(typeof this.props?.input);
-    if (typeof this.props?.input === 'string') return;
-
-    console.log(this.props?.input);
-
     this.appendChild(this.props?.input, '.input-box');
   }
 }

@@ -12,7 +12,6 @@ interface SelectProps<T extends string> {
 
 export default class Select<T extends string> extends Component<null, SelectProps<T>> {
   override template() {
-    console.log(2, this.props.required);
     return html`
       <select
         name=${this.props.dataAction}

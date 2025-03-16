@@ -7,7 +7,6 @@ interface RestaurantProps extends RestaurantType {}
 
 export default class RestaurantItem extends Component<null, RestaurantProps> {
   override template() {
-    console.log(this.props?.category);
     return html` <li class="restaurant" data-id="${this.props?.id ?? ''}" data-action="restaurant-detail">
       <div class="restaurant__category">
         <img
