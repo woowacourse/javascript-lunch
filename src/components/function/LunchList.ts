@@ -15,14 +15,14 @@ export function LunchList(
     render();
   }
 
-  function template<T extends ILunchItem>(items: T[], indexMap?: number[]) {
+  function template<T extends ILunchItem>(items: T[]) {
     const ul = createElement("ul");
     ul.classList.add("restaurant-list");
 
     if (items.length > 0) {
-      items.forEach((item, index) => {
-        const originalIndex = indexMap ? indexMap[index] : index;
-        ul.appendChild(LunchItem(item, String(originalIndex)));
+      items.forEach((item) => {
+        const dataIndex = item.dataIndex ?? 0;
+        ul.appendChild(LunchItem(item, String(dataIndex)));
       });
     } else {
       ul.innerHTML = `
@@ -73,17 +73,15 @@ export function LunchList(
 
   function renderFavorites() {
     const favorites = lunchItems
-      .map((item, index) => ({ ...item, originalIndex: index }))
+      .map((item, index) => ({ ...item, dataIndex: index }))
       .filter((item) => item.isFavorite);
 
     const items = favorites.map((item) => {
-      const { originalIndex, ...rest } = item;
+      const { dataIndex, ...rest } = item;
       return rest;
     });
 
-    const indexMap = favorites.map((item) => item.originalIndex);
-
-    const ul = template(items, indexMap);
+    const ul = template(items);
     getHTML(favoriteTargetID).innerHTML = "";
     getHTML(favoriteTargetID).appendChild(ul);
   }

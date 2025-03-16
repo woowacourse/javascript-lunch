@@ -7,6 +7,7 @@ export interface ILunchItem {
   description?: string;
   link?: string;
   isFavorite: boolean;
+  dataIndex?: number;
 }
 
 export type HTMLTagName = keyof HTMLElementTagNameMap;

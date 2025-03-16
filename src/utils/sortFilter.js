@@ -12,7 +12,10 @@ export function updateFilterState(newState) {
 
 export function sortFilter(items) {
   if (!Array.isArray(items)) return items;
-  let filtered = [...items];
+  let filtered = items.map((item, index) => ({
+    ...item,
+    dataIndex: index,
+  }));
 
   if (filterState.category) {
     filtered = filtered.filter(
