@@ -1,4 +1,3 @@
-// RestaurantModalContent.js
 import { FAV_STAR, IMAGE } from '../constants/constants.ts';
 import createFavoriteStar from './FavoriteStar.js';
 import createRestaurantItem from './RestaurantItem.js';
