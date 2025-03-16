@@ -236,11 +236,29 @@ svg.favorite-icon {
   margin-bottom: 36px;
 }
 
+.modal-container > .restaurant__name {
+  margin: 10px 0;
+}
+
+.modal-container > .text-body {
+  margin: 5px 0;
+}
+
+.modal-container > .restaurant__description {
+  -webkit-line-clamp: none;
+}
+
+.modal-container > a {
+  display: flex;
+
+  margin: 10px 0;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 36px;
+  margin-bottom: 16px;
 }
 
 .form-item label {
