@@ -13,7 +13,10 @@ export const saveStorage = (data: RestaurantType[]) => {
 export const getStorage = (): RestaurantType[] | null => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
-    return data && JSON.parse(data);
+    if (data) {
+      return JSON.parse(data);
+    }
+    return null;
   } catch (error) {
     console.error(ERROR_MESSAGE.GET_LOCAL_STORAGE);
     return null;
