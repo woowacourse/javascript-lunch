@@ -1,4 +1,5 @@
 import Modal from "./components/Modal.js";
+import TabButton from "./components/TabButton.js";
 import restaurantStorage from "./stores/restaurantStorage.ts";
 import querySelector from "./utils/querySelector.js";
 
@@ -9,9 +10,48 @@ import { RestaurantItem } from "./types/restaurantItem.js";
 import { FilterAndSortOptions } from "./types/filterAndSortOptions.js";
 
 addEventListener("load", () => {
-  const restaurantList = restaurantStorage.getRestaurantList();
+  let isFavoriteTabActive = false;
+
   const categoryFilter = querySelector("#category-filter");
   const sortingFilter = querySelector("#sorting-filter");
+  const allTabButton = TabButton({ name: "모든 음식점", isActive: true });
+  const favoriteTabButton = TabButton({
+    name: "자주 가는 음식점",
+    isActive: false,
+  });
+
+  querySelector(".restaurant-tab-container").append(
+    allTabButton,
+    favoriteTabButton
+  );
+
+  const toggleTabs = (tab: HTMLButtonElement) => {
+    document.querySelectorAll(".tab-button").forEach((button) => {
+      button.classList.remove("active-tab");
+    });
+
+    isFavoriteTabActive = tab === favoriteTabButton;
+    tab.classList.add("active-tab");
+    querySelector(".restaurant-list").innerHTML = "";
+
+    renderRestaurantList(
+      getCurrentList(),
+      categoryFilter.value,
+      sortingFilter.value
+    );
+  };
+
+  const getFavoriteRestaurantList = () => {
+    return restaurantStorage
+      .getRestaurantList()
+      .filter((restaurant: RestaurantItem) => restaurant.isFavorite);
+  };
+
+  const getCurrentList = () => {
+    return isFavoriteTabActive
+      ? getFavoriteRestaurantList()
+      : restaurantStorage.getRestaurantList();
+  };
 
   const renderRestaurantList = (
     restaurants: RestaurantItem[],
@@ -33,7 +73,7 @@ addEventListener("load", () => {
   };
 
   renderRestaurantList(
-    restaurantList,
+    restaurantStorage.getRestaurantList(),
     categoryFilter.value as FilterAndSortOptions["category"],
     sortingFilter.value as FilterAndSortOptions["sortOption"]
   );
@@ -46,7 +86,7 @@ addEventListener("load", () => {
         const sortingFilter = querySelector("#sorting-filter");
 
         updateRestaurantList(
-          restaurantList,
+          getCurrentList(),
           categoryFilter.value,
           sortingFilter.value
         );
@@ -75,12 +115,20 @@ addEventListener("load", () => {
     modalHandler.addForm();
 
     querySelector(".modal-form").addEventListener("submit", (e: Event) =>
-      restaurantHandler.uploadRestaurant(restaurantList, e)
+      restaurantHandler.uploadRestaurant(
+        restaurantStorage.getRestaurantList(),
+        e
+      )
     );
   });
 
   querySelector(".modal-backdrop").addEventListener(
     "click",
     modalHandler.closeModal
+  );
+
+  allTabButton.addEventListener("click", () => toggleTabs(allTabButton));
+  favoriteTabButton.addEventListener("click", () =>
+    toggleTabs(favoriteTabButton)
   );
 });

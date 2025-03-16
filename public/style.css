@@ -87,6 +87,33 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 전체 / 즐겨찾기 탭 */
+
+.restaurant-tab-container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 16px;
+  margin-top: 24px;
+}
+
+.tab-button {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  color: #667085;
+  padding: 8px;
+  border-bottom: 3px solid #d0d5dd;
+  background: transparent;
+}
+
+.active-tab {
+  color: var(--primary-color);
+  border-bottom: 3px solid var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
