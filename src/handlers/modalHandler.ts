@@ -15,6 +15,7 @@ export const modalHandler = {
   openModal: () => {
     const modal = querySelector(".modal");
     modal.classList.add("modal--open");
+    document.body.classList.add("pause-scroll");
   },
 
   closeModal: () => {
@@ -25,6 +26,8 @@ export const modalHandler = {
     while (modalContainer.firstChild) {
       modalContainer.removeChild(modalContainer.firstChild);
     }
+
+    document.body.classList.remove("pause-scroll");
   },
 
   addRestaurantDetail: (restaurantDetail: RestaurantItem) => {
