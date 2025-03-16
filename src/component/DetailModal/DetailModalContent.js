@@ -1,5 +1,11 @@
+import data from "../../data.js";
+import state from "../../state.js";
 import { $ } from "../../utils/querySelectors.js";
+import RestaurantListUtils from "../../utils/RestaurantListUtils.js";
+import FilterSelect from "../FilterSelect.js";
 import LunchInfoCard from "../LunchInfoCard.js";
+import Modal from "../Modal.js";
+import RestaurantList from "../RestaurantList.js";
 import DetailModalButtonContainer from "./DetailModalButtonContainer.js";
 
 const DetailModalContent = {
@@ -28,6 +34,63 @@ const DetailModalContent = {
         <p class="restaurant__link text-body">${link ? link : ""}</p>
     </div>
   `;
+
+    this.handleDeleteButton(id);
+    this.handleFavoriteButton();
+  },
+
+  handleDeleteButton(id) {
+    $("#delete__button").addEventListener("click", () => {
+      const deletedList = RestaurantListUtils.delete(data.restaurantList, id);
+      data.restaurantList = deletedList;
+      this.renderAll();
+      Modal.close("detail");
+    });
+  },
+
+  handleFavoriteButton() {
+    $(".restaurant-detail .restaurant__favorite").addEventListener(
+      "click",
+      (e) => {
+        const id = e.target.id;
+        const alt = e.target.alt;
+
+        this.changeIcon(e.target);
+
+        data.restaurantList = RestaurantListUtils.favoriteById(
+          data.restaurantList,
+          Number(e.target.id)
+        );
+        state.setCurrentRestaurantList(
+          RestaurantListUtils.favoriteById(
+            state.currentRestaurantList,
+            Number(e.target.id)
+          )
+        );
+        this.renderAll();
+      }
+    );
+  },
+
+  changeIcon(target) {
+    const alt = target.alt;
+
+    if (alt == "favoriteIcon") {
+      target.alt = "noFavoriteIcon";
+      target.src = "./favorite-icon-lined.png";
+    }
+    if (alt == "noFavoriteIcon") {
+      target.alt = "favoriteIcon";
+      target.src = "./favorite-icon-filled.png";
+    }
+  },
+
+  renderAll() {
+    FilterSelect.applyFilter("allRestaurant");
+    const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
+      data.restaurantList
+    );
+    RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
   },
 };
 

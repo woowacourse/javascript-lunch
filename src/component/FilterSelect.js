@@ -22,7 +22,7 @@ const FilterSelect = {
     return filterElement;
   },
 
-  applyFilter(id) {
+  applyFilter(restaurantListId) {
     const category = $("#category-filter").value;
     const sortingRule = $("#sorting-filter").value;
     const filteredListByCategory = this.getFilteredListByCategory(
@@ -33,7 +33,7 @@ const FilterSelect = {
       filteredListByCategory,
       sortingRule
     );
-    RestaurantList.applyList(id, filteredListByBoth);
+    RestaurantList.applyList(restaurantListId, filteredListByBoth);
   },
 
   getFilteredListByCategory(restaurantList, category) {

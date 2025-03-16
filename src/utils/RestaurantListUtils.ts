@@ -1,8 +1,12 @@
 import { CATEGORY_FILTER, Restaurant } from "../../types/global";
 
 const RestaurantListUtils = {
-  add(restaurantList: Restaurant[], newRestaurant: Restaurant): Restaurant[] {
+  add(restaurantList: Restaurant[], newRestaurant: Restaurant) {
     return [...restaurantList, newRestaurant];
+  },
+
+  delete(restaurantList: Restaurant[], id: number) {
+    return restaurantList.filter((restaurant) => restaurant.id !== id);
   },
 
   filterByCategory(

@@ -23,6 +23,15 @@ describe("RestaurantList 유틸 함수 테스트", () => {
     );
   });
 
+  test("음식점 정보와 삭제할 id를 주면 해당 음식점이 삭제된 List를 반환한다.", () => {
+    const resultList: Restaurant[] = [
+      { id: 0, label: "한식", name: "한식집", distance: 10, favorite: false },
+      { id: 1, label: "일식", name: "초밥집", distance: 5, favorite: false },
+      { id: 3, label: "한식", name: "국밥집", distance: 20, favorite: false },
+    ];
+    expect(RestaurantListUtils.delete(restaurantList, 2)).toEqual(resultList);
+  });
+
   test("음식점 카테고리를 주면 해당 카테고리의 음식점만 남겨진 List를 반환한다.", () => {
     expect(
       RestaurantListUtils.filterByCategory(restaurantList, "한식").length

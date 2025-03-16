@@ -10,6 +10,7 @@ describe("상단 navigation 버튼 테스트", () => {
   });
 
   it("자주 가는 음식점 navigation 버튼을 누르면 자주 가는 음식점 목록이 화면에 표시된다.", () => {
+    cy.get(".restaurant__favorite[id=0]").click();
     cy.get(".favorite_restaurant_nav").click();
     cy.get(".restaurant-filter-container").should("not.be.visible");
     cy.get(".restaurant-list-container").should("not.be.visible");

@@ -17,7 +17,7 @@ const RestaurantList = {
     return restaurantListElement;
   },
 
-  onClickFavorite(id, event) {
+  onClickFavorite(restaurantListId, event) {
     const target = event.target;
     if (!target.classList.contains("restaurant__favorite")) return;
     data.restaurantList = RestaurantListUtils.favoriteById(
@@ -30,27 +30,27 @@ const RestaurantList = {
         Number(target.id)
       )
     );
-    this.applyState(id);
+    this.applyState(restaurantListId);
   },
 
-  applyData(id) {
-    this.applyList(id, data.restaurantList);
+  applyData(restaurantListId) {
+    this.applyList(restaurantListId, data.restaurantList);
   },
 
-  applyState(id) {
-    this.applyList(id, state.currentRestaurantList);
+  applyState(restaurantListId) {
+    this.applyList(restaurantListId, state.currentRestaurantList);
   },
 
-  applyList(id, restaurantList) {
+  applyList(restaurantListId, restaurantList) {
     state.setCurrentRestaurantList(restaurantList);
     const restaurantElementList = this.getRestaurantElementList(restaurantList);
-    this.applyElements(id, restaurantElementList);
+    this.applyElements(restaurantListId, restaurantElementList);
   },
 
-  applyElements(id, elements) {
-    $(`.restaurant-list[id=${id}]`).replaceChildren();
+  applyElements(restaurantListId, elements) {
+    $(`.restaurant-list[id=${restaurantListId}]`).replaceChildren();
     elements.forEach((element) =>
-      $(`.restaurant-list[id=${id}]`).appendChild(element)
+      $(`.restaurant-list[id=${restaurantListId}]`).appendChild(element)
     );
   },
 
