@@ -60,6 +60,8 @@
     - [x] restaurant, restaurantList 도메인 적용
     - [x] 더미데이터 ts 적용
     - [x] controllers 폴더 ts 적용
+    - [x] event 폴더 ts 적용
+    - [x] utils 폴더 ts 적용
 
 ### 리팩토링
 

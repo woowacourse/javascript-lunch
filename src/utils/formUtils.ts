@@ -1,3 +1,4 @@
+import { FormField, ModalFormConfig } from "../../types/form.js";
 import Button from "../components/Button.js";
 import ButtonsForm from "../components/Form/ButtonsForm.js";
 import FormItem from "../components/Form/FormItem.js";
@@ -5,7 +6,7 @@ import InputField from "../components/Form/InputField.js";
 import SelectField from "../components/Form/SelectField.js";
 import TextareaField from "../components/Form/TextareaField.js";
 
-export function generateFormItems(MODAL_FORM_CONFIG) {
+export function generateFormItems(MODAL_FORM_CONFIG: ModalFormConfig) {
   const { fields, buttons } = MODAL_FORM_CONFIG;
 
   const formItems = fields.map(({ notice, ...fieldData }) => {
@@ -18,7 +19,7 @@ export function generateFormItems(MODAL_FORM_CONFIG) {
   return { formItems, buttonsFormItems: ButtonsForm(formButtons) };
 }
 
-function matchFieldComponent({ type, name, inputType, options, defaultOption, required }) {
+function matchFieldComponent({ type, name, inputType, options, defaultOption, required }: FormField) {
   switch (type) {
     case "select":
       return SelectField({ name, options, defaultOption, required });

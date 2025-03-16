@@ -9,7 +9,7 @@ interface ModalControllerType {
 
 export function ModalController({ updateCategorySortListView, restaurantList }: ModalControllerType) {
   const { modalElement, formElement } = createModalView();
-  ModalEventHandler({ modalElement, formElement }, updateCategorySortListView, restaurantList);
+  ModalEventHandler({ modalElement, formElement, updateCategorySortListView, restaurantList });
 
   return modalElement;
 }

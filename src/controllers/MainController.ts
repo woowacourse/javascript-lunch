@@ -47,7 +47,7 @@ function MainController() {
   favoriteListContainerElement.appendChild(favoriteListElement); // 좋아하는 가게 리스트
 
   //좋아요 버튼 클릭 이벤트 등록
-  favoriteEventHandler(mainElement, { restaurantList, updateFavoriteListView });
+  favoriteEventHandler({ mainElement, restaurantList, updateFavoriteListView });
 
   //listItem open 이벤트 등록
   listItemOpenEventHandler(mainElement, (restaurantName: string) =>

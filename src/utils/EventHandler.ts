@@ -1,11 +1,11 @@
 const EventHandler = {
-  modalToggle: (element, formElement = null) => {
+  modalToggle: (element: HTMLElement, formElement: HTMLFormElement | null = null) => {
     if (formElement) formElement.reset();
     element.classList.toggle("modal--open");
   },
-  formDataParsing: (event) => {
+  formDataParsing: (event: SubmitEvent) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    const formData = new FormData(event.target as HTMLFormElement);
     const values = Object.fromEntries(formData.entries());
     return values;
   },

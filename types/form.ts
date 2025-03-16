@@ -1,21 +1,13 @@
-export interface FormFieldOption {
+export interface FormField {
   label: string;
   type: "select" | "input" | "textarea";
   name: string;
   required?: boolean;
   notice?: string;
+  inputType?: "text";
+  options?: string[];
+  defaultOption?: string;
 }
-
-export interface SelectFieldOption extends FormFieldOption {
-  options: string[];
-  defaultOption: string;
-}
-
-export interface InputFieldOption extends FormFieldOption {
-  inputType: "text";
-}
-
-export type FormField = FormFieldOption | SelectFieldOption | InputFieldOption;
 
 export interface ButtonOption {
   type: "button" | "submit";
