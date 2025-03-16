@@ -1,18 +1,81 @@
 import createHeader from "./components/Header.ts";
 import createTab from "./components/Tab.ts";
-import createRestaurantItem from "./components/RestaurantItem.ts";
 import { createModal } from "./components/Modal.ts";
 import { createForm } from "./components/Form.ts";
 import validateRestaurant from "./validateRestaurant.js";
-import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "./constants/constants.js";
-import { Category, Distance, Restaurant } from "./types/restaurant.ts";
+import {
+  Category,
+  Distance,
+  Restaurant,
+  SortType,
+} from "./types/restaurant.ts";
 import { restaurantManager } from "./restaurantManager.ts";
+import renderRestaurantList from "./components/RestaurantList.ts";
+import createRestaurantItem from "./components/RestaurantItem.ts";
+
+type State = {
+  tab: "모든 음식점" | "자주 가는 음식점";
+  category: Category;
+  sortType: SortType;
+  restaurants: Restaurant[];
+};
+
+const state: State = {
+  tab: "모든 음식점",
+  category: "전체",
+  sortType: "name",
+  restaurants: [],
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-  const initialLoadRestaurantData = restaurantManager.getInitialData();
+  state.restaurants = restaurantManager.getInitialData();
 
   const body = document.querySelector("body");
   const header = createHeader({ title: "점심 뭐 먹지" });
+
+  const categoryFilter = body?.querySelector("#category-filter");
+  const sortingFilter = body?.querySelector("#sorting-filter");
+  const restaurantList = document.querySelector(".restaurant-list");
+
+  categoryFilter?.addEventListener("change", (e) => {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value as Category;
+
+    state.category = value;
+
+    if (!restaurantList) {
+      throw new Error("음식점 목록을 찾을 수 없습니다.");
+    }
+    restaurantList.innerHTML = "";
+
+    const filterRestaurants = restaurantManager.getFilterAndSortList(
+      state.restaurants,
+      value,
+      state.sortType
+    );
+
+    renderRestaurantList(filterRestaurants, restaurantList);
+  });
+
+  sortingFilter?.addEventListener("change", (e) => {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value as SortType;
+
+    if (!restaurantList) {
+      throw new Error("음식점 목록을 찾을 수 없습니다.");
+    }
+    restaurantList.innerHTML = "";
+
+    state.sortType = value;
+
+    const filterRestaurants = restaurantManager.getFilterAndSortList(
+      state.restaurants,
+      state.category,
+      value
+    );
+
+    renderRestaurantList(filterRestaurants, restaurantList);
+  });
 
   const tab = createTab({
     title: "모든 음식점",
@@ -20,8 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   header?.after(tab);
-
-  const restaurantList = document.querySelector(".restaurant-list");
 
   const mainTab = tab.querySelector(".tab__title");
   const subTab = tab.querySelector(".tab__subTitle");
@@ -35,28 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
     mainTab.classList.add("active");
     subTab?.classList.remove("active");
 
-    const restaurants: Restaurant[] = restaurantManager.getList("all");
-
     if (!restaurantList) {
       throw new Error("음식점 목록을 찾을 수 없습니다.");
     }
     restaurantList.innerHTML = "";
 
-    restaurants.forEach((restaurant: Restaurant) => {
-      const restaurantItem = createRestaurantItem(restaurant);
-
-      restaurantItem.addEventListener("click", (e) => {
-        if (
-          e.target instanceof HTMLImageElement &&
-          e.target.classList.contains("favorite-icon")
-        ) {
-          return;
-        }
-        showRestaurantDetail(restaurant);
-      });
-
-      restaurantList?.appendChild(restaurantItem);
-    });
+    renderRestaurantList(state.restaurants, restaurantList);
 
     restaurantFilterContainer?.classList.remove("hidden");
   });
@@ -64,28 +109,16 @@ document.addEventListener("DOMContentLoaded", () => {
   subTab?.addEventListener("click", () => {
     subTab.classList.add("active");
     mainTab?.classList.remove("active");
-    const restaurants: Restaurant[] = restaurantManager.getList("favorite");
+    const restaurants: Restaurant[] = restaurantManager.getFavoriteList(
+      state.restaurants
+    );
 
     if (!restaurantList) {
       throw new Error("음식점 목록을 찾을 수 없습니다.");
     }
     restaurantList.innerHTML = "";
 
-    restaurants.forEach((restaurant: Restaurant) => {
-      const restaurantItem = createRestaurantItem(restaurant);
-
-      restaurantItem.addEventListener("click", (e) => {
-        if (
-          e.target instanceof HTMLImageElement &&
-          e.target.classList.contains("favorite-icon")
-        ) {
-          return;
-        }
-        showRestaurantDetail(restaurant);
-      });
-
-      restaurantList?.appendChild(restaurantItem);
-    });
+    renderRestaurantList(restaurants, restaurantList);
 
     restaurantFilterContainer?.classList.add("hidden");
   });
@@ -112,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const linkInput =
       addRestaurantDialogElement.querySelector<HTMLInputElement>("#link");
 
-    const restaurantsNameList = initialLoadRestaurantData.map(
+    const restaurantsNameList = state.restaurants.map(
       (restaurant: Restaurant) => restaurant.name
     );
 
@@ -181,81 +214,9 @@ document.addEventListener("DOMContentLoaded", () => {
     addRestaurantModal.showModal();
   });
 
-  const showRestaurantDetail = (restaurant: Restaurant) => {
-    const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[restaurant.category];
-
-    const isFavorite = restaurant.isFavorite;
-    const isFavoriteIconSrc = isFavorite
-      ? "images/favorite-icon-filled.png"
-      : "images/favorite-icon-lined.png";
-
-    const restaurantDetailContent = `
-  <div class="detail-modal-content" data-id="${restaurant.id}">
-    <div class="detail-modal-header">
-      <img src="${isFavoriteIconSrc}" alt="즐겨찾기" class="favorite-icon" data-id="${
-      restaurant.id
-    }" data-favorite="${isFavorite}" />
-      <div class="detail-modal-category">
-        <img src="${mappedImage}" alt="${restaurant.category}" />
-      </div>
-      <div class="detail-modal-info">
-        <h3 class="detail-modal-title">${restaurant.name}</h3>
-        <span class="detail-modal-distance">캠퍼스로부터 ${
-          restaurant.distance
-        }분 내</span>
-      </div>
-    </div>
-    <p class="detail-modal-description">${restaurant.description ?? ""}</p>
-    ${
-      restaurant.link
-        ? `<p class="detail-modal-link">
-            <a href="${restaurant.link}" target="_blank">${restaurant.link}</a>
-           </p>`
-        : ""
-    }
-  </div>
-`;
-
-    const detailModal = createModal({
-      id: "restaurant-detail-dialog",
-      content: restaurantDetailContent,
-      options: {
-        close: {
-          label: "닫기",
-          onClick: () => {
-            detailModal.close();
-          },
-        },
-        submit: {
-          label: "삭제하기",
-          onClick: () => {
-            if (!restaurant?.id) {
-              throw new Error("음식점 ID가 존재하지 않습니다.");
-            }
-            restaurantManager.delete(restaurant.id);
-          },
-        },
-      },
-    });
-    body?.append(detailModal);
-    detailModal.showModal();
-  };
-
-  initialLoadRestaurantData.forEach((restaurant: Restaurant) => {
-    const restaurantItem = createRestaurantItem(restaurant);
-
-    restaurantItem.addEventListener("click", (e) => {
-      if (
-        e.target instanceof HTMLImageElement &&
-        e.target.classList.contains("favorite-icon")
-      ) {
-        return;
-      }
-      showRestaurantDetail(restaurant);
-    });
-
-    restaurantList?.appendChild(restaurantItem);
-  });
+  if (restaurantList) {
+    renderRestaurantList(state.restaurants, restaurantList);
+  }
 
   body?.addEventListener("click", (e) => {
     if (

@@ -1,5 +1,5 @@
 import { localStorageUtils } from "./utils/localStorageUtils.ts";
-import { Restaurant } from "./types/restaurant.ts";
+import { Category, Restaurant, SortType } from "./types/restaurant.ts";
 import { restaurantsData } from "./restaurantsData.ts";
 
 const getUniqueRestaurantId = () => {
@@ -29,16 +29,28 @@ const getInitialLoadRestaurantData = () => {
   return localStorageRestaurantData;
 };
 
-const getRestaurants = (type: "all" | "favorite") => {
-  const localStorageRestaurantData = localStorageUtils.get("restaurants") || [];
+const getFavoriteRestaurants = (restaurants: Restaurant[]) => {
+  return restaurants.filter((restaurant: Restaurant) => restaurant.isFavorite);
+};
 
-  if (type === "all") {
-    return localStorageRestaurantData;
-  }
-
-  return localStorageRestaurantData.filter(
-    (restaurant: Restaurant) => restaurant.isFavorite
-  );
+const getFilterAndSortRestaurants = (
+  restaurants: Restaurant[],
+  category: Category,
+  sortType: SortType
+) => {
+  return restaurants
+    .filter((restaurant: Restaurant) => {
+      if (category === "전체") {
+        return true;
+      }
+      return category === restaurant.category;
+    })
+    .sort((a, b) => {
+      if (sortType === "name") {
+        return a.name.localeCompare(b.name);
+      }
+      return a.distance - b.distance;
+    });
 };
 
 const addRestaurant = (restaurant: Restaurant) => {
@@ -80,7 +92,8 @@ const toggleFavoriteRestaurant = (id: string) => {
 export const restaurantManager = {
   getUniqueId: getUniqueRestaurantId,
   getInitialData: getInitialLoadRestaurantData,
-  getList: getRestaurants,
+  getFavoriteList: getFavoriteRestaurants,
+  getFilterAndSortList: getFilterAndSortRestaurants,
   add: addRestaurant,
   delete: deleteRestaurant,
   toggleFavorite: toggleFavoriteRestaurant,
