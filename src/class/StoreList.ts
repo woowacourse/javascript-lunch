@@ -3,11 +3,13 @@ import IList from "../interfaces/IList.interface";
 class StoreList {
   #list: IList[];
   #filteredList: IList[];
+  #sortBy: string;
 
   constructor(data: IList[]) {
     this.#list = data;
     this.#filteredList = data;
-    this.sortStoreList("name");
+    this.#sortBy = "name";
+    this.sortStoreList(this.#sortBy);
   }
 
   get list(): IList[] {
@@ -23,7 +25,7 @@ class StoreList {
     if (isFavorite)
       this.#filteredList = this.#list.filter((store) => store.isFavorite);
     else this.#filteredList = this.#list;
-    this.sortStoreList("name");
+    this.sortStoreList(this.#sortBy);
   }
 
   updateIsFavorite(id: string) {
@@ -44,7 +46,7 @@ class StoreList {
         (store) => store.id !== id && store.isFavorite
       );
     } else this.#filteredList = this.#list.filter((store) => store.id !== id);
-    this.sortStoreList("name");
+    this.sortStoreList(this.#sortBy);
   }
 
   filterByMenuBar(isFavorite: boolean) {
@@ -54,6 +56,7 @@ class StoreList {
         (store) => store.isFavorite === true
       );
     }
+    this.sortStoreList(this.#sortBy);
   }
 
   filterByStoreName(name: string): IList | undefined {
@@ -81,6 +84,7 @@ class StoreList {
       );
     if (sortBy === "distance")
       this.#filteredList.sort((a, b) => Number(a.dist) - Number(b.dist));
+    this.#sortBy = sortBy;
   }
 }
 
