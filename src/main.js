@@ -3,6 +3,7 @@ import createSectionContainer from './components/SectionContainer.js';
 import { RESTAURANT_ITEMS } from '../public/restaurantData.js';
 import { createRestaurantEnrollModal } from './components/RestaurantEnrollModal.js';
 import createFilterBox from './components/Filters.js';
+import createTabBar from './components/Tabbar.js';
 
 const program = {
   enrollRestaurantModal: null,
@@ -19,6 +20,10 @@ const program = {
     });
 
     $filterContainer.appendChild($filterBox);
+
+    const $tabBar = createTabBar(this.handleTabClick.bind(this));
+    $filterContainer.appendChild($tabBar);
+
     $filterContainer.appendChild(createRestaurantList(this.filteredItems));
 
     const $enrollRestaurantModal = createRestaurantEnrollModal(updateRestaurantList);
@@ -57,6 +62,15 @@ const program = {
       this.filteredItems.sort((a, b) => Number(a.distance) - Number(b.distance));
     }
 
+    this.updateRestaurantList();
+  },
+
+  handleTabClick(tab) {
+    if (tab === 'favorite') {
+      this.filteredItems = RESTAURANT_ITEMS.filter((item) => item.favorite);
+    } else {
+      this.filteredItems = [...RESTAURANT_ITEMS];
+    }
     this.updateRestaurantList();
   },
 

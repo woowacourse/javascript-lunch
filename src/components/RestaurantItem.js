@@ -1,4 +1,5 @@
 import createElement from '../utils/createElement.js';
+import { RESTAURANT_ITEMS } from '../../public/restaurantData.js';
 
 function createTags(data) {
   const categoryImg = createElement('img', 'category-icon', null, {
@@ -13,7 +14,6 @@ function createTags(data) {
   );
 
   const starImg = createElement('div', 'restaurant__star');
-
   const descriptionPara = createElement('p', 'restaurant__description text-body', data.description);
 
   return { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara };
@@ -28,8 +28,17 @@ function createRestaurantItem(data) {
 
   const { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara } = createTags(data);
 
+  if (data.favorite) {
+    starImg.classList.add('favorite');
+  } else {
+    starImg.classList.remove('favorite');
+  }
+
   starImg.addEventListener('click', () => {
     starImg.classList.toggle('favorite');
+    data.favorite = !data.favorite;
+
+    updateFavoriteRestaurants();
   });
 
   categoryDiv.append(categoryImg);
@@ -39,6 +48,18 @@ function createRestaurantItem(data) {
   restaurantItem.append(categoryDiv, infoDiv);
 
   return restaurantItem;
+}
+
+function updateFavoriteRestaurants() {
+  const favoriteRestaurants = RESTAURANT_ITEMS.filter((item) => item.favorite);
+
+  const $favoriteTabContent = document.querySelector('.favorite-tab-content');
+  $favoriteTabContent.innerHTML = '';
+
+  favoriteRestaurants.forEach((data) => {
+    const restaurantItem = createRestaurantItem(data);
+    $favoriteTabContent.appendChild(restaurantItem);
+  });
 }
 
 export default createRestaurantItem;
