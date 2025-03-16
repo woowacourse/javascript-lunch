@@ -7,8 +7,9 @@ import Modal from './components/Modal.js';
 
 class Application extends Component {
   setup() {
+    const storedRestaurants = localStorage.getItem('restaurantList');
     this.setState({
-      restaurantList: defaultRestaurantList,
+      restaurantList: storedRestaurants ? JSON.parse(storedRestaurants) : defaultRestaurantList,
       category: '전체',
       sort: '이름순',
     });
@@ -23,14 +24,16 @@ class Application extends Component {
   }
 
   addRestaurant(restaurant) {
+    const newRestaurantList = [...this.state.restaurantList, restaurant];
     this.setState({
       ...this.state,
-      restaurantList: [...this.state.restaurantList, restaurant],
+      restaurantList: newRestaurantList,
     });
+    localStorage.setItem('restaurantList', JSON.stringify(newRestaurantList));
   }
 
   filterCategory(category) {
-    this.setState({ ...this.state, category: category });
+    this.setState({ ...this.state, category });
   }
 
   sortList(list) {
@@ -46,6 +49,7 @@ class Application extends Component {
     });
 
     $restaurantListContainer.appendChild(restaurantList.element);
+
     const $restaurantFilterContainer = this.element.querySelector('.restaurant-filter-container');
     const categoryfilter = new Filter(
       {
@@ -67,7 +71,6 @@ class Application extends Component {
       },
       this.element,
     );
-
     $restaurantFilterContainer.appendChild(listSorter.element);
 
     const inputModal = new InputModal(
