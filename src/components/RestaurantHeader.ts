@@ -7,7 +7,7 @@ export default class RestaurantHeader extends Component {
     return html`
       <header class="gnb">
         <h1 class="gnb__title text-title">오늘 뭐 먹지</h1>
-        <button type="button" class="gnb__button" aria-label="음식점 추가">
+        <button type="button" class="gnb__button" data-action="restaurant-add" aria-label="음식점 추가">
           <img src="images/add-button.png" alt="음식점 추가" />
         </button>
       </header>
@@ -18,7 +18,7 @@ export default class RestaurantHeader extends Component {
     EventHandler.attachEventHandler(
       'click',
       () => document.querySelector('#restaurant-add-modal')?.classList.add('modal--open'),
-      'gnb__button',
+      'restaurant-add',
     );
   }
 }

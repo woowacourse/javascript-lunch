@@ -75,7 +75,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       id: 'restaurant-add-modal',
       children: html`
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form data-action="restaurant-add">
+        <form data-action="restaurant-create">
           ${inputBoxList.map((input) => html`${input}`).join('')}
           <div class="button-container">${cancelButton} ${addButton}</div>
         </form>
@@ -96,7 +96,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
 
         this.props?.addRestaurant(modalInput as unknown as RestaurantType);
       },
-      'restaurant-add',
+      'restaurant-create',
     );
   }
 }
