@@ -12,9 +12,11 @@ function favoriteEventHandler({ mainElement, restaurantList, updateFavoriteListV
     const starElement = target.closest(".favorite-star") as HTMLDivElement;
     if (!starElement) return;
 
-    starElement.classList.toggle("active");
     const restaurantName = starElement.dataset.name || "";
     const restaurant = restaurantList.getRestaurantByName(restaurantName);
+
+    const starElements = mainElement.querySelectorAll(`.favorite-star[data-name="${restaurantName}"]`);
+    starElements.forEach((element) => element.classList.toggle("active"));
 
     if (restaurant) {
       restaurant.toggleFavorite();
