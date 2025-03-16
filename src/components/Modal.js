@@ -25,7 +25,7 @@ class Modal extends Component {
       new InputBox({
         input: new Select({
           name: 'distance',
-          optionList: ['5분 내', '10분 내', '15분 내', '20분 내', '30분 내'],
+          optionList: [5, 10, 15, 20, 30],
         }).template(),
         section: 'distance',
         label: '거리(도보 이동 시간)',
@@ -112,7 +112,7 @@ class Modal extends Component {
         imgUrl: `category-${FOOD_CATEGORY[$categoryInput.value]}.png`,
         category: $categoryInput.value,
         name: $name.value,
-        distance: `캠퍼스부터 ${$distance.value}분 내`,
+        distance: $distance.value,
         description: $description.value,
         link: $link.value,
       };

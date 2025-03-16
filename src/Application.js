@@ -9,21 +9,18 @@ class Application extends Component {
     this.setState({
       restaurantList: defaultRestaurantList,
       category: '전체',
+      sort: '이름순',
     });
   }
 
   template() {
     return `
       ${new Header({ title: '오늘 뭐 먹지' }).template()}
-      <section class="restaurant-filter-container">
-      ${new Sorter({
-        name: 'sorting',
-        optionList: ['이름순', '거리순'],
-      }).template()}
-      </section>
+      <section class="restaurant-filter-container"></section>
       ${new RestaurantList({
         restaurantList: this.state.restaurantList,
         category: this.state.category,
+        sort: this.state.sort,
       }).template()}
     `;
   }
@@ -39,6 +36,10 @@ class Application extends Component {
     this.setState({ ...this.state, category: category });
   }
 
+  sortList(list) {
+    this.setState({ ...this.state, sort: list });
+  }
+
   onRender() {
     const $restaurantFilterContainer = this.element.querySelector('.restaurant-filter-container');
     const categoryfilter = new Filter(
@@ -51,6 +52,18 @@ class Application extends Component {
       this.element,
     );
     $restaurantFilterContainer.appendChild(categoryfilter.element);
+
+    const listSorter = new Sorter(
+      {
+        name: 'sorting',
+        optionList: ['이름순', '거리순'],
+        sortList: this.sortList.bind(this),
+        sort: this.state.sort,
+      },
+      this.element,
+    );
+
+    $restaurantFilterContainer.appendChild(listSorter.element);
 
     const modal = new Modal(
       {

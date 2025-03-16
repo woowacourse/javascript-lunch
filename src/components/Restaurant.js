@@ -13,7 +13,7 @@ class Restaurant extends Component {
     <div class="restaurant__info">
       <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
       <span class="restaurant__distance text-body"
-        >${this.props.distance}</span
+        >캠퍼스로부터 ${this.props.distance}분 내</span
       >
       <p class="restaurant__description text-body">
         ${this.props.description}
