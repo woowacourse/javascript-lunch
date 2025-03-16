@@ -1,12 +1,30 @@
-import { FilterOptions } from "../../../../types/interfaces.js";
+import { FilterOptions, Restaurant } from "../../../../types/interfaces.js";
 import { CATEGORY, NAV_BAR_KEYS } from "../../../constants/constants.js";
 import RestaurantListItem from "../restaurant-list-item/RestaurantListItem.js";
 import "./restaurantList.css";
 
+interface RestaurantListCallbackProps {
+  getRestaurants: (options: FilterOptions) => Restaurant[];
+  onToggleFavorite: (restaurantId: Restaurant["id"]) => void;
+  onOpenDetail: (restaurantId: Restaurant["id"]) => void;
+}
+
 export default class RestaurantList {
+  private restaurantList: Restaurant[];
+  private getRestaurants: RestaurantListCallbackProps["getRestaurants"];
+  private onToggleFavorite: RestaurantListCallbackProps["onToggleFavorite"];
+  private onOpenDetail: RestaurantListCallbackProps["onOpenDetail"];
+
+  private $listSection!: HTMLElement;
+  private $list!: HTMLUListElement;
+
   constructor(
-    restaurantList,
-    { getRestaurants, onToggleFavorite, onOpenDetail }
+    restaurantList: Restaurant[],
+    {
+      getRestaurants,
+      onToggleFavorite,
+      onOpenDetail,
+    }: RestaurantListCallbackProps
   ) {
     this.restaurantList = restaurantList;
     this.getRestaurants = getRestaurants;

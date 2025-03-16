@@ -43,7 +43,7 @@ export default class RestaurantStore {
   getRestaurants({
     tabType,
     filterType: { categoryFilterType, sortFilterType },
-  }: FilterOptions) {
+  }: FilterOptions): Restaurant[] {
     const restaurants = [...this.#restaurants];
 
     const tabTypeFn = {
@@ -76,7 +76,7 @@ export default class RestaurantStore {
     return sortFilterTypeFn[sortFilterType](tabTypeFn[tabType](restaurants));
   }
 
-  getRestaurantInfo(restaurantId: Restaurant["id"]) {
+  getRestaurantInfo(restaurantId: Restaurant["id"]): Restaurant | undefined {
     return this.#restaurants.find(
       (restaurant) => restaurant.id === restaurantId
     );

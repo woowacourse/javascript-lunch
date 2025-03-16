@@ -25,11 +25,11 @@ export default class RestaurantService {
         sortFilterType: "name",
       },
     }
-  ) {
+  ): Restaurant[] {
     return this.restaurantStore.getRestaurants(options);
   }
 
-  getRestaurantInfo(restaurantId: Restaurant["id"]) {
+  getRestaurantInfo(restaurantId: Restaurant["id"]): Restaurant | undefined {
     return this.restaurantStore.getRestaurantInfo(restaurantId);
   }
 
