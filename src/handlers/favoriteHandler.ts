@@ -2,6 +2,7 @@ import { applyFilter } from "./filterHandler.ts";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { storeRestaurants } from "../utils/localStorage.ts";
 import { Restaurant } from "../../types/Restaurant.ts";
+import { rerenderRestaurantList } from "./restaurantHandler.ts";
 
 export function handleFavoriteClick(e : MouseEvent) : void {
   e.stopPropagation();
@@ -32,6 +33,8 @@ export function handleFavoriteClick(e : MouseEvent) : void {
   $starImg.src = `./${newFavoriteState ? "fill-star" : "blank-star"}.png`;
   $restaurantElement.dataset.favorites =
     String(newFavoriteState);
+
+  rerenderRestaurantList();
   applyFilter();
 }
 
