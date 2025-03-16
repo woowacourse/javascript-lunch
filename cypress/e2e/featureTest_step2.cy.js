@@ -68,4 +68,60 @@ describe('step2 기능 테스트', () => {
         .should('have.length', 0);
     })
   });
+
+  describe('정렬 테스트', () => {
+    it('기본 정렬이 이름순(가나다순)으로 적용되어 있는지 확인한다.', () => {
+      cy.get('.restaurant-list .restaurant__name')
+        .then(($names) => {
+          const nameArray = $names.map((_, el) => Cypress.$(el).text()).get();
+          const sortedArray = [...nameArray].sort();
+          expect(nameArray).to.deep.equal(sortedArray);
+        });
+    })
+
+    it('사용자가 거리순 정렬을 선택하면 가까운 거리순으로 음식점이 정렬된다.', () => {
+      cy.get('#sorting-filter').select('거리순');
+
+      cy.get('.restaurant-list .restaurant__distance').then(($distanceElements) => {
+        const distanceArray = $distanceElements
+          .map((_, el) => {
+            const text = Cypress.$(el).text().trim();
+            const numericValue = parseInt(text.replace(/\D/g, ''), 10);
+            return numericValue;
+          })
+          .get();
+
+        const sortedArray = [...distanceArray].sort((a, b) => a - b);
+        expect(distanceArray).to.deep.equal(sortedArray);
+      });
+    });
+
+    it('한식 필터를 적용한 후 거리순 정렬을 선택하면 한식 내에서 가까운 거리순으로 정렬된다.', () => {
+      cy.get('.gnb__button').click();
+      cy.get('.modal--open').should('exist');
+
+      cy.get('#category').select('한식');
+      cy.get('#name').type('꺼벙이');
+      cy.get('#distance').select('5분 내');
+      cy.get('#description').type('꺼벙이 분식');
+
+      cy.get('.button--primary').click();
+
+      cy.get('#category-filter').select('한식');
+      cy.get('#sorting-filter').select('거리순');
+
+      cy.get('.restaurant-list .restaurant__distance').then(($distanceElements) => {
+        const distanceArray = $distanceElements
+          .map((_, el) => {
+            const text = Cypress.$(el).text().trim();
+            const numericValue = parseInt(text.replace(/\D/g, ''), 10);
+            return numericValue;
+          })
+          .get();
+
+        const sortedArray = [...distanceArray].sort((a, b) => a - b);
+        expect(distanceArray).to.deep.equal(sortedArray);
+      });
+    })
+  });
 });
