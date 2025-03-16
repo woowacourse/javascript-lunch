@@ -1,7 +1,7 @@
 import Component from '../core/Component.ts';
 import type { TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
-import EventHandler from '../lib/EventHandler.ts';
+import { EventHandler } from '../lib/modules/index.ts';
 
 interface RestaurantTabProps {
   focusedTab: TabType;

@@ -4,7 +4,7 @@ import { Button, Modal } from './common/index.ts';
 import type { RestaurantType } from '../lib/types.ts';
 import { html, generateId } from '../lib/utils.ts';
 import { CATEGORIES, DISTANCES } from '../lib/constants.ts';
-import EventHandler from '../lib/EventHandler.ts';
+import { EventHandler } from '../lib/modules/index.ts';
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;

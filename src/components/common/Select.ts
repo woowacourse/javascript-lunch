@@ -1,6 +1,6 @@
 import Component from '../../core/Component.ts';
 import { html } from '../../lib/utils.ts';
-import EventHandler from '../../lib/EventHandler.ts';
+import { EventHandler } from '../../lib/modules/index.ts';
 
 interface SelectProps<T extends string> {
   options: readonly T[];

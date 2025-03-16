@@ -1,12 +1,11 @@
 import { filter, forEach, pipe, sort, toArray, map } from '@fxts/core';
 import Component from '../core/Component.ts';
 import { DEFAULT_RESTAURANT_LIST, FILTERS, SORTS } from '../lib/constants.ts';
-import LocalStorage from '../lib/LocalStorage.ts';
 import type { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
 import { Select } from './common/index.ts';
 import { RestaurantAddModal, RestaurantDetailModal, RestaurantItem, RestaurantTab } from './index.ts';
-import EventHandler from '../lib/EventHandler.ts';
+import { EventHandler, LocalStorage } from '../lib/modules/index.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
