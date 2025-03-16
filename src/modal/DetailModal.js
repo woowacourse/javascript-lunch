@@ -68,7 +68,8 @@ class DetailModal extends Modal {
   };
 
   #bindModalBackDropEvent = () => {
-    document.querySelector('.modal-backdrop').addEventListener('click', () => {
+    const backdrop = this.getBackdrop();
+    backdrop.addEventListener('click', () => {
       this.#clearModalContent();
       this.closeModal();
     });

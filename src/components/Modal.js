@@ -27,6 +27,10 @@ class Modal {
     return this.#modal.querySelector('.modal-container');
   }
 
+  getBackdrop() {
+    return this.#modal.querySelector('.modal-backdrop');
+  }
+
   openModal() {
     this.#modal.classList.add('modal--open');
     document.body.style.overflow = 'hidden';
