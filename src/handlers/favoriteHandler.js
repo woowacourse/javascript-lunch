@@ -1,6 +1,6 @@
 import { applyFilter } from "./filterHandler.js";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
-import { storeRestaurants } from "../utils/localStorage.js";
+import { storeRestaurants } from "../utils/localStorage.ts";
 
 export function handleFavoriteClick(e) {
   e.stopPropagation();

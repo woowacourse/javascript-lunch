@@ -8,7 +8,7 @@ import removeModal from "../utils/removeModal.js";
 import { ERROR_TYPES } from "../constants/errors.js";
 import RestaurantItem from "../components/RestaurantItem.js";
 import { generateId } from "../utils/generateId.js";
-import { storeRestaurants } from "../utils/localStorage.js";
+import { storeRestaurants } from "../utils/localStorage.ts";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.js";

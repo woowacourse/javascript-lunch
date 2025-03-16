@@ -1,4 +1,4 @@
-import { initializeRestaurants } from "../utils/localStorage.js";
+import { initializeRestaurants } from "../utils/localStorage.ts";
 import { Restaurant } from "../../types/Restaurant.js";
 
 const defaultRestaurants: Restaurant[] = [

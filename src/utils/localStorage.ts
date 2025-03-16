@@ -1,9 +1,12 @@
-const STORAGE_KEYS = {
+import { Restaurant } from "../../types/Restaurant.ts";
+
+type StorageKey = "restaurants";
+
+const STORAGE_KEYS: Record<string,StorageKey> = {
   RESTAURANTS: "restaurants",
 };
 
-// localStorage에서 레스토랑 데이터 가져오기
-export function getStoredRestaurants() {
+export function getStoredRestaurants():Restaurant[] | null{
   try {
     const storedData = localStorage.getItem(STORAGE_KEYS.RESTAURANTS);
     return storedData ? JSON.parse(storedData) : null;
@@ -14,7 +17,7 @@ export function getStoredRestaurants() {
 }
 
 // localStorage에 레스토랑 데이터 저장하기
-export function storeRestaurants(restaurants) {
+export function storeRestaurants(restaurants: Restaurant[]): void {
   try {
     localStorage.setItem(STORAGE_KEYS.RESTAURANTS, JSON.stringify(restaurants));
   } catch (error) {
@@ -23,7 +26,7 @@ export function storeRestaurants(restaurants) {
 }
 
 // localStorage 초기화하기
-export function clearLocalStorage() {
+export function clearLocalStorage():void {
   try {
     // 특정 데이터만 삭제
     localStorage.removeItem(STORAGE_KEYS.RESTAURANTS);
@@ -36,11 +39,15 @@ export function clearLocalStorage() {
   }
 }
 
-// 전역 객체에 clearLocalStorage 추가
+declare global {
+  interface Window {
+    clearLocalStorage: () => void;
+  }
+}
 window.clearLocalStorage = clearLocalStorage;
 
 // localStorage에서 레스토랑 데이터 초기화하기
-export function initializeRestaurants(initialData) {
+export function initializeRestaurants(initialData:Restaurant[]):Restaurant[] {
   const storedRestaurants = getStoredRestaurants();
 
   if (!storedRestaurants) {
