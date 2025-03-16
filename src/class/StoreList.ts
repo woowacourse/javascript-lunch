@@ -47,13 +47,12 @@ class StoreList {
     this.sortStoreList("name");
   }
 
-  filterByMenuBar(isFavorite: boolean): IList[] {
-    if (!isFavorite) return this.#list;
+  filterByMenuBar(isFavorite: boolean) {
+    if (!isFavorite) this.#filteredList = this.#list;
     else {
       this.#filteredList = this.#list.filter(
         (store) => store.isFavorite === true
       );
-      return this.#filteredList;
     }
   }
 

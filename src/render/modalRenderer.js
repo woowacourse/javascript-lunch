@@ -16,11 +16,11 @@ const modalRenderer = {
   },
 
   addForm: () => {
-    const modalContainer = querySelector(".modal-container");
+    const modalContainer = document.querySelector(".modal-container");
     modalContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>
     <form class="modal-form"></form>`;
 
-    const modalForm = querySelector(".modal-form");
+    const modalForm = document.querySelector(".modal-form");
     modalForm.appendChild(OptionInput("category", options.category));
     modalForm.appendChild(TextInput("name", true));
     modalForm.appendChild(OptionInput("distance", options.distance));

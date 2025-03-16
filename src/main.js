@@ -76,7 +76,6 @@ addEventListener("load", () => {
 
     const icon = querySelector(".modal-container").querySelector(".star-icon");
     icon.addEventListener("click", (e) => {
-      console.log("favorite click");
       const storeId = e.target.closest(".modal-container").getAttribute("id");
       storeRenderer.toggleFavorite(storeList, icon, storeId);
       storeRenderer.removeStoreElements();

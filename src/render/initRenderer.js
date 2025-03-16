@@ -5,7 +5,6 @@ import options from "../constants/options.js";
 import storeData from "../data/storeData.js";
 import StoreList from "../class/StoreList.ts";
 import storeRenderer from "./storeRenderer.js";
-import querySelector from "../utils/querySelector.js";
 import storage from "../utils/storage.ts";
 
 const initRenderer = {
@@ -53,7 +52,7 @@ const initRenderer = {
 
   setModal: () => {
     const modal = Modal();
-    querySelector("main").appendChild(modal);
+    document.querySelector("main").appendChild(modal);
   },
 };
 

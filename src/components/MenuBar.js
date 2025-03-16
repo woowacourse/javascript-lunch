@@ -1,9 +1,8 @@
 import uiBasicText from "../constants/uiBasicText.js";
 import createElement from "../utils/createElement.js";
-import querySelector from "../utils/querySelector.js";
 
 const MenuBar = () => {
-  const container = querySelector(".restaurant-menuBar-container");
+  const container = document.querySelector(".restaurant-menuBar-container");
 
   const allButton = createElement({
     tag: "button",
