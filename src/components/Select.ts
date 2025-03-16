@@ -1,11 +1,11 @@
-interface SelectParams {
+interface SelectParams<T> {
   name: string;
   label: string;
-  lists: Map<string, string>;
+  lists: Map<T, string>;
   required: boolean;
 }
 
-function createSelect(fieldName: SelectParams) {
+function createSelect<T>(fieldName: SelectParams<T>) {
   const select = `<div class="form-item ${fieldName.required ? 'form-item--required' : ''}">
     <label for="${fieldName.name} text-caption">${fieldName.label}</label>
     <select name="${fieldName.name}" id="${fieldName.name}">
