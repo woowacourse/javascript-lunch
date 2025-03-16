@@ -102,38 +102,38 @@ describe('애플리케이션 테스트 케이스', () => {
       cy.contains('10분 내').should('exist');
     });
   });
-});
 
-describe('예외적인 경우', () => {
-  it('카테고리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
-    cy.get('.gnb__button').click();
-    cy.get('#name').type('음식점 이름');
-    cy.get('#distance').select('5');
+  describe('예외적인 경우', () => {
+    it('카테고리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
+      cy.get('[data-action="restaurant-add"]').click();
+      cy.get('#name').type('음식점 이름');
+      cy.get('#distance').select('5');
 
-    cy.get('[data-action="modal-add"]').click();
+      cy.get('[data-action="modal-add"]').click();
 
-    cy.get('select[name="category"]')
-      .invoke('prop', 'validationMessage')
-      .should('equal', ERROR_MESSAGES.selectInvalid[language]);
-  });
-  it('이름을 입력하지 않으면 음식점을 추가할 수 없다.', () => {
-    cy.get('.gnb__button').click();
-    cy.get('#category').select('한식');
-    cy.get('#distance').select('5');
+      cy.get('select[name="category"]')
+        .invoke('prop', 'validationMessage')
+        .should('equal', ERROR_MESSAGES.selectInvalid[language]);
+    });
+    it('이름을 입력하지 않으면 음식점을 추가할 수 없다.', () => {
+      cy.get('[data-action="restaurant-add"]').click();
+      cy.get('#category').select('한식');
+      cy.get('#distance').select('5');
 
-    cy.get('[data-action="modal-add"]').click();
+      cy.get('[data-action="modal-add"]').click();
 
-    cy.get('input[name="name"]').invoke('prop', 'validationMessage').should('equal', ERROR_MESSAGES.input[language]);
-  });
-  it('거리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
-    cy.get('.gnb__button').click();
-    cy.get('#name').type('음식점 이름');
-    cy.get('#category').select('한식');
+      cy.get('input[name="name"]').invoke('prop', 'validationMessage').should('equal', ERROR_MESSAGES.input[language]);
+    });
+    it('거리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
+      cy.get('[data-action="restaurant-add"]').click();
+      cy.get('#name').type('음식점 이름');
+      cy.get('#category').select('한식');
 
-    cy.get('[data-action="modal-add"]').click();
+      cy.get('[data-action="modal-add"]').click();
 
-    cy.get('select[name="distance"]')
-      .invoke('prop', 'validationMessage')
-      .should('equal', ERROR_MESSAGES.selectInvalid[language]);
+      cy.get('select[name="distance"]')
+        .invoke('prop', 'validationMessage')
+        .should('equal', ERROR_MESSAGES.selectInvalid[language]);
+    });
   });
 });
