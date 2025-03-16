@@ -11,6 +11,7 @@ export function updateFilterState(newState) {
 }
 
 export function sortFilter(items) {
+  if (!Array.isArray(items)) return items;
   let filtered = [...items];
 
   if (filterState.category) {
