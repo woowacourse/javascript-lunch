@@ -1,15 +1,20 @@
+import RestaurantList from "../domain/RestaurantList.js";
 import DetailModalEventHandler from "../event/detailModalEventHandler.js";
-import ModalEventHandler from "../event/modalEventHandler.js";
-import EventHandler from "../utils/EventHandler.js";
 import createDetailModalView from "../view/createDetailModalView.js";
-import createModalView from "../view/createModalView.js";
+
+interface detailModalControllerType {
+  restaurantName: string;
+  restaurantList: RestaurantList;
+  updateCategorySortListView: () => void;
+  updateFavoriteListView: () => void;
+}
 
 export function DetailModalController({
   restaurantName,
   restaurantList,
   updateCategorySortListView,
   updateFavoriteListView,
-}) {
+}: detailModalControllerType) {
   const restaurant = restaurantList.getRestaurantByName(restaurantName);
   const modalElement = createDetailModalView(restaurant);
   DetailModalEventHandler({

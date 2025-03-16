@@ -1,8 +1,13 @@
+import RestaurantList from "../domain/RestaurantList.js";
 import ModalEventHandler from "../event/modalEventHandler.js";
-import EventHandler from "../utils/EventHandler.js";
 import createModalView from "../view/createModalView.js";
 
-export function ModalController({ updateCategorySortListView, restaurantList }) {
+interface ModalControllerType {
+  updateCategorySortListView: () => void;
+  restaurantList: RestaurantList;
+}
+
+export function ModalController({ updateCategorySortListView, restaurantList }: ModalControllerType) {
   const { modalElement, formElement } = createModalView();
   ModalEventHandler({ modalElement, formElement }, updateCategorySortListView, restaurantList);
 

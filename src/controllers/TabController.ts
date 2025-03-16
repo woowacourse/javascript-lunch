@@ -1,8 +1,14 @@
 import TabEventHandler from "../event/tabEventHandler.js";
 import { createTabView } from "../view/createTabView.js";
 
-function TabController(mainElement, { updateCategorySortListView, updateFavoriteListView }) {
-  const { tabContainerElement, allRestaurantTab, favoriteRestaurantTab } = createTabView();
+interface TabControllerType {
+  mainElement: HTMLElement;
+  updateCategorySortListView: () => void;
+  updateFavoriteListView: () => void;
+}
+
+function TabController({ mainElement, updateCategorySortListView, updateFavoriteListView }: TabControllerType) {
+  const tabContainerElement = createTabView();
 
   // 업데이트 뷰 함수 매핑
   const tabActionsUpdateListView = {

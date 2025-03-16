@@ -2,7 +2,6 @@ import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
 import favoriteEventHandler from "../event/favoriteEventHandler.js";
 import listItemOpenEventHandler from "../event/listItemOpenEventHandler.js";
-import EventHandler from "../utils/EventHandler.js";
 import CategorySortFilterController from "./CategorySortFilterController.js";
 import DetailModalController from "./DetailModalController.js";
 import FavoriteListController from "./FavoriteListController.js";
@@ -13,9 +12,15 @@ import TabController from "./TabController.js";
 
 function MainController() {
   const app = document.getElementById("app");
+  if (!app) throw new Error("app 요소를 찾을 수 없습니다.");
+
   const mainElement = app.querySelector("main");
+  if (!mainElement) throw new Error("main 요소를 찾을 수 없습니다.");
+
   const allListContainerElement = mainElement.querySelector(".all-restaurant-list-container");
   const favoriteListContainerElement = mainElement.querySelector(".favorite-restaurant-list-container");
+  if (!allListContainerElement || !favoriteListContainerElement)
+    throw new Error("list-container 요소를 찾을 수 없습니다.");
 
   const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS); // 도메인
 
@@ -29,10 +34,7 @@ function MainController() {
     restaurantList,
   });
 
-  const tabContainerElement = TabController(mainElement, {
-    updateCategorySortListView,
-    updateFavoriteListView,
-  });
+  const tabContainerElement = TabController({ mainElement, updateCategorySortListView, updateFavoriteListView });
 
   const headerElement = HeaderController(modalElement);
 
@@ -48,7 +50,7 @@ function MainController() {
   favoriteEventHandler(mainElement, { restaurantList, updateFavoriteListView });
 
   //listItem open 이벤트 등록
-  listItemOpenEventHandler(mainElement, (restaurantName) =>
+  listItemOpenEventHandler(mainElement, (restaurantName: string) =>
     DetailModalController({
       restaurantName,
       restaurantList,

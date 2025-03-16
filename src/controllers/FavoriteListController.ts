@@ -1,10 +1,7 @@
-import List from "../components/List.js";
-import ListItem from "../components/ListItem.js";
-import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
-import RestaurantList from "../domain/RestaurantList.js";
+import RestaurantList from "../domain/RestaurantList.ts";
 import createFavoriteListView from "../view/createFavoriteListView.js";
 
-function FavoriteListController(restaurantList) {
+function FavoriteListController(restaurantList: RestaurantList) {
   const { favoriteListElement, updateFavoriteListView } = createFavoriteListView(restaurantList);
   return { favoriteListElement, updateFavoriteListView };
 }

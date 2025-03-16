@@ -1,11 +1,13 @@
 import CategorySortFilterEventHandler from "../event/filterEventHandlers.js";
 import createCategorySortFilterView from "../view/createCategorySortFilterView.js";
 
-function CategorySortFilterController(updateListView) {
+function CategorySortFilterController(updateListView: (category: string, sorting: string) => void) {
   const categorySortFilterContainerElement = createCategorySortFilterView();
 
-  const categoryFilterElement = categorySortFilterContainerElement.querySelector("#category-filter");
-  const sortingFilterElement = categorySortFilterContainerElement.querySelector("#sorting-filter");
+  const categoryFilterElement = categorySortFilterContainerElement.querySelector(
+    "#category-filter",
+  ) as HTMLSelectElement;
+  const sortingFilterElement = categorySortFilterContainerElement.querySelector("#sorting-filter") as HTMLSelectElement;
 
   CategorySortFilterEventHandler(categoryFilterElement, sortingFilterElement, updateListView);
 
