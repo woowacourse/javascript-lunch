@@ -4,8 +4,9 @@ import RestaurantIcon from '../components/Restaurant/RestaurantIcon.js';
 
 class DetailModal extends Modal {
   #cancelButton;
-  #addButton;
+  #deleteButton;
   #restaruantIcon;
+  #star;
 
   constructor(appContainer) {
     super(appContainer);
@@ -16,7 +17,7 @@ class DetailModal extends Modal {
   }
 
   #init() {
-    this.#addButton = new Button('button--secondary', '삭제하기');
+    this.#deleteButton = new Button('button--secondary', '삭제하기');
     this.#cancelButton = new Button('button--primary', '닫기');
   }
 
@@ -28,15 +29,15 @@ class DetailModal extends Modal {
     const divButton = document.createElement('div');
     divButton.classList.add('button-container');
 
+    divButton.appendChild(this.#deleteButton);
     divButton.appendChild(this.#cancelButton);
-    console.log(divButton, this.#addButton);
-    divButton.appendChild(this.#addButton);
 
     return divButton;
   }
 
   #setRestaurantStyle(restaurant) {
     restaurant.style.flexDirection = 'column';
+    this.#star = restaurant.querySelector('.star-icon');
 
     const description = restaurant.querySelector('.restaurant__description');
     if (description) {
@@ -52,8 +53,8 @@ class DetailModal extends Modal {
     this.addElement(divButton);
   }
 
-  #bindAddButtonEvent = () => {
-    this.#addButton.addEventListener('click', (event) => {
+  #bindDeleteButtonEvent = () => {
+    this.#deleteButton.addEventListener('click', (event) => {
       this.#clearModalContent();
       this.closeModal();
     });
@@ -93,7 +94,7 @@ class DetailModal extends Modal {
   }
 
   #bindEvent = () => {
-    this.#bindAddButtonEvent();
+    this.#bindDeleteButtonEvent();
     this.#bindCancleButtonEvent();
     this.#bindESCEvent();
     this.#bindModalBackDropEvent();

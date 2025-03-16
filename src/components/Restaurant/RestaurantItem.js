@@ -7,12 +7,14 @@ class RestaurantItem {
   #restaurant;
   #onRestaurantUpdate;
   #restaurantModal;
+  #restaurantData;
 
-  constructor(restaurant, onRestaurantUpdate, restaurantModal) {
+  constructor(restaurantData, onRestaurantUpdate, restaurantModal) {
     this.#onRestaurantUpdate = onRestaurantUpdate;
     this.#restaurantModal = restaurantModal;
-    this.#createRestaurantItem(restaurant);
-    this.#bindEvent();
+    this.#restaurantData = restaurantData;
+    this.#createRestaurantItem(restaurantData);
+    this.#bindEvent(this.#restaurant);
   }
 
   #createRestaurantItem = (restaurant) => {
@@ -30,14 +32,18 @@ class RestaurantItem {
     this.#restaurant = li;
   };
 
-  #bindEvent = () => {
-    this.#restaurant.addEventListener('click', (event) => {
+  #bindEvent = (element) => {
+    element.addEventListener('click', (event) => {
       if (event.target.closest('.star-icon')) {
         return;
       }
 
-      const clonedElement = this.#restaurant.cloneNode(true);
-      clonedElement.id = 'restaurant-in-modal';
+      const clonedRestaurant = new RestaurantItem(
+        this.#restaurantData,
+        this.#onRestaurantUpdate,
+        this.#restaurantModal,
+      );
+      const clonedElement = clonedRestaurant.getElement();
 
       this.#restaurantModal.addRestaurant(clonedElement);
       this.#restaurantModal.openModal();
