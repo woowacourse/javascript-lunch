@@ -34,7 +34,6 @@ const restaurantService: RestaurantService = {
     this.restaurantManager.addData(restaurant);
   },
 
-  // 사용 X 가능성
   updateRestaurant(id, newProperty) {
     const existing = this.getRestaurantById(id);
     const updated = { ...existing, ...newProperty };
