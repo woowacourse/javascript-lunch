@@ -17,11 +17,15 @@ function handleCloseModal(event: Event) {
 }
 
 function handleEscKey(event: KeyboardEvent) {
-  const modal = document.querySelector('.modal');
-  if (!modal) return;
-  if (event.key === 'Escape' && modal.classList.contains('modal--open')) {
-    handleCloseModal(event);
-  }
+  if (event.key !== 'Escape') return;
+
+  const openModals = document.querySelectorAll('.modal.modal--open');
+
+  openModals.forEach((modal) => {
+    modal.classList.remove('modal--open');
+  });
+
+  resetFormAndState();
 }
 
 function handleNewRestaurantSubmit(event: SubmitEvent, addNewRestaurantItem: () => void) {
