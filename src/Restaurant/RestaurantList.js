@@ -38,8 +38,6 @@ class RestaurantList {
     let categoryFilteredData;
     let sortFilteredData;
 
-    console.log(this.selectedCategory, this.selectedSort);
-
     // 카테고리 필터
     if (this.selectedCategory === "전체") {
       categoryFilteredData = this.restaurants;

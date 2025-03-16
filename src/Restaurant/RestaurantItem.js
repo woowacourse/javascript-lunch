@@ -21,6 +21,7 @@ const renderRestaurantElement = ({
     link,
     isFavorite,
   };
+
   li.addEventListener("click", (e) => {
     const starIcon = e.target.closest(".star-icon");
     // falsy -> "", 0, undefined, null

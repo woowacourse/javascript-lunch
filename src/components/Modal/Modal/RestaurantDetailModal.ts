@@ -21,15 +21,30 @@ export default class RestaurantDetailModal {
   }
 
   addRestaurantDetail() {
-    const addRestaurantDetail = document.querySelector(
+    let { category, name, distance, description, link, isFavorite } =
+      this.restaurant;
+
+    const container = document.querySelector(
       "#detail-modal-container"
     ) as HTMLElement;
 
-    const { category, name, distance, description, link, isFavorite } =
-      this.restaurant;
+    container.addEventListener("click", (e) => {
+      const starIcon = (e.target as HTMLElement).closest(
+        ".star-icon"
+      ) as HTMLImageElement;
+      if (starIcon) {
+        starIcon.src = !isFavorite
+          ? "public/images/star.png"
+          : "public/images/empty-star.png";
+
+        isFavorite = !isFavorite;
+        return;
+      }
+    });
+
     const mappedImage =
       IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category] || "images/default.png";
-    addRestaurantDetail.innerHTML = `
+    container.innerHTML = `
           <div class="icon-container">
             <div class="restaurant__category">
               <img class="category-icon" src="${mappedImage}"/>
@@ -72,15 +87,3 @@ export default class RestaurantDetailModal {
     });
   }
 }
-
-// 클릭하면 모달 띄우기
-// 모달 안에는
-// 이미지
-// 식당 이름
-// 거리
-// 설명
-// 링크
-// 삭제하기 닫기
-
-// renderRestaurantElement : 각 li.restaurant 요소를 생성하여 RestaurantList에 반환
-// RestaurantList : 음식점 데이터를 가져와 RestaurantItem을 생성하고 화면에 출력하는 역할
