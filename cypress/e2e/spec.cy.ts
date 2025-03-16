@@ -78,7 +78,7 @@ describe('애플리케이션 테스트 케이스', () => {
     describe('자주 가는 음식점을 추가하고 목록으로 확인할 수 있다.', () => {
       it('음식점 목록에서 자주 가는 음식점을 추가할 수 있다.', () => {
         cy.get(':first-child > .restaurant [data-action="restaurant-like"]').click();
-        cy.get('#tab-like').click();
+        cy.get('[data-tab="like"]').click();
         cy.get(':first-child > .restaurant > .restaurant__info > .restaurant__info--inner').click();
 
         cy.get('.restaurant-list').contains('도스타코스 선릉점').should('exist');
@@ -86,7 +86,8 @@ describe('애플리케이션 테스트 케이스', () => {
       it('음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.', () => {
         cy.get(':first-child > .restaurant').click();
         cy.get('.restaurant-detail-modal [data-action="restaurant-like"]').click();
-        cy.get('#tab-like').click();
+        cy.get('.modal-backdrop').click();
+        cy.get('[data-tab="like"]').click();
 
         cy.get('.restaurant-list').contains('도스타코스 선릉점').should('exist');
       });

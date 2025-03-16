@@ -1,6 +1,5 @@
 import Component from '../core/Component.ts';
 import { html } from '../lib/utils.ts';
-import EventHandler from '../lib/EventHandler.ts';
 
 export default class RestaurantHeader extends Component {
   override template() {
@@ -12,13 +11,5 @@ export default class RestaurantHeader extends Component {
         </button>
       </header>
     `;
-  }
-
-  override attachEventListener() {
-    EventHandler.attachEventListener(
-      'click',
-      () => document.querySelector('#restaurant-add-modal')?.classList.add('modal--open'),
-      'restaurant-add',
-    );
   }
 }

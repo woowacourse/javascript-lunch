@@ -8,6 +8,7 @@ import EventHandler from '../lib/EventHandler.ts';
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
+  onModalClose: () => void;
 }
 
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
@@ -80,6 +81,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
           <div class="button-container">${cancelButton} ${addButton}</div>
         </form>
       `,
+      onModalClose: this.props.onModalClose,
     });
 
     this.appendChild(modal.element);

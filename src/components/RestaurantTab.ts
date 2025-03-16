@@ -16,7 +16,6 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
           class="restaurant__tab-item ${this.props?.focusedTab === 'all' ? 'restaurant__tab-item--active' : ''}"
           data-action="tab-change"
           data-tab="all"
-          id="tab-all"
         >
           <span>모든 음식점</span>
         </div>
@@ -24,7 +23,6 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
           class="restaurant__tab-item ${this.props?.focusedTab === 'like' ? 'restaurant__tab-item--active' : ''}"
           data-action="tab-change"
           data-tab="like"
-          id="tab-like"
         >
           <span>자주 가는 음식점</span>
         </div>

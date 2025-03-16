@@ -13,7 +13,8 @@ interface RestaurantListState {
   tab: TabType;
   filter: FilterType;
   sort: SortType;
-  currentRestaurant: RestaurantType | null;
+  restaurantDetailId: string | null;
+  isRestaurantAddModal: boolean;
 }
 
 export default class RestaurantList extends Component<RestaurantListState> {
@@ -26,7 +27,8 @@ export default class RestaurantList extends Component<RestaurantListState> {
       tab: 'all',
       filter: '전체',
       sort: '이름순',
-      currentRestaurant: null,
+      restaurantDetailId: null,
+      isRestaurantAddModal: false,
     };
   }
 
@@ -114,14 +116,28 @@ export default class RestaurantList extends Component<RestaurantListState> {
   }
 
   private _appendRestaurantAddModal() {
+    if (!this.state.isRestaurantAddModal) return;
+
     const restaurantAddModal = new RestaurantAddModal({
       addRestaurant: this._addRestaurant.bind(this),
+      onModalClose: () => this.setState({ isRestaurantAddModal: false }),
     });
     this.appendChild(restaurantAddModal.element, '.restaurant-add-modal');
   }
 
   private _appendRestaurantDetailModal() {
-    const restaurantDetailModal = new RestaurantDetailModal(this.state.currentRestaurant);
+    if (!this.state.restaurantDetailId) return;
+
+    const restaurantDetail = this.state.restaurants.find(
+      (restaurant) => restaurant.id === this.state.restaurantDetailId,
+    );
+
+    if (!restaurantDetail) return;
+
+    const restaurantDetailModal = new RestaurantDetailModal({
+      ...restaurantDetail,
+      onModalClose: () => this.setState({ restaurantDetailId: null }),
+    });
     this.appendChild(restaurantDetailModal.element, '.restaurant-detail-modal');
   }
 
@@ -131,6 +147,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
     });
 
     LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
+    this.setState({ isRestaurantAddModal: false });
   }
 
   /**
@@ -138,15 +155,17 @@ export default class RestaurantList extends Component<RestaurantListState> {
    */
 
   override attachEventListener() {
+    EventHandler.attachEventListener('click', () => this.setState({ isRestaurantAddModal: true }), 'restaurant-add');
+
     EventHandler.attachEventListener(
       'click',
-      (_, target) => this._toggleLike(target.dataset.id ?? ''),
+      (_, target) => target.dataset.id && this._toggleLike(target.dataset.id),
       'restaurant-like',
     );
 
     EventHandler.attachEventListener(
       'click',
-      () => this._deleteRestaurant(this.state.currentRestaurant?.id ?? ''),
+      () => this.state.restaurantDetailId && this._deleteRestaurant(this.state.restaurantDetailId),
       'restaurant-delete',
     );
 
@@ -154,12 +173,8 @@ export default class RestaurantList extends Component<RestaurantListState> {
       'click',
       (_, target) => {
         this.setState({
-          currentRestaurant: this.state.restaurants.find(
-            (restaurant) =>
-              restaurant.id === (target.closest('[data-action="restaurant-detail"]') as HTMLElement).dataset.id,
-          ),
+          restaurantDetailId: (target.closest('[data-action="restaurant-detail"]') as HTMLElement).dataset.id,
         });
-        this.element.querySelector('#restaurant-detail-modal')?.classList.add('modal--open');
       },
       'restaurant-detail',
     );

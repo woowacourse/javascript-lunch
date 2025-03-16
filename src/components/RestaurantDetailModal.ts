@@ -5,9 +5,11 @@ import { Button } from './common/index.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';
 import { html } from '../lib/utils.ts';
 
-interface RestaurantDetailModalProps extends RestaurantType {}
+interface RestaurantDetailModalProps extends RestaurantType {
+  onModalClose: () => void;
+}
 
-export default class RestaurantDetailModal extends Component<null, RestaurantDetailModalProps | null> {
+export default class RestaurantDetailModal extends Component<null, RestaurantDetailModalProps> {
   onRender(): void {
     this._appendRestaurantDetailModal();
   }
@@ -67,6 +69,7 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
             </div>
           </div>
         `,
+        onModalClose: this.props.onModalClose,
       }).element,
     );
   }

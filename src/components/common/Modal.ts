@@ -4,12 +4,13 @@ import { html } from '../../lib/utils.ts';
 interface ModalProps {
   id: string;
   children: string;
+  onModalClose: () => void;
 }
 
-export default class Modal extends Component<ModalProps> {
+export default class Modal extends Component<null, ModalProps> {
   override template() {
     return html`
-      <div class="modal" id="${this.props?.id ?? ''}">
+      <div class="modal modal--open" id="${this.props?.id ?? ''}">
         <div class="modal-backdrop"></div>
         <div class="modal-container">${this.props?.children ?? ''}</div>
       </div>
@@ -22,8 +23,8 @@ export default class Modal extends Component<ModalProps> {
   }
 
   private _attachClickEventListener() {
-    this.element?.querySelector('[data-action="modal-cancel"]')?.addEventListener('click', this.removeModal.bind(this));
-    this.element?.querySelector('.modal-backdrop')?.addEventListener('click', this.removeModal.bind(this));
+    this.element.querySelector('[data-action="modal-cancel"]')?.addEventListener('click', this.removeModal.bind(this));
+    this.element.querySelector('.modal-backdrop')?.addEventListener('click', this.removeModal.bind(this));
   }
 
   private _attachKeyDownEventListener() {
@@ -33,6 +34,7 @@ export default class Modal extends Component<ModalProps> {
   }
 
   removeModal() {
-    this.element?.querySelector(`#${this.props?.id}`)?.classList.remove('modal--open');
+    this.element.querySelector(`#${this.props?.id}`)?.classList.remove('modal--open');
+    this.props.onModalClose();
   }
 }

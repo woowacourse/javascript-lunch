@@ -11,6 +11,7 @@ export default class EventHandler {
       if (target.closest(`[data-action="${dataAction}"]`)) {
         callback(event, target);
         event.stopImmediatePropagation();
+        event.stopPropagation();
       }
     });
   }

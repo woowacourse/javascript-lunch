@@ -1,7 +1,9 @@
+import { CategoryType, DistanceType } from '../../src/lib/types';
+
 type RestaurantAddType = {
   name: string;
-  category: string;
-  distance: number;
+  category: CategoryType;
+  distance: DistanceType;
   description?: string;
   url?: string;
 };
