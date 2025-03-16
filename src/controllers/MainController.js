@@ -34,7 +34,8 @@ function MainController() {
     updateFavoriteListView,
   });
 
-  HeaderController(app, modalElement);
+  const headerElement = HeaderController(modalElement);
+  app.prepend(headerElement);
 
   mainElement.addEventListener("click", (event) => {
     const starElement = event.target.closest(".favorite-star");
