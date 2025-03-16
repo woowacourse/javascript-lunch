@@ -1,9 +1,10 @@
+import StarIcon from "./StarIcon";
 import IMG_SRC from "../constants/imgSrc";
 
 const Restaurant = (restaurantProps, isDetail = false) => {
   const imgSrc = getImgSrc(restaurantProps.category);
 
-  return `
+  return /*html*/ ` 
     <div class="restaurant__category">
       <img src="${imgSrc}" alt=${
     restaurantProps.category
@@ -11,10 +12,17 @@ const Restaurant = (restaurantProps, isDetail = false) => {
     </div>
     </div>
     <div class="restaurant__info ${isDetail ? "restaurant__info_detail" : ""}">
-      <h3 class="restaurant__name text-subtitle">${restaurantProps.name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${
-        restaurantProps.dist
-      }분 내</span>
+      <div class="restaurant__info_header">
+        <div>
+          <h3 class="restaurant__name text-subtitle">${
+            restaurantProps.name
+          }</h3>
+          <span class="restaurant__distance text-body">캠퍼스부터 ${
+            restaurantProps.dist
+          }분 내</span>
+        </div>
+        ${StarIcon(restaurantProps.isFavorite).outerHTML}
+      </div>
       <p class="restaurant__description text-body ${
         isDetail ? "restaurant__description_detail" : ""
       }">

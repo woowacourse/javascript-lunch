@@ -155,6 +155,7 @@ body {
 }
 
 .restaurant__info {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -162,6 +163,13 @@ body {
 
 .restaurant__info_detail {
   gap: 16px;
+}
+
+.restaurant__info_header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .restaurant__name {
@@ -332,6 +340,20 @@ input[name="link"] {
   background: var(--grey-200);
   color: var(--grey-300);
 }
+
+.star-icon-container {
+  border: none;
+  width: 32px;
+  height: 32px;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.star-icon-container_detail {
+  padding-bottom: 20px;
+}
+
 .pause-scroll {
   overflow: hidden;
 }
