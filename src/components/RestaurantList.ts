@@ -104,13 +104,12 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   private _getFilteredRestaurants() {
     return pipe(
-      [...this.state.restaurants],
+      this.state.restaurants,
       filter((restaurant) => this.state.tab === 'all' || restaurant.isLike),
       filter((restaurant) => this.state.filter === '전체' || restaurant.category === this.state.filter),
       sort((a, b) =>
         this.state.sort === '이름순' ? (a.name < b.name ? -1 : a.name > b.name ? 1 : 0) : a.distance - b.distance,
       ),
-      toArray,
     );
   }
 
