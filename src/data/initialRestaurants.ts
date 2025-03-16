@@ -1,6 +1,7 @@
 import { initializeRestaurants } from "../utils/localStorage.js";
+import { Restaurant } from "../../types/Restaurant.js";
 
-const defaultRestaurants = [
+const defaultRestaurants: Restaurant[] = [
   {
     id: 1,
     name: "친친",
@@ -60,4 +61,4 @@ const defaultRestaurants = [
   },
 ];
 
-export const initialRestaurants = initializeRestaurants(defaultRestaurants);
+export const initialRestaurants:Restaurant[] = initializeRestaurants(defaultRestaurants);

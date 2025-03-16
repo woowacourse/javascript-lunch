@@ -1,5 +1,5 @@
 // utils/state.js
-import { initialRestaurants } from "../data/initialRestaurants.js";
+import { initialRestaurants } from "../data/initialRestaurants.ts";
 
 // 로컬 스토리지 키 상수
 const STORAGE_KEYS = {

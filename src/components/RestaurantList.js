@@ -1,4 +1,4 @@
-import { initialRestaurants } from "../data/initialRestaurants.js";
+import { initialRestaurants } from "../data/initialRestaurants.ts";
 import RestaurantItem from "./RestaurantItem.js";
 
 export default function RestaurantList(

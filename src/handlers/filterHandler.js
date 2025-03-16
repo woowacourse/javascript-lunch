@@ -1,5 +1,5 @@
 /* eslint-disable radix */
-import { initialRestaurants } from "../data/initialRestaurants.js";
+import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { tabState } from "./tabHandler.js";
 
 // 저장된 필터

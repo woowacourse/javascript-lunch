@@ -9,7 +9,7 @@ import { ERROR_TYPES } from "../constants/errors.js";
 import RestaurantItem from "../components/RestaurantItem.js";
 import { generateId } from "../utils/generateId.js";
 import { storeRestaurants } from "../utils/localStorage.js";
-import { initialRestaurants } from "../data/initialRestaurants.js";
+import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.js";
 

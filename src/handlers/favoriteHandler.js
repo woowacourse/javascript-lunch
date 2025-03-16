@@ -1,5 +1,5 @@
 import { applyFilter } from "./filterHandler.js";
-import { initialRestaurants } from "../data/initialRestaurants.js";
+import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { storeRestaurants } from "../utils/localStorage.js";
 
 export function handleFavoriteClick(e) {
