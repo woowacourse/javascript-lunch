@@ -13,7 +13,8 @@ interface RestaurantProps extends Omit<RestaurantType, 'isFavorite'> {}
 const Restaurant = (props: RestaurantProps) => {
   const { category, name, distance, description, link } = props;
   const [favorite, setFavorite] = useState(false);
-  const [isModalOpen, openModal, closeModal] = useModal(false);
+  const [isBottomSheetOpen, openBottomSheet, closeBottomSheet] =
+    useModal(false);
   const { handleFavoriteToggle } = useFavorite();
   const eventManager = new EventManager($('#app'));
 
@@ -21,7 +22,7 @@ const Restaurant = (props: RestaurantProps) => {
   const restaurantId = `restaurant-${crypto.randomUUID()}`;
 
   eventManager.addEvent('click', `#${restaurantId}`, () => {
-    openModal();
+    openBottomSheet();
   });
 
   eventManager.addEvent('click', `#${buttonId}`, () => {
@@ -62,7 +63,7 @@ const Restaurant = (props: RestaurantProps) => {
       })}
     </li>
     ${
-      isModalOpen
+      isBottomSheetOpen
         ? BottomSheet({
             favorite,
             category,
@@ -71,7 +72,7 @@ const Restaurant = (props: RestaurantProps) => {
             description,
             link,
             onClose: () => {
-              closeModal();
+              closeBottomSheet();
             },
             handleFavoriteToggle: () => {
               handleFavoriteToggle(name, favorite, setFavorite);
