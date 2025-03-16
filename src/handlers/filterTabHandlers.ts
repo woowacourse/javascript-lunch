@@ -1,6 +1,7 @@
 import createMultiSelect from '../components/MultiSelect.js';
 import { CATEGORY_FILTER_SELECT, SORTING_FILTER_SELECT } from '../constants/constants.ts';
 import { updateRestaurantListBasedOnActiveTab } from '../utils/updateRestaurantList.ts';
+import { registerCategoryFilter, registerSortingFilter } from './filterHandlers.ts';
 
 function registerFilterTabClick() {
   const tabs = document.querySelectorAll('.tab');
@@ -27,6 +28,9 @@ function showCategoryFilterSelect() {
   filterContainer.textContent = '';
   filterContainer.insertAdjacentHTML('beforeend', createMultiSelect(CATEGORY_FILTER_SELECT));
   filterContainer.insertAdjacentHTML('beforeend', createMultiSelect(SORTING_FILTER_SELECT));
+
+  registerCategoryFilter();
+  registerSortingFilter();
 }
 
 function hideCategoryFilterSelect() {
