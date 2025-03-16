@@ -1,3 +1,4 @@
+import { UnPack } from '../../types/common';
 import { debounce } from '../@common/debounce';
 
 export interface Dispatch<T> {
@@ -13,7 +14,7 @@ interface Options<T = unknown> {
 }
 
 function Core() {
-  const options: Options = {
+  const options: Options<UnPack<Parameters<typeof useState>>> = {
     currentStateKey: 0,
     renderCount: 0,
     states: [],
