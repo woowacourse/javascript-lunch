@@ -6,11 +6,13 @@ export function FilterBox() {
           id: "cartegoryFilter",
           name: "cartegoryFilter",
           optionName: "sortCategory",
+          onChange: "categoryFilter-change",
         })}
         ${SelectBox({
           id: "sortFilter",
           name: "sortFilter",
           optionName: "sortOption",
+          onChange: "sortFilter-change",
         })}
     `;
 }

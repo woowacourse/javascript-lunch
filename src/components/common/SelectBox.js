@@ -1,6 +1,6 @@
 import { SELECT_OPTIONS } from "../../constants/SelectOption.js";
 
-export function SelectBox({ id, name, label, optionName, required }) {
+export function SelectBox({ id, name, label, optionName, required, onChange }) {
   const options = SELECT_OPTIONS[optionName] || [];
 
   function template() {
@@ -11,7 +11,9 @@ export function SelectBox({ id, name, label, optionName, required }) {
             ? `<label for="${id}" class="text-caption">${label}</label>`
             : ""
         }
-        <select name="${name}" id="${id}" ${required ? "required" : ""}>
+        <select name="${name}" id="${id}" ${required ? "required" : ""} ${
+      onChange ? `data-action="${onChange}"` : ""
+    }>
           ${options
             .map(
               (option) => `
