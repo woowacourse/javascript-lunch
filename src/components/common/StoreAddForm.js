@@ -1,5 +1,4 @@
 import { getStorage } from "../../utils/storage.js";
-import { StoreInfo } from "../StoreInfo.js";
 import { Button } from "./Button.js";
 import { FormButtons } from "./FormButtons.js";
 import { InputBox } from "./InputBox.js";
@@ -22,10 +21,6 @@ export function StoreAddForm({ id, label }) {
 
   return template();
 }
-
-const storeDeleteTemplate = `
-  ${StoreInfo(1, "full")}
-`;
 
 const storeAddTemplate = `
         ${SelectBox({
