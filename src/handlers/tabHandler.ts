@@ -1,11 +1,16 @@
 import { applyFilter } from "./filterHandler.js";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
+import { TabButton } from "../../types/DomTypes.ts";
 
-export const tabState = {
+interface TabState {
+  activeTab : string;
+}
+
+export const tabState : TabState= {
   activeTab: "all",
 };
 
-export function handleTabChange(e) {
+export function handleTabChange(e : MouseEvent) : void{
   const selectedTab = e.target.dataset.tab;
 
   if (!selectedTab || selectedTab === tabState.activeTab) return;
@@ -25,7 +30,7 @@ export function handleTabChange(e) {
   }, 10);
 }
 
-function toggleSortingVisibility(activeTab) {
+function toggleSortingVisibility(activeTab:string): void {
   const sortingDropdown = document.querySelectorAll(".filter-dropdown");
 
   sortingDropdown.forEach((dropdown) => {
@@ -39,7 +44,7 @@ function toggleSortingVisibility(activeTab) {
   applyFilter();
 }
 
-export function setupTabEventListeners() {
+export function setupTabEventListeners() : void {
   const tabButtons = document.querySelectorAll(".tab-button");
   tabButtons.forEach((button) => {
     button.removeEventListener("click", handleTabChange);

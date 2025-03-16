@@ -1,5 +1,5 @@
 import RestaurantTabs from "../components/RestaurantTabs.js";
-import { setupTabEventListeners } from "../handlers/tabHandler.js";
+import { setupTabEventListeners } from "../handlers/tabHandler.ts";
 
 export function initializeTabs() {
   const $tabsContainer = document.querySelector(".restaurant-tabs-container");

@@ -2,7 +2,7 @@ import { AddDetailModal } from "../components/AddDetailModal.js";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import removeModal from "../utils/removeModal.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.js";
-import { setupTabEventListeners } from "./tabHandler.js";
+import { setupTabEventListeners } from "./tabHandler.ts";
 import { setupFilterEventListeners } from "./filterHandler.js";
 
 let selectedRestaurantId = null;

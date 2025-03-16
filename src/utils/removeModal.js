@@ -34,8 +34,8 @@ export default function removeModal() {
 // 탭 이벤트 리스너를 재설정하는 함수
 function resetTabEventListeners() {
   try {
-    // 동적으로 tabHandler.js의 setupTabEventListeners 함수 가져오기
-    import("../handlers/tabHandler.js")
+    // 동적으로 tabHandler.ts의 setupTabEventListeners 함수 가져오기
+    import("../handlers/tabHandler.ts")
       .then((module) => {
         if (typeof module.setupTabEventListeners === "function") {
           module.setupTabEventListeners();
