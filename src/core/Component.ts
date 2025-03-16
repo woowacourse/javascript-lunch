@@ -1,14 +1,14 @@
 import type { HTMLType } from 'src/lib/types';
 import { html } from '../lib/utils.ts';
 
-export default abstract class Component<State = Record<string, any>, Props = Record<string, any>> {
+export default abstract class Component<State = Record<string, unknown>, Props = Record<string, unknown>> {
   state = {} as State;
 
   #props: Props;
   #element: HTMLElement = document.createElement('div');
 
-  constructor(props: Props) {
-    this.#props = props;
+  constructor(props?: Props) {
+    this.#props = (props ?? {}) as Props;
     this.setup();
 
     this.render();
