@@ -16,7 +16,7 @@ export const distanceValue = {
   30: "30분 내",
 };
 
-export const label = {
+export const label: Record<string, string> = {
   category: "카테고리",
   name: "이름",
   distance: "거리(도보 이동 시간)",
