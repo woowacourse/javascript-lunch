@@ -4,7 +4,8 @@ import { clickStar } from "../components/StarIcon/star.js";
 
 const renderRestaurantElement = (
   { category, name, distance, description, link, isFavorite },
-  updateFavoriteStatus
+  updateFavoriteStatus,
+  deleteRestaurant
 ) => {
   const li = document.createElement("li");
   li.classList.add("restaurant");
@@ -34,7 +35,8 @@ const renderRestaurantElement = (
 
     const restaurantDetailModal = new RestaurantDetailModal(
       restaurant,
-      (name) => updateFavoriteStatus(name)
+      (name) => updateFavoriteStatus(name),
+      (name) => deleteRestaurant(name)
     );
     restaurantDetailModal.open();
   });

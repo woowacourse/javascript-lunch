@@ -6,11 +6,14 @@ export default class RestaurantDetailModal {
   restaurant;
   modalElement;
   closeButton;
+  deleteButton;
   updateFavoriteStatus;
+  deleteRestaurant;
 
   constructor(
     restaurant: Restaurant,
-    updateFavoriteStatus: (name: string) => {}
+    updateFavoriteStatus: (name: string) => {},
+    deleteRestaurant: (name: string) => {}
   ) {
     this.restaurant = restaurant;
     this.modalElement = document.getElementById(
@@ -20,7 +23,11 @@ export default class RestaurantDetailModal {
     this.closeButton = document.querySelector(
       ".detail-close-button"
     ) as HTMLButtonElement;
+    this.deleteButton = document.querySelector(
+      ".detail-delete-button"
+    ) as HTMLButtonElement;
     this.updateFavoriteStatus = updateFavoriteStatus;
+    this.deleteRestaurant = deleteRestaurant;
     this.addEventListeners();
   }
 
@@ -83,7 +90,10 @@ export default class RestaurantDetailModal {
 
   addEventListeners() {
     this.closeButton.addEventListener("click", () => this.close());
-
+    this.deleteButton.addEventListener("click", () => {
+      this.deleteRestaurant(this.restaurant.name);
+      this.close();
+    });
     this.modalElement.addEventListener("click", (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       if (!target.closest("#detail-modal-container")) {

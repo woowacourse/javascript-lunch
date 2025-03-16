@@ -48,6 +48,13 @@ class RestaurantList {
     this.render(); // UI 다시 렌더링
   }
 
+  deleteRestaurant(name) {
+    this.restaurants = this.restaurants.filter(
+      (restaurant) => restaurant.name !== name
+    );
+    this.render();
+  }
+
   renderFilter() {
     const addrestaurant_filter_container = document.querySelector(
       ".restaurant-filter-container"
@@ -81,8 +88,10 @@ class RestaurantList {
     }
 
     sortFilteredData.forEach((restaurant) => {
-      const restaurantItem = renderRestaurantElement(restaurant, (name) =>
-        this.updateFavoriteStatus(name)
+      const restaurantItem = renderRestaurantElement(
+        restaurant,
+        (name) => this.updateFavoriteStatus(name),
+        (name) => this.deleteRestaurant(name)
       );
       this.restaurantListElement.appendChild(restaurantItem);
     });
@@ -97,8 +106,10 @@ class RestaurantList {
       (restaurant) => restaurant.isFavorite === true
     );
     favoriteData.forEach((restaurant) => {
-      const restaurantItem = renderRestaurantElement(restaurant, (name) =>
-        this.updateFavoriteStatus(name)
+      const restaurantItem = renderRestaurantElement(
+        restaurant,
+        (name) => this.updateFavoriteStatus(name),
+        (name) => this.deleteRestaurant(name)
       );
       this.restaurantListElement.appendChild(restaurantItem);
     });
