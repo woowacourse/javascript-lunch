@@ -10,10 +10,10 @@ import Tab from "./Tab/tab.js";
 import {
   createCategoryFilter,
   createSortingFilter,
-} from "./createFilterSelect.js";
-import filterByCategory from "./filterRestaurants.js";
+} from "./Dropdown/FilterDropdown/createFilterSelect.js";
+import filterByCategory from "../utils/filterRestaurants.js";
 import renderRestaurants from "./renderRestaurants.js";
-import sortByOption from "./sortRestaurants.js";
+import sortByOption from "../utils/sortRestaurants.js";
 class App extends Component {
   constructor($target) {
     super($target);
@@ -149,7 +149,7 @@ class App extends Component {
         restaurantIndex = index;
       }
     });
-    const removed = this.state.restaurantList.splice(restaurantIndex, 1);
+    this.state.restaurantList.splice(restaurantIndex, 1);
     localStorage.setItem(
       "restaurantList",
       JSON.stringify([...this.state.restaurantList]),

@@ -1,5 +1,5 @@
-import { label } from "../../constants/optionValue.js";
-import Component from "../Component.js";
+import { label } from "../../../constants/optionValue.js";
+import Component from "../../Component.js";
 
 class FilterDropdown extends Component {
   template() {

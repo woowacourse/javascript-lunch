@@ -1,5 +1,8 @@
-import { categoryFilterValue, sortingValue } from "../constants/optionValue.js";
-import FilterDropdown from "./Dropdown/FilterDropdown.js";
+import {
+  categoryFilterValue,
+  sortingValue,
+} from "../../../constants/optionValue.js";
+import FilterDropdown from "./FilterDropdown.js";
 
 export const createCategoryFilter = (
   onChange: void,
