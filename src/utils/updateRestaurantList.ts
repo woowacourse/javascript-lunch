@@ -1,4 +1,5 @@
 import { filterByCategory, sortByCondition } from '../handlers/filterHandlers.ts';
+import { restaurantStore } from '../store/restaurantStore.ts';
 import { reRenderRestaurantList } from '../utils/renderUtils.ts';
 
 export function updateRestaurantListBasedOnActiveTab() {
@@ -14,8 +15,10 @@ export function updateRestaurantListBasedOnActiveTab() {
 
   if (activeTab && activeTab.id === 'favorites') {
     const favorites = sortedRestaurants.filter((restaurant) => restaurant.isFavorite);
+    localStorage.setItem('restaurantStore', JSON.stringify(restaurantStore));
     reRenderRestaurantList(favorites);
     return;
   }
+  localStorage.setItem('restaurantStore', JSON.stringify(restaurantStore));
   reRenderRestaurantList(sortedRestaurants);
 }
