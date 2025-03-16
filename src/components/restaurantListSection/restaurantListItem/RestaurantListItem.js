@@ -2,10 +2,9 @@ import { CATEGORY, CATEGORY_ASSETS } from "../../../constants/constants.js";
 import "./restaurantListItem.css";
 
 export default class RestaurantListItem {
-  constructor(restaurantInfo, restaurantList, updateList) {
+  constructor(restaurantInfo, updateBookmark) {
     this.restaurantInfo = restaurantInfo;
-    this.restaurantList = restaurantList;
-    this.updateList = updateList;
+    this.updateBookmark = updateBookmark;
   }
 
   render() {
@@ -60,30 +59,27 @@ export default class RestaurantListItem {
     $bookmarkButton.appendChild($bookmarkIcon);
     $item.appendChild($bookmarkButton);
 
-    $bookmarkButton.addEventListener("click", () => {
-      const src = $bookmarkIcon.getAttribute("src");
-      const index = this.restaurantList.findIndex(
-        (restaurant) => restaurant.id === id
-      );
-
-      const copy = [...this.restaurantList];
-      if (src === "./assets/favorite-icon-lined.png") {
-        $bookmarkIcon.setAttribute("src", "./assets/favorite-icon-filled.png");
-
-        copy[index] = { ...copy[index], bookmark: true };
-
-        this.updateList(copy);
-      }
-
-      if (src === "./assets/favorite-icon-filled.png") {
-        $bookmarkIcon.setAttribute("src", "./assets/favorite-icon-lined.png");
-
-        copy[index] = { ...copy[index], bookmark: false };
-
-        this.updateList(copy);
-      }
-    });
+    $bookmarkButton.addEventListener("click", () =>
+      this.#handleButtonClick($bookmarkIcon)
+    );
 
     return $item;
+  }
+
+  #handleButtonClick($bookmarkIcon) {
+    const src = $bookmarkIcon.getAttribute("src");
+    const id = this.restaurantInfo.id;
+
+    if (src === "./assets/favorite-icon-lined.png") {
+      $bookmarkIcon.setAttribute("src", "./assets/favorite-icon-filled.png");
+
+      this.updateBookmark(id, true);
+    }
+
+    if (src === "./assets/favorite-icon-filled.png") {
+      $bookmarkIcon.setAttribute("src", "./assets/favorite-icon-lined.png");
+
+      this.updateBookmark(id, false);
+    }
   }
 }

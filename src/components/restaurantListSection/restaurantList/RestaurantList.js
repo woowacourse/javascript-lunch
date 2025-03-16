@@ -2,9 +2,9 @@ import RestaurantListItem from "../restaurantListItem/RestaurantListItem.js";
 import "./restaurantList.css";
 
 export default class RestaurantList {
-  constructor(restaurantList, updateList, onRestaurantItemClick) {
+  constructor(restaurantList, updateBookmark, onRestaurantItemClick) {
     this.restaurantList = restaurantList;
-    this.updateList = updateList;
+    this.updateBookmark = updateBookmark;
     this.onRestaurantItemClick = onRestaurantItemClick;
   }
 
@@ -18,11 +18,7 @@ export default class RestaurantList {
     $listSection.appendChild($list);
     this.restaurantList.forEach((restaurantInfo) =>
       $list.appendChild(
-        new RestaurantListItem(
-          restaurantInfo,
-          this.restaurantList,
-          this.updateList
-        ).render()
+        new RestaurantListItem(restaurantInfo, this.updateBookmark).render()
       )
     );
 

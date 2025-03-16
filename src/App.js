@@ -48,6 +48,29 @@ export default class App {
     this.#toggleDetailModalShow();
   };
 
+  #updateBookmark = (id, isBookmark) => {
+    const originRestaurantList = this.restaurantListModel.getRestaurantList();
+
+    const index = this.#restaurantList.findIndex(
+      (restaurant) => restaurant.id === id
+    );
+    const originIndex = originRestaurantList.findIndex(
+      (restaurant) => restaurant.id === id
+    );
+
+    const copy = [...this.#restaurantList];
+    const originCopy = [...originRestaurantList];
+
+    copy[index] = { ...copy[index], bookmark: isBookmark };
+    originCopy[originIndex] = {
+      ...originCopy[originIndex],
+      bookmark: isBookmark,
+    };
+
+    this.#updateLocalRestautantList(originCopy);
+    this.#updateRestautantList(copy);
+  };
+
   #onRestaurantItemDelete = (id) => {
     const restaurantIndex = this.#restaurantList.findIndex(
       (restaurant) => restaurant.id === id
@@ -201,7 +224,7 @@ export default class App {
     this.$listSection.replaceChild(
       new RestaurantList(
         this.#restaurantList,
-        this.#updateLocalRestautantList,
+        this.#updateBookmark,
         this.onRestaurantItemClick
       ).render(),
       $listContainer
@@ -270,7 +293,7 @@ export default class App {
         this.#restaurantList.sort((a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
         ),
-        this.#updateLocalRestautantList,
+        this.#updateBookmark,
         this.onRestaurantItemClick
       ).render()
     );
