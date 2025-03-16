@@ -1,4 +1,4 @@
-import { Header, Restaurant, Modal, RestaurantList } from './components/index.js';
+import { Header, Restaurant, InputModal, RestaurantList } from './components/index.js';
 import Filter from './components/Filter.js';
 import Component from './core/Component.js';
 import { defaultRestaurantList } from './data/defaultRestaurantList.js';
@@ -65,14 +65,14 @@ class Application extends Component {
 
     $restaurantFilterContainer.appendChild(listSorter.element);
 
-    const modal = new Modal(
+    const inputModal = new InputModal(
       {
         modalTitle: '새로운 음식점',
         addRestaurant: this.addRestaurant.bind(this),
       },
       this.element,
     );
-    this.element.appendChild(modal.element);
+    this.element.appendChild(inputModal.element);
   }
 }
 export default Application;
