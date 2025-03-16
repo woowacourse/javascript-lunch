@@ -53,6 +53,11 @@ export const modalHandler = {
     querySelector("#close-button").addEventListener("click", () => {
       modalHandler.closeModal();
     });
+
+    restaurantHandler.addFavoriteEvent(
+      restaurantDetailItem,
+      restaurantDetail.name
+    );
   },
 
   addForm: () => {

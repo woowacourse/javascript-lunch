@@ -11,9 +11,12 @@ export const restaurantHandler = {
     listItem.classList.add("restaurant");
     const restaurant = Restaurant(restaurantProps);
     listItem.innerHTML = restaurant;
+
     listItem.addEventListener("click", () =>
       modalHandler.addRestaurantDetail(restaurantProps)
     );
+    restaurantHandler.addFavoriteEvent(listItem, restaurantProps.name);
+
     querySelector(".restaurant-list").appendChild(listItem);
   },
 
@@ -83,5 +86,57 @@ export const restaurantHandler = {
     );
 
     window.location.reload();
+  },
+
+  findRestaurantByName: (name: string): RestaurantItem | undefined => {
+    const restaurantList = restaurantStorage.getRestaurantList();
+    return restaurantList.find(
+      (restaurant: RestaurantItem) => restaurant.name === name
+    );
+  },
+
+  updateFavoriteState: (name: string): boolean => {
+    const restaurantList = restaurantStorage.getRestaurantList();
+    const restaurant = restaurantList.find(
+      (restaurant: RestaurantItem) => restaurant.name === name
+    );
+
+    if (!restaurant) return false;
+
+    restaurant.isFavorite = !restaurant.isFavorite;
+    restaurantStorage.setRestaurantList(restaurantList);
+
+    return restaurant.isFavorite;
+  },
+
+  updateStarIconUI: (name: string, isFavorite: boolean): void => {
+    document.querySelectorAll(".restaurant").forEach((restaurantItem) => {
+      const restaurantNameElement =
+        restaurantItem.querySelector(".restaurant__name");
+      if (restaurantNameElement?.textContent === name) {
+        const starIcon = restaurantItem.querySelector(
+          ".star-icon-container img"
+        ) as HTMLImageElement;
+        if (starIcon) {
+          starIcon.src = isFavorite
+            ? "/public/favorite-icon-filled.png"
+            : "/public/favorite-icon-lined.png";
+        }
+      }
+    });
+  },
+
+  toggleFavorite: (name: string): void => {
+    const isFavorite = restaurantHandler.updateFavoriteState(name);
+    restaurantHandler.updateStarIconUI(name, isFavorite);
+  },
+
+  addFavoriteEvent: (listItem: HTMLElement, name: string) => {
+    listItem
+      .querySelector(".star-icon-container")
+      ?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        restaurantHandler.toggleFavorite(name);
+      });
   },
 };
