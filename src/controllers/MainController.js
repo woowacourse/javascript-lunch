@@ -25,7 +25,7 @@ function MainController() {
   const updateCategorySortListView = CategorySortFilterController(allListContainerElement, updateListView);
 
   const modalElement = ModalController(mainElement, {
-    updateListView: updateCategorySortListView,
+    updateCategorySortListView,
     restaurantList,
   });
 
