@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const restaurantList = new RestaurantList();
   restaurantList.createRestaurantList();
 
-  createCategoryFilter(restaurantList);
-  createSortFilter(restaurantList);
   createTabFilter(restaurantList);
 
   const addRestaurantModalButton = header.querySelector(".gnb__button");

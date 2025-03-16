@@ -2,14 +2,10 @@ import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.js";
 import RestaurantDetailModal from "../components/Modal/Modal/RestaurantDetailModal.js";
 import { clickStar } from "../components/StarIcon/star.js";
 
-const renderRestaurantElement = ({
-  category,
-  name,
-  distance,
-  description,
-  link,
-  isFavorite,
-}) => {
+const renderRestaurantElement = (
+  { category, name, distance, description, link, isFavorite },
+  updateFavoriteStatus
+) => {
   const li = document.createElement("li");
   li.classList.add("restaurant");
   const restaurant = {
@@ -31,10 +27,15 @@ const renderRestaurantElement = ({
         : "public/images/empty-star.png";
 
       restaurant.isFavorite = !restaurant.isFavorite;
+      updateFavoriteStatus(name);
+
       return;
     }
 
-    const restaurantDetailModal = new RestaurantDetailModal(restaurant);
+    const restaurantDetailModal = new RestaurantDetailModal(
+      restaurant,
+      (name) => updateFavoriteStatus(name)
+    );
     restaurantDetailModal.open();
   });
 

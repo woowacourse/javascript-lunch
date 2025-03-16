@@ -1,6 +1,9 @@
 import "./RestaurantList.css";
 import { restaurantsData } from "../../public/database/restaurants";
 import renderRestaurantElement from "./RestaurantItem";
+import createTabFilter from "../components/Tab/tabFilter";
+import createCategoryFilter from "../components/Filter/CategoryFilter";
+import createSortFilter from "../components/Filter/SortFilter";
 
 class RestaurantList {
   selectedCategory = "전체";
@@ -33,13 +36,29 @@ class RestaurantList {
     restaurantListContainer.insertAdjacentHTML("beforeend", restaurantListHTML);
 
     this.restaurantListElement = document.querySelector(".restaurant-list");
-    this.renderFilteredData();
-    this.renderFavoriteData();
+
+    this.render();
   }
 
-  renderFilteredData() {
-    this.restaurantListElement.innerHTML = "";
+  updateFavoriteStatus(name) {
+    const restaurant = this.restaurants.find((r) => r.name === name);
+    if (!restaurant) return; // 해당 레스토랑이 없으면 아무것도 하지 않음
 
+    restaurant.isFavorite = !restaurant.isFavorite; // isFavorite 값 반전
+    this.render(); // UI 다시 렌더링
+  }
+
+  renderFilter() {
+    const addrestaurant_filter_container = document.querySelector(
+      ".restaurant-filter-container"
+    );
+    addrestaurant_filter_container.innerHTML = "";
+    createCategoryFilter(this);
+    createSortFilter(this);
+  }
+
+  renderAllTabData() {
+    this.renderFilter();
     let categoryFilteredData;
     let sortFilteredData;
 
@@ -62,28 +81,37 @@ class RestaurantList {
     }
 
     sortFilteredData.forEach((restaurant) => {
-      const restaurantItem = renderRestaurantElement(restaurant);
+      const restaurantItem = renderRestaurantElement(restaurant, (name) =>
+        this.updateFavoriteStatus(name)
+      );
       this.restaurantListElement.appendChild(restaurantItem);
     });
   }
 
   renderFavoriteData() {
-    this.restaurantListElement.innerHTML = "";
-
-    let tabFilteredData;
-
-    if (this.selectedTab === "allTab") {
-      tabFilteredData = this.restaurants;
-    } else {
-      tabFilteredData = this.restaurants.filter(
-        (restaurant) => restaurant.isFavorite === true
+    const addrestaurant_filter_container = document.querySelector(
+      ".restaurant-filter-container"
+    );
+    addrestaurant_filter_container.innerHTML = "";
+    const favoriteData = this.restaurants.filter(
+      (restaurant) => restaurant.isFavorite === true
+    );
+    favoriteData.forEach((restaurant) => {
+      const restaurantItem = renderRestaurantElement(restaurant, (name) =>
+        this.updateFavoriteStatus(name)
       );
-    }
-
-    tabFilteredData.forEach((restaurant) => {
-      const restaurantItem = renderRestaurantElement(restaurant);
       this.restaurantListElement.appendChild(restaurantItem);
     });
+  }
+
+  render() {
+    this.restaurantListElement.innerHTML = "";
+
+    if (this.selectedTab === "allTab") {
+      this.renderAllTabData();
+    } else {
+      this.renderFavoriteData();
+    }
   }
 
   addRestaurant(newRestaurant) {

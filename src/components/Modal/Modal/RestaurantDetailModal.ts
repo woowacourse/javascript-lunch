@@ -6,8 +6,12 @@ export default class RestaurantDetailModal {
   restaurant;
   modalElement;
   closeButton;
+  updateFavoriteStatus;
 
-  constructor(restaurant: Restaurant) {
+  constructor(
+    restaurant: Restaurant,
+    updateFavoriteStatus: (name: string) => {}
+  ) {
     this.restaurant = restaurant;
     this.modalElement = document.getElementById(
       "restaurant-detail-dialog"
@@ -16,7 +20,7 @@ export default class RestaurantDetailModal {
     this.closeButton = document.querySelector(
       ".detail-close-button"
     ) as HTMLButtonElement;
-
+    this.updateFavoriteStatus = updateFavoriteStatus;
     this.addEventListeners();
   }
 
@@ -38,6 +42,7 @@ export default class RestaurantDetailModal {
           : "public/images/empty-star.png";
 
         isFavorite = !isFavorite;
+        this.updateFavoriteStatus(name);
         return;
       }
     });
