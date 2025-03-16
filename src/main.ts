@@ -4,20 +4,22 @@ import createRestaurantItem from "./components/RestaurantItem.ts";
 import { createModal } from "./components/Modal.ts";
 import { createForm } from "./components/Form.ts";
 import validateRestaurant from "./validateRestaurant.js";
-import { restaurantsData } from "./restaurantsData.ts";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "./constants/constants.js";
-import { Category, Restaurant } from "./types/restaurant.ts";
+import { Category, Distance, Restaurant } from "./types/restaurant.ts";
+import { restaurantManager } from "./restaurantManager.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const initialLoadRestaurantData = restaurantManager.getInitialData();
+
   const body = document.querySelector("body");
   const header = createHeader({ title: "점심 뭐 먹지" });
-  body?.prepend(header);
 
   const tab = createTab({
     title: "모든 음식점",
     subTitle: "자주 가는 음식점",
   });
-  header.after(tab);
+
+  header?.after(tab);
 
   const mainTab = tab.querySelector(".tab__title");
   const subTab = tab.querySelector(".tab__subTitle");
@@ -65,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const linkInput =
       addRestaurantDialogElement.querySelector<HTMLInputElement>("#link");
 
-    const restaurantsNameList = restaurantsData.map(
-      (restaurant) => restaurant.name
+    const restaurantsNameList = initialLoadRestaurantData.map(
+      (restaurant: Restaurant) => restaurant.name
     );
 
     if (
@@ -82,9 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const newRestaurant = {
       category: categoryInput.value as Category,
       name: nameInput.value,
-      distance: Number(distanceInput.value),
+      distance: Number(distanceInput.value) as Distance,
       description: descriptionInput.value,
       link: linkInput.value,
+      isFavorite: false,
     };
 
     const errorMessage = validateRestaurant(newRestaurant, restaurantsNameList);
@@ -95,6 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const restaurantItem = createRestaurantItem(newRestaurant);
     restaurantList?.appendChild(restaurantItem);
+
+    restaurantManager.add(newRestaurant);
 
     formReset();
   };
@@ -125,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  const addRestaurantModalButton = header.querySelector(".gnb__button");
+  const addRestaurantModalButton = header?.querySelector(".gnb__button");
   addRestaurantModalButton?.addEventListener("click", () => {
     addRestaurantModal.showModal();
   });
@@ -133,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const showRestaurantDetail = (restaurant: Restaurant) => {
     const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[restaurant.category];
     const restaurantDetailContent = `
-  <div class="detail-modal-content">
+  <div class="detail-modal-content" data-id="${restaurant.id}">
     <div class="detail-modal-header">
       <img src="images/favorite-icon-lined.png" alt="즐겨찾기" class="favorite-icon" />
       <div class="detail-modal-category">
@@ -170,7 +175,10 @@ document.addEventListener("DOMContentLoaded", () => {
         submit: {
           label: "삭제하기",
           onClick: () => {
-            console.log("delete");
+            if (!restaurant?.id) {
+              throw new Error("음식점 ID가 존재하지 않습니다.");
+            }
+            restaurantManager.delete(restaurant.id);
           },
         },
       },
@@ -179,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     detailModal.showModal();
   };
 
-  restaurantsData.forEach((restaurant) => {
+  initialLoadRestaurantData.forEach((restaurant: Restaurant) => {
     const restaurantItem = createRestaurantItem(restaurant);
 
     restaurantItem.addEventListener("click", () => {
