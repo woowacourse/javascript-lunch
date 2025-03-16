@@ -7,8 +7,8 @@ function createListView(restaurantList) {
   function updateListView(category, sortOption) {
     const filteredRestaurants = restaurantList.filterAndSort(category, sortOption);
     listElement.innerHTML = "";
-    filteredRestaurants.forEach(({ information }) => {
-      listElement.appendChild(ListItem(information));
+    filteredRestaurants.forEach(({ restaurant }) => {
+      listElement.appendChild(ListItem(restaurant));
     });
   }
 

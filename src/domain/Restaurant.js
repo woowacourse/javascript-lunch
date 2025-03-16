@@ -1,17 +1,17 @@
 class Restaurant {
-  information = {};
+  restaurant = {};
 
   constructor({ category, name, distance, description = "", link = "", favoriteStar = false }) {
-    this.information.category = category;
-    this.information.name = name;
-    this.information.distance = distance;
-    this.information.description = description;
-    this.information.link = link;
-    this.information.favoriteStar = favoriteStar;
+    this.restaurant.category = category;
+    this.restaurant.name = name;
+    this.restaurant.distance = distance;
+    this.restaurant.description = description;
+    this.restaurant.link = link;
+    this.restaurant.favoriteStar = favoriteStar;
   }
 
   toggleFavorite() {
-    this.information.favoriteStar = !this.information.favoriteStar;
+    this.restaurant.favoriteStar = !this.restaurant.favoriteStar;
   }
 }
 export default Restaurant;

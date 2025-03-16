@@ -2,13 +2,13 @@ import List from "../components/List.js";
 import ListItem from "../components/ListItem.js";
 
 function createFavoriteListView(restaurantList) {
-  let favoriteListElement = List(restaurantList.favoriteRestaurants());
+  let favoriteListElement = List(restaurantList.getFavoriteRestaurants());
 
   function updateFavoriteListView() {
-    const favoriteRestaurants = restaurantList.favoriteRestaurants();
+    const favoriteRestaurants = restaurantList.getFavoriteRestaurants();
     favoriteListElement.innerHTML = "";
-    favoriteRestaurants.forEach(({ information }) => {
-      favoriteListElement.appendChild(ListItem(information));
+    favoriteRestaurants.forEach(({ restaurant }) => {
+      favoriteListElement.appendChild(ListItem(restaurant));
     });
   }
 
