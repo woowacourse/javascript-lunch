@@ -33,13 +33,15 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
   override template() {
     return html`
-      <section class="restaurant-tab"></section>
-      <section class="restaurant-filter-sort"></section>
-      <section class="restaurant-list-container">
-        <ul class="restaurant-list"></ul>
-      </section>
-      <section class="restaurant-add-modal"></section>
-      <section class="restaurant-detail-modal"></section>
+      <div>
+        <section class="restaurant-tab"></section>
+        <section class="restaurant-filter-sort"></section>
+        <section class="restaurant-list-container">
+          <ul class="restaurant-list"></ul>
+        </section>
+        <section class="restaurant-add-modal"></section>
+        <section class="restaurant-detail-modal"></section>
+      </div>
     `;
   }
 

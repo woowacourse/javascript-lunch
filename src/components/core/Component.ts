@@ -5,7 +5,7 @@ export default abstract class Component<State = Record<string, unknown>, Props =
   state = {} as State;
 
   #props: Props;
-  #element: HTMLElement = document.createElement('div');
+  #element: HTMLElement | null = null;
 
   constructor(props?: Props) {
     this.#props = (props ?? {}) as Props;
@@ -18,7 +18,13 @@ export default abstract class Component<State = Record<string, unknown>, Props =
   setup() {}
 
   render() {
-    this.#element.innerHTML = this.template();
+    const element = document.createElement('div');
+    element.innerHTML = this.template();
+    const elementFirstChild = element.firstElementChild as HTMLElement;
+
+    if (!this.#element) this.#element = elementFirstChild;
+    else this.#element.innerHTML = elementFirstChild.getHTML();
+
     this.onRender();
 
     return this.#element;
@@ -30,12 +36,12 @@ export default abstract class Component<State = Record<string, unknown>, Props =
   }
 
   appendChild(element: HTMLElement, selector?: string) {
-    if (selector) this.element.querySelector(selector)?.appendChild(element);
-    else this.element.appendChild(element);
+    if (selector) this.element?.querySelector(selector)?.appendChild(element);
+    else this.element?.appendChild(element);
   }
 
   template(): HTMLType {
-    return html``;
+    return html`<div></div>`;
   }
 
   attachEventListener() {}
@@ -43,7 +49,7 @@ export default abstract class Component<State = Record<string, unknown>, Props =
   onRender() {}
 
   get element() {
-    return this.#element;
+    return this.#element!;
   }
 
   get props() {
