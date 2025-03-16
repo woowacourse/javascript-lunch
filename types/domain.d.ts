@@ -15,3 +15,5 @@ export interface RestaurantState {
   category: string;
   isFavoriteTab: boolean;
 }
+
+export type RestaurantInput = Omit<Restaurant, 'id' | 'favorite'>;
