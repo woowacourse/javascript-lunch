@@ -1,8 +1,4 @@
-interface RestaurantState {
-  sort: string;
-  category: string;
-  isFavoriteTab: boolean;
-}
+import { RestaurantState } from '../../types/domain';
 
 type StateKey = keyof RestaurantState;
 type State = RestaurantState[StateKey];

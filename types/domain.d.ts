@@ -1,4 +1,6 @@
-export interface Restaurant {
+export type BaseData = { id: number };
+
+export interface Restaurant extends baseData {
   id: number;
   category: string;
   name: string;
@@ -6,4 +8,10 @@ export interface Restaurant {
   description?: string;
   link?: string;
   favorite: boolean;
+}
+
+export interface RestaurantState {
+  sort: string;
+  category: string;
+  isFavoriteTab: boolean;
 }

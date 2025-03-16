@@ -12,6 +12,10 @@ const store = {
   removeData(key: string) {
     this.storage.removeItem(key);
   },
+
+  checkValidKey(key: string) {
+    return this.storage.getItem(key) === null;
+  },
 };
 
 export default store;
