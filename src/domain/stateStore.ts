@@ -1,11 +1,8 @@
 import { RestaurantState } from '../../types/domain';
 
-type StateKey = keyof RestaurantState;
-type State = RestaurantState[StateKey];
-
 interface StateStore {
   restaurantState: RestaurantState;
-  updateState: (stateKey: StateKey, state: State) => void;
+  updateState: (state: Partial<RestaurantState>) => void;
   getState: () => RestaurantState;
 }
 
@@ -16,14 +13,17 @@ const stateStore: StateStore = {
     isFavoriteTab: false,
   },
 
-  updateState(stateKey, state) {
-    if (!(stateKey in this.restaurantState)) {
-      throw new Error('restaurantState에 존재하지 않는 key 입니다.');
-    }
+  updateState(state) {
+    const keys = Object.keys(state);
+    keys.forEach((key) => {
+      if (!(key in this.restaurantState)) {
+        throw new Error('restaurantState에 존재하지 않는 key 입니다.');
+      }
+    });
 
     this.restaurantState = {
       ...this.restaurantState,
-      [stateKey]: state,
+      ...state,
     };
   },
 
