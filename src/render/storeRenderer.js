@@ -30,7 +30,7 @@ const storeRenderer = {
       validate.descLength(newStore.description);
       validate.linkForm(newStore.link);
 
-      storeList.updateList(newStore, false);
+      storeList.updateList(newStore);
       window.localStorage.setItem(
         JSON.stringify(newStore.id),
         JSON.stringify(newStore)
@@ -117,16 +117,19 @@ const storeRenderer = {
       storeInfo.isFavorite ? IMG_SRC.STAR_ICON_FILLED : IMG_SRC.STAR_ICON_LINED
     );
 
-    storage.updateIsFavorite(storeId);
-    storeList.updateIsFavorite(storeId);
-
     const isFavorite = querySelector(".onMenuBar").classList.contains(
       "favorite-restaurant-button"
     );
-    storeList.filterByMenuBar(isFavorite);
+    storage.updateIsFavorite(storeId);
+    storeList.updateIsFavorite(storeId, isFavorite);
+
+    // storeList.filterByMenuBar(isFavorite);
   },
 
   setMenuBar: (storeList, e) => {
+    querySelector("#category-filter").value = "전체";
+    querySelector("#sorting-filter").value = "name";
+
     const button = e.target.closest(".menuBar-button");
 
     const buttonText = button.querySelector(".button-text").textContent;
@@ -149,9 +152,6 @@ const storeRenderer = {
     storeList.filteredList.forEach((store) => {
       storeRenderer.addStore(store);
     });
-
-    querySelector("#category-filter").value = "전체";
-    querySelector("#sorting-filter").value = "name";
   },
 
   deleteStore: (storeList) => {

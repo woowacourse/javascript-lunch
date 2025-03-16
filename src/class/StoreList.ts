@@ -3,11 +3,13 @@ import IList from "../interfaces/IList.interface";
 class StoreList {
   #list: IList[];
   #filteredList: IList[];
+  #category: string;
   #sortBy: string;
 
   constructor(data: IList[]) {
     this.#list = data;
     this.#filteredList = data;
+    this.#category = "전체";
     this.#sortBy = "name";
     this.sortStoreList(this.#sortBy);
   }
@@ -20,23 +22,22 @@ class StoreList {
     return this.#filteredList;
   }
 
-  updateList(store: IList, isFavorite: boolean) {
+  updateList(store: IList) {
     this.#list.push(store);
-    if (isFavorite)
-      this.#filteredList = this.#list.filter((store) => store.isFavorite);
-    else this.#filteredList = this.#list;
     this.sortStoreList(this.#sortBy);
   }
 
-  updateIsFavorite(id: string) {
+  updateIsFavorite(id: string, isFavorite: boolean) {
     this.#list = this.#list.map((store) => {
       if (store.id === id) !store.isFavorite;
       return store;
     });
-    this.#filteredList = this.#filteredList.map((store) => {
-      if (store.id === id) !store.isFavorite;
-      return store;
-    });
+    this.filterStoreList(this.#category, isFavorite);
+    this.sortStoreList(this.#sortBy);
+    // this.#filteredList = this.#filteredList.map((store) => {
+    //   if (store.id === id) !store.isFavorite;
+    //   return store;
+    // });
   }
 
   deleteStore(id: string, isFavorite: boolean) {
@@ -50,13 +51,16 @@ class StoreList {
   }
 
   filterByMenuBar(isFavorite: boolean) {
+    console.log(this.#list);
     if (!isFavorite) this.#filteredList = this.#list;
     else {
       this.#filteredList = this.#list.filter(
         (store) => store.isFavorite === true
       );
     }
-    this.sortStoreList(this.#sortBy);
+    console.log(this.#filteredList);
+    this.filterStoreList("전체", isFavorite);
+    this.sortStoreList("name");
   }
 
   filterByStoreName(name: string): IList | undefined {
@@ -71,10 +75,12 @@ class StoreList {
         this.#filteredList = this.#list.filter(
           (l) => l.category === category && l.isFavorite
         );
+      this.#category = category;
       return;
     }
     if (category === "전체") this.#filteredList = this.#list;
     else this.#filteredList = this.#list.filter((l) => l.category === category);
+    this.#category = category;
   }
 
   sortStoreList(sortBy: string) {
