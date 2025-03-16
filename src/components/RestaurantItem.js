@@ -1,5 +1,6 @@
 import createElement from '../utils/createElement.js';
 import { RESTAURANT_ITEMS } from '../../public/restaurantData.js';
+import RestaurantDetailModal from './RestaurantDetailModal.js';
 
 function createTags(data) {
   const categoryImg = createElement('img', 'category-icon', null, {
@@ -34,11 +35,24 @@ function createRestaurantItem(data) {
     starImg.classList.remove('favorite');
   }
 
-  starImg.addEventListener('click', () => {
+  starImg.addEventListener('click', (event) => {
+    event.stopPropagation();
     starImg.classList.toggle('favorite');
     data.favorite = !data.favorite;
-
     updateFavoriteRestaurants();
+  });
+
+  restaurantItem.addEventListener('click', () => {
+    const modal = new RestaurantDetailModal();
+    modal.updateModalContent({
+      data,
+      onClickStar: () => {},
+      onDelete: (event, id) => {
+        console.log(`Deleted restaurant with ID: ${id}`);
+      },
+    });
+    document.body.appendChild(modal.modal.getElement());
+    modal.modal.toggle();
   });
 
   categoryDiv.append(categoryImg);

@@ -150,7 +150,7 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
-
+  cursor: pointer;
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
