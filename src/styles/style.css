@@ -74,7 +74,6 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  //padding: 0 16px;
   margin: 16px 0;
   overflow: hidden;
 }
