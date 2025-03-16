@@ -1,7 +1,7 @@
+import $createRestaurantInfo from "../restaurant/createRestaurantInfo.js";
 import { STORAGE_KEY_NAME } from "../../constants/storage.js";
 import { storageHandler } from "../../utils/storageHandler.js";
 import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon.js";
-import $createRestaurantInfo from "../restaurant/createRestaurantInfo.js";
 
 const $restaurantCategory = ({ categoryIcon, categoryTitle }) => {
   const category = document.createElement("div");

@@ -1,6 +1,6 @@
-import { STORAGE_KEY_NAME } from "../../constants/storage";
-import { storageHandler } from "../../utils/storageHandler";
-import $restaurantItem from "../restaurant/restaurantItem";
+import { STORAGE_KEY_NAME } from "../../constants/storage.js";
+import { storageHandler } from "../../utils/storageHandler.js";
+import $restaurantItem from "../restaurant/restaurantItem.js";
 
 const activeTabEvent = (id) => {
   const currentActiveTab = document.querySelector(".select-tab-active");
