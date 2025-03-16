@@ -40,7 +40,7 @@ function handleNewRestaurantSubmit(event: SubmitEvent, addNewRestaurantItem: () 
     linkElement instanceof HTMLInputElement
   ) {
     const newRestaurantData = {
-      id: getNextRestaurantId(), 
+      id: getNextRestaurantId(),
       category: categoryElement.value,
       name: nameElement.value,
       distance: Number(distanceElement.value.replace('분 내', '')),
@@ -74,18 +74,28 @@ function resetFormAndState() {
 
 export function handleStarToggle(event: Event) {
   const target = event.target;
-  if (target instanceof HTMLImageElement) {
-    const isActive = target.src.includes('favorite-icon-filled.png');
-    target.src = isActive ? 'favorite-icon-lined.png' : 'favorite-icon-filled.png';
+  if (!(target instanceof HTMLImageElement)) return;
 
-    const restaurantId = target.getAttribute('data-id');
-    if (restaurantId) {
-      const idNumber = parseInt(restaurantId, 10);
-      const restaurant = restaurantStore.find((item) => item.id === idNumber);
-      if (restaurant) {
-        restaurant.isFavorite = !restaurant.isFavorite;
-      }
-    }
+  const restaurantId = target.getAttribute('data-id');
+  if (!restaurantId) return;
+
+  const idNumber = Number(restaurantId);
+  const restaurant = restaurantStore.find((item) => item.id === idNumber);
+  if (!restaurant) return;
+
+  restaurant.isFavorite = !restaurant.isFavorite;
+  const newSrc = restaurant.isFavorite ? 'favorite-icon-filled.png' : 'favorite-icon-lined.png';
+
+  target.src = newSrc;
+
+  const mainIcon = document.querySelector(`.restaurant[data-id="${restaurantId}"] .favorite-star`);
+  if (mainIcon && mainIcon !== target && mainIcon instanceof HTMLImageElement) {
+    mainIcon.src = newSrc;
+  }
+
+  const modalIcon = document.querySelector(`.modal .favorite-star[data-id="${restaurantId}"]`);
+  if (modalIcon && modalIcon !== target && modalIcon instanceof HTMLImageElement) {
+    modalIcon.src = newSrc;
   }
 }
 
