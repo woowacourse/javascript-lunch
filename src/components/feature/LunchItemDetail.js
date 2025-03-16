@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.ts";
 import { Button, CircleIcon, Icon, Text } from "../common/index.js";
 import { CATEGORY_IMAGE } from "./LunchItem.js";
 
@@ -49,7 +49,7 @@ export default class LunchItemDetail extends Component {
 
   renderDistance() {
     const distance = this.addChild(Text, {
-      content: this.props.distance,
+      content: `캠퍼스 내 ${this.props.distance}분`,
       classList: ["text-lg", "primary-500"],
       id: "distance-detail-item",
     });
