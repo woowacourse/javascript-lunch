@@ -1,4 +1,4 @@
-import { setupAddRestaurantModal } from "../handlers/modalHandler.js";
+import { setupAddRestaurantModal } from "../handlers/modalHandler.ts";
 
 export function initializeModalButton() {
   const $modalButton = document.getElementById("gnb-button");

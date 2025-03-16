@@ -1,13 +1,14 @@
 import AddRestaurantModal from "../components/AddRestaurantModal.js";
 import { handleAddRestaurant } from "./restaurantHandler.ts";
 import removeModal from "../utils/removeModal.js";
+import { Restaurant } from "../../types/Restaurant.ts";
 
-function setupModalEventListeners() {
-  const $addRestaurantButton = document.querySelector(".button--primary"); // 오타 수정
+function setupModalEventListeners() : void {
+  const $addRestaurantButton = document.querySelector(".button--primary");
   const $closeModalButton = document.getElementById("close-modal");
 
   if ($addRestaurantButton) {
-    $addRestaurantButton.addEventListener("click", handleAddRestaurant);
+    $addRestaurantButton.addEventListener("click", handleAddRestaurant as EventListener);
   } else {
     console.warn("레스토랑 추가 버튼을 DOM에서 찾을 수 없습니다.");
   }
@@ -20,7 +21,7 @@ function setupModalEventListeners() {
     console.warn("모달 닫기 버튼을 DOM에서 찾을 수 없습니다.");
   }
 }
-export function setupAddRestaurantModal($container) {
+export function setupAddRestaurantModal($container : HTMLElement) : void {
   AddRestaurantModal($container);
   setupModalEventListeners();
 }
