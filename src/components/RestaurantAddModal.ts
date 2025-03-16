@@ -1,4 +1,4 @@
-import Component from '../core/Component.ts';
+import { Component } from './core/index.ts';
 import { InputBox } from './index.ts';
 import { Button, Modal } from './common/index.ts';
 import type { RestaurantType } from '../lib/types.ts';

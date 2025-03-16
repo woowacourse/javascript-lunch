@@ -1,5 +1,5 @@
 import type { RestaurantType } from './../lib/types';
-import Component from '../core/Component.ts';
+import { Component } from './core/index.ts';
 import Modal from './common/Modal.ts';
 import { Button } from './common/index.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';

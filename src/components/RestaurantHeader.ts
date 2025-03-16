@@ -1,4 +1,4 @@
-import Component from '../core/Component.ts';
+import { Component } from './core/index.ts';
 import { html } from '../lib/utils.ts';
 
 export default class RestaurantHeader extends Component {

@@ -1,4 +1,4 @@
-import Component from '../core/Component.ts';
+import { Component } from './core/index.ts';
 import { CATEGORY_MAP } from '../lib/constants.ts';
 import type { RestaurantType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';

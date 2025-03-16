@@ -1,5 +1,5 @@
 import { concat, flat, map, pipe, reduce, zip } from '@fxts/core';
-import Component from '../core/Component';
+import { Component } from '../components/core/index';
 import type { HTMLType } from './types';
 
 export function html(strings: TemplateStringsArray, ...values: any[]): HTMLType {

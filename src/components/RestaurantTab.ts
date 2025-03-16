@@ -1,4 +1,4 @@
-import Component from '../core/Component.ts';
+import { Component } from './core/index.ts';
 import type { TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
 import { EventHandler } from '../lib/modules/index.ts';

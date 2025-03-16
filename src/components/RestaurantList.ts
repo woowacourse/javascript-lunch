@@ -1,5 +1,5 @@
 import { filter, forEach, pipe, sort, toArray, map } from '@fxts/core';
-import Component from '../core/Component.ts';
+import { Component } from './core/index.ts';
 import { DEFAULT_RESTAURANT_LIST, FILTERS, SORTS } from '../lib/constants.ts';
 import type { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
