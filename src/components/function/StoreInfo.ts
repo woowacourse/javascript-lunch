@@ -39,7 +39,7 @@ export function StoreInfo({
                   description || "-"
                 }</p>
                 ${
-                  link
+                  link && type === "full"
                     ? `<a href="${link}" target="_blank" class="restaurant__link">${link}</a>`
                     : ""
                 }
