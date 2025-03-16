@@ -3,7 +3,7 @@ import FormContent from "../components/FormContent.js";
 import OptionInput from "../components/OptionInput.js";
 import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
-import Restaurant from "../components/Restaurant.js";
+import RestaurantDetail from "../components/RestaurantDetail.js";
 import RESTAURANT_ADD_FORM_HELP_TEXT from "../constants/restaurantAddForm/helpText.js";
 import RESTAURANT_ADD_FORM_SELECT_OPTIONS from "../constants/restaurantAddForm/selectOptions.js";
 import querySelector from "../utils/querySelector.js";
@@ -34,7 +34,7 @@ export const modalHandler = {
     const modalContainer = querySelector(".modal-container");
     const restaurantDetailItem = document.createElement("li");
     restaurantDetailItem.classList.add("restaurant", "restaurant__detail");
-    restaurantDetailItem.innerHTML = Restaurant(restaurantDetail, true);
+    restaurantDetailItem.innerHTML = RestaurantDetail(restaurantDetail);
 
     restaurantDetailItem.appendChild(
       modalHandler.addButtons("delete", "close")

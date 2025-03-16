@@ -1,12 +1,13 @@
 const StarIcon = (isFavorite) => {
-  const iconContainer = document.createElement("button");
-  iconContainer.classList.add("star-icon-container");
-  const starIcon = document.createElement("img");
-  starIcon.src = isFavorite
+  const iconSrc = isFavorite
     ? "/public/favorite-icon-filled.png"
     : "/public/favorite-icon-lined.png";
-  iconContainer.appendChild(starIcon);
-  return iconContainer;
+
+  return /*html*/ `
+    <button class="star-icon-container">
+      <img src="${iconSrc}" alt="star" class="star-icon" />
+    </button>
+  `;
 };
 
 export default StarIcon;
