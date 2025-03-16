@@ -6,12 +6,10 @@ function useTab(initialTab: Tab): [Tab, () => void, () => void] {
 
   const setTabAll = () => {
     setTab(TAB.ALL);
-    console.log('setTabAll');
   };
 
   const setTabFavorite = () => {
     setTab(TAB.FAVORITE);
-    console.log('setTabFavorite');
   };
 
   return [tab, setTabAll, setTabFavorite];
