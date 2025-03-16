@@ -1,6 +1,6 @@
 describe("main E2E 테스트", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5500");
+    cy.visit("http://localhost:5173");
   });
 
   it("listItem 생성을 확인한다.", () => {
