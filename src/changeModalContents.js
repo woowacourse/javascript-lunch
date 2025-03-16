@@ -11,7 +11,7 @@ const changeModalContents = (restaurant, restaurantList) => {
   restaurantDetailModal.appendChild(
     RestaurantCard(restaurant, {
       clickFavorite: () => {
-        storage.saveRestaurantList(restaurantList);
+        storage.saveRestaurantList(restaurantList.value);
         renderFilteredRestaurants(restaurantList);
       },
     })
@@ -27,7 +27,7 @@ const changeModalContents = (restaurant, restaurantList) => {
 const clickDelete = (restaurant, restaurantList) => {
   restaurantList.delete(restaurant);
 
-  storage.saveRestaurantList(restaurantList.list);
+  storage.saveRestaurantList(restaurantList.value);
 
   renderFilteredRestaurants(restaurantList);
 };
