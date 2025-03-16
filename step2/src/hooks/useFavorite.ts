@@ -4,7 +4,7 @@ import { getStorage, saveStorage } from '../utils/@common/localStorage';
 interface UseFavoriteReturn {
   handleFavoriteToggle: (
     name: string,
-    favorite: boolean,
+    isFavorite: boolean,
     setFavorite: (newState: boolean) => void
   ) => void;
 }
@@ -12,11 +12,11 @@ interface UseFavoriteReturn {
 const useFavorite = (): UseFavoriteReturn => {
   const handleFavoriteToggle = (
     name: string,
-    favorite: boolean,
+    isFavorite: boolean,
     setFavorite: (newState: boolean) => void
   ) => {
     const storedRestaurants = getStorage() || [];
-    const newFavoriteState = !favorite;
+    const newFavoriteState = !isFavorite;
 
     const updatedRestaurants = storedRestaurants.map(
       (restaurant: RestaurantType) =>

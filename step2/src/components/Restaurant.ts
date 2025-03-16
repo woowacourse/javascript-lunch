@@ -8,11 +8,11 @@ import { useState } from '../utils/core/Core';
 import Button from './@common/Button';
 import BottomSheet from './BottomSheet';
 
-interface RestaurantProps extends Omit<RestaurantType, 'isFavorite'> {}
+interface RestaurantProps extends RestaurantType {}
 
 const Restaurant = (props: RestaurantProps) => {
-  const { category, name, distance, description, link } = props;
-  const [favorite, setFavorite] = useState(false);
+  const { category, name, distance, description, link, isFavorite } = props;
+  const [favorite, setFavorite] = useState(isFavorite);
   const [isBottomSheetOpen, openBottomSheet, closeBottomSheet] =
     useModal(false);
   const { handleFavoriteToggle } = useFavorite();
@@ -26,7 +26,7 @@ const Restaurant = (props: RestaurantProps) => {
   });
 
   eventManager.addEvent('click', `#${buttonId}`, () => {
-    handleFavoriteToggle(name, favorite, setFavorite);
+    handleFavoriteToggle(name, isFavorite, setFavorite);
   });
 
   return `
