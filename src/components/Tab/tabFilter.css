@@ -1,0 +1,15 @@
+.tab-button {
+  display: flex;
+  flex-direction: row;
+  margin: 30px;
+}
+
+.tab-button .tab-btn {
+  background-color: var(--grey-100);
+  color: var(--primary-color);
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid black;
+  border-bottom-color: var(--primary-color);
+  padding-bottom: 10px;
+}

@@ -1,4 +1,3 @@
-import "../components/StarIcon/star.css";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.js";
 import RestaurantDetailModal from "../components/Modal/Modal/RestaurantDetailModal.js";
 import { clickStar } from "../components/StarIcon/star.js";
