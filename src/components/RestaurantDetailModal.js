@@ -19,7 +19,10 @@ class RestaurantDetailModal {
       className: 'button--secondary',
       textContent: '삭제하기',
       buttonType: 'button',
-      onClick: (event) => onDelete(event, data.id),
+      onClick: (event) => {
+        onDelete(event, data.id);
+        this.#detailModal.toggle();
+      },
     });
 
     const $closeButton = createButton({

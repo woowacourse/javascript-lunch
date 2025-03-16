@@ -1,6 +1,7 @@
 import createElement from '../utils/createElement.js';
 import { RESTAURANT_ITEMS } from '../../public/restaurantData.js';
 import RestaurantDetailModal from './RestaurantDetailModal.js';
+import { deleteRestaurantById } from './RestaurantList.js';
 
 function createTags(data) {
   const categoryImg = createElement('img', 'category-icon', null, {
@@ -46,9 +47,8 @@ function createRestaurantItem(data) {
     const modal = new RestaurantDetailModal();
     modal.updateModalContent({
       data,
-      onClickStar: () => {},
       onDelete: (event, id) => {
-        console.log(`Deleted restaurant with ID: ${id}`);
+        deleteRestaurantById(id);
       },
     });
     document.body.appendChild(modal.modal.getElement());
