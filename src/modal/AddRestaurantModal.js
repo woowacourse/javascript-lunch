@@ -22,11 +22,11 @@ class AddRestaurantModal extends Modal {
   #divDescription;
   #divLink;
   #modalForm;
-  #restaurantListContainer;
+  #restaurantList;
 
-  constructor(appContainer, restaurantListContainer) {
+  constructor(appContainer, restaurantList) {
     super(appContainer);
-    this.#restaurantListContainer = restaurantListContainer;
+    this.#restaurantList = restaurantList;
     this.#init();
     this.#bindEvent();
     this.#createAddModal();
@@ -129,9 +129,9 @@ class AddRestaurantModal extends Modal {
       formData.description,
       formData.category,
       formData.link,
+      false,
     );
-    const newRestaurantItem = new RestaurantItem(newRestaurant).getElement();
-    this.#restaurantListContainer.appendChild(newRestaurantItem);
+    this.#restaurantList.addRestaurant(newRestaurant);
   }
 
   #validateInputs() {

@@ -4,17 +4,17 @@ import RestaurantInfo from './RestaurantInfo.js';
 import Star from './star.js';
 
 class RestaurantItem {
-  #restaurant;
+  #restaurantElement;
   #onRestaurantUpdate;
   #restaurantModal;
-  #restaurantData;
+  #restaurant;
 
-  constructor(restaurantData, onRestaurantUpdate, restaurantModal) {
+  constructor(restaurant, onRestaurantUpdate, restaurantModal) {
     this.#onRestaurantUpdate = onRestaurantUpdate;
     this.#restaurantModal = restaurantModal;
-    this.#restaurantData = restaurantData;
-    this.#createRestaurantItem(restaurantData);
-    this.#bindEvent(this.#restaurant);
+    this.#restaurant = restaurant;
+    this.#createRestaurantItem(restaurant);
+    this.#bindEvent(this.#restaurantElement);
   }
 
   #createRestaurantItem = (restaurant) => {
@@ -29,7 +29,7 @@ class RestaurantItem {
     li.appendChild(info);
     li.appendChild(star);
 
-    this.#restaurant = li;
+    this.#restaurantElement = li;
   };
 
   #bindEvent = (element) => {
@@ -39,19 +39,18 @@ class RestaurantItem {
       }
 
       const clonedRestaurant = new RestaurantItem(
-        this.#restaurantData,
+        this.#restaurant,
         this.#onRestaurantUpdate,
         this.#restaurantModal,
-      );
-      const clonedElement = clonedRestaurant.getElement();
+      ).getElement();
 
-      this.#restaurantModal.addRestaurant(clonedElement, this.#restaurant);
+      this.#restaurantModal.addRestaurant(clonedRestaurant, this.#restaurant);
       this.#restaurantModal.openModal();
     });
   };
 
   getElement() {
-    return this.#restaurant;
+    return this.#restaurantElement;
   }
 }
 export default RestaurantItem;

@@ -2,67 +2,37 @@ import InputDropDown from '../components/InputDropDown.js';
 import RestaurantItem from '../components/Restaurant/RestaurantItem.js';
 import CATEGORY from '../constant/category.js';
 import Restaurant from '../Restaurant.js';
-
-const restaurantDatas = [
-  new Restaurant(
-    '피양콩할마니',
-    '10',
-    '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로, ‘피양’은 평안도 사투리로 ‘평양’을 의미한다.',
-    'korean',
-    '',
-    true,
-  ),
-  new Restaurant(
-    '친친',
-    '5',
-    'Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다',
-    'chinese',
-    '',
-    true,
-  ),
-  new Restaurant(
-    '잇쇼우',
-    '10',
-    '잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다',
-    'japanese',
-    '',
-    false,
-  ),
-  new Restaurant('이태리키친', '20', '늘 변화를 추구하는 이태리키친입니다.', 'western', '', false),
-  new Restaurant('호아빈 삼성점', '15', '푸짐한 양에 국물이 일품인 쌀국수', 'asian', '', true),
-  new Restaurant('나아빈 삼성점', '30', '푸짐한 양에 국물이 일품인 쌀국수', 'asian', '', false),
-  new Restaurant('가아빈 삼성점', '10', '푸짐한 양에 국물이 일품인 쌀국수', 'asian', '', true),
-  new Restaurant('도스타코스 선릉점', '5', '멕시칸 캐주얼 그릴', 'etc', '', true),
-];
+import RestaurantStorage from './RestaurantStorage.js';
 
 class RestaurantList {
-  #restaurantListContainer;
-  #onRestaurantUpdate;
-  #restaurantModal;
+  #restaurantListContainer; // 레스토랑 리스트 컨테이너
+  #onRestaurantUpdate; // 레스토랑 리스트 리로드 함수
+  #detailModal; // 레스토랑 상세정보 모달
+  #restaurantData; // localStorage 레스토랑 데이터
+  #currentCategory = '';
+  #currentSorting = 'name';
+  #currentHeader = '모든 음식점';
 
-  constructor(restaurantListContainer, onRestaurantUpdate, restaurantModal) {
+  constructor(restaurantListContainer, onRestaurantUpdate, detailModal) {
     this.#restaurantListContainer = restaurantListContainer;
     this.#onRestaurantUpdate = onRestaurantUpdate;
-    this.#restaurantModal = restaurantModal;
+    this.#detailModal = detailModal;
+    this.#restaurantData = RestaurantStorage.getRestaurants();
     this.#createRestaurantList(this.sortRestaurantList('', 'name', '모든 음식점'));
   }
 
   #createRestaurantList(restaurantList) {
     this.#restaurantListContainer.innerHTML = '';
     restaurantList.forEach((restaurant) => {
-      const restaurantItem = new RestaurantItem(
-        restaurant,
-        this.#onRestaurantUpdate,
-        this.#restaurantModal,
-      ).getElement();
+      const restaurantItem = new RestaurantItem(restaurant, this.#onRestaurantUpdate, this.#detailModal).getElement();
       this.#restaurantListContainer.appendChild(restaurantItem);
     });
   }
 
   sortRestaurantList(category, sorting, currentHeader) {
-    let filteredList = restaurantDatas;
+    let filteredList = this.#restaurantData;
     if (category && category !== '') {
-      filteredList = restaurantDatas.filter((restaurant) => {
+      filteredList = filteredList.filter((restaurant) => {
         return restaurant.getCategory() === category;
       });
     }
@@ -87,6 +57,32 @@ class RestaurantList {
 
     this.#createRestaurantList(filteredList);
     return filteredList;
+  }
+
+  addRestaurant(restaurant) {
+    this.#restaurantData = RestaurantStorage.addRestaurant(restaurant);
+    this.#onRestaurantUpdate();
+  }
+
+  deleteRestaurant(restaurantName) {
+    this.#restaurantData = RestaurantStorage.deleteRestaurant(restaurantName);
+    this.#onRestaurantUpdate();
+  }
+
+  updateRestaurantLike(restaurantName, like) {
+    this.#restaurantData = RestaurantStorage.updateRestaurantLike(restaurantName, like);
+    this.#onRestaurantUpdate();
+  }
+
+  getRestaurantData() {
+    return this.#restaurantData;
+  }
+
+  setModal(detailModal) {
+    this.#detailModal = detailModal;
+    this.#createRestaurantList(
+      this.sortRestaurantList(this.#currentCategory, this.#currentSorting, this.#currentHeader),
+    );
   }
 }
 

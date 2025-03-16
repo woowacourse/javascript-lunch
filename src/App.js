@@ -115,15 +115,15 @@ class App {
   }
 
   #initAppUI() {
-    this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.restaurantListContainer);
-    this.restaurantModal = new DetailModal(this.appContainer);
+    this.#restaurantList = new RestaurantList(this.restaurantListContainer, this.#handleRestaurantUpdate.bind(this));
+
+    this.detailModal = new DetailModal(this.appContainer, this.#restaurantList);
+    this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.#restaurantList);
+
+    this.#restaurantList.setModal(this.detailModal);
+
     new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
     this.#likeHeader = new LikeHeader(this.likeHeaderContainer, '모든 음식점', '자주 가는 음식점');
-    this.#restaurantList = new RestaurantList(
-      this.restaurantListContainer,
-      this.#handleRestaurantUpdate.bind(this),
-      this.restaurantModal,
-    );
   }
 }
 

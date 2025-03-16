@@ -1,16 +1,18 @@
 import Button from '../components/Button.js';
 import Modal from '../components/Modal.js';
 import RestaurantIcon from '../components/Restaurant/RestaurantIcon.js';
+import { convertStringToElement } from '../utils/convertStringToElement.js';
 
 class DetailModal extends Modal {
   #cancelButton;
   #deleteButton;
-  #restaruantIcon;
-  #originalRestaurantElement;
   #star;
+  #currentRestaurant;
+  #restaurantList;
 
-  constructor(appContainer) {
+  constructor(appContainer, restaurantList) {
     super(appContainer);
+    this.#restaurantList = restaurantList;
     this.#init();
     this.#createAddModal();
     this.#bindEvent();
@@ -47,17 +49,24 @@ class DetailModal extends Modal {
     }
   }
 
-  addRestaurant(restaurant, originalRestaurantElement) {
-    this.#originalRestaurantElement = originalRestaurantElement;
+  #addRestaurantLink(link) {
+    const linkDiv = document.createElement('div');
+    linkDiv.innerHTML = link;
+    return linkDiv;
+  }
+
+  addRestaurant(restaurant, restaurantData) {
+    this.#currentRestaurant = restaurantData;
     this.#setRestaurantStyle(restaurant);
     this.addElement(restaurant);
+    this.addElement(this.#addRestaurantLink(this.#currentRestaurant.getLink()));
     const divButton = this.#createButton();
     this.addElement(divButton);
   }
 
   #bindDeleteButtonEvent = () => {
     this.#deleteButton.addEventListener('click', (event) => {
-      this.#originalRestaurantElement.remove();
+      this.#restaurantList.deleteRestaurant(this.#currentRestaurant.getName());
       this.#clearModalContent();
       this.closeModal();
     });
