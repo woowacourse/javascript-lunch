@@ -1,5 +1,5 @@
 import RestaurantFilterContainer from "../components/RestaurantFilterContainer.js";
-import { setupFilterEventListeners } from "../handlers/filterHandler.js";
+import { setupFilterEventListeners } from "../handlers/filterHandler.ts";
 import { setupFavoriteEventListeners } from "../handlers/favoriteHandler.js";
 
 export function initializeFilters() {

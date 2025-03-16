@@ -1,4 +1,4 @@
-import { applyFilter } from "./filterHandler.js";
+import { applyFilter } from "./filterHandler.ts";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
 import { TabButton } from "../../types/DomTypes.ts";
 

@@ -3,7 +3,7 @@ import { initialRestaurants } from "../data/initialRestaurants.ts";
 import removeModal from "../utils/removeModal.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.js";
 import { setupTabEventListeners } from "./tabHandler.ts";
-import { setupFilterEventListeners } from "./filterHandler.js";
+import { setupFilterEventListeners } from "./filterHandler.ts";
 
 let selectedRestaurantId = null;
 let eventListenersAttached = false;

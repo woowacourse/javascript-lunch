@@ -1,4 +1,4 @@
-import { applyFilter } from "./filterHandler.js";
+import { applyFilter } from "./filterHandler.ts";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { storeRestaurants } from "../utils/localStorage.ts";
 
