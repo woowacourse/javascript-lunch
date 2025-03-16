@@ -1,20 +1,19 @@
-import Header from "./Header/Header.js";
-import Component from "./Component.js";
-import Modal from "./Modal/Modal.js";
 import { RestaurantData } from "../constants/RestaurantData.js";
+import Component from "./Component.js";
+import Header from "./Header/Header.js";
+import Modal from "./Modal/Modal.js";
 import {
   addResturantContent,
   restaurantInfoContent,
 } from "./Modal/getModalContent.js";
-import getRestaurant from "./Restaurant/Restaurant.js";
+import Tab from "./Tab/tab.js";
 import {
   createCategoryFilter,
   createSortingFilter,
 } from "./createFilterSelect.js";
-import renderRestaurants from "./renderRestaurants.js";
 import filterByCategory from "./filterRestaurants.js";
+import renderRestaurants from "./renderRestaurants.js";
 import sortByOption from "./sortRestaurants.js";
-import Tab from "./Tab/tab.js";
 class App extends Component {
   constructor($target) {
     super($target);
@@ -28,16 +27,28 @@ class App extends Component {
     document.addEventListener("tabClicked", this.activateMain);
     document.addEventListener("restaurantUpdated", this.getNewRestaurant);
     document.addEventListener("restaurantDeleted", this.deleteRestaurant);
+    document.addEventListener(
+      "favoriteUpdated",
+      (event) =>
+        (this.state.favoriteRestaurants = event.detail.favoriteRestaurants),
+    );
   }
 
   initState() {
     const savedData = localStorage.getItem("restaurantList");
+    const savedFavorites = localStorage.getItem("favoriteRestaurantList");
+
     if (!savedData) {
       localStorage.setItem("restaurantList", JSON.stringify(RestaurantData));
+    }
+
+    if (!savedFavorites) {
+      localStorage.setItem("favoriteRestaurantList", JSON.stringify([]));
     }
     return {
       isModalOpen: false,
       restaurantList: savedData ? JSON.parse(savedData) : [...RestaurantData],
+      favoriteRestaurants: savedFavorites ? JSON.parse(savedFavorites) : [],
       selectedCategory: "전체",
       sortOption: "name",
       selectedRestaurant: null,
@@ -61,6 +72,12 @@ class App extends Component {
         this.sortRestaurants(sortOption);
       }, this.state.sortOption);
     } else {
+      const favoriteRestaurants = this.state.restaurantList.filter(
+        (restaurant) => this.state.favoriteRestaurants.includes(restaurant.id),
+      );
+      renderRestaurants(favoriteRestaurants, (restaurant) => {
+        this.toggleModal(restaurant);
+      });
     }
 
     new Modal(document.querySelector(".modal"), {
@@ -70,6 +87,7 @@ class App extends Component {
         ? restaurantInfoContent(this.state.selectedRestaurant)
         : addResturantContent(),
       modalType: this.state.selectedRestaurant ? "info" : "add",
+      favoriteRestaurants: this.state.favoriteRestaurants,
     });
   }
 
