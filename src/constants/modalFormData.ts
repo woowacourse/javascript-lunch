@@ -1,5 +1,5 @@
-import { ModalFormConfig, ModalTitle } from "../../types/form.js";
-import { SELECT_CATEGORY_MODAL, SELECT_DISTANCE } from "./constant.js";
+import { ModalFormConfig, ModalTitle } from "../../types/form.ts";
+import { SELECT_CATEGORY_MODAL, SELECT_DISTANCE } from "./constant.ts";
 
 export const MODAL_TITLE: ModalTitle = { type: "modal", text: "새로운 음식점" };
 

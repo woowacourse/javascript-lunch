@@ -1,4 +1,4 @@
-import RestaurantType from "../../types/restaurant.js";
+import RestaurantType from "../../types/restaurant.ts";
 import Restaurant from "./Restaurant.ts";
 
 class RestaurantList {

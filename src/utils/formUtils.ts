@@ -1,4 +1,4 @@
-import { FormField, ModalFormConfig } from "../../types/form.js";
+import { FormField, ModalFormConfig } from "../../types/form.ts";
 import Button from "../components/Button.js";
 import ButtonsForm from "../components/Form/ButtonsForm.js";
 import FormItem from "../components/Form/FormItem.js";

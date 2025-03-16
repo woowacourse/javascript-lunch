@@ -1,4 +1,4 @@
-import { tabDataType } from "../../types/common";
+import { tabDataType } from "../../types/common.ts";
 
 const TAB_DATA: tabDataType[] = [
   { id: "all-restaurant", text: "모든 음식점" },

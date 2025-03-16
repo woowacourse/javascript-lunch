@@ -1,4 +1,4 @@
-import EventHandler from "../utils/EventHandler.js";
+import EventHandler from "../utils/EventHandler.ts";
 
 function listItemOpenEventHandler(
   mainElement: HTMLElement,

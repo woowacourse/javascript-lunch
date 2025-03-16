@@ -1,4 +1,4 @@
-import TabEventHandler from "../event/tabEventHandler.js";
+import TabEventHandler from "../event/tabEventHandler.ts";
 import { createTabView } from "../view/createTabView.js";
 
 interface TabControllerType {

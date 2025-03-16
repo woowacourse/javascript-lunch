@@ -1,5 +1,5 @@
-import RestaurantList from "../domain/RestaurantList.js";
-import ModalEventHandler from "../event/modalEventHandler.js";
+import RestaurantList from "../domain/RestaurantList.ts";
+import ModalEventHandler from "../event/modalEventHandler.ts";
 import createModalView from "../view/createModalView.js";
 
 interface ModalControllerType {

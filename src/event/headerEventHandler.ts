@@ -1,4 +1,4 @@
-import EventHandler from "../utils/EventHandler.js";
+import EventHandler from "../utils/EventHandler.ts";
 
 function HeaderEventHandler(headerElement: HTMLElement, modalElement: HTMLElement) {
   const modalButtonElement = headerElement.querySelector("button.gnb__button");

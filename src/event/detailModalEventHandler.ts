@@ -1,5 +1,5 @@
-import { detailModalEventHandlerType } from "../../types/detailModal.js";
-import EventHandler from "../utils/EventHandler.js";
+import { detailModalEventHandlerType } from "../../types/detailModal.ts";
+import EventHandler from "../utils/EventHandler.ts";
 
 function DetailModalEventHandler({
   modalElement,

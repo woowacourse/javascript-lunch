@@ -1,14 +1,14 @@
-import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
-import RestaurantList from "../domain/RestaurantList.js";
-import favoriteEventHandler from "../event/favoriteEventHandler.js";
-import listItemOpenEventHandler from "../event/listItemOpenEventHandler.js";
-import CategorySortFilterController from "./CategorySortFilterController.js";
-import DetailModalController from "./DetailModalController.js";
-import FavoriteListController from "./FavoriteListController.js";
-import HeaderController from "./HeaderController.js";
-import ListController from "./ListController.js";
-import ModalController from "./ModalController.js";
-import TabController from "./TabController.js";
+import { LIST_ITEM_CONTENTS } from "../constants/listData.ts";
+import RestaurantList from "../domain/RestaurantList.ts";
+import favoriteEventHandler from "../event/favoriteEventHandler.ts";
+import listItemOpenEventHandler from "../event/listItemOpenEventHandler.ts";
+import CategorySortFilterController from "./CategorySortFilterController.ts";
+import DetailModalController from "./DetailModalController.ts";
+import FavoriteListController from "./FavoriteListController.ts";
+import HeaderController from "./HeaderController.ts";
+import ListController from "./ListController.ts";
+import ModalController from "./ModalController.ts";
+import TabController from "./TabController.ts";
 
 function MainController() {
   const app = document.getElementById("app");

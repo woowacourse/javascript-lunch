@@ -1,8 +1,8 @@
 import Modal from "../components/Modal.js";
 import Title from "../components/Title.js";
 import Form from "../components/Form/Form.js";
-import { MODAL_FORM_CONFIG, MODAL_TITLE } from "../constants/modalFormData.js";
-import { generateFormItems } from "../utils/formUtils.js";
+import { MODAL_FORM_CONFIG, MODAL_TITLE } from "../constants/modalFormData.ts";
+import { generateFormItems } from "../utils/formUtils.ts";
 
 function createModalView() {
   const titleElement = Title(MODAL_TITLE);

@@ -1,6 +1,6 @@
-import RestaurantType from "../../types/restaurant.js";
-import RestaurantList from "../domain/RestaurantList.js";
-import EventHandler from "../utils/EventHandler.js";
+import RestaurantType from "../../types/restaurant.ts";
+import RestaurantList from "../domain/RestaurantList.ts";
+import EventHandler from "../utils/EventHandler.ts";
 
 interface ModalEventHandlerType {
   modalElement: HTMLElement;

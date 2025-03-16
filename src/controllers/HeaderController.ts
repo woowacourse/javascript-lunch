@@ -1,4 +1,4 @@
-import HeaderEventHandler from "../event/headerEventHandler.js";
+import HeaderEventHandler from "../event/headerEventHandler.ts";
 import createHeaderView from "../view/createHeaderView.js";
 
 export function HeaderController(modalElement: HTMLDivElement) {

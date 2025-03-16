@@ -1,4 +1,4 @@
-import { updateListViewType } from "../../types/common";
+import { updateListViewType } from "../../types/common.ts";
 
 interface CategorySortFilterEventHandlerType {
   categoryFilterElement: HTMLSelectElement;

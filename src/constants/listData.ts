@@ -1,5 +1,5 @@
-import { headerContentType } from "../../types/common";
-import RestaurantType from "../../types/restaurant";
+import { headerContentType } from "../../types/common.ts";
+import RestaurantType from "../../types/restaurant.ts";
 
 export const HEADER_CONTENTS: headerContentType = {
   TITLE: "점심 뭐 먹지",

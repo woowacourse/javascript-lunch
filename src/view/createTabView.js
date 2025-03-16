@@ -1,5 +1,5 @@
 import TabWrapper from "../components/TabWrapper.js";
-import TAB_DATA from "../constants/tabData.js";
+import TAB_DATA from "../constants/tabData.ts";
 
 export function createTabView() {
   const tabContainerElement = TabWrapper(TAB_DATA);

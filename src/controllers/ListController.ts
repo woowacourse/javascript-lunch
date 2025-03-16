@@ -1,4 +1,4 @@
-import RestaurantList from "../domain/RestaurantList.js";
+import RestaurantList from "../domain/RestaurantList.ts";
 import createListView from "../view/createListView.js";
 
 function ListController(restaurantList: RestaurantList) {

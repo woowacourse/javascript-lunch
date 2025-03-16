@@ -1,5 +1,5 @@
-import { updateListViewType } from "../../types/common.js";
-import CategorySortFilterEventHandler from "../event/filterEventHandlers.js";
+import { updateListViewType } from "../../types/common.ts";
+import CategorySortFilterEventHandler from "../event/filterEventHandlers.ts";
 import createCategorySortFilterView from "../view/createCategorySortFilterView.js";
 
 function CategorySortFilterController(updateListView: updateListViewType) {

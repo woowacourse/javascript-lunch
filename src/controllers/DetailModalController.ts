@@ -1,5 +1,5 @@
-import { detailModalControllerType } from "../../types/detailModal.js";
-import DetailModalEventHandler from "../event/detailModalEventHandler.js";
+import { detailModalControllerType } from "../../types/detailModal.ts";
+import DetailModalEventHandler from "../event/detailModalEventHandler.ts";
 import createDetailModalView from "../view/createDetailModalView.js";
 
 export function DetailModalController({
