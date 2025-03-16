@@ -47,7 +47,7 @@ describe('기능 테스트', () => {
     });
 
     it('모달 외부를 클릭하여 음식점 추가를 취소하는 시나리오 테스트', () => {
-      cy.get('.modal-backdrop').click({ force: true });
+      cy.get('.new-restaurant-modal .modal-backdrop').click({ force: true });
       cy.get('.modal--open').should('not.exist');
     });
   });
