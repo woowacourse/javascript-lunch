@@ -1,3 +1,4 @@
+import IconButton from "../Button/IconButton.js";
 import Component from "../Component.js";
 import addData from "./addData.js";
 import "./modal.css";
@@ -59,18 +60,27 @@ class Modal extends Component {
       });
     }
 
+    const element = this.$target.querySelector("[data-restaurant-id]");
     const deleteButton = this.$target.querySelector(
       ".button.button--secondary.text-caption",
     );
     if (deleteButton) {
       deleteButton.addEventListener("click", () => {
-        const element = this.$target.querySelector("[data-restaurant-id]");
         document.dispatchEvent(
           new CustomEvent("restaurantDeleted", {
             detail: { restaurantId: element.dataset.restaurantId },
           }),
         );
         this.props.toggleModal();
+      });
+    }
+
+    const iconButtonContainer = this.$target.querySelector(
+      ".iconButton_container",
+    );
+    if (iconButtonContainer) {
+      new IconButton(iconButtonContainer, {
+        restaurantId: element.dataset.restaurantId,
       });
     }
   }

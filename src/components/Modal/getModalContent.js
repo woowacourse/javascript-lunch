@@ -19,8 +19,6 @@ export const addResturantContent = () => {
 };
 
 export const restaurantInfoContent = (data = {}) => {
-  const iconButton = new IconButton();
-
   return `
     <div id="restaurant_info_content" data-restaurant-id="${data.id}">
     <div class="modal-header">
@@ -29,8 +27,7 @@ export const restaurantInfoContent = (data = {}) => {
       
       
       </div>
-      <div class="restaurant__button">
-      ${iconButton.render()}
+      <div class="iconButton_container data-restaurant-id="${data.id}">
     </div>
     </div>
           <div class="restaurant__info" id="restaurant__info">
