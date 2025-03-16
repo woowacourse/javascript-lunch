@@ -5,7 +5,6 @@ const storage = {
   setStorage: () => {
     if (window.localStorage.length === 0) {
       storeData.forEach((store) => {
-        console.log(JSON.stringify(store.id));
         window.localStorage.setItem(
           JSON.stringify(store.id),
           JSON.stringify(store)

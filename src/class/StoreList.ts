@@ -40,28 +40,13 @@ class StoreList {
   deleteStore(id: string, isFavorite: boolean) {
     this.#list = this.#list.filter((store) => store.id !== id);
     this.filterStoreList(Object.keys(options.sortCategory)[0], isFavorite);
-    // if (isFavorite) {
-    //   this.#filteredList = this.#list.filter(
-    //     (store) => store.id !== id && store.isFavorite
-    //   );
-    // } else this.#filteredList = this.#list.filter((store) => store.id !== id);
     this.sortStoreList(Object.keys(options.sortFilter)[0]);
   }
 
   filterByMenuBar(isFavorite: boolean) {
-    // if (!isFavorite) this.#filteredList = this.#list;
-    // else {
-    //   this.#filteredList = this.#list.filter(
-    //     (store) => store.isFavorite === true
-    //   );
-    // }
     this.filterStoreList(Object.keys(options.sortCategory)[0], isFavorite);
     this.sortStoreList(Object.keys(options.sortFilter)[0]);
   }
-
-  // filterByStoreName(name: string): IList | undefined {
-  //   return this.#list.find((store) => store.name === name);
-  // }
 
   filterByStoreId(id: string): IList | undefined {
     return this.#list.find((store) => store.id === id);

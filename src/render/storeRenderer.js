@@ -163,7 +163,6 @@ const storeRenderer = {
     const storeId = document
       .querySelector(".modal-container")
       .getAttribute("id");
-    console.log(JSON.stringify(storeId));
     window.localStorage.removeItem(JSON.stringify(storeId));
 
     const isFavorite = document
