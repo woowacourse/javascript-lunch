@@ -4,4 +4,5 @@ export type RestaurantItem = {
   dist: string;
   description?: string;
   link?: string;
+  isFavorite: boolean;
 };
