@@ -6,7 +6,7 @@ function storageController(storage: Storage) {
       return JSON.parse(item);
     }
 
-    return null;
+    return [];
   }
 
   function setStorage<T>(key: string, value: T) {

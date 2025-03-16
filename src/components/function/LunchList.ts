@@ -8,7 +8,7 @@ export function LunchList(
   lunchListID: string = "restaurantListBox",
   favoriteTargetID: string = "restaurantFavoriteSection"
 ) {
-  const lunchItems = getStorage("lunchItems") as ILunchItem[];
+  const lunchItems = (getStorage("lunchItems") as ILunchItem[]) ?? [];
 
   function updateFilter(newState) {
     updateFilterState(newState);
@@ -65,7 +65,7 @@ export function LunchList(
   }
 
   function render() {
-    const filteredItems = sortFilter(lunchItems);
+    const filteredItems = sortFilter(lunchItems ?? []);
     const ul = template(filteredItems);
     getHTML(lunchListID).innerHTML = "";
     getHTML(lunchListID).innerHTML = ul.outerHTML;
