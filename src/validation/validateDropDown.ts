@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES } from './errorMessages.js';
-import { isBlank } from './validations.ts';
+import { isBlank } from './validations';
 
 export function validateDropDown(title: string, input: string) {
   if (isBlank(input)) {

@@ -1,4 +1,4 @@
-import Restaurant, { Category } from './Restaurant.ts';
+import Restaurant, { Category } from './Restaurant';
 
 interface FilterOptions {
   category?: Category;

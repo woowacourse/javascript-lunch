@@ -1,6 +1,6 @@
-import { validateDescription } from '../validation/validateDescription.ts';
-import { validateLink } from '../validation/validateLink.ts';
-import { validateName } from '../validation/validateName.ts';
+import { validateDescription } from '../validation/validateDescription';
+import { validateLink } from '../validation/validateLink';
+import { validateName } from '../validation/validateName';
 
 type Category = 'korean' | 'japanese' | 'chinese' | 'western' | 'asian' | 'etc';
 type Distance = 5 | 10 | 15 | 20 | 30;

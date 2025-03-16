@@ -1,7 +1,7 @@
 import SIZE from '../constant/size.js';
-import { RestaurantProps } from '../domain/Restaurant.ts';
+import { RestaurantProps } from '../domain/Restaurant';
 import { ERROR_MESSAGES } from './errorMessages.js';
-import { isBlank, isInvalidLength } from './validations.ts';
+import { isBlank, isInvalidLength } from './validations';
 
 export function validateName(name: RestaurantProps['name']) {
   if (isBlank(name)) {

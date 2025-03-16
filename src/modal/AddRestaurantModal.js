@@ -5,11 +5,11 @@ import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/Restaurant/RestaurantItem.js';
 import CATEGORY from '../constant/category.js';
 import DISTANCE from '../constant/distance.js';
-import Restaurant from '../domain/Restaurant.ts';
-import { validateDescription } from '../validation/validateDescription.ts';
-import { validateDropDown } from '../validation/validateDropDown.ts';
-import { validateLink } from '../validation/validateLink.ts';
-import { validateName } from '../validation/validateName.ts';
+import Restaurant from '../domain/Restaurant';
+import { validateDescription } from '../validation/validateDescription';
+import { validateDropDown } from '../validation/validateDropDown';
+import { validateLink } from '../validation/validateLink';
+import { validateName } from '../validation/validateName';
 import InputText from '../components/Text/InputText.js';
 import InputTextArea from '../components/Text/InputTextArea.js';
 

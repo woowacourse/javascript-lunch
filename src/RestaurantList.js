@@ -1,8 +1,8 @@
 import InputDropDown from './components/InputDropDown.js';
 import RestaurantItem from './components/Restaurant/RestaurantItem.js';
 import CATEGORY from './constant/category.js';
-import Restaurant from './domain/Restaurant.ts';
-import RestaurantStorage from './domain/RestaurantStorage.ts';
+import Restaurant from './domain/Restaurant';
+import RestaurantStorage from './domain/RestaurantStorage';
 
 class RestaurantList {
   #restaurantListContainer; // 레스토랑 리스트 컨테이너

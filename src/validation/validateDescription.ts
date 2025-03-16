@@ -1,7 +1,7 @@
 import SIZE from '../constant/size.js';
-import { RestaurantProps } from '../domain/Restaurant.ts';
-import { ERROR_MESSAGES } from './errorMessages.js';
-import { isInvalidLength } from './validations.ts';
+import { RestaurantProps } from '../domain/Restaurant';
+import { ERROR_MESSAGES } from './errorMessages';
+import { isInvalidLength } from './validations';
 
 export function validateDescription(description: RestaurantProps['description']) {
   if (isInvalidLength(description, SIZE.MAX_LENGTH_OF_DESCRIPTION)) {

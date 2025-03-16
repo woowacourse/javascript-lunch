@@ -1,6 +1,6 @@
-import { RestaurantProps } from '../domain/Restaurant.ts';
+import { RestaurantProps } from '../domain/Restaurant';
 import { ERROR_MESSAGES } from './errorMessages.js';
-import { isBlank } from './validations.ts';
+import { isBlank } from './validations';
 
 function hasNotPrefixProtocol(input: string) {
   return !input.match(/https?:\/\/[\w\-\.]+/g) ? true : false;

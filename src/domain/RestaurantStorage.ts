@@ -1,5 +1,5 @@
-import Restaurant, { Category, Distance } from './Restaurant.ts';
-import Restaurants from './Restaurants.ts';
+import Restaurant, { Category, Distance } from './Restaurant';
+import Restaurants from './Restaurants';
 
 class RestaurantStorage {
   static #STORAGE_KEY = 'restaurants';
