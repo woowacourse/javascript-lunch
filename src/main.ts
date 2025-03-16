@@ -59,7 +59,7 @@ function addEventHandlers() {
   deleteRestaurant(restaurantService.deleteRestaurant.bind(restaurantService), updateRestaurantElements);
 }
 
-export function initRestaurantItems() {
+function initRestaurantItems() {
   const restaurants = restaurantService.getRestaurants();
   if (!restaurants) {
     [...RESTAURANTS].forEach((restaurant) => {
@@ -68,7 +68,7 @@ export function initRestaurantItems() {
   }
 }
 
-export function updateRestaurantElements() {
+function updateRestaurantElements() {
   const states = stateStore.getState();
   const restaurants = restaurantService.getRestaurants();
   const filteredRestaurants = restaurantService.getFilteredRestaurants(states, restaurants);
@@ -76,7 +76,7 @@ export function updateRestaurantElements() {
   renderRestaurantItems(filteredRestaurants);
 }
 
-export function renderRestaurantInfoContents(id: number) {
+function renderRestaurantInfoContents(id: number) {
   const targetData = restaurantService.getRestaurantById(id);
   const contents = createRestaurantInfo(targetData);
 
@@ -90,7 +90,7 @@ export function renderRestaurantInfoContents(id: number) {
   renderElement('.restaurant-info-modal > .modal-container', contents, 'afterbegin');
 }
 
-export function updateFavoriteIcon(id: number, favorite: boolean) {
+function updateFavoriteIcon(id: number, favorite: boolean) {
   const targetItems = document.querySelectorAll(`[data-id="${id}"]`);
 
   targetItems.forEach((target) => {
