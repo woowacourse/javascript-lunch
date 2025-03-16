@@ -78,7 +78,7 @@ const createModal = ({ id, title, content, options }: ModalProps) => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
 
-    const handleCloseButtonClick = () => {
+    const handleClickCloseButton = () => {
       options?.close.onClick();
       modal.close();
       console.log("modal close");
@@ -95,7 +95,7 @@ const createModal = ({ id, title, content, options }: ModalProps) => {
       id: "cancel-dialog-btn",
       className: "button button--secondary text-caption",
       text: options.close.label,
-      onClick: handleCloseButtonClick,
+      onClick: handleClickCloseButton,
     });
 
     const submitButton = createButton({

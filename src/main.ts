@@ -44,26 +44,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const restaurantList = document.querySelector(".restaurant-list");
 
   const handleFormSubmit = () => {
-    const addRestaurantDialogElemet = document.getElementById(
+    const addRestaurantDialogElement = document.getElementById(
       "add-restaurant-dialog"
     );
 
-    if (!addRestaurantDialogElemet) {
+    if (!addRestaurantDialogElement) {
       throw new Error("다이얼로그 요소를 찾을 수 없습니다.");
     }
 
     const nameInput =
-      addRestaurantDialogElemet.querySelector<HTMLInputElement>("#name");
+      addRestaurantDialogElement.querySelector<HTMLInputElement>("#name");
     const descriptionInput =
-      addRestaurantDialogElemet.querySelector<HTMLTextAreaElement>(
+      addRestaurantDialogElement.querySelector<HTMLTextAreaElement>(
         "#description"
       );
     const categoryInput =
-      addRestaurantDialogElemet.querySelector<HTMLSelectElement>("#category");
+      addRestaurantDialogElement.querySelector<HTMLSelectElement>("#category");
     const distanceInput =
-      addRestaurantDialogElemet.querySelector<HTMLSelectElement>("#distance");
+      addRestaurantDialogElement.querySelector<HTMLSelectElement>("#distance");
     const linkInput =
-      addRestaurantDialogElemet.querySelector<HTMLInputElement>("#link");
+      addRestaurantDialogElement.querySelector<HTMLInputElement>("#link");
 
     const restaurantsNameList = restaurantsData.map(
       (restaurant) => restaurant.name
