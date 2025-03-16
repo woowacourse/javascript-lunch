@@ -57,7 +57,7 @@
   - [x] 새로고침시, 데이터 저장 (도메인 데이터 로컬스토리지에서 관리)
   - [ ] 도메인 데이터 타입스크립트 적용
     - [x] restaurant 도메인 타입 지정
-    - [ ] restaurant, restaurantList 도메인 적용
+    - [x] restaurant, restaurantList 도메인 적용
 
 ### 리팩토링
 
