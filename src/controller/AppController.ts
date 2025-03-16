@@ -1,5 +1,6 @@
 import PlusButton from '../components/button/PlusButton';
 import Header from '../components/Header';
+import LocalStorage from '../domain/LocalStorage';
 import Restaurants from '../domain/Restaurants';
 import { FilterType, Restaurant } from '../types/types';
 import { $ } from '../util/selector';
@@ -23,7 +24,7 @@ class AppController {
       this.#onFilterChange(type, value);
     });
     this.modalController = new ModalController();
-    this.restaurants = new Restaurants();
+    this.restaurants = new Restaurants(LocalStorage);
     this.restaurantListController = new RestaurantListController(
       this.restaurants.items,
       (restaurantName) => {

@@ -1,12 +1,15 @@
-import { FilterType, Restaurant } from '../types/types';
+import { FilterType, Restaurant, StorageType } from '../types/types';
 
 class Restaurants {
+  #storage: StorageType;
   #restaurants: Restaurant[];
   #filter: { category: string; sort: string };
 
-  constructor() {
-    const localRestaurants = localStorage.getItem('restaurants');
-    this.#restaurants = localRestaurants ? (JSON.parse(localRestaurants) as Restaurant[]) : [];
+  static STORAGE_KEY = 'restaurants';
+
+  constructor(storage: StorageType) {
+    this.#storage = storage;
+    this.#restaurants = this.#storage.getItem<Restaurant[]>(Restaurants.STORAGE_KEY) ?? [];
     this.#filter = { category: 'all', sort: 'latest' };
   }
 
@@ -16,12 +19,12 @@ class Restaurants {
 
   addRestaurant(restaurant: Restaurant) {
     this.#restaurants.push(restaurant);
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+    this.#storage.setItem(Restaurants.STORAGE_KEY, this.#restaurants);
   }
 
   removeRestaurant(restaurantName: string) {
     this.#restaurants = this.#restaurants.filter((restaurant) => restaurant.name !== restaurantName);
-    localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+    this.#storage.setItem(Restaurants.STORAGE_KEY, this.#restaurants);
   }
 
   toggleFavoriteRestaurant(restaurantName: string) {
@@ -29,7 +32,7 @@ class Restaurants {
 
     if (restaurant) {
       restaurant.isFavorite = !restaurant.isFavorite;
-      localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+      this.#storage.setItem(Restaurants.STORAGE_KEY, this.#restaurants);
     }
   }
 
