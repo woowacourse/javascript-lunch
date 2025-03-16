@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const newRestaurant = {
+      id: restaurantManager.getUniqueId(),
       category: categoryInput.value as Category,
       name: nameInput.value,
       distance: Number(distanceInput.value) as Distance,
@@ -137,10 +138,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showRestaurantDetail = (restaurant: Restaurant) => {
     const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[restaurant.category];
+
+    const isFavorite = restaurant.isFavorite;
+    const isFavoriteIconSrc = isFavorite
+      ? "images/favorite-icon-filled.png"
+      : "images/favorite-icon-lined.png";
+
     const restaurantDetailContent = `
   <div class="detail-modal-content" data-id="${restaurant.id}">
     <div class="detail-modal-header">
-      <img src="images/favorite-icon-lined.png" alt="즐겨찾기" class="favorite-icon" />
+      <img src="${isFavoriteIconSrc}" alt="즐겨찾기" class="favorite-icon" data-id="${
+      restaurant.id
+    }" data-favorite="${isFavorite}" />
       <div class="detail-modal-category">
         <img src="${mappedImage}" alt="${restaurant.category}" />
       </div>
@@ -190,10 +199,30 @@ document.addEventListener("DOMContentLoaded", () => {
   initialLoadRestaurantData.forEach((restaurant: Restaurant) => {
     const restaurantItem = createRestaurantItem(restaurant);
 
-    restaurantItem.addEventListener("click", () => {
+    restaurantItem.addEventListener("click", (e) => {
+      if (
+        e.target instanceof HTMLImageElement &&
+        e.target.classList.contains("favorite-icon")
+      ) {
+        return;
+      }
       showRestaurantDetail(restaurant);
     });
 
     restaurantList?.appendChild(restaurantItem);
+  });
+
+  body?.addEventListener("click", (e) => {
+    if (
+      e.target instanceof HTMLImageElement &&
+      e.target.classList.contains("favorite-icon")
+    ) {
+      const { id } = e.target.dataset;
+
+      if (!id) {
+        throw new Error("음식점 ID가 존재하지 않습니다.");
+      }
+      restaurantManager.toggleFavorite(id);
+    }
   });
 });
