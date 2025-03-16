@@ -14,3 +14,11 @@ export const SORTING = [
   { value: 'name', label: '이름순' },
   { value: 'distance', label: '거리순' },
 ] as const;
+
+export const DISTANCE_OPTIONS = [
+  { value: '5', label: '5분 내' },
+  { value: '10', label: '10분 내' },
+  { value: '15', label: '15분 내' },
+  { value: '20', label: '20분 내' },
+  { value: '30', label: '30분 내' },
+] as const;
