@@ -1,5 +1,5 @@
 import { IMAGE } from '../../src/constants/elements.ts';
-import { RESTAURANTS } from '../../src/database/restaurantData.js';
+import { RESTAURANTS } from '../../src/data/initialData.ts';
 import restaurantService from '../../src/service/restaurantService.ts';
 
 describe('Header 렌더링 테스트', () => {
