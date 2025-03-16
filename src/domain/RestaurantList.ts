@@ -1,5 +1,5 @@
-import RestaurantType from "../../types/index.js";
-import Restaurant from "./Restaurant.js";
+import RestaurantType from "../../types/restaurant.js";
+import Restaurant from "./Restaurant.ts";
 
 class RestaurantList {
   #restaurants = [] as Restaurant[];

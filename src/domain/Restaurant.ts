@@ -1,4 +1,4 @@
-import RestaurantType from "../../types";
+import RestaurantType from "../../types/restaurant";
 
 class Restaurant {
   restaurant: RestaurantType;

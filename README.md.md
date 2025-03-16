@@ -58,6 +58,7 @@
   - [ ] 도메인 데이터 타입스크립트 적용
     - [x] restaurant 도메인 타입 지정
     - [x] restaurant, restaurantList 도메인 적용
+    - [x] 더미데이터 ts 적용
 
 ### 리팩토링
 

@@ -1,8 +1,9 @@
+import { ModalFormConfig, ModalTitle } from "../../types/form.js";
 import { SELECT_CATEGORY_MODAL, SELECT_DISTANCE } from "./constant.js";
 
-export const MODAL_TITLE = { type: "modal", text: "새로운 음식점" };
+export const MODAL_TITLE: ModalTitle = { type: "modal", text: "새로운 음식점" };
 
-export const MODAL_FORM_CONFIG = {
+export const MODAL_FORM_CONFIG: ModalFormConfig = {
   fields: [
     {
       label: "카테고리",

@@ -1,9 +1,12 @@
-export const HEADER_CONTENTS = {
+import { headerContentType } from "../../types/common";
+import RestaurantType from "../../types/restaurant";
+
+export const HEADER_CONTENTS: headerContentType = {
   TITLE: "점심 뭐 먹지",
   LABEL: "음식점 추가",
 };
 
-export const LIST_ITEM_CONTENTS = [
+export const LIST_ITEM_CONTENTS: RestaurantType[] = [
   {
     category: "한식",
     name: "피양콩할마니",
@@ -20,7 +23,7 @@ export const LIST_ITEM_CONTENTS = [
   {
     category: "일식",
     name: "잇쇼우",
-    distance: "1분 내",
+    distance: "10분 내",
     description:
       "잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다.",
   },
