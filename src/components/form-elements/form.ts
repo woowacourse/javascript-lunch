@@ -1,4 +1,7 @@
-import { addRestaurant, RestaurantProps } from "../modal/add-restaurant-modal.ts";
+import {
+  addRestaurant,
+  RestaurantProps,
+} from "../modal/add-restaurant-modal.ts";
 
 export const handleAddRestaurant = (e: Event) => {
   e.preventDefault();
@@ -56,6 +59,5 @@ const $form = (form: HTMLElement | HTMLElement[]): HTMLFormElement => {
 
   return wrapper;
 };
-
 
 export default $form;

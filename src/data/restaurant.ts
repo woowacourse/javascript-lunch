@@ -85,8 +85,7 @@ export const saveRestaurantsToLocalStorage = (restaurants: Restaurant[]) => {
   if (!localStorage.getItem("restaurants")) {
     localStorage.setItem("restaurants", JSON.stringify(restaurantData));
     console.log(JSON.stringify(restaurantData));
-  }
-  else localStorage.setItem("restaurants", JSON.stringify(restaurants));
+  } else localStorage.setItem("restaurants", JSON.stringify(restaurants));
 };
 
 export const getRestaurantsFromLocalStorage = () => {
@@ -98,4 +97,5 @@ export const getRestaurantsFromLocalStorage = () => {
   return JSON.parse(storedData);
 };
 
-export let currentRestaurantData: Restaurant[] = getRestaurantsFromLocalStorage();
+export let currentRestaurantData: Restaurant[] =
+  getRestaurantsFromLocalStorage();

@@ -1,5 +1,9 @@
 import $restaurantDetailContent from "../restaurant/restaurant-detail-content.ts";
-import { Restaurant, currentRestaurantData, saveRestaurantsToLocalStorage } from "../../data/restaurant.ts";
+import {
+  Restaurant,
+  currentRestaurantData,
+  saveRestaurantsToLocalStorage,
+} from "../../data/restaurant.ts";
 
 export const handleRestaurantDetailModalClose = (): void => {
   const modal = document.querySelector(".restaurant-detail-modal");

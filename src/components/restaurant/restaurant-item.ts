@@ -55,7 +55,10 @@ const $restaurantItem = ({
   restaurantDetails.appendChild(restaurantDistance);
   restaurantHeader.appendChild(restaurantDetails);
 
-  const favButton = $favoriteButton({ isFavorite: isFavorite, className: ["button-favorite"]});
+  const favButton = $favoriteButton({
+    isFavorite: isFavorite,
+    className: ["button-favorite"],
+  });
   favButton.setAttribute("data-restaurant-id", dataId.toString());
   restaurantHeader.appendChild(favButton);
   info.appendChild(restaurantHeader);

@@ -19,9 +19,10 @@ type ModalProps = {
 
 export const addRestaurant = (data: RestaurantProps): void => {
   handleModalClose();
-  const lastId = currentRestaurantData.length > 0 
-    ? Math.max(...currentRestaurantData.map((r) => r.dataId)) 
-    : 0;
+  const lastId =
+    currentRestaurantData.length > 0
+      ? Math.max(...currentRestaurantData.map((r) => r.dataId))
+      : 0;
   const newId = lastId + 1;
   const categoryIcon = CATEGORY_ICON[data.category];
   const newRestaurant = {

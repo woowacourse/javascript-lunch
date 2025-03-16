@@ -4,7 +4,9 @@ import $addRestaurantModal from "./components/modal/add-restaurant-modal.ts";
 import $button from "./components/common/button.ts";
 import $buttonContainer from "./components/layout/button-container.ts";
 import $filter from "./components/common/filter.ts";
-import $restaurantDetailModal, { handleDeleteRestaurant } from "./components/modal/restaurant-detail-modal.ts";
+import $restaurantDetailModal, {
+  handleDeleteRestaurant,
+} from "./components/modal/restaurant-detail-modal.ts";
 import $tabbar from "./components/common/tabBar.ts";
 import { handleModalClose } from "./components/modal/add-restaurant-modal.ts";
 import { handleAddRestaurant } from "./components/form-elements/form.ts";

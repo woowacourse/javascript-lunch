@@ -1,5 +1,8 @@
 import $filter from "../components/common/filter.js";
-import { categoryFilterOptions, sortFilterOptions } from "../data/filterOptions.js";
+import {
+  categoryFilterOptions,
+  sortFilterOptions,
+} from "../data/filterOptions.js";
 
 type Filter = {
   attribute?: {
@@ -22,7 +25,7 @@ export const FILTERS: FilterGroup = Object.freeze({
     attribute: {
       name: "category",
       id: "category-filter",
-      class: "restaurant-filter"
+      class: "restaurant-filter",
     },
   },
   SORT: {
@@ -30,7 +33,7 @@ export const FILTERS: FilterGroup = Object.freeze({
     attribute: {
       name: "sorting",
       id: "sorting-filter",
-      class: "restaurant-filter"
+      class: "restaurant-filter",
     },
   },
   create: (info: Filter) => {
@@ -38,4 +41,3 @@ export const FILTERS: FilterGroup = Object.freeze({
     throw new Error("filter에 옵션 값이 없습니다.");
   },
 });
-

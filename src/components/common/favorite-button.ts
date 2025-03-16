@@ -1,6 +1,6 @@
 export interface FavoriteImageElement extends HTMLImageElement {
   isFavorite: boolean;
-};
+}
 
 type FavoriteButtonProps = {
   isFavorite: boolean;

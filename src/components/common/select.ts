@@ -1,9 +1,12 @@
 type SelectProps = {
   attribute?: Partial<HTMLInputElement>;
   options: Record<string, string | number>;
-}
+};
 
-const $select = ({attribute = {}, options}: SelectProps): HTMLSelectElement => {
+const $select = ({
+  attribute = {},
+  options,
+}: SelectProps): HTMLSelectElement => {
   const select = document.createElement("select");
   Object.assign(select, attribute);
 

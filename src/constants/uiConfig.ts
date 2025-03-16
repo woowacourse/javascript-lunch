@@ -17,13 +17,13 @@ type ImageButtonConfig = {
 };
 
 type UIConfig = {
-  HEADER: HeaderConfig,
+  HEADER: HeaderConfig;
   BUTTONS: {
-    CANCEL: ButtonConfig,
-    ADD: ButtonConfig,
-    DELETE: ButtonConfig,
-    CLOSE: ButtonConfig,
-    FAVORITE: ImageButtonConfig,
+    CANCEL: ButtonConfig;
+    ADD: ButtonConfig;
+    DELETE: ButtonConfig;
+    CLOSE: ButtonConfig;
+    FAVORITE: ImageButtonConfig;
   };
 };
 
@@ -71,6 +71,6 @@ export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
     FAVORITE: {
       isFavorite: false,
       className: ["button-favorite"],
-    }
+    },
   }),
 });

@@ -6,7 +6,13 @@ type ButtonProps = {
   event?: (event: MouseEvent) => void;
 };
 
-const $button = ({ id, text, type = "button", className = [], event }: ButtonProps): HTMLButtonElement => {
+const $button = ({
+  id,
+  text,
+  type = "button",
+  className = [],
+  event,
+}: ButtonProps): HTMLButtonElement => {
   const button = document.createElement("button");
   button.id = id;
   button.innerText = text;

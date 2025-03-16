@@ -1,9 +1,12 @@
 type FilterProps = {
   attribute?: Partial<HTMLInputElement>;
   options: Record<string, string | number>;
-}
+};
 
-const $filter = ({attribute = {}, options}: FilterProps): HTMLSelectElement => {
+const $filter = ({
+  attribute = {},
+  options,
+}: FilterProps): HTMLSelectElement => {
   const select = document.createElement("select");
   Object.assign(select, attribute);
 
