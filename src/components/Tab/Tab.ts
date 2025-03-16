@@ -19,11 +19,17 @@ class Tab extends Component {
     allTab.classList.add("selected");
     const favoriteTab = this.$target.querySelector(".favorite");
     allTab.addEventListener("click", () => {
+      document
+        .querySelector(".restaurant-filter-container")
+        ?.classList.toggle("filter-toggle");
       this.renderAllRestaurants();
       allTab.classList.toggle("selected");
       favoriteTab.classList.toggle("selected");
     });
     favoriteTab.addEventListener("click", () => {
+      document
+        .querySelector(".restaurant-filter-container")
+        ?.classList.toggle("filter-toggle");
       this.renderFavoriteRestaurants();
       allTab.classList.toggle("selected");
       favoriteTab.classList.toggle("selected");

@@ -1,4 +1,3 @@
-import { filterRestaurants } from "../../domain/filterRestaurants.js";
 import {
   getStoredRestaurantData,
   setStoredRestaurantData,
