@@ -7,7 +7,7 @@ const TAB_DATA = [
 function TabController(
   mainElement,
   { allListContainerElement, favoriteListContainerElement },
-  { updateList, updateFavoriteList },
+  { updateListView, updateFavoriteListView },
 ) {
   const tabContainerElement = TabWrapper(TAB_DATA);
   mainElement.prepend(tabContainerElement);
@@ -22,7 +22,7 @@ function TabController(
     allRestaurantTab.classList.add("active");
     favoriteListContainerElement.classList.remove("active");
     allListContainerElement.classList.add("active");
-    updateList();
+    updateListView();
   });
 
   favoriteRestaurantTab.addEventListener("click", () => {
@@ -30,7 +30,7 @@ function TabController(
     favoriteRestaurantTab.classList.add("active");
     allListContainerElement.classList.remove("active");
     favoriteListContainerElement.classList.add("active");
-    updateFavoriteList();
+    updateFavoriteListView();
   });
 }
 

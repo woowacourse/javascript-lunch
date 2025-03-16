@@ -60,6 +60,8 @@
 ### 리팩토링
 
 - [x] modal open 토글 이벤트 수정
+- [x] ListController, favoriteListController 리팩토링 (listView 파일 생성)
+  - [x] 클로저 기능 이용 (list create 후, update 함수 return )
 - [ ] tabController 리팩토링
 - [ ] categoryController 리팩토링
 - [ ] MainController 리팩토링

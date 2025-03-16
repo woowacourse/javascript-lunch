@@ -2,6 +2,8 @@ import Button from "../components/Button.js";
 import DetailItem from "../components/DetailItem.js";
 import ButtonsForm from "../components/Form/ButtonsForm.js";
 import Modal from "../components/Modal.js";
+import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
+import RestaurantList from "../domain/RestaurantList.js";
 import EventHandler from "../utils/EventHandler.js";
 import CategoryFilterController from "./CategoryFilterController.js";
 import FavoriteListController from "./FavoriteListController.js";
@@ -16,22 +18,30 @@ function MainController() {
   const allListContainerElement = mainElement.querySelector(".all-restaurant-list-container");
   const favoriteListContainerElement = mainElement.querySelector(".favorite-restaurant-list-container");
 
-  const { listElement, restaurantList, updateList } = ListController(allListContainerElement);
-  const { favoriteListElement, updateFavoriteList } = FavoriteListController(
-    favoriteListContainerElement,
-    restaurantList,
+  const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS); // 도메인
+
+  const updateListView = ListController(allListContainerElement, restaurantList);
+  const updateFavoriteListView = FavoriteListController(favoriteListContainerElement, restaurantList);
+
+  const { categoryFilterElement, sortingFilterElement } = CategoryFilterController(
+    allListContainerElement,
+    updateListView,
   );
 
-  const { categoryFilterElement, sortingFilterElement } = CategoryFilterController(allListContainerElement, updateList);
   const modalElement = ModalController(mainElement, {
-    updateList: () => updateList(categoryFilterElement.value, sortingFilterElement.value),
+    updateListView: () => updateListView(categoryFilterElement.value, sortingFilterElement.value),
     restaurantList,
   });
+
   TabController(
     mainElement,
     { allListContainerElement, favoriteListContainerElement },
-    { updateList: () => updateList(categoryFilterElement.value, sortingFilterElement.value), updateFavoriteList },
+    {
+      updateListView: () => updateListView(categoryFilterElement.value, sortingFilterElement.value),
+      updateFavoriteListView,
+    },
   );
+
   HeaderController(app, modalElement);
 
   mainElement.addEventListener("click", (event) => {
@@ -45,11 +55,11 @@ function MainController() {
       restaurant.toggleFavorite();
       restaurantList.updateLocalStorage();
 
-      favoriteListElement.querySelectorAll("li").forEach((favoriteListElement) => {
-        if (favoriteListElement.dataset.name === restaurantName) {
-          favoriteListElement.remove();
-        }
-      });
+      // favoriteListElement.querySelectorAll("li").forEach((favoriteListElement) => {
+      //   if (favoriteListElement.dataset.name === restaurantName) {
+      //     favoriteListElement.remove();
+      //   }
+      // });
     }
   });
 
@@ -78,8 +88,8 @@ function MainController() {
       .addEventListener("click", () => EventHandler.modalToggle(modalElement));
     buttonsFormElement.querySelector("button[type='submit']").addEventListener("click", () => {
       restaurantList.removeRestaurant(restaurantName);
-      updateList(categoryFilterElement.value, sortingFilterElement.value);
-      updateFavoriteList();
+      updateListView(categoryFilterElement.value, sortingFilterElement.value);
+      updateFavoriteListView();
       EventHandler.modalToggle(modalElement);
     });
     EventHandler.modalToggle(modalElement);
