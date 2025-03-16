@@ -8,11 +8,15 @@ import useRestaurants from './hooks/useRestaurants';
 import RestaurantList from './components/RestaurantList';
 import FilterSection from './components/FilterSection';
 
+type FilterOptions = {
+  [K in 'category' | 'sorting']: K extends 'category' ? Category : Sorting;
+};
+
 function App() {
   const [currentTab, setCurrentTab] = useState<Tab>(TAB.ALL);
-  const [filterOptions, setFilterOptions] = useState({
-    category: '전체' as Category,
-    sorting: 'name' as Sorting,
+  const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+    category: '전체',
+    sorting: 'name',
   });
 
   const { getFilteredRestaurants } = useRestaurants(
