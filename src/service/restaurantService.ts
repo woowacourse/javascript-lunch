@@ -1,6 +1,6 @@
 import DataService from './DataService.ts';
 import { Restaurant, RestaurantInput, RestaurantState } from '../../types/domain';
-import { STORE } from '../constants/database.ts';
+import { STORE } from '../constants/data.ts';
 import sortRestaurants from '../domain/sortRestaurants.ts';
 import filterByFavorite from '../domain/filterByFavorite.ts';
 import filterByCategory from '../domain/filterByCategory.ts';
