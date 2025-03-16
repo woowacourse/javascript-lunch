@@ -13,6 +13,7 @@ const initRenderer = {
     header.innerHTML = Header(title);
   },
 
+  // 카테고리/정렬 드롭박스 셋팅
   setRestaurantFilter: () => {
     const categorySelect = Select({
       tag: "select",

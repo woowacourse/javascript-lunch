@@ -1,6 +1,7 @@
 import uiBasicText from "../constants/uiBasicText.js";
 import createElement from "../utils/createElement.js";
 
+// 모든 음식점 / 자주 가는 음식점 메뉴바
 const MenuBar = () => {
   const container = document.querySelector(".restaurant-menuBar-container");
 

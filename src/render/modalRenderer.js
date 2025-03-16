@@ -9,11 +9,14 @@ import validate from "../utils/validate.ts";
 import initRenderer from "./initRenderer.js";
 
 const modalRenderer = {
+  // 모달창 닫기
   closeModal: () => {
     const modal = document.querySelector(".modal");
     modal.remove();
   },
 
+  // **모달 입력 폼**
+  // 폼 추가
   addForm: () => {
     const modalContainer = document.querySelector(".modal-container");
     modalContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>
@@ -49,6 +52,7 @@ const modalRenderer = {
       .addEventListener("click", modalRenderer.closeModal);
   },
 
+  // 버튼 추가
   addButtons: (buttonProps) => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
@@ -59,6 +63,7 @@ const modalRenderer = {
     return buttonContainer;
   },
 
+  // 폼 입력 검증
   addFormCheck: () => {
     const nameInput = document.querySelector("#name");
     const descInput = document.querySelector("#description");
@@ -73,6 +78,7 @@ const modalRenderer = {
     modalRenderer.checkInput(distSelect, validate.emptySelector, "change");
   },
 
+  // 버튼 활성화 체크
   checkInput: (input, validate, type = "input") => {
     const addButton = document.querySelector("#add-button");
 
@@ -90,6 +96,7 @@ const modalRenderer = {
     });
   },
 
+  // 입력 폼 에러 메시지 추가
   addErrorText: (input, e) => {
     if (!input.classList.contains("form-item--error")) {
       input.classList.add("form-item--error");
@@ -101,6 +108,7 @@ const modalRenderer = {
     }
   },
 
+  // 입력 폼 에러 메시지 제거
   removeErrorText: (input) => {
     if (input.parentNode.querySelector(".error-text")) {
       input.classList.remove("form-item--error");
@@ -110,6 +118,7 @@ const modalRenderer = {
     }
   },
 
+  // **식당 상세 정보**
   setStoreInfoModal: (store) => {
     const modalContainer = document.querySelector(".modal-container");
     modalContainer.setAttribute("id", store.id);

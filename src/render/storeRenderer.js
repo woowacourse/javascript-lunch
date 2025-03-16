@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import options from "../constants/options.js";
 
 const storeRenderer = {
+  // 새로운 식당 추가
   addStore: (storeProps) => {
     const list = document.createElement("li");
     list.setAttribute("id", storeProps.id);
@@ -16,7 +17,8 @@ const storeRenderer = {
     list.innerHTML = store;
     document.querySelector(".restaurant-list").appendChild(list);
   },
-  //---
+
+  // 식당 리스트 업데이트
   updateStore: (storeList, e) => {
     const newStore = storeRenderer.createStore(e);
 
@@ -35,6 +37,7 @@ const storeRenderer = {
         JSON.stringify(newStore)
       );
 
+      // 새로운 음식점이 추가되는 경우 모든 음식점 메뉴로 이동
       document
         .querySelector(".all-restaurant-button")
         .classList.add("onMenuBar");
@@ -42,6 +45,7 @@ const storeRenderer = {
         .querySelector(".favorite-restaurant-button")
         .classList.remove("onMenuBar");
 
+      // 새로운 음식점이 추가되는 경우 카테고리/정렬 드롭박스 초기화
       document.querySelector("#category-filter").value = Object.keys(
         options.sortCategory
       )[0];
@@ -49,10 +53,7 @@ const storeRenderer = {
         options.sortFilter
       )[0];
 
-      storeRenderer.removeStoreElements();
-      storeList.list.forEach((store) => {
-        storeRenderer.addStore(store);
-      });
+      storeRenderer.rerenderStoreList(storeList.list);
 
       modalRenderer.closeModal();
     } catch (error) {
@@ -61,14 +62,16 @@ const storeRenderer = {
       storeRenderer.checkRequired("distance", newStore.dist, error);
     }
   },
-  //---
+
+  // 필수 조건 확인
   checkRequired: (input, value, error) => {
     if (value === "") {
       const input = document.querySelector(`#${input}`);
       modalRenderer.addErrorText(input, error);
     }
   },
-  //---
+
+  // 새로운 식당 데이터 생성
   createStore: (e) => {
     const data = new FormData(e.target);
     return {
@@ -82,33 +85,32 @@ const storeRenderer = {
     };
   },
 
+  // 식당 리스트 요소 제거
   removeStoreElements: () => {
     document.querySelector(".restaurant-list").replaceChildren();
   },
 
+  // 식당 필터링
   filterStore: (storeList, e) => {
     const isFavorite = document
       .querySelector(".onMenuBar")
       .classList.contains("favorite-restaurant-button");
     storeList.filterStoreList(e.target.value, isFavorite);
-    storeRenderer.removeStoreElements();
-    storeList.filteredList.forEach((store) => {
-      storeRenderer.addStore(store);
-    });
+
+    storeRenderer.rerenderStoreList(storeList.filteredList);
   },
 
+  // 식당 정렬
   sortStore: (storeList, e) => {
     const isFavorite = document
       .querySelector(".onMenuBar")
       .classList.contains("favorite-restaurant-button");
     storeList.sortStoreList(e.target.value);
-    storeRenderer.removeStoreElements();
 
-    storeList.filteredList.forEach((store) => {
-      storeRenderer.addStore(store);
-    });
+    storeRenderer.rerenderStoreList(storeList.filteredList);
   },
 
+  // 즐겨찾기 수정
   toggleFavorite: (storeList, starIcon, storeId) => {
     const storeInfo = storeList.list.find((store) => store.id === storeId);
     storeInfo.isFavorite = !storeInfo.isFavorite;
@@ -125,6 +127,7 @@ const storeRenderer = {
     storeList.updateIsFavorite(storeId, isFavorite);
   },
 
+  // 모든 음식점 / 자주 가는 음식점 메뉴바 셋팅
   setMenuBar: (storeList, e) => {
     document.querySelector("#category-filter").value = "전체";
     document.querySelector("#sorting-filter").value = "name";
@@ -152,13 +155,10 @@ const storeRenderer = {
         .classList.remove("onMenuBar");
     }
 
-    storeRenderer.removeStoreElements();
-
-    storeList.filteredList.forEach((store) => {
-      storeRenderer.addStore(store);
-    });
+    storeRenderer.rerenderStoreList(storeList.filteredList);
   },
 
+  // 식당 삭제
   deleteStore: (storeList) => {
     const storeId = document
       .querySelector(".modal-container")
@@ -172,13 +172,17 @@ const storeRenderer = {
     storeList.deleteStore(storeId, isFavorite);
 
     modalRenderer.closeModal();
-    storeRenderer.removeStoreElements();
-    storeList.filteredList.forEach((store) => {
-      storeRenderer.addStore(store);
-    });
+    storeRenderer.rerenderStoreList(storeList.filteredList);
 
     document.querySelector("#category-filter").value = "전체";
     document.querySelector("#sorting-filter").value = "name";
+  },
+
+  rerenderStoreList(list) {
+    storeRenderer.removeStoreElements();
+    list.forEach((store) => {
+      storeRenderer.addStore(store);
+    });
   },
 };
 

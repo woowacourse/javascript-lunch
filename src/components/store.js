@@ -1,5 +1,6 @@
 import IMG_SRC from "../constants/imgSrc";
 
+// 식당 리스트에서 보여주는 식당 정보
 const Store = (storeProps, starIconId) => {
   const imgSrc = getImgSrc(storeProps.category);
 

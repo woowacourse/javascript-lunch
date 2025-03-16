@@ -1,6 +1,7 @@
 import IMG_SRC from "../constants/imgSrc.js";
 import createElement from "../utils/createElement.js";
 
+// 식당 상세 정보
 const StoreDetail = ({
   name,
   category,
