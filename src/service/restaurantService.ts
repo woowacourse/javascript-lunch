@@ -13,7 +13,7 @@ export interface RestaurantService {
   updateRestaurant: (id: number, newProperty: Partial<Restaurant>) => void;
   deleteRestaurant: (id: number) => void;
   getFilteredRestaurants: (states: RestaurantState, restaurants: Restaurant[]) => Restaurant[];
-  toggleFavorite: (id: number) => void;
+  toggleFavorite: (id: number) => boolean;
 }
 
 const restaurantService: RestaurantService = {
