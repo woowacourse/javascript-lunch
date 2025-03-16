@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.ts";
 import CircleIcon from "../common/CircleIcon.js";
 import Icon from "../common/Icon.js";
 import Text from "../common/Text.js";
@@ -94,7 +94,7 @@ export default class LunchItem extends Component {
   }
 
   handleFavoriteButtonClick(e) {
-    const favoriteButton = e.target.closest(".favorite-button");
+    const favoriteButton = e.target.closest("#favorite-button");
     if (favoriteButton && Number(favoriteButton.dataset.id) === this.props.id) {
       e.stopPropagation();
       this.dispatchFavoriteToggleEvent();
@@ -132,7 +132,7 @@ export default class LunchItem extends Component {
           ${this.renderDistance()}
         </div>
         <div class="flex flex-row items-center">
-          <button class="favorite-button" data-id="${
+          <button id="favorite-button" data-id="${
             this.props.id
           }" style="background: none; border: none;">
             ${this.renderFavoriteIcon()}
