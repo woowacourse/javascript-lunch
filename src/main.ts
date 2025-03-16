@@ -1,8 +1,7 @@
 import Modal from "./components/Modal.js";
-import RestaurantList from "./stores/RestaurantList.js";
 import restaurantStorage from "./stores/restaurantStorage.ts";
-
 import querySelector from "./utils/querySelector.js";
+
 import { modalHandler } from "./handlers/modalHandler.ts";
 import { restaurantHandler } from "./handlers/restaurantHandler.ts";
 import { filterAndSortHandler } from "./handlers/filterAndSortHandler.ts";
@@ -10,10 +9,7 @@ import { RestaurantItem } from "./types/restaurantItem.js";
 import { FilterAndSortOptions } from "./types/filterAndSortOptions.js";
 
 addEventListener("load", () => {
-  const restaurantList = new RestaurantList(
-    restaurantStorage.getRestaurantList()
-  );
-
+  const restaurantList = restaurantStorage.getRestaurantList();
   const categoryFilter = querySelector("#category-filter");
   const sortingFilter = querySelector("#sorting-filter");
 
@@ -37,7 +33,7 @@ addEventListener("load", () => {
   };
 
   renderRestaurantList(
-    restaurantList.list,
+    restaurantList,
     categoryFilter.value as FilterAndSortOptions["category"],
     sortingFilter.value as FilterAndSortOptions["sortOption"]
   );
@@ -50,7 +46,7 @@ addEventListener("load", () => {
         const sortingFilter = querySelector("#sorting-filter");
 
         updateRestaurantList(
-          restaurantList.list,
+          restaurantList,
           categoryFilter.value,
           sortingFilter.value
         );

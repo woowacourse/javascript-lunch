@@ -1,7 +1,6 @@
 import Restaurant from "../components/Restaurant.js";
 import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
-import type RestaurantList from "../stores/RestaurantList.js";
 import { modalHandler } from "./modalHandler.js";
 import { RestaurantItem } from "../types/restaurantItem.js";
 import restaurantStorage from "../stores/restaurantStorage.js";
@@ -18,7 +17,7 @@ export const restaurantHandler = {
     querySelector(".restaurant-list").appendChild(listItem);
   },
 
-  uploadRestaurant: (restaurantList: RestaurantList, e: Event) => {
+  uploadRestaurant: (restaurantList: RestaurantItem[], e: Event) => {
     const newRestaurant = restaurantHandler.createRestaurantData(e);
 
     try {
@@ -30,10 +29,10 @@ export const restaurantHandler = {
       validate.descLength(newRestaurant.description);
       validate.linkForm(newRestaurant.link);
 
-      restaurantList.addRestaurant(newRestaurant);
+      restaurantList.push(newRestaurant);
       restaurantHandler.addRestaurantItem(newRestaurant);
 
-      restaurantStorage.setRestaurantList(restaurantList.list);
+      restaurantStorage.setRestaurantList(restaurantList);
       modalHandler.closeModal();
     } catch (error) {
       restaurantHandler.checkRequired(
@@ -70,6 +69,7 @@ export const restaurantHandler = {
       dist: formData.get("distance") as RestaurantItem["dist"],
       description: formData.get("description") as RestaurantItem["description"],
       link: formData.get("link") as RestaurantItem["link"],
+      isFavorite: false,
     };
   },
 
