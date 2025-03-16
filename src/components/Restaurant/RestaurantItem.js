@@ -1,7 +1,7 @@
 import CATEGORY from '../../constant/category.js';
 import RestaurantIcon from './RestaurantIcon.js';
 import RestaurantInfo from './RestaurantInfo.js';
-import Star from './star.js';
+import Star from './Star.js';
 
 class RestaurantItem {
   #restaurantElement;

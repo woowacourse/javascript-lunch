@@ -1,5 +1,5 @@
 import Header from './components/Header.js';
-import RestaurantList from './Restaurants/RestaurantList.js';
+import RestaurantList from './RestaurantList.js';
 import AddRestaurantModal from './modal/AddRestaurantModal.js';
 import DISTANCE from './constant/distance.js';
 import CATEGORY from './constant/category.js';

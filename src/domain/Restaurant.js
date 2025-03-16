@@ -1,6 +1,6 @@
-import { validateDescription } from './validation/validateDescription.js';
-import { validateLink } from './validation/validateLink.js';
-import { validateName } from './validation/validateName.js';
+import { validateDescription } from '../validation/validateDescription.js';
+import { validateLink } from '../validation/validateLink.js';
+import { validateName } from '../validation/validateName.js';
 
 class Restaurant {
   #name;

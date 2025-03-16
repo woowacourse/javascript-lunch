@@ -1,4 +1,5 @@
-import Restaurant from '../Restaurant.js';
+import Restaurant from './Restaurant.js';
+import Restaurants from './Restaurants.js';
 
 class RestaurantStorage {
   static #STORAGE_KEY = 'restaurants';
@@ -40,15 +41,17 @@ class RestaurantStorage {
         new Restaurant('도스타코스 선릉점', '5', '멕시칸 캐주얼 그릴', 'etc', '', true),
       ];
 
-      this.saveRestaurants(initialData);
-      return initialData;
+      const restaurants = new Restaurants(initialData);
+      this.saveRestaurants(restaurants);
+      return restaurants;
     }
 
     try {
       const parsedData = JSON.parse(storedData);
-      return parsedData.map(
+      const restaurantList = parsedData.map(
         (item) => new Restaurant(item.name, item.distance, item.description, item.category, item.link, item.like),
       );
+      return new Restaurants(restaurantList);
     } catch (error) {
       alert(error.message);
       return [];
@@ -57,7 +60,9 @@ class RestaurantStorage {
 
   static saveRestaurants(restaurants) {
     // 로컬스토리지는 문자열만 저장 가능 = 겍체저장 불가능 -> 직렬화를 해줘야 함 *****
-    const serializableData = restaurants.map((restaurant) => ({
+    const restaurantArray = restaurants.getAll();
+    console.log(restaurants, '===');
+    const serializableData = restaurantArray.map((restaurant) => ({
       name: restaurant.getName(),
       distance: restaurant.getDistance(),
       description: restaurant.getDescription(),
@@ -71,27 +76,22 @@ class RestaurantStorage {
 
   static addRestaurant(restaurant) {
     const restaurants = this.getRestaurants();
-    restaurants.push(restaurant);
+    restaurants.add(restaurant);
     this.saveRestaurants(restaurants);
     return restaurants;
   }
 
   static deleteRestaurant(restaurantName) {
     const restaurants = this.getRestaurants();
-    const updatedRestaurants = restaurants.filter((restaurant) => restaurant.getName() !== restaurantName);
-    this.saveRestaurants(updatedRestaurants);
-    return updatedRestaurants;
+    restaurants.delete(restaurantName);
+    this.saveRestaurants(restaurants);
+    return restaurants;
   }
 
   static updateRestaurantLike(restaurantName, like) {
     const restaurants = this.getRestaurants();
-    const restaurant = restaurants.find((restaurant) => restaurant.getName() === restaurantName);
-
-    if (restaurant) {
-      restaurant.setLike(like);
-      this.saveRestaurants(restaurants);
-    }
-
+    restaurants.updateLike(restaurantName, like);
+    this.saveRestaurants(restaurants);
     return restaurants;
   }
 }

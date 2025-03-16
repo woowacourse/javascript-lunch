@@ -5,7 +5,7 @@ import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/Restaurant/RestaurantItem.js';
 import CATEGORY from '../constant/category.js';
 import DISTANCE from '../constant/distance.js';
-import Restaurant from '../Restaurant.js';
+import Restaurant from '../domain/Restaurant.js';
 import { validateDescription } from '../validation/validateDescription.js';
 import { validateDropDown } from '../validation/validateDropDown.js';
 import { validateLink } from '../validation/validateLink.js';
