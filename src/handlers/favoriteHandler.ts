@@ -1,14 +1,15 @@
 import { applyFilter } from "./filterHandler.ts";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { storeRestaurants } from "../utils/localStorage.ts";
+import { Restaurant } from "../../types/Restaurant.ts";
 
-export function handleFavoriteClick(e) {
+export function handleFavoriteClick(e : MouseEvent) : void {
   e.stopPropagation();
 
-  const $favoriteButton = e.target.closest(".favorite-button");
+  const $favoriteButton = (e.target as HTMLElement).closest(".favorite-button") as HTMLElement;
   const restaurantId = Number($favoriteButton.dataset.restaurantId);
 
-  const updatedRestaurants = initialRestaurants.map((restaurant) => {
+  const updatedRestaurants : Restaurant[] = initialRestaurants.map((restaurant) => {
     if (restaurant.id === restaurantId) {
       return {
         ...restaurant,
@@ -23,20 +24,20 @@ export function handleFavoriteClick(e) {
   storeRestaurants(updatedRestaurants);
 
   // UI 업데이트
-  const $starImg = $favoriteButton.querySelector("img");
+  const $starImg = $favoriteButton.querySelector("img") as HTMLImageElement;
+  const $restaurantElement = $favoriteButton.closest(".restaurant") as HTMLElement;
   const newFavoriteState = !(
-    $favoriteButton.closest(".restaurant").dataset.favorites === "true"
+    $restaurantElement.dataset.favorites === "true"
   );
   $starImg.src = `./${newFavoriteState ? "fill-star" : "blank-star"}.png`;
-  $favoriteButton.closest(".restaurant").dataset.favorites =
+  $restaurantElement.dataset.favorites =
     String(newFavoriteState);
-
   applyFilter();
 }
 
 export function setupFavoriteEventListeners() {
-  const $favoriteButtons = document.querySelectorAll(".favorite-button");
+  const $favoriteButtons = document.querySelectorAll(".favorite-button") ;
   $favoriteButtons.forEach((button) => {
-    button.addEventListener("click", handleFavoriteClick);
+    button.addEventListener("click", handleFavoriteClick as EventListener);
   });
 }

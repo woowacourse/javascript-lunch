@@ -11,7 +11,7 @@ import { generateId } from "../utils/generateId.js";
 import { storeRestaurants } from "../utils/localStorage.ts";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
-import { setupFavoriteEventListeners } from "./favoriteHandler.js";
+import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 
 export function handleDeleteRestaurant(e) {
   e.preventDefault();
