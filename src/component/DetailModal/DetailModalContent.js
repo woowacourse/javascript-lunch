@@ -40,12 +40,12 @@ const DetailModalContent = {
   },
 
   handleDeleteButton(id) {
-    $("#delete__button").addEventListener("click", () => {
+    $("#delete__button").onclick = () => {
       const deletedList = RestaurantListUtils.delete(data.restaurantList, id);
       data.restaurantList = deletedList;
       this.renderAll();
       Modal.close("detail");
-    });
+    };
   },
 
   handleFavoriteButton() {
