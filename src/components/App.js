@@ -22,10 +22,10 @@ class App extends Component {
       activeTab: this.state.activeTab,
     });
     this.activateMain = this.activateMain.bind(this);
-    this.getNewRestaurant = this.getNewRestaurant.bind(this);
+    this.updateRestaurant = this.updateRestaurant.bind(this);
     this.deleteRestaurant = this.deleteRestaurant.bind(this);
     document.addEventListener("tabClicked", this.activateMain);
-    document.addEventListener("restaurantUpdated", this.getNewRestaurant);
+    document.addEventListener("restaurantUpdated", this.updateRestaurant);
     document.addEventListener("restaurantDeleted", this.deleteRestaurant);
     document.addEventListener(
       "favoriteUpdated",
@@ -37,11 +37,9 @@ class App extends Component {
   initState() {
     const savedData = localStorage.getItem("restaurantList");
     const savedFavorites = localStorage.getItem("favoriteRestaurantList");
-
     if (!savedData) {
       localStorage.setItem("restaurantList", JSON.stringify(RestaurantData));
     }
-
     if (!savedFavorites) {
       localStorage.setItem("favoriteRestaurantList", JSON.stringify([]));
     }
@@ -60,26 +58,11 @@ class App extends Component {
     new Header(document.querySelector(".gnb"), {
       toggleModal: () => this.toggleModal(),
     });
-
     if (this.state.activeTab === "all") {
-      renderRestaurants(this.state.restaurantList, (restaurant) => {
-        this.toggleModal(restaurant);
-      });
-      createCategoryFilter((selectedCategory) => {
-        this.filterRestaurants(selectedCategory);
-      }, this.state.selectedCategory);
-      createSortingFilter((sortOption) => {
-        this.sortRestaurants(sortOption);
-      }, this.state.sortOption);
+      this.showAllRestaurants();
     } else {
-      const favoriteRestaurants = this.state.restaurantList.filter(
-        (restaurant) => this.state.favoriteRestaurants.includes(restaurant.id),
-      );
-      renderRestaurants(favoriteRestaurants, (restaurant) => {
-        this.toggleModal(restaurant);
-      });
+      this.showFavoriteRestaurants();
     }
-
     new Modal(document.querySelector(".modal"), {
       isModalOpen: this.state.isModalOpen,
       toggleModal: () => this.toggleModal(),
@@ -87,7 +70,27 @@ class App extends Component {
         ? restaurantInfoContent(this.state.selectedRestaurant)
         : addResturantContent(),
       modalType: this.state.selectedRestaurant ? "info" : "add",
-      favoriteRestaurants: this.state.favoriteRestaurants,
+    });
+  }
+
+  showAllRestaurants() {
+    renderRestaurants(this.state.restaurantList, (restaurant) => {
+      this.toggleModal(restaurant);
+    });
+    createCategoryFilter((selectedCategory) => {
+      this.filterRestaurants(selectedCategory);
+    }, this.state.selectedCategory);
+    createSortingFilter((sortOption) => {
+      this.sortRestaurants(sortOption);
+    }, this.state.sortOption);
+  }
+
+  showFavoriteRestaurants() {
+    const favoriteRestaurants = this.state.restaurantList.filter((restaurant) =>
+      this.state.favoriteRestaurants.includes(restaurant.id),
+    );
+    renderRestaurants(favoriteRestaurants, (restaurant) => {
+      this.toggleModal(restaurant);
     });
   }
 
@@ -101,11 +104,9 @@ class App extends Component {
 
   activateMain(event) {
     const { targetTabTitle } = event.detail;
-
     this.setState({
       activeTab: targetTabTitle,
     });
-
     this.tab.updateActiveTab(targetTabTitle);
   }
 
@@ -128,7 +129,7 @@ class App extends Component {
     });
   }
 
-  getNewRestaurant(event) {
+  updateRestaurant(event) {
     const newRestaurantList = [...this.state.restaurantList];
     newRestaurantList.push(event.detail.information);
     localStorage.setItem("restaurantList", JSON.stringify(newRestaurantList));
