@@ -6,10 +6,15 @@
 
 .tab-button .tab-btn {
   background-color: var(--grey-100);
-  color: var(--primary-color);
+  color: var(--grey-300);
   width: 100%;
   border: none;
-  border-bottom: 2px solid black;
-  border-bottom-color: var(--primary-color);
+  border-bottom: 2px solid var(--grey-200);
+  border-bottom-color: none;
   padding-bottom: 10px;
+}
+
+.tab-button .tab-btn.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
 }

@@ -22,10 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "src",
-    "types",
-    "public/database/restaurants.ts",
-    "public/database/favoriteRestaurants.ts"
-  ]
+  "include": ["src", "types", "public/database/restaurants.ts"]
 }

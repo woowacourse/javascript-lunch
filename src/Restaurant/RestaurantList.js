@@ -5,7 +5,7 @@ import renderRestaurantElement from "./RestaurantItem";
 class RestaurantList {
   selectedCategory = "전체";
   selectedSort = "이름순";
-  // selectedTab = "전체";
+  selectedTab = "allTab";
 
   constructor() {
     this.restaurants = [...restaurantsData];
@@ -20,6 +20,10 @@ class RestaurantList {
     this.selectedSort = sortOption;
   }
 
+  setSelectedTab(tab) {
+    this.selectedTab = tab;
+  }
+
   createRestaurantList() {
     const restaurantListContainer = document.querySelector(
       ".restaurant-list-container"
@@ -29,16 +33,16 @@ class RestaurantList {
     restaurantListContainer.insertAdjacentHTML("beforeend", restaurantListHTML);
 
     this.restaurantListElement = document.querySelector(".restaurant-list");
-    this.render();
+    this.renderFilteredData();
+    this.renderFavoriteData();
   }
 
-  render() {
+  renderFilteredData() {
     this.restaurantListElement.innerHTML = "";
 
     let categoryFilteredData;
     let sortFilteredData;
 
-    // 카테고리 필터
     if (this.selectedCategory === "전체") {
       categoryFilteredData = this.restaurants;
     } else {
@@ -47,7 +51,6 @@ class RestaurantList {
       );
     }
 
-    // 정렬 필터
     if (this.selectedSort === "이름순") {
       sortFilteredData = categoryFilteredData
         .slice()
@@ -58,9 +61,26 @@ class RestaurantList {
         .sort((a, b) => a.distance - b.distance);
     }
 
-    // 즐겨찾기 필터 넣어야함
-
     sortFilteredData.forEach((restaurant) => {
+      const restaurantItem = renderRestaurantElement(restaurant);
+      this.restaurantListElement.appendChild(restaurantItem);
+    });
+  }
+
+  renderFavoriteData() {
+    this.restaurantListElement.innerHTML = "";
+
+    let tabFilteredData;
+
+    if (this.selectedTab === "allTab") {
+      tabFilteredData = this.restaurants;
+    } else {
+      tabFilteredData = this.restaurants.filter(
+        (restaurant) => restaurant.isFavorite === true
+      );
+    }
+
+    tabFilteredData.forEach((restaurant) => {
       const restaurantItem = renderRestaurantElement(restaurant);
       this.restaurantListElement.appendChild(restaurantItem);
     });
