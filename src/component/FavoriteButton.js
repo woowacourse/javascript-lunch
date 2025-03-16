@@ -3,24 +3,27 @@ import { FAVORITE_ICON } from "../constants/constants.js";
 import append from "../utils/append.js";
 
 class FavoriteButton {
-  #state;
   #el;
+  #favorite;
 
-  constructor(element) {
-    this.#state = false;
+  constructor(element, name, favorite, restaurantList) {
+    this.#favorite = this.#favorite;
     this.#el = toElement(`
         <button type="button" class="gnb__button child-exclude" aria-label="favorite" style="margin-left: auto">
-          <img src=${FAVORITE_ICON[this.#state]} alt="favotire" />
+          <img src=${FAVORITE_ICON[favorite]} alt="favotire" />
         </button>
       `);
 
-    this.#el.addEventListener("click", () => this.toggleState());
+    this.#el.addEventListener("click", () =>
+      this.toggleState(name, restaurantList, favorite)
+    );
     append(element, this.#el);
   }
 
-  toggleState() {
-    this.#state = !this.#state;
-    this.#el.querySelector("img").src = FAVORITE_ICON[this.#state];
+  toggleState(name, restaurantList) {
+    this.#favorite = !this.#favorite;
+    this.#el.querySelector("img").src = FAVORITE_ICON[this.#favorite];
+    restaurantList.changeFavoriteState(name);
   }
 }
 

@@ -1,7 +1,10 @@
 import { Category, Restaurant } from "../../types/RestaurantType.ts";
 import Modal from "../component/Modal.js";
-import RestaurantListContainer from "../component/RestaurantListContainer.js";
 import MOCK_ITEM from "../mockItem.js";
+import { $ } from "../utils/querySelectors.js";
+import LunchInfoCard from "../component/LunchInfoCard.js";
+import FavoriteButton from "../component/FavoriteButton.js";
+import RestaurantDetail from "../component/RestaurantDetail.js";
 
 class RestaurantList {
   #items;
@@ -19,6 +22,34 @@ class RestaurantList {
     this.sortByName();
   }
 
+  setLocalStorage() {
+    localStorage.setItem("restaurantList", JSON.stringify(this.#items));
+  }
+
+  render(items: Restaurant[]) {
+    const el = $(".restaurant-list");
+    el.innerHTML = items.map(LunchInfoCard).join("");
+
+    items.forEach((item) => {
+      const $li = document.getElementById(`restaurant_${item.name}`);
+
+      new FavoriteButton($li, item.name, item.favorite, this);
+
+      $li?.addEventListener("click", (event) => {
+        if (event.target?.closest(".child-exclude")) {
+          return;
+        }
+        $("main").append(
+          new Modal(
+            `restaurantModal_${item.name}`,
+            RestaurantDetail(item, this)
+          )
+        );
+        Modal.open(`restaurantModal_${item.name}`);
+      });
+    });
+  }
+
   add(newRestaurant: Restaurant) {
     this.#items.push(newRestaurant);
     localStorage.setItem("restaurantList", JSON.stringify(this.#items));
@@ -29,16 +60,16 @@ class RestaurantList {
     this.#filteringItems = this.#items.filter(
       ({ category: c }: Restaurant) => c === category
     );
-    RestaurantListContainer(this.#filteringItems);
+    this.render(this.#filteringItems);
   }
 
   resetFilter() {
     this.#filteringItems = this.#items;
-    RestaurantListContainer(this.#items);
+    this.render(this.#items);
   }
 
   sortByName() {
-    RestaurantListContainer(
+    this.render(
       this.#filteringItems.sort((a: Restaurant, b: Restaurant) =>
         a.name.localeCompare(b.name)
       )
@@ -46,27 +77,30 @@ class RestaurantList {
   }
 
   sortByDistance() {
-    RestaurantListContainer(
+    this.render(
       this.#filteringItems.sort(
         (a: Restaurant, b: Restaurant) => a.distance - b.distance
       )
     );
   }
 
-  static remove(targetName: string, modalId: string) {
+  remove(targetName: string, modalId: string) {
     Modal.close(modalId);
-    let restaurantList = JSON.parse(
-      localStorage.getItem("restaurantList") || "[]"
+    this.#items = this.#items.filter(
+      (restaurnat: Restaurant) => restaurnat.name !== targetName
     );
-    restaurantList = restaurantList.filter(
-      (restaurant: Restaurant) => restaurant.name !== targetName
+    this.setLocalStorage();
+    this.render(this.#items);
+  }
+
+  changeFavoriteState(targetName: string) {
+    this.#items = this.#items.map((restaurant: Restaurant) =>
+      restaurant.name === targetName
+        ? { ...restaurant, favorite: !restaurant.favorite }
+        : restaurant
     );
-    localStorage.setItem("restaurantList", JSON.stringify(restaurantList));
-    RestaurantListContainer(
-      restaurantList.sort((a: Restaurant, b: Restaurant) =>
-        a.name.localeCompare(b.name)
-      )
-    );
+    this.setLocalStorage();
+    this.render(this.#items);
   }
 }
 

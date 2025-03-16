@@ -8,7 +8,10 @@ import { CATEGORY_ICON } from "../constants/constants.js";
 import FavoriteButton from "./FavoriteButton.js";
 import { $ } from "../utils/querySelectors.js";
 
-function RestaurantDetail({ category, name, distance, description, link }) {
+function RestaurantDetail(
+  { category, name, distance, description, link, favorite },
+  restaurantList
+) {
   const $el = toElement(`<div class="restaurant__detail"></div>`);
 
   append(
@@ -39,7 +42,7 @@ function RestaurantDetail({ category, name, distance, description, link }) {
         title: "삭제하기",
         onClick: () => {
           if (window.confirm(`${name}을(를) 삭제하시겠습니까?`)) {
-            RestaurantList.remove(name, `restaurantModal_${name}`);
+            restaurantList.remove(name, `restaurantModal_${name}`);
           }
         },
       }),
@@ -51,7 +54,7 @@ function RestaurantDetail({ category, name, distance, description, link }) {
     )
   );
   const categoryElement = $el.querySelector(".restaurant__detail__top");
-  new FavoriteButton(categoryElement);
+  new FavoriteButton(categoryElement, name, favorite, restaurantList);
 
   return $el;
 }
