@@ -1,11 +1,4 @@
-const CATRGORY_IMAGE_PATH = {
-  한식: "./public/category-korean.png",
-  중식: "./public/category-chinese.png",
-  일식: "./public/category-japanese.png",
-  양식: "./public/category-western.png",
-  아시안: "./public/category-asian.png",
-  기타: "./public/category-etc.png",
-};
+import { CATRGORY_IMAGE_PATH } from "../constants/constant.ts";
 
 function DetailItem({ category, name, distance, description, link, favoriteStar }) {
   const divElement = document.createElement("div");
