@@ -1,15 +1,22 @@
+interface EventCallbackProps {
+  event: WindowEventMap[keyof WindowEventMap];
+  target: HTMLElement;
+  currentTarget: HTMLElement;
+}
+
 export default class EventHandler {
   // eslint-disable-next-line max-params
   static attachEventListener(
-    eventType: string,
-    callback: (event: Event, target: HTMLElement) => void,
+    eventType: keyof WindowEventMap,
+    callback: (props: EventCallbackProps) => void,
     dataAction: string,
   ) {
     window.addEventListener(eventType, (event) => {
       const target = event.target as HTMLElement;
+      const currentTarget = target.closest(`[data-action="${dataAction}"]`) as HTMLElement;
 
-      if (target.closest(`[data-action="${dataAction}"]`)) {
-        callback(event, target);
+      if (currentTarget) {
+        callback({ event, target, currentTarget });
         event.stopImmediatePropagation();
         event.stopPropagation();
       }

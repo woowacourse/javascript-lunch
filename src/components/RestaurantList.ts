@@ -159,21 +159,21 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
     EventHandler.attachEventListener(
       'click',
-      (_, target) => target.dataset.id && this._toggleLike(target.dataset.id),
+      ({ currentTarget }) => currentTarget.dataset.id && this._toggleLike(currentTarget.dataset.id),
       'restaurant-like',
     );
 
     EventHandler.attachEventListener(
       'click',
-      () => this.state.restaurantDetailId && this._deleteRestaurant(this.state.restaurantDetailId),
+      ({ currentTarget }) => currentTarget.dataset.id && this._deleteRestaurant(currentTarget.dataset.id),
       'restaurant-delete',
     );
 
     EventHandler.attachEventListener(
       'click',
-      (_, target) => {
+      ({ currentTarget }) => {
         this.setState({
-          restaurantDetailId: (target.closest('[data-action="restaurant-detail"]') as HTMLElement).dataset.id,
+          restaurantDetailId: currentTarget.dataset.id,
         });
       },
       'restaurant-detail',

@@ -26,7 +26,7 @@ export default class Select<T extends string> extends Component<null, SelectProp
   override attachEventListener() {
     EventHandler.attachEventListener(
       'change',
-      (_, target) => {
+      ({ target }) => {
         this.props?.setValue((target as HTMLSelectElement)?.value as T);
       },
       this.props.dataAction,

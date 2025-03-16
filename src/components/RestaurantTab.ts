@@ -33,7 +33,7 @@ export default class RestaurantTab extends Component<null, RestaurantTabProps> {
   override attachEventListener() {
     EventHandler.attachEventListener(
       'click',
-      (_, target) => {
+      ({ target }) => {
         const tab = (target.closest('[data-action="tab-change"]') as HTMLElement)?.dataset.tab;
         this.props?.setTab(tab as TabType);
       },

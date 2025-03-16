@@ -22,6 +22,7 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
       class: 'button--secondary',
       message: '삭제하기',
       dataAction: 'restaurant-delete',
+      dataId: currentRestaurant?.id,
     });
 
     const cancelButton = new Button({
