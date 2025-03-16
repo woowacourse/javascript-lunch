@@ -4,9 +4,9 @@ import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
 import createFavoriteListView from "../view/createFavoriteListView.js";
 
-function FavoriteListController(favoriteListContainerElement, restaurantList) {
-  const updateFavoriteListView = createFavoriteListView(favoriteListContainerElement, restaurantList);
-  return updateFavoriteListView;
+function FavoriteListController(restaurantList) {
+  const { favoriteListElement, updateFavoriteListView } = createFavoriteListView(restaurantList);
+  return { favoriteListElement, updateFavoriteListView };
 }
 
 export default FavoriteListController;

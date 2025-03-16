@@ -1,9 +1,8 @@
 import List from "../components/List.js";
 import ListItem from "../components/ListItem.js";
 
-function createFavoriteListView(containerElement, restaurantList) {
+function createFavoriteListView(restaurantList) {
   let favoriteListElement = List(restaurantList.favoriteRestaurants());
-  containerElement.appendChild(favoriteListElement);
 
   function updateFavoriteListView() {
     const favoriteRestaurants = restaurantList.favoriteRestaurants();
@@ -13,7 +12,7 @@ function createFavoriteListView(containerElement, restaurantList) {
     });
   }
 
-  return updateFavoriteListView;
+  return { favoriteListElement, updateFavoriteListView };
 }
 
 export default createFavoriteListView;

@@ -20,22 +20,29 @@ function MainController() {
 
   const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS); // 도메인
 
-  const updateListView = ListController(allListContainerElement, restaurantList);
-  const updateFavoriteListView = FavoriteListController(favoriteListContainerElement, restaurantList);
-  const updateCategorySortListView = CategorySortFilterController(allListContainerElement, updateListView);
+  const { listElement, updateListView } = ListController(restaurantList);
+  const { favoriteListElement, updateFavoriteListView } = FavoriteListController(restaurantList);
+  const { categorySortFilterContainerElement, updateCategorySortListView } =
+    CategorySortFilterController(updateListView);
 
-  const modalElement = ModalController(mainElement, {
+  const modalElement = ModalController({
     updateCategorySortListView,
     restaurantList,
   });
 
-  TabController(mainElement, {
+  const tabContainerElement = TabController(mainElement, {
     updateCategorySortListView,
     updateFavoriteListView,
   });
 
   const headerElement = HeaderController(modalElement);
-  app.prepend(headerElement);
+
+  app.prepend(headerElement); //헤더바
+  mainElement.prepend(tabContainerElement); // 탭바
+  mainElement.appendChild(modalElement); // 가게 추가 모달
+  allListContainerElement.appendChild(categorySortFilterContainerElement); // 필터링바
+  allListContainerElement.appendChild(listElement); // 잔체 가게 리스트
+  favoriteListContainerElement.appendChild(favoriteListElement); // 좋아하는 가게 리스트
 
   mainElement.addEventListener("click", (event) => {
     const starElement = event.target.closest(".favorite-star");
@@ -48,11 +55,11 @@ function MainController() {
       restaurant.toggleFavorite();
       restaurantList.updateLocalStorage();
 
-      // favoriteListElement.querySelectorAll("li").forEach((favoriteListElement) => {
-      //   if (favoriteListElement.dataset.name === restaurantName) {
-      //     favoriteListElement.remove();
-      //   }
-      // });
+      favoriteListElement.querySelectorAll("li").forEach((favoriteListElement) => {
+        if (favoriteListElement.dataset.name === restaurantName) {
+          favoriteListElement.remove();
+        }
+      });
     }
   });
 

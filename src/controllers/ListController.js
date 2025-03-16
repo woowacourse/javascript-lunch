@@ -1,9 +1,9 @@
 import createListView from "../view/createListView.js";
 
-function ListController(allListContainerElement, restaurantList) {
-  const updateListView = createListView(allListContainerElement, restaurantList);
+function ListController(restaurantList) {
+  const { listElement, updateListView } = createListView(restaurantList);
 
-  return updateListView;
+  return { listElement, updateListView };
 }
 
 export default ListController;

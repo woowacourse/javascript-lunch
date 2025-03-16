@@ -11,7 +11,7 @@ function TabController(mainElement, { updateCategorySortListView, updateFavorite
   };
   TabEventHandler(tabContainerElement, mainElement, tabActionsUpdateListView);
 
-  mainElement.prepend(tabContainerElement);
+  return tabContainerElement;
 }
 
 export default TabController;
