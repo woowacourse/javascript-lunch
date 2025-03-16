@@ -243,13 +243,13 @@ input[name='link'] {
   height: 44px;
 }
 
-.button-container {
+.buttons {
   display: flex;
   justify-content: space-between;
   gap: 16px;
 }
 
-.button-container div {
+.buttons div {
   flex: 1;
 }
 

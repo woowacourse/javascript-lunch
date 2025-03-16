@@ -23,7 +23,7 @@ export default abstract class Component<State = Record<string, unknown>, Props =
     const elementFirstChild = element.firstElementChild as HTMLElement;
 
     if (!this.#element) this.#element = elementFirstChild;
-    else this.#element.innerHTML = elementFirstChild.getHTML();
+    else this.#element.innerHTML = elementFirstChild.innerHTML;
 
     this.onRender();
 

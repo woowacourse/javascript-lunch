@@ -15,11 +15,13 @@ interface RestaurantAddModalProps {
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
   template(): HTMLType {
     return html`
-      <h2 class="modal-title text-title">새로운 음식점</h2>
-      <form data-action="restaurant-create">
-        <div class="input-container"></div>
-        <div class="button-container"></div>
-      </form>
+      <div>
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <form data-action="restaurant-create">
+          <section class="inputs"></section>
+          <section class="buttons"></section>
+        </form>
+      </div>
     `;
   }
 
@@ -101,7 +103,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       }),
     ];
 
-    forEach((inputBox) => this.appendChild(inputBox.element, '.input-container'), inputBoxList);
+    forEach((inputBox) => this.appendChild(inputBox.element, '.inputs'), inputBoxList);
   }
 
   appendButtons() {
@@ -119,8 +121,8 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       dataAction: 'modal-add',
     });
 
-    this.appendChild(cancelButton.element, '.button-container');
-    this.appendChild(addButton.element, '.button-container');
+    this.appendChild(cancelButton.element, '.buttons');
+    this.appendChild(addButton.element, '.buttons');
   }
 
   override attachEventListener() {

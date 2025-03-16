@@ -12,7 +12,7 @@ interface InputProps {
 
 export default class Input extends Component<null, InputProps> {
   override template() {
-    return html`<input
+    return html` <input
       name="${this.props.name}"
       id="${this.props.id}"
       ${this.props.maxlength ? `maxlength="${this.props.maxlength}"` : ''}

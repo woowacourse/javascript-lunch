@@ -58,7 +58,7 @@ export default class RestaurantDetailModal extends Component<null, RestaurantDet
           <a class="text-body restaurant-detail-modal__url" href="${currentRestaurant?.url ?? ''}" target="_blank">
             ${currentRestaurant?.url ?? ''}
           </a>
-          <div class="button-container">${deleteButton} ${cancelButton}</div>
+          <div class="buttons">${deleteButton} ${cancelButton}</div>
         </div>
       </div>
     `;
