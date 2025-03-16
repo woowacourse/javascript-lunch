@@ -26,5 +26,3 @@ export default class TextArea extends Component<null, TextAreaProps> {
     ></textarea>`;
   }
 }
-
-// <textarea maxlength="1000" name="description" id="description" cols="30" rows="5"></textarea>`

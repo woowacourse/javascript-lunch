@@ -8,9 +8,6 @@ import { Component } from './core/index.ts';
 import { InputBox } from './index.ts';
 import TextArea from './common/TextArea.ts';
 
-// ${inputBoxList.map((input) => html`${input}`).join('')}
-//          <div class="button-container">${cancelButton} ${addButton}</div>
-
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
 }
