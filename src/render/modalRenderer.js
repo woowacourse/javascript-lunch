@@ -5,13 +5,12 @@ import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
 import helpText from "../constants/helpText.js";
 import options from "../constants/options.js";
-import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.ts";
 import initRenderer from "./initRenderer.js";
 
 const modalRenderer = {
   closeModal: () => {
-    const modal = querySelector(".modal");
+    const modal = document.querySelector(".modal");
     modal.remove();
   },
 
@@ -45,10 +44,9 @@ const modalRenderer = {
     );
     modalRenderer.addFormCheck();
 
-    querySelector("#cancel-button").addEventListener(
-      "click",
-      modalRenderer.closeModal
-    );
+    document
+      .querySelector("#cancel-button")
+      .addEventListener("click", modalRenderer.closeModal);
   },
 
   addButtons: (buttonProps) => {
@@ -62,11 +60,11 @@ const modalRenderer = {
   },
 
   addFormCheck: () => {
-    const nameInput = querySelector("#name");
-    const descInput = querySelector("#description");
-    const linkInput = querySelector("#link");
-    const categorySelect = querySelector("#category");
-    const distSelect = querySelector("#distance");
+    const nameInput = document.querySelector("#name");
+    const descInput = document.querySelector("#description");
+    const linkInput = document.querySelector("#link");
+    const categorySelect = document.querySelector("#category");
+    const distSelect = document.querySelector("#distance");
 
     modalRenderer.checkInput(nameInput, validate.nameLength);
     modalRenderer.checkInput(descInput, validate.descLength);
@@ -76,7 +74,7 @@ const modalRenderer = {
   },
 
   checkInput: (input, validate, type = "input") => {
-    const addButton = querySelector("#add-button");
+    const addButton = document.querySelector("#add-button");
 
     input.addEventListener(type, (e) => {
       try {
@@ -113,7 +111,7 @@ const modalRenderer = {
   },
 
   setStoreInfoModal: (store) => {
-    const modalContainer = querySelector(".modal-container");
+    const modalContainer = document.querySelector(".modal-container");
     modalContainer.setAttribute("id", store.id);
     modalContainer.innerHTML = StoreDetail(store);
     modalContainer.appendChild(

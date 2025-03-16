@@ -1,3 +1,4 @@
+import options from "../constants/options";
 import IList from "../interfaces/IList.interface";
 
 class StoreList {
@@ -9,8 +10,8 @@ class StoreList {
   constructor(data: IList[]) {
     this.#list = data;
     this.#filteredList = data;
-    this.#category = "전체";
-    this.#sortBy = "name";
+    this.#category = Object.keys(options.sortCategory)[0];
+    this.#sortBy = Object.keys(options.sortFilter)[0];
     this.sortStoreList(this.#sortBy);
   }
 
@@ -34,37 +35,36 @@ class StoreList {
     });
     this.filterStoreList(this.#category, isFavorite);
     this.sortStoreList(this.#sortBy);
-    // this.#filteredList = this.#filteredList.map((store) => {
-    //   if (store.id === id) !store.isFavorite;
-    //   return store;
-    // });
   }
 
   deleteStore(id: string, isFavorite: boolean) {
     this.#list = this.#list.filter((store) => store.id !== id);
-    if (isFavorite) {
-      this.#filteredList = this.#list.filter(
-        (store) => store.id !== id && store.isFavorite
-      );
-    } else this.#filteredList = this.#list.filter((store) => store.id !== id);
-    this.sortStoreList(this.#sortBy);
+    this.filterStoreList(Object.keys(options.sortCategory)[0], isFavorite);
+    // if (isFavorite) {
+    //   this.#filteredList = this.#list.filter(
+    //     (store) => store.id !== id && store.isFavorite
+    //   );
+    // } else this.#filteredList = this.#list.filter((store) => store.id !== id);
+    this.sortStoreList(Object.keys(options.sortFilter)[0]);
   }
 
   filterByMenuBar(isFavorite: boolean) {
-    console.log(this.#list);
-    if (!isFavorite) this.#filteredList = this.#list;
-    else {
-      this.#filteredList = this.#list.filter(
-        (store) => store.isFavorite === true
-      );
-    }
-    console.log(this.#filteredList);
-    this.filterStoreList("전체", isFavorite);
-    this.sortStoreList("name");
+    // if (!isFavorite) this.#filteredList = this.#list;
+    // else {
+    //   this.#filteredList = this.#list.filter(
+    //     (store) => store.isFavorite === true
+    //   );
+    // }
+    this.filterStoreList(Object.keys(options.sortCategory)[0], isFavorite);
+    this.sortStoreList(Object.keys(options.sortFilter)[0]);
   }
 
-  filterByStoreName(name: string): IList | undefined {
-    return this.#list.find((store) => store.name === name);
+  // filterByStoreName(name: string): IList | undefined {
+  //   return this.#list.find((store) => store.name === name);
+  // }
+
+  filterByStoreId(id: string): IList | undefined {
+    return this.#list.find((store) => store.id === id);
   }
 
   filterStoreList(category: string, isFavorite: boolean) {

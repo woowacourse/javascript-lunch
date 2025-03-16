@@ -1,7 +1,6 @@
 import Store from "../components/Store.js";
 import IMG_SRC from "../constants/imgSrc.js";
 import storage from "../utils/storage.ts";
-import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.ts";
 import modalRenderer from "./modalRenderer.js";
 import { v4 as uuidv4 } from "uuid";
@@ -15,7 +14,7 @@ const storeRenderer = {
     const starIconId = uuidv4();
     const store = Store(storeProps, starIconId);
     list.innerHTML = store;
-    querySelector(".restaurant-list").appendChild(list);
+    document.querySelector(".restaurant-list").appendChild(list);
   },
   //---
   updateStore: (storeList, e) => {
@@ -36,15 +35,17 @@ const storeRenderer = {
         JSON.stringify(newStore)
       );
 
-      querySelector(".all-restaurant-button").classList.add("onMenuBar");
-      querySelector(".favorite-restaurant-button").classList.remove(
-        "onMenuBar"
-      );
+      document
+        .querySelector(".all-restaurant-button")
+        .classList.add("onMenuBar");
+      document
+        .querySelector(".favorite-restaurant-button")
+        .classList.remove("onMenuBar");
 
-      querySelector("#category-filter").value = Object.keys(
+      document.querySelector("#category-filter").value = Object.keys(
         options.sortCategory
       )[0];
-      querySelector("#sorting-filter").value = Object.keys(
+      document.querySelector("#sorting-filter").value = Object.keys(
         options.sortFilter
       )[0];
 
@@ -63,7 +64,7 @@ const storeRenderer = {
   //---
   checkRequired: (input, value, error) => {
     if (value === "") {
-      const input = querySelector(`#${input}`);
+      const input = document.querySelector(`#${input}`);
       modalRenderer.addErrorText(input, error);
     }
   },
@@ -82,13 +83,13 @@ const storeRenderer = {
   },
 
   removeStoreElements: () => {
-    querySelector(".restaurant-list").replaceChildren();
+    document.querySelector(".restaurant-list").replaceChildren();
   },
 
   filterStore: (storeList, e) => {
-    const isFavorite = querySelector(".onMenuBar").classList.contains(
-      "favorite-restaurant-button"
-    );
+    const isFavorite = document
+      .querySelector(".onMenuBar")
+      .classList.contains("favorite-restaurant-button");
     storeList.filterStoreList(e.target.value, isFavorite);
     storeRenderer.removeStoreElements();
     storeList.filteredList.forEach((store) => {
@@ -97,9 +98,9 @@ const storeRenderer = {
   },
 
   sortStore: (storeList, e) => {
-    const isFavorite = querySelector(".onMenuBar").classList.contains(
-      "favorite-restaurant-button"
-    );
+    const isFavorite = document
+      .querySelector(".onMenuBar")
+      .classList.contains("favorite-restaurant-button");
     storeList.sortStoreList(e.target.value);
     storeRenderer.removeStoreElements();
 
@@ -117,34 +118,38 @@ const storeRenderer = {
       storeInfo.isFavorite ? IMG_SRC.STAR_ICON_FILLED : IMG_SRC.STAR_ICON_LINED
     );
 
-    const isFavorite = querySelector(".onMenuBar").classList.contains(
-      "favorite-restaurant-button"
-    );
+    const isFavorite = document
+      .querySelector(".onMenuBar")
+      .classList.contains("favorite-restaurant-button");
     storage.updateIsFavorite(storeId);
     storeList.updateIsFavorite(storeId, isFavorite);
-
-    // storeList.filterByMenuBar(isFavorite);
   },
 
   setMenuBar: (storeList, e) => {
-    querySelector("#category-filter").value = "전체";
-    querySelector("#sorting-filter").value = "name";
+    document.querySelector("#category-filter").value = "전체";
+    document.querySelector("#sorting-filter").value = "name";
 
     const button = e.target.closest(".menuBar-button");
 
     const buttonText = button.querySelector(".button-text").textContent;
     if (buttonText === "모든 음식점") {
       storeList.filterByMenuBar(false);
-      querySelector(".all-restaurant-button").classList.add("onMenuBar");
-      querySelector(".favorite-restaurant-button").classList.remove(
-        "onMenuBar"
-      );
+      document
+        .querySelector(".all-restaurant-button")
+        .classList.add("onMenuBar");
+      document
+        .querySelector(".favorite-restaurant-button")
+        .classList.remove("onMenuBar");
     }
     if (buttonText === "자주 가는 음식점") {
       storeList.filterByMenuBar(true);
 
-      querySelector(".favorite-restaurant-button").classList.add("onMenuBar");
-      querySelector(".all-restaurant-button").classList.remove("onMenuBar");
+      document
+        .querySelector(".favorite-restaurant-button")
+        .classList.add("onMenuBar");
+      document
+        .querySelector(".all-restaurant-button")
+        .classList.remove("onMenuBar");
     }
 
     storeRenderer.removeStoreElements();
@@ -155,12 +160,14 @@ const storeRenderer = {
   },
 
   deleteStore: (storeList) => {
-    const storeId = querySelector(".modal-container").getAttribute("id");
+    const storeId = document
+      .querySelector(".modal-container")
+      .getAttribute("id");
     window.localStorage.removeItem(JSON.stringify(storeId));
 
-    const isFavorite = querySelector(".onMenuBar").classList.contains(
-      "favorite-restaurant-button"
-    );
+    const isFavorite = document
+      .querySelector(".onMenuBar")
+      .classList.contains("favorite-restaurant-button");
 
     storeList.deleteStore(storeId, isFavorite);
     console.log(storeList.length);
@@ -171,8 +178,8 @@ const storeRenderer = {
       storeRenderer.addStore(store);
     });
 
-    querySelector("#category-filter").value = "전체";
-    querySelector("#sorting-filter").value = "name";
+    document.querySelector("#category-filter").value = "전체";
+    document.querySelector("#sorting-filter").value = "name";
   },
 };
 
