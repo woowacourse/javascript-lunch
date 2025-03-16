@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const handleFormSubmit = () => {
     const addRestaurantDialogElement = document.getElementById(
-      "add-restaurant-dialog"
+      "restaurant-add-dialog"
     );
 
     if (!addRestaurantDialogElement) {
@@ -102,13 +102,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const formContent = createForm();
   const formReset = () => {
     const addRestaurantForm = document.querySelector<HTMLFormElement>(
-      "#add-restaurant-dialog form"
+      "#restaurant-add-dialog form"
     );
     addRestaurantForm?.reset();
   };
 
   const addRestaurantModal = createModal({
-    id: "add-restaurant-dialog",
+    id: "restaurant-add-dialog",
     title: "새로운 음식점",
     content: formContent,
     options: {
@@ -124,8 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
   });
-
-  body?.append(addRestaurantModal);
 
   const addRestaurantModalButton = header.querySelector(".gnb__button");
   addRestaurantModalButton?.addEventListener("click", () => {
@@ -160,8 +158,22 @@ document.addEventListener("DOMContentLoaded", () => {
 `;
 
     const detailModal = createModal({
-      isForm: false,
+      id: "restaurant-detail-dialog",
       content: restaurantDetailContent,
+      options: {
+        close: {
+          label: "닫기",
+          onClick: () => {
+            detailModal.close();
+          },
+        },
+        submit: {
+          label: "삭제하기",
+          onClick: () => {
+            console.log("delete");
+          },
+        },
+      },
     });
     body?.append(detailModal);
     detailModal.showModal();
