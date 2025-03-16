@@ -1,4 +1,6 @@
-const getRestaurant = (data) => {
+import { Restaurant } from "../../../types/global";
+
+const getRestaurant = (data: Partial<Restaurant>) => {
   return `<div class="restaurant__category">
                    <img src=${data.imgSrc} alt=${data.imgAlt} class="category-icon"/>
                    </div>
