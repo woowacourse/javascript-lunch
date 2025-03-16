@@ -1,6 +1,6 @@
 import { IMAGE } from '../../src/constants/elements.ts';
 import { RESTAURANTS } from '../../src/database/restaurantData.js';
-import storeService from '../../src/database/storeService.ts';
+import restaurantService from '../../src/service/restaurantService.ts';
 
 describe('Header 렌더링 테스트', () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('음식점 아이템 렌더링 테스트', () => {
 
   it('아이템의 카테고리가 잘 렌더링 되는지 확인', () => {
     cy.get('.restaurant')
-      .should('have.length', storeService.getRestaurants().length)
+      .should('have.length', restaurantService.getRestaurants().length)
       .each(($li, index) => {
         cy.wrap($li).should('exist');
         cy.wrap($li).find('.restaurant__category').should('exist');
@@ -42,7 +42,7 @@ describe('음식점 아이템 렌더링 테스트', () => {
 
   it('아이템의 정보가 잘 렌더링 되는지 확인', () => {
     cy.get('.restaurant')
-      .should('have.length', storeService.getRestaurants().length)
+      .should('have.length', restaurantService.getRestaurants().length)
       .each(($li, index) => {
         cy.wrap($li).find('.restaurant__info').should('exist');
         cy.wrap($li).find('.restaurant__name').should('exist').contains(`${RESTAURANTS[index].name}`);

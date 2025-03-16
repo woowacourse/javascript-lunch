@@ -16,8 +16,17 @@ import {
   DELETE_INFO_BUTTON,
 } from './constants/elements.ts';
 import { RESTAURANTS } from './database/restaurantData.js';
-import eventHandlers from './eventHandlers/eventHandlers.js';
-import stateStore from './domain/stateStore.ts';
+import {
+  openAddRestaurantModal,
+  openRestaurantInfoModal,
+  closeModal,
+  selectSortKey,
+  selectCategory,
+  deleteRestaurant,
+  switchTab,
+  readNewRestaurant,
+  toggleFavoriteButton,
+} from './eventHandlers/index.ts';
 import {
   createButton,
   createHeader,
@@ -27,11 +36,8 @@ import {
   createSelect,
   createTextarea,
 } from './components/index.js';
-import storeService from './service/StoreService.ts';
-import sortRestaurants from './domain/sortRestaurants.ts';
 import createRestaurantInfo from './components/RestaurantInfo.js';
-import filterByFavorite from './domain/filterByFavorite.ts';
-import filterByCategory from './domain/filterByCategory.ts';
+import stateStore from './domain/stateStore.ts';
 import restaurantService from './service/restaurantService.ts';
 
 addEventListener('load', () => {
@@ -92,15 +98,15 @@ function appendItemsController() {
 }
 
 function addEventHandlers() {
-  eventHandlers.openAddRestaurantModal();
-  eventHandlers.openRestaurantInfoModal(appendRestaurantInfoContents);
-  eventHandlers.readNewRestaurant(updateRestaurantElements);
-  eventHandlers.closeModal();
-  eventHandlers.switchTab(updateRestaurantElements);
-  eventHandlers.sortRestaurantItems(updateRestaurantElements);
-  eventHandlers.filteringRestaurantItems(updateRestaurantElements);
-  eventHandlers.toggleFavoriteRestaurant(updateFavoriteIcon);
-  eventHandlers.deleteRestaurantItem(updateRestaurantElements);
+  openAddRestaurantModal();
+  openRestaurantInfoModal(appendRestaurantInfoContents);
+  readNewRestaurant(restaurantService.addRestaurant.bind(restaurantService), updateRestaurantElements);
+  closeModal();
+  switchTab(stateStore.updateState.bind(stateStore), updateRestaurantElements);
+  selectSortKey(stateStore.updateState.bind(stateStore), updateRestaurantElements);
+  selectCategory(stateStore.updateState.bind(stateStore), updateRestaurantElements);
+  toggleFavoriteButton(restaurantService.toggleFavorite.bind(restaurantService), updateFavoriteIcon);
+  deleteRestaurant(restaurantService.deleteRestaurant.bind(restaurantService), updateRestaurantElements);
 }
 
 function setRequired(element) {
@@ -193,7 +199,7 @@ function appendRestaurantInfo() {
 }
 
 function appendRestaurantInfoContents(id) {
-  const targetData = storeService.findRestaurantById(id);
+  const targetData = restaurantService.getRestaurantById(id);
   const contents = createRestaurantInfo(targetData);
 
   const targetModal = document.querySelector('.restaurant-info-modal > .modal-container');
@@ -228,6 +234,7 @@ function updateFavoriteIcon(id, favorite) {
   });
 
   const { isFavoriteTab } = stateStore.getState();
+
   if (isFavoriteTab) {
     updateRestaurantElements();
   }

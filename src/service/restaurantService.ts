@@ -1,5 +1,5 @@
 import StoreService from './StoreService.ts';
-import { Restaurant, RestaurantState } from '../../types/domain';
+import { Restaurant, RestaurantInput, RestaurantState } from '../../types/domain';
 import { STORE } from '../constants/database.ts';
 import sortRestaurants from '../domain/sortRestaurants.ts';
 import filterByFavorite from '../domain/filterByFavorite.ts';
@@ -9,10 +9,11 @@ export interface RestaurantService {
   restaurantManager: StoreService<Restaurant>;
   getRestaurants: () => Restaurant[];
   getRestaurantById: (id: number) => Restaurant;
-  addRestaurant: (restaurantData: Omit<Restaurant, 'id' | 'favorite'>) => void;
+  addRestaurant: (restaurantData: RestaurantInput) => void;
   updateRestaurant: (id: number, newProperty: Partial<Restaurant>) => void;
   deleteRestaurant: (id: number) => void;
   getFilteredRestaurants: (states: RestaurantState, restaurants: Restaurant[]) => Restaurant[];
+  toggleFavorite: (id: number) => void;
 }
 
 const restaurantService: RestaurantService = {
@@ -33,6 +34,7 @@ const restaurantService: RestaurantService = {
     this.restaurantManager.addData(restaurant);
   },
 
+  // 사용 X 가능성
   updateRestaurant(id, newProperty) {
     const existing = this.getRestaurantById(id);
     const updated = { ...existing, ...newProperty };
@@ -52,6 +54,15 @@ const restaurantService: RestaurantService = {
     const filteredRestaurants = sortRestaurants(sort, categoryFiltered);
 
     return filteredRestaurants;
+  },
+
+  toggleFavorite(id) {
+    const targetData = this.restaurantManager.findDataById(id);
+    const updateData = { favorite: !targetData.favorite };
+
+    this.updateRestaurant(id, updateData);
+
+    return updateData.favorite;
   },
 };
 
