@@ -319,3 +319,49 @@ input[name="link"] {
 
   cursor: not-allowed;
 }
+
+.tab-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  margin-top: 1rem;
+  padding: 0 1rem;
+
+  position: relative;
+}
+
+.tab-container::before {
+  content: "";
+
+  width: 95%;
+  height: 2px;
+
+  background-color: var(--grey-200);
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+
+  transform: translateX(-50%);
+
+  border-radius: 10px;
+}
+
+.tab-container button {
+  border: none;
+
+  margin: 0;
+
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.tab-container button.select-tab-active {
+  position: relative;
+
+  color: var(--primary-color);
+  border-bottom: 3px solid #ec4a0a;
+
+  border-radius: 0;
+}

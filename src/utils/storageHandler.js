@@ -49,4 +49,29 @@ export const storageHandler = {
 
     return favoriteItem.length > 0 ? favoriteItem[0].isFavorite : null;
   },
+  findFavoriteItem: (key, category, sort) => {
+    const favoriteItems = JSON.parse(localStorage.getItem(key)).filter(
+      (item) => item.isFavorite === true
+    );
+    if (!category) {
+      if (sort === "distance") {
+        return favoriteItems.sort((a, b) => a[sort] - b[sort]);
+      }
+      return favoriteItems.sort((a, b) =>
+        a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
+      );
+    }
+
+    const newData = favoriteItems.filter(
+      (item) => item.categoryTitle === category
+    );
+
+    if (sort === "distance") {
+      return newData.sort((a, b) => a[sort] - b[sort]);
+    }
+
+    return newData.sort((a, b) =>
+      a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
+    );
+  },
 };
