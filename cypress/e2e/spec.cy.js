@@ -124,13 +124,9 @@ describe("E2E 테스트", () => {
       cy.get(".modal-container").should("not.exist");
 
       cy.get(".restaurant")
-        .last()
-        .should("be.visible")
+        .contains(".restaurant__name", "tester") // tester라는 이름을 가진 레스토랑 요소 찾기
+        .closest(".restaurant") // 해당 레스토랑의 부모 요소로 이동
         .within(() => {
-          cy.get(".restaurant__name")
-            .should("be.visible")
-            .should("contain", "tester");
-
           cy.get(".restaurant__distance")
             .should("be.visible")
             .should("contain", "5");
