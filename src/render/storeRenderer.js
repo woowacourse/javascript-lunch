@@ -163,6 +163,7 @@ const storeRenderer = {
     const storeId = document
       .querySelector(".modal-container")
       .getAttribute("id");
+    console.log(JSON.stringify(storeId));
     window.localStorage.removeItem(JSON.stringify(storeId));
 
     const isFavorite = document
@@ -170,7 +171,6 @@ const storeRenderer = {
       .classList.contains("favorite-restaurant-button");
 
     storeList.deleteStore(storeId, isFavorite);
-    console.log(storeList.length);
 
     modalRenderer.closeModal();
     storeRenderer.removeStoreElements();

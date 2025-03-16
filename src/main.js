@@ -58,9 +58,7 @@ addEventListener("load", () => {
 
     const storeInfo = e.target.closest(".restaurant__info");
     if (!storeInfo) return;
-    // const store = e.target.closest(".restaurant");
     const storeId = e.target.closest(".restaurant").getAttribute("id");
-    // const storeName = storeInfo.querySelector(".restaurant__name").textContent;
     const store = storeList.filterByStoreId(storeId);
 
     initRenderer.setModal();

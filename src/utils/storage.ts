@@ -5,6 +5,7 @@ const storage = {
   setStorage: () => {
     if (window.localStorage.length === 0) {
       storeData.forEach((store) => {
+        console.log(JSON.stringify(store.id));
         window.localStorage.setItem(
           JSON.stringify(store.id),
           JSON.stringify(store)
@@ -25,7 +26,6 @@ const storage = {
 
   updateIsFavorite(id: string) {
     const store = window.localStorage.getItem(JSON.stringify(id));
-    console.log("store", store);
     if (store) {
       const jsonStore = JSON.parse(store);
       jsonStore.isFavorite = !jsonStore.isFavorite;
