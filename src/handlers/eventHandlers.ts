@@ -1,5 +1,5 @@
 import stateStore from '../store/stateStore.ts';
-import { restaurantStore, getNextRestaurantId, addRestaurant } from '../store/restaurantStore.ts';
+import { restaurantStore, getNextRestaurantId, addRestaurant, deleteRestaurant } from '../store/restaurantStore.ts';
 import { updateRestaurantListBasedOnActiveTab } from '../utils/updateRestaurantList.ts';
 
 function handleOpenModal() {
@@ -154,6 +154,17 @@ function handleRestaurantClick(
   if (closeBtn) {
     closeBtn.addEventListener('click', handleCloseModal);
   }
+
+  const deleteBtn = document.querySelector('.delete-button');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', (event) => handleRestaurantDelete(restaurantId, event));
+  }
+}
+
+export function handleRestaurantDelete(restaurantId: number, event: Event): void {
+  deleteRestaurant(restaurantId);
+  updateRestaurantListBasedOnActiveTab();
+  handleCloseModal(event);
 }
 
 let formSubmitHandler: (event: SubmitEvent) => void;

@@ -29,3 +29,10 @@ export function initRestaurantStore(): State[] {
   localStorage.setItem('restaurantStore', JSON.stringify([...RESTAURANTS]));
   return [...RESTAURANTS];
 }
+
+export function deleteRestaurant(restaurantId: number): void {
+  const updatedStore = restaurantStore.filter((restaurant) => restaurant.id !== restaurantId);
+  restaurantStore.length = 0;
+  restaurantStore.push(...updatedStore);
+  localStorage.setItem('restaurantStore', JSON.stringify(restaurantStore));
+}
