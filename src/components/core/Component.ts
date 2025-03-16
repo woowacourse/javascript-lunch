@@ -20,6 +20,7 @@ export default abstract class Component<State = Record<string, unknown>, Props =
   render() {
     const element = document.createElement('div');
     element.innerHTML = this.template();
+
     const elementFirstChild = element.firstElementChild as HTMLElement;
 
     if (!this.#element) this.#element = elementFirstChild;

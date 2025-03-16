@@ -15,13 +15,11 @@ interface RestaurantAddModalProps {
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
   template(): HTMLType {
     return html`
-      <div>
+      <form data-action="restaurant-create">
         <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form data-action="restaurant-create">
-          <section class="inputs"></section>
-          <section class="buttons"></section>
-        </form>
-      </div>
+        <section class="inputs"></section>
+        <section class="buttons"></section>
+      </form>
     `;
   }
 
