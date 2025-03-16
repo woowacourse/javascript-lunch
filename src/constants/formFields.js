@@ -12,6 +12,7 @@ import { validateRestaurantForm } from "../validation/validationForm.js";
 import { deepFreeze } from "../utils/deepFreeze.js";
 import { storageHandler } from "../utils/storageHandler.js";
 import { STORAGE_KEY_NAME } from "./storage.js";
+import $restaurantList from "../components/restaurant/restaurantItemList.js";
 
 const senseChangeRestaurantFormValue = () => {
   try {
@@ -29,20 +30,20 @@ const senseChangeRestaurantFormValue = () => {
 };
 
 const handleFilterItem = () => {
+  const restaurantContainer = document.querySelector(
+    ".restaurant-list-container"
+  );
+  restaurantContainer.replaceChildren();
+
   const category = document.getElementById("category-filter").value || null;
   const sort = document.getElementById("sorting-filter").value;
-  const filterList = storageHandler.filterItem(
+  const restaurantItems = storageHandler.filterItem(
     STORAGE_KEY_NAME,
     category,
     sort
   );
 
-  const restaurantList = document.querySelector(".restaurant-list");
-  restaurantList.replaceChildren();
-
-  filterList.forEach((item) => {
-    restaurantList.appendChild($restaurantItem(item));
-  });
+  restaurantContainer.appendChild($restaurantList(restaurantItems));
 };
 
 export const FORM_FIELDS = deepFreeze({

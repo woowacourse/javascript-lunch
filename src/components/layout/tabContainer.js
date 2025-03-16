@@ -1,6 +1,7 @@
+import $restaurantItem from "../restaurant/restaurantItem.js";
 import { STORAGE_KEY_NAME } from "../../constants/storage.js";
 import { storageHandler } from "../../utils/storageHandler.js";
-import $restaurantItem from "../restaurant/restaurantItem.js";
+import $restaurantList from "../restaurant/restaurantItemList.js";
 
 const activeTabEvent = (id) => {
   const currentActiveTab = document.querySelector(".select-tab-active");
@@ -11,35 +12,32 @@ const activeTabEvent = (id) => {
 
 const toggleTabClick = (e) => {
   activeTabEvent(e.target.id);
-  const restaurantList = document.querySelector(".restaurant-list");
-  restaurantList.replaceChildren();
+
+  const restaurantContainer = document.querySelector(
+    ".restaurant-list-container"
+  );
+  restaurantContainer.replaceChildren();
 
   const categoryFilter = document.getElementById("category-filter").value;
   const sortFilter = document.getElementById("sorting-filter").value;
   let restaurantItems;
-  if (e.target.id === "favorite") {
-    restaurantItems = storageHandler.findFavoriteItem(
-      STORAGE_KEY_NAME,
-      categoryFilter,
-      sortFilter
-    );
-  } else {
+  if (e.target.id === "all") {
     restaurantItems = storageHandler.filterItem(
       STORAGE_KEY_NAME,
       categoryFilter,
       sortFilter
     );
   }
-  if (restaurantItems.length > 0) {
-    return restaurantItems.forEach((item) => {
-      restaurantList.appendChild($restaurantItem(item));
-    });
+
+  if (e.target.id === "favorite") {
+    restaurantItems = storageHandler.findFavoriteItem(
+      STORAGE_KEY_NAME,
+      categoryFilter,
+      sortFilter
+    );
   }
-  const noRestaurantBox = document.createElement("div");
-  const noRestaurant = document.createElement("p");
-  noRestaurant.id = "noRestaurant";
-  noRestaurant.textContent = "등록된 음식점이 없습니다.";
-  restaurantList.appendChild(noRestaurant);
+
+  restaurantContainer.appendChild($restaurantList(restaurantItems));
 };
 
 const $tabContainer = (tabs) => {
