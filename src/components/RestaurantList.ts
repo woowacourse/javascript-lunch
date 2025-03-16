@@ -141,13 +141,13 @@ export default class RestaurantList extends Component<RestaurantListState> {
     EventHandler.attachEventHandler(
       'click',
       (_, target) => this._toggleLike(target.dataset.id ?? ''),
-      'like-restaurant',
+      'restaurant-like',
     );
 
     EventHandler.attachEventHandler(
       'click',
       () => this._deleteRestaurant(this.state.currentRestaurant?.id ?? ''),
-      'delete-restaurant',
+      'restaurant-delete',
     );
 
     EventHandler.attachEventHandler(

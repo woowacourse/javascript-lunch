@@ -24,8 +24,8 @@ export default class RestaurantItem extends Component<null, RestaurantProps> {
           ${this.props?.isLike
             ? `<img src="images/star_filled.svg" alt="음식점 추가" data-id="${
                 this.props?.id ?? ''
-              }" data-action="like-restaurant" />`
-            : `<img src="images/star.svg" alt="음식점 추가" data-id="${this.props?.id ?? ''}" data-action="like-restaurant" />`}
+              }" data-action="restaurant-like" />`
+            : `<img src="images/star.svg" alt="음식점 추가" data-id="${this.props?.id ?? ''}" data-action="restaurant-like" />`}
         </div>
         <p class="restaurant__description text-body">${this.props?.description ?? ''}</p>
       </div>
