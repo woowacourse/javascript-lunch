@@ -3,7 +3,6 @@ import { ERROR_MESSAGE } from "../../../src/settings/errorMessages";
 describe("안되는 시나리오(경고창 나오는지 테스트)", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
-    cy.wait(2000);
   });
 
   it("모달 열기 테스트, 음식점 추가(음식점 이름을 15자를 입력하여 경고창을 발생시킨다.)", () => {

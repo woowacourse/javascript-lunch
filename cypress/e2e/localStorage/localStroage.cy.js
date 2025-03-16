@@ -8,7 +8,6 @@ describe("로컬 스토리지가 잘 되는지 확인하는 시나리오", () =>
   beforeEach(() => {
     cy.restoreLocalStorage();
     cy.visit("http://localhost:5173/");
-    cy.wait(2000);
   });
 
   afterEach(() => {
