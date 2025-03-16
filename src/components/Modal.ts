@@ -67,6 +67,10 @@ const createModal = ({
       id: "cancel-dialog-btn",
       className: "button button--secondary text-caption",
       text: "삭제하기",
+      onClick: () => {
+        console.log("delete");
+        modal.close();
+      },
     });
 
     const closeButton = createButton({
@@ -74,6 +78,10 @@ const createModal = ({
       id: "add-restaurant-btn",
       className: "button button--primary text-caption",
       text: "닫기",
+      onClick: () => {
+        console.log("close");
+        modal.close();
+      },
     });
 
     buttonContainer.appendChild(deleteButton);
