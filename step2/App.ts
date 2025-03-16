@@ -1,12 +1,12 @@
-import Header from './components/Header';
-import NavTab from './components/NavTab';
-import { Tab, TAB } from './constants/restaurantTypes';
-import { Category, Sorting } from './types/restaurants';
-import { useState } from './utils/core/Core';
-import { getStorage } from './utils/@common/localStorage';
-import useRestaurants from './hooks/useRestaurants';
-import RestaurantList from './components/RestaurantList';
-import FilterSection from './components/FilterSection';
+import FilterSection from './src/components/FilterSection';
+import Header from './src/components/Header';
+import NavTab from './src/components/NavTab';
+import RestaurantList from './src/components/RestaurantList';
+import { TAB, Tab } from './src/constants/restaurantTypes';
+import useRestaurants from './src/hooks/useRestaurants';
+import { Category, Sorting } from './src/types/restaurants';
+import { getStorage } from './src/utils/@common/localStorage';
+import { useState } from './src/utils/core/Core';
 
 type FilterOptions = {
   [K in 'category' | 'sorting']: K extends 'category' ? Category : Sorting;

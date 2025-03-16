@@ -1,8 +1,8 @@
 import App from './App';
-import RESTAURANT_INFO from './mocks/restaurantInfo';
-import { $ } from './utils/@common/domHelper';
-import { getStorage, saveStorage } from './utils/@common/localStorage';
-import { render } from './utils/core/Core';
+import RESTAURANT_INFO from './src/mocks/restaurantInfo';
+import { $ } from './src/utils/@common/domHelper';
+import { getStorage, saveStorage } from './src/utils/@common/localStorage';
+import { render } from './src/utils/core/Core';
 
 const initializeData = () => {
   const existingRestaurants = getStorage();
