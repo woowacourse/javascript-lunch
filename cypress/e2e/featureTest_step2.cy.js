@@ -168,4 +168,44 @@ describe('step2 기능 테스트', () => {
       cy.get('.restaurant-list .restaurant').should('not.exist');
     });
   })
+
+  describe('자주 가는 음식점 추가 테스트', () => {
+    it('사용자가 음식점 리스트에서 별을 누르면 자주 가는 음식점에 추가되고, 자주 가는 음식점 탭을 눌렀을 때 추가한 음식점이 표시된다.', () => {
+      cy.get('.restaurant-list .restaurant').first().as('firstRestaurant');
+
+      cy.get('@firstRestaurant').find('.favorite-star').click();
+
+      cy.get('#favorites').click();
+
+      cy.get('.restaurant-list .restaurant').should('have.length', 1);
+
+      cy.get('@firstRestaurant')
+        .find('.restaurant__name')
+        .invoke('text')
+        .then((restaurantName) => {
+          cy.get('.restaurant-list .restaurant .restaurant__name').should('have.text', restaurantName);
+        });
+    });
+
+    it('사용자가 음식점 상세 모달에서 별을 누르면 자주 가는 음식점에 추가되고, 모달창을 닫고 자주 가는 음식점 탭을 눌렀을 때 추가한 음식점이 표시된다.', () => {
+      cy.get('.restaurant-list .restaurant').first().as('firstRestaurant'); // 첫 번째 음식점 선택
+
+      cy.get('@firstRestaurant').click();
+      cy.get('.modal--open').should('exist');
+
+      cy.get('.modal .favorite-star').click();
+      cy.get('.close-button').click();
+      cy.get('.modal--open').should('not.exist');
+      cy.get('#favorites').click();
+
+      cy.get('.restaurant-list .restaurant').should('have.length', 1);
+
+      cy.get('@firstRestaurant')
+        .find('.restaurant__name')
+        .invoke('text')
+        .then((restaurantName) => {
+          cy.get('.restaurant-list .restaurant .restaurant__name').should('have.text', restaurantName);
+        });
+    });
+  });
 });
