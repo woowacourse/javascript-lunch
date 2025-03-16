@@ -4,18 +4,20 @@ import removeModal from "../utils/removeModal.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 import { setupTabEventListeners } from "./tabHandler.ts";
 import { setupFilterEventListeners } from "./filterHandler.ts";
+import { Restaurant } from "../../types/Restaurant.ts";
 
-let selectedRestaurantId = null;
-let eventListenersAttached = false;
+let selectedRestaurantId : number | null = null;
+let eventListenersAttached : boolean = false;
 
-export function handleRestaurantClick(e) {
-  const $clickedItem = e.target.closest(".restaurant");
+export function handleRestaurantClick(e : MouseEvent):void{
+  const $clickedItem = (e.target as HTMLElement).closest(".restaurant") as HTMLElement | null;
 
   if (!$clickedItem || $clickedItem.classList.contains("modal-restaurant")) {
     return;
   }
 
-  const { restaurantId } = $clickedItem.dataset;
+ const restaurantId = $clickedItem.dataset.restaurantId;
+
 
   selectedRestaurantId = Number(restaurantId);
   const selectedRestaurant = initialRestaurants.find(
@@ -26,15 +28,16 @@ export function handleRestaurantClick(e) {
   setupAddDetailtModal($appContainer, selectedRestaurant);
 }
 
-export function handleDeleteRestaurant(e) {
+export function handleDeleteRestaurant(e : MouseEvent) : void{
   e.preventDefault();
   e.stopPropagation(); // 이벤트 버블링 방지
 
-  const $restaurantList = document.querySelector(".restaurant-list");
+  const $restaurantList = document.querySelector(".restaurant-list") as HTMLElement;
   const $restaurantItems = $restaurantList.querySelectorAll(".restaurant");
 
   $restaurantItems.forEach((item) => {
-    if (Number(item.dataset.restaurantId) === Number(selectedRestaurantId)) {
+    const restaurantItemId = (item as HTMLElement).dataset.restaurantId
+    if (Number(restaurantItemId) === Number(selectedRestaurantId)) {
       item.remove();
     }
   });
@@ -49,7 +52,7 @@ export function handleDeleteRestaurant(e) {
   }, 10);
 }
 
-function handleCloseModal(e) {
+function handleCloseModal(e : MouseEvent) : void{
   if (e) {
     e.preventDefault();
     e.stopPropagation(); // 이벤트 버블링 방지
@@ -65,7 +68,7 @@ function handleCloseModal(e) {
   }, 10);
 }
 
-function handleModalBackdropClick(e) {
+function handleModalBackdropClick(e : MouseEvent) {
   e.preventDefault();
   e.stopPropagation(); // 이벤트 버블링 방지
 
@@ -81,7 +84,7 @@ function handleModalBackdropClick(e) {
 }
 
 // 모든 이벤트 리스너를 재설정하는 함수
-function resetAllEventListeners() {
+function resetAllEventListeners() : void {
   setupTabEventListeners();
   setupRestaurantItemEventListeners();
   setupFilterEventListeners();
@@ -89,41 +92,41 @@ function resetAllEventListeners() {
 }
 
 // 모달의 모든 이벤트 리스너를 제거하는 함수
-function removeAllModalEventListeners() {
+function removeAllModalEventListeners() : void {
   if (!eventListenersAttached) return;
 
-  const $deleteButton = document.querySelector("#delete--restaurant");
+  const $deleteButton = document.querySelector("#delete--restaurant") 
   const $closeButton = document.querySelector("#close--modal");
   const $modalBackdrop = document.querySelector(".modal-backdrop");
 
   if ($deleteButton) {
-    $deleteButton.removeEventListener("click", handleDeleteRestaurant);
+    $deleteButton.removeEventListener("click", handleDeleteRestaurant as EventListener);
   }
 
   if ($closeButton) {
-    $closeButton.removeEventListener("click", handleCloseModal);
+    $closeButton.removeEventListener("click", handleCloseModal as EventListener);
   }
 
   if ($modalBackdrop) {
-    $modalBackdrop.removeEventListener("click", handleModalBackdropClick);
+    $modalBackdrop.removeEventListener("click", handleModalBackdropClick as EventListener);
   }
 
   eventListenersAttached = false;
 }
 
-export function setupRestaurantItemEventListeners() {
+export function setupRestaurantItemEventListeners() : void{
   const $restaurantItems = document.querySelectorAll(
     ".restaurant:not(.modal-restaurant)",
   );
 
   $restaurantItems.forEach((item) => {
     // 클릭 이벤트를 한 번만 추가하기 위해 기존 리스너 제거
-    item.removeEventListener("click", handleRestaurantClick);
-    item.addEventListener("click", handleRestaurantClick);
+    item.removeEventListener("click", handleRestaurantClick as EventListener);
+    item.addEventListener("click", handleRestaurantClick as EventListener);
   });
 }
 
-export function setupAddDetailtModal($container, selectedRestaurant) {
+export function setupAddDetailtModal($container: HTMLElement, selectedRestaurant : Restaurant) : void{
   // 새 모달 추가 전에 기존 모달 제거
   const existingModal = document.querySelector(".modal");
   if (existingModal) {
@@ -139,19 +142,19 @@ export function setupAddDetailtModal($container, selectedRestaurant) {
   const $modalBackdrop = document.querySelector(".modal-backdrop");
 
   if ($deleteButton) {
-    $deleteButton.addEventListener("click", handleDeleteRestaurant);
+    $deleteButton.addEventListener("click", handleDeleteRestaurant as EventListener);
   } else {
     console.warn("삭제 버튼을 DOM에서 찾을 수 없습니다.");
   }
 
   if ($closeButton) {
-    $closeButton.addEventListener("click", handleCloseModal);
+    $closeButton.addEventListener("click", handleCloseModal as EventListener);
   } else {
     console.warn("모달 닫기 버튼을 DOM에서 찾을 수 없습니다.");
   }
 
   if ($modalBackdrop) {
-    $modalBackdrop.addEventListener("click", handleModalBackdropClick);
+    $modalBackdrop.addEventListener("click", handleModalBackdropClick as EventListener);
   }
 
   eventListenersAttached = true;

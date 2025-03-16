@@ -1,5 +1,5 @@
 import { applyFilter } from "./filterHandler.ts";
-import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
+import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
 import { TabButton } from "../../types/DomTypes.ts";
 
 interface TabState {

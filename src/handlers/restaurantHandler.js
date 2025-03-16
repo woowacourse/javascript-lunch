@@ -10,7 +10,7 @@ import RestaurantItem from "../components/RestaurantItem.js";
 import { generateId } from "../utils/generateId.js";
 import { storeRestaurants } from "../utils/localStorage.ts";
 import { initialRestaurants } from "../data/initialRestaurants.ts";
-import { setupRestaurantItemEventListeners } from "./detailModalHandler.js";
+import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
 import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 
 export function handleDeleteRestaurant(e) {
