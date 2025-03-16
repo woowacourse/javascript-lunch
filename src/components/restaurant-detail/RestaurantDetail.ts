@@ -135,11 +135,9 @@ export default class RestaurantDetail {
 
     this.$name.textContent = this.name;
     this.$distance.textContent = `캠퍼스부터 ${this.distance}분 내`;
-    if (this.description) this.$description.textContent = this.description;
-    if (this.link) {
-      this.$link.textContent = this.link;
-      this.$link.setAttribute("href", this.link);
-    }
+    this.$description.textContent = this.description;
+    this.$link.textContent = this.link;
+    this.$link.setAttribute("href", this.link);
 
     this.$favoriteImg.setAttribute(
       "src",
@@ -170,8 +168,8 @@ export default class RestaurantDetail {
     this.category = category;
     this.name = name;
     this.distance = distance;
-    if (description) this.description = description;
-    if (link) this.link = link;
+    this.description = description;
+    this.link = link;
     this.isFavorite = isFavorite;
 
     this.#updateContent();

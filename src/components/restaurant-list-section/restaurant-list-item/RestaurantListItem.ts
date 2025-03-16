@@ -79,7 +79,7 @@ export default class RestaurantListItem {
 
     const $description = document.createElement("p");
     $description.className = "restaurant__description text-body";
-    if (this.description) $description.textContent = this.description;
+    $description.textContent = this.description;
 
     const $favoriteButton = document.createElement("button");
     $favoriteButton.className = "favorite-button";

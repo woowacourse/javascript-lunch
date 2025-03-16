@@ -12,8 +12,8 @@ export interface Restaurant {
   category: Exclude<Category, "전체">;
   name: string;
   distance: Distance;
-  description?: string;
-  link?: UrlString;
+  description: string;
+  link: UrlString;
   isFavorite: boolean;
 }
 
