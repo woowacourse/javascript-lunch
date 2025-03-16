@@ -1,5 +1,5 @@
 import { parseJSON, stringifyJSON } from '../utils/data.ts';
-import store from '../database/store.ts';
+import store from '../data/store.ts';
 import { BaseData } from '../../types/domain';
 
 class StoreService<T extends BaseData> {
