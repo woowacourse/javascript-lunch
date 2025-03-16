@@ -3,12 +3,13 @@ import header from "./components/Header";
 import Modal from "./components/common/Modal";
 import Title from "./components/common/Title";
 import RegisterForm from "./components/RegisterForm";
-import { registerModalClose } from "./components/common/Modal/registerModalClose";
+import modalClose from "./components/common/Modal/modalClose.js";
 import Restaurant from "./domain/Restaurant";
 import RestaurantList from "./domain/RestaurantList";
 import Tab from "./components/Tab";
 import storage from "./domain/storage.ts";
 import { restaurants } from "./restaurantListData";
+import { clearInput } from "./utils/clearInput.js";
 
 addEventListener("load", () => {
   initStorage();
@@ -30,7 +31,10 @@ addEventListener("load", () => {
 
   $("main").appendChild(
     Modal({
-      handleCloseModal: registerModalClose,
+      handleClickBackDrop: () => {
+        modalClose("#register-modal-backdrop");
+        clearInput("#register-form");
+      },
       id: "register-modal-backdrop",
       classNames: ["register-modal"],
       contents: [
@@ -44,8 +48,8 @@ addEventListener("load", () => {
     Modal({
       id: "restaurant-detail-modal-backdrop",
       classNames: ["restaurant-detail-modal"],
-      handleCloseModal: () => {
-        $("#restaurant-detail-modal-backdrop").classList.remove("open");
+      handleClickBackDrop: () => {
+        modalClose("#restaurant-detail-modal-backdrop");
       },
     })
   );
