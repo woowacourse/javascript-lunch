@@ -1,22 +1,24 @@
-class StoreList {
-  #list;
-  #filteredList;
+import IList from "../interfaces/IList.interface";
 
-  constructor(data) {
+class StoreList {
+  #list: IList[];
+  #filteredList: IList[];
+
+  constructor(data: IList[]) {
     this.#list = data;
     this.#filteredList = data;
     this.sortStoreList("name");
   }
 
-  get list() {
+  get list(): IList[] {
     return this.#list;
   }
 
-  get filteredList() {
+  get filteredList(): IList[] {
     return this.#filteredList;
   }
 
-  updateList(store, isFavorite) {
+  updateList(store: IList, isFavorite: boolean) {
     this.#list.push(store);
     if (isFavorite)
       this.#filteredList = this.#list.filter((store) => store.isFavorite);
@@ -24,7 +26,7 @@ class StoreList {
     this.sortStoreList("name");
   }
 
-  deleteStore(id, isFavorite) {
+  deleteStore(id: string, isFavorite: boolean) {
     this.#list = this.#list.filter((store) => store.id !== id);
     if (isFavorite) {
       this.#filteredList = this.#list.filter(
@@ -34,7 +36,7 @@ class StoreList {
     this.sortStoreList("name");
   }
 
-  filterByMenuBar(isFavorite) {
+  filterByMenuBar(isFavorite: boolean): IList[] {
     if (!isFavorite) return this.#list;
     else {
       this.#filteredList = this.#list.filter(
@@ -44,11 +46,11 @@ class StoreList {
     }
   }
 
-  filterByStoreName(name) {
+  filterByStoreName(name: string): IList | undefined {
     return this.#list.find((store) => store.name === name);
   }
 
-  filterStoreList(category, isFavorite) {
+  filterStoreList(category: string, isFavorite: boolean) {
     if (isFavorite) {
       if (category === "전체")
         this.#filteredList = this.#list.filter((store) => store.isFavorite);
@@ -62,13 +64,13 @@ class StoreList {
     else this.#filteredList = this.#list.filter((l) => l.category === category);
   }
 
-  sortStoreList(sortBy) {
+  sortStoreList(sortBy: string) {
     if (sortBy === "name")
       this.#filteredList.sort((a, b) =>
         a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
       );
     if (sortBy === "distance")
-      this.#filteredList.sort((a, b) => a.dist - b.dist);
+      this.#filteredList.sort((a, b) => Number(a.dist) - Number(b.dist));
   }
 }
 

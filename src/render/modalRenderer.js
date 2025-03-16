@@ -6,7 +6,7 @@ import TextInput from "../components/TextInput.js";
 import helpText from "../constants/helpText.js";
 import options from "../constants/options.js";
 import querySelector from "../utils/querySelector.js";
-import validate from "../utils/validate.js";
+import validate from "../utils/validate.ts";
 import initRenderer from "./initRenderer.js";
 
 const modalRenderer = {

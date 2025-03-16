@@ -1,4 +1,4 @@
-import validate from "../src/utils/validate.js";
+import validate from "../src/utils/validate.ts";
 import errorMessage from "../src/constants/message.js";
 
 describe("validate", () => {

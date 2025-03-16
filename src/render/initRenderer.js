@@ -3,10 +3,10 @@ import Modal from "../components/Modal.js";
 import Select from "../components/Select.js";
 import options from "../constants/options.js";
 import storeData from "../data/storeData.js";
-import StoreList from "../class/StoreList.js";
+import StoreList from "../class/StoreList.ts";
 import storeRenderer from "./storeRenderer.js";
 import querySelector from "../utils/querySelector.js";
-import storage from "../data/storage.js";
+import storage from "../utils/storage.ts";
 
 const initRenderer = {
   setHeader: (title) => {

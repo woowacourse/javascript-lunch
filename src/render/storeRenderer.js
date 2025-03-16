@@ -1,8 +1,8 @@
 import Store from "../components/Store.js";
 import IMG_SRC from "../constants/imgSrc.js";
-import storage from "../data/storage.js";
+import storage from "../utils/storage.ts";
 import querySelector from "../utils/querySelector.js";
-import validate from "../utils/validate.js";
+import validate from "../utils/validate.ts";
 import modalRenderer from "./modalRenderer.js";
 import { v4 as uuidv4 } from "uuid";
 

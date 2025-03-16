@@ -1,4 +1,4 @@
-import storeData from "./storeData.js";
+import storeData from "../data/storeData.js";
 
 const storage = {
   setStorage: () => {
@@ -23,7 +23,6 @@ const storage = {
 
   updateIsFavorite(id) {
     const store = JSON.parse(window.localStorage.getItem(JSON.stringify(id)));
-    console.log(store);
     store.isFavorite = !store.isFavorite;
     window.localStorage.setItem(
       JSON.stringify(store.id),

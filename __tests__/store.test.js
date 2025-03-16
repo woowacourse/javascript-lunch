@@ -1,4 +1,4 @@
-import StoreList from "../src/storeList.js";
+import StoreList from "../src/class/storeList.ts";
 
 describe("식당 테스트", () => {
   it("식당 추가", () => {

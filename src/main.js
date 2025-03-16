@@ -1,5 +1,5 @@
 import querySelector from "./utils/querySelector.js";
-import StoreList from "./class/StoreList.js";
+import StoreList from "./class/StoreList.ts";
 import storeData from "./data/storeData.js";
 import Modal from "./components/Modal.js";
 import Select from "./components/Select.js";
@@ -71,7 +71,7 @@ addEventListener("load", () => {
 
     const icon = querySelector(".modal-container").querySelector(".star-icon");
     icon.addEventListener("click", (e) => {
-      console.log(e.target);
+      console.log("favorite click");
       const storeId = e.target.closest(".modal-container").getAttribute("id");
       storeRenderer.toggleFavorite(storeList, icon, storeId);
       storeRenderer.removeStoreElements();
