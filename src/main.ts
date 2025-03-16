@@ -80,8 +80,8 @@ export function renderRestaurantInfoContents(id: number) {
   const targetData = restaurantService.getRestaurantById(id);
   const contents = createRestaurantInfo(targetData);
 
-  const targetModal = selectElement('.restaurant-info-modal > .modal-container') as HTMLDivElement;
-  const prevInformation = selectElement('.restaurant', targetModal);
+  const targetModal = document.querySelector('.restaurant-info-modal > .modal-container') as HTMLElement;
+  const prevInformation = targetModal.querySelector('.restaurant');
 
   if (prevInformation) {
     targetModal.removeChild(prevInformation);
@@ -91,7 +91,7 @@ export function renderRestaurantInfoContents(id: number) {
 }
 
 export function updateFavoriteIcon(id: number, favorite: boolean) {
-  const targetItems = selectElements(`[data-id="${id}"]`) as NodeListOf<HTMLElement>;
+  const targetItems = document.querySelectorAll(`[data-id="${id}"]`);
 
   targetItems.forEach((target) => {
     const imageElement = target.querySelector('.restaurant__favorite > img') as HTMLImageElement;
