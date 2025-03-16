@@ -31,7 +31,10 @@ class Restaurant extends Component {
   onRender() {
     const $restaurant = this.element.querySelector('.restaurant');
     const detailModal = new DetailModal({
-      content: this.template(),
+      content: `
+      ${this.template()}
+      <a href="${this.props.link}" target="_blank">${this.props.link}</a>
+      `,
     });
     this.element.appendChild(detailModal.element);
 
