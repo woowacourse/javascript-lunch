@@ -2,7 +2,7 @@ import $button from "../common/button.js";
 import $buttonContainer from "../layout/buttonContainer.js";
 import $inputItem from "../form/input-item.js";
 import $form from "../form/form.js";
-import $restaurantItem from "../restaurant/restaurantItem.js";
+import $createRestaurantList from "./restaurantItemList.js";
 import { UI_CONFIG } from "../../constants/uiConfig.js";
 import { FORM_FIELDS } from "../../constants/formFields.js";
 import { handleModalClose, handleModalOpen } from "../modal/modal.js";
@@ -28,15 +28,11 @@ const addRestaurant = (data) => {
     id: new Date(),
     isFavorite: false,
   };
-  document
-    .querySelector(".restaurant-list")
-    .prepend($restaurantItem(newRestaurant));
 
   const currentItem = storageHandler.getItem(STORAGE_KEY_NAME);
   storageHandler.setItem(STORAGE_KEY_NAME, [...currentItem, newRestaurant]);
 
-  const noRestaurant = document.getElementById("noRestaurant");
-  if (noRestaurant) noRestaurant.remove();
+  $createRestaurantList();
 };
 
 const handleAddRestaurant = (e) => {
