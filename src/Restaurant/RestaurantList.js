@@ -6,25 +6,41 @@ import createCategoryFilter from "../components/Filter/CategoryFilter";
 import createSortFilter from "../components/Filter/SortFilter";
 
 class RestaurantList {
-  selectedCategory = "전체";
-  selectedSort = "이름순";
-  selectedTab = "allTab";
+  selectedCategory;
+  selectedSort;
+  selectedTab;
 
   constructor() {
-    this.restaurants = [...restaurantsData];
+    const storedRestaurants = JSON.parse(localStorage.getItem("restaurants"));
+    this.restaurants = storedRestaurants
+      ? storedRestaurants
+      : [...restaurantsData];
+
+    const storedCategory = JSON.parse(localStorage.getItem("category"));
+    const storedSort = JSON.parse(localStorage.getItem("sort"));
+    const storedTab = JSON.parse(localStorage.getItem("tab"));
+
+    this.selectedCategory = storedCategory ? storedCategory : "전체";
+    this.selectedSort = storedSort ? storedSort : "이름순";
+    this.selectedTab = storedTab ? storedTab : "allTab";
+
     this.restaurantListElement = null;
   }
 
   setSelectedCategory(category) {
+    console.log(category);
+    localStorage.setItem("category", JSON.stringify(category));
     this.selectedCategory = category;
   }
 
   setSelectedSort(sortOption) {
     this.selectedSort = sortOption;
+    localStorage.setItem("sort", JSON.stringify(sortOption));
   }
 
   setSelectedTab(tab) {
     this.selectedTab = tab;
+    localStorage.setItem("tab", JSON.stringify(tab));
   }
 
   createRestaurantList() {
@@ -116,6 +132,7 @@ class RestaurantList {
   }
 
   render() {
+    localStorage.setItem("restaurants", JSON.stringify(this.restaurants));
     this.restaurantListElement.innerHTML = "";
 
     if (this.selectedTab === "allTab") {
