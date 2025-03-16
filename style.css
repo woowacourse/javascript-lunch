@@ -201,8 +201,17 @@ body {
 .restaurant__star.favorite {
   background-image: url('public/images/Star.png');
 }
+
+.restaurant__column {
+  flex-direction: column;
+}
+
 .restaurant__name {
   margin: 0;
+}
+
+.restaurant__detail__description {
+  padding: 20px 0;
 }
 
 .restaurant__distance {

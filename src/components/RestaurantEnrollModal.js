@@ -100,7 +100,7 @@ function createRestaurantEnrollModal(onEnroll) {
         return;
       }
 
-      restaurantInput.categoryImgSrc = `./category-${
+      restaurantInput.categoryImgSrc = `./images/category-${
         CATEGORY_IMAGES[restaurantInput.category]
       }.png`;
 
