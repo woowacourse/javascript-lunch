@@ -2,7 +2,7 @@ import { parseJSON, stringifyJSON } from '../utils/data.ts';
 import store from '../data/store.ts';
 import { BaseData } from '../../types/domain';
 
-class StoreService<T extends BaseData> {
+class DataService<T extends BaseData> {
   #key: string;
 
   constructor(key: string) {
@@ -65,4 +65,4 @@ class StoreService<T extends BaseData> {
   }
 }
 
-export default StoreService;
+export default DataService;

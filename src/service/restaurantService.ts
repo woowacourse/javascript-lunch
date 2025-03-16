@@ -1,4 +1,4 @@
-import StoreService from './StoreService.ts';
+import DataService from './DataService.ts';
 import { Restaurant, RestaurantInput, RestaurantState } from '../../types/domain';
 import { STORE } from '../constants/database.ts';
 import sortRestaurants from '../domain/sortRestaurants.ts';
@@ -6,7 +6,7 @@ import filterByFavorite from '../domain/filterByFavorite.ts';
 import filterByCategory from '../domain/filterByCategory.ts';
 
 export interface RestaurantService {
-  restaurantManager: StoreService<Restaurant>;
+  restaurantManager: DataService<Restaurant>;
   getRestaurants: () => Restaurant[];
   getRestaurantById: (id: number) => Restaurant;
   addRestaurant: (restaurantData: RestaurantInput) => void;
@@ -17,7 +17,7 @@ export interface RestaurantService {
 }
 
 const restaurantService: RestaurantService = {
-  restaurantManager: new StoreService<Restaurant>(STORE.restaurantsKey),
+  restaurantManager: new DataService<Restaurant>(STORE.restaurantsKey),
 
   getRestaurants() {
     return this.restaurantManager.getDataList();
