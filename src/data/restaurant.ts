@@ -10,21 +10,6 @@ export type Restaurant = {
   isFavorite: boolean;
 };
 
-export const saveRestaurantsToLocalStorage = (restaurants: Restaurant[]) => {
-  if (!localStorage.getItem("restaurants")) {
-    localStorage.setItem("restaurants", JSON.stringify(restaurantData));
-    console.log(JSON.stringify(restaurantData));
-  }
-  else localStorage.setItem("restaurants", JSON.stringify(restaurants));
-};
-
-export const getRestaurantsFromLocalStorage = () => {
-  const storedData = localStorage.getItem("restaurants");
-  return storedData ? JSON.parse(storedData) : [];
-};
-
-export let currentRestaurantData: Restaurant[] = getRestaurantsFromLocalStorage();
-
 export const restaurantData: Restaurant[] = [
   {
     dataId: 1,
@@ -95,3 +80,22 @@ export const restaurantData: Restaurant[] = [
     isFavorite: false,
   },
 ];
+
+export const saveRestaurantsToLocalStorage = (restaurants: Restaurant[]) => {
+  if (!localStorage.getItem("restaurants")) {
+    localStorage.setItem("restaurants", JSON.stringify(restaurantData));
+    console.log(JSON.stringify(restaurantData));
+  }
+  else localStorage.setItem("restaurants", JSON.stringify(restaurants));
+};
+
+export const getRestaurantsFromLocalStorage = () => {
+  const storedData = localStorage.getItem("restaurants");
+  if (!storedData) {
+    localStorage.setItem("restaurants", JSON.stringify(restaurantData));
+    return restaurantData;
+  }
+  return JSON.parse(storedData);
+};
+
+export let currentRestaurantData: Restaurant[] = getRestaurantsFromLocalStorage();

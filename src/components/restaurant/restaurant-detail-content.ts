@@ -17,7 +17,7 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   restaurantHeader.classList.add("restaurant-header");
 
   const iconContainer = document.createElement("div");
-  iconContainer.classList.add("restaurant_datail_category");
+  iconContainer.classList.add("restaurant_detail_category");
 
   const categoryIcon = document.createElement("img");
   categoryIcon.src = restaurant.categoryIcon;

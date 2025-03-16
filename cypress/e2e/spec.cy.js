@@ -82,7 +82,7 @@ describe("점심 뭐 먹지 - E2E 테스트", () => {
     });
 
     it("이름을 입력하지 않은 경우", () => {
-      fillRestaurantForm({ category:"중식", distance: "5" });
+      fillRestaurantForm({ category: "중식", distance: "5" });
       submitForm();
       cy.on("window:alert", (message) => {
         expect(message).to.equal("이름(은)는 필수 값입니다.");
@@ -90,7 +90,7 @@ describe("점심 뭐 먹지 - E2E 테스트", () => {
     });
 
     it("이름에 공백이 입력된 경우", () => {
-      fillRestaurantForm({ category:"중식", name:"  ", distance: "5" });
+      fillRestaurantForm({ category: "중식", name: "  ", distance: "5" });
       submitForm();
       cy.on("window:alert", (message) => {
         expect(message).to.equal("이름(은)는 필수 값입니다.");
@@ -98,11 +98,115 @@ describe("점심 뭐 먹지 - E2E 테스트", () => {
     });
 
     it("거리를 입력하지 않은 경우", () => {
-      fillRestaurantForm({ category:"중식", name: "째쟁면" });
+      fillRestaurantForm({ category: "중식", name: "째쟁면" });
       submitForm();
       cy.on("window:alert", (message) => {
         expect(message).to.equal("거리(도보 이동 시간)(은)는 필수 값입니다.");
       });
+    });
+  });
+
+  it("음식점 목록에서 카테고리별 필터링과 정렬 기능이 동작해야 한다", () => {
+    cy.get("#category-filter").select("한식");
+    cy.get(".restaurant-list")
+      .find(".restaurant__category img")
+      .each(($img) => {
+        cy.wrap($img).should("have.attr", "alt").and("include", "한식");
+      });
+
+    cy.get("#sorting-filter").select("이름순");
+    cy.get(".restaurant-list .restaurant__name").then(($names) => {
+      const names = [...$names].map((el) => el.innerText.trim());
+      for (let i = 0; i < names.length - 1; i++) {
+        expect(names[i] <= names[i + 1]).to.be.true;
+      }
+    });
+
+    cy.get("#sorting-filter").select("거리순");
+    cy.get(".restaurant-list .restaurant__distance").then(($distances) => {
+      const distances = [...$distances].map((el) => {
+        const text = el.innerText.trim();
+        const match = text.match(/\d+/);
+        return match ? parseInt(match[0]) : 0;
+      });
+      for (let i = 0; i < distances.length - 1; i++) {
+        expect(distances[i]).to.be.at.most(distances[i + 1]);
+      }
+    });
+  });
+
+  it("음식점 상세 정보 모달에서 카테고리, 이름, 거리, 설명, 링크를 확인하고, 삭제할 수 있어야 한다", () => {
+    cy.get(".restaurant-list .restaurant").first().click();
+
+    cy.get(".restaurant__name").should("exist");
+    cy.get(".restaurant_detail_distance").should("exist");
+    cy.get(".restaurant_detail_description").should("exist");
+    cy.get(".restaurant_detail_link").should("exist");
+
+    cy.get("#delete-restaurant-button").should(
+      "have.attr",
+      "data-restaurant-id"
+    );
+    cy.get("#delete-restaurant-button").click();
+    cy.get(".restaurant-detail-modal").should("not.exist");
+    cy.get(".restaurant-list").should(
+      "not.contain",
+      cy.get(".restaurant__name").first().invoke("text")
+    );
+  });
+
+  it("자주 가는 음식점 탭에서 즐겨찾기 기능이 동작해야 한다", () => {
+    cy.get(".restaurant-list").within(() => {
+      cy.get(".button-favorite").first().click();
+    });
+
+    cy.get(".restaurant-list")
+      .find(".button-favorite")
+      .first()
+      .should("have.attr", "src")
+      .and("include", "star-filled.png");
+
+    cy.get('input[name="tab"][value="frequent"]').check({ force: true });
+    cy.get(".restaurant-list").within(() => {
+      cy.get(".restaurant").should("exist");
+      cy.get(".button-favorite")
+        .first()
+        .should("have.attr", "src")
+        .and("include", "star-filled.png");
+    });
+  });
+
+  it("음식점 상세 정보 모달에서 즐겨찾기 기능이 동작해야 한다", () => {
+    cy.get(".restaurant-list .restaurant").first().click();
+
+    cy.get(".restaurant-detail-modal").should("have.class", "modal--open");
+
+    cy.get(".restaurant-detail-modal .button-favorite")
+      .should("exist")
+      .should("have.attr", "src")
+      .and("include", "star-outline.png");
+
+    cy.get(".restaurant-detail-modal .button-favorite").click({ force: true });
+
+    cy.get(".restaurant-list")
+      .find(".button-favorite")
+      .first()
+      .should("have.attr", "src")
+      .and("include", "star-filled.png");
+  });
+
+  it("새로고침 후에도 추가한 정보들이 유지되어야 한다", () => {
+    cy.get(".restaurant-list").within(() => {
+      cy.get(".button-favorite").first().click();
+    });
+
+    cy.reload();
+
+    cy.get(".restaurant-list").within(() => {
+      cy.get(".button-favorite")
+        .first()
+        .should("have.attr", "src")
+        .and("include", "star-filled.png");
     });
   });
 });
