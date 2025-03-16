@@ -30,7 +30,6 @@
 }
 
 #restaurant_info_content {
-  height: 590px;
   display: flex;
   flex-direction: column;
 }
@@ -38,6 +37,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  z-index: 100;
 }
 
 #restaurant__info {
@@ -49,6 +49,7 @@
   height: 80px;
   width: 100%;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .favorite-icon {
@@ -59,7 +60,7 @@
 #restaurant__description {
   overflow: visible;
   line-height: 1.5;
-  height: 350px;
+  height: 200px;
 }
 
 .form-item {
