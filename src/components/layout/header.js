@@ -1,4 +1,4 @@
-import $createRestaurantForm from "../form/createRestaurantForm.js";
+import $createRestaurantForm from "../restaurant/createRestaurantForm.js";
 import { handleModalOpen } from "../modal/modal.js";
 
 const $headerTitle = ({ title }) => {

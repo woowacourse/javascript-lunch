@@ -1,8 +1,8 @@
 import $button from "../common/button.js";
-import $buttonContainer from "../layout/button-container.js";
-import $inputItem from "./input-item.js";
-import $form from "./form.js";
-import $restaurantItem from "../restaurant/restaurant-item.js";
+import $buttonContainer from "../layout/buttonContainer.js";
+import $inputItem from "../form/input-item.js";
+import $form from "../form/form.js";
+import $restaurantItem from "../restaurant/restaurantItem.js";
 import { UI_CONFIG } from "../../constants/uiConfig.js";
 import { FORM_FIELDS } from "../../constants/formFields.js";
 import { handleModalClose, handleModalOpen } from "../modal/modal.js";

@@ -1,7 +1,7 @@
 import $select from "../components/common/select.js";
 import $input from "../components/common/input.js";
 import $textarea from "../components/common/textarea.js";
-import $restaurantItem from "../components/restaurant/restaurant-item.js";
+import $restaurantItem from "../components/restaurant/restaurantItem.js";
 import {
   categoryOptions,
   distanceOptions,
