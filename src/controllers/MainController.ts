@@ -19,23 +19,15 @@ function MainController() {
 
   const allListContainerElement = mainElement.querySelector(".all-restaurant-list-container");
   const favoriteListContainerElement = mainElement.querySelector(".favorite-restaurant-list-container");
-  if (!allListContainerElement || !favoriteListContainerElement)
-    throw new Error("list-container 요소를 찾을 수 없습니다.");
+  if (!allListContainerElement || !favoriteListContainerElement) throw new Error("list-container 요소를 찾을 수 없습니다.");
 
   const restaurantList = new RestaurantList(LIST_ITEM_CONTENTS); // 도메인
 
   const { listElement, updateListView } = ListController(restaurantList);
   const { favoriteListElement, updateFavoriteListView } = FavoriteListController(restaurantList);
-  const { categorySortFilterContainerElement, updateCategorySortListView } =
-    CategorySortFilterController(updateListView);
-
-  const modalElement = ModalController({
-    updateCategorySortListView,
-    restaurantList,
-  });
-
+  const { categorySortFilterContainerElement, updateCategorySortListView } = CategorySortFilterController(updateListView);
+  const modalElement = ModalController({updateCategorySortListView, restaurantList});
   const tabContainerElement = TabController({ mainElement, updateCategorySortListView, updateFavoriteListView });
-
   const headerElement = HeaderController(modalElement);
 
   /*기존 돔에 추가*/
