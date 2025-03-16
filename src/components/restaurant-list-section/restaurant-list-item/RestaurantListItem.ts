@@ -1,3 +1,4 @@
+import { Restaurant } from "./../../../../types/interfaces.js";
 import {
   CATEGORY_ASSETS,
   EVENT_TYPES,
@@ -5,18 +6,49 @@ import {
 } from "../../../constants/constants.js";
 import "./restaurantListItem.css";
 
+interface listItemData {
+  id: Restaurant["id"];
+  category: Restaurant["category"];
+  name: Restaurant["name"];
+  distance: Restaurant["distance"];
+  description: Restaurant["description"];
+  isFavorite: Restaurant["isFavorite"];
+}
+
+interface RestaurantListItemProps {
+  listItemData: listItemData;
+  onToggleFavorite: (restaurantId: Restaurant["id"]) => void;
+  onOpenDetail: (restaurantId: Restaurant["id"]) => void;
+}
+
 export default class RestaurantListItem {
+  private id: listItemData["id"];
+  private category: listItemData["category"];
+  private name: listItemData["name"];
+  private distance: listItemData["distance"];
+  private description: listItemData["description"];
+  private isFavorite: listItemData["isFavorite"];
+
+  private onToggleFavorite: RestaurantListItemProps["onToggleFavorite"];
+  private onOpenDetail: RestaurantListItemProps["onOpenDetail"];
+
   constructor(
-    { id, name, category, description, distance, link, isFavorite },
-    onToggleFavorite,
-    onOpenDetail
+    {
+      id,
+      name,
+      category,
+      description,
+      distance,
+      isFavorite,
+    }: RestaurantListItemProps["listItemData"],
+    onToggleFavorite: RestaurantListItemProps["onToggleFavorite"],
+    onOpenDetail: RestaurantListItemProps["onOpenDetail"]
   ) {
     this.id = id;
     this.name = name;
     this.category = category;
     this.description = description;
     this.distance = distance;
-    this.link = link;
     this.isFavorite = isFavorite;
     this.onToggleFavorite = onToggleFavorite;
     this.onOpenDetail = onOpenDetail;
@@ -47,7 +79,7 @@ export default class RestaurantListItem {
 
     const $description = document.createElement("p");
     $description.className = "restaurant__description text-body";
-    $description.textContent = this.description;
+    if (this.description) $description.textContent = this.description;
 
     const $favoriteButton = document.createElement("button");
     $favoriteButton.className = "favorite-button";
@@ -72,8 +104,12 @@ export default class RestaurantListItem {
       this.onToggleFavorite(this.id);
     });
 
-    $item.addEventListener(EVENT_TYPES.click, (e) => {
-      if (!e.target.closest(".favorite-button")) {
+    $item.addEventListener(EVENT_TYPES.click, (e: MouseEvent) => {
+      if (
+        e.target &&
+        e.target instanceof HTMLElement &&
+        !e.target.closest(".favorite-button")
+      ) {
         this.onOpenDetail(this.id);
       }
     });

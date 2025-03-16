@@ -1,8 +1,16 @@
 import { EVENT_TYPES } from "../../constants/constants.js";
 import "./header.css";
 
+type OpenCallback = () => void;
+
+interface HeaderProps {
+  onOpen: OpenCallback;
+}
+
 export default class Header {
-  constructor({ onOpen }) {
+  private onOpen: OpenCallback;
+
+  constructor({ onOpen }: HeaderProps) {
     this.onOpen = onOpen;
   }
 

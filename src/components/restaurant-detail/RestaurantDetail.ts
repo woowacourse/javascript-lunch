@@ -1,3 +1,4 @@
+import { Restaurant } from "../../../types/interfaces.js";
 import {
   BUTTON_TEXTS,
   BUTTON_TYPES,
@@ -8,8 +9,40 @@ import {
 import Button from "../common/button/Button.js";
 import "./restaurantDetail.css";
 
+type ToggleFavoriteCallback = (restaurantId: Restaurant["id"]) => void;
+type DeleteCallback = (restaurantId: Restaurant["id"]) => void;
+type CloseCallback = () => void;
+
+interface RestaurantDetailProps {
+  onToggleFavorite: ToggleFavoriteCallback;
+  onDelete: DeleteCallback;
+  onClose: CloseCallback;
+}
+
 export default class RestaurantDetail {
-  constructor({ onToggleFavorite, onDelete, onClose }) {
+  private onToggleFavorite: ToggleFavoriteCallback;
+  private onDelete: DeleteCallback;
+  private onClose: CloseCallback;
+
+  private $form!: HTMLFormElement;
+  private $categoryImg!: HTMLImageElement;
+  private $name!: HTMLHeadingElement;
+  private $distance!: HTMLSpanElement;
+  private $description!: HTMLParagraphElement;
+  private $link!: HTMLAnchorElement;
+  private $favoriteButton!: HTMLButtonElement;
+  private $favoriteImg!: HTMLImageElement;
+  private $closeButton!: HTMLButtonElement;
+
+  private id!: Restaurant["id"];
+  private category!: Restaurant["category"];
+  private name!: Restaurant["name"];
+  private distance!: Restaurant["distance"];
+  private description!: Restaurant["description"];
+  private link!: Restaurant["link"];
+  private isFavorite!: Restaurant["isFavorite"];
+
+  constructor({ onToggleFavorite, onDelete, onClose }: RestaurantDetailProps) {
     this.onToggleFavorite = onToggleFavorite;
     this.onDelete = onDelete;
     this.onClose = onClose;
@@ -102,9 +135,11 @@ export default class RestaurantDetail {
 
     this.$name.textContent = this.name;
     this.$distance.textContent = `캠퍼스부터 ${this.distance}분 내`;
-    this.$description.textContent = this.description;
-    this.$link.textContent = this.link;
-    this.$link.setAttribute("href", this.link);
+    if (this.description) this.$description.textContent = this.description;
+    if (this.link) {
+      this.$link.textContent = this.link;
+      this.$link.setAttribute("href", this.link);
+    }
 
     this.$favoriteImg.setAttribute(
       "src",
@@ -116,19 +151,27 @@ export default class RestaurantDetail {
     return this.$form;
   }
 
-  #handleSubmit(e) {
+  #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
     this.onDelete(this.id);
     this.onClose();
   }
 
-  openDetail({ id, category, name, distance, description, link, isFavorite }) {
+  openDetail({
+    id,
+    category,
+    name,
+    distance,
+    description,
+    link,
+    isFavorite,
+  }: Restaurant) {
     this.id = id;
     this.category = category;
     this.name = name;
     this.distance = distance;
-    this.description = description;
-    this.link = link;
+    if (description) this.description = description;
+    if (link) this.link = link;
     this.isFavorite = isFavorite;
 
     this.#updateContent();

@@ -5,9 +5,25 @@ import RestaurantList from "./components/restaurant-list-section/restaurant-list
 import RestaurantFilter from "./components/restaurant-filter-section/RestaurantFilter.js";
 import RestaurantNavBar from "./components/restaurant-nav-bar/RestaurantNavBar.js";
 import RestaurantDetail from "./components/restaurant-detail/RestaurantDetail.js";
+import RestaurantStore from "./stores/RestaurantStore.js";
+import RestaurantService from "./services/RestaurantService.js";
+import { NavBarKey } from "./../types/types";
+import { Restaurant, FilterOptions } from "../types/interfaces.js";
 
 export default class App {
-  constructor(restaurantStore, restaurantService) {
+  private $body!: HTMLElement;
+  private $main!: HTMLElement;
+  private $restaurantNavBar!: RestaurantNavBar;
+  private $restaurantFilter!: RestaurantFilter;
+  private $restaurantList!: RestaurantList;
+  private $submitFormBottomSheet!: BottomSheetBase;
+  private $openDetailBottomSheet!: BottomSheetBase;
+  private $restaurantDetail!: RestaurantDetail;
+
+  constructor(
+    private restaurantStore: RestaurantStore,
+    private restaurantService: RestaurantService
+  ) {
     this.restaurantStore = restaurantStore;
     this.restaurantService = restaurantService;
 
@@ -16,7 +32,7 @@ export default class App {
   }
 
   render() {
-    this.$body = document.querySelector("body");
+    this.$body = document.querySelector("body")!;
     this.#renderHeader();
     this.#renderMain();
   }
@@ -41,7 +57,7 @@ export default class App {
 
   #renderRestaurantNavBar() {
     this.$restaurantNavBar = new RestaurantNavBar({
-      onTabChange: (tabType) => {
+      onTabChange: (tabType: NavBarKey) => {
         this.$restaurantFilter.toggleFilterVisibility({ tabType });
         this.$restaurantList.updateRestaurantList({
           tabType,
@@ -54,7 +70,7 @@ export default class App {
 
   #renderRestaurantFilter() {
     this.$restaurantFilter = new RestaurantFilter({
-      onFilterChange: (filterType) => {
+      onFilterChange: (filterType: FilterOptions["filterType"]) => {
         this.$restaurantList.updateRestaurantList({
           tabType: this.$restaurantNavBar.getCurrentTabType(),
           filterType,
@@ -67,16 +83,16 @@ export default class App {
   #renderRestaurantList() {
     const restaurantList = this.restaurantService.getRestaurants();
     this.$restaurantList = new RestaurantList(restaurantList, {
-      getRestaurants: (options) => {
+      getRestaurants: (options: FilterOptions) => {
         return this.restaurantService.getRestaurants(options);
       },
-      onToggleFavorite: (restaurantId) => {
+      onToggleFavorite: (restaurantId: Restaurant["id"]) => {
         this.restaurantService.toggleFavorite(restaurantId);
       },
-      onOpenDetail: (restaurantId) => {
-        const restaurantInfo =
+      onOpenDetail: (restaurantId: Restaurant["id"]) => {
+        const restaurantInfo: Restaurant | undefined =
           this.restaurantService.getRestaurantInfo(restaurantId);
-        this.$restaurantDetail.openDetail(restaurantInfo);
+        if (restaurantInfo) this.$restaurantDetail.openDetail(restaurantInfo);
         this.$openDetailBottomSheet.open();
       },
     });
@@ -98,20 +114,20 @@ export default class App {
     this.$main.append(this.$submitFormBottomSheet.render());
   }
 
-  #handleSubmitForm(newRestaurantInfo) {
+  #handleSubmitForm(newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">) {
     this.restaurantService.addRestaurant(newRestaurantInfo);
     this.$submitFormBottomSheet.close();
   }
 
   #renderOpenDetailBottomSheet() {
     this.$restaurantDetail = new RestaurantDetail({
-      onToggleFavorite: (restaurantId) => {
+      onToggleFavorite: (restaurantId: Restaurant["id"]) => {
         this.restaurantService.toggleFavorite(restaurantId);
-        const updatedInfo =
+        const updatedInfo: Restaurant | undefined =
           this.restaurantService.getRestaurantInfo(restaurantId);
-        this.$restaurantDetail.openDetail(updatedInfo);
+        if (updatedInfo) this.$restaurantDetail.openDetail(updatedInfo);
       },
-      onDelete: (restaurantId) => {
+      onDelete: (restaurantId: Restaurant["id"]) => {
         this.restaurantService.deleteRestaurant(restaurantId);
       },
       onClose: () => this.$openDetailBottomSheet.close(),

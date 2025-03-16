@@ -1,3 +1,11 @@
+import {
+  ButtonType,
+  Category,
+  Distance,
+  LabelKey,
+  NavBarKey,
+} from "../../types/types";
+
 export const LABEL_KEYS = Object.freeze({
   category: "category",
   name: "name",
@@ -6,7 +14,7 @@ export const LABEL_KEYS = Object.freeze({
   link: "link",
 });
 
-export const LABEL_NAMES = Object.freeze({
+export const LABEL_NAMES: Record<LabelKey, string> = Object.freeze({
   [LABEL_KEYS.category]: "카테고리",
   [LABEL_KEYS.name]: "이름",
   [LABEL_KEYS.distance]: "거리(도보 이동 시간)",
@@ -19,18 +27,21 @@ export const NAV_BAR_KEYS = Object.freeze({
   favorite: "favorite",
 });
 
-export const NAV_BAR_OPTIONS = Object.freeze({
+export const NAV_BAR_OPTIONS: Record<NavBarKey, string> = Object.freeze({
   [NAV_BAR_KEYS.all]: "모든 음식점",
   [NAV_BAR_KEYS.favorite]: "자주 가는 음식점",
 });
 
-export const SORT_OPTIONS = Object.freeze({
+export const SORT_OPTIONS: Record<
+  Extract<LabelKey, "name" | "distance">,
+  string
+> = Object.freeze({
   [LABEL_KEYS.name]: "이름순",
   [LABEL_KEYS.distance]: "거리순",
 });
 
-export const DISTANCE = ["5", "10", "15", "20", "30"];
-export const CATEGORY = [
+export const DISTANCE: Distance[] = ["5", "10", "15", "20", "30"];
+export const CATEGORY: Category[] = [
   "전체",
   "한식",
   "중식",
@@ -40,7 +51,10 @@ export const CATEGORY = [
   "기타",
 ];
 
-export const CATEGORY_ASSETS = Object.freeze({
+export const CATEGORY_ASSETS: Record<
+  Exclude<Category, "전체">,
+  string
+> = Object.freeze({
   한식: "./assets/category-korean.png",
   중식: "./assets/category-chinese.png",
   일식: "./assets/category-japanese.png",
@@ -67,7 +81,7 @@ export const BUTTON_TYPES = Object.freeze({
   close: "close",
 });
 
-export const BUTTON_TEXTS = Object.freeze({
+export const BUTTON_TEXTS: Record<ButtonType, string> = Object.freeze({
   [BUTTON_TYPES.add]: "추가하기",
   [BUTTON_TYPES.cancel]: "취소하기",
   [BUTTON_TYPES.delete]: "삭제하기",

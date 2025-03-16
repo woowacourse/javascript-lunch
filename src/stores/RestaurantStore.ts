@@ -1,9 +1,12 @@
+import { FilterOptions, Restaurant } from "../../types/interfaces.js";
 import { CATEGORY, LABEL_KEYS, NAV_BAR_KEYS } from "../constants/constants.js";
 import generateUUID from "../utils/generateUUID.js";
 
+type Listeners = (restaurants: Restaurant[]) => void;
+
 export default class RestaurantStore {
-  #restaurants = [];
-  #listeners = new Set();
+  #restaurants: Restaurant[] = [];
+  #listeners: Set<Listeners> = new Set();
 
   constructor() {
     this.#loadFromLocalStorage();
@@ -18,9 +21,9 @@ export default class RestaurantStore {
     localStorage.setItem("restaurants", JSON.stringify(this.#restaurants));
   }
 
-  addRestaurant(restaurant) {
-    const newRestaurant = {
-      ...restaurant,
+  addRestaurant(restaurantInfo: Omit<Restaurant, "id" | "isFavorite">) {
+    const newRestaurant: Restaurant = {
+      ...restaurantInfo,
       id: generateUUID(),
       isFavorite: false,
     };
@@ -29,7 +32,7 @@ export default class RestaurantStore {
     this.#notifyListeners();
   }
 
-  deleteRestaurant(restaurantId) {
+  deleteRestaurant(restaurantId: Restaurant["id"]) {
     this.#restaurants = this.#restaurants.filter(
       (restaurant) => restaurant.id !== restaurantId
     );
@@ -40,26 +43,26 @@ export default class RestaurantStore {
   getRestaurants({
     tabType,
     filterType: { categoryFilterType, sortFilterType },
-  }) {
+  }: FilterOptions) {
     const restaurants = [...this.#restaurants];
 
     const tabTypeFn = {
-      [NAV_BAR_KEYS.all]: (restaurantsInfo) => {
+      [NAV_BAR_KEYS.all]: (restaurantsInfo: Restaurant[]) => {
         if (categoryFilterType === CATEGORY[0]) return restaurantsInfo;
         return restaurantsInfo.filter(
           (restaurant) => restaurant.category === categoryFilterType
         );
       },
-      [NAV_BAR_KEYS.favorite]: (restaurantsInfo) => {
+      [NAV_BAR_KEYS.favorite]: (restaurantsInfo: Restaurant[]) => {
         return restaurantsInfo.filter((restaurant) => restaurant.isFavorite);
       },
     };
 
     const sortFilterTypeFn = {
-      [LABEL_KEYS.name]: (restaurantsInfo) => {
+      [LABEL_KEYS.name]: (restaurantsInfo: Restaurant[]) => {
         return restaurantsInfo.sort((a, b) => a.name.localeCompare(b.name));
       },
-      [LABEL_KEYS.distance]: (restaurantsInfo) => {
+      [LABEL_KEYS.distance]: (restaurantsInfo: Restaurant[]) => {
         return restaurantsInfo.sort(
           (a, b) => parseInt(a.distance) - parseInt(b.distance)
         );
@@ -73,13 +76,13 @@ export default class RestaurantStore {
     return sortFilterTypeFn[sortFilterType](tabTypeFn[tabType](restaurants));
   }
 
-  getRestaurantInfo(restaurantId) {
+  getRestaurantInfo(restaurantId: Restaurant["id"]) {
     return this.#restaurants.find(
       (restaurant) => restaurant.id === restaurantId
     );
   }
 
-  toggleFavorite(restaurantId) {
+  toggleFavorite(restaurantId: Restaurant["id"]) {
     this.#restaurants = this.#restaurants.map((restaurant) =>
       restaurant.id === restaurantId
         ? { ...restaurant, isFavorite: !restaurant.isFavorite }
@@ -89,7 +92,7 @@ export default class RestaurantStore {
     this.#notifyListeners();
   }
 
-  subscribe(listener) {
+  subscribe(listener: Listeners) {
     this.#listeners.add(listener);
     return () => this.#listeners.delete(listener);
   }

@@ -1,8 +1,5 @@
-import {
-  CATEGORY,
-  NAV_BAR_KEYS,
-  SORT_OPTIONS,
-} from "../../../constants/constants.js";
+import { FilterOptions } from "../../../../types/interfaces.js";
+import { CATEGORY, NAV_BAR_KEYS } from "../../../constants/constants.js";
 import RestaurantListItem from "../restaurant-list-item/RestaurantListItem.js";
 import "./restaurantList.css";
 
@@ -42,11 +39,11 @@ export default class RestaurantList {
   }
 
   updateRestaurantList(
-    options = {
+    options: FilterOptions = {
       tabType: NAV_BAR_KEYS.all,
       filterType: {
         categoryFilterType: CATEGORY[0],
-        sortFilterType: Object.keys(SORT_OPTIONS)[0],
+        sortFilterType: "name",
       },
     }
   ) {

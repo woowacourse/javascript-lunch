@@ -11,9 +11,34 @@ import {
   BUTTON_TEXTS,
   BUTTON_TYPES,
 } from "../../../constants/constants.js";
+import { Restaurant } from "../../../../types/interfaces.js";
+
+type SubmitCallback = (
+  newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">
+) => void;
+type CancelCallback = () => void;
+
+interface RestaurantFormProps {
+  title: string;
+  onSubmit: SubmitCallback;
+  onCancel: CancelCallback;
+}
+
+interface FormElements {
+  category: HTMLDivElement;
+  name: HTMLDivElement;
+  distance: HTMLDivElement;
+  description: HTMLDivElement;
+  link: HTMLDivElement;
+}
 
 export default class RestaurantForm {
-  constructor({ title, onSubmit, onCancel }) {
+  private title: RestaurantFormProps["title"];
+  private onSubmit: RestaurantFormProps["onSubmit"];
+  private onCancel: RestaurantFormProps["onCancel"];
+  private formElements: FormElements;
+
+  constructor({ title, onSubmit, onCancel }: RestaurantFormProps) {
     this.title = title;
     this.onSubmit = onSubmit;
     this.onCancel = onCancel;
@@ -85,20 +110,53 @@ export default class RestaurantForm {
     return $form;
   }
 
-  #handleSubmit(e) {
+  #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
 
-    const newRestaurantInfo = this.#getFormData();
+    const newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite"> =
+      this.#getFormData();
 
     this.onSubmit(newRestaurantInfo);
     this.#resetFormData();
   }
 
-  #getFormData() {
-    return Object.entries(this.formElements).reduce((acc, [key, el]) => {
-      acc[key] = el.querySelector("input, select, textarea").value;
-      return acc;
-    }, {});
+  #getInputValue<K extends keyof Omit<Restaurant, "id" | "isFavorite">>(
+    key: K
+  ): Restaurant[K] {
+    const element = this.formElements[key];
+    if (!element) {
+      return "" as Restaurant[K];
+    }
+
+    const selectorMap = {
+      category: "select",
+      name: "input",
+      distance: "select",
+      description: "textarea",
+      link: "input",
+    } as Record<K, string>;
+
+    const el = element.querySelector(selectorMap[key]);
+
+    if (
+      el instanceof HTMLInputElement ||
+      el instanceof HTMLSelectElement ||
+      el instanceof HTMLTextAreaElement
+    ) {
+      return (el.value ?? "") as Restaurant[K];
+    }
+
+    return "" as Restaurant[K];
+  }
+
+  #getFormData(): Omit<Restaurant, "id" | "isFavorite"> {
+    return {
+      category: this.#getInputValue("category"),
+      name: this.#getInputValue("name"),
+      distance: this.#getInputValue("distance"),
+      description: this.#getInputValue("description"),
+      link: this.#getInputValue("link"),
+    };
   }
 
   #resetFormData() {

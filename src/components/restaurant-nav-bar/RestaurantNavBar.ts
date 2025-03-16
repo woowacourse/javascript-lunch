@@ -1,3 +1,4 @@
+import { NavBarKey } from "../../../types/types.js";
 import {
   EVENT_TYPES,
   NAV_BAR_KEYS,
@@ -7,8 +8,17 @@ import "./restaurantNavBar.css";
 
 const activeTabStyle = "active-tab-menu";
 
+type TabChangeCallback = (tabType: NavBarKey) => void;
+
+interface RestaurantNavBarProps {
+  onTabChange: TabChangeCallback;
+}
+
 export default class RestaurantNavBar {
-  constructor({ onTabChange }) {
+  private onTabChange: TabChangeCallback;
+  private currentTabType: NavBarKey;
+
+  constructor({ onTabChange }: RestaurantNavBarProps) {
     this.onTabChange = onTabChange;
     this.currentTabType = NAV_BAR_KEYS.all;
   }
@@ -33,8 +43,10 @@ export default class RestaurantNavBar {
     $favoriteButton.textContent = NAV_BAR_OPTIONS[NAV_BAR_KEYS.favorite];
 
     [$allButton, $favoriteButton].forEach(($button) => {
-      $button.addEventListener(EVENT_TYPES.click, (e) => {
-        this.currentTabType = e.target.value;
+      $button.addEventListener(EVENT_TYPES.click, (e: MouseEvent) => {
+        if (e.target instanceof HTMLButtonElement) {
+          this.currentTabType = e.target.value as NavBarKey;
+        }
 
         $navList.querySelectorAll("button").forEach((button) => {
           button.classList.toggle(

@@ -1,8 +1,17 @@
 import { EVENT_TYPES } from "../../../constants/constants.js";
 import "./bottomSheetBase.css";
 
+interface BottomSheetBaseProps {
+  id: string;
+  $children: DocumentFragment | HTMLFormElement;
+}
+
 export default class BottomSheetBase {
-  constructor({ id, $children }) {
+  private id: BottomSheetBaseProps["id"];
+  private $children: BottomSheetBaseProps["$children"];
+  private $modal: HTMLDivElement;
+
+  constructor({ id, $children }: BottomSheetBaseProps) {
     this.id = id;
     this.$children = $children;
     this.$modal = document.createElement("div");
@@ -30,8 +39,12 @@ export default class BottomSheetBase {
     this.$modal.classList.add("modal--open");
   }
 
-  close(e) {
-    if (!e || !e.target.closest(".modal-container")) {
+  close(e?: MouseEvent) {
+    if (
+      !e ||
+      !(e.target instanceof HTMLElement) ||
+      !e.target.closest(".modal-container")
+    ) {
       this.$modal.classList.remove("modal--open");
     }
   }

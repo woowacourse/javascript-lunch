@@ -1,3 +1,4 @@
+import { FilterOptions } from "../../../types/interfaces.js";
 import {
   EVENT_TYPES,
   NAV_BAR_KEYS,
@@ -6,13 +7,23 @@ import {
 } from "../../constants/constants.js";
 import "./restaurantFilter.css";
 
+type FilterChangeCallback = (filterType: FilterOptions["filterType"]) => void;
+
+interface RestaurantFilterProps {
+  onFilterChange: FilterChangeCallback;
+}
+
 export default class RestaurantFilter {
-  constructor({ onFilterChange }) {
+  private onFilterChange: FilterChangeCallback;
+  private currentFilterType: FilterOptions["filterType"];
+  private $filterContainer!: HTMLElement;
+
+  constructor({ onFilterChange }: RestaurantFilterProps) {
     this.onFilterChange = onFilterChange;
 
     this.currentFilterType = {
       categoryFilterType: CATEGORY[0],
-      sortFilterType: Object.keys(SORT_OPTIONS)[0],
+      sortFilterType: "name",
     };
   }
 
@@ -43,8 +54,10 @@ export default class RestaurantFilter {
       $filterCategory.append($option);
     });
 
-    $filterCategory.addEventListener(EVENT_TYPES.change, (e) => {
-      const categoryFilterType = e.target.value;
+    $filterCategory.addEventListener(EVENT_TYPES.change, (e: Event) => {
+      if (!e.target || !(e.target instanceof HTMLSelectElement)) return;
+      const categoryFilterType = e.target
+        .value as FilterOptions["filterType"]["categoryFilterType"];
 
       this.currentFilterType = {
         ...this.currentFilterType,
@@ -63,17 +76,21 @@ export default class RestaurantFilter {
 
     this.$filterContainer.append($filterSort);
 
-    Object.keys(SORT_OPTIONS).forEach((optionType) => {
-      const $option = document.createElement("option");
+    (Object.keys(SORT_OPTIONS) as Array<keyof typeof SORT_OPTIONS>).forEach(
+      (optionType) => {
+        const $option = document.createElement("option");
 
-      $option.value = optionType;
-      $option.textContent = SORT_OPTIONS[optionType];
+        $option.value = optionType;
+        $option.textContent = SORT_OPTIONS[optionType];
 
-      $filterSort.append($option);
-    });
+        $filterSort.append($option);
+      }
+    );
 
-    $filterSort.addEventListener(EVENT_TYPES.change, (e) => {
-      const sortFilterType = e.target.value;
+    $filterSort.addEventListener(EVENT_TYPES.change, (e: Event) => {
+      if (!e.target || !(e.target instanceof HTMLSelectElement)) return;
+      const sortFilterType = e.target
+        .value as FilterOptions["filterType"]["sortFilterType"];
 
       this.currentFilterType = {
         ...this.currentFilterType,
@@ -88,7 +105,7 @@ export default class RestaurantFilter {
     return this.currentFilterType;
   }
 
-  toggleFilterVisibility({ tabType }) {
+  toggleFilterVisibility({ tabType }: { tabType: FilterOptions["tabType"] }) {
     if (tabType === NAV_BAR_KEYS.favorite) {
       this.$filterContainer.classList.add("restaurant-filter--open");
     } else {

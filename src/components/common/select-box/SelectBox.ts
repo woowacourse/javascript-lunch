@@ -1,7 +1,16 @@
+import { Category, Distance, LabelKey } from "../../../../types/types.js";
 import { LABEL_NAMES } from "../../../constants/constants.js";
 
+interface SelectBoxProps {
+  label: Extract<LabelKey, "category" | "distance">;
+  options: Category[] | Distance[];
+}
+
 export default class SelectBox {
-  constructor({ label, options }) {
+  private label: SelectBoxProps["label"];
+  private options: SelectBoxProps["options"];
+
+  constructor({ label, options }: SelectBoxProps) {
     this.label = label;
     this.options = options;
   }
