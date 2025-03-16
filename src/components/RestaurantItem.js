@@ -9,7 +9,7 @@ function createTags(data) {
   const distanceSpan = createElement(
     'span',
     'restaurant__distance text-body',
-    `캠퍼스부터 ${data.distance}`
+    `캠퍼스부터 ${data.distance}분 내`
   );
   const descriptionPara = createElement('p', 'restaurant__description text-body', data.description);
 
