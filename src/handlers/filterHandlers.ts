@@ -42,16 +42,12 @@ export function registerCategoryFilter() {
   const categoryFilter = document.getElementById('category-filter');
   if (!categoryFilter) return;
 
-  categoryFilter.addEventListener('change', (event) => {
-    applyFilters();
-  });
+  categoryFilter.addEventListener('change', applyFilters);
 }
 
 export function registerSortingFilter() {
   const sortingFilter = document.getElementById('sorting-filter');
   if (!sortingFilter) return;
 
-  sortingFilter.addEventListener('change', (event) => {
-    applyFilters();
-  });
+  sortingFilter.addEventListener('change', applyFilters);
 }

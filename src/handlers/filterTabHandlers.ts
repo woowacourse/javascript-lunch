@@ -7,11 +7,12 @@ function registerFilterTabClick() {
   const tabs = document.querySelectorAll('.tab');
   if (!tabs) return;
   tabs.forEach((tab) => {
-    tab.addEventListener('click', function (this: HTMLElement, event: Event) {
+    tab.addEventListener('click', (event) => {
+      const target = event.currentTarget as HTMLElement;
       tabs.forEach((t) => t.classList.remove('active'));
-      this.classList.add('active');
+      target.classList.add('active');
 
-      if (this.id === 'all') {
+      if (target.id === 'all') {
         showCategoryFilterSelect();
         updateRestaurantListBasedOnActiveTab();
         return;
