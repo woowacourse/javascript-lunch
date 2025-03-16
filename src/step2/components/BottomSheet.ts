@@ -102,7 +102,7 @@ const BottomSheet = (props: BottomSheetProps) => {
         </div>
         <div class="bottom-sheet-restaurant-link-container">
           <a href="${link}" class="bottom-sheet-restaurant__link">
-            ${link}
+            ${link || ''}
           </a>
         </div>
         <div class="bottom-sheet-restaurant-button-container">
