@@ -1,22 +1,36 @@
-import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants";
-import { Restaurant } from "../types/restaurant.ts";
-import { createModal } from "./Modal.ts";
-import { restaurantManager } from "../restaurantManager.ts";
 import createRestaurantItem from "./RestaurantItem.ts";
+import { createModal } from "./Modal.ts";
+import { Restaurant } from "../types/restaurant.ts";
+import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants";
+import { restaurantManager } from "../restaurantManager.ts";
 
 export const renderRestaurantList = (
   restaurants: Restaurant[],
   setRestaurant: (restaurants: Restaurant[]) => void,
   el?: Element
 ) => {
-  const onDelete = (id: string) => {
-    const updatedRestaurants = restaurants.filter((restaurant) => {
-      return restaurant.id !== id;
-    });
+  let localRestaurants: Restaurant[] = restaurants;
 
+  const handleFavorite = (id?: string) => {
+    const updatedRestaurants = localRestaurants.map((restaurant) =>
+      restaurant.id === id
+        ? { ...restaurant, isFavorite: !restaurant.isFavorite }
+        : restaurant
+    );
+    restaurantManager.toggleFavorite(id);
+    setRestaurant(updatedRestaurants);
+    localRestaurants = updatedRestaurants;
+    render(localRestaurants);
+  };
+
+  const handleDelete = (id: string) => {
+    const updatedRestaurants = localRestaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
     restaurantManager.delete(id);
     setRestaurant(updatedRestaurants);
-    render(updatedRestaurants);
+    localRestaurants = updatedRestaurants;
+    render(localRestaurants);
   };
 
   const render = (restaurants: Restaurant[]) => {
@@ -32,21 +46,23 @@ export const renderRestaurantList = (
           e.target instanceof HTMLImageElement &&
           e.target.classList.contains("favorite-icon")
         ) {
+          handleFavorite(restaurant.id);
           return;
         }
-        showRestaurantDetail(restaurant, onDelete);
+        showRestaurantDetail(restaurant, handleDelete, handleFavorite);
       });
 
       el?.appendChild(restaurantItem);
     });
   };
 
-  render(restaurants);
+  render(localRestaurants);
 };
 
 const showRestaurantDetail = (
   restaurant: Restaurant,
-  onDelete: (id: string) => void
+  onDelete: (id: string) => void,
+  onFavorite: (id?: string) => void
 ) => {
   const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[restaurant.category];
 
@@ -105,6 +121,23 @@ const showRestaurantDetail = (
   });
   document.body?.append(detailModal);
   detailModal.showModal();
+
+  const modalFavoriteIcon = detailModal.querySelector(".favorite-icon");
+  if (modalFavoriteIcon instanceof HTMLImageElement) {
+    modalFavoriteIcon.addEventListener("click", (e) => {
+      const target = e.currentTarget as HTMLImageElement;
+      const currentFavorite = target.dataset.favorite === "true";
+      const toggledFavorite = !currentFavorite;
+      const newSrc = toggledFavorite
+        ? "images/favorite-icon-filled.png"
+        : "images/favorite-icon-lined.png";
+
+      target.setAttribute("src", newSrc);
+      target.dataset.favorite = String(toggledFavorite);
+
+      onFavorite(restaurant.id);
+    });
+  }
 };
 
 export default renderRestaurantList;

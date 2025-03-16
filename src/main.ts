@@ -1,5 +1,7 @@
 import createHeader from "./components/Header.ts";
 import createTab from "./components/Tab.ts";
+import renderRestaurantList from "./components/RestaurantList.ts";
+import createRestaurantItem from "./components/RestaurantItem.ts";
 import { createModal } from "./components/Modal.ts";
 import { createForm } from "./components/Form.ts";
 import validateRestaurant from "./validateRestaurant.js";
@@ -10,8 +12,6 @@ import {
   SortType,
 } from "./types/restaurant.ts";
 import { restaurantManager } from "./restaurantManager.ts";
-import renderRestaurantList from "./components/RestaurantList.ts";
-import createRestaurantItem from "./components/RestaurantItem.ts";
 
 type State = {
   tab: "모든 음식점" | "자주 가는 음식점";
@@ -217,18 +217,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (restaurantList) {
     renderRestaurantList(state.restaurants, setStateRestaurant, restaurantList);
   }
-
-  body?.addEventListener("click", (e) => {
-    if (
-      e.target instanceof HTMLImageElement &&
-      e.target.classList.contains("favorite-icon")
-    ) {
-      const { id } = e.target.dataset;
-
-      if (!id) {
-        throw new Error("음식점 ID가 존재하지 않습니다.");
-      }
-      restaurantManager.toggleFavorite(id);
-    }
-  });
 });

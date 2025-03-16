@@ -1,6 +1,6 @@
+import { restaurantsData } from "./restaurantsData.ts";
 import { localStorageUtils } from "./utils/localStorageUtils.ts";
 import { Category, Restaurant, SortType } from "./types/restaurant.ts";
-import { restaurantsData } from "./restaurantsData.ts";
 
 const getUniqueRestaurantId = () => {
   const randomId = Math.floor(Math.random() * 1000000);
@@ -71,7 +71,11 @@ const deleteRestaurant = (id: string) => {
   localStorageUtils.set("restaurants", filteredRestaurantData);
 };
 
-const toggleFavoriteRestaurant = (id: string) => {
+const toggleFavoriteRestaurant = (id?: string) => {
+  if (!id) {
+    return;
+  }
+
   const localStorageRestaurantData = localStorageUtils.get("restaurants") || [];
 
   const toggledRestaurantData = localStorageRestaurantData.map(
