@@ -1,9 +1,9 @@
 import { ERROR_MESSAGE } from "../../constants/error";
 import { clearError } from "../../utils/clearError";
 import { $ } from "../../utils/dom";
-import { isEmptyString } from "../../validate/isEmptyString";
+import { isEmpty } from "../../validate/isEmpty";
 import { isValidStringLength } from "../../validate/isValidStringLength";
-import { validateEmptyString } from "../../validate/validateEmptyString";
+import { validateEmpty } from "../../validate/validateEmpty";
 import validateStringLength from "../../validate/validateStringLength";
 
 export const getInfo = () => {
@@ -16,19 +16,19 @@ export const getInfo = () => {
 };
 
 const validateInfo = (info) => {
-  if (isEmptyString(info.category)) {
+  if (isEmpty(info.category)) {
     throw new Error(ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED, {
       cause: "category",
     });
   }
-  if (isEmptyString(info.name)) {
+  if (isEmpty(info.name)) {
     throw new Error(ERROR_MESSAGE.NAME_FIELD_REQUIRED, { cause: "name" });
   }
   if (!isValidStringLength(info.name, { min: 1, max: 20 })) {
     throw new Error(ERROR_MESSAGE.NAME_LENGTH, { cause: "name" });
   }
 
-  if (isEmptyString(info.distance)) {
+  if (isEmpty(info.distance)) {
     throw new Error(ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED, {
       cause: "distance",
     });

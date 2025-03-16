@@ -1,5 +1,6 @@
 import { ERROR_MESSAGE } from "../constants/error";
-import { validateEmptyString } from "../validate/validateEmptyString";
+import { validateEmpty } from "../validate/validateEmpty";
+
 import { RestaurantValue } from "./types";
 
 class Restaurant {
@@ -18,15 +19,9 @@ class Restaurant {
   }
 
   #validate() {
-    validateEmptyString(
-      this.#value.category,
-      ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED
-    );
-    validateEmptyString(this.#value.name, ERROR_MESSAGE.NAME_FIELD_REQUIRED);
-    validateEmptyString(
-      this.#value.distance,
-      ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED
-    );
+    validateEmpty(this.#value.category, ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED);
+    validateEmpty(this.#value.name, ERROR_MESSAGE.NAME_FIELD_REQUIRED);
+    validateEmpty(this.#value.distance, ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED);
   }
 
   toggleFavorite() {
