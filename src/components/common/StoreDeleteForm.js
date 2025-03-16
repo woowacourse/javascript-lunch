@@ -12,7 +12,7 @@ export function StoreDeleteForm(lunchItemIndex) {
   function template() {
     return `
         <form id="storeDeleteForm" class="modal-form">
-          ${StoreInfo(lunchItem, "full")}
+          ${StoreInfo({ ...lunchItem, type: "full", index: lunchItemIndex })}
           ${FormButtons("storeDelete", lunchItemIndex)}
         </form>
     `;
