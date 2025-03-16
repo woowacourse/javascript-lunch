@@ -21,22 +21,30 @@ class Restaurants {
 
   removeRestaurant(restaurantName: string) {
     this.#restaurants = this.#restaurants.filter((restaurant) => restaurant.name !== restaurantName);
-    console.log(this.#restaurants);
     localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+  }
+
+  toggleFavoriteRestaurant(restaurantName: string) {
+    const restaurant = this.#restaurants.find((restaurant) => restaurant.name === restaurantName);
+
+    if (restaurant) {
+      restaurant.isFavorite = !restaurant.isFavorite;
+      localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
+    }
   }
 
   getRestaurantByFilter(type: FilterType, value: string) {
     this.#filter[type] = value;
 
-    const filteredRestaurants = this.filterByCategory();
-    return this.sortByOption(filteredRestaurants);
+    const filteredRestaurants = this.#filterByCategory();
+    return this.#sortByOption(filteredRestaurants);
   }
 
   getFavoriteRestaurants() {
     return this.#restaurants.filter((restaurant) => restaurant.isFavorite);
   }
 
-  filterByCategory() {
+  #filterByCategory() {
     if (this.#filter.category === 'all') {
       return [...this.#restaurants];
     }
@@ -44,7 +52,7 @@ class Restaurants {
     return this.#restaurants.filter((restaurant) => this.#filter.category === restaurant.category);
   }
 
-  sortByOption(restaurants: Restaurant[]) {
+  #sortByOption(restaurants: Restaurant[]) {
     if (this.#filter.sort === 'latest') {
       return [...restaurants];
     }
@@ -56,15 +64,6 @@ class Restaurants {
 
       return a.distance - b.distance;
     });
-  }
-
-  toggleFavoriteRestaurant(restaurantName: string) {
-    const restaurant = this.#restaurants.find((restaurant) => restaurant.name === restaurantName);
-
-    if (restaurant) {
-      restaurant.isFavorite = !restaurant.isFavorite;
-      localStorage.setItem('restaurants', JSON.stringify(this.#restaurants));
-    }
   }
 }
 
