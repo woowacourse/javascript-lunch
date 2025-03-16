@@ -153,8 +153,27 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
+.restaurant__title {
+  width: 90%;
+}
+
+.restaurant__star {
+  width: 30px;
+  height: 30px;
+  background-image: url('public/images/Star\ border.png');
+  background-image: no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.restaurant__star.favorite {
+  background-image: url('public/images/Star.png');
+}
 .restaurant__name {
   margin: 0;
 }
@@ -295,4 +314,9 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
 }
