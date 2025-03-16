@@ -4,11 +4,9 @@ import { BaseData } from '../../types/domain';
 
 class StoreService<T extends BaseData> {
   #key: string;
-  #totalData: T[];
 
   constructor(key: string) {
     this.#key = key;
-    this.#totalData = this.getDataList();
   }
 
   getDataList(): T[] {
@@ -16,7 +14,8 @@ class StoreService<T extends BaseData> {
   }
 
   findDataById(id: number) {
-    const target = this.#totalData.find((data: T) => data.id === id);
+    const totalData = this.getDataList();
+    const target = totalData.find((data: T) => data.id === id);
     if (!target) {
       throw new Error('데이터가 없습니다. id를 확인해주세요.');
     }
@@ -25,7 +24,8 @@ class StoreService<T extends BaseData> {
   }
 
   updateDataById(id: number, newData: T) {
-    const maintainedDataList = this.#totalData.filter((data: T) => {
+    const totalData = this.getDataList();
+    const maintainedDataList = totalData.filter((data: T) => {
       return data.id !== id;
     });
 
@@ -36,28 +36,32 @@ class StoreService<T extends BaseData> {
   }
 
   addData(data: T) {
-    const newDataList = [...this.#totalData, data];
+    const totalData = this.getDataList();
+    const newDataList = [...totalData, data];
     const stringData = stringifyJSON(newDataList);
 
     store.setData(this.#key, stringData);
   }
 
   addDataList(dataList: T[]) {
-    const newDataList = [...this.#totalData, ...dataList];
+    const totalData = this.getDataList();
+    const newDataList = [...totalData, ...dataList];
     const stringData = stringifyJSON(newDataList);
 
     store.setData(this.#key, stringData);
   }
 
   deleteDataById(id: number) {
-    const maintainedDataList = this.#totalData.filter((data) => data.id !== id);
+    const totalData = this.getDataList();
+    const maintainedDataList = totalData.filter((data) => data.id !== id);
     const stringData = stringifyJSON(maintainedDataList);
 
     store.setData(this.#key, stringData);
   }
 
   getNewDataId() {
-    return this.#totalData.length;
+    const totalData = this.getDataList();
+    return totalData.length;
   }
 }
 
