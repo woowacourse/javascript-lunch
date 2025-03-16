@@ -1,9 +1,6 @@
-import Button from "../components/Button.js";
-import DetailItem from "../components/DetailItem.js";
-import ButtonsForm from "../components/Form/ButtonsForm.js";
-import Modal from "../components/Modal.js";
 import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
+import favoriteEventHandler from "../event/favoriteEventHandler.js";
 import listItemOpenEventHandler from "../event/listItemOpenEventHandler.js";
 import EventHandler from "../utils/EventHandler.js";
 import CategorySortFilterController from "./CategorySortFilterController.js";
@@ -47,19 +44,8 @@ function MainController() {
   allListContainerElement.appendChild(listElement); // 잔체 가게 리스트
   favoriteListContainerElement.appendChild(favoriteListElement); // 좋아하는 가게 리스트
 
-  mainElement.addEventListener("click", (event) => {
-    const starElement = event.target.closest(".favorite-star");
-    if (!starElement) return;
-    starElement.classList.toggle("active");
-    const restaurantName = starElement.dataset.name;
-    const restaurant = restaurantList.getRestaurantByName(restaurantName);
-
-    if (restaurant) {
-      restaurant.toggleFavorite();
-      restaurantList.updateLocalStorage();
-      updateFavoriteListView();
-    }
-  });
+  //좋아요 버튼 클릭 이벤트 등록
+  favoriteEventHandler(mainElement, { restaurantList, updateFavoriteListView });
 
   //listItem open 이벤트 등록
   listItemOpenEventHandler(mainElement, (restaurantName) =>

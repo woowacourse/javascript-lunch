@@ -67,7 +67,8 @@
 - [x] modalController 리팩토링
 - [x] detailModalController 생성 및 리팩토링
 - [x] headerController 리팩토링
-- [ ] MainController 리팩토링
+- [x] MainController 리팩토링
+  - [x] 좋아요 버튼 이벤트 핸들러로 빼기
 - [ ] ButtonForm 컴포넌트 리팩토링 -> Button 컴포넌트에 종속 시키기 (Button을 모아주는 역할 밖에 안하기 때문에, 단순히 껍데기 역할)
 - [ ] Button 컴포넌트 이벤트 자체 처리 (컴포넌트 인자값으로 이벤트 넘기기)
 - [ ] 디테일 모달 -> ⭐️ 클릭시, 모든 음식점 리스트도 동일하게 반영 (동기화)
