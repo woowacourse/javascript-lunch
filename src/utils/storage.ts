@@ -25,11 +25,13 @@ const storage = {
 
   updateIsFavorite(id: string) {
     const store = window.localStorage.getItem(JSON.stringify(id));
+    console.log("store", store);
     if (store) {
-      JSON.parse(store).isFavorite = !JSON.parse(store).isFavorite;
+      const jsonStore = JSON.parse(store);
+      jsonStore.isFavorite = !jsonStore.isFavorite;
       window.localStorage.setItem(
-        JSON.stringify(JSON.parse(store).id),
-        JSON.stringify(JSON.parse(store))
+        JSON.stringify(jsonStore.id),
+        JSON.stringify(jsonStore)
       );
     }
   },

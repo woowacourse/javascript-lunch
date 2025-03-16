@@ -105,6 +105,7 @@ const storeRenderer = {
   },
 
   toggleFavorite: (storeList, starIcon, storeId) => {
+    console.log("click");
     const storeInfo = storeList.list.find((store) => store.id === storeId);
     storeInfo.isFavorite = !storeInfo.isFavorite;
 
@@ -114,6 +115,7 @@ const storeRenderer = {
     );
 
     storage.updateIsFavorite(storeId);
+    storeList.updateIsFavorite(storeId);
   },
 
   setMenuBar: (storeList, e) => {

@@ -10,7 +10,7 @@ import storage from "../utils/storage.ts";
 
 const initRenderer = {
   setHeader: (title) => {
-    const header = querySelector(".header");
+    const header = document.querySelector(".header");
     header.innerHTML = Header(title);
   },
 
@@ -23,7 +23,9 @@ const initRenderer = {
       options: options.sortCategory,
     });
 
-    querySelector(".restaurant-filter-container").appendChild(categorySelect);
+    document
+      .querySelector(".restaurant-filter-container")
+      .appendChild(categorySelect);
 
     const sortSelect = Select({
       tag: "select",
@@ -33,7 +35,9 @@ const initRenderer = {
       options: options.sortFilter,
     });
 
-    querySelector(".restaurant-filter-container").appendChild(sortSelect);
+    document
+      .querySelector(".restaurant-filter-container")
+      .appendChild(sortSelect);
   },
 
   setStoreList: () => {

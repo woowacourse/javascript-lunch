@@ -9,12 +9,13 @@ import storeRenderer from "./render/storeRenderer.js";
 import modalRenderer from "./render/modalRenderer.js";
 import IMG_SRC from "./constants/imgSrc.js";
 import MenuBar from "./components/MenuBar.js";
+import uiBasicText from "./constants/uiBasicText.js";
 
 addEventListener("load", () => {
   // 초기 세팅
-  initRenderer.setHeader("오늘 뭐 먹지");
-  initRenderer.setRestaurantFilter();
+  initRenderer.setHeader(uiBasicText.HEADER_TEXT);
   MenuBar();
+  initRenderer.setRestaurantFilter();
   const storeList = initRenderer.setStoreList();
 
   // 메뉴 추가 버튼
@@ -49,6 +50,10 @@ addEventListener("load", () => {
       const storeId = store.getAttribute("id");
       const icon = store.querySelector(".star-icon");
       storeRenderer.toggleFavorite(storeList, icon, storeId);
+      storeRenderer.removeStoreElements();
+      storeList.filteredList.forEach((store) => {
+        storeRenderer.addStore(store);
+      });
     }
 
     const storeInfo = e.target.closest(".restaurant__info");

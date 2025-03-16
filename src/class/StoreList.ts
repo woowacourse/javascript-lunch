@@ -26,6 +26,17 @@ class StoreList {
     this.sortStoreList("name");
   }
 
+  updateIsFavorite(id: string) {
+    this.#list = this.#list.map((store) => {
+      if (store.id === id) !store.isFavorite;
+      return store;
+    });
+    this.#filteredList = this.#filteredList.map((store) => {
+      if (store.id === id) !store.isFavorite;
+      return store;
+    });
+  }
+
   deleteStore(id: string, isFavorite: boolean) {
     this.#list = this.#list.filter((store) => store.id !== id);
     if (isFavorite) {

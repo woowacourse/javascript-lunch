@@ -1,3 +1,4 @@
+import uiBasicText from "../constants/uiBasicText.js";
 import createElement from "../utils/createElement.js";
 import querySelector from "../utils/querySelector.js";
 
@@ -22,8 +23,8 @@ const MenuBar = () => {
     classList: ["favorite-restaurant-button-text", "button-text"],
   });
 
-  allButtonText.textContent = "모든 음식점";
-  favoriteButtonText.textContent = "자주 가는 음식점";
+  allButtonText.textContent = uiBasicText.ALL_MENUBAR_TEXT;
+  favoriteButtonText.textContent = uiBasicText.FAVORITE_MENUBAR_TEXT;
 
   allButton.appendChild(allButtonText);
   favoriteButton.appendChild(favoriteButtonText);
