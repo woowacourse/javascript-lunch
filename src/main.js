@@ -15,7 +15,7 @@ import {
   CLOSE_INFO_BUTTON,
   DELETE_INFO_BUTTON,
 } from './constants/elements.ts';
-import { RESTAURANTS } from './data/restaurantData.js';
+import { RESTAURANTS } from './data/initialData.ts';
 import {
   openAddRestaurantModal,
   openRestaurantInfoModal,
