@@ -27,6 +27,10 @@ const state: State = {
   restaurants: [],
 };
 
+const setStateRestaurant = (restaurants: Restaurant[]) => {
+  state.restaurants = restaurants;
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   state.restaurants = restaurantManager.getInitialData();
 
@@ -46,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!restaurantList) {
       throw new Error("음식점 목록을 찾을 수 없습니다.");
     }
-    restaurantList.innerHTML = "";
 
     const filterRestaurants = restaurantManager.getFilterAndSortList(
       state.restaurants,
@@ -54,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       state.sortType
     );
 
-    renderRestaurantList(filterRestaurants, restaurantList);
+    renderRestaurantList(filterRestaurants, setStateRestaurant, restaurantList);
   });
 
   sortingFilter?.addEventListener("change", (e) => {
@@ -64,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!restaurantList) {
       throw new Error("음식점 목록을 찾을 수 없습니다.");
     }
-    restaurantList.innerHTML = "";
 
     state.sortType = value;
 
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       value
     );
 
-    renderRestaurantList(filterRestaurants, restaurantList);
+    renderRestaurantList(filterRestaurants, setStateRestaurant, restaurantList);
   });
 
   const tab = createTab({
@@ -99,9 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!restaurantList) {
       throw new Error("음식점 목록을 찾을 수 없습니다.");
     }
-    restaurantList.innerHTML = "";
 
-    renderRestaurantList(state.restaurants, restaurantList);
+    renderRestaurantList(state.restaurants, setStateRestaurant, restaurantList);
 
     restaurantFilterContainer?.classList.remove("hidden");
   });
@@ -116,9 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!restaurantList) {
       throw new Error("음식점 목록을 찾을 수 없습니다.");
     }
-    restaurantList.innerHTML = "";
 
-    renderRestaurantList(restaurants, restaurantList);
+    renderRestaurantList(restaurants, setStateRestaurant, restaurantList);
 
     restaurantFilterContainer?.classList.add("hidden");
   });
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (restaurantList) {
-    renderRestaurantList(state.restaurants, restaurantList);
+    renderRestaurantList(state.restaurants, setStateRestaurant, restaurantList);
   }
 
   body?.addEventListener("click", (e) => {

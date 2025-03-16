@@ -6,26 +6,48 @@ import createRestaurantItem from "./RestaurantItem.ts";
 
 export const renderRestaurantList = (
   restaurants: Restaurant[],
+  setRestaurant: (restaurants: Restaurant[]) => void,
   el?: Element
 ) => {
-  restaurants.forEach((restaurant: Restaurant) => {
-    const restaurantItem = createRestaurantItem(restaurant);
-
-    restaurantItem.addEventListener("click", (e) => {
-      if (
-        e.target instanceof HTMLImageElement &&
-        e.target.classList.contains("favorite-icon")
-      ) {
-        return;
-      }
-      showRestaurantDetail(restaurant);
+  const onDelete = (id: string) => {
+    const updatedRestaurants = restaurants.filter((restaurant) => {
+      return restaurant.id !== id;
     });
 
-    el?.appendChild(restaurantItem);
-  });
+    restaurantManager.delete(id);
+    setRestaurant(updatedRestaurants);
+    render(updatedRestaurants);
+  };
+
+  const render = (restaurants: Restaurant[]) => {
+    if (el) {
+      el.innerHTML = "";
+    }
+
+    restaurants.forEach((restaurant: Restaurant) => {
+      const restaurantItem = createRestaurantItem(restaurant);
+
+      restaurantItem.addEventListener("click", (e) => {
+        if (
+          e.target instanceof HTMLImageElement &&
+          e.target.classList.contains("favorite-icon")
+        ) {
+          return;
+        }
+        showRestaurantDetail(restaurant, onDelete);
+      });
+
+      el?.appendChild(restaurantItem);
+    });
+  };
+
+  render(restaurants);
 };
 
-const showRestaurantDetail = (restaurant: Restaurant) => {
+const showRestaurantDetail = (
+  restaurant: Restaurant,
+  onDelete: (id: string) => void
+) => {
   const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[restaurant.category];
 
   const isFavorite = restaurant.isFavorite;
@@ -76,7 +98,7 @@ const showRestaurantDetail = (restaurant: Restaurant) => {
           if (!restaurant?.id) {
             throw new Error("음식점 ID가 존재하지 않습니다.");
           }
-          restaurantManager.delete(restaurant.id);
+          onDelete(restaurant.id);
         },
       },
     },
