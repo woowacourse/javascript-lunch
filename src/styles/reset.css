@@ -92,7 +92,7 @@ body {
 
 @font-face {
   font-family: "Pretendard";
-  src: url("./public/font/Pretendard-Regular.woff2") format("woff2");
+  src: url("/font/Pretendard-Regular.woff2") format("woff2");
 }
 
 * {
