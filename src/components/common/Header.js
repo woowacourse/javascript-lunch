@@ -33,14 +33,11 @@ export default class Header extends Component {
   setEvent() {
     document.removeEventListener("click", this.handleClick);
     this.handleClick = (event) => {
-      const headerIcon = document.querySelector("#header-icon");
-      const titleText = document.querySelector("#header-text");
-
-      if (headerIcon === event.target) {
+      if (event.target.closest("#header-icon")) {
         this.props.onIconClick();
       }
 
-      if (titleText === event.target) {
+      if (event.target.closest("#header-text")) {
         location.reload();
       }
     };
