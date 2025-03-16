@@ -2,7 +2,7 @@ import { $$ } from './domHelper';
 
 interface EventManagerOptions {
   element: HTMLElement;
-  eventType: string;
+  eventType: keyof HTMLElementEventMap;
   selector: string;
   callback: (event: Event) => void;
 }
