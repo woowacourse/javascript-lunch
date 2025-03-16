@@ -1,4 +1,5 @@
 import { Restaurant } from "../../types/global";
+import IconButton from "./Button/IconButton.js";
 import getRestaurant from "./Restaurant/Restaurant.js";
 import "./restaurantlist.css";
 
@@ -15,6 +16,14 @@ const renderRestaurants = (
     restaurantItem.innerHTML = restaurant;
     restaurantItem.addEventListener("click", () => onRestaurantClick(data));
     restaurantList!.appendChild(restaurantItem);
+    const iconButtonContainer = restaurantItem.querySelector(
+      ".iconButton_container",
+    );
+    if (iconButtonContainer) {
+      new IconButton(iconButtonContainer, {
+        restaurantId: data.id,
+      });
+    }
   });
 };
 
