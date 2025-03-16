@@ -1,6 +1,14 @@
 import { label } from "../../constants/optionValue.js";
 
-const Dropdown = ({ id, required, optionValue }) => {
+interface DropdownProps {
+  id: string,
+  required: string, 
+  optionValue: Record<string|number,string>
+}
+
+
+
+const Dropdown = ({ id, required, optionValue }:DropdownProps) => {
   return `
   <div id="${id}" class="form-item ${required ? "form-item--required" : ""}">
     <label for="${id} text-caption">${label[id]}</label>
