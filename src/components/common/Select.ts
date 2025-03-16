@@ -24,7 +24,7 @@ export default class Select<T extends string> extends Component<null, SelectProp
   }
 
   override attachEventListener() {
-    EventHandler.attachEventHandler(
+    EventHandler.attachEventListener(
       'change',
       (_, target) => {
         this.props?.setValue((target as HTMLSelectElement)?.value as T);

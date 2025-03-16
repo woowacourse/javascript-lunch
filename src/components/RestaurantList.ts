@@ -138,19 +138,19 @@ export default class RestaurantList extends Component<RestaurantListState> {
    */
 
   override attachEventListener() {
-    EventHandler.attachEventHandler(
+    EventHandler.attachEventListener(
       'click',
       (_, target) => this._toggleLike(target.dataset.id ?? ''),
       'restaurant-like',
     );
 
-    EventHandler.attachEventHandler(
+    EventHandler.attachEventListener(
       'click',
       () => this._deleteRestaurant(this.state.currentRestaurant?.id ?? ''),
       'restaurant-delete',
     );
 
-    EventHandler.attachEventHandler(
+    EventHandler.attachEventListener(
       'click',
       (_, target) => {
         this.setState({

@@ -1,6 +1,6 @@
 export default class EventHandler {
   // eslint-disable-next-line max-params
-  static attachEventHandler(
+  static attachEventListener(
     eventType: string,
     callback: (event: Event, target: HTMLElement) => void,
     dataAction: string,

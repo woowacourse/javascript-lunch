@@ -86,7 +86,7 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
   }
 
   override attachEventListener() {
-    EventHandler.attachEventHandler(
+    EventHandler.attachEventListener(
       'submit',
       (_, target) => {
         const id = generateId();

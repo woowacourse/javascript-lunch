@@ -15,7 +15,7 @@ export default class RestaurantHeader extends Component {
   }
 
   override attachEventListener() {
-    EventHandler.attachEventHandler(
+    EventHandler.attachEventListener(
       'click',
       () => document.querySelector('#restaurant-add-modal')?.classList.add('modal--open'),
       'restaurant-add',
