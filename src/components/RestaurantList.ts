@@ -1,4 +1,4 @@
-import { filter, forEach, pipe, sort, toArray } from '@fxts/core';
+import { filter, forEach, pipe, sort, toArray, map } from '@fxts/core';
 import Component from '../core/Component.ts';
 import { DEFAULT_RESTAURANT_LIST, FILTERS, SORTS } from '../lib/constants.ts';
 import LocalStorage from '../lib/LocalStorage.ts';
@@ -177,15 +177,14 @@ export default class RestaurantList extends Component<RestaurantListState> {
   }
 
   private _toggleLike(restaurantId: string) {
-    const copiedRestaurants = [...this.state.restaurants];
-
-    const currentRestaurantIndex = this.state.restaurants.findIndex((restaurant) => restaurant.id === restaurantId);
-    const targetRestaurant = this.state.restaurants[currentRestaurantIndex];
-
-    copiedRestaurants.splice(currentRestaurantIndex, 1, { ...targetRestaurant, isLike: !targetRestaurant.isLike });
-
     this.setState({
-      restaurants: copiedRestaurants,
+      restaurants: pipe(
+        this.state.restaurants,
+        map((restaurant) =>
+          restaurant.id === restaurantId ? { ...restaurant, isLike: !restaurant.isLike } : restaurant,
+        ),
+        toArray,
+      ),
     });
 
     LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
