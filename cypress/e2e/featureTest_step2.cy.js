@@ -124,4 +124,48 @@ describe('step2 기능 테스트', () => {
       });
     })
   });
+
+  describe('자주 가는 음식점 탭 테스트', () => {
+    it('사용자가 특정 음식점에 별을 누르고 자주 가는 음식점 탭을 클릭하면 해당 음식점만 보인다.', () => {
+      cy.get('.restaurant-list .restaurant').first().as('firstRestaurant');
+
+      cy.get('@firstRestaurant').find('.favorite-star').click();
+
+      cy.get('#favorites').click();
+
+      cy.get('.restaurant-list .restaurant').should('have.length', 1);
+
+      cy.get('@firstRestaurant').find('.restaurant__name').invoke('text').then((restaurantName) => {
+        cy.get('.restaurant-list .restaurant .restaurant__name').should('have.text', restaurantName);
+      });
+    });
+
+    it('사용자가 아무 음식점도 즐겨찾기하지 않은 상태에서 자주 가는 음식점 탭을 선택하면 빈 화면이 보인다.', () => {
+      cy.get('#favorites').click();
+      cy.get('.restaurant-list .restaurant').should('not.exist');
+    });
+
+    it('자주 가는 음식점이 여러 개일 때, 하나씩 삭제할 때마다 목록이 정상적으로 업데이트되는지 확인한다.', () => {
+      cy.get('.restaurant[data-id="1"]').find('.favorite-star').click();
+      cy.get('.restaurant[data-id="2"]').find('.favorite-star').click();
+
+      cy.get('#favorites').click();
+
+      cy.get('.restaurant-list .restaurant').should('have.length', 2);
+
+      cy.get('.restaurant[data-id="1"]').click();
+      cy.get('.modal--open').should('exist');
+      cy.get('.delete-button').click();
+      cy.get('.modal--open').should('not.exist');
+
+      cy.get('.restaurant-list .restaurant').should('have.length', 1);
+
+      cy.get('.restaurant[data-id="2"]').click();
+      cy.get('.modal--open').should('exist');
+      cy.get('.delete-button').click();
+      cy.get('.modal--open').should('not.exist');
+
+      cy.get('.restaurant-list .restaurant').should('not.exist');
+    });
+  })
 });
