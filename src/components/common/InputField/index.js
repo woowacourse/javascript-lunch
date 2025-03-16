@@ -2,7 +2,7 @@ import createElement from "../../../utils/createElement/createElement";
 import Input from "../Input";
 import Select from "../Select";
 import TextArea from "../TextArea";
-import createFormSelectorByType from "./createFormSelectorByType";
+import createFormElementByType from "./createFormElementByType";
 import HelpText from "./HelpText";
 import Label from "./Label";
 
@@ -12,7 +12,7 @@ const INPUT_HELP_TEXT = {
 };
 
 const InputField = ({ inputType, infoType, required, options }) => {
-  const formSelector = createFormSelectorByType({
+  const formElement = createFormElementByType({
     inputType,
     infoType,
     required,
@@ -25,7 +25,7 @@ const InputField = ({ inputType, infoType, required, options }) => {
     attributes: { id: `${infoType}-form-item` },
     children: [
       Label(infoType),
-      formSelector,
+      formElement,
       INPUT_HELP_TEXT[infoType.toUpperCase()] &&
         HelpText(INPUT_HELP_TEXT[infoType.toUpperCase()]),
     ],

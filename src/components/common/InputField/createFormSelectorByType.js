@@ -4,7 +4,7 @@ import TextArea from "../TextArea";
 
 const SELECT_PLACEHOLDER = "선택해주세요.";
 
-const createFormSelectorByType = ({
+const createFormElementByType = ({
   inputType,
   infoType,
   required,
@@ -21,4 +21,4 @@ const createFormSelectorByType = ({
   if (inputType === "textarea") return TextArea(infoType, required);
 };
 
-export default createFormSelectorByType;
+export default createFormElementByType;
