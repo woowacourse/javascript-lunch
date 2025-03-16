@@ -127,6 +127,8 @@ const $createRestaurantInfo = (restaurantInfo) => {
   const itemDelete = () => {
     document.querySelector(`[data-id="${id}"]`).remove();
     storageHandler.deleteItem(STORAGE_KEY_NAME, id);
+
+    handleModalClose();
   };
   const deleteEvent = {
     eventType: "click",
