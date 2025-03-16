@@ -1,16 +1,27 @@
 .gnb {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fff;
+  gap: 8px;
+}
+
+.gnb__top {
+  background-color: var(--primary-color);
+  padding: 12px 16px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 64px;
-  padding: 0 16px;
-  background-color: var(--primary-color);
 }
 
 .gnb__title {
   color: #fcfcfd;
+  font-weight: bold;
 }
-
 .gnb__button {
   height: 40px;
 

@@ -1,3 +1,16 @@
+@import "public/gnb.css";
+@import "public/restaurant-list.css";
+@import "public/modal.css";
+@import "public/restaurant-filter.css";
+@import "src/components/button/button.css";
+@import "src/components/textarea/textarea.css";
+@import "src/components/input/input.css";
+@import "src/components/input/radio.css";
+@import "src/components/dropdown/dropdown.css";
+@import "src/components/restaurant/form/form.css";
+@import "src/components/restaurant/item/item.css";
+@import "src/components/toast/toast.css";
+@import "src/components/restaurant/restaurantDescription.css";
 * {
   padding: 0;
   margin: 0;
@@ -49,4 +62,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+.hidden {
+  display: none;
 }

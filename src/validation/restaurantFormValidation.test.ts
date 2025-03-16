@@ -1,11 +1,11 @@
-import { ERROR_MESSAGE } from "../settings/settings.js";
+import { ERROR_MESSAGE } from "../settings/errorMessages.ts";
 import {
   _validateRestaurantCategory,
   _validateRestaurantName,
   _validateRestaurantDistance,
   _validateRestaurantDescription,
   _validateRestaurantLink,
-} from "./restaurantFormValidation.js";
+} from "./restaurantFormValidation.ts";
 
 describe("음식 추가하기 폼 테스트", () => {
   describe("카테고리 유효성 검사", () => {
@@ -45,14 +45,14 @@ describe("음식 추가하기 폼 테스트", () => {
 
   describe("음식점 거리 유효성 검사", () => {
     it("4분은 유효하지 않는 거리이다.", () => {
-      const distance = "4";
+      const distance = 4;
       expect(() => _validateRestaurantDistance(distance)).toThrow(
         ERROR_MESSAGE.INVALID_RESTAURANT_DISTANCE
       );
     });
 
     it("5분은 유효한 거리이다.", () => {
-      const distance = "5";
+      const distance = 5;
       expect(() => _validateRestaurantDistance(distance)).not.toThrow();
     });
   });

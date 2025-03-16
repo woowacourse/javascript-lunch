@@ -4,6 +4,9 @@ export default function createInputBox({
   id,
   required = false,
   textCaption = "",
+  placeholder = "",
+  minLength = 1,
+  maxLength = 12,
 }) {
   const inputBox = createElement("div", {
     className: ["form-item", `${required && "form-item--required"}`],
@@ -18,6 +21,9 @@ export default function createInputBox({
     name: id,
     id,
     required,
+    placeholder,
+    minLength,
+    maxLength,
   });
 
   const fragment = createElementsFragment([inputLabel, input]);
