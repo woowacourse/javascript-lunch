@@ -18,6 +18,10 @@ export const storageHandler = {
         .filter((item) => item.isFavorite === true);
     }
 
+    if (!category && !sort) {
+      return restaurantData.reverse().sort((a, b) => a[sort] - b[sort]);
+    }
+
     if (!category && sort === "distance") {
       return restaurantData.sort((a, b) => a[sort] - b[sort]);
     }
@@ -31,6 +35,10 @@ export const storageHandler = {
     const categoryData = restaurantData.filter(
       (item) => item.categoryTitle === category
     );
+
+    if (!sort) {
+      return categoryData.reverse().sort((a, b) => a[sort] - b[sort]);
+    }
 
     if (sort === "distance") {
       return categoryData.sort((a, b) => a[sort] - b[sort]);

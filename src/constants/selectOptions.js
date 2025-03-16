@@ -28,6 +28,7 @@ export const categoryFilterOptions = {
 };
 
 export const sortingFilterOptions = {
+  최신순: "",
   이름순: "name",
   거리순: "distance",
 };
