@@ -37,7 +37,7 @@ const RESTAURANT_INFO: RestaurantType[] = [
     name: '호아빈 삼성점',
     distance: 15,
     description: '푸짐한 양에 국물이 일품인 쌀국수',
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     category: '기타',
