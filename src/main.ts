@@ -22,7 +22,6 @@ import {
   createHeader,
   createInput,
   createModal,
-  createRestaurantItem,
   createSelect,
   createTextarea,
   createMultiSelect,
