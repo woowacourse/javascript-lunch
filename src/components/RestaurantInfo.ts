@@ -1,6 +1,7 @@
+import { Restaurant } from '../../types/domain';
 import { IMAGE } from '../constants/elements.js';
 
-function createRestaurantInfo({ id, category, name, distance, description, favorite }) {
+function createRestaurantInfo({ id, category, name, distance, description, favorite }: Restaurant) {
   const information = `<div class="restaurant restaurant__body" data-id="${id}">
                 <div class="restaurant__category">
                   <img src="${IMAGE.get(category)}" alt="${category}" class="category-icon" />

@@ -1,4 +1,4 @@
-function createModal({ classNames }) {
+function createModal({ classNames }: { classNames: string[] }) {
   const modal = `<div class="modal ${classNames.join(' ')}">
       <div class="modal-backdrop"></div>
       <div class="modal-container">

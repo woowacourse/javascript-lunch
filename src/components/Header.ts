@@ -1,4 +1,4 @@
-function createHeader({ title }) {
+function createHeader({ title }: { title: string }) {
   const header = document.createElement('header');
 
   header.innerHTML = `<h1 class="gnb__title text-title">${title}</h1>
