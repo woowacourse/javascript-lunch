@@ -1,4 +1,4 @@
-import { categoryMapping } from "../utils/categoryMapping.js";
+import { categoryMapping } from "../utils/categoryMapping.ts";
 import {
   validateDescriptiontInput,
   validateNameInput,
