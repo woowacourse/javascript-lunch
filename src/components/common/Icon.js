@@ -14,14 +14,18 @@ export default class Icon extends Component {
 
   template() {
     const { size, iconName, classList, styles, id } = this.props;
+    const baseURL = window.location.origin.includes("github.io")
+      ? "/javascript-lunch"
+      : "";
+
     return `
       <img
         id="${id}"
         width="${size}"
         height="${size}"
         alt="${iconName}"
-        src="/${iconName}.png"
-        class=" ${classList.join(" ")} cursor-pointer" 
+        src="${baseURL}/${iconName}.png"
+        class=" ${classList.join(" ")}cursor-pointer" 
         style="${styleStr(styles)}"
       />
       `;
