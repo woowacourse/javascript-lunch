@@ -1,6 +1,5 @@
 import { ILunchItem } from "../type.ts";
 import { createElement } from "../utils/utils.ts";
-import { CategoryIcon } from "./common/CategoryIcon.js";
 import { StoreInfo } from "./StoreInfo.ts";
 
 export function LunchItem(
@@ -14,7 +13,6 @@ export function LunchItem(
 
   function render() {
     li.innerHTML = `
-    ${CategoryIcon(category)}
     ${StoreInfo({
       category,
       name,
@@ -23,6 +21,7 @@ export function LunchItem(
       link,
       type: "summary",
       isFavorite,
+      index,
     })}
   `;
     return li;
