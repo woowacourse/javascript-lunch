@@ -3,6 +3,7 @@ import Filter from './components/Filter.js';
 import Component from './core/Component.js';
 import { defaultRestaurantList } from './data/defaultRestaurantList.js';
 import Sorter from './components/Sorter.js';
+import Modal from './components/Modal.js';
 
 class Application extends Component {
   setup() {
@@ -17,11 +18,7 @@ class Application extends Component {
     return `
       ${new Header({ title: '오늘 뭐 먹지' }).template()}
       <section class="restaurant-filter-container"></section>
-      ${new RestaurantList({
-        restaurantList: this.state.restaurantList,
-        category: this.state.category,
-        sort: this.state.sort,
-      }).template()}
+      <section class="restaurant-list-container"></section>
     `;
   }
 
@@ -41,6 +38,14 @@ class Application extends Component {
   }
 
   onRender() {
+    const $restaurantListContainer = this.element.querySelector('.restaurant-list-container');
+    const restaurantList = new RestaurantList({
+      restaurantList: this.state.restaurantList,
+      category: this.state.category,
+      sort: this.state.sort,
+    });
+
+    $restaurantListContainer.appendChild(restaurantList.element);
     const $restaurantFilterContainer = this.element.querySelector('.restaurant-filter-container');
     const categoryfilter = new Filter(
       {
@@ -75,4 +80,5 @@ class Application extends Component {
     this.element.appendChild(inputModal.element);
   }
 }
+
 export default Application;

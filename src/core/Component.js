@@ -2,11 +2,15 @@ class Component {
   #element;
   #state;
   #props;
+  #tagName;
+  #className;
 
-  constructor(props, parent) {
+  constructor(props, parent, tagName = 'div', className = '') {
     this.#props = props;
     this.parent = parent;
     this.#state = {};
+    this.#tagName = tagName;
+    this.#className = className;
 
     this.setup();
     this.render();
@@ -15,7 +19,8 @@ class Component {
   setup() {}
 
   render() {
-    if (!this.#element) this.#element = document.createElement('div');
+    if (!this.#element) this.#element = document.createElement(this.#tagName);
+    if (this.#className) this.#element.classList.add(this.#className);
 
     this.#element.innerHTML = this.template();
     this.onRender();

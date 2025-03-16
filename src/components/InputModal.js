@@ -61,8 +61,8 @@ class InputModal extends Component {
     });
     return `
              ${new Modal({
-               modalTitle: '새로운 음식점',
                content: `
+               <h2 class="modal-title text-title">새로운 음식점</h2>
                 <form class="modal-form">
                   ${inputBoxList.map((input) => input.template()).join('')}
                   <div class="button-container">
