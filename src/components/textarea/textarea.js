@@ -5,6 +5,8 @@ export default function createTextAreaBox({
   textCaption = "",
   cols = 30,
   rows = 5,
+  minLength = 0,
+  maxLength = 300,
   placeholder = "",
 }) {
   const textAreaBox = createElement("div", {
@@ -21,6 +23,8 @@ export default function createTextAreaBox({
     cols,
     rows,
     placeholder,
+    minLength,
+    maxLength,
   });
 
   const fragment = createElementsFragment([textAreaLabel, textArea]);
