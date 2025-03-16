@@ -1,5 +1,5 @@
 import type { HTMLType } from 'src/lib/types';
-import { html } from '../../lib/utils.ts';
+import { html } from '../lib/utils';
 
 export default abstract class Component<State = Record<string, unknown>, Props = Record<string, unknown>> {
   state = {} as State;
