@@ -1,5 +1,5 @@
-import Component from "../../core/Component";
-import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
+import Component from "../../core/Component.js";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.ts";
 import { AllLunchList, LunchList } from "../feature/index.js";
 
 export default class Tab extends Component {

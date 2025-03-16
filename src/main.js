@@ -1,6 +1,5 @@
 import { BOTTOM_SHEET_MODES } from "./components/common/BottomSheet.js";
-import { Header, Layout, BottomSheet } from "./components/common/index.js";
-import Tab from "./components/common/Tab.js";
+import { Header, Layout, Tab, BottomSheet } from "./components/common/index.js";
 import { storeData } from "./constants/store.data.ts";
 import { RestaurantFacade } from "./domain/RestaurantFacade.ts";
 

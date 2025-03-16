@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import { categories } from "../../types/restaurant.types";
+import { categories } from "../../types/restaurant.types.ts";
 import { Select } from "../common/index.js";
 import LunchList from "./LunchList.js";
 

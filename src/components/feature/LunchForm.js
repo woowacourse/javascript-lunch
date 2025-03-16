@@ -5,8 +5,8 @@ import TextArea from "../common/TextArea.js";
 import Button from "../common/Button.js";
 import BottomSheet from "../common/BottomSheet.js";
 import { categories, distances } from "../../types/restaurant.types.ts";
-import { RestaurantFacade } from "../../domain/RestaurantFacade.js";
-import Restaurant from "../../domain/Restaurant.js";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.ts";
+import Restaurant from "../../domain/Restaurant.ts";
 
 export default class LunchForm extends Component {
   initState() {

@@ -1,4 +1,8 @@
-import { Category, Distance, RestaurantItem } from "../types/restaurant.types";
+import {
+  Category,
+  Distance,
+  RestaurantItem,
+} from "../types/restaurant.types.ts";
 
 const urlRegex = /https?:\/\/[^\s"]/;
 

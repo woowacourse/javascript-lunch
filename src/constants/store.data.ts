@@ -1,4 +1,4 @@
-import { RestaurantItem } from "../types/restaurant.types";
+import { RestaurantItem } from "../types/restaurant.types.ts";
 
 export const storeData: RestaurantItem[] = [
   {
