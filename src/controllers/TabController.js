@@ -1,37 +1,17 @@
-import TabWrapper from "../components/TabWrapper.js";
+import TabEventHandler from "../event/tabEventHandler.js";
+import { createTabView } from "../view/createTabView.js";
 
-const TAB_DATA = [
-  { id: "all-restaurant", text: "모든 음식점" },
-  { id: "favorite-restaurant", text: "자주 가는 음식점" },
-];
-function TabController(
-  mainElement,
-  { allListContainerElement, favoriteListContainerElement },
-  { updateListView, updateFavoriteListView },
-) {
-  const tabContainerElement = TabWrapper(TAB_DATA);
+function TabController(mainElement, { updateCategorySortListView, updateFavoriteListView }) {
+  const { tabContainerElement, allRestaurantTab, favoriteRestaurantTab } = createTabView();
+
+  // 업데이트 뷰 함수 매핑
+  const tabActionsUpdateListView = {
+    "all-restaurant": updateCategorySortListView,
+    "favorite-restaurant": updateFavoriteListView,
+  };
+  TabEventHandler(tabContainerElement, mainElement, tabActionsUpdateListView);
+
   mainElement.prepend(tabContainerElement);
-
-  const allRestaurantTab = tabContainerElement.querySelector("#all-restaurant");
-  const favoriteRestaurantTab = tabContainerElement.querySelector("#favorite-restaurant");
-
-  allRestaurantTab.classList.add("active");
-
-  allRestaurantTab.addEventListener("click", () => {
-    favoriteRestaurantTab.classList.remove("active");
-    allRestaurantTab.classList.add("active");
-    favoriteListContainerElement.classList.remove("active");
-    allListContainerElement.classList.add("active");
-    updateListView();
-  });
-
-  favoriteRestaurantTab.addEventListener("click", () => {
-    allRestaurantTab.classList.remove("active");
-    favoriteRestaurantTab.classList.add("active");
-    allListContainerElement.classList.remove("active");
-    favoriteListContainerElement.classList.add("active");
-    updateFavoriteListView();
-  });
 }
 
 export default TabController;

@@ -29,14 +29,10 @@ function MainController() {
     restaurantList,
   });
 
-  TabController(
-    mainElement,
-    { allListContainerElement, favoriteListContainerElement },
-    {
-      updateListView: updateCategorySortListView,
-      updateFavoriteListView,
-    },
-  );
+  TabController(mainElement, {
+    updateCategorySortListView,
+    updateFavoriteListView,
+  });
 
   HeaderController(app, modalElement);
 

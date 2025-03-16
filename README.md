@@ -62,10 +62,11 @@
 - [x] modal open 토글 이벤트 수정
 - [x] ListController, favoriteListController 리팩토링 (listView 파일 생성)
   - [x] 클로저 기능 이용 (list create 후, update 함수 return )
-- [ ] tabController 리팩토링
+- [x] tabController 리팩토링
 - [x] categoryController 리팩토링
 - [x] modalController 리팩토링
 - [ ] MainController 리팩토링
 - [ ] ButtonForm 컴포넌트 리팩토링 -> Button 컴포넌트에 종속 시키기 (Button을 모아주는 역할 밖에 안하기 때문에, 단순히 껍데기 역할)
 - [ ] Button 컴포넌트 이벤트 자체 처리 (컴포넌트 인자값으로 이벤트 넘기기)
 - [ ] 디테일 모달 -> ⭐️ 클릭시, 모든 음식점 리스트도 동일하게 반영 (동기화)
+- [ ] mainController에서 요소들 append 하기 (현재: 각 controller에서 append)
