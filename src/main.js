@@ -10,11 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = createHeader({ title: "점심 뭐 먹지" });
   body.prepend(header);
 
-  createCategoryFilter();
-  createSortFilter();
-
   const restaurantList = new RestaurantList();
   restaurantList.createRestaurantList();
+
+  createCategoryFilter(restaurantList);
+  createSortFilter(restaurantList);
 
   const addRestaurantModalButton = header.querySelector(".gnb__button");
 

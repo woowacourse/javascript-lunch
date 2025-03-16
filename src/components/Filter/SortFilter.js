@@ -1,6 +1,6 @@
 import RestaurantList from "../../Restaurant/RestaurantList";
 
-const createSortFilter = () => {
+const createSortFilter = (restaurantList) => {
   const addrestaurant_filter_container = document.querySelector(
     ".restaurant-filter-container"
   );
@@ -19,18 +19,17 @@ const createSortFilter = () => {
   selectElement.addEventListener("change", (event) =>
     handleOnChange(event.target)
   );
+
+  function handleOnChange(selectedSort) {
+    const text = selectedSort.options[selectedSort.selectedIndex].text;
+    const selectedSortResult = document.getElementById("sort-filter-result");
+    showSelectedSortRestaurantList(text);
+  }
+
+  function showSelectedSortRestaurantList(selectedSort) {
+    restaurantList.setSelectedSort(selectedSort);
+    restaurantList.createRestaurantList();
+  }
 };
-
-function handleOnChange(selectedSort) {
-  const text = selectedSort.options[selectedSort.selectedIndex].text;
-  const selectedSortResult = document.getElementById("sort-filter-result");
-  showSelectedSortRestaurantList(text);
-}
-
-function showSelectedSortRestaurantList(selectedSort) {
-  const restaurantList = new RestaurantList();
-  restaurantList.setSelectedSort(selectedSort);
-  restaurantList.createRestaurantList();
-}
 
 export default createSortFilter;

@@ -2,7 +2,7 @@ import { CATEGORIES } from "../../constants/constants";
 import { restaurantsData } from "../../../public/database/restaurants";
 import RestaurantList from "../../Restaurant/RestaurantList";
 
-const createCategoryFilter = () => {
+const createCategoryFilter = (restaurantList) => {
   const addrestaurant_filter_container = document.querySelector(
     ".restaurant-filter-container"
   );
@@ -26,20 +26,19 @@ const createCategoryFilter = () => {
   selectElement.addEventListener("change", (event) =>
     handleOnChange(event.target)
   );
+
+  function handleOnChange(selectedCategory) {
+    const text = selectedCategory.options[selectedCategory.selectedIndex].text;
+    const selectedCategoryResult = document.getElementById(
+      "category-filter-result"
+    );
+    showSelectedCategoryRestaurantList(text);
+  }
+
+  function showSelectedCategoryRestaurantList(selectedCategory) {
+    restaurantList.setSelectedCategory(selectedCategory);
+    restaurantList.createRestaurantList();
+  }
 };
-
-function handleOnChange(selectedCategory) {
-  const text = selectedCategory.options[selectedCategory.selectedIndex].text;
-  const selectedCategoryResult = document.getElementById(
-    "category-filter-result"
-  );
-  showSelectedCategoryRestaurantList(text);
-}
-
-function showSelectedCategoryRestaurantList(selectedCategory) {
-  const restaurantList = new RestaurantList();
-  restaurantList.setSelectedCategory(selectedCategory);
-  restaurantList.createRestaurantList();
-}
 
 export default createCategoryFilter;

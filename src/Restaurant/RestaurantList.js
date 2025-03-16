@@ -38,6 +38,8 @@ class RestaurantList {
     let categoryFilteredData;
     let sortFilteredData;
 
+    console.log(this.selectedCategory, this.selectedSort);
+
     // 카테고리 필터
     if (this.selectedCategory === "전체") {
       categoryFilteredData = this.restaurants;
@@ -58,7 +60,7 @@ class RestaurantList {
         .sort((a, b) => a.distance - b.distance);
     }
 
-    // 즐겨찾기 필터
+    // 즐겨찾기 필터 넣어야함
 
     sortFilteredData.forEach((restaurant) => {
       const restaurantItem = renderRestaurantElement(restaurant);
