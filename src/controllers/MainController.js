@@ -4,8 +4,10 @@ import ButtonsForm from "../components/Form/ButtonsForm.js";
 import Modal from "../components/Modal.js";
 import { LIST_ITEM_CONTENTS } from "../constants/listData.js";
 import RestaurantList from "../domain/RestaurantList.js";
+import listItemOpenEventHandler from "../event/listItemOpenEventHandler.js";
 import EventHandler from "../utils/EventHandler.js";
 import CategorySortFilterController from "./CategorySortFilterController.js";
+import DetailModalController from "./DetailModalController.js";
 import FavoriteListController from "./FavoriteListController.js";
 import HeaderController from "./HeaderController.js";
 import ListController from "./ListController.js";
@@ -37,6 +39,7 @@ function MainController() {
 
   const headerElement = HeaderController(modalElement);
 
+  /*기존 돔에 추가*/
   app.prepend(headerElement); //헤더바
   mainElement.prepend(tabContainerElement); // 탭바
   mainElement.appendChild(modalElement); // 가게 추가 모달
@@ -54,46 +57,19 @@ function MainController() {
     if (restaurant) {
       restaurant.toggleFavorite();
       restaurantList.updateLocalStorage();
-
-      favoriteListElement.querySelectorAll("li").forEach((favoriteListElement) => {
-        if (favoriteListElement.dataset.name === restaurantName) {
-          favoriteListElement.remove();
-        }
-      });
+      updateFavoriteListView();
     }
   });
 
-  const buttons = [
-    { type: "submit", stylingBased: "secondary", text: "삭제하기" },
-    { type: "button", stylingBased: "primary", text: "닫기" },
-  ];
-
-  mainElement.addEventListener("click", (event) => {
-    if (event.target.closest(".favorite-star")) return;
-    const restaurantElement = event.target.closest("li.restaurant");
-    if (!restaurantElement) return;
-    const restaurantName = restaurantElement.dataset.name;
-    const restaurant = restaurantList.getRestaurantByName(restaurantName);
-    const detailItemElement = DetailItem(restaurant.information);
-
-    const formButtons = buttons.map((buttonData) => Button(buttonData));
-    const buttonsFormElement = ButtonsForm(formButtons);
-    const modalElement = Modal([detailItemElement, buttonsFormElement]);
-    mainElement.appendChild(modalElement);
-
-    const modalBackdropElement = modalElement.querySelector(".modal-backdrop");
-    modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(modalElement));
-    buttonsFormElement
-      .querySelector("button[type='button']")
-      .addEventListener("click", () => EventHandler.modalToggle(modalElement));
-    buttonsFormElement.querySelector("button[type='submit']").addEventListener("click", () => {
-      restaurantList.removeRestaurant(restaurantName);
-      updateListView(categoryFilterElement.value, sortingFilterElement.value);
-      updateFavoriteListView();
-      EventHandler.modalToggle(modalElement);
-    });
-    EventHandler.modalToggle(modalElement);
-  });
+  //listItem open 이벤트 등록
+  listItemOpenEventHandler(mainElement, (restaurantName) =>
+    DetailModalController({
+      restaurantName,
+      restaurantList,
+      updateCategorySortListView,
+      updateFavoriteListView,
+    }),
+  );
 }
 
 export default MainController;
