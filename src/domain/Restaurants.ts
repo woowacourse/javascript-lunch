@@ -1,27 +1,33 @@
-class Restaurants {
-  #restaurantList;
+import Restaurant, { Category } from './Restaurant.ts';
 
-  constructor(initialRestaurants = []) {
+interface FilterOptions {
+  category?: Category;
+  sorting?: 'name' | 'distance';
+  header?: string;
+}
+
+class Restaurants {
+  #restaurantList: Restaurant[];
+
+  constructor(initialRestaurants: Restaurant[] = []) {
     this.#restaurantList = initialRestaurants;
   }
 
-  getAll() {
+  getAll(): Restaurant[] {
     return this.#restaurantList;
   }
 
-  add(restaurant) {
+  add(restaurant: Restaurant): Restaurant[] {
     this.#restaurantList.push(restaurant);
     return this.#restaurantList;
   }
 
-  delete(restaurantName) {
-    console.log(restaurantName);
+  delete(restaurantName: string): Restaurant[] {
     this.#restaurantList = this.#restaurantList.filter((restaurant) => restaurant.getName() !== restaurantName);
-    console.log(this.#restaurantList);
     return this.#restaurantList;
   }
 
-  updateLike(restaurantName, like) {
+  updateLike(restaurantName: string, like: boolean): Restaurant[] {
     const restaurant = this.#restaurantList.find((restaurant) => restaurant.getName() === restaurantName);
 
     if (restaurant) {
@@ -31,19 +37,16 @@ class Restaurants {
     return this.#restaurantList;
   }
 
-  filter({ category, sorting, header } = {}) {
+  filter(options: FilterOptions = {}): Restaurant[] {
+    const { category, sorting, header } = options;
     let filteredList = [...this.#restaurantList];
 
-    if (category && category !== '') {
-      filteredList = filteredList.filter((restaurant) => {
-        return restaurant.getCategory() === category;
-      });
+    if (category) {
+      filteredList = filteredList.filter((restaurant) => restaurant.getCategory() === category);
     }
 
     if (header === '자주 가는 음식점') {
-      filteredList = filteredList.filter((restaurant) => {
-        return restaurant.getLike() === true;
-      });
+      filteredList = filteredList.filter((restaurant) => restaurant.getLike() === true);
     }
 
     if (sorting === 'name') {

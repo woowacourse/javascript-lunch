@@ -5,11 +5,11 @@ import Modal from '../components/Modal.js';
 import RestaurantItem from '../components/Restaurant/RestaurantItem.js';
 import CATEGORY from '../constant/category.js';
 import DISTANCE from '../constant/distance.js';
-import Restaurant from '../domain/Restaurant.js';
-import { validateDescription } from '../validation/validateDescription.js';
-import { validateDropDown } from '../validation/validateDropDown.js';
-import { validateLink } from '../validation/validateLink.js';
-import { validateName } from '../validation/validateName.js';
+import Restaurant from '../domain/Restaurant.ts';
+import { validateDescription } from '../validation/validateDescription.ts';
+import { validateDropDown } from '../validation/validateDropDown.ts';
+import { validateLink } from '../validation/validateLink.ts';
+import { validateName } from '../validation/validateName.ts';
 import InputText from '../components/Text/InputText.js';
 import InputTextArea from '../components/Text/InputTextArea.js';
 
@@ -123,14 +123,16 @@ class AddRestaurantModal extends Modal {
 
   #addNewRestaurant() {
     const formData = Object.fromEntries(new FormData(this.#modalForm));
-    const newRestaurant = new Restaurant(
-      formData.name,
-      formData.distance,
-      formData.description,
-      formData.category,
-      formData.link,
-      false,
-    );
+
+    const newRestaurant = new Restaurant({
+      name: formData.name,
+      distance: Number(formData.distance),
+      description: formData.description,
+      category: formData.category,
+      link: formData.link,
+      like: false,
+    });
+
     this.#restaurantList.addRestaurant(newRestaurant);
   }
 
