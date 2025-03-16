@@ -6,6 +6,7 @@ class DetailModal extends Modal {
   #cancelButton;
   #deleteButton;
   #restaruantIcon;
+  #originalRestaurantElement;
   #star;
 
   constructor(appContainer) {
@@ -46,7 +47,8 @@ class DetailModal extends Modal {
     }
   }
 
-  addRestaurant(restaurant) {
+  addRestaurant(restaurant, originalRestaurantElement) {
+    this.#originalRestaurantElement = originalRestaurantElement;
     this.#setRestaurantStyle(restaurant);
     this.addElement(restaurant);
     const divButton = this.#createButton();
@@ -55,6 +57,7 @@ class DetailModal extends Modal {
 
   #bindDeleteButtonEvent = () => {
     this.#deleteButton.addEventListener('click', (event) => {
+      this.#originalRestaurantElement.remove();
       this.#clearModalContent();
       this.closeModal();
     });

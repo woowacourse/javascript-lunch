@@ -130,7 +130,7 @@ class AddRestaurantModal extends Modal {
       formData.category,
       formData.link,
     );
-    const newRestaurantItem = new RestaurantItem(newRestaurant);
+    const newRestaurantItem = new RestaurantItem(newRestaurant).getElement();
     this.#restaurantListContainer.appendChild(newRestaurantItem);
   }
 

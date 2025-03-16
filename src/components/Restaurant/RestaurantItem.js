@@ -45,7 +45,7 @@ class RestaurantItem {
       );
       const clonedElement = clonedRestaurant.getElement();
 
-      this.#restaurantModal.addRestaurant(clonedElement);
+      this.#restaurantModal.addRestaurant(clonedElement, this.#restaurant);
       this.#restaurantModal.openModal();
     });
   };
