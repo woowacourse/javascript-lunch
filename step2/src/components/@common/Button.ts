@@ -5,10 +5,12 @@ interface ButtonProps {
   attribute: Attribute;
 }
 
-export const Button = ({ children, attribute }: ButtonProps) => {
+function Button(props: ButtonProps) {
+  const { children, attribute } = props;
+
   return `
     <button ${attribute ? parseAttribute(attribute) : ''}>${children}</button>
   `;
-};
+}
 
 export default Button;
