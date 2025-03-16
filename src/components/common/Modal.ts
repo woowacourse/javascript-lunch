@@ -3,7 +3,7 @@ import { html } from '../../lib/utils.ts';
 
 interface ModalProps {
   id: string;
-  children: string;
+  children: HTMLElement;
   onModalClose: () => void;
 }
 
@@ -12,9 +12,13 @@ export default class Modal extends Component<null, ModalProps> {
     return html`
       <div class="modal modal--open" id="${this.props?.id ?? ''}">
         <div class="modal-backdrop"></div>
-        <div class="modal-container">${this.props?.children ?? ''}</div>
+        <div class="modal-container"></div>
       </div>
     `;
+  }
+
+  override onRender() {
+    this.appendChild(this.props?.children, '.modal-container');
   }
 
   override attachEventListener() {

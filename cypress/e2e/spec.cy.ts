@@ -49,8 +49,8 @@ describe('애플리케이션 테스트 케이스', () => {
       it('이름순으로 정렬하면 "각" 식당이 첫 번째에, "힣" 식당이 마지막에 위치한다.', () => {
         cy.get(':nth-child(2) > select').select('이름순');
 
-        cy.addRestaurant({ name: '각', category: '일식', distance: 20 });
-        cy.addRestaurant({ name: '힣', category: '일식', distance: 10 });
+        cy.addRestaurant({ name: '각', category: '일식', distance: '20' });
+        cy.addRestaurant({ name: '힣', category: '일식', distance: '10' });
 
         cy.get(':first-child > .restaurant').contains('각');
         cy.get(':last-child > .restaurant').contains('힣');
@@ -94,7 +94,7 @@ describe('애플리케이션 테스트 케이스', () => {
   });
   describe('새로고침해도 추가한 정보들이 유지되어야 한다.', () => {
     it('새로고침을 했을 때 이전에 추가한 식당이 보인다.', () => {
-      cy.addRestaurant({ name: '이름입니다', category: '일식', distance: 10 });
+      cy.addRestaurant({ name: '이름입니다', category: '일식', distance: '10' });
 
       cy.reload();
 
@@ -106,32 +106,34 @@ describe('애플리케이션 테스트 케이스', () => {
   describe('예외적인 경우', () => {
     it('카테고리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
       cy.get('[data-action="restaurant-add"]').click();
-      cy.get('#name').type('음식점 이름');
-      cy.get('#distance').select('5');
+      cy.get('[data-action="name"]').type('음식점 이름');
+      cy.get('[data-action="distance"]').select('5');
 
       cy.get('[data-action="modal-add"]').click();
 
-      cy.get('select[name="category"]')
+      cy.get('[data-action="category"]')
         .invoke('prop', 'validationMessage')
         .should('equal', ERROR_MESSAGES.selectInvalid[language]);
     });
     it('이름을 입력하지 않으면 음식점을 추가할 수 없다.', () => {
       cy.get('[data-action="restaurant-add"]').click();
-      cy.get('#category').select('한식');
-      cy.get('#distance').select('5');
+      cy.get('[data-action="category"]').select('한식');
+      cy.get('[data-action="distance"]').select('5');
 
       cy.get('[data-action="modal-add"]').click();
 
-      cy.get('input[name="name"]').invoke('prop', 'validationMessage').should('equal', ERROR_MESSAGES.input[language]);
+      cy.get('input[data-action="name"]')
+        .invoke('prop', 'validationMessage')
+        .should('equal', ERROR_MESSAGES.input[language]);
     });
     it('거리를 선택하지 않으면 음식점을 추가할 수 없다.', () => {
       cy.get('[data-action="restaurant-add"]').click();
-      cy.get('#name').type('음식점 이름');
-      cy.get('#category').select('한식');
+      cy.get('[data-action="name"]').type('음식점 이름');
+      cy.get('[data-action="category"]').select('한식');
 
       cy.get('[data-action="modal-add"]').click();
 
-      cy.get('select[name="distance"]')
+      cy.get('[data-action="distance"]')
         .invoke('prop', 'validationMessage')
         .should('equal', ERROR_MESSAGES.selectInvalid[language]);
     });

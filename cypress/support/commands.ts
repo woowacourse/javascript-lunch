@@ -19,12 +19,12 @@ declare global {
 /** @ts-expect-error cypress */
 Cypress.Commands.add('addRestaurant', (restaurantAdd: RestaurantAddType) => {
   cy.get('[data-action="restaurant-add"]').click();
-  cy.get('#category').select(restaurantAdd.category);
-  cy.get('#name').type(restaurantAdd.name);
-  cy.get('#distance').select(String(restaurantAdd.distance));
+  cy.get('[data-action="category"]').select(restaurantAdd.category);
+  cy.get('[data-action="name"]').type(restaurantAdd.name);
+  cy.get('[data-action="distance"]').select(String(restaurantAdd.distance));
 
-  if (restaurantAdd.description) cy.get('#description').type(restaurantAdd.description);
-  if (restaurantAdd.url) cy.get('#url').type(restaurantAdd.url);
+  if (restaurantAdd.description) cy.get('[data-action="description"]').type(restaurantAdd.description);
+  if (restaurantAdd.url) cy.get('[data-action="url"]').type(restaurantAdd.url);
 
   cy.get('[data-action="modal-add"]').click();
 });

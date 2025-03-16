@@ -3,7 +3,7 @@ import { html } from '../lib/utils.ts';
 
 interface InputBoxProps {
   label: string;
-  input: string;
+  input: HTMLElement;
   labelId: string;
   caption?: string;
   isRequired?: boolean;
@@ -14,9 +14,18 @@ export default class InputBox extends Component<null, InputBoxProps> {
     return html`
       <div class="form-item ${this.props?.isRequired ? 'form-item--required' : ''}">
         <label for="${this.props.labelId}" class="text-caption">${this.props?.label ?? ''}</label>
-        ${this.props?.input ?? ''}
+        <section class="input-box"></section>
         <span class="help-text text-caption">${this.props?.caption ?? ''}</span>
       </div>
     `;
+  }
+
+  onRender(): void {
+    console.log(typeof this.props?.input);
+    if (typeof this.props?.input === 'string') return;
+
+    console.log(this.props?.input);
+
+    this.appendChild(this.props?.input, '.input-box');
   }
 }

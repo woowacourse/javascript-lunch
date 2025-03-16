@@ -1,56 +1,102 @@
-import { Component } from './core/index.ts';
-import { InputBox } from './index.ts';
-import { Button, Modal } from './common/index.ts';
-import type { RestaurantType } from '../lib/types.ts';
-import { html, generateId } from '../lib/utils.ts';
+import { forEach } from '@fxts/core';
 import { CATEGORIES, DISTANCES } from '../lib/constants.ts';
 import { EventHandler } from '../lib/modules/index.ts';
+import type { HTMLType, RestaurantType } from '../lib/types.ts';
+import { generateId, html } from '../lib/utils.ts';
+import { Button, Input, Select } from './common/index.ts';
+import { Component } from './core/index.ts';
+import { InputBox } from './index.ts';
+import TextArea from './common/TextArea.ts';
+
+// ${inputBoxList.map((input) => html`${input}`).join('')}
+//          <div class="button-container">${cancelButton} ${addButton}</div>
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
-  onModalClose: () => void;
 }
 
 export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
-  override onRender() {
-    this.appendRestaurantAddModal();
+  template(): HTMLType {
+    return html`
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+      <form data-action="restaurant-create">
+        <div class="input-container"></div>
+        <div class="button-container"></div>
+      </form>
+    `;
   }
 
-  appendRestaurantAddModal() {
+  override onRender() {
+    this.appendInputBoxs();
+    this.appendButtons();
+  }
+
+  appendInputBoxs() {
     const inputBoxList = [
       new InputBox({
-        input: html` <select name="category" id="category" required>
-          <option value="">선택해 주세요</option>
-          ${[...CATEGORIES].map((category) => `<option value="${category}">${category}</option>`).join('')}
-        </select>`,
+        input: new Select({
+          options: [
+            { value: '', label: '선택해주세요' },
+            ...CATEGORIES.map((category) => ({ value: category, label: category })),
+          ],
+          selected: '',
+          dataAction: 'category',
+          required: true,
+        }).element,
         label: '카테고리',
         isRequired: true,
         labelId: 'category',
       }),
       new InputBox({
-        input: html`<input type="text" name="name" id="name" maxlength="20" required />`,
+        input: new Input({
+          type: 'text',
+          name: 'name',
+          id: 'name',
+          maxlength: 20,
+          required: true,
+          dataAction: 'name',
+        }).element,
         label: '이름',
         isRequired: true,
         labelId: 'name',
       }),
       new InputBox({
-        input: html` <select name="distance" id="distance" required>
-          <option value="">선택해 주세요</option>
-          ${[...DISTANCES].map((distance) => `<option value="${distance}">${distance}분 내</option>`).join('')}
-        </select>`,
+        input: new Select({
+          options: [
+            { value: '', label: '선택해주세요' },
+            ...DISTANCES.map((distance) => ({ value: distance, label: distance })),
+          ],
+          selected: '',
+          dataAction: 'distance',
+          required: true,
+        }).element,
         label: '거리(도보 이동 시간)',
         isRequired: true,
         labelId: 'distance',
       }),
       new InputBox({
-        input: html`<textarea maxlength="1000" name="description" id="description" cols="30" rows="5"></textarea>`,
+        input: new TextArea({
+          name: 'description',
+          id: 'description',
+          maxlength: 1000,
+          required: false,
+          cols: 30,
+          rows: 5,
+          dataAction: 'description',
+        }).element,
         label: '설명',
         caption: '메뉴 등 추가 정보를 입력해 주세요.',
         isRequired: false,
         labelId: 'description',
       }),
       new InputBox({
-        input: html`<input type="url" name="url" id="url" />`,
+        input: new Input({
+          type: 'url',
+          name: 'url',
+          id: 'url',
+          required: false,
+          dataAction: 'url',
+        }).element,
         label: '참고 링크',
         caption: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
         isRequired: false,
@@ -58,6 +104,10 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       }),
     ];
 
+    forEach((inputBox) => this.appendChild(inputBox.element, '.input-container'), inputBoxList);
+  }
+
+  appendButtons() {
     const cancelButton = new Button({
       type: 'button',
       class: 'button--secondary',
@@ -72,25 +122,15 @@ export default class RestaurantAddModal extends Component<null, RestaurantAddMod
       dataAction: 'modal-add',
     });
 
-    const modal = new Modal({
-      id: 'restaurant-add-modal',
-      children: html`
-        <h2 class="modal-title text-title">새로운 음식점</h2>
-        <form data-action="restaurant-create">
-          ${inputBoxList.map((input) => html`${input}`).join('')}
-          <div class="button-container">${cancelButton} ${addButton}</div>
-        </form>
-      `,
-      onModalClose: this.props.onModalClose,
-    });
-
-    this.appendChild(modal.element);
+    this.appendChild(cancelButton.element, '.button-container');
+    this.appendChild(addButton.element, '.button-container');
   }
 
   override attachEventListener() {
     EventHandler.attachEventListener(
       'submit',
-      ({ target }) => {
+      ({ event, target }) => {
+        event.preventDefault();
         const id = generateId();
 
         const formData = new FormData(target as HTMLFormElement);

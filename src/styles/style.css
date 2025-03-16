@@ -220,6 +220,7 @@
   border-radius: 8px;
 
   font-size: 16px;
+  width: 100%;
 }
 
 .form-item textarea {
@@ -244,6 +245,12 @@ input[name='link'] {
 
 .button-container {
   display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.button-container div {
+  flex: 1;
 }
 
 .button {

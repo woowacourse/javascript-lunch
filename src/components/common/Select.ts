@@ -3,20 +3,26 @@ import { html } from '../../lib/utils.ts';
 import { EventHandler } from '../../lib/modules/index.ts';
 
 interface SelectProps<T extends string> {
-  options: readonly T[];
+  options: readonly { value: T; label: string }[];
   selected: T;
-  setValue: (value: T) => void;
+  setValue?: (value: T) => void;
   dataAction: string;
+  required?: boolean;
 }
 
 export default class Select<T extends string> extends Component<null, SelectProps<T>> {
   override template() {
+    console.log(2, this.props.required);
     return html`
-      <select name="select" data-action=${this.props.dataAction}>
+      <select
+        name=${this.props.dataAction}
+        data-action=${this.props.dataAction}
+        ${this.props.required ? 'required' : ''}
+      >
         ${this.props?.options
           .map(
             (option) =>
-              `<option value="${option}" ${this.props?.selected === option ? 'selected' : ''}>${option}</option>`,
+              `<option value="${option.value}" ${this.props?.selected === option.value ? 'selected' : ''}>${option.label}</option>`,
           )
           .join('')}
       </select>
@@ -27,7 +33,7 @@ export default class Select<T extends string> extends Component<null, SelectProp
     EventHandler.attachEventListener(
       'change',
       ({ target }) => {
-        this.props?.setValue((target as HTMLSelectElement)?.value as T);
+        if (this.props?.setValue) this.props.setValue((target as HTMLSelectElement)?.value as T);
       },
       this.props.dataAction,
     );

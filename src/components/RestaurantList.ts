@@ -3,7 +3,7 @@ import { Component } from './core/index.ts';
 import { DEFAULT_RESTAURANT_LIST, FILTERS, SORTS } from '../lib/constants.ts';
 import type { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
-import { Select } from './common/index.ts';
+import { Modal, Select } from './common/index.ts';
 import { RestaurantAddModal, RestaurantDetailModal, RestaurantItem, RestaurantTab } from './index.ts';
 import { EventHandler, LocalStorage } from '../lib/modules/index.ts';
 
@@ -71,7 +71,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
   private _appendRestaurantFilterSelectSort() {
     this.appendChild(
       new Select<FilterType>({
-        options: FILTERS,
+        options: FILTERS.map((filter) => ({ value: filter, label: filter })),
         setValue: (filter) =>
           this.setState({
             filter,
@@ -83,7 +83,7 @@ export default class RestaurantList extends Component<RestaurantListState> {
     );
     this.appendChild(
       new Select<SortType>({
-        options: SORTS,
+        options: SORTS.map((sort) => ({ value: sort, label: sort })),
         setValue: (sort) =>
           this.setState({
             sort,
@@ -109,7 +109,13 @@ export default class RestaurantList extends Component<RestaurantListState> {
       filter((restaurant) => this.state.tab === 'all' || restaurant.isLike),
       filter((restaurant) => this.state.filter === '전체' || restaurant.category === this.state.filter),
       sort((a, b) =>
-        this.state.sort === '이름순' ? (a.name < b.name ? -1 : a.name > b.name ? 1 : 0) : a.distance - b.distance,
+        this.state.sort === '이름순'
+          ? a.name < b.name
+            ? -1
+            : a.name > b.name
+              ? 1
+              : 0
+          : Number(a.distance) - Number(b.distance),
       ),
     );
   }
@@ -117,8 +123,11 @@ export default class RestaurantList extends Component<RestaurantListState> {
   private _appendRestaurantAddModal() {
     if (!this.state.isRestaurantAddModal) return;
 
-    const restaurantAddModal = new RestaurantAddModal({
-      addRestaurant: this._addRestaurant.bind(this),
+    const restaurantAddModal = new Modal({
+      id: 'restaurant-add-modal',
+      children: new RestaurantAddModal({
+        addRestaurant: this._addRestaurant.bind(this),
+      }).element,
       onModalClose: () => this.setState({ isRestaurantAddModal: false }),
     });
     this.appendChild(restaurantAddModal.element, '.restaurant-add-modal');
@@ -133,10 +142,15 @@ export default class RestaurantList extends Component<RestaurantListState> {
 
     if (!restaurantDetail) return;
 
-    const restaurantDetailModal = new RestaurantDetailModal({
-      ...restaurantDetail,
+    const restaurantDetailModal = new Modal({
+      id: 'restaurant-detail-modal',
+      children: new RestaurantDetailModal({
+        ...restaurantDetail,
+        onModalClose: () => this.setState({ restaurantDetailId: null }),
+      }).element,
       onModalClose: () => this.setState({ restaurantDetailId: null }),
     });
+
     this.appendChild(restaurantDetailModal.element, '.restaurant-detail-modal');
   }
 
