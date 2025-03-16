@@ -1,9 +1,9 @@
 import Header from "./Header/Header.js";
 import { createRestaurant, updateRestaurant } from "./createRestaurant.js";
 import Component from "./Component.js";
-import { filterRestaurants } from "../domain/filterRestaurants.js";
+import { filterRestaurants } from "../domain/filterRestaurants.ts";
 import { getStoredRestaurantData } from "../domain/storeRestaurantData.js";
-import Tab from "./Tab/Tab.js";
+import Tab from "./Tab/Tab.ts";
 class App extends Component {
   constructor($target) {
     super($target);
