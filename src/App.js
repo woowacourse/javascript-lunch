@@ -92,8 +92,6 @@ export default class App {
   };
 
   #renderDetailModal = () => {
-    const $modal = document.querySelector("#datail-modal");
-
     const $restaurantDetail = new RestaurantDetail(
       this.#selectedRestaurant,
       this.#restaurantList,
@@ -102,64 +100,42 @@ export default class App {
       this.#onRestaurantItemDelete
     ).render();
 
-    $modal.replaceWith(
-      new BottomSheetBase({
-        $children: $restaurantDetail,
-        show: this.#detailModalShow,
-        toggleShow: this.#toggleDetailModalShow,
-        id: "datail-modal",
-      }).render()
-    );
+    this.#renderModal("#datail-modal", $restaurantDetail, {
+      show: this.#detailModalShow,
+      toggleShow: this.#toggleDetailModalShow,
+    });
   };
 
   #renderAddModal = () => {
-    const $modal = document.querySelector("#add-modal");
-
     const $restaurantForm = new RestaurantForm(
       this.#updateLocalRestautantList,
       this.#restaurantList
     ).render();
 
-    $modal.replaceWith(
-      new BottomSheetBase({
-        title: "새로운 음식점",
-        $children: $restaurantForm,
-        show: this.#addModalShow,
-        toggleShow: this.#toggleAddModalShow,
-        id: "add-modal",
-      }).render()
-    );
+    this.#renderModal("#add-modal", $restaurantForm, {
+      title: "새로운 음식점",
+      show: this.#addModalShow,
+      toggleShow: this.#toggleAddModalShow,
+    });
+  };
+
+  #renderModal = (modalId, innerComponent, options = {}) => {
+    const $modal = document.querySelector(modalId);
+
+    const bottomSheetOptions = {
+      $children: innerComponent,
+      id: modalId.replace("#", ""),
+      ...options,
+    };
+
+    $modal.replaceWith(new BottomSheetBase(bottomSheetOptions).render());
   };
 
   #updateSelectValue = (value, type) => {
     if (type === "category") this.#category = value;
     if (type === "sorting") this.#sorting = value;
 
-    const $filterSection = document.querySelector(
-      ".restaurant-filter-container"
-    );
-    $filterSection.replaceWith(
-      new RestaurantFilterSection(
-        this.restaurantListModel.getRestaurantList(),
-        this.#updateRestautantList,
-        this.#selectedTab,
-        this.#category,
-        this.#sorting,
-        this.#updateSelectValue
-      ).render()
-    );
-
-    const $tap = document.querySelector(".restaurant-list-header");
-
-    $tap.replaceWith(
-      new RestaurantNavigator(
-        this.#selectedTab,
-        this.#updateSelected,
-        this.restaurantListModel.getRestaurantList(),
-        this.#updateRestautantList,
-        { category: this.#category, sorting: this.#sorting }
-      ).render()
-    );
+    this.#renderFilterAndNavigation();
   };
 
   #updateRestautantList = (newRestaurantList) => {
@@ -176,32 +152,7 @@ export default class App {
   #updateSelected = (selected) => {
     this.#selectedTab = selected;
 
-    const $tap = document.querySelector(".restaurant-list-header");
-    const restaurantList = this.restaurantListModel.getRestaurantList();
-
-    $tap.replaceWith(
-      new RestaurantNavigator(
-        this.#selectedTab,
-        this.#updateSelected,
-        restaurantList,
-        this.#updateRestautantList,
-        { category: this.#category, sorting: this.#sorting }
-      ).render()
-    );
-
-    const $filterSection = document.querySelector(
-      ".restaurant-filter-container"
-    );
-    $filterSection.replaceWith(
-      new RestaurantFilterSection(
-        restaurantList,
-        this.#updateRestautantList,
-        this.#selectedTab,
-        this.#category,
-        this.#sorting,
-        this.#updateSelectValue
-      ).render()
-    );
+    this.#renderFilterAndNavigation();
   };
 
   updateRestaurantListUI() {
@@ -228,6 +179,10 @@ export default class App {
       $listContainer
     );
 
+    this.#renderFilterAndNavigation();
+  }
+
+  #renderFilterAndNavigation() {
     const restaurantList = this.restaurantListModel.getRestaurantList();
 
     const $filterSection = document.querySelector(
