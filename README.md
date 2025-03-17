@@ -111,7 +111,7 @@
   - [x] 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.
   - [x] 자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다.
 - [x] 새로고침해도 추가한 정보들이 유지되어야 한다.
-- [ ] 추가 기능에 대한 E2E 테스트 코드 작성해야 한다.
+- [x] 추가 기능에 대한 E2E 테스트 코드 작성해야 한다.
 
 ## ✅ `step2` 프로그래밍 요구사항
 
@@ -119,7 +119,60 @@
   - [x] 정적으로 렌더링할 영역과 동적으로 렌더링할 영역을 구분해서 고민한다.
   - [x] 재사용할 수 있는 컴포넌트에 대해 고민하고 적용해본다.
   - [x] 단, 웹 컴포넌트를 사용하지 않는다
-- [ ] 도메인 영역을 TypeScript으로 변환한다. (UI 영역은 선택)
-  - [ ] any를 사용하지 않는다.
-  - [ ] interface 또는 type alias 를 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
+- [x] 도메인 영역을 TypeScript으로 변환한다. (UI 영역은 선택)
+  - [x] any를 사용하지 않는다.
+  - [x] interface 또는 type alias 를 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
 - [x] 데이터 유지를 위해 localStorage를 활용한다.
+
+## 🏛️ `step2` 폴더 구조
+
+```
+.
+├── App.ts
+├── components
+│   ├── common
+│   │   ├── bottom-sheet-base
+│   │   │   ├── BottomSheetBase.ts
+│   │   │   └── bottomSheetBase.css
+│   │   ├── button
+│   │   │   ├── Button.ts
+│   │   │   └── button.css
+│   │   └── select-box
+│   │       └── SelectBox.ts
+│   ├── header
+│   │   ├── Header.ts
+│   │   └── header.css
+│   ├── restaurant-detail
+│   │   ├── RestaurantDetail.ts
+│   │   └── restaurantDetail.css
+│   ├── restaurant-filter-section
+│   │   ├── RestaurantFilter.ts
+│   │   └── restaurantFilter.css
+│   ├── restaurant-form-section
+│   │   ├── description-input
+│   │   │   └── DescriptionInput.ts
+│   │   ├── link-input
+│   │   │   └── LinkInput.ts
+│   │   ├── name-input
+│   │   │   └── NameInput.ts
+│   │   └── restaurant-form
+│   │       ├── RestaurantForm.ts
+│   │       └── restaurantForm.css
+│   ├── restaurant-list-section
+│   │   ├── restaurant-list
+│   │   │   ├── RestaurantList.ts
+│   │   │   └── restaurantList.css
+│   │   └── restaurant-list-item
+│   │       ├── RestaurantListItem.ts
+│   │       └── restaurantListItem.css
+│   └── restaurant-nav-bar
+│       ├── RestaurantNavBar.ts
+│       └── restaurantNavBar.css
+├── constants
+│   └── constants.ts
+├── index.ts
+├── stores
+│   └── RestaurantStore.ts
+└── utils
+    └── generateUUID.ts
+```
