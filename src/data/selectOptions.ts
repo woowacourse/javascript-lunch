@@ -1,4 +1,4 @@
-export const categoryOptions: Record<string, string> = {
+const _categoryOptions = {
   "선택해 주세요": "",
   한식: "한식",
   중식: "중식",
@@ -8,7 +8,7 @@ export const categoryOptions: Record<string, string> = {
   기타: "기타",
 } as const;
 
-export const distanceOptions: Record<string, string | number> = {
+const _distanceOptions = {
   "선택해 주세요": "",
   "5분 이내": 5,
   "10분 이내": 10,
@@ -16,3 +16,6 @@ export const distanceOptions: Record<string, string | number> = {
   "20분 이내": 20,
   "30분 이내": 30,
 } as const;
+ 
+export const categoryOptions = Object.freeze(_categoryOptions) satisfies Record<string, string>;
+export const distanceOptions = Object.freeze(_distanceOptions) satisfies Record<string, string | number>;

@@ -40,4 +40,4 @@ export const FILTERS: FilterGroup = Object.freeze({
     if ("options" in info) return $filter(info);
     throw new Error("filter에 옵션 값이 없습니다.");
   },
-});
+} as const);

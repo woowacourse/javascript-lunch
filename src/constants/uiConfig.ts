@@ -37,7 +37,7 @@ export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
     CANCEL: {
       id: "cancel-restaurant-add-button",
       text: "취소하기",
-      type: "button" as const,
+      type: "button",
       className: [
         "button",
         "button--secondary",
@@ -48,13 +48,13 @@ export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
     ADD: {
       id: "restaurant-add-button",
       text: "추가하기",
-      type: "submit" as const,
+      type: "submit",
       className: ["button", "button--primary", "text-caption", "add-button"],
     },
     DELETE: {
       id: "delete-restaurant-button",
       text: "삭제하기",
-      type: "button" as const,
+      type: "button",
       className: [
         "button",
         "button--secondary",
@@ -65,7 +65,7 @@ export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
     CLOSE: {
       id: "close-restaurant-detail-button",
       text: "닫기",
-      type: "button" as const,
+      type: "button",
       className: ["button", "button--primary", "text-caption", "add-button"],
     },
     FAVORITE: {
@@ -73,4 +73,4 @@ export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
       className: ["button-favorite"],
     },
   }),
-});
+} as const satisfies Readonly<UIConfig>);

@@ -110,4 +110,4 @@ export const FORM_FIELDS: FormFields = Object.freeze({
     },
     create: (info: FormField) => $textarea(info),
   }),
-});
+} as const);
