@@ -1,5 +1,5 @@
 export const getStarIconSrc = (isFavorite) => {
-  return isFavorite ? "/favorite-icon-filled.png" : "favorite-icon-lined.png";
+  return isFavorite ? "favorite-icon-filled.png" : "favorite-icon-lined.png";
 };
 
 const StarIcon = (isFavorite) => {
