@@ -37,10 +37,6 @@ const LunchInfoCard = {
 
     return LunchInfoCardElement;
   },
-
-  onClickFavorite(id, event) {},
-
-  onClickCard(id, event) {},
 };
 
 export default LunchInfoCard;
