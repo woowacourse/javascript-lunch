@@ -110,7 +110,10 @@ main {
 
   border: 1px solid #d0d5dd;
   border-radius: 8px;
+
   background: transparent;
+
+  padding: 0 0 0 0.5rem;
 
   font-size: 16px;
 
@@ -128,7 +131,7 @@ main {
   flex: 1;
 
   padding: 0 16px;
-  margin: 16px 0;
+  margin: 16px 0 0;
 
   overflow-y: scroll;
 }
@@ -144,6 +147,10 @@ main {
   position: relative;
 
   cursor: pointer;
+}
+
+.restaurant:last-of-type {
+  border-bottom: none;
 }
 
 svg.favorite-icon {
