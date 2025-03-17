@@ -1,4 +1,4 @@
-import { RestaurantProp } from "../../types/types.ts";
+import { RestaurantProp, Values } from "../../types/types.ts";
 import Restaurant from "./Restaurant.ts";
 import { postData, getAllData } from "../util/dataRepository.ts";
 
@@ -25,10 +25,9 @@ const SORTED = {
 export class RestaurantList {
   private dataList: RestaurantProp[];
   private subscribers: ((data: RestaurantProp[]) => void)[] = [];
-  private viewState: (typeof VIEW_STATE)[keyof typeof VIEW_STATE] =
-    VIEW_STATE.all;
-  private sortedFlag: (typeof SORTED)[keyof typeof SORTED] = SORTED.name;
-  private category: (typeof CATEGORY)[keyof typeof CATEGORY] = CATEGORY.all;
+  private viewState: Values<typeof VIEW_STATE> = VIEW_STATE.all;
+  private sortedFlag: Values<typeof SORTED> = SORTED.name;
+  private category: Values<typeof CATEGORY> = CATEGORY.all;
 
   constructor() {
     const restaurantDataList = getAllData();
@@ -52,15 +51,15 @@ export class RestaurantList {
     );
   }
 
-  setViewState(viewState: (typeof VIEW_STATE)[keyof typeof VIEW_STATE]) {
+  setViewState(viewState: Values<typeof VIEW_STATE>) {
     this.viewState = viewState;
   }
 
-  setCategory(category: (typeof CATEGORY)[keyof typeof CATEGORY]) {
+  setCategory(category: Values<typeof CATEGORY>) {
     this.category = category;
   }
 
-  setSortedFlag(sortedFlag: (typeof SORTED)[keyof typeof SORTED]) {
+  setSortedFlag(sortedFlag: Values<typeof SORTED>) {
     this.sortedFlag = sortedFlag;
   }
 

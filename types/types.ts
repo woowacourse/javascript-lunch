@@ -17,3 +17,5 @@ export interface RestaurantProp {
   src?: string;
   alt?: string;
 }
+
+export type Values<T> = T[keyof T];
