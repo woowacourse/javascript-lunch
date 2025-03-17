@@ -1,4 +1,4 @@
-import ERROR_MASSAGE from "../constants/errorMessage.js";
+import ERROR_MESSAGE from "../constants/errorMessage.js";
 import Category from "../types/Category.js";
 import Restaurant from "../types/Restaurant.js";
 
@@ -22,7 +22,15 @@ export default class RestaurantData {
   category: Category;
   isWish: boolean;
 
-  constructor({ id, name, distance, description = "", link = "", category, isWish }: Restaurant) {
+  constructor({
+    id,
+    name,
+    distance,
+    description = "",
+    link = "",
+    category,
+    isWish,
+  }: Restaurant) {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
@@ -48,7 +56,7 @@ export default class RestaurantData {
       description: this.description,
       link: this.link,
       category: this.category,
-      isWish: this.isWish
+      isWish: this.isWish,
     };
   }
 
@@ -70,14 +78,14 @@ export default class RestaurantData {
   }
 
   validateCategory(category: string): void {
-    if (this.isValidateOption(category)) throw Error(ERROR_MASSAGE.category);
+    if (this.isValidateOption(category)) throw Error(ERROR_MESSAGE.category);
   }
 
   validateDistance(distance: number): void {
-    if (this.isValidateOption(distance)) throw Error(ERROR_MASSAGE.distance);
+    if (this.isValidateOption(distance)) throw Error(ERROR_MESSAGE.distance);
   }
 
   validateName(name: string): void {
-    if (this.isValidateName(name)) throw Error(ERROR_MASSAGE.name);
+    if (this.isValidateName(name)) throw Error(ERROR_MESSAGE.name);
   }
 }
