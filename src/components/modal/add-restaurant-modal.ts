@@ -45,6 +45,7 @@ export const addRestaurant = (data: RestaurantProps): void => {
   const restaurantList = document.querySelector(".restaurant-list");
   if (!restaurantList) return;
   restaurantList.appendChild($restaurantItem(newRestaurant));
+  alert(`${data.name}이(가) 추가되었습니다!`);
   updateList();
 };
 

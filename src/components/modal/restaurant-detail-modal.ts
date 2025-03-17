@@ -21,7 +21,10 @@ export const handleDeleteRestaurant = (id: number): void => {
     (restaurant: { dataId: number }) => restaurant.dataId !== id
   );
 
+  currentRestaurantData.splice(0, currentRestaurantData.length, ...updatedRestaurants);
   saveRestaurantsToLocalStorage(updatedRestaurants);
+  alert(`삭제 완료되었습니다!`);
+  handleRestaurantDetailModalClose();
   updateList();
 };
 
