@@ -1,9 +1,19 @@
 export function formatDistance(distanceMap) {
-  return distanceMap.map((distance) => `${distance}분 내`);
+  const categoryNames = {
+    none: "선택해주세요.",
+    5: "5분 내",
+    10: "10분 내",
+    15: "15분 내",
+    20: "20분 내",
+    30: "30분 내",
+  };
+
+  return distanceMap.map((distance) => categoryNames[distance]);
 }
 
 export function formatCategory(categoryMap) {
   const categoryNames = {
+    none: "선택해주세요.",
     ko: "한식",
     ch: "중식",
     ja: "일식",
@@ -12,7 +22,29 @@ export function formatCategory(categoryMap) {
     etc: "기타",
   };
 
-  return categoryMap.map((category) => categoryNames[category] || "알 수 없음");
+  return categoryMap.map((category) => categoryNames[category]);
+}
+
+export function formatFilter(categoryMap) {
+  const categoryNames = {
+    all: "전체",
+    ko: "한식",
+    ch: "중식",
+    ja: "일식",
+    we: "양식",
+    as: "아시안",
+    etc: "기타",
+  };
+
+  return categoryMap.map((category) => categoryNames[category]);
+}
+
+export function formatSort(sortMap) {
+  const sortNames = {
+    name: "이름순",
+    distance: "거리순",
+  };
+  return sortMap.map((sort) => sortNames[sort]);
 }
 
 export function convertObjectToArray(object) {
