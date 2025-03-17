@@ -6,18 +6,18 @@ class InputDropDown {
   #select;
   #option;
 
-  constructor({ name, id, required = false, option, addDefaultOption = false, optionDefault = '선택해주세요' }) {
+  constructor({ name, id, required = false, option, optionDefault }) {
     this.#option = option;
-    this.#select = this.#createInputDropDown(name, id, required, addDefaultOption, optionDefault);
+    this.#select = this.#createInputDropDown(name, id, required, optionDefault);
   }
 
-  #createInputDropDown(name, id, required, addDefaultOption, optionDefault) {
+  #createInputDropDown(name, id, required, optionDefault) {
     const select = document.createElement('select');
     select.setAttribute('name', name);
     select.setAttribute('id', id);
     if (required) select.required = true;
 
-    if (addDefaultOption) select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(optionDefault, ''));
+    if (optionDefault != null) select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(optionDefault, ''));
 
     const sortedOptions = Object.entries(this.#option).sort(([keyA], [keyB]) => {
       if (keyA === '') return -1;

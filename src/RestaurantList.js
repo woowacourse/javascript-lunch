@@ -1,4 +1,3 @@
-import InputDropDown from './components/InputDropDown.js';
 import RestaurantItem from './components/Restaurant/RestaurantItem.js';
 import CATEGORY from './constant/category.js';
 import Restaurant from './domain/Restaurant';

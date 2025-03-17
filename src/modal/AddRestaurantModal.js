@@ -45,7 +45,7 @@ class AddRestaurantModal extends Modal {
         id: 'category',
         required: true,
         option: CATEGORY,
-        addDefaultOption: true,
+        optionDefault: '선택해주세요',
       }),
     });
     this.#divName = new Input({
@@ -63,7 +63,7 @@ class AddRestaurantModal extends Modal {
         id: 'distance',
         required: true,
         option: DISTANCE,
-        addDefaultOption: true,
+        optionDefault: '선택해주세요',
       }),
     });
     this.#divDescription = new Input({
