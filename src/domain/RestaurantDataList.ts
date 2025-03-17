@@ -1,4 +1,4 @@
-import { IRestaurantDataProp } from "./../../types/types";
+import { RestaurantDataProp } from "./../../types/types";
 import RestaurantData from "./RestaurantData";
 import { postData, getAllData } from "../util/dataRepository";
 
@@ -23,8 +23,8 @@ const SORTED = {
 } as const;
 
 export class RestaurantDataList {
-  private dataList: IRestaurantDataProp[];
-  private subscribers: ((data: IRestaurantDataProp[]) => void)[] = [];
+  private dataList: RestaurantDataProp[];
+  private subscribers: ((data: RestaurantDataProp[]) => void)[] = [];
   private viewState: (typeof VIEW_STATE)[keyof typeof VIEW_STATE] =
     VIEW_STATE.all;
   private sortedFlag: (typeof SORTED)[keyof typeof SORTED] = SORTED.name;
@@ -34,14 +34,14 @@ export class RestaurantDataList {
     const restaurantDataList = getAllData();
 
     this.dataList = restaurantDataList.map(
-      (restaurantData: IRestaurantDataProp) =>
+      (restaurantData: RestaurantDataProp) =>
         new RestaurantData(restaurantData).getData()
     );
   }
 
   getFavoriteDataList() {
     const favoriteList = this.dataList.filter(
-      (restaurantData: IRestaurantDataProp) => restaurantData.isFavorite
+      (restaurantData: RestaurantDataProp) => restaurantData.isFavorite
     );
 
     return favoriteList;
@@ -49,7 +49,7 @@ export class RestaurantDataList {
 
   getDataById(id: number | string) {
     return this.dataList.find(
-      (restaurantData: IRestaurantDataProp) => restaurantData.id === id
+      (restaurantData: RestaurantDataProp) => restaurantData.id === id
     );
   }
 
@@ -65,7 +65,7 @@ export class RestaurantDataList {
     this.sortedFlag = sortedFlag;
   }
 
-  addData(data: IRestaurantDataProp) {
+  addData(data: RestaurantDataProp) {
     const restaurantData = new RestaurantData(data);
     this.dataList.push(restaurantData.getData());
 
@@ -106,7 +106,7 @@ export class RestaurantDataList {
     this.notify(sortedFilteredList);
   }
 
-  sortedDataList(dataList: IRestaurantDataProp[]) {
+  sortedDataList(dataList: RestaurantDataProp[]) {
     if (this.sortedFlag === SORTED.distance) {
       dataList.sort((a, b) => a.distance - b.distance);
     } else {
@@ -116,11 +116,11 @@ export class RestaurantDataList {
     return dataList;
   }
 
-  subscribe(callback: (data: IRestaurantDataProp[]) => void) {
+  subscribe(callback: (data: RestaurantDataProp[]) => void) {
     this.subscribers.push(callback);
   }
 
-  notify(data: IRestaurantDataProp[]) {
+  notify(data: RestaurantDataProp[]) {
     this.subscribers.forEach((callback) => callback(data));
   }
 }

@@ -1,4 +1,4 @@
-import { IRestaurantDataProp, CategoryType } from "../../types/types";
+import { RestaurantDataProp, CategoryType } from "../../types/types";
 
 const CATEGORY_IMAGE = {
   한식: "./category-korean.png",
@@ -38,7 +38,7 @@ export default class RestaurantData {
     isFavorite = false,
     src,
     alt,
-  }: IRestaurantDataProp) {
+  }: RestaurantDataProp) {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
@@ -55,7 +55,7 @@ export default class RestaurantData {
     this.isFavorite = isFavorite;
   }
 
-  getData(): IRestaurantDataProp {
+  getData(): RestaurantDataProp {
     return {
       id: this.id,
       src: this.src,
