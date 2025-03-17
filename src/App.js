@@ -2,7 +2,7 @@ import Header from "./components/header/Header.js";
 import RestaurantList from "./components/restaurantListSection/restaurantList/RestaurantList.js";
 import BottomSheetBase from "./components/common/bottomSheetBase/BottomSheetBase.js";
 import RestaurantForm from "./components/restaurantFormSection/restaurantForm/RestaurantForm.js";
-import RestaurantListModel from "./domain/RestaurantListModel.js";
+import RestaurantListModel from "./domain/RestaurantListModel.ts";
 import RestaurantNavigator from "./components/restaurantListSection/restaurantNavigator/RestaurantNavigator.js";
 import RestaurantFilterSection from "./components/restaurantListSection/restaurantFilterSection/RestaurantFilterSection.js";
 import { setItem, RESTAURANT_LIST_KEY, getItem } from "./utils/storage.js";
