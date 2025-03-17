@@ -42,13 +42,14 @@ class RestaurantList {
 
     el.innerHTML = data.map(LunchInfoCard).join("");
 
-    data.forEach((item) => {
+    data.forEach((item: Restaurant) => {
       const $li = document.getElementById(`restaurant_${item.name}`);
 
       new FavoriteButton($li, item.name, item.favorite, this);
 
       $li?.addEventListener("click", (event) => {
-        if (event.target?.closest(".child-exclude")) {
+        const target = event.target as Element;
+        if (target.closest(".child-exclude")) {
           return;
         }
         $("main").append(
@@ -63,7 +64,7 @@ class RestaurantList {
   }
 
   resetFilter() {
-    this.#items = JSON.parse(localStorage.getItem("restaurantList"));
+    this.#items = JSON.parse(localStorage.getItem("restaurantList") || "[]");
     this.#category = "선택해 주세요";
     this.render();
   }
