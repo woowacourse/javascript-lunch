@@ -20,9 +20,12 @@ addEventListener("load", () => {
     FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.sortingFilter),
   ];
 
-  document.querySelector("main").prepend($filterContainer(filterSelects));
-  document.querySelector("main").prepend(navigationTabs);
-  document.querySelector("main").appendChild($modal());
+  const main = document.querySelector("main");
+  if (main === null) return;
+
+  main.prepend($filterContainer(filterSelects));
+  main.prepend(navigationTabs);
+  main.appendChild($modal());
 
   $createRestaurantList();
 });
