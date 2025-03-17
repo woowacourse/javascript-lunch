@@ -37,8 +37,7 @@ class RestaurantStorage {
       );
       return new Restaurants(restaurantList);
     } catch (error: any) {
-      alert(RESTAURANT_STORAGE_ERROR.FAILED_LOAD_FROM_LOCAL_STORAGE);
-      return new Restaurants([]);
+      throw new Error(RESTAURANT_STORAGE_ERROR.FAILED_LOAD_FROM_LOCAL_STORAGE);
     }
   }
 
