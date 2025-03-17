@@ -190,7 +190,7 @@ body {
 .restaurant__star {
   width: 30px;
   height: 30px;
-  background-image: url('public/images/Star\ border.png');
+  background-image: url('./images/Star\ border.png');
   background-image: no-repeat;
   background-size: 100% 100%;
   cursor: pointer;
@@ -199,7 +199,7 @@ body {
 }
 
 .restaurant__star.favorite {
-  background-image: url('public/images/Star.png');
+  background-image: url('./images/Star.png');
 }
 
 .restaurant__column {
