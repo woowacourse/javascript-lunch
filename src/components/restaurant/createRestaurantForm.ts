@@ -9,14 +9,20 @@ import { handleModalClose, handleModalOpen } from "../modal/modal";
 import { validateRestaurantForm } from "../../validation/validationForm";
 import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
+import { IRestaurant } from "../../types/types";
 
-const restaurantFormReset = () => {
+const restaurantFormReset = (form: HTMLFormElement) => {
   handleModalClose();
-  const form = document.getElementById("add-restaurant-form");
-  form.reset();
+  form?.reset();
 };
 
-const addRestaurant = ({ category, name, distance, description, link }) => {
+const addRestaurant = ({
+  category,
+  name,
+  distance,
+  description,
+  link,
+}: IRestaurant) => {
   const newRestaurant = {
     category,
     name,
@@ -33,24 +39,28 @@ const addRestaurant = ({ category, name, distance, description, link }) => {
   $createRestaurantList();
 };
 
-const handleAddRestaurant = (e) => {
+const handleAddRestaurant = (e: Event) => {
   e.preventDefault();
 
   try {
-    const form = document.getElementById("add-restaurant-form");
+    const form = document.getElementById(
+      "add-restaurant-form"
+    ) as HTMLFormElement;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+    const data = Object.fromEntries(formData) as unknown as IRestaurant;
     validateRestaurantForm(form);
     addRestaurant(data);
     restaurantFormReset(form);
   } catch (error) {
-    alert(error.message);
+    if (error instanceof Error) {
+      alert(error.message);
+    }
   }
 };
 
 const $createRestaurantForm = () => {
   const container = document.querySelector(".modal-container");
-  container.replaceChildren();
+  container?.replaceChildren();
 
   const cancelEvent = { eventType: "click", eventHandler: restaurantFormReset };
   const submitCancelButtons = $buttonContainer([
@@ -71,9 +81,9 @@ const $createRestaurantForm = () => {
   title.classList.add("modal-title", "text-title");
   title.textContent = "새로운 음식점";
 
-  container.appendChild(title);
+  container?.appendChild(title);
   const submitForm = { eventType: "submit", eventHandler: handleAddRestaurant };
-  container.appendChild($form(restaurantAddForm, submitForm));
+  container?.appendChild($form(restaurantAddForm, submitForm));
 
   handleModalOpen();
 };

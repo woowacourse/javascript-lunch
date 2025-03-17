@@ -5,10 +5,10 @@ export const storageHandler = {
     JSON.parse(localStorage.getItem(storageKey) ?? "[]") || [],
   setItem: (storageKey: string, value: IRestaurant[]) =>
     localStorage.setItem(storageKey, JSON.stringify(value)),
-  deleteItem: (storageKey: string, value: IRestaurant) => {
+  deleteItem: (storageKey: string, value: string) => {
     const newData = storageHandler
       .getItem(storageKey)
-      .filter((item: IRestaurant) => item.id === value.id);
+      .filter((item: IRestaurant) => item.id === value);
 
     storageHandler.setItem(storageKey, newData);
   },
@@ -47,7 +47,7 @@ export const storageHandler = {
     }
 
     const categoryData = restaurantData.filter(
-      (item: IRestaurant) => item.categoryTitle === category
+      (item: IRestaurant) => item.category === category
     );
 
     if (!sort) {

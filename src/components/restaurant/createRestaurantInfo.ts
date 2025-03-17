@@ -7,12 +7,13 @@ import { STORAGE_KEY_NAME } from "../../constants/storage";
 import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon";
 import { USER_MESSAGE } from "../../constants/message";
 import { CATEGORY_ICON } from "../../constants/iconPath";
+import { IRestaurant } from "../../types/types";
 
-const $createRestaurantInfo = (restaurantInfo) => {
+const $createRestaurantInfo = (restaurantInfo: IRestaurant) => {
   const { category, description, distance, link, name, id, isFavorite } =
     restaurantInfo;
   const container = document.querySelector(".modal-container");
-  container.replaceChildren();
+  container?.replaceChildren();
 
   const categoryBox = document.createElement("div");
   categoryBox.classList.add("restaurant__category");
@@ -33,13 +34,13 @@ const $createRestaurantInfo = (restaurantInfo) => {
 
   const InfoDescription = document.createElement("p");
   InfoDescription.classList.add("restaurant__description", "text-body");
-  InfoDescription.textContent = description;
+  InfoDescription.textContent = description ?? "";
 
-  container.appendChild(categoryBox);
-  container.appendChild(InfoName);
-  container.appendChild(InfoDistance);
-  container.appendChild(InfoDescription);
-  container.appendChild(InfoDescription);
+  container?.appendChild(categoryBox);
+  container?.appendChild(InfoName);
+  container?.appendChild(InfoDistance);
+  container?.appendChild(InfoDescription);
+  container?.appendChild(InfoDescription);
 
   if (link) {
     const InfoLink = document.createElement("a");
@@ -48,7 +49,7 @@ const $createRestaurantInfo = (restaurantInfo) => {
     InfoLink.rel = "noopener noreferrer";
     InfoLink.textContent = link;
 
-    container.appendChild(InfoLink);
+    container?.appendChild(InfoLink);
   }
 
   const favoriteIcon = $favoriteIcon(isFavorite);
@@ -57,11 +58,11 @@ const $createRestaurantInfo = (restaurantInfo) => {
 
     updateFavoriteIcon(restaurantInfo, e);
   });
-  container.appendChild(favoriteIcon);
+  container?.appendChild(favoriteIcon);
 
   const itemDelete = () => {
     if (confirm(USER_MESSAGE.CONFIRM_DELETE)) {
-      document.querySelector(`[data-id="${id}"]`).remove();
+      document.querySelector(`[data-id="${id}"]`)?.remove();
       storageHandler.deleteItem(STORAGE_KEY_NAME, id);
     }
 
@@ -77,7 +78,7 @@ const $createRestaurantInfo = (restaurantInfo) => {
     $button(UI_CONFIG.BUTTONS.CLOSE, closeEvent),
   ]);
 
-  container.appendChild(deleteCloseButtons);
+  container?.appendChild(deleteCloseButtons);
 
   handleModalOpen();
 };
