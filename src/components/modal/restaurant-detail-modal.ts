@@ -1,6 +1,7 @@
 import $restaurantDetailContent from "../restaurant/restaurant-detail-content.ts";
 import { Restaurant } from "../../data/models/restaurant.ts";
 import { currentRestaurantData, saveRestaurantsToLocalStorage } from "../../data/storage/restaurantStorage.ts";
+import { updateList } from "../../main.ts";
 
 export const handleRestaurantDetailModalClose = (): void => {
   const modal = document.querySelector(".restaurant-detail-modal");
@@ -21,7 +22,7 @@ export const handleDeleteRestaurant = (id: number): void => {
   );
 
   saveRestaurantsToLocalStorage(updatedRestaurants);
-  location.reload();
+  updateList();
 };
 
 const $restaurantDetailModal = (restaurant: Restaurant): HTMLDivElement => {

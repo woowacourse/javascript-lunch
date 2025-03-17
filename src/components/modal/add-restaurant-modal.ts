@@ -4,6 +4,7 @@ import { currentRestaurantData } from "../../data/storage/restaurantStorage.ts";
 import { CATEGORY_ICON } from "../../constants/iconPath.ts";
 import { saveRestaurantsToLocalStorage } from "../../data/storage/restaurantStorage.ts";
 import { Restaurant } from "../../data/models/restaurant.ts";
+import { updateList } from "../../main.ts";
 
 export type RestaurantProps = {
   category: string;
@@ -44,11 +45,10 @@ export const addRestaurant = (data: RestaurantProps): void => {
   const restaurantList = document.querySelector(".restaurant-list");
   if (!restaurantList) return;
   restaurantList.appendChild($restaurantItem(newRestaurant));
-  location.reload();
+  updateList();
 };
 
 export const handleModalClose = (): void => {
-  console.log('닫아');
   const modal = document.querySelector(".modal");
   if (!modal) return;
   modal.classList.remove("modal--open");

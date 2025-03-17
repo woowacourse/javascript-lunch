@@ -7,11 +7,11 @@ import $filter from "./components/common/filter.ts";
 import $tabbar from "./components/common/tabbar.ts";
 import $restaurantDetailModal, {
   handleDeleteRestaurant,
+  handleRestaurantDetailModalClose,
+  handleRestaurantDetailModalOpen,
 } from "./components/modal/restaurant-detail-modal.ts";
 import { handleModalClose } from "./components/modal/add-restaurant-modal.ts";
 import { handleAddRestaurant } from "./components/form-elements/form.ts";
-import { handleRestaurantDetailModalClose } from "./components/modal/restaurant-detail-modal.ts";
-import { handleRestaurantDetailModalOpen } from "./components/modal/restaurant-detail-modal.ts";
 import { UI_CONFIG } from "./constants/uiConfig.ts";
 import {
   currentRestaurantData,
@@ -23,15 +23,6 @@ import { filterRestaurants, sortRestaurants } from "./utils/restaurantUtils/filt
 import { renderRestaurants } from "./utils/restaurantUtils/renderUtils.ts";
 import { FavoriteImageElement } from "./components/common/favorite-button.ts";
 
-const initUI = (): { main: HTMLElement; tabbar: HTMLElement } => {
-  document.body.prepend($header(UI_CONFIG.HEADER));
-  const main = document.querySelector("main");
-  if (!main) throw new Error("Main element not found");
-  const tabbar = $tabbar();
-  main.prepend(tabbar);
-  return { main, tabbar };
-};
-
 type FilterState = {
   selectedCategory: "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
   selectedSorting: "name" | "distance";
@@ -42,30 +33,32 @@ type AppState = {
   filterState: FilterState;
 };
 
-const updateRestaurantFilter = (state: AppState): void => {
-  const restaurantFilter = document.querySelector(
-    ".restaurant-filter-container"
-  );
+let appState: AppState;
+
+const initUI = (): { main: HTMLElement; tabbar: HTMLElement } => {
+  document.body.prepend($header(UI_CONFIG.HEADER));
+  const main = document.querySelector("main");
+  if (!main) throw new Error("Main element not found");
+  const tabbar = $tabbar();
+  main.prepend(tabbar);
+  return { main, tabbar };
+};
+
+const updateRestaurantFilter = (): void => {
+  const restaurantFilter = document.querySelector(".restaurant-filter-container");
   if (!restaurantFilter) return;
 
-  if (state.selectedTab.value === "all") {
+  if (appState.selectedTab.value === "all") {
     restaurantFilter.classList.remove("hidden");
     restaurantFilter.innerHTML = "";
     const listFilters = [$filter(FILTERS.CATEGORY), $filter(FILTERS.SORT)];
-    listFilters.forEach((filterElem) =>
-      restaurantFilter.appendChild(filterElem)
-    );
-  } else if (state.selectedTab.value === "frequent") {
+    listFilters.forEach((filterElem) => restaurantFilter.appendChild(filterElem));
+  } else if (appState.selectedTab.value === "frequent") {
     restaurantFilter.classList.add("hidden");
   }
 
-  // 필터 요소에 이벤트 등록
-  const newCategoryFilter = document.querySelector(
-    "#category-filter"
-  ) as HTMLSelectElement | null;
-  const newSortingFilter = document.querySelector(
-    "#sorting-filter"
-  ) as HTMLSelectElement | null;
+  const newCategoryFilter = document.querySelector("#category-filter") as HTMLSelectElement | null;
+  const newSortingFilter = document.querySelector("#sorting-filter") as HTMLSelectElement | null;
 
   if (newCategoryFilter) {
     newCategoryFilter.addEventListener("change", (e) => {
@@ -79,9 +72,9 @@ const updateRestaurantFilter = (state: AppState): void => {
         value === "아시안" ||
         value === "기타"
       ) {
-        state.filterState.selectedCategory = value;
+        appState.filterState.selectedCategory = value;
       }
-      updateList(state);
+      updateList();
     });
   }
 
@@ -89,24 +82,20 @@ const updateRestaurantFilter = (state: AppState): void => {
     newSortingFilter.addEventListener("change", (e) => {
       const value = (e.target as HTMLSelectElement).value;
       if (value === "name" || value === "distance") {
-        state.filterState.selectedSorting = value;
+        appState.filterState.selectedSorting = value;
       }
-      updateList(state);
+      updateList();
     });
   }
 };
 
-const bindFavoriteEvents = (state: AppState): void => {
-  const favButtons = document.querySelectorAll(
-    ".button-favorite"
-  ) as NodeListOf<FavoriteImageElement>;
+const bindFavoriteEvents = (): void => {
+  const favButtons = document.querySelectorAll(".button-favorite") as NodeListOf<FavoriteImageElement>;
   favButtons.forEach((favButton) => {
     const restaurantId = favButton.getAttribute("data-restaurant-id");
     if (!restaurantId) return;
 
-    const restaurant = currentRestaurantData.find(
-      (r) => r.dataId.toString() === restaurantId
-    );
+    const restaurant = currentRestaurantData.find((r) => r.dataId.toString() === restaurantId);
     if (!restaurant) return;
 
     favButton.addEventListener("mouseover", () => {
@@ -123,56 +112,42 @@ const bindFavoriteEvents = (state: AppState): void => {
       favButton.src = restaurant.isFavorite
         ? "images/star-filled.png"
         : "images/star-outline.png";
-      if (state.selectedTab.value === "frequent") updateList(state);
+      if (appState.selectedTab.value === "frequent") updateList();
       saveRestaurantsToLocalStorage(currentRestaurantData);
     });
   });
 };
 
-const updateList = (state: AppState): void => {
-  const restaurantList = document.querySelector(
-    ".restaurant-list"
-  ) as HTMLElement | null;
+export const updateList = (): void => {
+  const restaurantList = document.querySelector(".restaurant-list") as HTMLElement | null;
   if (!restaurantList) return;
 
   let filteredRestaurants = [] as typeof currentRestaurantData;
-  if (state.selectedTab.value === "all") {
-    filteredRestaurants = filterRestaurants(
-      currentRestaurantData,
-      state.filterState.selectedCategory
-    );
-  } else if (state.selectedTab.value === "frequent") {
-    filteredRestaurants = currentRestaurantData.filter(
-      (restaurant) => restaurant.isFavorite
-    );
+  if (appState.selectedTab.value === "all") {
+    filteredRestaurants = filterRestaurants(currentRestaurantData, appState.filterState.selectedCategory);
+  } else if (appState.selectedTab.value === "frequent") {
+    filteredRestaurants = currentRestaurantData.filter((restaurant) => restaurant.isFavorite);
   }
 
-  const sorted = sortRestaurants(
-    filteredRestaurants,
-    state.filterState.selectedSorting
-  );
+  const sorted = sortRestaurants(filteredRestaurants, appState.filterState.selectedSorting);
   renderRestaurants(restaurantList, sorted);
   saveRestaurantsToLocalStorage(currentRestaurantData);
-  bindFavoriteEvents(state);
+  bindFavoriteEvents();
 };
 
-const setupTabChangeListener = (state: AppState, tabbar: HTMLElement): void => {
+const setupTabChangeListener = (tabbar: HTMLElement): void => {
   tabbar.addEventListener("change", () => {
-    state.selectedTab = document.querySelector(
-      'input[name="tab"]:checked'
-    ) as HTMLInputElement;
-    updateRestaurantFilter(state);
+    appState.selectedTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
+    updateRestaurantFilter();
     // 탭 전환 시 필터 상태 초기화
-    state.filterState.selectedCategory = "";
-    state.filterState.selectedSorting = "name";
-    updateList(state);
+    appState.filterState.selectedCategory = "";
+    appState.filterState.selectedSorting = "name";
+    updateList();
   });
 };
 
 const setupRestaurantClickListener = (main: HTMLElement): void => {
-  const restaurantList = document.querySelector(
-    ".restaurant-list"
-  ) as HTMLElement | null;
+  const restaurantList = document.querySelector(".restaurant-list") as HTMLElement | null;
   if (!restaurantList) return;
   restaurantList.addEventListener("click", (e) => {
     const target = (e.target as HTMLElement).closest(".restaurant");
@@ -181,9 +156,7 @@ const setupRestaurantClickListener = (main: HTMLElement): void => {
     const restaurantId = target.getAttribute("data-id");
     if (!restaurantId) return;
 
-    const restaurant = currentRestaurantData.find(
-      (r) => r.dataId.toString() === restaurantId
-    );
+    const restaurant = currentRestaurantData.find((r) => r.dataId.toString() === restaurantId);
     if (!restaurant) return;
 
     const modal = $restaurantDetailModal(restaurant);
@@ -212,10 +185,8 @@ const setupRestaurantAddForm = (main: HTMLElement): void => {
 
 addEventListener("load", () => {
   const { main, tabbar } = initUI();
-  const initialTab = document.querySelector(
-    'input[name="tab"]:checked'
-  ) as HTMLInputElement;
-  const state: AppState = {
+  const initialTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
+  appState = {
     selectedTab: initialTab,
     filterState: {
       selectedCategory: "",
@@ -223,14 +194,14 @@ addEventListener("load", () => {
     },
   };
 
-  updateRestaurantFilter(state);
-  setupTabChangeListener(state, tabbar);
+  updateRestaurantFilter();
+  setupTabChangeListener(tabbar);
   setupRestaurantClickListener(main);
   setupRestaurantAddForm(main);
-  updateList(state);
+  updateList();
 });
 
-// 전역 이벤트: 모달 내 버튼 처리
+// 전역 이벤트: 모달 내 버튼 처리 (이벤트 위임)
 document.body.addEventListener("click", (e) => {
   const target = e.target as HTMLElement;
   if (target.matches("#delete-restaurant-button")) {

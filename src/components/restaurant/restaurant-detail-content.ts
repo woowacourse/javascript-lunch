@@ -4,6 +4,7 @@ import $favoriteButton from "../common/favorite-button.ts";
 import { Restaurant } from "../../data/models/restaurant.ts";
 import { UI_CONFIG } from "../../constants/uiConfig.ts";
 import { saveRestaurantsToLocalStorage, currentRestaurantData } from "../../data/storage/restaurantStorage.ts";
+import { updateList } from "../../main.ts";
 
 const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   const info = document.createElement("div");
@@ -46,7 +47,8 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
       : "images/star-outline.png";
 
     saveRestaurantsToLocalStorage(currentRestaurantData);
-    location.reload();
+    // location.reload();
+    updateList();
   });
 
   info.appendChild(restaurantHeader);
