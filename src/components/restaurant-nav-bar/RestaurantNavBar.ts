@@ -69,8 +69,4 @@ export default class RestaurantNavBar {
 
     return $navBar;
   }
-
-  getCurrentTabType() {
-    return this.currentTabType;
-  }
 }

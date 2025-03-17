@@ -6,9 +6,9 @@ import RestaurantFilter from "./components/restaurant-filter-section/RestaurantF
 import RestaurantNavBar from "./components/restaurant-nav-bar/RestaurantNavBar.js";
 import RestaurantDetail from "./components/restaurant-detail/RestaurantDetail.js";
 import RestaurantStore from "./stores/RestaurantStore.js";
-import RestaurantService from "./services/RestaurantService.js";
 import { NavBarKey } from "./../types/types";
 import { Restaurant, FilterOptions } from "../types/interfaces.js";
+import { CATEGORY, NAV_BAR_KEYS } from "./constants/constants.js";
 
 export default class App {
   private $body!: HTMLElement;
@@ -20,15 +20,16 @@ export default class App {
   private $openDetailBottomSheet!: BottomSheetBase;
   private $restaurantDetail!: RestaurantDetail;
 
-  constructor(
-    private restaurantStore: RestaurantStore,
-    private restaurantService: RestaurantService
-  ) {
-    this.restaurantStore = restaurantStore;
-    this.restaurantService = restaurantService;
-
+  constructor(private store: RestaurantStore) {
+    this.store = store;
     this.render();
-    this.restaurantStore.subscribe(() => this.#updateRestaurantList());
+
+    this.store.subscribe("restaurantList", (state) =>
+      this.$restaurantList.updateRestaurantList(state.filteredRestaurants)
+    );
+    this.store.subscribe("restaurantDetail", (state) => {
+      this.$restaurantDetail.updateAndOpenDetail(state.selectedRestaurant);
+    });
   }
 
   render() {
@@ -58,11 +59,11 @@ export default class App {
   #renderRestaurantNavBar() {
     this.$restaurantNavBar = new RestaurantNavBar({
       onTabChange: (tabType: NavBarKey) => {
-        this.$restaurantFilter.toggleFilterVisibility({ tabType });
-        this.$restaurantList.updateRestaurantList({
+        this.store.setFilter({
+          ...this.store.state.currentFilter,
           tabType,
-          filterType: this.$restaurantFilter.getCurrentFilterType(),
         });
+        this.$restaurantFilter.toggleFilterVisibility({ tabType });
       },
     });
     this.$main.append(this.$restaurantNavBar.render());
@@ -71,8 +72,8 @@ export default class App {
   #renderRestaurantFilter() {
     this.$restaurantFilter = new RestaurantFilter({
       onFilterChange: (filterType: FilterOptions["filterType"]) => {
-        this.$restaurantList.updateRestaurantList({
-          tabType: this.$restaurantNavBar.getCurrentTabType(),
+        this.store.setFilter({
+          ...this.store.state.currentFilter,
           filterType,
         });
       },
@@ -81,18 +82,20 @@ export default class App {
   }
 
   #renderRestaurantList() {
-    const restaurantList = this.restaurantService.getRestaurants();
-    this.$restaurantList = new RestaurantList(restaurantList, {
-      getRestaurants: (options: FilterOptions) => {
-        return this.restaurantService.getRestaurants(options);
+    const restaurantList = this.store.getFilteredRestaurants({
+      tabType: NAV_BAR_KEYS.all,
+      filterType: {
+        categoryFilterType: CATEGORY[0],
+        sortFilterType: "name",
       },
+    });
+    this.$restaurantList = new RestaurantList(restaurantList, {
       onToggleFavorite: (restaurantId: Restaurant["id"]) => {
-        this.restaurantService.toggleFavorite(restaurantId);
+        this.store.toggleFavorite(restaurantId);
+        this.store.updateSelectedRestaurant(restaurantId);
       },
       onOpenDetail: (restaurantId: Restaurant["id"]) => {
-        const restaurantInfo: Restaurant | undefined =
-          this.restaurantService.getRestaurantInfo(restaurantId);
-        if (restaurantInfo) this.$restaurantDetail.openDetail(restaurantInfo);
+        this.store.updateSelectedRestaurant(restaurantId);
         this.$openDetailBottomSheet.open();
       },
     });
@@ -102,7 +105,10 @@ export default class App {
   #renderSubmitFormBottomSheet() {
     const $restaurantForm = new RestaurantForm({
       title: "새로운 음식점",
-      onSubmit: this.#handleSubmitForm.bind(this),
+      onSubmit: (newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">) => {
+        this.store.addRestaurant(newRestaurantInfo);
+        this.$submitFormBottomSheet.close();
+      },
       onCancel: () => this.$submitFormBottomSheet.close(),
     });
 
@@ -114,21 +120,14 @@ export default class App {
     this.$main.append(this.$submitFormBottomSheet.render());
   }
 
-  #handleSubmitForm(newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">) {
-    this.restaurantService.addRestaurant(newRestaurantInfo);
-    this.$submitFormBottomSheet.close();
-  }
-
   #renderOpenDetailBottomSheet() {
     this.$restaurantDetail = new RestaurantDetail({
       onToggleFavorite: (restaurantId: Restaurant["id"]) => {
-        this.restaurantService.toggleFavorite(restaurantId);
-        const updatedInfo: Restaurant | undefined =
-          this.restaurantService.getRestaurantInfo(restaurantId);
-        if (updatedInfo) this.$restaurantDetail.openDetail(updatedInfo);
+        this.store.toggleFavorite(restaurantId);
+        this.store.updateSelectedRestaurant(restaurantId);
       },
       onDelete: (restaurantId: Restaurant["id"]) => {
-        this.restaurantService.deleteRestaurant(restaurantId);
+        this.store.deleteRestaurant(restaurantId);
       },
       onClose: () => this.$openDetailBottomSheet.close(),
     });
@@ -139,12 +138,5 @@ export default class App {
     });
 
     this.$main.append(this.$openDetailBottomSheet.render());
-  }
-
-  #updateRestaurantList() {
-    this.$restaurantList.updateRestaurantList({
-      tabType: this.$restaurantNavBar.getCurrentTabType(),
-      filterType: this.$restaurantFilter.getCurrentFilterType(),
-    });
   }
 }

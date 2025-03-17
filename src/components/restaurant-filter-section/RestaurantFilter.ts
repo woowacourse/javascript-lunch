@@ -101,10 +101,6 @@ export default class RestaurantFilter {
     });
   }
 
-  getCurrentFilterType() {
-    return this.currentFilterType;
-  }
-
   toggleFilterVisibility({ tabType }: { tabType: FilterOptions["tabType"] }) {
     if (tabType === NAV_BAR_KEYS.favorite) {
       this.$filterContainer.classList.add("restaurant-filter--open");

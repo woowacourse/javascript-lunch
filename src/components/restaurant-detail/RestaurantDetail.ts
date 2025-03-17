@@ -155,7 +155,7 @@ export default class RestaurantDetail {
     this.onClose();
   }
 
-  openDetail({
+  updateAndOpenDetail({
     id,
     category,
     name,
