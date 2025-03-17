@@ -4,3 +4,4 @@
 - [EventListener](./docs/EventListener.md)
 - [Modal](./docs/Modal.md)
 - [Worried](./docs/Worried.md)
+- [XSS](./docs/XSS.md)
