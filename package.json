@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "test-e2e": "cypress open",
     "deploy": "vite build --base=/javascript-lunch/ --minify=false && npx gh-pages -d dist",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
   },
   "homepage": "https://guesung.github.io/javascript-lunch",
   "devDependencies": {
