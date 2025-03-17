@@ -2,10 +2,10 @@ import { filter, forEach, pipe, sort, toArray, map } from '@fxts/core';
 import { Component } from './core/index.ts';
 import { DEFAULT_RESTAURANT_LIST, FILTERS, SORTS } from '../lib/constants.ts';
 import type { FilterType, RestaurantType, SortType, TabType } from '../lib/types.ts';
-import { html } from '../lib/utils.ts';
+import { generateId, html } from '../lib/utils.ts';
 import { Modal, Select } from './common/index.ts';
 import { RestaurantAddModal, RestaurantDetailModal, RestaurantItem, RestaurantTab } from './index.ts';
-import { EventHandler, LocalStorage } from '../lib/modules/index.ts';
+import { eventHandlerInstance, LocalStorage } from '../lib/modules/index.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -132,6 +132,7 @@ export default class RestaurantList extends Component<null, RestaurantListState>
       }).element,
       onModalClose: () => this.setState({ isRestaurantAddModal: false }),
     });
+
     this.appendChild(restaurantAddModal.element, '.restaurant-add-modal');
   }
 
@@ -168,38 +169,56 @@ export default class RestaurantList extends Component<null, RestaurantListState>
    * 이벤트 리스너
    */
 
-  override attachEventListener() {
-    EventHandler.attachEventListener('click', () => this.setState({ isRestaurantAddModal: true }), 'restaurant-add');
+  override addEventListener() {
+    eventHandlerInstance.addEventListener({
+      eventType: 'click',
+      callback: () => this.setState({ isRestaurantAddModal: true }),
+      dataAction: 'restaurant-add',
+    });
 
-    EventHandler.attachEventListener(
-      'click',
-      ({ currentTarget }) => currentTarget.dataset.id && this._toggleLike(currentTarget.dataset.id),
-      'restaurant-like',
-    );
+    eventHandlerInstance.addEventListener({
+      eventType: 'click',
+      callback: ({ currentTarget }) => currentTarget.dataset.id && this._toggleLike(currentTarget.dataset.id),
+      dataAction: 'restaurant-like',
+    });
 
-    EventHandler.attachEventListener(
-      'click',
-      ({ currentTarget }) => currentTarget.dataset.id && this._deleteRestaurant(currentTarget.dataset.id),
-      'restaurant-delete',
-    );
+    eventHandlerInstance.addEventListener({
+      eventType: 'click',
+      callback: ({ currentTarget }) => currentTarget.dataset.id && this._deleteRestaurant(currentTarget.dataset.id),
+      dataAction: 'restaurant-delete',
+    });
 
-    EventHandler.attachEventListener(
-      'click',
-      ({ currentTarget }) => {
+    eventHandlerInstance.addEventListener({
+      eventType: 'click',
+      callback: ({ currentTarget }) => {
         this.setState({
           restaurantDetailId: currentTarget.dataset.id,
         });
       },
-      'restaurant-detail',
-    );
+      dataAction: 'restaurant-detail',
+    });
 
-    EventHandler.attachEventListener(
-      'click',
-      ({ currentTarget }) => {
+    eventHandlerInstance.addEventListener({
+      eventType: 'click',
+      callback: ({ currentTarget }) => {
         this.setState({ tab: currentTarget.dataset.tab as TabType });
       },
-      'tab-change',
-    );
+      dataAction: 'tab-change',
+    });
+
+    eventHandlerInstance.addEventListener({
+      eventType: 'submit',
+      callback: ({ event, target }) => {
+        event.preventDefault();
+        const id = generateId();
+
+        const formData = new FormData(target as HTMLFormElement);
+        const modalInput = { ...Object.fromEntries(formData), id };
+
+        this._addRestaurant(modalInput as unknown as RestaurantType);
+      },
+      dataAction: 'restaurant-create',
+    });
   }
 
   private _deleteRestaurant(id: string) {

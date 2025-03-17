@@ -1,12 +1,11 @@
 import { forEach } from '@fxts/core';
 import { CATEGORIES, DISTANCES } from '../lib/constants.ts';
-import { EventHandler } from '../lib/modules/index.ts';
 import type { HTMLType, RestaurantType } from '../lib/types.ts';
-import { generateId, html } from '../lib/utils.ts';
+import { html } from '../lib/utils.ts';
 import { Button, Input, Select } from './common/index.ts';
+import TextArea from './common/TextArea.ts';
 import { Component } from './core/index.ts';
 import { InputBox } from './index.ts';
-import TextArea from './common/TextArea.ts';
 
 interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
@@ -121,21 +120,5 @@ export default class RestaurantAddModal extends Component<RestaurantAddModalProp
 
     this.appendChild(cancelButton.element, '.buttons');
     this.appendChild(addButton.element, '.buttons');
-  }
-
-  override attachEventListener() {
-    EventHandler.attachEventListener(
-      'submit',
-      ({ event, target }) => {
-        event.preventDefault();
-        const id = generateId();
-
-        const formData = new FormData(target as HTMLFormElement);
-        const modalInput = { ...Object.fromEntries(formData), id };
-
-        this.props.addRestaurant(modalInput as unknown as RestaurantType);
-      },
-      'restaurant-create',
-    );
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '../core/index.ts';
 import { html } from '../../lib/utils.ts';
-import { EventHandler } from '../../lib/modules/index.ts';
+import { eventHandlerInstance } from '../../lib/modules/index.ts';
 
 type Option<T> = { value: T; label: string };
 
@@ -30,13 +30,13 @@ export default class Select<T extends string> extends Component<SelectProps<T>> 
     `;
   }
 
-  override attachEventListener() {
-    EventHandler.attachEventListener(
-      'change',
-      ({ target }) => {
+  override addEventListener() {
+    eventHandlerInstance.addEventListener({
+      eventType: 'change',
+      callback: ({ target }) => {
         if (this.props.setValue) this.props.setValue((target as HTMLSelectElement)?.value as T);
       },
-      this.props.dataAction,
-    );
+      dataAction: this.props.dataAction,
+    });
   }
 }

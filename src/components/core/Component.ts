@@ -15,7 +15,7 @@ export default abstract class Component<
     this.setup();
 
     this.render();
-    this.attachEventListener();
+    this.addEventListener();
   }
 
   setup() {}
@@ -48,7 +48,7 @@ export default abstract class Component<
     return html`<div></div>`;
   }
 
-  attachEventListener() {}
+  addEventListener() {}
 
   onRender() {}
 

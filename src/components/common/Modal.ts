@@ -1,5 +1,5 @@
-import { Component } from '../core/index.ts';
 import { html } from '../../lib/utils.ts';
+import { Component } from '../core/index.ts';
 
 interface ModalProps {
   id: string;
@@ -21,24 +21,25 @@ export default class Modal extends Component<ModalProps> {
     this.appendChild(this.props.children, '.modal-container');
   }
 
-  override attachEventListener() {
+  override addEventListener() {
     this._attachClickEventListener();
     this._attachKeyDownEventListener();
   }
 
   private _attachClickEventListener() {
-    this.element.querySelector('[data-action="modal-cancel"]')?.addEventListener('click', this.removeModal.bind(this));
-    this.element.querySelector('.modal-backdrop')?.addEventListener('click', this.removeModal.bind(this));
+    this.element.querySelector('[data-action="modal-cancel"]')?.addEventListener('click', this._removeModal.bind(this));
+    this.element.querySelector('.modal-backdrop')?.addEventListener('click', this._removeModal.bind(this));
   }
 
   private _attachKeyDownEventListener() {
     window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') this.removeModal();
+      if (event.key === 'Escape') {
+        this._removeModal();
+      }
     });
   }
 
-  removeModal() {
-    this.element.querySelector(`#${this.props.id}`)?.classList.remove('modal--open');
+  private _removeModal() {
     this.props.onModalClose();
   }
 }
