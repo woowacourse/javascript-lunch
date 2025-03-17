@@ -1,5 +1,3 @@
-import { createFormItemLabel } from './createFormItemLabel.js';
-
 const OPTION_TEMPLATE = (value, innerValue) => {
   return `<option value="${innerValue}">${value}</option>`;
 };

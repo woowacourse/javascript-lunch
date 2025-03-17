@@ -1,5 +1,3 @@
-import { createFormItemLabel } from './createFormItemLabel.js';
-
 class Input {
   #inputContainer;
   #inputComponent;
@@ -14,7 +12,7 @@ class Input {
     formItem.classList.add('form-item');
     if (required) formItem.classList.add('form-item--required');
 
-    const label = createFormItemLabel(name, title);
+    const label = this.#createFormItemLabel(name, title);
     formItem.appendChild(label);
     formItem.appendChild(inputComponent.getElement());
 
@@ -27,6 +25,15 @@ class Input {
 
     return formItem;
   }
+
+  #createFormItemLabel = (type, title) => {
+    const label = document.createElement('label');
+    label.setAttribute('for', type);
+    label.classList.add('text-caption');
+    label.textContent = title;
+
+    return label;
+  };
 
   reset() {
     this.#inputComponent.reset();
