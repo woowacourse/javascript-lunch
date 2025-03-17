@@ -1,13 +1,12 @@
 import { FORM_FIELDS } from "../../constants/formFields";
-import { InputField } from "../../types/types";
 
-// type InputField = typeof FORM_FIELDS.INPUTS;
+type InputField = typeof FORM_FIELDS.INPUTS;
 type SelectField = typeof FORM_FIELDS.SELECTS;
 type TextAreaField = typeof FORM_FIELDS.TEXTAREAS;
 type FieldType = InputField | SelectField | TextAreaField;
 type FieldName = keyof FieldType;
 
-const $inputItemLabel = ({ attribute, label }) => {
+const $inputItemLabel = ({ attribute, label }: FieldType) => {
   const itemLabel = document.createElement("label");
   itemLabel.classList.add("text-caption");
   itemLabel.htmlFor = attribute.id;
@@ -16,7 +15,7 @@ const $inputItemLabel = ({ attribute, label }) => {
   return itemLabel;
 };
 
-const $inputItemHelperText = ({ helperText }) => {
+const $inputItemHelperText = (helperText: string) => {
   const itemHelperText = document.createElement("span");
   itemHelperText.classList.add("help-text", "text-caption");
   itemHelperText.textContent = helperText;
@@ -34,7 +33,7 @@ const $inputItem = (fieldType: FieldType, fieldName: FieldName) => {
   wrapper.appendChild($inputItemLabel(fieldType[fieldName]));
   wrapper.appendChild(fieldType.create(fieldType[fieldName]));
   if (fieldType[fieldName].helperText) {
-    wrapper.appendChild($inputItemHelperText(fieldType[fieldName]));
+    wrapper.appendChild($inputItemHelperText(fieldType[fieldName].helperText));
   }
 
   return wrapper;

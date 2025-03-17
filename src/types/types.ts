@@ -22,6 +22,10 @@ export interface IRestaurant {
 }
 
 export type EventType = { eventType: string; eventHandler: (e: Event) => void };
+export type FormEventType = {
+  eventType: string;
+  eventHandler: () => void;
+};
 
 type InputFields = typeof FORM_FIELDS.INPUTS;
 type InputFieldKey = keyof InputFields;

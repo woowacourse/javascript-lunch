@@ -9,7 +9,7 @@ import { handleModalClose, handleModalOpen } from "../modal/modal.ts";
 import { validateRestaurantForm } from "../../validation/validationForm";
 import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
-import { IRestaurant } from "../../types/types";
+import { FormEventType, IRestaurant } from "../../types/types";
 
 const restaurantFormReset = (form: HTMLFormElement) => {
   handleModalClose();
@@ -62,7 +62,10 @@ const $createRestaurantForm = () => {
   const container = document.querySelector(".modal-container");
   container?.replaceChildren();
 
-  const cancelEvent = { eventType: "click", eventHandler: restaurantFormReset };
+  const cancelEvent = {
+    eventType: "click",
+    eventHandler: restaurantFormReset,
+  } as FormEventType;
   const submitCancelButtons = $buttonContainer([
     $button(UI_CONFIG.BUTTONS.CANCEL, cancelEvent),
     $button(UI_CONFIG.BUTTONS.ADD),
@@ -82,7 +85,10 @@ const $createRestaurantForm = () => {
   title.textContent = "새로운 음식점";
 
   container?.appendChild(title);
-  const submitForm = { eventType: "submit", eventHandler: handleAddRestaurant };
+  const submitForm = {
+    eventType: "submit",
+    eventHandler: handleAddRestaurant,
+  } as FormEventType;
   container?.appendChild($form(restaurantAddForm, submitForm));
 
   handleModalOpen();
