@@ -9,14 +9,14 @@ import { TextareaInput } from "../input/TextareaInput.js";
 import { alertError } from "../layout/alert/alertError.js";
 
 interface FoodFormOptions {
-  onModalClose: () => void;
+  onCancel: () => void;
   onSubmit: (formData: FoodItemType) => void;
 }
 
 export default class FoodForm {
   container: HTMLFormElement;
 
-  constructor({ onModalClose = () => {}, onSubmit = () => {} }: FoodFormOptions) {
+  constructor({ onCancel = () => {}, onSubmit = () => {} }: FoodFormOptions) {
     this.container = document.createElement("form");
     this.container.setAttribute("novalidate", "true");
 
@@ -77,7 +77,7 @@ export default class FoodForm {
             name: "cancel",
             cssType: "secondary",
             innerText: "취소하기",
-            onClick: onModalClose,
+            onClick: onCancel,
           }),
           Button({
             name: "submit",

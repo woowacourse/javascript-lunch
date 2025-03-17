@@ -20,7 +20,7 @@ export default class MainPage {
     this.foodList = new FoodList({ foodItems: getStoredFoodItems() });
 
     this.foodForm = new FoodForm({
-      onModalClose: () => this.modal.close(),
+      onCancel: () => this.modal.close(),
       onSubmit: this.handleSubmit.bind(this),
     });
 
