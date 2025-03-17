@@ -21,8 +21,8 @@ export type TabType = 'all' | 'favorite';
 
 export type FilterType = 'category' | 'sort';
 
-export type StorageType = {
-  getItem<T>(key: string): T | null;
-  setItem<T>(key: string, value: T): void;
+export type StorageType<T> = {
+  getItem(key: string): T | null;
+  setItem(key: string, value: T): void;
   removeItem(key: string): void;
 };

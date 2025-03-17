@@ -35,7 +35,7 @@ class AppController {
         this.restaurants.toggleFavoriteRestaurant(restaurantName);
       },
     );
-    this.restaurants = new Restaurants(LocalStorage);
+    this.restaurants = new Restaurants(LocalStorage<Restaurant[]>());
     this.restaurantListController = new RestaurantListController(
       this.restaurants.items,
       (restaurantName) => {

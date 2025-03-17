@@ -1,15 +1,15 @@
 import { FilterType, Restaurant, StorageType } from '../types/types';
 
 class Restaurants {
-  #storage: StorageType;
+  #storage: StorageType<Restaurant[]>;
   #restaurants: Restaurant[];
   #filter: { category: string; sort: string };
 
   static STORAGE_KEY = 'restaurants';
 
-  constructor(storage: StorageType) {
+  constructor(storage: StorageType<Restaurant[]>) {
     this.#storage = storage;
-    this.#restaurants = this.#storage.getItem<Restaurant[]>(Restaurants.STORAGE_KEY) ?? [];
+    this.#restaurants = this.#storage.getItem(Restaurants.STORAGE_KEY) ?? [];
     this.#filter = { category: 'all', sort: 'latest' };
   }
 
