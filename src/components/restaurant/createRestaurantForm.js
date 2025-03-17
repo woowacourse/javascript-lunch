@@ -9,7 +9,6 @@ import { handleModalClose, handleModalOpen } from "../modal/modal";
 import { validateRestaurantForm } from "../../validation/validationForm";
 import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
-import { CATEGORY_ICON } from "../../constants/iconPath";
 
 const restaurantFormReset = () => {
   handleModalClose();
@@ -17,14 +16,13 @@ const restaurantFormReset = () => {
   form.reset();
 };
 
-const addRestaurant = (data) => {
+const addRestaurant = ({ category, name, distance, description, link }) => {
   const newRestaurant = {
-    categoryIcon: CATEGORY_ICON[data.category],
-    categoryTitle: data.category,
-    name: data.name,
-    distance: data.distance,
-    description: data.description,
-    link: data.link,
+    category,
+    name,
+    distance,
+    description,
+    link,
     id: new Date(),
     isFavorite: false,
   };

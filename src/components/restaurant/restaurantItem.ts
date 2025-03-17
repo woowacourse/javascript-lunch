@@ -1,20 +1,22 @@
-import $createRestaurantInfo from "../restaurant/createRestaurantInfo";
+import $createRestaurantInfo from "./createRestaurantInfo.js";
 import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon.js";
+import { IRestaurant } from "../../types/types.js";
+import { CATEGORY_ICON } from "../../constants/iconPath.js";
 
-const $restaurantCategory = ({ categoryIcon, categoryTitle }) => {
-  const category = document.createElement("div");
-  category.classList.add("restaurant__category");
+const $restaurantCategory = ({ category }: IRestaurant) => {
+  const categoryBox = document.createElement("div");
+  categoryBox.classList.add("restaurant__category");
 
   const categoryImage = document.createElement("img");
-  categoryImage.src = categoryIcon;
-  categoryImage.alt = categoryTitle;
+  categoryImage.src = CATEGORY_ICON[category];
+  categoryImage.alt = category;
   categoryImage.classList.add("category-icon");
-  category.appendChild(categoryImage);
+  categoryBox.appendChild(categoryImage);
 
-  return category;
+  return categoryBox;
 };
 
-const $restaurantInfo = ({ name, distance, description }) => {
+const $restaurantInfo = ({ name, distance, description }: IRestaurant) => {
   const info = document.createElement("div");
   info.classList.add("restaurant__info");
 
@@ -30,13 +32,13 @@ const $restaurantInfo = ({ name, distance, description }) => {
 
   const InfoDescription = document.createElement("p");
   InfoDescription.classList.add("restaurant__description", "text-body");
-  InfoDescription.textContent = description;
+  InfoDescription.textContent = description ?? "";
   info.appendChild(InfoDescription);
 
   return info;
 };
 
-const $restaurantItem = (restaurantInfo) => {
+const $restaurantItem = (restaurantInfo: IRestaurant) => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
   restaurantItem.dataset.id = restaurantInfo.id;

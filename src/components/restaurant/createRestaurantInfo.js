@@ -6,29 +6,22 @@ import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
 import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon";
 import { USER_MESSAGE } from "../../constants/message";
+import { CATEGORY_ICON } from "../../constants/iconPath";
 
 const $createRestaurantInfo = (restaurantInfo) => {
-  const {
-    categoryIcon,
-    categoryTitle,
-    description,
-    distance,
-    link,
-    name,
-    id,
-    isFavorite,
-  } = restaurantInfo;
+  const { category, description, distance, link, name, id, isFavorite } =
+    restaurantInfo;
   const container = document.querySelector(".modal-container");
   container.replaceChildren();
 
-  const category = document.createElement("div");
-  category.classList.add("restaurant__category");
+  const categoryBox = document.createElement("div");
+  categoryBox.classList.add("restaurant__category");
 
   const categoryImage = document.createElement("img");
-  categoryImage.src = categoryIcon;
-  categoryImage.alt = categoryTitle;
+  categoryImage.src = CATEGORY_ICON[category];
+  categoryImage.alt = category;
   categoryImage.classList.add("category-icon");
-  category.appendChild(categoryImage);
+  categoryBox.appendChild(categoryImage);
 
   const InfoName = document.createElement("h3");
   InfoName.classList.add("restaurant__name", "text-subtitle");
@@ -42,7 +35,7 @@ const $createRestaurantInfo = (restaurantInfo) => {
   InfoDescription.classList.add("restaurant__description", "text-body");
   InfoDescription.textContent = description;
 
-  container.appendChild(category);
+  container.appendChild(categoryBox);
   container.appendChild(InfoName);
   container.appendChild(InfoDistance);
   container.appendChild(InfoDescription);

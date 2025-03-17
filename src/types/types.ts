@@ -1,4 +1,4 @@
-export type category =
+export type Category =
   | ""
   | "한식"
   | "중식"
@@ -6,13 +6,12 @@ export type category =
   | "양식"
   | "아시안"
   | "기타";
-export type distance = 5 | 10 | 15 | 20 | 30;
-export type sort = "" | "name" | "distance";
+export type Distance = 5 | 10 | 15 | 20 | 30;
+export type Sort = "" | "name" | "distance";
 
 export interface IRestaurant {
-  categoryIcon: string;
-  categoryTitle: category;
-  distance: distance;
+  category: Category;
+  distance: Distance;
   id: string;
   name: string;
   isFavorite: boolean;

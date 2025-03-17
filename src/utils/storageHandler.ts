@@ -1,21 +1,21 @@
-import { category, IRestaurant, sort } from "../types/types.ts";
+import { Category, IRestaurant, Sort } from "../types/types.ts";
 
 export const storageHandler = {
   getItem: (storageKey: string) =>
     JSON.parse(localStorage.getItem(storageKey) ?? "[]") || [],
-  setItem: (storageKey: string, value: Array<IRestaurant>) =>
+  setItem: (storageKey: string, value: IRestaurant[]) =>
     localStorage.setItem(storageKey, JSON.stringify(value)),
-  deleteItem: (storageKey: string, value: Array<IRestaurant>) => {
+  deleteItem: (storageKey: string, value: IRestaurant) => {
     const newData = storageHandler
       .getItem(storageKey)
-      .filter((item: IRestaurant) => !value.some((v) => v.id === item.id));
+      .filter((item: IRestaurant) => item.id === value.id);
 
     storageHandler.setItem(storageKey, newData);
   },
   filterItem: (
     storageKey: string,
-    category: category,
-    sort: sort,
+    category: Category,
+    sort: Sort,
     id: string
   ) => {
     let restaurantData;
