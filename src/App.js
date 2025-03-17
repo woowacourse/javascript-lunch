@@ -77,7 +77,7 @@ class App {
     this.filterContainer.appendChild(this.#sortingFilter.getElement());
   }
 
-  #onChangedCategory = () => {
+  #bindCategoryEvent = () => {
     const categoryElement = this.#categoryFilter.getElement();
     categoryElement.addEventListener('change', (event) => {
       this.#currentCategory = categoryElement.value;
@@ -85,7 +85,7 @@ class App {
     });
   };
 
-  #onChangedSorting = () => {
+  #bindSortingEvent = () => {
     const sortingElement = this.#sortingFilter.getElement();
     sortingElement.addEventListener('change', (event) => {
       this.#currentSorting = sortingElement.value;
@@ -93,7 +93,7 @@ class App {
     });
   };
 
-  #onChangedLikeHeader = () => {
+  #bindLikeHeaderEvent = () => {
     this.#likeHeader.getElement().addEventListener('click', () => {
       this.#currentHeader = this.#likeHeader.getCurrentHeader();
       this.#handleRestaurantUpdate();
@@ -101,9 +101,9 @@ class App {
   };
 
   #bindEvent = () => {
-    this.#onChangedCategory();
-    this.#onChangedSorting();
-    this.#onChangedLikeHeader();
+    this.#bindCategoryEvent();
+    this.#bindSortingEvent();
+    this.#bindLikeHeaderEvent();
   };
 
   #modalClickHandler = () => {
