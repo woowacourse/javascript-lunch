@@ -1,6 +1,6 @@
 import { Component } from '../core/index.ts';
-import { html } from '../../lib/utils.ts';
-import { eventHandlerInstance } from '../../lib/modules/index.ts';
+import { html } from '@/lib/utils.ts';
+import { eventHandlerInstance } from '@/lib/modules/index.ts';
 
 type Option<T> = { value: T; label: string };
 

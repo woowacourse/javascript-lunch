@@ -1,5 +1,5 @@
 import type { HTMLType, StrictObject } from 'src/lib/types';
-import { html } from '../../lib/utils.ts';
+import { html } from '@/lib/utils.ts';
 
 export default abstract class Component<
   Props extends StrictObject | null = {},

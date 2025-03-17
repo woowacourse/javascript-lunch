@@ -1,6 +1,6 @@
-import { CATEGORY_MAP } from '../lib/constants.ts';
-import { html } from '../lib/utils.ts';
-import type { RestaurantType } from './../lib/types';
+import { CATEGORY_MAP } from '@/lib/constants.ts';
+import { html } from '@/lib/utils.ts';
+import type { RestaurantType } from './@/lib/types';
 import { Button } from './common/index.ts';
 import { Component } from './core/index.ts';
 

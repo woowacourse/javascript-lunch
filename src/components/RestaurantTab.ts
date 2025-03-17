@@ -1,5 +1,5 @@
-import type { TabType } from '../lib/types.ts';
-import { html } from '../lib/utils.ts';
+import type { TabType } from '@/lib/types.ts';
+import { html } from '@/lib/utils.ts';
 import { Component } from './core/index.ts';
 
 interface RestaurantTabProps {

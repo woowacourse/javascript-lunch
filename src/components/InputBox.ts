@@ -1,5 +1,5 @@
 import { Component } from './core/index.ts';
-import { html } from '../lib/utils.ts';
+import { html } from '@/lib/utils.ts';
 
 interface InputBoxProps {
   label: string;

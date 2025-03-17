@@ -1,5 +1,5 @@
-import { Component } from './core/index.ts';
-import { html } from '../lib/utils.ts';
+import { html } from '@/lib/utils.ts';
+import { Component } from './core';
 
 export default class RestaurantHeader extends Component {
   override template() {

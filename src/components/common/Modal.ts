@@ -1,5 +1,5 @@
-import Portal from '../../lib/modules/Portal.ts';
-import { html } from '../../lib/utils.ts';
+import Portal from '@/lib/modules/Portal.ts';
+import { html } from '@/lib/utils.ts';
 import { Component } from '../core/index.ts';
 
 interface ModalProps {

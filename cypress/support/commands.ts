@@ -1,4 +1,4 @@
-import { CategoryType, DistanceType } from '../../src/lib/types';
+import { CategoryType, DistanceType } from '@/lib/types';
 
 type RestaurantAddType = {
   name: string;

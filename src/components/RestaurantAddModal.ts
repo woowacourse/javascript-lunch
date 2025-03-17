@@ -1,7 +1,7 @@
 import { forEach } from '@fxts/core';
-import { CATEGORIES, DISTANCES } from '../lib/constants.ts';
-import type { HTMLType, RestaurantType } from '../lib/types.ts';
-import { html } from '../lib/utils.ts';
+import { CATEGORIES, DISTANCES } from '@/lib/constants.ts';
+import type { HTMLType, RestaurantType } from '@/lib/types.ts';
+import { html } from '@/lib/utils.ts';
 import { Button, Input, Select } from './common/index.ts';
 import TextArea from './common/TextArea.ts';
 import { Component } from './core/index.ts';
