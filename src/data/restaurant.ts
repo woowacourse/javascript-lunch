@@ -81,17 +81,19 @@ export const restaurantData: Restaurant[] = [
   },
 ];
 
+const RESTAURANTS_KEY = "restaurants" as const;
+
 export const saveRestaurantsToLocalStorage = (restaurants: Restaurant[]) => {
-  if (!localStorage.getItem("restaurants")) {
-    localStorage.setItem("restaurants", JSON.stringify(restaurantData));
+  if (!localStorage.getItem(RESTAURANTS_KEY)) {
+    localStorage.setItem(RESTAURANTS_KEY, JSON.stringify(restaurantData));
     console.log(JSON.stringify(restaurantData));
-  } else localStorage.setItem("restaurants", JSON.stringify(restaurants));
+  } else localStorage.setItem(RESTAURANTS_KEY, JSON.stringify(restaurants));
 };
 
 export const getRestaurantsFromLocalStorage = () => {
-  const storedData = localStorage.getItem("restaurants");
+  const storedData = localStorage.getItem(RESTAURANTS_KEY);
   if (!storedData) {
-    localStorage.setItem("restaurants", JSON.stringify(restaurantData));
+    localStorage.setItem(RESTAURANTS_KEY, JSON.stringify(restaurantData));
     return restaurantData;
   }
   return JSON.parse(storedData);
