@@ -14,6 +14,7 @@ import data from "./data.js";
 import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
 import LocalStorage from "./utils/LocalStorage.ts";
 import { RESTAURANT_LIST_KEY } from "./constants/constants.js";
+import state from "./state.ts";
 
 DOM.$body.prepend(Header.create());
 initLocalStorage();
@@ -36,6 +37,7 @@ function initNavigationButton() {
       FilterSelect.applyFilter("allRestaurant");
       DOM.$filterContainer.style.display = "flex";
       DOM.$restaurantContainer.style.display = "block";
+      state.setCurrentRestaurantListId("allRestaurant");
     }
     if (e.target.classList.contains("favorite_restaurant_nav")) {
       const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
@@ -43,6 +45,7 @@ function initNavigationButton() {
       );
       RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
       DOM.$favoriteContainer.style.display = "block";
+      state.setCurrentRestaurantListId("favoriteRestaurant");
     }
 
     $$(".navigation__button").forEach((btn) =>

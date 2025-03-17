@@ -90,11 +90,14 @@ const DetailModalContent = {
   },
 
   renderAll() {
-    FilterSelect.applyFilter("allRestaurant");
-    const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
-      LocalStorage.getJSON(RESTAURANT_LIST_KEY)
-    );
-    RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
+    if (state.currentRestaurantListId === "allRestaurant")
+      FilterSelect.applyFilter("allRestaurant");
+    if (state.currentRestaurantListId === "favoriteRestaurant") {
+      const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
+        LocalStorage.getJSON(RESTAURANT_LIST_KEY)
+      );
+      RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
+    }
   },
 };
 
