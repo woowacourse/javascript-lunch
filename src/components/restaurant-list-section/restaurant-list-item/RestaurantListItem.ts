@@ -57,6 +57,7 @@ export default class RestaurantListItem {
   render() {
     const $item = document.createElement("li");
     $item.className = "restaurant";
+    $item.id = this.id;
 
     const $category = document.createElement("div");
     $category.className = "restaurant__category";

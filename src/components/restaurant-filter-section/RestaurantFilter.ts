@@ -71,8 +71,8 @@ export default class RestaurantFilter {
   #renderFilterSort() {
     const $filterSort = document.createElement("select");
     $filterSort.className = "restaurant-filter";
-    $filterSort.id = "sorting-filter";
-    $filterSort.setAttribute("name", "sorting-filter");
+    $filterSort.id = "sort-filter";
+    $filterSort.setAttribute("name", "sort-filter");
 
     this.$filterContainer.append($filterSort);
 

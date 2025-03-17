@@ -24,7 +24,7 @@ describe("음식점 추가 바텀 시트 닫는 기능 테스트", () => {
 
 const formData = {
   category: "한식",
-  name: "얌생 김밥",
+  name: "얌샘 김밥",
   distance: "10",
   description: "맛있는 김밥",
   link: "링크 테스트용 텍스트",
@@ -41,7 +41,11 @@ describe("음식점 상세 정보 바텀 시트 닫는 기능 테스트", () => 
     cy.fillForm(formData);
     cy.clickAddButton();
 
-    cy.get(".restaurant").first().click();
+    cy.get(".restaurant-list .restaurant")
+      .should("exist")
+      .and("be.visible")
+      .first()
+      .click();
     cy.contains("button", "닫기").should("exist").and("be.visible").click();
 
     // then
@@ -54,7 +58,11 @@ describe("음식점 상세 정보 바텀 시트 닫는 기능 테스트", () => 
     cy.fillForm(formData);
     cy.clickAddButton();
 
-    cy.get(".restaurant").first().click();
+    cy.get(".restaurant-list .restaurant")
+      .should("exist")
+      .and("be.visible")
+      .first()
+      .click();
     cy.get("#open-detail .modal-backdrop").click({ force: true });
 
     // then

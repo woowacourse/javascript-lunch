@@ -1,3 +1,4 @@
+import { Restaurant } from "./../../types/interfaces";
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
@@ -40,28 +41,31 @@ Cypress.Commands.add("openForm", () => {
   cy.get(".gnb__button").click();
 });
 
-Cypress.Commands.add("fillForm", (formData) => {
-  const fieldSelectors = {
-    category: `select[name="category"]`,
-    name: `input[name="name"]`,
-    distance: `select[name="distance"]`,
-    description: `textarea[name="description"]`,
-    link: `input[name="link"]`,
-  };
+Cypress.Commands.add(
+  "fillForm",
+  (formData: Record<keyof Omit<Restaurant, "id" | "isFavorite">, string>) => {
+    const fieldSelectors = {
+      category: `select[name="category"]`,
+      name: `input[name="name"]`,
+      distance: `select[name="distance"]`,
+      description: `textarea[name="description"]`,
+      link: `input[name="link"]`,
+    };
 
-  Object.entries(formData).forEach(([key, value]) => {
-    if (value) {
-      const selector = fieldSelectors[key];
-      cy.get(selector).should("be.visible");
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) {
+        const selector = fieldSelectors[key];
+        cy.get(selector).should("be.visible");
 
-      if (key === "category" || key === "distance") {
-        cy.get(selector).select(value).should("have.value", value);
-      } else {
-        cy.get(selector).type(value).should("have.value", value);
+        if (key === "category" || key === "distance") {
+          cy.get(selector).select(value).should("have.value", value);
+        } else {
+          cy.get(selector).type(value).should("have.value", value);
+        }
       }
-    }
-  });
-});
+    });
+  }
+);
 
 Cypress.Commands.add("clickAddButton", () => {
   cy.contains("button", "추가하기").should("exist").and("be.visible").click();

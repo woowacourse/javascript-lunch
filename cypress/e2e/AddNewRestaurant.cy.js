@@ -27,7 +27,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     // when
     const formData = {
       category: "한식",
-      name: "얌생 김밥",
+      name: "얌샘 김밥",
       distance: "10",
       description: "맛있는 김밥",
       link: "링크 테스트용 텍스트",
@@ -37,7 +37,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
 
     // then
     cy.get("#submit-form").should("not.have.class", "modal--open");
-    cy.contains("h3", "얌생 김밥").should("exist").and("be.visible");
+    cy.contains("h3", "얌샘 김밥").should("exist").and("be.visible");
     cy.contains("span", "캠퍼스부터 10분 내").should("exist").and("be.visible");
     cy.contains("p", "맛있는 김밥").should("exist").and("be.visible");
   });
@@ -50,7 +50,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     // when
     const formData = {
       category: "한식",
-      name: "얌생 김밥",
+      name: "얌샘 김밥",
       description: "맛있는 김밥",
     };
     cy.fillForm(formData);
@@ -58,7 +58,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
 
     // then
     cy.get("#submit-form").should("have.class", "modal--open");
-    cy.contains("h3", "얌생 김밥").should("not.exist");
+    cy.contains("h3", "얌샘 김밥").should("not.exist");
     cy.contains("span", "캠퍼스부터 10분 내").should("not.exist");
     cy.contains("p", "맛있는 김밥").should("not.exist");
   });
@@ -71,7 +71,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     // when
     const firstFormData = {
       category: "한식",
-      name: "얌생 김밥",
+      name: "얌샘 김밥",
       distance: "10",
       description: "맛있는 김밥",
       link: "링크 테스트용 텍스트",
@@ -96,7 +96,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
 
     // then
     cy.get("#submit-form").should("not.have.class", "modal--open");
-    cy.contains("h3", "얌생 김밥").should("exist").and("be.visible");
+    cy.contains("h3", "얌샘 김밥").should("exist").and("be.visible");
     cy.contains("h3", "짜장면").should("exist").and("be.visible");
     cy.contains("span", "캠퍼스부터 10분 내").should("exist").and("be.visible");
     cy.contains("span", "캠퍼스부터 15분 내").should("exist").and("be.visible");
