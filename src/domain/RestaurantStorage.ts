@@ -2,10 +2,17 @@ import { DummyData } from './DummyData';
 import Restaurant, { Category, Distance } from './Restaurant';
 import Restaurants from './Restaurants';
 
+const RESTAURANT_STORAGE_ERROR = Object.freeze({
+  FAILED_LOAD_FROM_LOCAL_STORAGE: '음식점 리스트 데이터를 불러오는데 실패하였습니다.',
+  FAILED_TO_SAVE_RESTAURANT: '음식점을 추가에 실패하였습니다.',
+  FAILED_TO_DELET_RESTAURANT: '음식점을 삭제하는데 실패하였습니다.',
+  FAILED_TO_UPDATE_IS_LIKE: '음식점의 즐겨찾기를 업데이트할 수 없습니다.',
+});
+
 class RestaurantStorage {
   static #STORAGE_KEY = 'restaurants';
 
-  static getRestaurants(): Restaurants | [] {
+  static getRestaurants(): Restaurants {
     const storedData = localStorage.getItem(this.#STORAGE_KEY);
 
     if (!storedData) {
@@ -37,8 +44,8 @@ class RestaurantStorage {
       );
       return new Restaurants(restaurantList);
     } catch (error: any) {
-      alert(error.message);
-      return [];
+      alert(RESTAURANT_STORAGE_ERROR.FAILED_LOAD_FROM_LOCAL_STORAGE);
+      return new Restaurants([]);
     }
   }
 
@@ -57,16 +64,16 @@ class RestaurantStorage {
     localStorage.setItem(this.#STORAGE_KEY, JSON.stringify(serializableData));
   }
 
-  static addRestaurant(restaurant: Restaurant): Restaurants | [] {
+  static addRestaurant(restaurant: Restaurant): Restaurants {
     const restaurants = this.getRestaurants();
 
     if (restaurants instanceof Restaurants) {
       restaurants.add(restaurant);
       this.saveRestaurants(restaurants);
       return restaurants;
+    } else {
+      throw new Error(RESTAURANT_STORAGE_ERROR.FAILED_TO_SAVE_RESTAURANT);
     }
-
-    return [];
   }
 
   static deleteRestaurant(restaurantName: string): Restaurants | [] {
@@ -76,9 +83,9 @@ class RestaurantStorage {
       restaurants.delete(restaurantName);
       this.saveRestaurants(restaurants);
       return restaurants;
+    } else {
+      throw new Error(RESTAURANT_STORAGE_ERROR.FAILED_TO_DELET_RESTAURANT);
     }
-
-    return [];
   }
 
   static updateRestaurantIsLike(restaurantName: string, isLike: boolean): Restaurants | [] {
@@ -88,9 +95,9 @@ class RestaurantStorage {
       restaurants.updateIsLike(restaurantName, isLike);
       this.saveRestaurants(restaurants);
       return restaurants;
+    } else {
+      throw new Error(RESTAURANT_STORAGE_ERROR.FAILED_TO_UPDATE_IS_LIKE);
     }
-
-    return [];
   }
 }
 
