@@ -8,6 +8,7 @@ export const LABEL_NAMES = Object.freeze({
 
 export const DISTANCE = ["5", "10", "15", "20", "30"];
 export const CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
+export const SORTING = ["이름순", "거리순"];
 
 export const CATEGORY_ASSETS = Object.freeze({
   한식: "./assets/category-korean.png",

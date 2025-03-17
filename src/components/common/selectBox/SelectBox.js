@@ -32,7 +32,7 @@ export default class SelectBox {
       $option.value = option;
 
       if (this.label === "distance") $option.textContent = `${option}분 내`;
-      else $option.textContent = option;
+      if (this.label === "category") $option.textContent = option;
 
       $select.appendChild($option);
     });

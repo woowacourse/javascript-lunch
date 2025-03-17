@@ -51,6 +51,10 @@ body {
   font-weight: 400;
 }
 
+.list-section {
+  padding: 16px;
+}
+
 /* TODO: 2단계 미션: 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;

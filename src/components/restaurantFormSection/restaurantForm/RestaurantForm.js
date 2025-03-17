@@ -11,7 +11,7 @@ import {
   BUTTON_TEXTS,
   BUTTON_TYPES,
 } from "../../../constants/constants.js";
-import { extractValuesByKey } from "../../utils/extractValuesByKey.js";
+import { extractValuesByKey } from "../../../utils/extractValuesByKey.js";
 
 export default class RestaurantForm {
   constructor(updateList, list) {
@@ -105,7 +105,10 @@ export default class RestaurantForm {
 
     const newRestaurantInfo = extractValuesByKey(formQuery, "value");
 
-    this.updateList([...this.list, newRestaurantInfo]);
+    this.updateList([
+      ...this.list,
+      { ...newRestaurantInfo, bookmark: false, id: new Date().getTime() },
+    ]);
     this.#resetFormData(formQuery);
     this.#closeModal();
   }

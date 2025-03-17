@@ -1,0 +1,21 @@
+.restaurant-list-header {
+  display: flex;
+  width: 100%;
+}
+
+.select-button {
+  width: 50%;
+  border: none;
+  color: var(--grey-300);
+  border-bottom: 2px solid var(--grey-300);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 9px;
+  background-color: transparent;
+}
+
+.selected {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}

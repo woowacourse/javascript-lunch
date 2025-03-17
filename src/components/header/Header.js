@@ -2,6 +2,12 @@ import { EVENT_TYPES } from "../../constants/constants.js";
 import "./header.css";
 
 export default class Header {
+  #toggleAddModalShow;
+
+  constructor(toggleAddModalShow) {
+    this.#toggleAddModalShow = toggleAddModalShow;
+  }
+
   render() {
     const $header = document.createElement("header");
     $header.className = "gnb";
@@ -32,7 +38,6 @@ export default class Header {
   }
 
   #handleButtonClick() {
-    const $modal = document.querySelector(".modal");
-    $modal.classList.add("modal--open");
+    this.#toggleAddModalShow();
   }
 }
