@@ -6,8 +6,6 @@ import FavoriteIcon from "./FavoriteIcon";
 const RestaurantCard = (restaurant, events = {}) => {
   const { category } = restaurant.value;
   const { clickFavorite, clickCard } = events;
-  console.log("카드 생성");
-  console.log("clickCard", clickCard);
 
   const restaurantCard = createElement({
     tagName: "li",

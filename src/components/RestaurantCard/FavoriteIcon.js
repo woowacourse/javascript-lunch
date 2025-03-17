@@ -21,7 +21,7 @@ const FavoriteIcon = (restaurant, clickFavorite) =>
         e.target.src = restaurant.value.isFavorite
           ? "./public/favorite-icon-filled.png"
           : "./public/favorite-icon-lined.png";
-        clickFavorite && clickFavorite(restaurant);
+        clickFavorite && clickFavorite();
       },
     },
   });

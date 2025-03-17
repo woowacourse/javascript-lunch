@@ -4,7 +4,6 @@ import { Category, NameOrDistance, RestaurantValue, TabInfo } from "./types";
 const storage = {
   saveRestaurantList(value: Restaurant[]) {
     const restaurantListValue = value.map((restaurant) => {
-      console.log("mapping!");
       return restaurant.value;
     });
     localStorage.setItem("restaurnatList", JSON.stringify(restaurantListValue));

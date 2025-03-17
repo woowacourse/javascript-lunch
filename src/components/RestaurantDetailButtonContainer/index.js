@@ -13,7 +13,7 @@ const RestaurantDetailButtonContainer = (restaurant, clickDelete) => {
     style: "button--secondary",
     onClick: () => {
       $("#restaurant-detail-modal-backdrop").classList.remove("open");
-      clickDelete(restaurant);
+      clickDelete();
     },
   });
 
