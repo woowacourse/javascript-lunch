@@ -1,11 +1,11 @@
 import createElement from '../utils/createElement.js';
 import RestaurantDetailModal from './RestaurantDetailModal.js';
-import { deleteRestaurantById } from './RestaurantList.js';
 import {
   createRestaurantData,
   toggleFavorite,
   getFavoriteRestaurants,
-} from '../services/RestaurantService.js';
+} from '../services/RestaurantItemService.js';
+import { handleDeleteRestaurant } from './RestaurantList.js';
 
 function createTags(data) {
   const categoryImg = createElement('img', 'category-icon', null, {
@@ -50,9 +50,9 @@ function createRestaurantItem(data) {
   restaurantItem.addEventListener('click', () => {
     const modal = new RestaurantDetailModal();
     modal.updateModalContent({
-      data: restaurantData,
+      data,
       onDelete: (event, id) => {
-        deleteRestaurantById(id);
+        handleDeleteRestaurant(id);
       },
     });
     document.body.appendChild(modal.modal.getElement());

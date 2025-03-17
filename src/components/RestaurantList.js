@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement.js';
 import createRestaurantItem from './RestaurantItem.js';
-import { RESTAURANT_ITEMS } from '../../public/restaurantData.js';
+import { getAllRestaurants, deleteRestaurantById } from '../services/RestaurantListService.js';
 
 function createRestaurantList(datas) {
   const restaurantList = createElement('ul', 'restaurant-list');
@@ -25,14 +25,11 @@ function updateRestaurantList(inputData) {
   return $restaurantList;
 }
 
-function deleteRestaurantById(id) {
-  let storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
-
-  storedData = storedData.filter((item) => item.id !== id);
-  localStorage.setItem('addedRestaurants', JSON.stringify(storedData));
+function handleDeleteRestaurant(id) {
+  deleteRestaurantById(id);
 
   const $container = document.querySelector('.restaurant-list-container');
-  const $updatedList = createRestaurantList([...RESTAURANT_ITEMS, ...storedData]);
+  const $updatedList = createRestaurantList(getAllRestaurants());
 
   const oldList = $container.querySelector('.restaurant-list');
   if (oldList) oldList.remove();
@@ -40,4 +37,4 @@ function deleteRestaurantById(id) {
   $container.appendChild($updatedList);
 }
 
-export { createRestaurantList, updateRestaurantList, deleteRestaurantById };
+export { createRestaurantList, updateRestaurantList, handleDeleteRestaurant };
