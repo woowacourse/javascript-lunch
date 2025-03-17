@@ -1,10 +1,4 @@
-import {
-  ButtonType,
-  Category,
-  Distance,
-  LabelKey,
-  NavBarKey,
-} from "../../types/types";
+import { ButtonType, Category, LabelKey, NavBarKey } from "../../types/types";
 
 export const LABEL_KEYS = Object.freeze({
   category: "category",
@@ -40,8 +34,9 @@ export const SORT_OPTIONS: Record<
   [LABEL_KEYS.distance]: "거리순",
 });
 
-export const DISTANCE: Distance[] = ["5", "10", "15", "20", "30"];
-export const CATEGORY: Category[] = [
+export const DISTANCE = ["5", "10", "15", "20", "30"] as const;
+
+export const CATEGORY = [
   "전체",
   "한식",
   "중식",
@@ -49,7 +44,7 @@ export const CATEGORY: Category[] = [
   "양식",
   "아시안",
   "기타",
-];
+] as const;
 
 export const CATEGORY_ASSETS: Record<
   Exclude<Category, "전체">,
