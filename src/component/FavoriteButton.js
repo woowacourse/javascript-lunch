@@ -6,8 +6,8 @@ class FavoriteButton {
   #el;
   #favorite;
 
-  constructor(element, name, favorite, restaurantList) {
-    this.#favorite = this.#favorite;
+  constructor(parentEl, name, favorite, restaurantList) {
+    this.#favorite = favorite;
     this.#el = toElement(`
         <button type="button" class="gnb__button child-exclude" aria-label="favorite" style="margin-left: auto">
           <img src=${FAVORITE_ICON[favorite]} alt="favotire" />
@@ -17,7 +17,8 @@ class FavoriteButton {
     this.#el.addEventListener("click", () =>
       this.toggleState(name, restaurantList, favorite)
     );
-    append(element, this.#el);
+
+    append(parentEl, this.#el);
   }
 
   toggleState(name, restaurantList) {

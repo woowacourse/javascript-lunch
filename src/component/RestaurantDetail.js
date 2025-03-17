@@ -53,8 +53,8 @@ function RestaurantDetail(
       })
     )
   );
-  const categoryElement = $el.querySelector(".restaurant__detail__top");
-  new FavoriteButton(categoryElement, name, favorite, restaurantList);
+  const favoriteParentEl = $el.querySelector(".restaurant__detail__top");
+  new FavoriteButton(favoriteParentEl, name, favorite, restaurantList);
 
   return $el;
 }

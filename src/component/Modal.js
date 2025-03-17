@@ -3,27 +3,27 @@ import toElement from "../utils/toElement.js";
 
 function Modal(id, modalContent) {
   function createModalBackdrop(id) {
-    const $modalBackdrop = toElement(`
+    const $el = toElement(`
       <div class="modal-backdrop" />
     `);
-    $modalBackdrop.addEventListener("click", () => Modal.close(id));
+    $el.addEventListener("click", () => Modal.close(id));
 
-    return $modalBackdrop;
+    return $el;
   }
 
   function createModalContainer(modalContent) {
-    const $modalContainer = toElement(`
+    const $el = toElement(`
       <div class="modal-container"/>
     `);
-    append($modalContainer, modalContent);
+    append($el, modalContent);
 
-    return $modalContainer;
+    return $el;
   }
 
-  const $modal = toElement(`<div id="${id}" class="modal" />`);
-  append($modal, createModalBackdrop(id), createModalContainer(modalContent));
+  const $el = toElement(`<div id="${id}" class="modal" />`);
+  append($el, createModalBackdrop(id), createModalContainer(modalContent));
 
-  return $modal;
+  return $el;
 }
 
 Modal.open = function (id) {

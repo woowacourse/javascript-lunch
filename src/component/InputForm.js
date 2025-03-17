@@ -2,7 +2,7 @@ import { requiredClassName } from "./AddLunchModalForm.js";
 import toElement from "../utils/toElement.js";
 
 function InputForm({ id, label, required, bottomDescription }) {
-  const $inputForm = toElement(
+  const $el = toElement(
     `
       <div class="form-item" ${requiredClassName(required)}">
       <label for="${id} text-caption">${label}</label>
@@ -16,7 +16,7 @@ function InputForm({ id, label, required, bottomDescription }) {
       `
   );
 
-  return $inputForm;
+  return $el;
 }
 
 export default InputForm;

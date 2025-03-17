@@ -2,7 +2,7 @@ import toElement from "../utils/toElement.js";
 import MOCK_ITEM from "../mockItem.js";
 
 function Select({ name, id, className, dropdownList }, restaurantList) {
-  const $select = toElement(
+  const $el = toElement(
     `  <select name=${name} id=${id} class=${id}>
               ${dropdownList
                 .map(
@@ -13,7 +13,8 @@ function Select({ name, id, className, dropdownList }, restaurantList) {
               </select>
   `
   );
-  $select.addEventListener("change", function (event) {
+
+  $el.addEventListener("change", function (event) {
     const { id, value } = event.target;
 
     if (id === "sorting-filter") {
@@ -34,7 +35,7 @@ function Select({ name, id, className, dropdownList }, restaurantList) {
     }
   });
 
-  return $select;
+  return $el;
 }
 
 export default Select;

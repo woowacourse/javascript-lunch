@@ -1,16 +1,16 @@
 import toElement from "../utils/toElement.js";
 
 function TextButton({ title, onClick, id }) {
-  const $textButton = toElement(
+  const $el = toElement(
     `<button class="text-caption button" id="${id}" type="${
       id === "add__button" ? "submit" : "button"
     }">
       ${title}
     </button>`
   );
-  $textButton.addEventListener("click", onClick);
+  $el.addEventListener("click", onClick);
 
-  return $textButton;
+  return $el;
 }
 
 export default TextButton;

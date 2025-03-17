@@ -14,13 +14,13 @@ export function requiredClassName(required) {
 }
 
 function AddLunchModalForm(restaurantList, modalId) {
-  const $modalForm = toElement(`
+  const $el = toElement(`
     <form>
       <h2 class="modal-title text-title">새로운 음식점</h2>
     </form>
     `);
 
-  $modalForm.addEventListener("submit", (event) => {
+  $el.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const { category, description, distance, link, name } = Object.fromEntries(
@@ -49,7 +49,7 @@ function AddLunchModalForm(restaurantList, modalId) {
   });
 
   append(
-    $modalForm,
+    $el,
     SelectForm({
       id: "category",
       label: "카테고리",
@@ -124,7 +124,7 @@ function AddLunchModalForm(restaurantList, modalId) {
     )
   );
 
-  return $modalForm;
+  return $el;
 }
 
 export default AddLunchModalForm;
