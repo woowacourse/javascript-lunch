@@ -51,7 +51,7 @@ class ModalDetail extends Modal {
 
   handleLikeToggle() {
     this.props.data.like = !this.props.data.like;
-    updateStoredData();
+    this.updateStoredData();
     updateLikeUI();
   }
 
