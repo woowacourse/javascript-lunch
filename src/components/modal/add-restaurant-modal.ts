@@ -1,9 +1,9 @@
 import $form from "../form-elements/form.ts";
 import $restaurantItem from "../restaurant/restaurant-item.ts";
-import { currentRestaurantData } from "../../data/restaurant.ts";
+import { currentRestaurantData } from "../../data/storage/restaurantStorage.ts";
 import { CATEGORY_ICON } from "../../constants/iconPath.ts";
-import { saveRestaurantsToLocalStorage } from "../../data/restaurant.ts";
-import { Restaurant } from "../../data/restaurant.ts";
+import { saveRestaurantsToLocalStorage } from "../../data/storage/restaurantStorage.ts";
+import { Restaurant } from "../../data/models/restaurant.ts";
 
 export type RestaurantProps = {
   category: string;

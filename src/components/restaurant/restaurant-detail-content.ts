@@ -1,12 +1,9 @@
 import $buttonContainer from "../layout/button-container.ts";
 import $button from "../common/button.ts";
-import { Restaurant } from "../../data/restaurant.ts";
-import { UI_CONFIG } from "../../constants/uiConfig.ts";
 import $favoriteButton from "../common/favorite-button.ts";
-import {
-  saveRestaurantsToLocalStorage,
-  currentRestaurantData,
-} from "../../data/restaurant.ts";
+import { Restaurant } from "../../data/models/restaurant.ts";
+import { UI_CONFIG } from "../../constants/uiConfig.ts";
+import { saveRestaurantsToLocalStorage, currentRestaurantData } from "../../data/storage/restaurantStorage.ts";
 
 const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   const info = document.createElement("div");

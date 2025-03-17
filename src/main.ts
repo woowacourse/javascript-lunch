@@ -4,21 +4,20 @@ import $addRestaurantModal from "./components/modal/add-restaurant-modal.ts";
 import $button from "./components/common/button.ts";
 import $buttonContainer from "./components/layout/button-container.ts";
 import $filter from "./components/common/filter.ts";
+import $tabbar from "./components/common/tabbar.ts";
 import $restaurantDetailModal, {
   handleDeleteRestaurant,
 } from "./components/modal/restaurant-detail-modal.ts";
-import $tabbar from "./components/common/tabBar.ts";
 import { handleModalClose } from "./components/modal/add-restaurant-modal.ts";
 import { handleAddRestaurant } from "./components/form-elements/form.ts";
 import { handleRestaurantDetailModalClose } from "./components/modal/restaurant-detail-modal.ts";
 import { handleRestaurantDetailModalOpen } from "./components/modal/restaurant-detail-modal.ts";
 import { UI_CONFIG } from "./constants/uiConfig.ts";
-import { currentRestaurantData } from "./data/restaurant.ts";
+import { currentRestaurantData, saveRestaurantsToLocalStorage } from "./data/storage/restaurantStorage.ts";
 import { FORM_FIELDS } from "./constants/formFields.ts";
 import { FILTERS } from "./constants/filters.ts";
 import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
 import { renderRestaurants } from "./utils/renderUtils.ts";
-import { saveRestaurantsToLocalStorage } from "./data/restaurant.ts";
 import { FavoriteImageElement } from "./components/common/favorite-button.ts";
 
 addEventListener("load", () => {
@@ -197,7 +196,6 @@ document.body.addEventListener("click", (e) => {
   const target = e.target as HTMLElement;
 
   if (target.matches("#delete-restaurant-button")) {
-    // console.log(target);
     handleDeleteRestaurant(Number(target.getAttribute("data-restaurant-id")));
   }
 
