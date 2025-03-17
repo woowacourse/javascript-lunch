@@ -47,7 +47,7 @@ export default class FoodList {
         cssType: "row",
         onFavoriteClick: (id: string) => this.updateFavoriteItem(id),
         onDeleteClick: (id: string) => this.updateDeleteItem(id),
-        onFoodItemClick: () => this.renderDetailModal(foodItem),
+        onFoodItemClick: (foodItem: FoodItemType) => this.openDetailModal(foodItem),
       }).element;
 
       if (foodItemElement) {
@@ -58,49 +58,42 @@ export default class FoodList {
     this.foodList.appendChild(foodFragment);
   }
 
-  renderDetailModal(foodItem: FoodItemType) {
-    const foodItemElement = document.querySelectorAll(".restaurant");
-    if (!foodItemElement) return;
+  openDetailModal(foodItem: FoodItemType) {
+    const fragment = document.createDocumentFragment();
 
-    foodItemElement.forEach((element) => {
-      element.addEventListener("click", () => {
-        const fragment = document.createDocumentFragment();
-
-        const detailFoodItem = new FoodItem({
-          data: foodItem,
-          cssType: "column",
-          onFavoriteClick: this.updateFavoriteItem.bind(this),
-          onDeleteClick: this.updateDeleteItem.bind(this),
-          onFoodItemClick: () => {},
-        });
-        if (!detailFoodItem.element) return;
-        fragment.appendChild(detailFoodItem.element);
-
-        const buttonContainer = ButtonContainer({
-          buttons: [
-            Button({
-              name: "delete",
-              innerText: "삭제하기",
-              cssType: "secondary",
-              onClick: () => {
-                detailFoodItem.handleDeleteClick();
-                detailModal.close();
-              },
-            }),
-            Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
-          ],
-        });
-        fragment.appendChild(buttonContainer);
-
-        const detailModal = new Modal({ content: fragment });
-        detailModal.open();
-
-        const body = document.querySelector("body");
-        if (body) {
-          body.appendChild(detailModal.element);
-        }
-      });
+    const detailFoodItem = new FoodItem({
+      data: foodItem,
+      cssType: "column",
+      onFavoriteClick: this.updateFavoriteItem.bind(this),
+      onDeleteClick: this.updateDeleteItem.bind(this),
+      onFoodItemClick: () => {},
     });
+    if (!detailFoodItem.element) return;
+    fragment.appendChild(detailFoodItem.element);
+
+    const buttonContainer = ButtonContainer({
+      buttons: [
+        Button({
+          name: "delete",
+          innerText: "삭제하기",
+          cssType: "secondary",
+          onClick: () => {
+            detailFoodItem.handleDeleteClick();
+            detailModal.close();
+          },
+        }),
+        Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
+      ],
+    });
+    fragment.appendChild(buttonContainer);
+
+    const detailModal = new Modal({ content: fragment });
+    detailModal.open();
+
+    const body = document.querySelector("body");
+    if (body) {
+      body.appendChild(detailModal.element);
+    }
   }
 
   showEmptyListMessage() {

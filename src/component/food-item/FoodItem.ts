@@ -9,7 +9,7 @@ interface FoodItemOptions {
 
   onFavoriteClick: (id: string) => void;
   onDeleteClick: (id: string) => void;
-  onFoodItemClick: () => void;
+  onFoodItemClick: (foodItem: FoodItemType) => void;
 
   isModalFoodItem?: boolean;
 }
@@ -23,7 +23,7 @@ export default class FoodItem {
 
   #onFavoriteClick: (id: string) => void;
   #onDeleteClick: (id: string) => void;
-  #onFoodItemClick: () => void;
+  #onFoodItemClick: (data: FoodItemType) => void;
 
   constructor({ data, cssType, onFavoriteClick, onDeleteClick, onFoodItemClick }: FoodItemOptions) {
     this.#data = data;
@@ -38,7 +38,7 @@ export default class FoodItem {
     this.render();
 
     this.setUpFavoriteToggle();
-    this.setDetailCss();
+    this.setUpDetailModal();
   }
 
   get element() {
@@ -70,6 +70,7 @@ export default class FoodItem {
             </div>
           </li>
   `;
+    this.setDetailCss();
   }
 
   setUpFavoriteToggle() {
@@ -105,6 +106,12 @@ export default class FoodItem {
     if (this.#cssType === "column") {
       this.container.querySelector("li")?.classList.add("restaurant-detail");
     }
+  }
+
+  setUpDetailModal() {
+    this.container.querySelector("li")?.addEventListener("click", () => {
+      this.#onFoodItemClick(this.#data);
+    });
   }
 
   handleDeleteClick() {
