@@ -384,3 +384,20 @@ input[name="link"] {
 .pause-scroll {
   overflow: hidden;
 }
+
+.no-restaurant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.no-restaurant-icon {
+  font-size: 48px;
+}

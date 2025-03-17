@@ -1,5 +1,6 @@
 import Modal from "./components/Modal.js";
 import TabButton from "./components/TabButton.js";
+import NoRestaurant from "./components/NoRestaurant.js";
 import restaurantStorage from "./stores/restaurantStorage.ts";
 import querySelector from "./utils/querySelector.js";
 import restaurantData from "./data/restaurantData.ts";
@@ -71,6 +72,11 @@ addEventListener("load", () => {
       filteredList,
       sortOption
     );
+
+    if (sortedList.length === 0) {
+      querySelector(".restaurant-list").innerHTML = NoRestaurant();
+      return;
+    }
 
     sortedList.forEach((restaurant: RestaurantItem) => {
       restaurantHandler.addRestaurantItem(restaurant);
