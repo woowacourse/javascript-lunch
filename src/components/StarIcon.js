@@ -1,7 +1,11 @@
-const StarIcon = (isFavorite) => {
-  const iconSrc = isFavorite
+export const getStarIconSrc = (isFavorite) => {
+  return isFavorite
     ? "/public/favorite-icon-filled.png"
     : "/public/favorite-icon-lined.png";
+};
+
+const StarIcon = (isFavorite) => {
+  const iconSrc = getStarIconSrc(isFavorite);
 
   return /*html*/ `
     <button class="star-icon-container">

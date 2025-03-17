@@ -3,6 +3,7 @@ import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
 import { modalHandler } from "./modalHandler.js";
 import { RestaurantItem } from "../types/restaurantItem.js";
+import { getStarIconSrc } from "../components/StarIcon.js";
 import restaurantStorage from "../stores/restaurantStorage.js";
 
 export const restaurantHandler = {
@@ -138,11 +139,7 @@ export const restaurantHandler = {
         const starIcon = restaurantItem.querySelector(
           ".star-icon-container img"
         ) as HTMLImageElement;
-        if (starIcon) {
-          starIcon.src = isFavorite
-            ? "/public/favorite-icon-filled.png"
-            : "/public/favorite-icon-lined.png";
-        }
+        starIcon.src = getStarIconSrc(isFavorite);
       }
     });
   },
