@@ -5,7 +5,7 @@ export interface Restaurant {
   distance: number;
   description?: string;
   link?: string;
-  isFavorite?: boolean;
+  isFavorite: boolean;
 }
 
 export async function fetchRestaurants(): Promise<Restaurant[]> {
