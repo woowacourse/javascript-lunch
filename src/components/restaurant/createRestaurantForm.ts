@@ -11,9 +11,12 @@ import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
 import { FormEventType, IRestaurant } from "../../types/types";
 
-const restaurantFormReset = (form: HTMLFormElement) => {
+const restaurantFormReset = () => {
   handleModalClose();
-  form?.reset();
+  const form = document.getElementById(
+    "add-restaurant-form"
+  ) as HTMLFormElement;
+  form.reset();
 };
 
 const addRestaurant = ({
@@ -50,7 +53,7 @@ const handleAddRestaurant = (e: Event) => {
     const data = Object.fromEntries(formData) as unknown as IRestaurant;
     validateRestaurantForm(form);
     addRestaurant(data);
-    restaurantFormReset(form);
+    restaurantFormReset();
   } catch (error) {
     if (error instanceof Error) {
       alert(error.message);

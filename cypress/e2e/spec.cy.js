@@ -1,4 +1,4 @@
-import { ERROR } from "../../src/constants/message.js";
+import { ERROR } from "../../src/constants/message";
 
 describe("e2e 테스트", () => {
   beforeEach(() => {
