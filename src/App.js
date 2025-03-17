@@ -144,60 +144,64 @@ class App extends Component {
       );
 
       const $button = event.target.closest("button");
-      if ($button && $button.dataset.buttonid === restaurantItem.id) {
-        const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
-          this.state.restaurants,
-          restaurantItem.id
-        );
-
-        this.setState({ restaurants: updatedList });
-        const updatedRestaurant = updatedList.find(
-          ({ id }) => id === restaurantItem.id
-        );
-
-        const $img = $($button, ".favorite-icon");
-        if ($img) {
-          $img.setAttribute(
-            "src",
-            updatedRestaurant.isFavorite ? filledStar : emptyStar
-          );
-        }
+      if ($button && $button.dataset.buttonid === restaurant.id) {
+        this.toggleFavoriteRestaurantAndUpdateState(restaurant, $button);
         return;
       }
 
-      const changeLocalStorageState = (restaurant) => {
-        const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
-          this.state.restaurants,
-          restaurant.id
-        );
-        this.setState({ restaurants: updatedList });
-
-        const updatedRestaurant = updatedList.find(
-          ({ id }) => id === restaurant.id
-        );
-
-        const $img = $(
-          $(document, "#restaurant-info-container"),
-          ".favorite-icon"
-        );
-        if ($img) {
-          $img.setAttribute(
-            "src",
-            updatedRestaurant.isFavorite ? filledStar : emptyStar
-          );
-        }
-      };
-
-      const restaurantInfoModal = new RestaurantInfoModal(
-        $(document, "#modal"),
-        {
-          data: restaurant,
-          deleteRestaurant: this.deleteRestaurant.bind(this),
-          changeLocalStorageState,
-        }
-      );
-      restaurantInfoModal.open();
+      this.openRestaurantInfoModal(restaurant);
     });
+  }
+
+  openRestaurantInfoModal(restaurant) {
+    const changeLocalStorageState = (restaurant) => {
+      const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
+        this.state.restaurants,
+        restaurant.id
+      );
+      this.setState({ restaurants: updatedList });
+
+      const updatedRestaurant = updatedList.find(
+        ({ id }) => id === restaurant.id
+      );
+
+      this.toggleFavoriteToUI(
+        updatedList,
+        restaurant,
+        $(document, "#restaurant-info-container")
+      );
+    };
+
+    const restaurantInfoModal = new RestaurantInfoModal($(document, "#modal"), {
+      data: restaurant,
+      deleteRestaurant: this.deleteRestaurant.bind(this),
+      changeLocalStorageState,
+    });
+    restaurantInfoModal.open();
+  }
+
+  toggleFavoriteRestaurantAndUpdateState(restaurant, $button) {
+    const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
+      this.state.restaurants,
+      restaurant.id
+    );
+    this.setState({ restaurants: updatedList });
+
+    this.toggleFavoriteToUI(updatedList, restaurant, $button);
+  }
+
+  toggleFavoriteToUI(updatedList, restaurant, $target) {
+    const updatedRestaurant = updatedList.find(
+      ({ id }) => id === restaurant.id
+    );
+
+    const $img = $($target, ".favorite-icon");
+    if ($img) {
+      $img.setAttribute(
+        "src",
+        updatedRestaurant.isFavorite ? filledStar : emptyStar
+      );
+    }
   }
 
   renderTabByFilter() {
