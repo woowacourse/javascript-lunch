@@ -1,7 +1,6 @@
-import { Component } from './core/index.ts';
 import type { TabType } from '../lib/types.ts';
 import { html } from '../lib/utils.ts';
-import { EventHandler } from '../lib/modules/index.ts';
+import { Component } from './core/index.ts';
 
 interface RestaurantTabProps {
   focusedTab: TabType;
@@ -28,16 +27,5 @@ export default class RestaurantTab extends Component<RestaurantTabProps> {
         </div>
       </div>
     `;
-  }
-
-  override attachEventListener() {
-    EventHandler.attachEventListener(
-      'click',
-      ({ target }) => {
-        const tab = (target.closest('[data-action="tab-change"]') as HTMLElement)?.dataset.tab;
-        this.props.setTab(tab as TabType);
-      },
-      'tab-change',
-    );
   }
 }

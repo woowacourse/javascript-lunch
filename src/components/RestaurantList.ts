@@ -193,6 +193,14 @@ export default class RestaurantList extends Component<null, RestaurantListState>
       },
       'restaurant-detail',
     );
+
+    EventHandler.attachEventListener(
+      'click',
+      ({ currentTarget }) => {
+        this.setState({ tab: currentTarget.dataset.tab as TabType });
+      },
+      'tab-change',
+    );
   }
 
   private _deleteRestaurant(id: string) {
