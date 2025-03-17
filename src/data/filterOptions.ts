@@ -1,3 +1,5 @@
+import { deepFreeze } from "../utils/deepFreeze";
+
 const _categoryFilterOptions = {
   전체: "",
   한식: "한식",
@@ -13,5 +15,5 @@ const _sortFilterOptions = {
   거리순: "distance",
 } as const;
 
-export const categoryFilterOptions = Object.freeze(_categoryFilterOptions) satisfies Record<string, string>;
-export const sortFilterOptions = Object.freeze(_sortFilterOptions) satisfies Record<string, string>;
+export const categoryFilterOptions = deepFreeze(_categoryFilterOptions) satisfies Record<string, string>;
+export const sortFilterOptions = deepFreeze(_sortFilterOptions) satisfies Record<string, string>;

@@ -1,3 +1,5 @@
+import { deepFreeze } from "../utils/deepFreeze";
+
 const _categoryOptions = {
   "선택해 주세요": "",
   한식: "한식",
@@ -17,5 +19,5 @@ const _distanceOptions = {
   "30분 이내": 30,
 } as const;
  
-export const categoryOptions = Object.freeze(_categoryOptions) satisfies Record<string, string>;
-export const distanceOptions = Object.freeze(_distanceOptions) satisfies Record<string, string | number>;
+export const categoryOptions = deepFreeze(_categoryOptions) satisfies Record<string, string>;
+export const distanceOptions = deepFreeze(_distanceOptions) satisfies Record<string, string | number>;

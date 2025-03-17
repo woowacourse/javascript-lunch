@@ -3,6 +3,7 @@ import {
   categoryFilterOptions,
   sortFilterOptions,
 } from "../data/filterOptions.js";
+import { deepFreeze } from "../utils/deepFreeze.js";
 
 type Filter = {
   attribute?: {
@@ -19,7 +20,7 @@ export type FilterGroup = {
   create: (info: Filter) => HTMLSelectElement;
 };
 
-export const FILTERS: FilterGroup = Object.freeze({
+export const FILTERS: FilterGroup = deepFreeze({
   CATEGORY: {
     options: categoryFilterOptions,
     attribute: {

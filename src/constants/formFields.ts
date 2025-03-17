@@ -2,6 +2,7 @@ import $select from "../components/common/select.ts";
 import $input from "../components/common/input.ts";
 import $textarea from "../components/common/textarea.ts";
 import { categoryOptions, distanceOptions } from "../data/selectOptions.ts";
+import { deepFreeze } from "../utils/deepFreeze.ts";
 
 type BaseField = {
   label: string;
@@ -40,8 +41,8 @@ type FormFields = {
   TEXTAREAS: FieldGroup;
 };
 
-export const FORM_FIELDS: FormFields = Object.freeze({
-  INPUTS: Object.freeze({
+export const FORM_FIELDS: FormFields = deepFreeze({
+  INPUTS: ({
     fields: {
       name: {
         label: "이름",
@@ -67,7 +68,7 @@ export const FORM_FIELDS: FormFields = Object.freeze({
     },
     create: (info: FormField) => $input(info),
   }),
-  SELECTS: Object.freeze({
+  SELECTS: ({
     fields: {
       category: {
         label: "카테고리",
@@ -93,7 +94,7 @@ export const FORM_FIELDS: FormFields = Object.freeze({
       throw new Error("select에 옵션 값이 없습니다.");
     },
   }),
-  TEXTAREAS: Object.freeze({
+  TEXTAREAS: ({
     fields: {
       description: {
         label: "설명",

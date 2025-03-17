@@ -1,4 +1,4 @@
-import { Restaurant } from "../data/models/restaurant.ts";
+import { Restaurant } from "../../data/models/restaurant.ts";
 
 export const filterRestaurants = (
   restaurants: Restaurant[],

@@ -1,3 +1,5 @@
+import { deepFreeze } from "../utils/deepFreeze";
+
 type HeaderConfig = {
   title: string;
   buttonTitle: string;
@@ -27,13 +29,13 @@ type UIConfig = {
   };
 };
 
-export const UI_CONFIG: Readonly<UIConfig> = Object.freeze({
-  HEADER: Object.freeze({
+export const UI_CONFIG: Readonly<UIConfig> = deepFreeze({
+  HEADER: ({
     title: "점심 뭐 먹지",
     buttonTitle: "음식점 추가",
     buttonImage: "images/add-button.png",
   }),
-  BUTTONS: Object.freeze({
+  BUTTONS: ({
     CANCEL: {
       id: "cancel-restaurant-add-button",
       text: "취소하기",
