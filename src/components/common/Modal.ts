@@ -10,7 +10,7 @@ interface ModalProps {
 export default class Modal extends Component<ModalProps> {
   override template() {
     return html`
-      <div class="modal modal--open" id="${this.props?.id ?? ''}">
+      <div class="modal modal--open" id="${this.props.id ?? ''}">
         <div class="modal-backdrop"></div>
         <div class="modal-container"></div>
       </div>
@@ -18,7 +18,7 @@ export default class Modal extends Component<ModalProps> {
   }
 
   override onRender() {
-    this.appendChild(this.props?.children, '.modal-container');
+    this.appendChild(this.props.children, '.modal-container');
   }
 
   override attachEventListener() {
@@ -38,7 +38,7 @@ export default class Modal extends Component<ModalProps> {
   }
 
   removeModal() {
-    this.element.querySelector(`#${this.props?.id}`)?.classList.remove('modal--open');
+    this.element.querySelector(`#${this.props.id}`)?.classList.remove('modal--open');
     this.props.onModalClose();
   }
 }

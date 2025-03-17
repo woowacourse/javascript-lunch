@@ -12,15 +12,15 @@ interface InputBoxProps {
 export default class InputBox extends Component<InputBoxProps> {
   override template() {
     return html`
-      <div class="form-item ${this.props?.isRequired ? 'form-item--required' : ''}">
-        <label for="${this.props.labelId}" class="text-caption">${this.props?.label ?? ''}</label>
+      <div class="form-item ${this.props.isRequired ? 'form-item--required' : ''}">
+        <label for="${this.props.labelId}" class="text-caption">${this.props.label ?? ''}</label>
         <section class="input-box"></section>
-        <span class="help-text text-caption">${this.props?.caption ?? ''}</span>
+        <span class="help-text text-caption">${this.props.caption ?? ''}</span>
       </div>
     `;
   }
 
   onRender(): void {
-    this.appendChild(this.props?.input, '.input-box');
+    this.appendChild(this.props.input, '.input-box');
   }
 }

@@ -57,7 +57,7 @@ export default class RestaurantDetailModal extends Component<RestaurantDetailMod
       class: 'button--secondary',
       message: '삭제하기',
       dataAction: 'restaurant-delete',
-      dataId: this.props?.id,
+      dataId: this.props.id,
     });
 
     const cancelButton = new Button({

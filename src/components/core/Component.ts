@@ -40,8 +40,8 @@ export default abstract class Component<
   }
 
   appendChild(element: HTMLElement, selector?: string) {
-    if (selector) this.element?.querySelector(selector)?.appendChild(element);
-    else this.element?.appendChild(element);
+    if (selector) this.element.querySelector(selector)?.appendChild(element);
+    else this.element.appendChild(element);
   }
 
   template(): HTMLType {

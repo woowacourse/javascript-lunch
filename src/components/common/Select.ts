@@ -20,10 +20,10 @@ export default class Select<T extends string> extends Component<SelectProps<T>> 
         data-action=${this.props.dataAction}
         ${this.props.required ? 'required' : ''}
       >
-        ${this.props?.options
+        ${this.props.options
           .map(
             (option) =>
-              `<option value="${option.value}" ${this.props?.selected === option.value ? 'selected' : ''}>${option.label}</option>`,
+              `<option value="${option.value}" ${this.props.selected === option.value ? 'selected' : ''}>${option.label}</option>`,
           )
           .join('')}
       </select>
@@ -34,7 +34,7 @@ export default class Select<T extends string> extends Component<SelectProps<T>> 
     EventHandler.attachEventListener(
       'change',
       ({ target }) => {
-        if (this.props?.setValue) this.props.setValue((target as HTMLSelectElement)?.value as T);
+        if (this.props.setValue) this.props.setValue((target as HTMLSelectElement)?.value as T);
       },
       this.props.dataAction,
     );
