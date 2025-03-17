@@ -28,24 +28,22 @@ export default function RestaurantFilters() {
     isDefaultOption: false,
   });
 
-  $categoryFilter.addEventListener("change", (event) =>
-    handleSelectionChange(event, true)
-  );
-  $sortingFilter.addEventListener("change", (event) =>
-    handleSelectionChange(event, false)
-  );
+  $categoryFilter.addEventListener("change", handleCategoryChange);
+  $sortingFilter.addEventListener("change", handleSortingChange);
 
   $filterContainer.append($categoryFilter, $sortingFilter);
 
   return $filterContainer;
 }
 
-function handleSelectionChange(event, isCategory) {
-  const selectedValue = event.target.value;
-  if (isCategory) {
-    restaurantDataList.setCategory(selectedValue);
-  } else {
-    restaurantDataList.setSortedFlag(selectedValue);
-  }
+function handleCategoryChange(event) {
+  const selectedCategory = event.target.value;
+  restaurantDataList.setCategory(selectedCategory);
+  restaurantDataList.renderRestaurantList();
+}
+
+function handleSortingChange(event) {
+  const selectedSorting = event.target.value;
+  restaurantDataList.setSortedFlag(selectedSorting);
   restaurantDataList.renderRestaurantList();
 }
