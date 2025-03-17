@@ -106,36 +106,42 @@ describe("점심 뭐 먹지 - E2E 테스트", () => {
     });
   });
 
-  it("음식점 목록에서 카테고리별 필터링과 정렬 기능이 동작해야 한다", () => {
-    cy.get("#category-filter").select("한식");
-    cy.get(".restaurant-list")
-      .find(".restaurant__category img")
-      .each(($img) => {
-        cy.wrap($img).should("have.attr", "alt").and("include", "한식");
-      });
-
-    cy.get("#sorting-filter").select("이름순");
-    cy.get(".restaurant-list .restaurant__name").then(($names) => {
-      const names = [...$names].map((el) => el.innerText.trim());
-      for (let i = 0; i < names.length - 1; i++) {
-        expect(names[i] <= names[i + 1]).to.be.true;
-      }
+  describe("음식점 목록에서 카테고리별 필터링과 정렬 기능이 동작해야 한다", () => {
+    it("한식 카테고리를 선택한 경우, 한식 카테고리의 음식점만 노출되어야 한다.", () => {
+      cy.get("#category-filter").select("한식");
+      cy.get(".restaurant-list")
+        .find(".restaurant__category img")
+        .each(($img) => {
+          cy.wrap($img).should("have.attr", "alt").and("include", "한식");
+        });
     });
 
-    cy.get("#sorting-filter").select("거리순");
-    cy.get(".restaurant-list .restaurant__distance").then(($distances) => {
-      const distances = [...$distances].map((el) => {
-        const text = el.innerText.trim();
-        const match = text.match(/\d+/);
-        return match ? parseInt(match[0]) : 0;
+    it("이름순을 선택한 경우, 음식점명 오름차순으로 정렬되어야 한다.", () => {
+      cy.get("#sorting-filter").select("이름순");
+      cy.get(".restaurant-list .restaurant__name").then(($names) => {
+        const names = [...$names].map((el) => el.innerText.trim());
+        for (let i = 0; i < names.length - 1; i++) {
+          expect(names[i] <= names[i + 1]).to.be.true;
+        }
       });
-      for (let i = 0; i < distances.length - 1; i++) {
-        expect(distances[i]).to.be.at.most(distances[i + 1]);
-      }
+    });
+    
+    it("거리순을 선택한 경우, 거리 오름차순(가까운 곳 -> 먼 곳)으로 정렬되어야 한다.", () => {
+      cy.get("#sorting-filter").select("거리순");
+      cy.get(".restaurant-list .restaurant__distance").then(($distances) => {
+        const distances = [...$distances].map((el) => {
+          const text = el.innerText.trim();
+          const match = text.match(/\d+/);
+          return match ? parseInt(match[0]) : 0;
+        });
+        for (let i = 0; i < distances.length - 1; i++) {
+          expect(distances[i]).to.be.at.most(distances[i + 1]);
+        }
+      });
     });
   });
 
-  it("음식점 상세 정보 모달에서 카테고리, 이름, 거리, 설명, 링크를 확인하고, 삭제할 수 있어야 한다", () => {
+  it("음식점 상세 정보 모달에서 카테고리, 이름, 거리, 설명, 링크를 확인할 수 있고, 삭제할 수 있어야 한다", () => {
     cy.get(".restaurant-list .restaurant").first().click();
 
     cy.get(".restaurant__name").should("exist");
@@ -155,7 +161,7 @@ describe("점심 뭐 먹지 - E2E 테스트", () => {
     );
   });
 
-  it("자주 가는 음식점 탭에서 즐겨찾기 기능이 동작해야 한다", () => {
+  it("자주 가는 음식점 탭에서 즐겨찾기 등록 시, 자주 가는 음식점 탭에서 확인할 수 있어야 한다.", () => {
     cy.get(".restaurant-list").within(() => {
       cy.get(".button-favorite").first().click();
     });
@@ -176,7 +182,7 @@ describe("점심 뭐 먹지 - E2E 테스트", () => {
     });
   });
 
-  it("음식점 상세 정보 모달에서 즐겨찾기 기능이 동작해야 한다", () => {
+  it("음식점 상세 정보 모달에서 즐겨찾기 등록 시, 자주 가는 음식점 탭에서 확인할 수 있어야 한다.", () => {
     cy.get(".restaurant-list .restaurant").first().click();
 
     cy.get(".restaurant-detail-modal").should("have.class", "modal--open");
@@ -195,7 +201,7 @@ describe("점심 뭐 먹지 - E2E 테스트", () => {
       .and("include", "star-filled.png");
   });
 
-  it("새로고침 후에도 추가한 정보들이 유지되어야 한다", () => {
+  it("첫 번째 음식점을 즐겨찾기 한 뒤, 새로고침 후에도 즐겨찾기 여부가 유지되어야 한다", () => {
     cy.get(".restaurant-list").within(() => {
       cy.get(".button-favorite").first().click();
     });
