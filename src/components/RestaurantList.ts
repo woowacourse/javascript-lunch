@@ -16,7 +16,7 @@ interface RestaurantListState {
   isRestaurantAddModal: boolean;
 }
 
-export default class RestaurantList extends Component<RestaurantListState> {
+export default class RestaurantList extends Component<null, RestaurantListState> {
   override setup() {
     const localStorageRestaurants = LocalStorage.get('restaurants');
     const initialRestaurants = localStorageRestaurants ? JSON.parse(localStorageRestaurants) : DEFAULT_RESTAURANT_LIST;

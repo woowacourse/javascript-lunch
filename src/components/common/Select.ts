@@ -12,7 +12,7 @@ interface SelectProps<T extends string> {
   required?: boolean;
 }
 
-export default class Select<T extends string> extends Component<null, SelectProps<T>> {
+export default class Select<T extends string> extends Component<SelectProps<T>> {
   override template() {
     return html`
       <select

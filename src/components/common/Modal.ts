@@ -7,7 +7,7 @@ interface ModalProps {
   onModalClose: () => void;
 }
 
-export default class Modal extends Component<null, ModalProps> {
+export default class Modal extends Component<ModalProps> {
   override template() {
     return html`
       <div class="modal modal--open" id="${this.props?.id ?? ''}">

@@ -8,7 +8,7 @@ interface RestaurantDetailModalProps extends RestaurantType {
   onModalClose: () => void;
 }
 
-export default class RestaurantDetailModal extends Component<null, RestaurantDetailModalProps> {
+export default class RestaurantDetailModal extends Component<RestaurantDetailModalProps> {
   override template() {
     const currentRestaurant = this.props ?? null;
 

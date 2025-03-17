@@ -10,7 +10,7 @@ interface InputProps {
   dataAction?: string;
 }
 
-export default class Input extends Component<null, InputProps> {
+export default class Input extends Component<InputProps> {
   override template() {
     return html` <input
       name="${this.props.name}"

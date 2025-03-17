@@ -12,7 +12,7 @@ interface RestaurantAddModalProps {
   addRestaurant: (restaurant: RestaurantType) => void;
 }
 
-export default class RestaurantAddModal extends Component<null, RestaurantAddModalProps> {
+export default class RestaurantAddModal extends Component<RestaurantAddModalProps> {
   template(): HTMLType {
     return html`
       <form data-action="restaurant-create">

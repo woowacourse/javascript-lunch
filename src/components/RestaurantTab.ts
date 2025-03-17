@@ -8,7 +8,7 @@ interface RestaurantTabProps {
   setTab: (tab: TabType) => void;
 }
 
-export default class RestaurantTab extends Component<null, RestaurantTabProps> {
+export default class RestaurantTab extends Component<RestaurantTabProps> {
   override template() {
     return html`
       <div class="restaurant__tab-list">

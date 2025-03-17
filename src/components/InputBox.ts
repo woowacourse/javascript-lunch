@@ -9,7 +9,7 @@ interface InputBoxProps {
   isRequired?: boolean;
 }
 
-export default class InputBox extends Component<null, InputBoxProps> {
+export default class InputBox extends Component<InputBoxProps> {
   override template() {
     return html`
       <div class="form-item ${this.props?.isRequired ? 'form-item--required' : ''}">

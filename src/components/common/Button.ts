@@ -9,7 +9,7 @@ interface ButtonProps {
   dataId?: string;
 }
 
-export default class Button extends Component<null, ButtonProps> {
+export default class Button extends Component<ButtonProps> {
   override template() {
     return html` <button
       class="button text-caption ${this.props?.class}"

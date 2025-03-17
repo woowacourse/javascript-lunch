@@ -12,7 +12,7 @@ interface TextAreaProps {
   dataAction?: string;
 }
 
-export default class TextArea extends Component<null, TextAreaProps> {
+export default class TextArea extends Component<TextAreaProps> {
   override template() {
     return html`<textarea
       name="${this.props.name}"
