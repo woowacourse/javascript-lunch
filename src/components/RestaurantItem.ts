@@ -21,11 +21,12 @@ export default class RestaurantItem extends Component<RestaurantProps> {
             <h3 class="restaurant__name text-subtitle">${this.props.name ?? ''}</h3>
             <span class="restaurant__distance text-body">캠퍼스부터 ${this.props.distance ?? 5}분 내</span>
           </div>
-          ${this.props.isLike
-            ? `<img src="images/star_filled.svg" alt="음식점 추가" data-id="${
-                this.props.id ?? ''
-              }" data-action="restaurant-like" />`
-            : `<img src="images/star.svg" alt="음식점 추가" data-id="${this.props.id ?? ''}" data-action="restaurant-like" />`}
+          <img
+            src="images/star${this.props.isLike ? '_filled' : ''}.svg"
+            alt="음식점 추가"
+            data-id="${this.props.id ?? ''}"
+            data-action="restaurant-like"
+          />
         </div>
         <p class="restaurant__description text-body">${this.props.description ?? ''}</p>
       </div>
