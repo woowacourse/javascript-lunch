@@ -1,7 +1,11 @@
 import createElement from '../utils/createElement.js';
-import { RESTAURANT_ITEMS } from '../../public/restaurantData.js';
 import RestaurantDetailModal from './RestaurantDetailModal.js';
 import { deleteRestaurantById } from './RestaurantList.js';
+import {
+  createRestaurantData,
+  toggleFavorite,
+  getFavoriteRestaurants,
+} from '../services/RestaurantService.js';
 
 function createTags(data) {
   const categoryImg = createElement('img', 'category-icon', null, {
@@ -28,25 +32,25 @@ function createRestaurantItem(data) {
   const titleDiv = createElement('div', 'restaurant__title');
   const flexDiv = createElement('div', 'flex');
 
-  const { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara } = createTags(data);
+  const restaurantData = createRestaurantData(data);
+  const { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara } =
+    createTags(restaurantData);
 
-  if (data.favorite) {
+  if (restaurantData.favorite) {
     starImg.classList.add('favorite');
-  } else {
-    starImg.classList.remove('favorite');
   }
 
   starImg.addEventListener('click', (event) => {
     event.stopPropagation();
+    toggleFavorite(restaurantData.id);
     starImg.classList.toggle('favorite');
-    data.favorite = !data.favorite;
     updateFavoriteRestaurants();
   });
 
   restaurantItem.addEventListener('click', () => {
     const modal = new RestaurantDetailModal();
     modal.updateModalContent({
-      data,
+      data: restaurantData,
       onDelete: (event, id) => {
         deleteRestaurantById(id);
       },
@@ -65,7 +69,7 @@ function createRestaurantItem(data) {
 }
 
 function updateFavoriteRestaurants() {
-  const favoriteRestaurants = RESTAURANT_ITEMS.filter((item) => item.favorite);
+  const favoriteRestaurants = getFavoriteRestaurants();
 
   const $favoriteTabContent = document.querySelector('.favorite-tab-content');
   $favoriteTabContent.innerHTML = '';
