@@ -1,11 +1,11 @@
-import { LunchList } from "../components/function/LunchList.ts";
+import { ILunchItem } from "../type";
 
-function ChangeEvent(lunchList) {
+function ChangeEvent(lunchList: ILunchItem[]): void {
   document.removeEventListener("change", onChange);
   document.addEventListener("change", onChange.bind(this));
 
-  function onChange(event) {
-    const target = event.target;
+  function onChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
     if (!target) return;
 
     const action = target.dataset.action;
@@ -16,7 +16,9 @@ function ChangeEvent(lunchList) {
         lunchList.updateFilter({ category: target.value });
         break;
       case "sortFilter-change":
-        lunchList.updateFilter({ sortOption: target.value });
+        lunchList.updateFilter({
+          sortOption: target.value as "name" | "distance",
+        });
         break;
 
       default:

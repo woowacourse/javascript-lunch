@@ -2,15 +2,19 @@ import { ILunchItem } from "../../type.ts";
 import { createElement } from "../../utils/utils.ts";
 import { StoreInfo } from "./StoreInfo.ts";
 
-export function LunchItem(
-  { category, name, distance, description, link, isFavorite }: ILunchItem,
-  index: string
-) {
+export function LunchItem({
+  id,
+  category,
+  name,
+  distance,
+  description,
+  link,
+  isFavorite,
+}: ILunchItem) {
   const li = createElement("li");
   li.classList.add("restaurant");
   li.setAttribute("data-action", "showStoreDeleteModal");
-  li.setAttribute("data-index", index);
-
+  li.setAttribute("data-id", id);
   function render() {
     li.innerHTML = `
     ${StoreInfo({
@@ -21,7 +25,6 @@ export function LunchItem(
       link,
       type: "summary",
       isFavorite,
-      index,
     })}
   `;
     return li;

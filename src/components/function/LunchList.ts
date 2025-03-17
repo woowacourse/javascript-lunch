@@ -8,11 +8,15 @@ export function LunchList(
   lunchListID: string = "restaurantListBox",
   favoriteTargetID: string = "restaurantFavoriteSection"
 ) {
-  const lunchItems = (getStorage("lunchItems") as ILunchItem[]) ?? [];
+  let lunchItems = (getStorage("lunchItems") as ILunchItem[]) ?? [];
 
   function updateFilter(newState) {
     updateFilterState(newState);
     render();
+  }
+
+  function reloadLunchItems() {
+    lunchItems = (getStorage("lunchItems") as ILunchItem[]) ?? [];
   }
 
   function template<T extends ILunchItem>(items: T[]) {
@@ -21,8 +25,7 @@ export function LunchList(
 
     if (items.length > 0) {
       items.forEach((item) => {
-        const dataIndex = item.dataIndex ?? 0;
-        ul.appendChild(LunchItem(item, String(dataIndex)));
+        ul.appendChild(LunchItem(item));
       });
     } else {
       ul.innerHTML = `
@@ -65,6 +68,7 @@ export function LunchList(
   }
 
   function render() {
+    reloadLunchItems();
     const filteredItems = sortFilter(lunchItems ?? []);
     const ul = template(filteredItems);
     getHTML(lunchListID).innerHTML = "";
@@ -72,21 +76,18 @@ export function LunchList(
   }
 
   function renderFavorites() {
+    reloadLunchItems();
     const favorites = lunchItems
-      .map((item, index) => ({ ...item, dataIndex: index }))
+      .map((item) => ({ ...item }))
       .filter((item) => item.isFavorite);
 
-    const items = favorites.map((item) => {
-      const { dataIndex, ...rest } = item;
-      return rest;
-    });
-
-    const ul = template(items);
+    const ul = template(favorites);
     getHTML(favoriteTargetID).innerHTML = "";
     getHTML(favoriteTargetID).appendChild(ul);
   }
 
   function addRestaurantItem({
+    id,
     category,
     name,
     distance,
@@ -94,6 +95,7 @@ export function LunchList(
     link,
   }: ILunchItem) {
     const newItem = {
+      id,
       category,
       name,
       distance,

@@ -19,6 +19,17 @@ body {
   font-size: 16px;
 }
 
+.phone-button {
+  position: absolute;
+  width: 12px;
+  height: 100px;
+  background-color: black;
+  border-radius: 0 30px 30px 0;
+  margin-left: 396px;
+  margin-top: 240px;
+  cursor: pointer;
+}
+
 .star-button svg path {
   fill-opacity: 0.5;
 }
@@ -46,7 +57,7 @@ body {
   outline: 10px solid rgb(34, 34, 34);
   margin: 20px 0;
   height: calc(100vh - 40px);
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 .modal-layout {

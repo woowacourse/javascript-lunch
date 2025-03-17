@@ -1,21 +1,34 @@
-let filterState = {
+interface FilterState {
+  category: string;
+  sortOption: "name" | "distance";
+}
+
+let filterState: FilterState = {
   category: "",
   sortOption: "name",
 };
 
-export function updateFilterState(newState) {
+export function updateFilterState(newState: Partial<FilterState>): void {
   filterState = {
     ...filterState,
     ...newState,
   };
 }
 
-export function sortFilter(items) {
+interface Item {
+  category: string;
+  name: string;
+  distance: string | number;
+}
+
+export function sortFilter<T extends Item>(items: T[]): T[] {
   if (!Array.isArray(items)) return items;
-  let filtered = items.map((item, index) => ({
+
+  let filtered = items.map((item) => ({
     ...item,
-    dataIndex: index,
   }));
+
+  console.log("filtered!!!!", filtered);
 
   if (filterState.category) {
     filtered = filtered.filter(

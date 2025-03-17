@@ -1,4 +1,4 @@
-import { SelectBox } from "../common/SelectBox.js";
+import { SelectBox } from "./SelectBox.js";
 
 export function FilterBox() {
   return `

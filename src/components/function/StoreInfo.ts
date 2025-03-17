@@ -4,7 +4,6 @@ import { CategoryIcon } from "../common/CategoryIcon.js";
 
 interface StoreInfoProps extends ILunchItem {
   type: string;
-  index: string;
 }
 
 export function StoreInfo({
@@ -15,7 +14,6 @@ export function StoreInfo({
   link,
   isFavorite,
   type,
-  index,
 }: StoreInfoProps) {
   function template() {
     return `
@@ -23,7 +21,7 @@ export function StoreInfo({
             ${
               type === "summary"
                 ? `<div class="restaurant__info">`
-                : `<div class="restaurant__info full" data-index="${index}">`
+                : `<div class="restaurant__info full">`
             }
             <div class="restaurant__title-box">
               <div class="restaurant__title">
