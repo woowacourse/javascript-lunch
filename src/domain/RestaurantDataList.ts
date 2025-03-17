@@ -6,7 +6,7 @@ class RestaurantDataList {
 
   constructor() {
     const dataList = this.#getLocalStorage() || [];
-    this.#dataList = dataList.map((data: Restaurant) => this.createData(data));
+    this.#dataList = dataList.map((data: Restaurant) => this.#createData(data));
   }
 
   getDataList(): Restaurant[] {
@@ -22,11 +22,11 @@ class RestaurantDataList {
   }
 
   addData(data: Restaurant): void {
-    this.#dataList.push(this.createData(data));
+    this.#dataList.push(this.#createData(data));
     this.#setLocalStorage(this.#dataList);
   }
 
-  createData(data: Restaurant): RestaurantData {
+  #createData(data: Restaurant): RestaurantData {
     return new RestaurantData(data);
   }
 
