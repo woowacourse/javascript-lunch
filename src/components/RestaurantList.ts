@@ -5,7 +5,7 @@ import type { FilterType, RestaurantType, SortType, TabType } from '@/lib/types.
 import { generateId, html } from '@/lib/utils.ts';
 import { Modal, Select } from './common/index.ts';
 import { RestaurantAddModal, RestaurantDetailModal, RestaurantItem, RestaurantTab } from './index.ts';
-import { eventHandlerInstance, LocalStorage } from '@/lib/modules/index.ts';
+import { eventHandlerInstance, LocalStorage, Observer } from '@/lib/modules/index.ts';
 
 interface RestaurantListState {
   restaurants: RestaurantType[];
@@ -18,6 +18,14 @@ interface RestaurantListState {
 
 export default class RestaurantList extends Component<null, RestaurantListState> {
   #restaurantAddModal: Modal | null = null;
+  #restaurantObserver = new Observer<RestaurantType[]>({
+    callback: (restaurants) => {
+      this.setState({
+        restaurants,
+      });
+      LocalStorage.set('restaurants', JSON.stringify(restaurants));
+    },
+  });
 
   override setup() {
     const localStorageRestaurants = LocalStorage.get('restaurants');
@@ -156,11 +164,7 @@ export default class RestaurantList extends Component<null, RestaurantListState>
   }
 
   private _addRestaurant(restaurant: RestaurantType) {
-    this.setState({
-      restaurants: [...this.state.restaurants, restaurant],
-    });
-
-    LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
+    this.#restaurantObserver.notify([...this.state.restaurants, restaurant]);
     this.setState({ isRestaurantAddModal: false });
 
     this.#restaurantAddModal?.remove();
@@ -223,27 +227,24 @@ export default class RestaurantList extends Component<null, RestaurantListState>
   }
 
   private _deleteRestaurant(id: string) {
-    this.setState({
-      restaurants: pipe(
+    this.#restaurantObserver.notify(
+      pipe(
         this.state.restaurants,
         filter((restaurant) => restaurant.id !== id),
         toArray,
       ),
-    });
-    LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
+    );
   }
 
   private _toggleLike(restaurantId: string) {
-    this.setState({
-      restaurants: pipe(
+    this.#restaurantObserver.notify(
+      pipe(
         this.state.restaurants,
         map((restaurant) =>
           restaurant.id === restaurantId ? { ...restaurant, isLike: !restaurant.isLike } : restaurant,
         ),
         toArray,
       ),
-    });
-
-    LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
+    );
   }
 }
