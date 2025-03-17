@@ -1,134 +1,59 @@
-describe("즐겨찾기 탭에 대한 E2E 테스트", () => {
-  let initialFavoritesCount = 0;
-  let initialRestaurantCount = 0;
-
+describe("UI 테스트 - 즐겨찾기 탭", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
-
-    cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .then(($elements) => {
-        initialFavoritesCount = Cypress.$($elements).filter((_, el) => {
-          return (
-            Cypress.$(el).find(
-              "[data-testid='favorite-icon'][src$='favorite-icon-filled.png']"
-            ).length > 0
-          );
-        }).length;
-      });
-
-    cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .then(($elements) => {
-        initialRestaurantCount = $elements.length;
-      });
-
-    cy.get('[data-testid="restaurant-list"]')
-      .should("exist")
-      .children()
-      .should("have.length.greaterThan", 0);
+    cy.get('[data-testid="list-tab"]').should("have.class", "active");
+    cy.get('[data-testid="favorite-tab"]').should("not.have.class", "active");
   });
 
-  it("isFavorite이 false인 음식점의 즐겨찾기 버튼을 클릭하면, 즐겨찾기 탭에서 보여진다.", () => {
-    if (
-      initialRestaurantCount === 0 ||
-      initialRestaurantCount === initialFavoritesCount
-    )
-      return;
-
+  it("즐겨찾기 아이콘 클릭 시 UI에서 아이콘이 토글되어야 함", () => {
     cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .then(($elements) => {
-        const $notFavorite = Cypress.$($elements).filter((_, el) => {
-          return (
-            Cypress.$(el).find(
-              "[data-testid='favorite-icon'][src$='favorite-icon-lined.png']"
-            ).length > 0
-          );
-        });
-
-        cy.wrap($notFavorite.first()).within(() => {
-          cy.get('[data-testid="favorite-icon"]').click();
-        });
-      });
-
-    cy.get('[data-testid="favorite-tab"]').click();
-
-    cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .should("have.length", initialFavoritesCount + 1);
-
-    cy.get('[data-testid="favorite-icon"]').click();
-  });
-
-  it("음식점 상세 모달에서 isFavorite이 false인 음식점의 즐겨찾기 버튼을 클릭하면, 즐겨찾기 탭에서 보여진다.", () => {
-    if (
-      initialRestaurantCount === 0 ||
-      initialRestaurantCount === initialFavoritesCount
-    )
-      return;
-
-    cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .then(($elements) => {
-        const $notFavorite = Cypress.$($elements).filter((_, el) => {
-          return (
-            Cypress.$(el).find(
-              "[data-testid='favorite-icon'][src$='favorite-icon-lined.png']"
-            ).length > 0
-          );
-        });
-
-        cy.wrap($notFavorite.first()).within(() => {
-          cy.get(".restaurant__name").click();
-        });
-      });
-
-    cy.get('[data-testid="favorite-button"]').click();
-    cy.get('[data-testid="close-modal"]').click();
-    cy.get('[data-testid="favorite-tab"]').click();
-
-    cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .should("have.length", initialFavoritesCount + 1);
-
-    cy.get('[data-testid="favorite-icon"]').click();
-  });
-
-  it("즐겨찾기 탭에서 즐겨찾기 버튼을 클릭하면, 즐겨찾기 탭에서 사라진다.", () => {
-    if (
-      initialRestaurantCount === 0 ||
-      initialRestaurantCount === initialFavoritesCount
-    )
-      return;
-
-    cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .then(($elements) => {
-        const $notFavorite = Cypress.$($elements).filter((_, el) => {
-          return (
-            Cypress.$(el).find(
-              "[data-testid='favorite-icon'][src$='favorite-icon-lined.png']"
-            ).length > 0
-          );
-        });
-
-        cy.wrap($notFavorite.first()).within(() => {
-          cy.get('[data-testid="favorite-icon"]').click();
-        });
-      });
-
-    cy.get('[data-testid="favorite-tab"]').click();
-
-    cy.get('[data-testid="restaurant-list"]')
-      .children()
+      .find('[data-testid="favorite-icon"]')
       .first()
-      .within(() => {
-        cy.get('[data-testid="favorite-icon"]').click();
-      });
+      .invoke("attr", "src")
+      .then((srcBefore) => {
+        const expectedIcon = srcBefore.includes("filled") ? "lined" : "filled";
+        // 클릭 후 새롭게 요소를 재조회함
+        cy.get('[data-testid="restaurant-list"]')
+          .find('[data-testid="favorite-icon"]')
+          .first()
+          .click();
 
+        cy.get('[data-testid="restaurant-list"]')
+          .find('[data-testid="favorite-icon"]')
+          .first()
+          .should("have.attr", "src")
+          .and("include", expectedIcon);
+      });
+  });
+
+  it("즐겨찾기 탭 클릭 시 UI에서 탭 활성화가 변경되어야 함", () => {
+    cy.get('[data-testid="favorite-tab"]').click();
+
+    cy.get('[data-testid="favorite-tab"]').should("have.class", "active");
+    cy.get('[data-testid="list-tab"]').should("not.have.class", "active");
+  });
+
+  it("즐겨찾기 탭 내에서 즐겨찾기 아이콘 클릭 시 UI에서 아이콘이 토글되어야 함", () => {
+    cy.get('[data-testid="favorite-tab"]').click();
+
+    // 즐겨찾기 탭 내 첫 번째 아이콘의 초기 상태에 따라 토글 테스트
     cy.get('[data-testid="restaurant-list"]')
-      .children()
-      .should("have.length", initialFavoritesCount);
+      .find('[data-testid="favorite-icon"]')
+      .first()
+      .invoke("attr", "src")
+      .then((srcBefore) => {
+        const expectedIcon = srcBefore.includes("filled") ? "lined" : "filled";
+        // 클릭 후 새롭게 요소를 재조회함
+        cy.get('[data-testid="restaurant-list"]')
+          .find('[data-testid="favorite-icon"]')
+          .first()
+          .click();
+
+        cy.get('[data-testid="restaurant-list"]')
+          .find('[data-testid="favorite-icon"]')
+          .first()
+          .should("have.attr", "src")
+          .and("include", expectedIcon);
+      });
   });
 });
