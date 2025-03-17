@@ -22,6 +22,7 @@ import { FILTERS } from "./constants/filters.ts";
 import { filterRestaurants, sortRestaurants } from "./utils/restaurantUtils/filterUtils.ts";
 import { renderRestaurants } from "./utils/restaurantUtils/renderUtils.ts";
 import { FavoriteImageElement } from "./components/common/favorite-button.ts";
+import { bindFavoriteButtonEvents } from "./utils/favoriteButtonUtils.ts";
 
 type FilterState = {
   selectedCategory: "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
@@ -98,23 +99,7 @@ const bindFavoriteEvents = (): void => {
     const restaurant = currentRestaurantData.find((r) => r.dataId.toString() === restaurantId);
     if (!restaurant) return;
 
-    favButton.addEventListener("mouseover", () => {
-      if (!restaurant.isFavorite) favButton.src = "images/star-filled.png";
-    });
-
-    favButton.addEventListener("mouseout", () => {
-      if (!restaurant.isFavorite) favButton.src = "images/star-outline.png";
-    });
-
-    favButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-      restaurant.isFavorite = !restaurant.isFavorite;
-      favButton.src = restaurant.isFavorite
-        ? "images/star-filled.png"
-        : "images/star-outline.png";
-      if (appState.selectedTab.value === "frequent") updateList();
-      saveRestaurantsToLocalStorage(currentRestaurantData);
-    });
+    bindFavoriteButtonEvents(favButton, restaurant);
   });
 };
 

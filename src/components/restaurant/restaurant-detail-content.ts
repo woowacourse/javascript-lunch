@@ -5,6 +5,7 @@ import { Restaurant } from "../../data/models/restaurant.ts";
 import { UI_CONFIG } from "../../constants/uiConfig.ts";
 import { saveRestaurantsToLocalStorage, currentRestaurantData } from "../../data/storage/restaurantStorage.ts";
 import { updateList } from "../../main.ts";
+import { bindFavoriteButtonEvents } from "../../utils/favoriteButtonUtils.ts";
 
 const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   const info = document.createElement("div");
@@ -29,28 +30,7 @@ const $restaurantDetailContent = (restaurant: Restaurant): HTMLDivElement => {
   });
   favButton.setAttribute("data-restaurant-id", restaurant.dataId.toString());
   restaurantHeader.appendChild(favButton);
-
-  favButton.addEventListener("mouseover", () => {
-    if (!restaurant.isFavorite) favButton.src = "images/star-filled.png";
-  });
-
-  favButton.addEventListener("mouseout", () => {
-    if (!restaurant.isFavorite) favButton.src = "images/star-outline.png";
-  });
-
-  favButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    restaurant.isFavorite = !restaurant.isFavorite;
-    favButton.src = restaurant.isFavorite
-      ? "images/star-filled.png"
-      : "images/star-outline.png";
-
-    saveRestaurantsToLocalStorage(currentRestaurantData);
-    // location.reload();
-    updateList();
-  });
-
+  bindFavoriteButtonEvents(favButton, restaurant);
   info.appendChild(restaurantHeader);
 
   // 제목
