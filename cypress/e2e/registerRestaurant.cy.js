@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../../src/domain/RestaurantData.ts";
+import { ERROR_MESSAGE } from "../../src/domain/Restaurant.ts";
 
 it("정상적으로 음식점을 등록한다.", () => {
   cy.visit("http://localhost:5173");

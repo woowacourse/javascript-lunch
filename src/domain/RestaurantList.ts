@@ -1,6 +1,6 @@
-import { RestaurantDataProp } from "./../../types/types";
-import RestaurantData from "./RestaurantData";
-import { postData, getAllData } from "../util/dataRepository";
+import { RestaurantProp } from "../../types/types.ts";
+import Restaurant from "./Restaurant.ts";
+import { postData, getAllData } from "../util/dataRepository.ts";
 
 export const VIEW_STATE = {
   all: "모든 음식점",
@@ -22,9 +22,9 @@ const SORTED = {
   distance: "distance",
 } as const;
 
-export class RestaurantDataList {
-  private dataList: RestaurantDataProp[];
-  private subscribers: ((data: RestaurantDataProp[]) => void)[] = [];
+export class RestaurantList {
+  private dataList: RestaurantProp[];
+  private subscribers: ((data: RestaurantProp[]) => void)[] = [];
   private viewState: (typeof VIEW_STATE)[keyof typeof VIEW_STATE] =
     VIEW_STATE.all;
   private sortedFlag: (typeof SORTED)[keyof typeof SORTED] = SORTED.name;
@@ -33,23 +33,22 @@ export class RestaurantDataList {
   constructor() {
     const restaurantDataList = getAllData();
 
-    this.dataList = restaurantDataList.map(
-      (restaurantData: RestaurantDataProp) =>
-        new RestaurantData(restaurantData).getData()
+    this.dataList = restaurantDataList.map((restaurantData: RestaurantProp) =>
+      new Restaurant(restaurantData).getData()
     );
   }
 
-  getFavoriteDataList() {
+  getFavoriteRestaurantList() {
     const favoriteList = this.dataList.filter(
-      (restaurantData: RestaurantDataProp) => restaurantData.isFavorite
+      (restaurantData: RestaurantProp) => restaurantData.isFavorite
     );
 
     return favoriteList;
   }
 
-  getDataById(id: number | string) {
+  getRestaurantById(id: number | string) {
     return this.dataList.find(
-      (restaurantData: RestaurantDataProp) => restaurantData.id === id
+      (restaurantData: RestaurantProp) => restaurantData.id === id
     );
   }
 
@@ -65,8 +64,8 @@ export class RestaurantDataList {
     this.sortedFlag = sortedFlag;
   }
 
-  addData(data: RestaurantDataProp) {
-    const restaurantData = new RestaurantData(data);
+  addRestaurant(data: RestaurantProp) {
+    const restaurantData = new Restaurant(data);
     this.dataList.push(restaurantData.getData());
 
     postData(this.dataList);
@@ -82,7 +81,7 @@ export class RestaurantDataList {
     }
   }
 
-  removeDataById(id: number | string) {
+  removeRestaurant(id: number | string) {
     this.dataList = this.dataList.filter((restaurant) => restaurant.id !== id);
 
     postData(this.dataList);
@@ -91,22 +90,22 @@ export class RestaurantDataList {
   renderRestaurantList() {
     const restaurantDataList =
       this.viewState === VIEW_STATE.favorite
-        ? this.getFavoriteDataList()
+        ? this.getFavoriteRestaurantList()
         : this.dataList;
 
     if (this.category === CATEGORY.all) {
-      this.notify(this.sortedDataList(restaurantDataList));
+      this.notify(this.sortRestaurantList(restaurantDataList));
       return;
     }
 
     const filteredList = restaurantDataList.filter(
       (restaurantData) => restaurantData.category === this.category
     );
-    const sortedFilteredList = this.sortedDataList(filteredList);
+    const sortedFilteredList = this.sortRestaurantList(filteredList);
     this.notify(sortedFilteredList);
   }
 
-  sortedDataList(dataList: RestaurantDataProp[]) {
+  sortRestaurantList(dataList: RestaurantProp[]) {
     if (this.sortedFlag === SORTED.distance) {
       dataList.sort((a, b) => a.distance - b.distance);
     } else {
@@ -116,14 +115,14 @@ export class RestaurantDataList {
     return dataList;
   }
 
-  subscribe(callback: (data: RestaurantDataProp[]) => void) {
+  subscribe(callback: (data: RestaurantProp[]) => void) {
     this.subscribers.push(callback);
   }
 
-  notify(data: RestaurantDataProp[]) {
+  notify(data: RestaurantProp[]) {
     this.subscribers.forEach((callback) => callback(data));
   }
 }
 
-const restaurantDataList = new RestaurantDataList();
+const restaurantDataList = new RestaurantList();
 export default restaurantDataList;

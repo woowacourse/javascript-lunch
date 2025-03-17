@@ -1,4 +1,4 @@
-import { RestaurantDataProp, CategoryType } from "../../types/types";
+import { RestaurantProp, CategoryType } from "../../types/types";
 
 const CATEGORY_IMAGE = {
   한식: "./category-korean.png",
@@ -17,7 +17,7 @@ export const ERROR_MESSAGE = {
   link: "올바른 링크 주소를 입력해 주세요.",
 } as const;
 
-export default class RestaurantData {
+export default class Restaurant {
   private id: number | string;
   private src: string;
   private alt: string;
@@ -38,7 +38,7 @@ export default class RestaurantData {
     isFavorite = false,
     src,
     alt,
-  }: RestaurantDataProp) {
+  }: RestaurantProp) {
     this.validateCategory(category);
     this.validateDistance(distance);
     this.validateName(name);
@@ -55,7 +55,7 @@ export default class RestaurantData {
     this.isFavorite = isFavorite;
   }
 
-  getData(): RestaurantDataProp {
+  getData(): RestaurantProp {
     return {
       id: this.id,
       src: this.src,

@@ -1,5 +1,5 @@
 import createElement from "../../../util/createElement.js";
-import restaurantDataList from "../../../domain/RestaurantDataList.ts";
+import restaurantDataList from "../../../domain/RestaurantList.ts";
 import { removeModal } from "../Modal";
 
 export default function RestaurantDetailModalButtonContainer(id) {
@@ -21,7 +21,7 @@ export default function RestaurantDetailModalButtonContainer(id) {
   $deleteButton.addEventListener("click", () => {
     removeModal();
 
-    restaurantDataList.removeDataById(id);
+    restaurantDataList.removeRestaurant(id);
     restaurantDataList.renderRestaurantList();
   });
 

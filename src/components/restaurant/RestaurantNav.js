@@ -1,6 +1,4 @@
-import restaurantDataList, {
-  VIEW_STATE,
-} from "../../domain/RestaurantDataList.ts";
+import restaurantDataList, { VIEW_STATE } from "../../domain/RestaurantList.ts";
 import createElement from "../../util/createElement";
 
 export default function RestaurantNav() {

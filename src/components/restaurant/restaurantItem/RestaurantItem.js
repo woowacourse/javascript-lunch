@@ -1,5 +1,5 @@
 import CLASS_NAME from "../../../constants/className.js";
-import restaurantDataList from "../../../domain/RestaurantDataList.ts";
+import restaurantDataList from "../../../domain/RestaurantList.ts";
 import createElement from "../../../util/createElement";
 import Modal from "../../modal/Modal";
 import RestaurantDetailModal from "../../modal/restaurant-detail/RestaurantDetailModal";
@@ -54,7 +54,7 @@ export default function RestaurantItem({
 
   $restaurantItem.addEventListener("click", (event) => {
     if (event.target.name !== CLASS_NAME.favoriteIcon) {
-      const dataById = restaurantDataList.getDataById(id);
+      const dataById = restaurantDataList.getRestaurantById(id);
       Modal(() => RestaurantDetailModal({ ...dataById }));
     }
   });

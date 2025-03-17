@@ -1,7 +1,7 @@
 import RestaurantItemCategory from "../../restaurant/restaurantItem/RestaurantItemCategory";
 import RestaurantItemFavorite from "../../restaurant/restaurantItem/RestaurantItemFavorite";
 import RestaurantItemNameDistance from "../../restaurant/restaurantItem/RestaurantItemNameDistance";
-import restaurantDataList from "../../../domain/RestaurantDataList.ts";
+import restaurantDataList from "../../../domain/RestaurantList.ts";
 import createElement from "../../../util/createElement.js";
 
 export default function RestaurantDetailModalInfo({

@@ -1,5 +1,5 @@
 import createElement from "../../../util/createElement";
-import restaurantDataList from "../../../domain/RestaurantDataList.ts";
+import restaurantDataList from "../../../domain/RestaurantList.ts";
 import CLASS_NAME from "../../../constants/className.js";
 
 export default function RestaurantItemFavorite({ isFavorite, id }) {
@@ -18,7 +18,7 @@ export default function RestaurantItemFavorite({ isFavorite, id }) {
   $favorite.addEventListener("click", () => {
     restaurantDataList.changeFavorite(id);
 
-    const dataById = restaurantDataList.getDataById(id);
+    const dataById = restaurantDataList.getRestaurantById(id);
     $favorite.src = dataById.isFavorite
       ? "./fill-star.png"
       : "./empty-star.png";

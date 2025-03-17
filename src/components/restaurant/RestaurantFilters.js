@@ -1,5 +1,5 @@
 import SELECT_OPTION from "../../constants/selectOption.js";
-import restaurantDataList from "../../domain/RestaurantDataList.ts";
+import restaurantDataList from "../../domain/RestaurantList.ts";
 import createElement from "../../util/createElement";
 import Select from "../common/Select";
 

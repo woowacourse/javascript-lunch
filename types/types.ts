@@ -6,7 +6,7 @@ export type CategoryType =
   | "양식"
   | "기타";
 
-export interface RestaurantDataProp {
+export interface RestaurantProp {
   id?: number | string;
   name: string;
   distance: number;
