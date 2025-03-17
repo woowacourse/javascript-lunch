@@ -12,7 +12,7 @@ import { $, $$ } from "./utils/querySelectors.js";
 import RestaurantListUtils from "./utils/RestaurantListUtils.js";
 import data from "./data.js";
 import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
-import LocalStorage from "./utils/localStorage.js";
+import LocalStorage from "./utils/LocalStorage.ts";
 import { RESTAURANT_LIST_KEY } from "./constants/constants.js";
 
 DOM.$body.prepend(Header.create());

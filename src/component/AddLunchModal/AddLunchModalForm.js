@@ -10,7 +10,7 @@ import {
 import { Validator } from "../../utils/Validator.ts";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
 import FilterSelect from "../FilterSelect.js";
-import LocalStorage from "../../utils/localStorage.ts";
+import LocalStorage from "../../utils/LocalStorage.ts";
 import { RESTAURANT_LIST_KEY } from "../../constants/constants.ts";
 
 const AddLunchModalForm = {
