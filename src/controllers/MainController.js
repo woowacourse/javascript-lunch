@@ -1,16 +1,15 @@
-import Form from "../components/Form/Form.js";
 import FormItemField from "../components/Form/FormItemField.js";
 import InputField from "../components/Form/InputField.js";
 import SelectField from "../components/Form/SelectField.js";
 import TextareaField from "../components/Form/TextareaField.js";
-import Title from "../components/Title.js";
-import { MODAL_BUTTONS_PROPERTY, SELECT_CATEGORY, SELECT_DISTANCE } from "../contants.js";
+import { SELECT_CATEGORY, SELECT_DISTANCE } from "../contants.js";
 import { formatCategory, formatDistance } from "../utils/format.js";
 import HeaderController from "./HeaderController.js";
 import ListController from "./ListController.js";
-import ModalController from "./ModalController.js";
+import SelectSortController from "./SelectSortController.js";
+import TabController from "./TabController.js";
 
-const INPUT_ITEMS = [
+export const INPUT_ITEMS = [
   {
     label: "카테고리",
     tag: "select",
@@ -77,14 +76,13 @@ export function createFormItems(inputItems) {
 
 function MainController() {
   const app = document.getElementById("app");
-  const listContainerElement = document.querySelector(".restaurant-list-container");
-  const titleElement = Title({ type: "modal", text: "새로운 음식점" });
-  const formItems = createFormItems(INPUT_ITEMS);
-  const formElement = Form({ formItems, buttons: MODAL_BUTTONS_PROPERTY });
+  const listContainerElement = document.createElement("section");
+  listContainerElement.classList.add("restaurant-list-container");
 
-  HeaderController(app);
-  const { listElement, restaurantList } = ListController(listContainerElement);
-  ModalController({ listElement, restaurantList, children: { titleElement, formElement } });
+  HeaderController(app, listContainerElement);
+  TabController(app);
+  SelectSortController(app, listContainerElement);
+  ListController(app, listContainerElement);
 }
 
 export default MainController;
