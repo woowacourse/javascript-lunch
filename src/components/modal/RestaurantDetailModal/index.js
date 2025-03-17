@@ -1,4 +1,4 @@
-import RULES from "../../../constants/rules.js";
+import { MESSAGES } from "../../../constants/rules.js";
 import Modal from "../common/Modal.js";
 import RestaurantContent from "./RestaurantContent.js";
 
@@ -81,7 +81,7 @@ class RestaurantDetailModal extends Modal {
 
   #handleDelete = () => {
     try {
-      if (!confirm(RULES.DELETE_MESSAGE)) return;
+      if (!confirm(MESSAGES.DELETE_MESSAGE)) return;
 
       if (this.#onDeleteRestaurant) {
         this.#onDeleteRestaurant(this.#restaurant.id);

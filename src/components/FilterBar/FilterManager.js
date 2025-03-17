@@ -1,9 +1,9 @@
-import RULES from "../../constants/rules.js";
+import { FILTER_OPTIONS } from "../../constants/rules.js";
 import FilterBar from "./index.js";
 
 class FilterManager {
-  #selectedCategory = RULES.ALL_CATEGORY;
-  #selectedSorting = RULES.SORTING[0];
+  #selectedCategory = FILTER_OPTIONS.ALL_CATEGORY;
+  #selectedSorting = FILTER_OPTIONS.SORTING[0];
 
   render($main, onFilterChange) {
     new FilterBar($main, {

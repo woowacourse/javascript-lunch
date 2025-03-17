@@ -1,4 +1,4 @@
-import RULES from "../../constants/rules.js";
+import { FILTER_OPTIONS } from "../../constants/rules.js";
 
 class FilterBar {
   #$target;
@@ -29,7 +29,7 @@ class FilterBar {
   }
 
   #options() {
-    return RULES.CATEGORIES.map((category) => {
+    return FILTER_OPTIONS.CATEGORIES.map((category) => {
       return /*html*/ `
         <option value="${category}">${category}</option>
       `;
@@ -40,13 +40,13 @@ class FilterBar {
     return /*html*/ `
     <section class="restaurant-filter-container">
       <select name="category" id="category-filter" class="restaurant-filter" data-testid="category-filter">
-        <option value="${RULES.ALL_CATEGORY}">전체</option>
+        <option value="${FILTER_OPTIONS.ALL_CATEGORY}">전체</option>
         ${this.#options()}
       </select>
 
       <select name="sorting" id="sorting-filter" class="restaurant-filter" data-testid="sorting">
-        <option value="${RULES.SORTING[0]}">이름순</option>
-        <option value="${RULES.SORTING[1]}">거리순</option>
+        <option value="${FILTER_OPTIONS.SORTING[0]}">이름순</option>
+        <option value="${FILTER_OPTIONS.SORTING[1]}">거리순</option>
       </select>
     </section>
   `;
