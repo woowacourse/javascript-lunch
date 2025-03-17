@@ -32,7 +32,7 @@ class RestaurantList {
   }
 
   #renderRestaurantList() {
-    const restaurantList = this.#restaurants.filter({
+    const restaurantList = this.#restaurants.filterAndSort({
       category: this.#currentCategory,
       sorting: this.#currentSorting,
       header: this.#currentHeader,
@@ -46,14 +46,7 @@ class RestaurantList {
     this.#currentSorting = sorting;
     this.#currentHeader = currentHeader;
 
-    const filteredList = this.#restaurants.filter({
-      category: this.#currentCategory,
-      sorting: this.#currentSorting,
-      header: this.#currentHeader,
-    });
-
-    this.#createRestaurantList(filteredList);
-    return filteredList;
+    this.#renderRestaurantList();
   }
 
   addRestaurant(restaurant) {
