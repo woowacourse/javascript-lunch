@@ -36,9 +36,11 @@ class RestaurantList {
   render() {
     const el = $(".restaurant-list");
 
-    let data = this.#totalTab
-      ? this.getTotalTabData()
-      : this.getFavoriteTabData();
+    let data = this.filterByCategory();
+
+    if (!this.#totalTab) {
+      data = this.filterByFavorite(data);
+    }
 
     el.innerHTML = data.map(LunchInfoCard).join("");
 
@@ -69,19 +71,6 @@ class RestaurantList {
     this.render();
   }
 
-  getFavoriteTabData() {
-    const filteredData = this.filter();
-    return filteredData.filter(
-      (restaurant: Restaurant) => restaurant.favorite === true
-    );
-  }
-
-  getTotalTabData() {
-    const filteredData = this.filter();
-
-    return filteredData;
-  }
-
   renderTab() {
     const $el = toElement(`
       <div class="tab--button-container"/>`);
@@ -109,11 +98,11 @@ class RestaurantList {
 
   add(newRestaurant: Restaurant) {
     this.#items.push(newRestaurant);
-    localStorage.setItem("restaurantList", JSON.stringify(this.#items));
+    this.setLocalStorage();
     this.render();
   }
 
-  filterByCategory(category: Category) {
+  setCategoryTab(category: Category) {
     this.#category = category;
 
     this.render();
@@ -131,12 +120,18 @@ class RestaurantList {
     this.render();
   }
 
-  filter() {
+  filterByCategory() {
     if (this.#category === "선택해 주세요") {
       return this.#items;
     }
     return this.#items.filter(
       ({ category: c }: Restaurant) => c === this.#category
+    );
+  }
+
+  filterByFavorite(data: Restaurant[]) {
+    return data.filter(
+      (restaurant: Restaurant) => restaurant.favorite === true
     );
   }
 

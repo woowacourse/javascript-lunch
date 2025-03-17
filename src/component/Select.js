@@ -31,7 +31,7 @@ function Select({ name, id, className, dropdownList }, restaurantList) {
         return restaurantList.resetFilter();
       }
 
-      restaurantList.filterByCategory(event.target.value);
+      restaurantList.setCategoryTab(event.target.value);
     }
   });
 
