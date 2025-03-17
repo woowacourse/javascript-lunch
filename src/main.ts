@@ -19,8 +19,8 @@ import {
 } from "./data/storage/restaurantStorage.ts";
 import { FORM_FIELDS } from "./constants/formFields.ts";
 import { FILTERS } from "./constants/filters.ts";
-import { filterRestaurants, sortRestaurants } from "./utils/filterUtils.ts";
-import { renderRestaurants } from "./utils/renderUtils.ts";
+import { filterRestaurants, sortRestaurants } from "./restaurantUtils/filterUtils.ts";
+import { renderRestaurants } from "./restaurantUtils/renderUtils.ts";
 import { FavoriteImageElement } from "./components/common/favorite-button.ts";
 
 const initUI = (): { main: HTMLElement; tabbar: HTMLElement } => {

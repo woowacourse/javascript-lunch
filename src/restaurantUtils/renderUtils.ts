@@ -1,5 +1,5 @@
-import $restaurantItem from "../components/restaurant/restaurant-item.js";
-import { Restaurant } from "../data/restaurant.js";
+import $restaurantItem from "../components/restaurant/restaurant-item.ts";
+import { Restaurant } from "../data/models/restaurant.ts";
 
 export const renderRestaurants = (
   restaurantList: HTMLElement,
