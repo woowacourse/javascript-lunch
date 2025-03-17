@@ -19,7 +19,9 @@ export default class App {
   #selectedRestaurant;
 
   constructor() {
-    this.restaurantListModel = new RestaurantListModel();
+    const originRestaurantList = getItem(RESTAURANT_LIST_KEY, []);
+
+    this.restaurantListModel = new RestaurantListModel(originRestaurantList);
     this.#selectedTab = "all";
     this.#restaurantList = this.restaurantListModel.getRestaurantList();
     this.#category = "전체";
