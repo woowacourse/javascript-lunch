@@ -61,11 +61,9 @@ export default class TabMenu {
 
   setActiveTabStyle() {
     const tabMenuActiveClass = this.container.querySelector(".tabmenu--active");
-    if (!tabMenuActiveClass) {
-      throw new Error(DEV_ERROR_MESSAGE.notFound("tabmenu--active"));
+    if (tabMenuActiveClass) {
+      tabMenuActiveClass.classList.remove("tabmenu--active");
     }
-
-    tabMenuActiveClass.classList.remove("tabmenu--active");
 
     const currentMenuTab = this.container.querySelector(`[data-tab=${this.#currentMenu}]`);
     if (!currentMenuTab) {

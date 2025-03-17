@@ -1,15 +1,15 @@
 .alert {
   position: fixed;
-  top: 8rem;
+  top: 128px;
   left: 50%;
   transform: translate(-50%, -50%);
   justify-content: center;
   z-index: 1000;
   display: inline-block;
-  padding: 0.8rem 1rem;
+  padding: 12.8px 16px;
   background-color: var(--alert);
   color: white;
-  border-radius: 10rem;
+  border-radius: 160px;
   animation: fadeDown 0.3s ease;
 }
 @keyframes fadeDown {

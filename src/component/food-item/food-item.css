@@ -12,7 +12,7 @@
 
 .restaurant-detail {
   flex-direction: column;
-  gap: 2rem;
+  gap: 32px;
 }
 
 .restaurant-list-container {
@@ -62,7 +62,7 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .restaurant__name {
