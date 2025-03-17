@@ -90,9 +90,10 @@ class App extends Component {
 
     if (tab === "favorite") {
       this.renderFavorite();
-    } else {
-      this.renderAll();
+      return;
     }
+
+    this.renderAll();
   }
 
   template() {
