@@ -21,11 +21,10 @@ export const RestaurantFacade = {
 
   importData(items: Omit<RestaurantItem, "id">[]): void {
     const restaurants = this.getAll();
-    let lastId = this.getLastId();
+    const lastId = this.getLastId();
 
-    const newRestaurants = items.map((item) => {
-      lastId++;
-      return { ...item, id: lastId };
+    const newRestaurants = items.map((item, index) => {
+      return { ...item, id: lastId + index + 1 };
     });
 
     LocalStorage.saveItems([...restaurants, ...newRestaurants], STORAGE_KEY);
