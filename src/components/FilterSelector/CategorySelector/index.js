@@ -14,7 +14,7 @@ const CategorySelector = (restaurantList) => {
   };
 
   return Select({
-    name: "category",
+    name: "category-sorting",
     required: false,
     options: createKeyValuePair(
       Object.keys(FOOD_CATEGORY),

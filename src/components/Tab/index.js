@@ -18,7 +18,7 @@ const Tab = (restaurantList) => {
         e.target.classList.add("tab--selected");
 
         renderAllpage(restaurantList);
-        $("#category").value = storage.loadCategory();
+        $("#category-sorting").value = storage.loadCategory();
         $("#sorting").value = storage.loadNameOrDistance();
       },
     },

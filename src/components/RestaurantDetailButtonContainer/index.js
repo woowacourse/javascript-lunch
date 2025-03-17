@@ -11,6 +11,7 @@ const RestaurantDetailButtonContainer = (restaurant, clickDelete) => {
   const deleteButton = Button({
     text: BUTTON_TEXT.DELETE,
     style: "button--secondary",
+    id: "delete-button",
     onClick: () => {
       $("#restaurant-detail-modal-backdrop").classList.remove("open");
       clickDelete();
@@ -20,6 +21,7 @@ const RestaurantDetailButtonContainer = (restaurant, clickDelete) => {
   const closeButton = Button({
     text: BUTTON_TEXT.CLOSE,
     style: "button--primary",
+    id: "close-button",
     onClick: () => {
       $("#restaurant-detail-modal-backdrop").classList.remove("open");
     },
