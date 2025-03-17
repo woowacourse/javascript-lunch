@@ -1,17 +1,17 @@
 const CATRGORY_IMAGE_PATH = {
-  한식: "./public/category-korean.png",
-  중식: "./public/category-chinese.png",
-  일식: "./public/category-japanese.png",
-  양식: "./public/category-western.png",
-  아시안: "./public/category-asian.png",
-  기타: "./public/category-etc.png",
+  한식: "https://aydenote.github.io/javascript-lunch/public/category-korean.png",
+  중식: "https://aydenote.github.io/javascript-lunch/public/category-chinese.png",
+  일식: "https://aydenote.github.io/javascript-lunch/public/category-japanese.png",
+  양식: "https://aydenote.github.io/javascript-lunch/public/category-western.png",
+  아시안: "https://aydenote.github.io/javascript-lunch/public/category-asian.png",
+  기타: "https://aydenote.github.io/javascript-lunch/public/category-etc.png",
 };
 
 function renderFavoritesImg(favorites) {
   if (favorites) {
-    return "./public/favorite-icon-filled.png";
+    return "https://aydenote.github.io/javascript-lunch/public/favorite-icon-filled.png";
   }
-  return "./public/favorite-icon-lined.png";
+  return "https://aydenote.github.io/javascript-lunch/public/favorite-icon-lined.png";
 }
 
 function ListItem({ id, category, name, distance, description, favorites, link }, { onClick = null, className = "" }) {
