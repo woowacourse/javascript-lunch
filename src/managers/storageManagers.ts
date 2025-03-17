@@ -6,9 +6,8 @@ export function storeFoodItems(foodItems: FoodItemType[]) {
 
 export function getStoredFoodItems() {
   const storedItems = localStorage.getItem("foodItems");
-  if (storedItems) return JSON.parse(storedItems);
 
-  return [];
+  return storedItems ? JSON.parse(storedItems) : [];
 }
 
 export function removeStoredFoodItem(id: string) {
