@@ -2,7 +2,7 @@ import createHeader from "./components/Header.ts";
 import createTab from "./components/Tab.ts";
 import renderRestaurantList from "./components/RestaurantList.ts";
 import createRestaurantItem from "./components/RestaurantItem.ts";
-import { createModal } from "./components/Modal.ts";
+import Modal from "./components/Modal.ts";
 import { createForm } from "./components/Form.ts";
 import validateRestaurant from "./validateRestaurant.js";
 import {
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addRestaurantForm?.reset();
   };
 
-  const addRestaurantModal = createModal({
+  const addRestaurantModal = Modal.create({
     id: "restaurant-add-dialog",
     title: "새로운 음식점",
     content: formContent,

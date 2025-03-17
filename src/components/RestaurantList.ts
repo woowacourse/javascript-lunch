@@ -1,5 +1,5 @@
 import createRestaurantItem from "./RestaurantItem.ts";
-import { createModal } from "./Modal.ts";
+import Modal from "./Modal.ts";
 import { Restaurant } from "../types/restaurant.ts";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.ts";
 import { restaurantManager } from "../restaurantManager.ts";
@@ -98,7 +98,7 @@ const showRestaurantDetail = (
   </div>
 `;
 
-  const detailModal = createModal({
+  const detailModal = Modal.create({
     id: "restaurant-detail-dialog",
     content: restaurantDetailContent,
     options: {

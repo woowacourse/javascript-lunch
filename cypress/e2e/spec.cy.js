@@ -98,6 +98,7 @@ const initialRestaurantsData = [
     id: "restaurant-5",
   },
 ];
+
 describe("View Restaurant List Test", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173", {
