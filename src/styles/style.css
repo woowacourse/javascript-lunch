@@ -169,7 +169,6 @@
 .modal-container {
   position: fixed;
   bottom: 0;
-  width: 100%;
 
   padding: 32px 16px;
 
@@ -177,12 +176,12 @@
   background: var(--grey-100);
 
   max-width: 600px;
+  max-height: 100%;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
 
-  height: 100%;
   overflow: scroll;
 }
 
