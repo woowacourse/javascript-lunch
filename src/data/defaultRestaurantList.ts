@@ -1,4 +1,6 @@
-export const defaultRestaurantList = [
+import { RestaurantType } from '../../types/types';
+
+export const defaultRestaurantList: RestaurantType[] = [
   {
     imgUrl: 'category-korean.png',
     category: '한식',

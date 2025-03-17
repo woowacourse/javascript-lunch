@@ -1,7 +1,7 @@
 import { Header, Restaurant, InputModal, RestaurantList } from './components/index.js';
 import Filter from './components/Filter.js';
 import Component from './core/Component.js';
-import { defaultRestaurantList } from './data/defaultRestaurantList.js';
+import { defaultRestaurantList } from './data/defaultRestaurantList.ts';
 import Sorter from './components/Sorter.js';
 import Modal from './components/Modal.js';
 
