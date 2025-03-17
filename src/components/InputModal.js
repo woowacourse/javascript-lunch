@@ -108,7 +108,7 @@ class InputModal extends Component {
       const $link = this.element.querySelector('#link');
 
       const modalInput = {
-        imgUrl: `category-${FOOD_CATEGORY[$categoryInput.value]}.png`,
+        imgUrl: `./category-${FOOD_CATEGORY[$categoryInput.value]}.png`,
         category: $categoryInput.value,
         name: $name.value,
         distance: $distance.value,
