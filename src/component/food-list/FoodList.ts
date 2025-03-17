@@ -1,53 +1,56 @@
-import { EMPTY_LIST } from "../../constants/systemMessage.ts";
+import { DELETE, EMPTY_LIST } from "../../constants/systemMessage.ts";
 import { filterFoodItemsByCategory } from "../../util/filterFoodItems.ts";
 import { sortFoodItem } from "../../util/sortFoodItem.ts";
 import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
 import { Button } from "../button/button/Button.js";
 import Modal from "../common/modal/Modal.js";
 import FoodItem from "../food-item/FoodItem.ts";
-import { deleteFoodItem, filterFavoriteFoodItems, toggleFavoriteFoodItem } from "./FoodListManager.ts";
+import FoodListManager from "./FoodListManager.ts";
 
 interface FoodListOptions {
   foodItems: FoodItemType[];
 }
 
 export default class FoodList {
-  #originFoodItems;
-  #foodItems;
-  foodList;
+  foodListManager: FoodListManager;
+  foodList: HTMLUListElement;
 
   constructor({ foodItems }: FoodListOptions) {
-    this.#originFoodItems = foodItems;
-    this.#foodItems = foodItems;
+    this.foodListManager = new FoodListManager(foodItems);
 
     this.foodList = document.createElement("ul");
     this.foodList.className = "restaurant-list";
 
     this.updateSortItem("이름순");
-
-    this.render();
   }
 
   get element() {
     return this.foodList;
   }
 
-  render() {
+  render(foodItems = this.foodListManager.getItems()) {
     this.foodList.innerHTML = "";
 
-    if (this.#foodItems.length === 0) {
+    if (foodItems.length === 0) {
       this.showEmptyListMessage();
+      return;
     }
 
     const foodFragment = document.createDocumentFragment();
 
-    this.#foodItems.forEach((foodItem: FoodItemType) => {
+    foodItems.forEach((foodItem: FoodItemType) => {
       const foodItemElement = new FoodItem({
         data: foodItem,
         cssType: "row",
-        onFavoriteClick: (id: string) => this.updateFavoriteItem(id),
-        onDeleteClick: (id: string) => this.updateDeleteItem(id),
-        onFoodItemClick: (foodItem: FoodItemType) => this.renderDetailModal(foodItem),
+        onFavoriteClick: (id: string) => {
+          this.updateFavoriteItem(id);
+        },
+        onDeleteClick: (id: string) => {
+          this.updateDeleteItem(id);
+        },
+        onFoodItemClick: (foodItem: FoodItemType) => {
+          this.renderDetailModal(foodItem);
+        },
       }).element;
 
       if (foodItemElement) {
@@ -64,11 +67,18 @@ export default class FoodList {
     const detailFoodItem = new FoodItem({
       data: foodItem,
       cssType: "column",
-      onFavoriteClick: this.updateFavoriteItem.bind(this),
-      onDeleteClick: this.updateDeleteItem.bind(this),
+      onFavoriteClick: (id: string) => {
+        this.updateFavoriteItem(id);
+      },
+      onDeleteClick: (id: string) => {
+        this.updateDeleteItem(id);
+        detailModal.close();
+      },
       onFoodItemClick: () => {},
     });
+
     if (!detailFoodItem.element) return;
+
     fragment.appendChild(detailFoodItem.element);
 
     const buttonContainer = ButtonContainer({
@@ -78,22 +88,20 @@ export default class FoodList {
           innerText: "삭제하기",
           cssType: "secondary",
           onClick: () => {
-            detailFoodItem.handleDeleteClick();
+            this.updateDeleteItem(foodItem.id);
             detailModal.close();
           },
         }),
         Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
       ],
     });
+
     fragment.appendChild(buttonContainer);
 
     const detailModal = new Modal({ content: fragment });
     detailModal.open();
 
-    const body = document.querySelector("body");
-    if (body) {
-      body.appendChild(detailModal.element);
-    }
+    document.body.appendChild(detailModal.element);
   }
 
   showEmptyListMessage() {
@@ -102,28 +110,35 @@ export default class FoodList {
     `;
   }
 
+  updateAddItem(foodItem: FoodItemType) {
+    this.foodListManager.addItem(foodItem);
+    this.render();
+  }
+
   updateFavoriteItem(id: string) {
-    this.#foodItems = toggleFavoriteFoodItem(this.#foodItems, id);
+    this.foodListManager.toggleFavoriteFoodItem(id);
     this.render();
   }
 
   updateDeleteItem(id: string) {
-    this.#foodItems = deleteFoodItem(this.#foodItems, id);
-    this.render();
+    if (confirm(DELETE)) {
+      this.foodListManager.deleteFoodItem(id);
+      this.render();
+    }
   }
 
   updateFilterItem(category: string) {
-    this.#foodItems = filterFoodItemsByCategory(category, this.#originFoodItems);
-    this.render();
+    const filteredItems = filterFoodItemsByCategory(category, this.foodListManager.getItems());
+    this.render(filteredItems);
   }
 
   updateSortItem(sortType: string) {
-    this.#foodItems = sortFoodItem(sortType, this.#foodItems);
-    this.render();
+    const sortedItems = sortFoodItem(sortType, this.foodListManager.getItems());
+    this.render(sortedItems);
   }
 
   updateFavoriteList(tabMenu: string) {
-    this.#foodItems = filterFavoriteFoodItems(this.#originFoodItems, tabMenu);
-    this.render();
+    const favoriteItems = this.foodListManager.filterFavoriteFoodItems(tabMenu);
+    this.render(favoriteItems);
   }
 }

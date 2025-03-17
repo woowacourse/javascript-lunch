@@ -22,7 +22,7 @@ export class Dropdown {
     this.options = options;
     this.name = name;
 
-    this.#selectValue = "";
+    this.#selectValue = "이름순";
 
     this.onChange = onChange;
 

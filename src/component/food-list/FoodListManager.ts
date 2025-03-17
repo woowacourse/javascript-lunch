@@ -1,33 +1,41 @@
 import { removeStoredFoodItem, storeFoodItems } from "../../managers/storageManagers.ts";
 
-export function addItem(originFoodItems: FoodItemType[], foodItem: FoodItemType) {
-  const updatedFoodItems = [...originFoodItems, foodItem];
-  storeFoodItems(updatedFoodItems);
+export default class FoodListManager {
+  #foodItems: FoodItemType[];
 
-  return updatedFoodItems;
-}
-
-export function deleteFoodItem(originFoodItems: FoodItemType[], id: string) {
-  removeStoredFoodItem(id);
-
-  return originFoodItems.filter((foodItem) => foodItem.id !== id);
-}
-
-export function toggleFavoriteFoodItem(originFoodItems: FoodItemType[], id: string) {
-  const updatedFoodItems = originFoodItems.map((foodItem: FoodItemType) => {
-    if (foodItem.id === id) {
-      return { ...foodItem, isFavorite: !foodItem.isFavorite };
-    }
-    return foodItem;
-  });
-  storeFoodItems(updatedFoodItems);
-
-  return updatedFoodItems;
-}
-
-export function filterFavoriteFoodItems(originFoodItems: FoodItemType[], tabMenu: string) {
-  if (tabMenu === "favorite") {
-    return originFoodItems.filter((foodItem: FoodItemType) => foodItem.isFavorite);
+  constructor(initialFoodItems: FoodItemType[]) {
+    this.#foodItems = initialFoodItems;
   }
-  return originFoodItems;
+
+  getItems() {
+    return [...this.#foodItems];
+  }
+
+  addItem(foodItem: FoodItemType) {
+    this.#foodItems = [...this.#foodItems, foodItem];
+    storeFoodItems(this.#foodItems);
+  }
+
+  deleteFoodItem(id: string) {
+    removeStoredFoodItem(id);
+    this.#foodItems = this.#foodItems.filter((foodItem) => foodItem.id !== id);
+    storeFoodItems(this.#foodItems);
+  }
+
+  toggleFavoriteFoodItem(id: string) {
+    this.#foodItems = this.#foodItems.map((foodItem) => {
+      if (foodItem.id === id) {
+        return { ...foodItem, isFavorite: !foodItem.isFavorite };
+      }
+      return foodItem;
+    });
+    storeFoodItems(this.#foodItems);
+  }
+
+  filterFavoriteFoodItems(tabMenu: string) {
+    if (tabMenu === "favorite") {
+      return this.#foodItems.filter((foodItem) => foodItem.isFavorite);
+    }
+    return [...this.#foodItems];
+  }
 }

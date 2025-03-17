@@ -7,7 +7,6 @@ import Modal from "../component/common/modal/Modal.js";
 import TabMenu from "../component/tab-menu/TabMenu.ts";
 import { DROPDOWN_OPTIONS } from "../constants/constants.ts";
 import { getStoredFoodItems } from "../managers/storageManagers.js";
-import { addItem } from "../component/food-list/FoodListManager.ts";
 
 export default class MainPage {
   container: HTMLDivElement;
@@ -52,7 +51,7 @@ export default class MainPage {
   }
 
   handleSubmit(foodItem: FoodItemType) {
-    addItem(getStoredFoodItems(), foodItem);
+    this.foodList.updateAddItem(foodItem);
     this.modal.close();
   }
 
