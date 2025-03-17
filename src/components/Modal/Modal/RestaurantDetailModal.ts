@@ -45,8 +45,8 @@ export default class RestaurantDetailModal {
       ) as HTMLImageElement;
       if (starIcon) {
         starIcon.src = !isFavorite
-          ? "public/images/star.png"
-          : "public/images/empty-star.png";
+          ? "images/star.png"
+          : "images/empty-star.png";
 
         isFavorite = !isFavorite;
         this.updateFavoriteStatus(name);

@@ -38,6 +38,8 @@ const createCategoryFilter = (restaurantList) => {
   function showSelectedCategoryRestaurantList(selectedCategory) {
     restaurantList.setSelectedCategory(selectedCategory);
     restaurantList.createRestaurantList();
+    const selectElement = document.getElementById("category-filter");
+    selectElement.value = selectedCategory;
   }
 };
 

@@ -24,8 +24,8 @@ const renderRestaurantElement = (
     // truthy -> falsy 아닌 값들 전체 다
     if (starIcon) {
       starIcon.src = !restaurant.isFavorite
-        ? "public/images/star.png"
-        : "public/images/empty-star.png";
+        ? "images/star.png"
+        : "images/empty-star.png";
 
       restaurant.isFavorite = !restaurant.isFavorite;
       updateFavoriteStatus(name);

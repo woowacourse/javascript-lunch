@@ -28,7 +28,6 @@ class RestaurantList {
   }
 
   setSelectedCategory(category) {
-    console.log(category);
     localStorage.setItem("category", JSON.stringify(category));
     this.selectedCategory = category;
   }
@@ -89,7 +88,7 @@ class RestaurantList {
       categoryFilteredData = this.restaurants;
     } else {
       categoryFilteredData = this.restaurants.filter(
-        (restaurant) => restaurant.category == this.selectedCategory
+        (restaurant) => restaurant.category === this.selectedCategory
       );
     }
 

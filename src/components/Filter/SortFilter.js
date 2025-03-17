@@ -5,7 +5,7 @@ const createSortFilter = (restaurantList) => {
     ".restaurant-filter-container"
   );
   const sortFilter = `<div>
-  <select name="sorting" id="sorting-filter" class="restaurant-filter">
+  <select name="sorting" id="sort-filter" class="restaurant-filter">
     <option value="name">이름순</option>
     <option value="distance">거리순</option>
   </select>
@@ -15,7 +15,7 @@ const createSortFilter = (restaurantList) => {
 
   addrestaurant_filter_container.insertAdjacentHTML("beforeend", sortFilter);
 
-  const selectElement = document.getElementById("sorting-filter");
+  const selectElement = document.getElementById("sort-filter");
   selectElement.addEventListener("change", (event) =>
     handleOnChange(event.target)
   );
@@ -29,7 +29,20 @@ const createSortFilter = (restaurantList) => {
   function showSelectedSortRestaurantList(selectedSort) {
     restaurantList.setSelectedSort(selectedSort);
     restaurantList.createRestaurantList();
+    const selectElement = document.getElementById("sort-filter");
+    selectElement.value = selectedSort;
+    //document.getElementById("sort-filter").value = selectedSort;
   }
+
+  // function handleOnChange(event) {
+  //   showSelectedSortRestaurantList(event.target.value); // value 사용
+  // }
+
+  // function showSelectedSortRestaurantList(selectedSort) {
+  //   restaurantList.setSelectedSort(selectedSort);
+  //   restaurantList.createRestaurantList();
+  //   document.getElementById("sort-filter").value = selectedSort;
+  // }
 };
 
 export default createSortFilter;
