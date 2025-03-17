@@ -79,17 +79,14 @@ export default class FoodItem {
     if (!bookmarkIcon) {
       throw new Error(DEV_ERROR_MESSAGE.notFound("favorite-icon"));
     }
-
     bookmarkIcon.addEventListener("click", this.handleFavoriteClick.bind(this));
   }
 
   handleFavoriteClick(event: Event) {
     event.stopPropagation();
-
-    this.updateFavoriteIcon();
     this.#onFavoriteClick(this.#data.id);
-
     this.render();
+    this.updateFavoriteIcon();
   }
 
   updateFavoriteIcon() {
@@ -101,20 +98,27 @@ export default class FoodItem {
   }
 
   getBookmarkIconSrc() {
-    if (this.#data.isFavorite) {
-      return "./favorite-icon-filled.png";
-    }
-    return "./favorite-icon-lined.png";
+    return this.#data.isFavorite ? "./favorite-icon-filled.png" : "./favorite-icon-lined.png";
   }
 
   setDetailCss() {
+    const listItem = this.container.querySelector("li");
+    if (!listItem) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound("listItem"));
+    }
+
     if (this.#cssType === "column") {
-      this.container.querySelector("li")?.classList.add("restaurant-detail");
+      listItem.classList.add("restaurant-detail");
     }
   }
 
   setUpDetailModal() {
-    this.container.querySelector("li")?.addEventListener("click", () => {
+    const listItem = this.container.querySelector("li");
+    if (!listItem) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound("listItem"));
+    }
+
+    listItem.addEventListener("click", () => {
       this.#onFoodItemClick(this.#data);
     });
   }

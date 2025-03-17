@@ -36,7 +36,12 @@ export default class TabMenu {
   }
 
   handleCurrentMenu() {
-    this.container.querySelectorAll(".tabmenu-item")?.forEach((tabMenu) =>
+    const tabMenuItem = this.container.querySelectorAll(".tabmenu-item");
+    if (!tabMenuItem) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound("tabmenu-item"));
+    }
+
+    tabMenuItem.forEach((tabMenu) =>
       tabMenu.addEventListener("click", (event: Event) => {
         const target = event.target;
 
@@ -55,7 +60,18 @@ export default class TabMenu {
   }
 
   setActiveTabStyle() {
-    this.container.querySelector(".tabmenu--active")?.classList.remove("tabmenu--active");
-    this.container.querySelector(`[data-tab=${this.#currentMenu}]`)?.classList.add("tabmenu--active");
+    const tabMenuActiveClass = this.container.querySelector(".tabmenu--active");
+    if (!tabMenuActiveClass) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound("tabmenu--active"));
+    }
+
+    tabMenuActiveClass.classList.remove("tabmenu--active");
+
+    const currentMenuTab = this.container.querySelector(`[data-tab=${this.#currentMenu}]`);
+    if (!currentMenuTab) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound(`[data-tab=${this.#currentMenu}]`));
+    }
+
+    currentMenuTab.classList.add("tabmenu--active");
   }
 }
