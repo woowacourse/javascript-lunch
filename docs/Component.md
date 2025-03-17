@@ -2,7 +2,7 @@
 
 모든 컴포넌트 클래스는 이 코어 컴포넌트 클래스를 상속받아 사용합니다.
 
-코어 컴포넌트는 render, setState, appendChild 메서드와 template, attachEventListener, onRender 추상 메서드로 구성되어 있습니다.
+코어 컴포넌트는 render, setState, appendChild 메서드와 template, addEventListener, onRender 추상 메서드로 구성되어 있습니다.
 
 ## 일반 메서드
 
@@ -19,7 +19,7 @@
    html 함수는 현재는 태그드 템플릿 리터럴을 펼쳐주고, Component의 자식 클래스의 인스턴스의 경우 `template()`메서드를 실행해 문자열로 반환하는 역할을 수행합니다. 추후 이스케이프 처리, `render()`메서드를 실행하도록(가능하다면) 확장하고 싶습니다.
 
 2. `onRender()` : `render()`메서드에서 컴포넌트의 껍데기 요소를 렌더링한 후 실행하는 메서드입니다. 주로 동적인 자식 컴포넌트를 렌더링할 때 사용합니다.
-3. `attachEventListener()` : 이벤트 리스너를 추가하는 메서드입니다. `onRender()`메서드를 실행한 후에 실행하며, 이벤트 리스너를 다는 메서드이기에 컴포넌트당 한번만 실행합니다.
+3. `addEventListener()` : 이벤트 리스너를 추가하는 메서드입니다. `onRender()`메서드를 실행한 후에 실행하며, 이벤트 리스너를 다는 메서드이기에 컴포넌트당 한번만 실행합니다.
 
 ## 프로퍼티
 
