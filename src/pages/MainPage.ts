@@ -56,6 +56,9 @@ export default class MainPage {
       this.foodList.filterFavoriteItem();
       return this.foodList.element;
     }
+    if (this.dropdownContainer.element) {
+      this.container.appendChild(this.dropdownContainer.element);
+    }
     this.foodList.resetFavoriteFilter();
     return this.foodList.element;
   }
@@ -63,9 +66,6 @@ export default class MainPage {
   render() {
     this.container.innerHTML = "";
 
-    if (this.dropdownContainer.element) {
-      this.container.appendChild(this.dropdownContainer.element);
-    }
     this.container.appendChild(this.getFoodListElement());
   }
 
