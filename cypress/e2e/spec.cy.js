@@ -42,7 +42,8 @@ describe("e2e 테스트", () => {
     });
 
     it("취소 버튼을 눌렀을 시 모달 닫히는지 검사", () => {
-      cy.get(".cancel-button").click({ force: true });
+      cy.get(".gnb__button").click();
+      cy.get(".cancel-button").should("exist").click({ force: true });
       cy.get(".modal").should("not.have.class", "modal--open");
     });
   });
