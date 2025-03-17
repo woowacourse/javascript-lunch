@@ -1,8 +1,8 @@
-type CreateDOMElementProps = {
+interface CreateDOMElementProps {
   tag: string;
   children?: (HTMLElement | undefined)[] | HTMLElement;
   [key: string]: any;
-};
+}
 
 const createDOMElement = ({ tag, children, ...props }: CreateDOMElementProps): HTMLElement => {
   if (!tag) throw new Error('Tag is required');
