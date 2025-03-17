@@ -1,7 +1,7 @@
-import { Category } from "../../types/domain/FoodFormHandlerType";
-import { ValidateFoodItemType } from "../../types/vaildate/ValidateFoodItemType";
-import { getInput } from "../../util/getInput";
-import { validateFoodItem } from "../../validate/validateFoodItem";
+import { Category } from "../types/domain/GetFormFoodItemType";
+import { ValidateFoodItemType } from "../types/vaildate/ValidateFoodItemType";
+import { getInput } from "../util/getInput";
+import { validateFoodItem } from "../validate/validateFoodItem";
 
 export function getFormFoodItem() {
   const foodItem: ValidateFoodItemType = {

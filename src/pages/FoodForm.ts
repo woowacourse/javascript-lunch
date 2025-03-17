@@ -10,7 +10,7 @@ import {
   AddFoodFormItemType,
   FoodFormType,
 } from "../types/pages/FoodFormType.js";
-import { getFormFoodItem } from "../domain/handler/FoodFormHandler.js";
+import { getFormFoodItem } from "../domain/getFormFoodItem.js";
 
 const SELECT_OPTIONS = {
   category: [

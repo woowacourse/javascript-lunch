@@ -1,4 +1,4 @@
-import { Category } from "../domain/FoodFormHandlerType";
+import { Category } from "../domain/GetFormFoodItemType";
 
 export interface ValidateFoodItemType {
   category: Category;
