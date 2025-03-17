@@ -1,7 +1,7 @@
 export const getStarIconSrc = (isFavorite) => {
   return isFavorite
-    ? "/public/favorite-icon-filled.png"
-    : "/public/favorite-icon-lined.png";
+    ? "public/favorite-icon-filled.png"
+    : "public/favorite-icon-lined.png";
 };
 
 const StarIcon = (isFavorite) => {
