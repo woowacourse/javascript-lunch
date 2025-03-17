@@ -8,8 +8,8 @@ const FavoriteIcon = (restaurant, clickFavorite) =>
     children: [
       Image({
         src: restaurant.value.isFavorite
-          ? "./public/favorite-icon-filled.png"
-          : "./public/favorite-icon-lined.png",
+          ? "./favorite-icon-filled.png"
+          : "./favorite-icon-lined.png",
         alt: "favorite-icon",
         classNames: ["favorite-icon"],
       }),
@@ -19,8 +19,8 @@ const FavoriteIcon = (restaurant, clickFavorite) =>
         e.stopPropagation();
         restaurant.toggleFavorite();
         e.target.src = restaurant.value.isFavorite
-          ? "./public/favorite-icon-filled.png"
-          : "./public/favorite-icon-lined.png";
+          ? "./favorite-icon-filled.png"
+          : "./favorite-icon-lined.png";
         clickFavorite && clickFavorite();
       },
     },
