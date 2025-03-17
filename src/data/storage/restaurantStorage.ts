@@ -20,4 +20,4 @@ export const getRestaurantsFromLocalStorage = (): Restaurant[] => {
   return JSON.parse(storedData);
 };
 
-export let currentRestaurantData: Restaurant[] = getRestaurantsFromLocalStorage();
+export const currentRestaurantData: Restaurant[] = getRestaurantsFromLocalStorage();
