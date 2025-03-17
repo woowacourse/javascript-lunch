@@ -11,7 +11,7 @@ class Restaurant extends Component {
 
   template() {
     const { name, distance, description, imgSrc, imgAlt, like } = this.props;
-    const starImg = this.props.like ? "/filledStar.png" : "/unFilledStar.png";
+    const starImg = this.props.like ? "./filledStar.png" : "./unFilledStar.png";
     return /*html*/ ` 
       <div class="restaurant__category">
           <img src=${imgSrc} alt=${imgAlt} class="category-icon"/>
@@ -45,7 +45,7 @@ class Restaurant extends Component {
         : restaurant,
     );
     setStoredRestaurantData(storedData);
-    const starImg = this.props.like ? "/filledStar.png" : "/unFilledStar.png";
+    const starImg = this.props.like ? "./filledStar.png" : "./unFilledStar.png";
     this.$target.querySelector(".list__star").src = starImg;
   }
 

@@ -9,7 +9,7 @@ class ModalDetail extends Modal {
   template() {
     const { name, distance, description, imgSrc, imgAlt, like, link } =
       this.props.data;
-    const starImg = like ? "/filledStar.png" : "/unFilledStar.png";
+    const starImg = like ? "./filledStar.png" : "./unFilledStar.png";
 
     return `
         <div class="modal-backdrop"></div>
@@ -67,8 +67,8 @@ class ModalDetail extends Modal {
 
   updateLikeUI() {
     const starImg = this.props.data.like
-      ? "/filledStar.png"
-      : "/unFilledStar.png";
+      ? "./filledStar.png"
+      : "./unFilledStar.png";
     this.$target.querySelector("#modal__star").src = starImg;
     document.querySelectorAll(".restaurant").forEach((item) => {
       if (
