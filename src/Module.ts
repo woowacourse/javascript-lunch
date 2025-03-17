@@ -43,9 +43,11 @@ export class Module {
             favoriteFilter: isFavoriteState(),
           });
 
-          const filteredItems = this.#filter.chageFilter({
-            foodList: previousFoodList,
+          this.#filter.chageFilter({
             filter: name as FilterType,
+          });
+          const filteredItems = this.#filter.updateFilterItem({
+            foodList: previousFoodList,
           });
 
           createFoodListComponent({

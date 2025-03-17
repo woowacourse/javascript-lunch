@@ -7,7 +7,6 @@ export interface SortByType {
 
 export type FilterType = "category" | "sorting";
 export interface ChangeCategoryType {
-  foodList: FoodType[];
   filter: FilterType;
 }
 

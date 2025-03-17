@@ -1,7 +1,7 @@
 //e2e 테스트 추가
 describe("E2E Test Group", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5175/");
+    cy.visit("http://localhost:5173/");
     cy.viewport(1920, 1080);
     cy.get(".gnb .gnb__button").click();
     cy.get("#category").select("한식");
