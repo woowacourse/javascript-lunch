@@ -1,3 +1,4 @@
+import Validation from "../validation.js";
 import ERROR_MESSAGE from "../constants/errorMessage.js";
 import Category from "../types/Category.js";
 import Restaurant from "../types/Restaurant.js";
@@ -35,6 +36,7 @@ export default class RestaurantData {
     this.validateDistance(distance);
     this.validateName(name);
 
+    console.log(id);
     this.id = id || crypto.randomUUID();
     this.src = CATEGORY_IMAGE[category];
     this.alt = category;
@@ -68,24 +70,17 @@ export default class RestaurantData {
     this.isWish = !this.isWish;
   }
 
-  isValidateOption(value: string | number): boolean {
-    return !value;
-  }
-
-  isValidateName(name: string): boolean {
-    const NAME_LENGTH_MIN = 2;
-    return name.length < NAME_LENGTH_MIN;
-  }
-
   validateCategory(category: string): void {
-    if (this.isValidateOption(category)) throw Error(ERROR_MESSAGE.category);
+    if (Validation.isValidateOption(category))
+      throw Error(ERROR_MESSAGE.category);
   }
 
   validateDistance(distance: number): void {
-    if (this.isValidateOption(distance)) throw Error(ERROR_MESSAGE.distance);
+    if (Validation.isValidateOption(distance))
+      throw Error(ERROR_MESSAGE.distance);
   }
 
   validateName(name: string): void {
-    if (this.isValidateName(name)) throw Error(ERROR_MESSAGE.name);
+    if (Validation.isValidateName(name)) throw Error(ERROR_MESSAGE.name);
   }
 }
