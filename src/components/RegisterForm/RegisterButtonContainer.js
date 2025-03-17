@@ -1,4 +1,3 @@
-import restaurantList from "../../domain/RestaurantList";
 import Restaurant from "../../domain/Restaurant";
 import { clearError } from "../../utils/clearError";
 import { clearInput } from "../../utils/clearInput";

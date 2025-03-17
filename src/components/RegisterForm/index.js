@@ -1,12 +1,8 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { WALK_TIME_MINUTES } from "./walkTimeMinutes";
-import RestaurantList from "../../domain/RestaurantList";
 import createElement from "../../utils/createElement/createElement";
 import createKeyValuePair from "../../utils/createKeyValuePair";
-import Input from "../common/Input";
 import InputField from "../common/InputField";
-import Select from "../common/Select";
-import TextArea from "../common/TextArea";
 import RegisterButtonContainer from "./RegisterButtonContainer";
 
 const RegisterForm = (restaurantList) => {

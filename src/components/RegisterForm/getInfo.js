@@ -3,8 +3,6 @@ import { clearError } from "../../utils/clearError";
 import { $ } from "../../utils/dom";
 import { isEmpty } from "../../validate/isEmpty";
 import { isValidStringLength } from "../../validate/isValidStringLength";
-import { validateEmpty } from "../../validate/validateEmpty";
-import validateStringLength from "../../validate/validateStringLength";
 
 export const getInfo = () => {
   const form = $("#register-form");
