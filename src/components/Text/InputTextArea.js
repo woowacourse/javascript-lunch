@@ -1,7 +1,7 @@
 class InputTextArea {
   #textarea;
 
-  constructor(name, required = false, cols = 30, rows = 5) {
+  constructor({ name, required = false, cols = 30, rows = 5 }) {
     this.#textarea = document.createElement('textarea');
     this.#textarea.setAttribute('name', name);
     this.#textarea.setAttribute('id', name);

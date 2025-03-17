@@ -1,7 +1,7 @@
 class InputText {
   #input;
 
-  constructor(name, required = false) {
+  constructor({ name, required = false }) {
     this.#input = document.createElement('input');
     this.#input.setAttribute('type', 'text');
     this.#input.setAttribute('name', name);

@@ -52,7 +52,7 @@ class AddRestaurantModal extends Modal {
       name: 'name',
       title: '이름',
       required: true,
-      inputComponent: new InputText('name', true),
+      inputComponent: new InputText({ name: 'name', required: true }),
     });
     this.#divDistance = new Input({
       name: 'distance',
@@ -70,13 +70,13 @@ class AddRestaurantModal extends Modal {
       name: 'description',
       title: '설명',
       spanText: '메뉴 등 추가 정보를 입력해 주세요.',
-      inputComponent: new InputTextArea('description', false, 30, 5),
+      inputComponent: new InputTextArea({ name: 'description' }),
     });
     this.#divLink = new Input({
       name: 'link',
       title: '참조 링크',
       spanText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
-      inputComponent: new InputText('link', true),
+      inputComponent: new InputText({ name: 'link' }),
     });
     this.#modalForm = document.createElement('form');
   }
