@@ -1,7 +1,7 @@
 import $button from "../common/button";
 import $buttonContainer from "../layout/buttonContainer";
 import { UI_CONFIG } from "../../constants/uiConfig";
-import { handleModalClose, handleModalOpen } from "../modal/modal";
+import { handleModalClose, handleModalOpen } from "../modal/modal.ts";
 import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
 import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon";

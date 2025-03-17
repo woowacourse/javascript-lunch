@@ -1,5 +1,5 @@
 import $header from "./components/layout/header";
-import $modal from "./components/modal/modal";
+import $modal from "./components/modal/modal.ts";
 import $filterContainer from "./components/layout/filterContainer";
 import $tabContainer from "./components/layout/tabContainer";
 import $tab from "./components/common/tab";

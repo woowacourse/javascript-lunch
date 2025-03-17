@@ -5,7 +5,7 @@ import $form from "../form/form";
 import $createRestaurantList from "./restaurantItemList";
 import { UI_CONFIG } from "../../constants/uiConfig";
 import { FORM_FIELDS } from "../../constants/formFields";
-import { handleModalClose, handleModalOpen } from "../modal/modal";
+import { handleModalClose, handleModalOpen } from "../modal/modal.ts";
 import { validateRestaurantForm } from "../../validation/validationForm";
 import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";

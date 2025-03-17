@@ -1,3 +1,12 @@
+import { FORM_FIELDS } from "../../constants/formFields";
+import { InputField } from "../../types/types";
+
+// type InputField = typeof FORM_FIELDS.INPUTS;
+type SelectField = typeof FORM_FIELDS.SELECTS;
+type TextAreaField = typeof FORM_FIELDS.TEXTAREAS;
+type FieldType = InputField | SelectField | TextAreaField;
+type FieldName = keyof FieldType;
+
 const $inputItemLabel = ({ attribute, label }) => {
   const itemLabel = document.createElement("label");
   itemLabel.classList.add("text-caption");
@@ -15,7 +24,7 @@ const $inputItemHelperText = ({ helperText }) => {
   return itemHelperText;
 };
 
-const $inputItem = (fieldType, fieldName) => {
+const $inputItem = (fieldType: FieldType, fieldName: FieldName) => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("form-item");
   if (fieldType[fieldName].attribute.required) {

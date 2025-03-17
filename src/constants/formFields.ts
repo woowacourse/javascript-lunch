@@ -9,24 +9,30 @@ import {
   sortingFilterOptions,
 } from "./selectOptions";
 import { validateRestaurantForm } from "../validation/validationForm";
-import { deepFreeze } from "../utils/deepFreeze";
+import { TypeInput, TypeSelect, TypeTextarea } from "../types/types";
 
 const senseChangeRestaurantFormValue = () => {
   try {
-    const form = document.getElementById("add-restaurant-form");
+    const form = document.getElementById(
+      "add-restaurant-form"
+    ) as HTMLFormElement;
     validateRestaurantForm(form);
 
-    const submitButton = document.getElementById("addRestaurantButton");
-    submitButton.classList.remove("button--disabled");
+    const submitButton = document.getElementById(
+      "addRestaurantButton"
+    ) as HTMLButtonElement;
+    submitButton?.classList.remove("button--disabled");
     submitButton.disabled = false;
   } catch (error) {
-    const submitButton = document.getElementById("addRestaurantButton");
-    submitButton.classList.add("button--disabled");
+    const submitButton = document.getElementById(
+      "addRestaurantButton"
+    ) as HTMLButtonElement;
+    submitButton?.classList.add("button--disabled");
     submitButton.disabled = true;
   }
 };
 
-export const FORM_FIELDS = deepFreeze({
+export const FORM_FIELDS: any = {
   INPUTS: {
     name: {
       label: "이름",
@@ -53,7 +59,7 @@ export const FORM_FIELDS = deepFreeze({
         placeholder: "https://www.woowacourse.io/",
       },
     },
-    create: (info) => $input(info),
+    create: (info: TypeInput) => $input(info),
   },
   SELECTS: {
     category: {
@@ -96,7 +102,7 @@ export const FORM_FIELDS = deepFreeze({
         name: "restaurant-filter",
       },
     },
-    create: (info) => $select(info),
+    create: (info: TypeSelect) => $select(info),
   },
   TEXTAREAS: {
     description: {
@@ -111,6 +117,6 @@ export const FORM_FIELDS = deepFreeze({
         placeholder: "너무 맛있는데 너무 매워서 배가 아파요,,,",
       },
     },
-    create: (info) => $textarea(info),
+    create: (info: TypeTextarea) => $textarea(info),
   },
-});
+} as const;

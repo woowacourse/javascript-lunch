@@ -1,4 +1,4 @@
-const $buttonContainer = (buttons) => {
+const $buttonContainer = (buttons: HTMLButtonElement[]) => {
   const container = document.createElement("div");
   container.classList.add("button-container");
 

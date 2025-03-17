@@ -1,4 +1,4 @@
-const $filterContainer = (filters) => {
+const $filterContainer = (filters: HTMLSelectElement[]) => {
   const container = document.createElement("section");
   container.classList.add("restaurant-filter-container");
 

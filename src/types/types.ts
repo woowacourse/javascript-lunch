@@ -1,3 +1,5 @@
+import { FORM_FIELDS } from "../constants/formFields";
+
 export type Category =
   | ""
   | "한식"
@@ -18,3 +20,17 @@ export interface IRestaurant {
   link?: string;
   description?: string;
 }
+
+export type EventType = { eventType: string; eventHandler: (e: Event) => void };
+
+type InputFields = typeof FORM_FIELDS.INPUTS;
+type InputFieldKey = keyof InputFields;
+export type TypeInput = Exclude<InputFields[InputFieldKey], "create">;
+
+type SelectFields = typeof FORM_FIELDS.SELECTS;
+type SelectFieldKey = keyof SelectFields;
+export type TypeSelect = Exclude<SelectFields[SelectFieldKey], "create">;
+
+type TextareaFields = typeof FORM_FIELDS.TEXTAREAS;
+type TextareaFieldKey = keyof TextareaFields;
+export type TypeTextarea = Exclude<TextareaFields[TextareaFieldKey], "create">;

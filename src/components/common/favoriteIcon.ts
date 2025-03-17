@@ -1,27 +1,29 @@
 import { STORAGE_KEY_NAME } from "../../constants/storage";
+import { IRestaurant } from "../../types/types";
 import { storageHandler } from "../../utils/storageHandler";
 
-export const updateFavoriteIcon = (restaurantInfo, e) => {
+export const updateFavoriteIcon = (
+  restaurantInfo: IRestaurant,
+  e: MouseEvent
+) => {
   e.stopPropagation();
 
   const favoriteState = storageHandler.updateFavorite(
     STORAGE_KEY_NAME,
     restaurantInfo
   );
-
-  const favoriteIcon = e.currentTarget.children[0];
+  const target = e.currentTarget as HTMLElement;
+  const favoriteIcon = target.children[0];
+  const targetParent = target.parentNode as HTMLElement;
   const isModalFavoriteIcon =
-    e.currentTarget.parentNode.classList.contains("modal-container");
-  const modalFavoriteIcon = document.querySelector(
-    `.modal-container > .favorite-icon > path:first-of-type`
-  );
+    targetParent.classList.contains("modal-container");
 
   if (favoriteState) {
     if (isModalFavoriteIcon) {
       const listFavoriteIcon = document.querySelector(
         `[data-id="${restaurantInfo.id}"] > .favorite-icon > path:first-of-type`
       );
-      listFavoriteIcon.setAttribute("fill", "none");
+      listFavoriteIcon?.setAttribute("fill", "none");
     }
     return favoriteIcon.setAttribute("fill", "none");
   }
@@ -30,18 +32,18 @@ export const updateFavoriteIcon = (restaurantInfo, e) => {
     const listFavoriteIcon = document.querySelector(
       `[data-id="${restaurantInfo.id}"] > .favorite-icon > path:first-of-type`
     );
-    listFavoriteIcon.setAttribute("fill", "#EC4A0A");
+    listFavoriteIcon?.setAttribute("fill", "#EC4A0A");
   }
   favoriteIcon.setAttribute("fill", "#EC4A0A");
 };
 
-export const $favoriteIcon = (isFavorite) => {
+export const $favoriteIcon = (isFavorite: boolean) => {
   const favoriteIcon = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "svg"
   );
   favoriteIcon.classList.add("favorite-icon");
-  favoriteIcon.tabindex = 0;
+  favoriteIcon.tabIndex = 0;
   favoriteIcon.role = "button";
   favoriteIcon.setAttribute("fill", "#EC4A0A");
   const favoriteIconStroke = document.createElementNS(

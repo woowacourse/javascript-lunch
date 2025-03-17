@@ -1,6 +1,4 @@
-import { deepFreeze } from "../utils/deepFreeze";
-
-export const UI_CONFIG = deepFreeze({
+export const UI_CONFIG = {
   HEADER: {
     title: "점심 뭐 먹지",
     buttonTitle: "음식점 추가",
@@ -61,4 +59,4 @@ export const UI_CONFIG = deepFreeze({
       },
     },
   },
-});
+} as const;

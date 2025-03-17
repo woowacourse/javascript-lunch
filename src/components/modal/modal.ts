@@ -1,18 +1,18 @@
 export const handleModalClose = () => {
-  document.querySelector(".modal").classList.remove("modal--open");
+  document.querySelector(".modal")?.classList.remove("modal--open");
 };
 
-const handleModalCloseEsc = (e) => {
+const handleModalCloseEsc = (e: KeyboardEvent) => {
   if (e.key === "Escape") {
     handleModalClose();
   }
 };
 
 export const handleModalOpen = () => {
-  document.querySelector(".modal").classList.add("modal--open");
+  document.querySelector(".modal")?.classList.add("modal--open");
 };
 
-const $modal = (type, id = "") => {
+const $modal = () => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("modal");
 

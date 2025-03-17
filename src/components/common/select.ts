@@ -1,4 +1,6 @@
-const $select = ({ attribute, options, eventType, event }) => {
+import { TypeSelect } from "../../types/types";
+
+const $select = ({ attribute, options, eventType, event }: TypeSelect) => {
   const select = document.createElement("select");
   Object.assign(select, attribute);
 

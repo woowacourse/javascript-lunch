@@ -1,6 +1,6 @@
 import { ERROR } from "../constants/message";
 
-const isValidUrl = (url) => {
+const isValidUrl = (url: string) => {
   const pattern = new RegExp(
     "^([a-zA-Z]+:\\/\\/)?" +
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
@@ -14,30 +14,31 @@ const isValidUrl = (url) => {
   return pattern.test(url);
 };
 
-export const validateRestaurantForm = (form) => {
+export const validateRestaurantForm = (form: HTMLFormElement) => {
   if (!form.category.value) {
     const categoryLabelText = document.querySelector(
       `label[for="category"]`
-    ).textContent;
+    )?.textContent;
     throw new Error(`${categoryLabelText}${ERROR.INVALID_REQUIRED}`);
   }
 
-  if (!form.name.value.trim()) {
+  const inputEl = form.name as unknown as HTMLInputElement;
+  if (inputEl.value.trim()) {
     const nameLabelText =
-      document.querySelector(`label[for="name"]`).textContent;
+      document.querySelector(`label[for="name"]`)?.textContent;
     throw new Error(`${nameLabelText}${ERROR.INVALID_REQUIRED}`);
   }
 
   if (!form.distance.value) {
     const distanceLabelText = document.querySelector(
       `label[for="distance"]`
-    ).textContent;
+    )?.textContent;
     throw new Error(`${distanceLabelText}${ERROR.INVALID_REQUIRED}`);
   }
 
   if (form.link.value && !isValidUrl(form.link.value)) {
     const distanceLabelText =
-      document.querySelector(`label[for="link"]`).textContent;
-    throw new Error(ERROR.INVALID_URL);
+      document.querySelector(`label[for="link"]`)?.textContent;
+    throw new Error(`${distanceLabelText}${ERROR.INVALID_URL}`);
   }
 };

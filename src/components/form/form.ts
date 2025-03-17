@@ -1,4 +1,6 @@
-const $form = (formFields, formEvent) => {
+import { EventType } from "../../types/types";
+
+const $form = (formFields: HTMLElement[], formEvent: EventType) => {
   const { eventType, eventHandler } = formEvent;
   const form = document.createElement("form");
   form.id = "add-restaurant-form";
