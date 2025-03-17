@@ -83,8 +83,6 @@ class App extends Component {
     `;
   }
 
-  componentDidUpdate() {}
-
   renderCategoryFilter($restaurantFilterContainer) {
     $restaurantFilterContainer.insertAdjacentHTML(
       "beforeend",
