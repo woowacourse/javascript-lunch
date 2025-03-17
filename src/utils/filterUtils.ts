@@ -1,8 +1,8 @@
-import { Restaurant } from "../data/restaurant.js";
+import { Restaurant } from "../data/models/restaurant.ts";
 
 export const filterRestaurants = (
   restaurants: Restaurant[],
-  category: string
+  category: "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타",
 ) => {
   if (category === "") return restaurants;
   return restaurants.filter((r) => r.categoryTitle === category);
@@ -10,7 +10,7 @@ export const filterRestaurants = (
 
 export const sortRestaurants = (
   restaurants: Restaurant[],
-  sortBy: string
+  sortBy: "name" | "distance",
 ): Restaurant[] => {
   if (sortBy === "name") {
     return [...restaurants].sort((a, b) => a.name.localeCompare(b.name));

@@ -27,14 +27,18 @@ addEventListener("load", () => {
   const tabbar = $tabbar();
   main.prepend(tabbar);
 
-  let selectedTab = document.querySelector(
-    'input[name="tab"]:checked'
-  ) as HTMLInputElement;
+  let selectedTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
+
+  const filterState: {
+    selectedCategory: "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+    selectedSorting: "name" | "distance";
+  } = {
+    selectedCategory: "",
+    selectedSorting: "name",
+  };
 
   const updateRestaurantFilter = () => {
-    const restaurantFilter = document.querySelector(
-      ".restaurant-filter-container"
-    );
+    const restaurantFilter = document.querySelector(".restaurant-filter-container");
     if (!restaurantFilter) return;
 
     if (selectedTab.value === "all") {
@@ -48,20 +52,25 @@ addEventListener("load", () => {
       restaurantFilter.classList.add("hidden");
     }
 
-    const newCategoryFilter = document.querySelector("#category-filter");
-    const newSortingFilter = document.querySelector("#sorting-filter");
+    const newCategoryFilter = document.querySelector("#category-filter") as HTMLSelectElement | null;
+    const newSortingFilter = document.querySelector("#sorting-filter") as HTMLSelectElement | null;
 
     if (newCategoryFilter) {
       newCategoryFilter.addEventListener("change", (e) => {
-        selectedCategory = (e.target as HTMLSelectElement)?.value || "";
+        const value = (e.target as HTMLSelectElement).value;
+        if (value === "" || value === "한식" || value === "중식" || value === "일식" || value === "양식" || value === "아시안" || value === "기타") {
+          filterState.selectedCategory = value;
+        }
         updateList();
       });
     }
 
     if (newSortingFilter) {
       newSortingFilter.addEventListener("change", (e) => {
-        selectedSorting =
-          (e.target as HTMLSelectElement)?.value || selectedSorting;
+        const value = (e.target as HTMLSelectElement).value;
+        if (value === "name" || value === "distance") {
+          filterState.selectedSorting = value;
+        }
         updateList();
       });
     }
@@ -71,22 +80,15 @@ addEventListener("load", () => {
 
   const categoryFilter = document.querySelector("#category-filter");
   const sortingFilter = document.querySelector("#sorting-filter");
-  const restaurantList = document.querySelector(
-    ".restaurant-list"
-  ) as HTMLElement | null;
-
+  const restaurantList = document.querySelector(".restaurant-list") as HTMLElement | null;
   if (!categoryFilter || !sortingFilter || !restaurantList) return;
 
-  let selectedCategory = "";
-  let selectedSorting = "name";
-
   tabbar.addEventListener("change", () => {
-    selectedTab = document.querySelector(
-      'input[name="tab"]:checked'
-    ) as HTMLInputElement;
+    selectedTab = document.querySelector('input[name="tab"]:checked') as HTMLInputElement;
     updateRestaurantFilter();
-    selectedCategory = "";
-    selectedSorting = "name";
+    // 탭이 변경될 때 필터 상태를 초기화
+    filterState.selectedCategory = "";
+    filterState.selectedSorting = "name";
     updateList();
   });
 
@@ -132,7 +134,7 @@ addEventListener("load", () => {
     if (selectedTab.value === "all") {
       filteredRestaurants = filterRestaurants(
         currentRestaurantData,
-        selectedCategory
+        filterState.selectedCategory
       );
     } else if (selectedTab.value === "frequent") {
       filteredRestaurants = currentRestaurantData.filter(
@@ -140,10 +142,9 @@ addEventListener("load", () => {
       );
     }
 
-    const sorted = sortRestaurants(filteredRestaurants, selectedSorting);
+    const sorted = sortRestaurants(filteredRestaurants, filterState.selectedSorting);
     renderRestaurants(restaurantList, sorted);
     saveRestaurantsToLocalStorage(currentRestaurantData);
-
     bindFavoriteEvents();
   };
 
@@ -203,3 +204,4 @@ document.body.addEventListener("click", (e) => {
     handleRestaurantDetailModalClose();
   }
 });
+
