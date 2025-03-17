@@ -1,4 +1,4 @@
-import { deepFreeze } from "../utils/deepFreeze.js";
+import { deepFreeze } from "../utils/deepFreeze";
 
 export const UI_CONFIG = deepFreeze({
   HEADER: {

@@ -1,15 +1,15 @@
-import $button from "../common/button.js";
-import $buttonContainer from "../layout/buttonContainer.js";
-import $inputItem from "../form/input-item.js";
-import $form from "../form/form.js";
-import $createRestaurantList from "./restaurantItemList.js";
-import { UI_CONFIG } from "../../constants/uiConfig.js";
-import { FORM_FIELDS } from "../../constants/formFields.js";
-import { handleModalClose, handleModalOpen } from "../modal/modal.js";
-import { validateRestaurantForm } from "../../validation/validationForm.js";
-import { storageHandler } from "../../utils/storageHandler.js";
-import { STORAGE_KEY_NAME } from "../../constants/storage.js";
-import { CATEGORY_ICON } from "../../constants/iconPath.js";
+import $button from "../common/button";
+import $buttonContainer from "../layout/buttonContainer";
+import $inputItem from "../form/input-item";
+import $form from "../form/form";
+import $createRestaurantList from "./restaurantItemList";
+import { UI_CONFIG } from "../../constants/uiConfig";
+import { FORM_FIELDS } from "../../constants/formFields";
+import { handleModalClose, handleModalOpen } from "../modal/modal";
+import { validateRestaurantForm } from "../../validation/validationForm";
+import { storageHandler } from "../../utils/storageHandler";
+import { STORAGE_KEY_NAME } from "../../constants/storage";
+import { CATEGORY_ICON } from "../../constants/iconPath";
 
 const restaurantFormReset = () => {
   handleModalClose();
@@ -47,7 +47,6 @@ const handleAddRestaurant = (e) => {
     restaurantFormReset(form);
   } catch (error) {
     alert(error.message);
-    console.log(error);
   }
 };
 

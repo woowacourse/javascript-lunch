@@ -1,4 +1,4 @@
-import $createRestaurantInfo from "../restaurant/createRestaurantInfo.js";
+import $createRestaurantInfo from "../restaurant/createRestaurantInfo";
 import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon.js";
 
 const $restaurantCategory = ({ categoryIcon, categoryTitle }) => {

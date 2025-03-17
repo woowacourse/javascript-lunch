@@ -1,4 +1,4 @@
-import { deepFreeze } from "../utils/deepFreeze.js";
+import { deepFreeze } from "../utils/deepFreeze";
 
 export const CATEGORY_ICON = deepFreeze({
   한식: "images/category-korean.png",

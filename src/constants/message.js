@@ -1,4 +1,4 @@
-import { deepFreeze } from "../utils/deepFreeze.js";
+import { deepFreeze } from "../utils/deepFreeze";
 
 export const ERROR = deepFreeze({
   INVALID_REQUIRED: "(은)는 필수 값입니다.",

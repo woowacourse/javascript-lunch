@@ -1,11 +1,11 @@
-import $button from "../common/button.js";
-import $buttonContainer from "../layout/buttonContainer.js";
-import { UI_CONFIG } from "../../constants/uiConfig.js";
-import { handleModalClose, handleModalOpen } from "../modal/modal.js";
-import { storageHandler } from "../../utils/storageHandler.js";
-import { STORAGE_KEY_NAME } from "../../constants/storage.js";
-import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon.js";
-import { USER_MESSAGE } from "../../constants/message.js";
+import $button from "../common/button";
+import $buttonContainer from "../layout/buttonContainer";
+import { UI_CONFIG } from "../../constants/uiConfig";
+import { handleModalClose, handleModalOpen } from "../modal/modal";
+import { storageHandler } from "../../utils/storageHandler";
+import { STORAGE_KEY_NAME } from "../../constants/storage";
+import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon";
+import { USER_MESSAGE } from "../../constants/message";
 
 const $createRestaurantInfo = (restaurantInfo) => {
   const {

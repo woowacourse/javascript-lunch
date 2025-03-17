@@ -1,15 +1,15 @@
-import $select from "../components/common/select.js";
-import $input from "../components/common/input.js";
-import $textarea from "../components/common/textarea.js";
-import $createRestaurantList from "../components/restaurant/restaurantItemList.js";
+import $select from "../components/common/select";
+import $input from "../components/common/input";
+import $textarea from "../components/common/textarea";
+import $createRestaurantList from "../components/restaurant/restaurantItemList";
 import {
   categoryOptions,
   distanceOptions,
   categoryFilterOptions,
   sortingFilterOptions,
-} from "./selectOptions.js";
-import { validateRestaurantForm } from "../validation/validationForm.js";
-import { deepFreeze } from "../utils/deepFreeze.js";
+} from "./selectOptions";
+import { validateRestaurantForm } from "../validation/validationForm";
+import { deepFreeze } from "../utils/deepFreeze";
 
 const senseChangeRestaurantFormValue = () => {
   try {

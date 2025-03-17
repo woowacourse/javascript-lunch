@@ -1,4 +1,4 @@
-import { ERROR } from "../constants/message.js";
+import { ERROR } from "../constants/message";
 
 const isValidUrl = (url) => {
   const pattern = new RegExp(

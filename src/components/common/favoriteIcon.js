@@ -1,5 +1,5 @@
-import { STORAGE_KEY_NAME } from "../../constants/storage.js";
-import { storageHandler } from "../../utils/storageHandler.js";
+import { STORAGE_KEY_NAME } from "../../constants/storage";
+import { storageHandler } from "../../utils/storageHandler";
 
 export const updateFavoriteIcon = (restaurantInfo, e) => {
   e.stopPropagation();
