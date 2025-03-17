@@ -1,7 +1,7 @@
-import $createRestaurantInfo from "./createRestaurantInfo.js";
-import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon.js";
-import { IRestaurant } from "../../types/types.js";
-import { CATEGORY_ICON } from "../../constants/iconPath.js";
+import $createRestaurantInfo from "./createRestaurantInfo";
+import { $favoriteIcon, updateFavoriteIcon } from "../common/favoriteIcon";
+import { IRestaurant } from "../../types/types";
+import { CATEGORY_ICON } from "../../constants/iconPath";
 
 const $restaurantCategory = ({ category }: IRestaurant) => {
   const categoryBox = document.createElement("div");
