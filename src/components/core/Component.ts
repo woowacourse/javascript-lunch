@@ -1,7 +1,10 @@
 import type { HTMLType, StrictObject } from 'src/lib/types';
 import { html } from '../../lib/utils.ts';
 
-export default abstract class Component<Props extends StrictObject = {}, State extends StrictObject = {}> {
+export default abstract class Component<
+  Props extends StrictObject | null = {},
+  State extends StrictObject | null = {},
+> {
   state = {} as State;
 
   #props: Props;
