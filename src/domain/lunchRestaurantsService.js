@@ -4,7 +4,7 @@ import {
 } from "../database/localStorage.js";
 import { restaurants } from "../database/restaurants.js";
 import { makeUniqueId } from "../utils/makeUniqueId.js";
-import sortAndFilter from "../utils/sortAndFilter.js";
+import sortAndFilter from "./utils/sortAndFilter.js";
 
 const lunchRestaurantsService = {
   LUNCH_KEY: "lunchRestaurantList",
