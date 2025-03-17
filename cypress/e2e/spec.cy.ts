@@ -1,7 +1,7 @@
-import { DEFAULT_RESTAURANT_LIST, LOCAL_STORAGE_KEY_MAP } from '@/lib/constants';
+import { DEFAULT_RESTAURANT_LIST, LOCAL_STORAGE_KEY_MAP } from '../../src/lib/constants';
 import { ERROR_MESSAGES } from './constants';
 import { LanguageType } from './types';
-import { LocalStorage } from '@/lib/modules/index';
+import { LocalStorage } from '../../src/lib/modules/index';
 
 let language: LanguageType = 'en';
 describe('애플리케이션 테스트 케이스', () => {

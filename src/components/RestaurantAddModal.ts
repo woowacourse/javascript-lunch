@@ -1,15 +1,13 @@
-import { forEach } from '@fxts/core';
 import { CATEGORIES, DISTANCES } from '@/lib/constants.ts';
-import type { HTMLType, RestaurantType } from '@/lib/types.ts';
+import type { HTMLType } from '@/lib/types.ts';
 import { html } from '@/lib/utils.ts';
+import { forEach } from '@fxts/core';
 import { Button, Input, Select } from './common/index.ts';
 import TextArea from './common/TextArea.ts';
 import { Component } from './core/index.ts';
 import { InputBox } from './index.ts';
 
-interface RestaurantAddModalProps {
-  addRestaurant: (restaurant: RestaurantType) => void;
-}
+interface RestaurantAddModalProps {}
 
 export default class RestaurantAddModal extends Component<RestaurantAddModalProps> {
   template(): HTMLType {

@@ -55,6 +55,7 @@ export default class Modal extends Component<ModalProps> {
 
   open() {
     document.body.style = 'overflow:hidden';
+    this.#portal.clear();
     this.#portal.append(this.element);
   }
 
