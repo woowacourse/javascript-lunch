@@ -1,6 +1,4 @@
 import { DELETE, EMPTY_LIST } from "../../constants/systemMessage.ts";
-import { filterFoodItemsByCategory } from "../../util/filterFoodItems.ts";
-import { sortFoodItem } from "../../util/sortFoodItem.ts";
 import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
 import { Button } from "../button/button/Button.js";
 import Modal from "../common/modal/Modal.js";
@@ -117,7 +115,7 @@ export default class FoodList {
 
   updateFavoriteItem(id: string) {
     this.foodListManager.toggleFavoriteFoodItem(id);
-    this.render();
+    this.render(this.foodListManager.processFoodItems());
   }
 
   updateDeleteItem(id: string) {
@@ -128,17 +126,20 @@ export default class FoodList {
   }
 
   updateFilterItem(category: string) {
-    const filteredItems = filterFoodItemsByCategory(category, this.foodListManager.getItems());
+    this.foodListManager.setFilterType(category);
+    const filteredItems = this.foodListManager.processFoodItems();
     this.render(filteredItems);
   }
 
   updateSortItem(sortType: string) {
-    const sortedItems = sortFoodItem(sortType, this.foodListManager.getItems());
+    this.foodListManager.setSortType(sortType);
+    const sortedItems = this.foodListManager.processFoodItems();
     this.render(sortedItems);
   }
 
   updateFavoriteList(tabMenu: string) {
-    const favoriteItems = this.foodListManager.filterFavoriteFoodItems(tabMenu);
+    this.foodListManager.setCurrentMenu(tabMenu);
+    const favoriteItems = this.foodListManager.processFoodItems();
     this.render(favoriteItems);
   }
 }

@@ -1,7 +1,13 @@
 import { removeStoredFoodItem, storeFoodItems } from "../../managers/storageManagers.ts";
+import { filterFoodItemsByCategory } from "../../util/filterFoodItems.ts";
+import { sortFoodItem } from "../../util/sortFoodItem.ts";
 
 export default class FoodListManager {
   #foodItems: FoodItemType[];
+
+  #selectedFilter: string = "";
+  #selectedSortType: string = "이름순";
+  #currentMenu: string = "all";
 
   constructor(initialFoodItems: FoodItemType[]) {
     this.#foodItems = initialFoodItems;
@@ -9,6 +15,24 @@ export default class FoodListManager {
 
   getItems() {
     return [...this.#foodItems];
+  }
+
+  setFilterType(category: string) {
+    this.#selectedFilter = category;
+  }
+
+  setSortType(sortType: string) {
+    this.#selectedSortType = sortType;
+  }
+
+  setCurrentMenu(currentMenu: string) {
+    this.#currentMenu = currentMenu;
+  }
+
+  processFoodItems() {
+    const filteredFavoriteFoodItems = this.filterFavoriteFoodItems(this.#currentMenu);
+    const filteredFoodItems = filterFoodItemsByCategory(this.#selectedFilter, filteredFavoriteFoodItems);
+    return sortFoodItem(this.#selectedSortType, filteredFoodItems);
   }
 
   addItem(foodItem: FoodItemType) {
@@ -33,8 +57,10 @@ export default class FoodListManager {
   }
 
   filterFavoriteFoodItems(tabMenu: string) {
+    let favoriteFoodItems;
     if (tabMenu === "favorite") {
-      return this.#foodItems.filter((foodItem) => foodItem.isFavorite);
+      favoriteFoodItems = this.#foodItems.filter((foodItem) => foodItem.isFavorite);
+      return favoriteFoodItems;
     }
     return [...this.#foodItems];
   }
