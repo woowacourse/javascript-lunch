@@ -1,11 +1,14 @@
 const localStorage = window.localStorage;
 
-export const setItemToLocalStorage = (key, value) => {
+export const setItemToLocalStorage = <T>(key: string, value: T) => {
   const data = JSON.stringify(value);
   localStorage.setItem(key, data);
 };
 
-export const getItemFromLocalStorage = (key) => {
+export const getItemFromLocalStorage = <T>(key: string): T | null => {
   const data = localStorage.getItem(key);
+  if (data === null) {
+    return null;
+  }
   return JSON.parse(data);
 };
