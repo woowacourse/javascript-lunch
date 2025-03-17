@@ -67,7 +67,7 @@ class RestaurantInfoModal extends Modal {
 
     const $img = $($restaurantItem, ".favorite-icon");
     if ($img) {
-      $img.src = isFavorite ? filledStar : emptyStar;
+      $img.setAttribute("src", isFavorite ? filledStar : emptyStar);
     }
   };
 

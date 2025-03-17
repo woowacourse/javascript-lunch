@@ -33,10 +33,10 @@ class App extends Component {
       );
     this.setState({ restaurants: newRestaurantList });
 
-    this.updateNewRestaurant(newRestaurantWithId);
+    this.addNewRestaurantToUI(newRestaurantWithId);
   }
 
-  updateNewRestaurant(newRestaurant) {
+  addNewRestaurantToUI(newRestaurant) {
     const $categoryFilter = $(document, "#category-filter");
     if (
       $categoryFilter.value !== "전체" &&
@@ -70,7 +70,7 @@ class App extends Component {
 
   handleTabChange(tab) {
     this.setState({ activeTab: tab });
-    this.renderContent();
+    this.renderTabByFilter();
   }
 
   template() {
@@ -84,11 +84,6 @@ class App extends Component {
   }
 
   componentDidUpdate() {}
-
-  renderFilterAndSort($restaurantFilterContainer) {
-    this.renderCategoryFilter($restaurantFilterContainer);
-    this.renderSortingFilter($restaurantFilterContainer);
-  }
 
   renderCategoryFilter($restaurantFilterContainer) {
     $restaurantFilterContainer.insertAdjacentHTML(
@@ -161,10 +156,12 @@ class App extends Component {
         );
 
         const $img = $($button, ".favorite-icon");
-        $img.setAttribute(
-          "src",
-          updatedRestaurant.isFavorite ? filledStar : emptyStar
-        );
+        if ($img) {
+          $img.setAttribute(
+            "src",
+            updatedRestaurant.isFavorite ? filledStar : emptyStar
+          );
+        }
         return;
       }
 
@@ -174,17 +171,21 @@ class App extends Component {
           restaurant.id
         );
         this.setState({ restaurants: updatedList });
+
         const updatedRestaurant = updatedList.find(
           ({ id }) => id === restaurant.id
         );
+
         const $img = $(
           $(document, "#restaurant-info-container"),
           ".favorite-icon"
         );
-        $img.setAttribute(
-          "src",
-          updatedRestaurant.isFavorite ? filledStar : emptyStar
-        );
+        if ($img) {
+          $img.setAttribute(
+            "src",
+            updatedRestaurant.isFavorite ? filledStar : emptyStar
+          );
+        }
       };
 
       const restaurantInfoModal = new RestaurantInfoModal(
@@ -199,7 +200,7 @@ class App extends Component {
     });
   }
 
-  renderContent() {
+  renderTabByFilter() {
     const restaurantSection = $(document, ".restaurant-list-container");
     restaurantSection.remove();
 
@@ -209,20 +210,29 @@ class App extends Component {
     );
     $restaurantFilterContainer.replaceChildren();
 
-    if (this.state.activeTab === "favorite") {
-      const restaurantsToRender = this.state.restaurants.filter(
-        ({ isFavorite }) => isFavorite
-      );
-
-      this.renderRestaurantList(
-        this.props.lunchDomain.filterAndSortRestaurants(restaurantsToRender)
-      );
+    if (this.state.activeTab === "all") {
+      this.renderAllTab($restaurantFilterContainer);
       return;
     }
 
-    this.renderFilterAndSort($restaurantFilterContainer);
+    this.renderFavoriteTab();
+  }
+
+  renderAllTab($restaurantFilterContainer) {
+    this.renderCategoryFilter($restaurantFilterContainer);
+    this.renderSortingFilter($restaurantFilterContainer);
     this.renderRestaurantList(
       this.props.lunchDomain.filterAndSortRestaurants(this.state.restaurants)
+    );
+  }
+
+  renderFavoriteTab() {
+    const restaurantsToRender = this.state.restaurants.filter(
+      ({ isFavorite }) => isFavorite
+    );
+
+    this.renderRestaurantList(
+      this.props.lunchDomain.filterAndSortRestaurants(restaurantsToRender)
     );
   }
 
@@ -253,7 +263,7 @@ class App extends Component {
       onTabChange: this.handleTabChange.bind(this),
     });
 
-    this.renderContent();
+    this.renderTabByFilter();
   }
 }
 
