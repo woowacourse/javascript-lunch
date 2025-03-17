@@ -36,6 +36,10 @@
   color: #000000;
 }
 
+.bg-background {
+  background-color: rgba(248, 250, 252);
+}
+
 .bg-primary-500 {
   background-color: var(--primary-500);
 }

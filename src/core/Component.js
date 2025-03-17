@@ -14,9 +14,9 @@ export default class Component {
   initState() {
     this.state = {};
   }
-
-  addChild(Component, ...args) {
-    const component = new Component(...args);
+  addChild(ComponentClass, props = {}) {
+    const component = new ComponentClass();
+    component.setProps(props);
     this.children.push(component);
     return component;
   }

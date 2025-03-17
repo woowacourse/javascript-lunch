@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import { styleStr } from "../../utils/styleStr.js";
+import { styleStr } from "../../utils/styleStr.ts";
 
 const primary = ["bg-primary-500", "white", "border-none"];
 const secondary = ["bg-white", "slate-400", "border", "border-slate-400"];
@@ -17,12 +17,13 @@ export default class Button extends Component {
 
   setEvent() {
     if (!this.props) return;
-
-    document.addEventListener("click", (e) => {
+    document.removeEventListener("click", this.handleButtonClick);
+    this.handleButtonClick = (e) => {
       if (e.target.closest(`#${this.props.id}`)) {
         this.props.onClick();
       }
-    });
+    };
+    document.addEventListener("click", this.handleButtonClick);
   }
 
   template() {

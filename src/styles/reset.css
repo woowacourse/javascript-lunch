@@ -85,9 +85,14 @@ hr {
   border: 0;
 }
 
+html,
+body {
+  height: 100vh;
+}
+
 @font-face {
-  font-family: "Pretendard";
-  src: url("./public/font/Pretendard-Regular.woff2") format("woff2");
+  font-family: "PretenDard";
+  src: url("/font/PretendardVariable.woff2") format("woff2");
 }
 
 * {

@@ -1,38 +1,30 @@
-import {
-  Icon,
-  Text,
-  Header,
-  Layout,
-  BottomSheet,
-} from "./components/common/index.js";
-import { LunchList, LunchItem, LunchForm } from "./components/feature/index.js";
+import { BOTTOM_SHEET_MODES } from "./components/common/BottomSheet.js";
+import { Header, Layout, Tab, BottomSheet } from "./components/common/index.js";
+import { storeData } from "./constants/store.data.ts";
+import { RestaurantFacade } from "./domain/RestaurantFacade.ts";
+
+const initializeLocalStorage = () => {
+  if (RestaurantFacade.getAll().length === 0) {
+    RestaurantFacade.importData(storeData);
+  }
+};
 
 addEventListener("load", () => {
-  const layout = new Layout();
-  const header = new Header();
+  initializeLocalStorage();
 
-  const lunchList = new LunchList();
+  const layout = new Layout();
   const bottomSheet = new BottomSheet();
 
-  bottomSheet.setProps({
-    onAdd: (data) => {
-      const newLunchItem = new LunchItem();
-      newLunchItem.setProps(data);
-      lunchList.addLunchItem(newLunchItem);
-    },
-  });
-
-  const lunchForm = new LunchForm();
-  bottomSheet.addChild(LunchForm);
-
-  header.setProps({
+  const header = layout.addChild(Header, {
     title: "점심 뭐먹지",
     iconName: "add-button",
-    onIconClick: () => bottomSheet.open(),
+    onIconClick: () => bottomSheet.open(BOTTOM_SHEET_MODES.FORM),
   });
 
-  layout.setProps({
-    children: [header, lunchList],
+  const tab = layout.addChild(Tab, {
+    tabs: ["모든 음식점", "자주 가는 음식점"],
+    activeIndex: 0,
+    onItemClick: (item) => bottomSheet.open(BOTTOM_SHEET_MODES.DETAIL, item),
   });
 
   layout.render();

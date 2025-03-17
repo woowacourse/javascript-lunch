@@ -1,5 +1,5 @@
 import Component from "../../core/Component.js";
-import { styleStr } from "../../utils/styleStr.js";
+import { styleStr } from "../../utils/styleStr.ts";
 
 export default class TextArea extends Component {
   setDefaultProps() {
@@ -18,13 +18,13 @@ export default class TextArea extends Component {
   setEvent() {
     if (!this.props) return;
 
-    document.removeEventListener("input", this.handleInput);
-    this.handleInput = (e) => {
+    document.removeEventListener("input", this.handleTextAreaInput);
+    this.handleTextAreaInput = (e) => {
       if (e.target.id === this.props.id) {
         this.props.onInput(e.target.value);
       }
     };
-    document.addEventListener("input", this.handleInput);
+    document.addEventListener("input", this.handleTextAreaInput);
   }
 
   template() {

@@ -30,6 +30,10 @@
   max-width: 390px;
 }
 
+.w-125 {
+  width: 125px;
+}
+
 .w-64 {
   width: 64px;
 }
@@ -38,8 +42,8 @@
   width: 40px;
 }
 
-.max-h-800 {
-  max-height: 800px;
+.max-h-620 {
+  max-height: 620px;
 }
 
 .max-h-140 {

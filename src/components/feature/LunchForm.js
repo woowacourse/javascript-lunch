@@ -4,47 +4,41 @@ import Select from "../common/Select.js";
 import TextArea from "../common/TextArea.js";
 import Button from "../common/Button.js";
 import BottomSheet from "../common/BottomSheet.js";
-import Validator from "../../utils/Validator.js";
+import { categories, distances } from "../../types/restaurant.types.ts";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.ts";
+import Restaurant from "../../domain/Restaurant.ts";
 
 export default class LunchForm extends Component {
-  setDefaultProps() {
-    this.props = {
-      onAdd: () => {},
-    };
-  }
-
   initState() {
     this.state = {
       category: "",
       storeName: "",
-      location: "",
+      distance: "",
       description: "",
-      reference: "",
+      link: "",
     };
   }
 
   renderLunchText() {
-    const lunchText = this.addChild(Text);
-    lunchText.setProps({
+    const lunchText = this.addChild(Text, {
       content: "새로운 음식점",
       classList: ["w-full", "text-2xl"],
       id: "lunch-form-title",
     });
+
     return lunchText.template();
   }
 
   renderCategory() {
-    const categoryLabel = this.addChild(Text);
-    categoryLabel.setProps({
+    const categoryLabel = this.addChild(Text, {
       content: "카테고리",
       required: true,
       classList: ["text-lg", "slate-500"],
       id: "category-label",
     });
 
-    const categorySelect = this.addChild(Select);
-    categorySelect.setProps({
-      options: ["한식", "중식", "일식", "아시안", "양식", "기타"],
+    const categorySelect = this.addChild(Select, {
+      options: categories,
       onChange: (value) => this.setState({ category: value }),
       id: "category-select",
     });
@@ -58,16 +52,14 @@ export default class LunchForm extends Component {
   }
 
   renderStoreName() {
-    const storeNameLabel = this.addChild(Text);
-    storeNameLabel.setProps({
+    const storeNameLabel = this.addChild(Text, {
       content: "이름",
       required: true,
       classList: ["text-lg", "slate-500"],
       id: "store-name-label",
     });
 
-    const storeName = this.addChild(TextArea);
-    storeName.setProps({
+    const storeName = this.addChild(TextArea, {
       rows: 1,
       maxLength: 14,
       placeHolder: "피양콩할마니",
@@ -85,41 +77,37 @@ export default class LunchForm extends Component {
     `;
   }
 
-  renderLocation() {
-    const locationLabel = this.addChild(Text);
-    locationLabel.setProps({
+  renderDistance() {
+    const distanceLabel = this.addChild(Text, {
       content: "거리(도보 이동 시간)",
       required: true,
       classList: ["text-lg", "slate-500"],
-      id: "location-label",
+      id: "distance-label",
     });
 
-    const location = this.addChild(Select);
-    location.setProps({
-      options: ["5분", "10분", "15분", "20분", "30분"],
-      onChange: (value) => this.setState({ location: value }),
-      id: "location-select",
+    const distance = this.addChild(Select, {
+      options: distances.map((distance) => `${distance}분`),
+      onChange: (value) => this.setState({ distance: value }),
+      id: "distance-select",
     });
 
     return `
         <div class="w-full h-64 flex flex-col">
-          ${locationLabel.template()}
-          ${location.template()}
+          ${distanceLabel.template()}
+          ${distance.template()}
         </div>
     `;
   }
 
   renderDescription() {
-    const descriptionLabel = this.addChild(Text);
-    descriptionLabel.setProps({
+    const descriptionLabel = this.addChild(Text, {
       content: "설명",
       required: false,
       classList: ["text-lg", "slate-500"],
       id: "description-label",
     });
 
-    const description = this.addChild(TextArea);
-    description.setProps({
+    const description = this.addChild(TextArea, {
       rows: 3,
       maxLength: 255,
       isRequired: false,
@@ -137,36 +125,33 @@ export default class LunchForm extends Component {
     `;
   }
 
-  renderReference() {
-    const referenceLabel = this.addChild(Text);
-    referenceLabel.setProps({
+  renderLink() {
+    const linkLabel = this.addChild(Text, {
       content: "참고 링크",
       classList: ["text-lg", "slate-500"],
-      id: "reference-label",
+      id: "link-label",
     });
 
-    const reference = this.addChild(TextArea);
-    reference.setProps({
+    const link = this.addChild(TextArea, {
       rows: 1,
       maxLength: 100,
       isRequired: false,
       placeHolder: "https://techcourse.woowahan.com/",
-      onInput: (value) => this.setState({ reference: value }),
+      onInput: (value) => this.setState({ link: value }),
       classList: ["h-44", "rounded-lg", "resize-none"],
-      id: "reference-textarea",
+      id: "link-textarea",
     });
 
     return `
       <div class="w-full flex flex-col">
-        ${referenceLabel.template()}
-        ${reference.template()}
+        ${linkLabel.template()}
+        ${link.template()}
       </div>
     `;
   }
 
   renderButton() {
-    const cancelBtn = this.addChild(Button);
-    cancelBtn.setProps({
+    const cancelBtn = this.addChild(Button, {
       text: "취소하기",
       variant: "secondary",
       classList: ["w-full"],
@@ -174,12 +159,11 @@ export default class LunchForm extends Component {
       id: "cancel-btn",
     });
 
-    const submitBtn = this.addChild(Button);
-    submitBtn.setProps({
+    const submitBtn = this.addChild(Button, {
       text: "추가하기",
       variant: "primary",
       classList: ["w-full"],
-      onClick: (e) => this.handleSubmit(e),
+      onClick: (e) => this.handleSubmit.bind(this),
       id: "submit-btn",
     });
 
@@ -193,10 +177,16 @@ export default class LunchForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { onAdd } = this.props;
 
-    this.validateLunchForm();
-    this.props.onAdd({ ...this.state });
+    RestaurantFacade.create({
+      storeName: this.state.storeName,
+      distance: this.state.distance.replace("분", ""),
+      category: this.state.category,
+      description: this.state.description,
+      link: this.state.link,
+      isFavorite: false,
+    });
+
     this.handleReset();
   }
 
@@ -204,27 +194,21 @@ export default class LunchForm extends Component {
     this.setState({
       category: "",
       storeName: "",
-      location: "",
+      distance: "",
       description: "",
-      reference: "",
+      link: "",
     });
-  }
-
-  validateLunchForm() {
-    Validator.category(this.state.category);
-    Validator.location(this.state.location);
-    Validator.reference(this.state.reference);
   }
 
   template() {
     return `
-    <form id="lunch-form" class="flex flex-col justify-start items-start gap-32 mt-32" >
+    <form id="lunch-form" class="flex flex-col justify-start items-start gap-32 mt-32 mb-32" >
       ${this.renderLunchText()}
       ${this.renderCategory()}
       ${this.renderStoreName()}
-      ${this.renderLocation()}
+      ${this.renderDistance()}
       ${this.renderDescription()}    
-      ${this.renderReference()}
+      ${this.renderLink()}
       ${this.renderButton()}
     </form>
     `;

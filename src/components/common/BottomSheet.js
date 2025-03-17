@@ -1,5 +1,11 @@
 import Component from "../../core/Component.js";
+import LunchItemDetail from "../feature/LunchItemDetail.js";
 import LunchForm from "../feature/LunchForm.js";
+
+export const BOTTOM_SHEET_MODES = {
+  FORM: "FORM",
+  DETAIL: "DETAIL",
+};
 
 export default class BottomSheet extends Component {
   setDefaultProps() {
@@ -12,21 +18,26 @@ export default class BottomSheet extends Component {
   initState() {
     this.state = {
       isOpen: this.props?.isOpen || false,
+      mode: BOTTOM_SHEET_MODES.FORM,
+      selectedItem: null,
     };
   }
 
-  open() {
-    const bottomSheetContainer = document.getElementById("bottom-sheet");
-    bottomSheetContainer.innerHTML = this.template(true);
+  open(mode, selectedItem = null) {
+    this.setState({
+      isOpen: true,
+      mode,
+      selectedItem,
+    });
 
-    this.addBottomSheetEvents();
-
-    const lunchForm = this.findLunchForm();
-    if (lunchForm) {
-      lunchForm.setProps({
-        onAdd: this.props.onAdd,
-      });
-    }
+    this.children = [
+      this.addChild(
+        mode === BOTTOM_SHEET_MODES.FORM ? LunchForm : LunchItemDetail,
+        selectedItem
+      ),
+    ];
+    this.render();
+    this.setEvent();
   }
 
   close() {
@@ -36,41 +47,76 @@ export default class BottomSheet extends Component {
     }
   }
 
-  findLunchForm() {
-    return this.children.find((child) => child instanceof LunchForm);
+  findChildByType(type) {
+    return this.children.find((child) => child instanceof type);
   }
 
-  addBottomSheetEvents() {
+  handleOverlayClickEvent() {
     const overlay = document.querySelector("#bottom-sheet-overlay");
     const bottomSheetContent = document.getElementById("bottom-sheet-content");
-    overlay?.addEventListener(
-      "click",
-      (e) => !bottomSheetContent.contains(e.target) && this.close()
-    );
 
+    overlay?.addEventListener("click", (e) => {
+      if (!bottomSheetContent.contains(e.target)) {
+        this.close();
+      }
+    });
+  }
+
+  handleCancelButtonClickEvent() {
     const cancelButton = document.getElementById("cancel-btn");
     cancelButton?.addEventListener("click", () => {
       this.close();
     });
+  }
 
+  handleFormSubmitEvent() {
     const lunchForm = document.getElementById("lunch-form");
-    lunchForm?.addEventListener("submit", this.handleFormSubmit.bind(this));
+    lunchForm?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.handleFormSubmit(e);
+    });
+  }
+
+  handleDeleteButtonClickEvent() {
+    const lunchItemDetail = document.getElementById("delete-btn");
+    lunchItemDetail?.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.handleDeleteItem(e);
+    });
+  }
+
+  handleDeleteItem(e) {
+    const lunchItemDetail = this.findChildByType(LunchItemDetail);
+    lunchItemDetail.handleDeleteItem(e);
+    this.close();
+    document.dispatchEvent(new CustomEvent("itemChange"));
   }
 
   handleFormSubmit(e) {
-    const lunchForm = this.findLunchForm();
-    if (lunchForm) {
-      try {
-        lunchForm.handleSubmit(e);
-        this.close();
-      } catch (e) {
-        alert(e.message);
-      }
+    const lunchForm = this.findChildByType(LunchForm);
+
+    try {
+      lunchForm.handleSubmit(e);
+      this.props.onAdd();
+      this.close();
+    } catch (e) {
+      alert(e.message);
     }
+
+    document.dispatchEvent(new CustomEvent("itemChange"));
+  }
+
+  setEvent() {
+    this.handleOverlayClickEvent();
+    this.handleCancelButtonClickEvent();
+    this.handleFormSubmitEvent();
+    this.handleDeleteButtonClickEvent();
   }
 
   template(isOpen = this.props.isOpen) {
     if (!isOpen) return "";
+
+    const height = this.state.mode === "DETAIL" ? "auto" : "80%";
 
     return `
       <div id="bottom-sheet-open">
@@ -81,7 +127,7 @@ export default class BottomSheet extends Component {
         />
         <div
           class="w-full fixed flex justify-center bottom-0 left-0"
-          style="height: 80%; z-index: 50;"
+          style="height: ${height}%; z-index: 50;"
         >
           <div 
             id="bottom-sheet-content"

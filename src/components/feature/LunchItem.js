@@ -1,9 +1,10 @@
 import Component from "../../core/Component.js";
+import { RestaurantFacade } from "../../domain/RestaurantFacade.ts";
 import CircleIcon from "../common/CircleIcon.js";
 import Icon from "../common/Icon.js";
 import Text from "../common/Text.js";
 
-const CATEGORY_IMAGE = {
+export const CATEGORY_IMAGE = {
   한식: "category-korean",
   중식: "category-chinese",
   일식: "category-japanese",
@@ -15,17 +16,18 @@ const CATEGORY_IMAGE = {
 export default class LunchItem extends Component {
   setDefaultProps() {
     this.props = {
+      id: 0,
       storeName: "",
-      location: "",
+      distance: "",
       category: "",
       description: "",
-      reference: "",
+      isFavorite: false,
+      onClick: () => {},
     };
   }
 
   renderStoreName() {
     const storeName = this.addChild(Text);
-
     storeName.setProps({
       content: this.props.storeName,
       classList: ["text-xl"],
@@ -35,15 +37,15 @@ export default class LunchItem extends Component {
     return storeName.template();
   }
 
-  renderLocation() {
-    const location = this.addChild(Text);
-    location.setProps({
-      content: this.props.location,
+  renderDistance() {
+    const distance = this.addChild(Text);
+    distance.setProps({
+      content: `캠퍼스 내 ${this.props.distance}분`,
       classList: ["text-lg", "primary-500"],
-      id: "location-item",
+      id: "distance-item",
     });
 
-    return location.template();
+    return distance.template();
   }
 
   renderDescription() {
@@ -73,18 +75,91 @@ export default class LunchItem extends Component {
     return icon.template();
   }
 
+  renderFavoriteIcon() {
+    const favoriteIcon = this.addChild(Icon);
+    favoriteIcon.setProps({
+      size: "32",
+      iconName: this.props.isFavorite
+        ? "favorite-icon-filled"
+        : "favorite-icon-lined",
+      id: "favorite-icon-item",
+    });
+
+    return favoriteIcon.template();
+  }
+
+  dispatchFavoriteToggleEvent() {
+    RestaurantFacade.toggleFavorite(this.props.id);
+    document.dispatchEvent(new CustomEvent("itemChange"));
+  }
+
+  handleFavoriteButtonClick(e) {
+    const favoriteButton = e.target.closest("#favorite-button");
+    if (favoriteButton && Number(favoriteButton.dataset.id) === this.props.id) {
+      e.stopPropagation();
+      this.dispatchFavoriteToggleEvent();
+      favoriteButton.innerHTML = this.renderFavoriteIcon();
+      return true;
+    }
+    return false;
+  }
+
+  handleLunchItemClick(e) {
+    const lunchItem = e.target.closest(`#lunch-item-${this.props.id}`);
+    if (lunchItem) {
+      this.props.onClick();
+      return true;
+    }
+    return false;
+  }
+
+  setEvent() {
+    document.removeEventListener("click", this.handleClickLunchItem);
+
+    this.handleClickLunchItem = (e) => {
+      if (this.handleFavoriteButtonClick(e)) return;
+      if (this.handleLunchItemClick(e)) return;
+    };
+
+    document.addEventListener("click", this.handleClickLunchItem);
+  }
+
+  createHeaderSection() {
+    return `
+      <div class="flex flex-row justify-between items-start w-full">
+        <div class="flex flex-col items-start">
+          ${this.renderStoreName()}
+          ${this.renderDistance()}
+        </div>
+        <div class="flex flex-row items-center">
+          <button id="favorite-button" data-id="${
+            this.props.id
+          }" style="background: none; border: none;">
+            ${this.renderFavoriteIcon()}
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
   template() {
     return `
-      <div id="lunch-item" class="flex flex-row w-full items-start gap-16 py-16 px-8 border-b" style="height: auto;">
+      <div id="lunch-item-${this.props.id}" data-id="${this.props.id}" 
+           class="flex flex-row items-start gap-16 py-16 px-8 border-b-slate" 
+           style="height: auto;">
         <div>
           ${this.renderCircleIcon()}
         </div>
-        <div class="flex flex-col overflow-hidden" style="width: 262px;">
-          ${this.renderStoreName()}
-          ${this.renderLocation()}
+        <div class="flex flex-col overflow-hidden" style="width: 280px;">
+          ${this.createHeaderSection()}
           ${this.renderDescription()}
         </div>
       </div>
     `;
+  }
+
+  render(props, targetElement = `#lunch-item-${this.props.id}`) {
+    if (props) this.setProps(props);
+    super.render(props, targetElement);
   }
 }
