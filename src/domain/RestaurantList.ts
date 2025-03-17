@@ -108,7 +108,7 @@ export class RestaurantList {
     if (this.sortedFlag === SORTED.distance) {
       dataList.sort((a, b) => a.distance - b.distance);
     } else {
-      dataList.sort((a, b) => (a.name > b.name ? 1 : -1));
+      dataList.sort((a, b) => a.name.localeCompare(b.name, "ko"));
     }
 
     return dataList;
