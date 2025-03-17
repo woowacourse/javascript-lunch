@@ -8,6 +8,8 @@ import Select from "./component/Select.js";
 import { CATEGORY_DROPDOWN } from "./constants/constants.js";
 import RestaurantList from "./domain/RestaurantList.js";
 
+const restaurantList = new RestaurantList();
+
 $("body").prepend(
   Header(
     IconButton({
@@ -17,8 +19,6 @@ $("body").prepend(
     })
   )
 );
-
-const restaurantList = new RestaurantList();
 
 $("section").append(
   Select(

@@ -319,3 +319,41 @@ input[name="link"] {
   justify-self: space-between;
   align-items: center;
 }
+
+/* 탭 바 *****************************************/
+.tab--button-container {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10px 0 0 0;
+}
+
+.tab--button.focus {
+  width: 47%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-bottom: var(--primary-color) solid 2px;
+
+  color: var(--primary-color);
+}
+
+.tab--button:not(.focus) {
+  width: 47%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-bottom: var(--grey-200) solid 2px;
+
+  color: var(--grey-300);
+}

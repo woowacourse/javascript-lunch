@@ -21,7 +21,7 @@ describe("LunchInfoCard 테스트", () => {
       .children(".restaurant")
       .eq(0)
       .find(".restaurant__name")
-      .should("have.text", MOCK_ITEM.restaurantList[5].name);
+      .should("have.text", "도스타코스 선릉점");
   });
 
   it("LunchInfoCard에는 캠퍼스에서 음식점까지의 거리가 들어있다.", () => {

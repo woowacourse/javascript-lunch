@@ -1,14 +1,18 @@
 import { Category, Restaurant } from "../../types/RestaurantType.ts";
-import Modal from "../component/Modal.js";
-import MOCK_ITEM from "../mockItem.js";
-import { $ } from "../utils/querySelectors.js";
-import LunchInfoCard from "../component/LunchInfoCard.js";
 import FavoriteButton from "../component/FavoriteButton.js";
+import LunchInfoCard from "../component/LunchInfoCard.js";
+import Modal from "../component/Modal.js";
 import RestaurantDetail from "../component/RestaurantDetail.js";
+import TabButton from "../component/TabButton.js";
+import MOCK_ITEM from "../mockItem.js";
+import append from "../utils/append.js";
+import { $ } from "../utils/querySelectors.js";
+import toElement from "../utils/toElement.js";
 
 class RestaurantList {
   #items;
-  #filteringItems;
+  #totalTab;
+  #category;
 
   constructor() {
     if (!localStorage.getItem("restaurantList")) {
@@ -17,20 +21,28 @@ class RestaurantList {
         JSON.stringify(MOCK_ITEM.restaurantList)
       );
     }
+    this.#totalTab = true;
+    this.#category = "선택해 주세요";
     this.#items = JSON.parse(localStorage.getItem("restaurantList") || "[]");
-    this.#filteringItems = this.#items;
+
     this.sortByName();
+    this.renderTab();
   }
 
   setLocalStorage() {
     localStorage.setItem("restaurantList", JSON.stringify(this.#items));
   }
 
-  render(items: Restaurant[]) {
+  render() {
     const el = $(".restaurant-list");
-    el.innerHTML = items.map(LunchInfoCard).join("");
 
-    items.forEach((item) => {
+    let data = this.#totalTab
+      ? this.getTotalTabData()
+      : this.getFavoriteTabData();
+
+    el.innerHTML = data.map(LunchInfoCard).join("");
+
+    data.forEach((item) => {
       const $li = document.getElementById(`restaurant_${item.name}`);
 
       new FavoriteButton($li, item.name, item.favorite, this);
@@ -50,37 +62,80 @@ class RestaurantList {
     });
   }
 
+  resetFilter() {
+    this.#items = JSON.parse(localStorage.getItem("restaurantList"));
+    this.#category = "선택해 주세요";
+    this.render();
+  }
+
+  getFavoriteTabData() {
+    const filteredData = this.filter();
+    return filteredData.filter(
+      (restaurant: Restaurant) => restaurant.favorite === true
+    );
+  }
+
+  getTotalTabData() {
+    const filteredData = this.filter();
+
+    return filteredData;
+  }
+
+  renderTab() {
+    const $el = toElement(`
+      <div class="tab--button-container"/>`);
+    append($el, TabButton("totalTab"), TabButton("favoriteTab"));
+    $("body").prepend($el);
+
+    const $leftButton = document.getElementById("button_모든 음식점");
+    const $rightButton = document.getElementById("button_자주 가는 음식점");
+
+    $leftButton?.classList.add("focus");
+
+    $rightButton?.addEventListener("click", () => {
+      $leftButton?.classList.remove("focus");
+      $rightButton?.classList.add("focus");
+      this.#totalTab = false;
+      this.render();
+    });
+    $leftButton?.addEventListener("click", () => {
+      $leftButton?.classList.add("focus");
+      $rightButton?.classList.remove("focus");
+      this.#totalTab = true;
+      this.render();
+    });
+  }
+
   add(newRestaurant: Restaurant) {
     this.#items.push(newRestaurant);
     localStorage.setItem("restaurantList", JSON.stringify(this.#items));
-    this.resetFilter();
+    this.render();
   }
 
   filterByCategory(category: Category) {
-    this.#filteringItems = this.#items.filter(
-      ({ category: c }: Restaurant) => c === category
-    );
-    this.render(this.#filteringItems);
-  }
+    this.#category = category;
 
-  resetFilter() {
-    this.#filteringItems = this.#items;
-    this.render(this.#items);
+    this.render();
   }
 
   sortByName() {
-    this.render(
-      this.#filteringItems.sort((a: Restaurant, b: Restaurant) =>
-        a.name.localeCompare(b.name)
-      )
+    this.#items = this.#items.sort((a: Restaurant, b: Restaurant) =>
+      a.name.localeCompare(b.name)
     );
+    this.render();
   }
 
   sortByDistance() {
-    this.render(
-      this.#filteringItems.sort(
-        (a: Restaurant, b: Restaurant) => a.distance - b.distance
-      )
+    this.#items.sort((a: Restaurant, b: Restaurant) => a.distance - b.distance);
+    this.render();
+  }
+
+  filter() {
+    if (this.#category === "선택해 주세요") {
+      return this.#items;
+    }
+    return this.#items.filter(
+      ({ category: c }: Restaurant) => c === this.#category
     );
   }
 
@@ -90,7 +145,7 @@ class RestaurantList {
       (restaurnat: Restaurant) => restaurnat.name !== targetName
     );
     this.setLocalStorage();
-    this.render(this.#items);
+    this.render();
   }
 
   changeFavoriteState(targetName: string) {
@@ -100,7 +155,7 @@ class RestaurantList {
         : restaurant
     );
     this.setLocalStorage();
-    this.render(this.#items);
+    this.render();
   }
 }
 

@@ -8,7 +8,7 @@ describe("restaurantDetailModal 테스트", () => {
             {
               category: "한식",
               name: "공원",
-              distance: 2000,
+              distance: 30,
               description: "😠",
               link: "https://www.naver.com/",
               favorite: true,
@@ -41,7 +41,7 @@ describe("restaurantDetailModal 테스트", () => {
     cy.get(".restaurant__detail .restaurant__name").should("have.text", "공원");
     cy.get(".restaurant__detail .restaurant__distance").should(
       "have.text",
-      "캠퍼스부터 2000분 내"
+      "캠퍼스부터 30분 내"
     );
     cy.get(".restaurant__detail .restaurant__detail__description").should(
       "have.text",
