@@ -9,8 +9,8 @@ interface RestaurantProps {
   name: string;
   distance: Distance;
   category: Category;
-  description: string;
-  link: string;
+  description?: string;
+  link?: string;
   isLike: boolean;
 }
 
@@ -22,7 +22,7 @@ class Restaurant {
   #link: string;
   #isLike: boolean;
 
-  constructor({ name, distance, description, category, link, isLike }: RestaurantProps) {
+  constructor({ name, distance, description = '', category, link = '', isLike }: RestaurantProps) {
     validateName(name);
     validateDescription(description);
     validateLink(link);
