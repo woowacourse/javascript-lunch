@@ -1,4 +1,3 @@
-import renderRestaurants from "../../ui/renderRestaurant";
 import restaurantList from "../../domain/RestaurantList";
 import Restaurant from "../../domain/Restaurant";
 import { clearError } from "../../utils/clearError";
@@ -8,10 +7,8 @@ import { getInfo } from "./getInfo";
 import Button from "../common/Button";
 import ErrorMessage from "../common/ErrorMessage";
 import createElement from "../../utils/createElement/createElement";
-import createRestaurantCards from "../../service/createRestaurantCards";
 import storage from "../../domain/storage.ts";
-import changeModalContents from "../../changeModalContents";
-import renderFilteredRestaurants from "../../renderFilteredRestaurant";
+import renderFilteredRestaurants from "../../ui/renderFilteredRestaurant.js";
 
 const RegisterButtonContainer = (restaurantList) => {
   const cancelButton = Button({
@@ -58,7 +55,7 @@ const registerRestaurant = (e, restaurantList) => {
     const restaurant = new Restaurant(info);
 
     restaurantList.add(restaurant);
-    storage.saveRestaurantList(restaurantList.list);
+    storage.saveRestaurantList(restaurantList.value);
 
     $("#register-modal-backdrop").classList.remove("open");
     renderFilteredRestaurants(restaurantList);

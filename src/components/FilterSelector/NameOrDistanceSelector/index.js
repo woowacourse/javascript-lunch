@@ -1,5 +1,5 @@
 import storage from "../../../domain/storage.ts";
-import renderFilteredRestaurants from "../../../renderFilteredRestaurant";
+import renderFilteredRestaurants from "../../../ui/renderFilteredRestaurant.js";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
 import Select from "../../common/Select";
 

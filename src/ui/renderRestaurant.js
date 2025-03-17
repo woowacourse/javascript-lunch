@@ -7,7 +7,8 @@ const renderRestaurants = (restaurantCardList) => {
   restaurantCardList.forEach((restaurantCard) => {
     ulTag.appendChild(restaurantCard);
   });
-  
+
+  return ulTag;
 };
 
 export default renderRestaurants;

@@ -1,7 +1,6 @@
 import CategorySelector from "../components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "../components/FilterSelector/NameOrDistanceSelector";
-import renderAllRestaurant from "../renderAllRestaurant";
-import renderFilteredRestaurants from "../renderFilteredRestaurant";
+import renderFilteredRestaurants from "./renderFilteredRestaurant";
 import { $ } from "../utils/dom";
 
 const renderAllpage = (restaurantList) => {
@@ -12,7 +11,7 @@ const renderAllpage = (restaurantList) => {
   filterContainer.appendChild(CategorySelector(restaurantList));
   filterContainer.appendChild(NameOrDistanceSelector(restaurantList));
 
-  renderFilteredRestaurants(restaurantList);
+  return renderFilteredRestaurants(restaurantList);
 };
 
 export default renderAllpage;

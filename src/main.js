@@ -25,6 +25,7 @@ addEventListener("load", () => {
   restaurantList.setNameOrDistance(nameOrDistance);
 
   const app = $("#app");
+  
   app.prepend(header());
 
   $("nav").appendChild(Tab(restaurantList));

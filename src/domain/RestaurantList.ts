@@ -66,7 +66,7 @@ class RestaurantList {
     this.#nameOrDistance = sortBy;
   }
 
-  get list(): Restaurant[] {
+  get value(): Restaurant[] {
     return [...this.#restaurantList];
   }
 }

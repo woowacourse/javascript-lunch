@@ -7,14 +7,17 @@ const renderFavoritePage = (restaurantList) => {
   $(".restaurant-filter-container").innerHTML = "";
   $(".restaurant-list").innerHTML = "";
 
-  renderRestaurants(
-    createRestaurantCards(restaurantList.getFavoriteList(), {
+  const favoriteCardList = createRestaurantCards(
+    restaurantList.getFavoriteList(),
+    {
       clickFavorite: () => {
-        storage.saveRestaurantList(restaurantList.list);
+        storage.saveRestaurantList(restaurantList.value);
         renderFavoritePage(restaurantList);
       },
-    })
+    }
   );
+
+  return renderRestaurants(favoriteCardList);
 };
 
 export default renderFavoritePage;

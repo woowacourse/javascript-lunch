@@ -1,5 +1,4 @@
 import storage from "../../domain/storage.ts";
-import renderFilteredRestaurants from "../../renderFilteredRestaurant.js";
 import renderAllpage from "../../ui/renderAllpage.js";
 import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";
