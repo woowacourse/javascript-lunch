@@ -3,6 +3,7 @@ import $restaurantItem from "../restaurant/restaurant-item.ts";
 import { currentRestaurantData } from "../../data/restaurant.ts";
 import { CATEGORY_ICON } from "../../constants/iconPath.ts";
 import { saveRestaurantsToLocalStorage } from "../../data/restaurant.ts";
+import { Restaurant } from "../../data/restaurant.ts";
 
 export type RestaurantProps = {
   category: string;
@@ -25,7 +26,7 @@ export const addRestaurant = (data: RestaurantProps): void => {
       : 0;
   const newId = lastId + 1;
   const categoryIcon = CATEGORY_ICON[data.category];
-  const newRestaurant = {
+  const newRestaurant: Restaurant = {
     dataId: newId,
     categoryIcon,
     categoryTitle: data.category,
