@@ -1,4 +1,5 @@
 import Component from '../core/Component.js';
+import Button from './Button.js';
 import DetailModal from './DetailModal.js';
 import Modal from './Modal.js';
 
@@ -30,12 +31,31 @@ class Restaurant extends Component {
 
   onRender() {
     const $restaurant = this.element.querySelector('.restaurant');
+    const deleteButton = new Button({
+      type: 'submit',
+      class: 'button--secondary',
+      id: 'modal-add',
+      message: '삭제하기',
+    });
+
+    const cancelButton = new Button({
+      type: 'button',
+      class: 'button--primary',
+      id: 'modal-cancel',
+      message: '닫기',
+    });
+
     const detailModal = new DetailModal({
       content: `
       ${this.template()}
       <a href="${this.props.link}" target="_blank">${this.props.link}</a>
+       <div class="button-container">
+          ${deleteButton.template()}
+          ${cancelButton.template()}
+      </div>
       `,
     });
+
     this.element.appendChild(detailModal.element);
 
     this.element.addEventListener('click', () => {

@@ -8,14 +8,20 @@ class DetailModal extends Component {
     });
     this.element.appendChild(detailModal.element);
 
-    console.log('detailModal element', this.element);
     const $modalBackdrop = this.element.querySelector('.modal-backdrop');
+    const $modalCancelButton = this.element.querySelector('#modal-cancel');
     const $modal = this.element.querySelector('.modal');
 
-    $modalBackdrop.addEventListener('click', () => {
+    $modalBackdrop.addEventListener('click', function () {
       // TODO: 배경 클릭시에는 모달이 안꺼짐. 콘솔은 잘 출력되는데 왤까.. hidden 클래스 적용이 안됨..
-      console.log('$modalBackdrop', $modalBackdrop);
-      console.log('$modal', $modal);
+      console.log('바깥 배경 누를때 가리키는 모달', $modal);
+      $modal.classList.add('hidden');
+    });
+
+    // TODO: 닫기버튼도 hidden 클래스 적용이 안됨..
+    $modalCancelButton.addEventListener('click', function () {
+      console.log('닫기버튼 누를때 가리키는 모달', $modal);
+
       $modal.classList.add('hidden');
     });
 

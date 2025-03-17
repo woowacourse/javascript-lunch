@@ -20,6 +20,8 @@ class Application extends Component {
       ${new Header({ title: '오늘 뭐 먹지' }).template()}
       <section class="restaurant-filter-container"></section>
       <section class="restaurant-list-container"></section>
+     
+
     `;
   }
 
