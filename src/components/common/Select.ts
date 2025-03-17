@@ -1,11 +1,13 @@
-import { Component } from '../core/index.ts';
-import { html } from '@/lib/utils.ts';
 import { eventHandlerInstance } from '@/lib/modules/index.ts';
+import { html } from '@/lib/utils.ts';
+import { forEach } from '@fxts/core';
+import { Component } from '../core/index.ts';
+import Option from './Option.ts';
 
-type Option<T> = { value: T; label: string };
+type OptionType<T> = { value: T; label: string };
 
 interface SelectProps<T extends string> {
-  options: readonly Option<T>[];
+  options: readonly OptionType<T>[];
   selected: T;
   setValue?: (value: T) => void; // setValue가 없다면 Uncontrolled, 있다면 Controlled
   dataAction: string;
@@ -28,6 +30,18 @@ export default class Select<T extends string> extends Component<SelectProps<T>> 
           .join('')}
       </select>
     `;
+  }
+
+  onRender() {
+    forEach((option) => {
+      this.appendChild(
+        new Option({
+          label: option.label,
+          value: option.value,
+          selected: this.props.selected === option.value,
+        }).element,
+      );
+    }, this.props.options);
   }
 
   override addEventListener() {
