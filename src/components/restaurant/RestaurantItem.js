@@ -1,10 +1,6 @@
 import Restaurant from "./Restaurant";
-
 import restaurantDataList from "../../domain/RestaurantDataList";
-import selectedFilterValue from "../../domain/SelectedFilterValue";
-
 import createElement from "../../util/createElement";
-import reRenderRestaurantListContainer from "../../util/reRenderRestaurantListContainer";
 
 export default function RestaurantItem({
   id,
@@ -81,12 +77,12 @@ export default function RestaurantItem({
 
   $restaurantStar.addEventListener("click", (event) => {
     event.stopPropagation();
-    toggleStar(event.target);
+    toggleStar();
   })
 
 
 
-  function toggleStar(element) {
+  function toggleStar() {
     const isWish = restaurantDataList.updateIsWish(id);
     if(!isWish && isColumn) {
       $restaurantStar.classList.toggle('active');

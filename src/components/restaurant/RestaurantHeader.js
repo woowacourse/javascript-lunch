@@ -18,7 +18,7 @@ export default function RestaurantHeader(text) {
     alt: "음식점 추가",
   });
 
-  $title.textContent = "점심 뭐 먹지?";
+  $title.textContent = text;
 
   $header.appendChild($title);
   $header.appendChild($addButton);
