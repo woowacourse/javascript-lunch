@@ -1,4 +1,4 @@
-import Modal from "../Modal.js";
+import Modal from "../../common/Modal.js";
 import { $ } from "../../../utils/selector.js";
 import filledStar from "../../../../public/icons/filledStar.svg";
 import emptyStar from "../../../../public/icons/emptyStar.svg";

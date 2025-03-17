@@ -1,4 +1,4 @@
-import Modal from "../Modal.js";
+import Modal from "../../common/Modal.js";
 import Category from "./Category.js";
 import RestaurantName from "./RestaurantName.js";
 import Distance from "./Distance.js";

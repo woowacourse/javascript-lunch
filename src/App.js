@@ -3,7 +3,7 @@ import Header from "./components/Header.js";
 import RestaurantList from "./components/RestaurantList.js";
 import { restaurants } from "./database/restaurants.js";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
-import Modal from "./components/modal/Modal.js";
+import Modal from "./components/common/Modal.js";
 import Component from "./components/core/Component.js";
 import { $ } from "./utils/selector.js";
 import RestaurantItem from "./components/RestaurantItem.js";
