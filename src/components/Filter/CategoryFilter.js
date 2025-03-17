@@ -8,14 +8,18 @@ const createCategoryFilter = (restaurantList) => {
   );
   const categoryFilter = `<div>
   <select name="category" id="category-filter" class="restaurant-filter">
-    <option value="전체">전체</option>
+    <option value="전체" ${
+      restaurantList.selectedCategory === "전체" ? "selected" : ""
+    }>전체</option>
     ${CATEGORIES.map(
-      (category) => `<option value="${category}">${category}</option>`
+      (category) =>
+        `<option value="${category}" ${
+          category === restaurantList.selectedCategory ? "selected" : ""
+        }>${category}</option>`
     ).join("")}
   </select>
   <p id="category-filter-result"></p>
-  </div>
-  `;
+</div>`;
 
   addrestaurant_filter_container.insertAdjacentHTML(
     "beforeend",

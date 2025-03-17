@@ -6,12 +6,15 @@ const createSortFilter = (restaurantList) => {
   );
   const sortFilter = `<div>
   <select name="sorting" id="sort-filter" class="restaurant-filter">
-    <option value="name">이름순</option>
-    <option value="distance">거리순</option>
+    <option value="name" ${
+      restaurantList.selectedSort === "name" ? "selected" : ""
+    }>이름순</option>
+    <option value="distance" ${
+      restaurantList.selectedSort === "distance" ? "selected" : ""
+    }>거리순</option>
   </select>
-    <p id="sort-filter-result"></p>
-    </div>
-  `;
+  <p id="sort-filter-result"></p>
+</div>`;
 
   addrestaurant_filter_container.insertAdjacentHTML("beforeend", sortFilter);
 
