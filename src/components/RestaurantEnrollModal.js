@@ -2,7 +2,7 @@ import {
   CATEGORY_IMAGES,
   CATEGORY_OPTIONS,
   DISTANCE_OPTIONS,
-} from '../../public/restaurantData.js';
+} from '../../public/restaurantData.ts';
 import createElement from '../utils/createElement.js';
 import createButton from './Button.js';
 import createInputBox from './InputBox.js';

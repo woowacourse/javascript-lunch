@@ -1,6 +1,6 @@
-import { createRestaurantList, updateRestaurantList } from './components/RestaurantList.js';
+import { createRestaurantList } from './components/RestaurantList.js';
 import createSectionContainer from './components/SectionContainer.js';
-import { RESTAURANT_ITEMS } from '../public/restaurantData.js';
+import { RESTAURANT_ITEMS } from '../public/restaurantData.ts';
 import { createRestaurantEnrollModal } from './components/RestaurantEnrollModal.js';
 import createFilterBox from './components/Filters.js';
 import createTabBar from './components/Tabbar.js';

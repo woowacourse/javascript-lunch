@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement.js';
 import createRestaurantItem from './RestaurantItem.js';
-import { getAllRestaurants, deleteRestaurantById } from '../services/RestaurantListService.js';
+import { getAllRestaurants, deleteRestaurantById } from '../services/RestaurantListService.ts';
 
 function createRestaurantList(datas) {
   const restaurantList = createElement('ul', 'restaurant-list');

@@ -1,6 +1,8 @@
-import { RESTAURANT_ITEMS } from '../../public/restaurantData.js';
+import { RESTAURANT_ITEMS, RestaurantItem } from '../../public/restaurantData.ts';
 
-function createRestaurantData(data) {
+function createRestaurantData(
+  data: Omit<RestaurantItem, 'favorite'> & { favorite?: boolean }
+): RestaurantItem {
   return {
     id: data.id,
     name: data.name,
@@ -12,14 +14,14 @@ function createRestaurantData(data) {
   };
 }
 
-function toggleFavorite(id) {
+function toggleFavorite(id: string): void {
   const restaurant = RESTAURANT_ITEMS.find((item) => item.id === id);
   if (restaurant) {
     restaurant.favorite = !restaurant.favorite;
   }
 }
 
-function getFavoriteRestaurants() {
+function getFavoriteRestaurants(): RestaurantItem[] {
   return RESTAURANT_ITEMS.filter((item) => item.favorite);
 }
 

@@ -4,7 +4,7 @@ import {
   createRestaurantData,
   toggleFavorite,
   getFavoriteRestaurants,
-} from '../services/RestaurantItemService.js';
+} from '../services/RestaurantItemService.ts';
 import { handleDeleteRestaurant } from './RestaurantList.js';
 
 function createTags(data) {
