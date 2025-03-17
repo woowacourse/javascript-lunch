@@ -2,7 +2,7 @@ import InitHeader from "./InitHeader";
 import InitModalHandler from "./InitModalHandler";
 import InitRestaurantList from "./InitRestaurantList";
 
-addEventListener("load", () => {
+addEventListener("DOMContentLoaded", () => {
   InitHeader();
   InitRestaurantList();
   InitModalHandler();
