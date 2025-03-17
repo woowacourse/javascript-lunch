@@ -17,13 +17,7 @@ interface RestaurantListState {
 }
 
 export default class RestaurantList extends Component<null, RestaurantListState> {
-  #restaurantAddModal = new Modal({
-    id: 'restaurant-add-modal',
-    children: new RestaurantAddModal().element,
-    onModalClose: () => {
-      this.setState({ isRestaurantAddModal: false });
-    },
-  });
+  #restaurantAddModal: Modal | null = null;
 
   override setup() {
     const localStorageRestaurants = LocalStorage.get('restaurants');
@@ -114,6 +108,13 @@ export default class RestaurantList extends Component<null, RestaurantListState>
   private _appendRestaurantAddModal() {
     if (!this.state.isRestaurantAddModal) return;
 
+    this.#restaurantAddModal = new Modal({
+      id: 'restaurant-add-modal',
+      children: new RestaurantAddModal().element,
+      onModalClose: () => {
+        this.setState({ isRestaurantAddModal: false });
+      },
+    });
     this.#restaurantAddModal.open();
   }
 
@@ -162,7 +163,7 @@ export default class RestaurantList extends Component<null, RestaurantListState>
     LocalStorage.set('restaurants', JSON.stringify(this.state.restaurants));
     this.setState({ isRestaurantAddModal: false });
 
-    this.#restaurantAddModal.remove();
+    this.#restaurantAddModal?.remove();
   }
 
   /**
