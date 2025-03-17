@@ -1,10 +1,11 @@
 import toThrowNewError from "./toThrowNewError.js";
-import RULES from "../constants/rules.js";
+import { RESTAURANT_CONSTRAINTS } from "../constants/rules.js";
 
 const validateDescription = (description) => {
   toThrowNewError({
-    condition: description.length > RULES.MAX_DESCRIPTION_TEXT_LENGTH,
-    message: `설명은 ${RULES.MIN_DESCRIPTION_TEXT_LENGTH}자 이상 ${RULES.MAX_DESCRIPTION_TEXT_LENGTH}자 이하여야 합니다.`,
+    condition:
+      description.length > RESTAURANT_CONSTRAINTS.MAX_DESCRIPTION_TEXT_LENGTH,
+    message: `설명은 ${RESTAURANT_CONSTRAINTS.MIN_DESCRIPTION_TEXT_LENGTH}자 이상 ${RESTAURANT_CONSTRAINTS.MAX_DESCRIPTION_TEXT_LENGTH}자 이하여야 합니다.`,
   });
 };
 
