@@ -7,7 +7,7 @@ import eventHandlers from "../events/eventHandlers.js";
 
 const renderFilteredRestaurants = (restaurantList) => {
   const filteredCardList = createRestaurantCards(
-    restaurantList.value,
+    restaurantList.filter(),
     eventHandlers.filtered(restaurantList)
   );
 
