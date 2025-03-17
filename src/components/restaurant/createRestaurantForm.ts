@@ -20,10 +20,15 @@ const restaurantFormReset = () => {
 };
 
 const changeFilterSelect = (category: Category) => {
-  const select = document.getElementById(
+  const categorySelect = document.getElementById(
     "category-filter"
   ) as HTMLSelectElement;
-  select.value = category;
+  categorySelect.value = category;
+
+  const sortSelect = document.getElementById(
+    "sorting-filter"
+  ) as HTMLSelectElement;
+  sortSelect.value = "";
 };
 
 const addRestaurant = ({
