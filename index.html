@@ -9,10 +9,13 @@
     <title>점심 뭐 먹지</title>
   </head>
   <body>
+
     <div id="app">
           <!-- GNB -->
       <div class="container">
+
         <div class="layout">
+          <div class="phone-button" data-action="resetStorage"></div>
           <div class="safe-zone-top"></div>
           <div class="camera-shape"></div>
           <header class="gnb">
@@ -41,18 +44,17 @@
                   <section id="restaurantFavoriteSection" class="restaurant-list-container"></section>
                 </div>
               </div>
-            
-              
           </main>
-          
+        
           </div>
+
       </div>
           <div id="modalBackground" data-action="removeModal">
             <div id="modalLayout" class="modal-layout"></div>
           </div>
+          
     </div>
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.ts"></script>
     <script type="module" src="./src/utils/ClickEvent.js"></script>
-    <script type="module" src="./src/utils/SubmitEvent.js"></script>
   </body>
 </html>

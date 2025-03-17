@@ -6,14 +6,14 @@ import { InputBox } from "./InputBox.js";
 import { SelectBox } from "./SelectBox.js";
 import { TextareaBox } from "./TextareaBox.js";
 
-export function StoreDeleteForm(lunchItemIndex) {
-  const lunchItem = getStorage("lunchItems")[lunchItemIndex];
+export function StoreDeleteForm(dataID) {
+  const lunchItem = getStorage("lunchItems").find(({ id }) => id === dataID);
 
   function template() {
     return `
-        <form id="storeDeleteForm" class="modal-form">
-          ${StoreInfo({ ...lunchItem, type: "full", index: lunchItemIndex })}
-          ${FormButtons("storeDelete", lunchItemIndex)}
+        <form id="storeDeleteForm" class="modal-form" data-id="${dataID}">
+          ${StoreInfo({ ...lunchItem, type: "full" })}
+          ${FormButtons("storeDelete")}
         </form>
     `;
   }

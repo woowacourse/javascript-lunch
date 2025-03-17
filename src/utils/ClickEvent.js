@@ -12,6 +12,13 @@ class ClickEvent {
     location.reload();
   }
 
+  resetStorage() {
+    if (confirm("저장소를 초기화하시겠습니까?(되돌리기 불가)")) {
+      this.reload();
+      setStorage("lunchItems", []);
+    }
+  }
+
   selectTab(target) {
     const tabs = document.querySelectorAll(".tab-item");
     const indicator = document.querySelector(".tab-indicator");
@@ -51,23 +58,18 @@ class ClickEvent {
   }
 
   toggleFavorite(target) {
-    const indexElement = target.closest("[data-index]");
-    if (!indexElement) return;
-
-    const index = indexElement.getAttribute("data-index");
-    if (!index) return;
-
-    const isFavorite = indexElement.getAttribute("data-favorite") === "true";
-
+    const dataElement = target.closest("[data-id]");
+    if (!dataElement) return;
+    const dataID = dataElement.dataset.id;
+    if (!dataID) return;
     const storageLunchItems = getStorage("lunchItems");
-    storageLunchItems[index].isFavorite = !storageLunchItems[index].isFavorite;
+    const targetData = storageLunchItems.find((item) => item.id === dataID);
+    targetData.isFavorite = !targetData.isFavorite;
     setStorage("lunchItems", storageLunchItems);
     LunchList().render();
     LunchList().renderFavorites();
-
     const isModal = target.closest("#storeDeleteForm");
-
-    if (isModal) openModal("storeDelete", indexElement).render();
+    if (isModal) openModal("storeDelete", dataElement).render();
   }
 
   onClick(event) {

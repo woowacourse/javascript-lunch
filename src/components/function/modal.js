@@ -19,7 +19,7 @@ export function openModal(formName, target) {
           label: "새로운 음식점",
         }),
 
-      storeDelete: () => StoreDeleteForm(Number(target?.dataset.index)),
+      storeDelete: () => StoreDeleteForm(target.dataset.id),
     };
 
     const modalHTML = `
