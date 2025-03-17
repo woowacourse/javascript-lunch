@@ -94,14 +94,19 @@ export const restaurantHandler = {
 
   removeRestaurant: (name: string) => {
     const restaurantList = restaurantStorage.getRestaurantList();
-
     restaurantStorage.setRestaurantList(
       restaurantList.filter(
         (restaurant: RestaurantItem) => restaurant.name !== name
       )
     );
 
-    window.location.reload();
+    document.querySelectorAll(".restaurant").forEach((restaurantElement) => {
+      const restaurantNameElement =
+        restaurantElement.querySelector(".restaurant__name");
+      if (restaurantNameElement?.textContent === name) {
+        restaurantElement.remove();
+      }
+    });
   },
 
   findRestaurantByName: (name: string): RestaurantItem | undefined => {
