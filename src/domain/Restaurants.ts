@@ -37,7 +37,7 @@ class Restaurants {
     return this.#restaurantList;
   }
 
-  filter(options: FilterOptions = {}): Restaurant[] {
+  filterAndSort(options: FilterOptions = {}): Restaurant[] {
     const { category, sorting, header } = options;
     let filteredList = [...this.#restaurantList];
 
