@@ -80,6 +80,7 @@
   - [x] restaurant 도메인 객체 네이밍 수정
 - [x] modalContainer css 높이 (max-height) 수정
 - [x] mainController에서 요소들 append 하기 (현재: 각 controller에서 append)
-- [ ] ButtonForm 컴포넌트 리팩토링 -> Button 컴포넌트에 종속 시키기 (Button을 모아주는 역할 밖에 안하기 때문에, 단순히 껍데기 역할)
 - [x] 디테일 모달 -> ⭐️ 클릭시, 모든 음식점 리스트도 동일하게 반영 (동기화)
 - [x] 거리순 정렬시, 같을 경우, 이름순으로 정렬
+- [ ] 모달 폼의 링크 input 타입 변경
+- [ ] ButtonForm 컴포넌트 리팩토링 -> Button 컴포넌트에 종속 시키기 (Button을 모아주는 역할 밖에 안하기 때문에, 단순히 껍데기 역할)

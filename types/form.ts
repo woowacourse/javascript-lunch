@@ -4,7 +4,7 @@ export interface FormField {
   name: string;
   required?: boolean;
   notice?: string;
-  inputType?: "text";
+  inputType?: "text" | "url";
   options?: string[];
   defaultOption?: string;
 }

@@ -27,7 +27,7 @@ export const MODAL_FORM_CONFIG: ModalFormConfig = {
       label: "참고 링크",
       type: "input",
       name: "link",
-      inputType: "text",
+      inputType: "url",
       notice: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
     },
   ],
