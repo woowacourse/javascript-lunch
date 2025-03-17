@@ -17,11 +17,11 @@ export function toggleFavorite(event, restaurantList, restaurantId) {
   if (!favoriteIcon) return;
 
   if (favoriteIcon.src.includes("favorite-icon-lined.png")) {
-    favoriteIcon.src = "./public/favorite-icon-filled.png";
-    restaurantFavoriteIconElement.src = "./public/favorite-icon-filled.png";
+    favoriteIcon.src = "https://aydenote.github.io/javascript-lunch/favorite-icon-filled.png";
+    restaurantFavoriteIconElement.src = "https://aydenote.github.io/javascript-lunch/favorite-icon-filled.png";
   } else {
-    favoriteIcon.src = "./public/favorite-icon-lined.png";
-    restaurantFavoriteIconElement.src = "./public/favorite-icon-lined.png";
+    favoriteIcon.src = "https://aydenote.github.io/javascript-lunch/favorite-icon-lined.png";
+    restaurantFavoriteIconElement.src = "https://aydenote.github.io/javascript-lunch/favorite-icon-lined.png";
   }
 }
 
