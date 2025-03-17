@@ -10,5 +10,10 @@ export const getItemFromLocalStorage = <T>(key: string): T | null => {
   if (data === null) {
     return null;
   }
-  return JSON.parse(data);
+
+  try {
+    return JSON.parse(data);
+  } catch (error) {
+    return null;
+  }
 };
