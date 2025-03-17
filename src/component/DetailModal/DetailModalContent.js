@@ -1,11 +1,9 @@
 import { RESTAURANT_LIST_KEY } from "../../constants/constants.js";
-import data from "../../data.js";
 import state from "../../state.js";
 import LocalStorage from "../../utils/localStorage.js";
 import { $ } from "../../utils/querySelectors.js";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.js";
 import FilterSelect from "../FilterSelect.js";
-import LunchInfoCard from "../LunchInfoCard.js";
 import Modal from "../Modal.js";
 import RestaurantList from "../RestaurantList.js";
 import DetailModalButtonContainer from "./DetailModalButtonContainer.js";

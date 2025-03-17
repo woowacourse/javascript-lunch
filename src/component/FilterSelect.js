@@ -1,5 +1,4 @@
 import { RESTAURANT_LIST_KEY } from "../constants/constants.ts";
-import data from "../data.ts";
 import LocalStorage from "../utils/localStorage.ts";
 import { $ } from "../utils/querySelectors.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";

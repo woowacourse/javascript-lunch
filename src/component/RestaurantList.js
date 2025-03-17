@@ -1,10 +1,8 @@
 import { CATEGORY_ICON, RESTAURANT_LIST_KEY } from "../constants/constants.ts";
-import data from "../data.ts";
 import state from "../state.ts";
 import LocalStorage from "../utils/localStorage.ts";
 import { $ } from "../utils/querySelectors.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
-import FilterSelect from "./FilterSelect.js";
 import LunchInfoCard from "./LunchInfoCard.js";
 
 const RestaurantList = {

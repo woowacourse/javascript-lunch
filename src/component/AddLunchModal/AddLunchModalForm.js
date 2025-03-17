@@ -8,7 +8,6 @@ import {
   DISTANCE_DROPDOWN_LIST,
 } from "../../constants/dropdownList.ts";
 import { Validator } from "../../utils/Validator.ts";
-import data from "../../data.ts";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
 import FilterSelect from "../FilterSelect.js";
 import LocalStorage from "../../utils/localStorage.ts";
