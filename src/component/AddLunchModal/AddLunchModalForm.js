@@ -11,6 +11,8 @@ import { Validator } from "../../utils/Validator.ts";
 import data from "../../data.ts";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
 import FilterSelect from "../FilterSelect.js";
+import LocalStorage from "../../utils/localStorage.ts";
+import { RESTAURANT_LIST_KEY } from "../../constants/constants.ts";
 
 const AddLunchModalForm = {
   create() {
@@ -98,14 +100,16 @@ const AddLunchModalForm = {
   },
 
   addRestaurant({ category, name, distance, description, link }) {
-    data.restaurantList = RestaurantListUtils.add(data.restaurantList, {
-      id: data.restaurantList[data.restaurantList.length - 1].id + 1,
+    const dataList = LocalStorage.getJSON(RESTAURANT_LIST_KEY);
+    const addList = RestaurantListUtils.add(dataList, {
+      id: dataList[dataList.length - 1].id + 1,
       label: category,
       name,
       distance,
       description,
       link,
     });
+    LocalStorage.setJSON(RESTAURANT_LIST_KEY, addList);
   },
 };
 

@@ -12,14 +12,22 @@ import { $, $$ } from "./utils/querySelectors.js";
 import RestaurantListUtils from "./utils/RestaurantListUtils.js";
 import data from "./data.js";
 import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
+import LocalStorage from "./utils/localStorage.js";
+import { RESTAURANT_LIST_KEY } from "./constants/constants.js";
 
 DOM.$body.prepend(Header.create());
+initLocalStorage();
 initNavigationButton();
 initFilterSelect();
 initRestaurantList();
 initFavoriteList();
 initAddLunchModal();
 initDetailModal();
+
+function initLocalStorage() {
+  if (LocalStorage.getJSON(RESTAURANT_LIST_KEY) === null)
+    LocalStorage.setJSON(RESTAURANT_LIST_KEY, data.restaurantList);
+}
 
 function initNavigationButton() {
   $(".navigation-bar-container").addEventListener("click", (e) => {
@@ -31,7 +39,7 @@ function initNavigationButton() {
     }
     if (e.target.classList.contains("favorite_restaurant_nav")) {
       const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
-        data.restaurantList
+        LocalStorage.getJSON(RESTAURANT_LIST_KEY)
       );
       RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
       DOM.$favoriteContainer.style.display = "block";

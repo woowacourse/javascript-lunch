@@ -1,5 +1,7 @@
+import { RESTAURANT_LIST_KEY } from "../../constants/constants.js";
 import data from "../../data.js";
 import state from "../../state.js";
+import LocalStorage from "../../utils/localStorage.js";
 import { $ } from "../../utils/querySelectors.js";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.js";
 import FilterSelect from "../FilterSelect.js";
@@ -41,8 +43,11 @@ const DetailModalContent = {
 
   handleDeleteButton(id) {
     $("#delete__button").onclick = () => {
-      const deletedList = RestaurantListUtils.delete(data.restaurantList, id);
-      data.restaurantList = deletedList;
+      const deletedList = RestaurantListUtils.delete(
+        LocalStorage.getJSON(RESTAURANT_LIST_KEY),
+        id
+      );
+      LocalStorage.setJSON(RESTAURANT_LIST_KEY, deletedList);
       this.renderAll();
       Modal.close("detail");
     };
@@ -57,10 +62,11 @@ const DetailModalContent = {
 
         this.changeIcon(e.target);
 
-        data.restaurantList = RestaurantListUtils.favoriteById(
-          data.restaurantList,
+        const favoriteList = RestaurantListUtils.favoriteById(
+          LocalStorage.getJSON(RESTAURANT_LIST_KEY),
           Number(e.target.id)
         );
+        LocalStorage.setJSON(RESTAURANT_LIST_KEY, favoriteList);
         state.setCurrentRestaurantList(
           RestaurantListUtils.favoriteById(
             state.currentRestaurantList,
@@ -88,7 +94,7 @@ const DetailModalContent = {
   renderAll() {
     FilterSelect.applyFilter("allRestaurant");
     const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
-      data.restaurantList
+      LocalStorage.getJSON(RESTAURANT_LIST_KEY)
     );
     RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
   },

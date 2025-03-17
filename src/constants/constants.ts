@@ -15,3 +15,5 @@ export const ERROR_MESSAGE = {
   DESCRIPTION_MAX: `설명은 ${DESCRIPTION_LENGTH_MAX}자를 넘을 수 없습니다.`,
   LINK: "유효하지 않은 링크입니다.",
 };
+
+export const RESTAURANT_LIST_KEY = "restaurantList";

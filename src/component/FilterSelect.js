@@ -1,4 +1,6 @@
+import { RESTAURANT_LIST_KEY } from "../constants/constants.ts";
 import data from "../data.ts";
+import LocalStorage from "../utils/localStorage.ts";
 import { $ } from "../utils/querySelectors.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
 import RestaurantList from "./RestaurantList.js";
@@ -26,7 +28,7 @@ const FilterSelect = {
     const category = $("#category-filter").value;
     const sortingRule = $("#sorting-filter").value;
     const filteredListByCategory = this.getFilteredListByCategory(
-      data.restaurantList,
+      LocalStorage.getJSON(RESTAURANT_LIST_KEY),
       category
     );
     const filteredListByBoth = this.getFilteredListBySorting(

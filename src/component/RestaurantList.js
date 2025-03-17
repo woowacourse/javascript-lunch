@@ -1,6 +1,7 @@
-import { CATEGORY_ICON } from "../constants/constants.ts";
+import { CATEGORY_ICON, RESTAURANT_LIST_KEY } from "../constants/constants.ts";
 import data from "../data.ts";
 import state from "../state.ts";
+import LocalStorage from "../utils/localStorage.ts";
 import { $ } from "../utils/querySelectors.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
 import FilterSelect from "./FilterSelect.js";
@@ -20,10 +21,12 @@ const RestaurantList = {
   onClickFavorite(restaurantListId, event) {
     const target = event.target;
     if (!target.classList.contains("restaurant__favorite")) return;
-    data.restaurantList = RestaurantListUtils.favoriteById(
-      data.restaurantList,
+
+    const favoriteList = RestaurantListUtils.favoriteById(
+      LocalStorage.getJSON(RESTAURANT_LIST_KEY),
       Number(target.id)
     );
+    LocalStorage.setJSON(RESTAURANT_LIST_KEY, favoriteList);
     state.setCurrentRestaurantList(
       RestaurantListUtils.favoriteById(
         state.currentRestaurantList,
@@ -34,7 +37,7 @@ const RestaurantList = {
   },
 
   applyData(restaurantListId) {
-    this.applyList(restaurantListId, data.restaurantList);
+    this.applyList(restaurantListId, LocalStorage.getJSON(RESTAURANT_LIST_KEY));
   },
 
   applyState(restaurantListId) {
