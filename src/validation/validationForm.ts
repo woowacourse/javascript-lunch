@@ -23,7 +23,7 @@ export const validateRestaurantForm = (form: HTMLFormElement) => {
   }
 
   const inputEl = form.name as unknown as HTMLInputElement;
-  if (inputEl.value.trim()) {
+  if (!inputEl.value.trim()) {
     const nameLabelText =
       document.querySelector(`label[for="name"]`)?.textContent;
     throw new Error(`${nameLabelText}${ERROR.INVALID_REQUIRED}`);

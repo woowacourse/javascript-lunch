@@ -16,6 +16,7 @@ const senseChangeRestaurantFormValue = () => {
     const form = document.getElementById(
       "add-restaurant-form"
     ) as HTMLFormElement;
+
     validateRestaurantForm(form);
 
     const submitButton = document.getElementById(
@@ -24,6 +25,7 @@ const senseChangeRestaurantFormValue = () => {
     submitButton?.classList.remove("button--disabled");
     submitButton.disabled = false;
   } catch (error) {
+    console.log(error);
     const submitButton = document.getElementById(
       "addRestaurantButton"
     ) as HTMLButtonElement;
