@@ -21,14 +21,7 @@ export default class Select<T extends string> extends Component<SelectProps<T>> 
         name=${this.props.dataAction}
         data-action=${this.props.dataAction}
         ${this.props.required ? 'required' : ''}
-      >
-        ${this.props.options
-          .map(
-            (option) =>
-              `<option value="${option.value}" ${this.props.selected === option.value ? 'selected' : ''}>${option.label}</option>`,
-          )
-          .join('')}
-      </select>
+      ></select>
     `;
   }
 
