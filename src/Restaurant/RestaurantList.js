@@ -1,7 +1,6 @@
 import "./RestaurantList.css";
 import { restaurantsData } from "../../public/database/restaurants";
 import renderRestaurantElement from "./RestaurantItem";
-import createTabFilter from "../components/Tab/tabFilter";
 import createCategoryFilter from "../components/Filter/CategoryFilter";
 import createSortFilter from "../components/Filter/SortFilter";
 
@@ -21,15 +20,15 @@ class RestaurantList {
     const storedTab = JSON.parse(localStorage.getItem("tab"));
 
     this.selectedCategory = storedCategory ? storedCategory : "전체";
-    this.selectedSort = storedSort ? storedSort : "이름순";
+    this.selectedSort = storedSort ? storedSort : "name";
     this.selectedTab = storedTab ? storedTab : "allTab";
 
     this.restaurantListElement = null;
   }
 
   setSelectedCategory(category) {
-    localStorage.setItem("category", JSON.stringify(category));
     this.selectedCategory = category;
+    localStorage.setItem("category", JSON.stringify(category));
   }
 
   setSelectedSort(sortOption) {
@@ -51,16 +50,30 @@ class RestaurantList {
     restaurantListContainer.insertAdjacentHTML("beforeend", restaurantListHTML);
 
     this.restaurantListElement = document.querySelector(".restaurant-list");
-
     this.render();
   }
 
   updateFavoriteStatus(name) {
     const restaurant = this.restaurants.find((r) => r.name === name);
-    if (!restaurant) return; // 해당 레스토랑이 없으면 아무것도 하지 않음
 
-    restaurant.isFavorite = !restaurant.isFavorite; // isFavorite 값 반전
-    this.render(); // UI 다시 렌더링
+    if (!restaurant) return;
+
+    const item = document.querySelector(`[data-name="${name}"]`);
+    const starIcon = item.querySelector(".star-icon");
+    starIcon.src = !restaurant.isFavorite
+      ? "images/star.png"
+      : "images/empty-star.png";
+    restaurant.isFavorite = !restaurant.isFavorite;
+
+    const storedRestaurants = JSON.parse(localStorage.getItem("restaurants"));
+    const newData = storedRestaurants.map((data) => {
+      if (data.name === name) {
+        return { ...data, isFavorite: !data.isFavorite };
+      }
+
+      return data;
+    });
+    localStorage.setItem("restaurants", JSON.stringify(newData));
   }
 
   deleteRestaurant(name) {
@@ -92,7 +105,7 @@ class RestaurantList {
       );
     }
 
-    if (this.selectedSort === "이름순") {
+    if (this.selectedSort === "name") {
       sortFilteredData = categoryFilteredData
         .slice()
         .sort((a, b) => a.name.localeCompare(b.name, "ko"));
@@ -143,7 +156,6 @@ class RestaurantList {
 
   addRestaurant(newRestaurant) {
     this.restaurants.push(newRestaurant);
-    console.log(this.restaurants);
     this.render();
   }
 }
