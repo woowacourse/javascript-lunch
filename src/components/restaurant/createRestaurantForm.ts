@@ -9,7 +9,7 @@ import { handleModalClose, handleModalOpen } from "../modal/modal.ts";
 import { validateRestaurantForm } from "../../validation/validationForm";
 import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
-import { FormEventType, IRestaurant } from "../../types/types";
+import { Category, FormEventType, IRestaurant } from "../../types/types";
 
 const restaurantFormReset = () => {
   handleModalClose();
@@ -17,6 +17,13 @@ const restaurantFormReset = () => {
     "add-restaurant-form"
   ) as HTMLFormElement;
   form.reset();
+};
+
+const changeFilterSelect = (category: Category) => {
+  const select = document.getElementById(
+    "category-filter"
+  ) as HTMLSelectElement;
+  select.value = category;
 };
 
 const addRestaurant = ({
@@ -52,6 +59,7 @@ const handleAddRestaurant = (e: Event) => {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData) as unknown as IRestaurant;
     validateRestaurantForm(form);
+    changeFilterSelect(data.category);
     addRestaurant(data);
     restaurantFormReset();
   } catch (error) {
