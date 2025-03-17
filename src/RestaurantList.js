@@ -61,8 +61,8 @@ class RestaurantList {
     this.#renderRestaurantList();
   }
 
-  updateRestaurantLike(restaurantName, like) {
-    this.#restaurantData = RestaurantStorage.updateRestaurantLike(restaurantName, like);
+  updateRestaurantIsLike(restaurantName, isLike) {
+    this.#restaurantData = RestaurantStorage.updateRestaurantIsLike(restaurantName, isLike);
     this.#renderRestaurantList();
   }
 

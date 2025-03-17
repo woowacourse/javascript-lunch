@@ -1,13 +1,13 @@
 class Star {
   #star;
-  #like;
+  #isLike;
   #onRestaurantUpdate;
   restaurant;
 
   constructor(restaurant, onRestaurantUpdate) {
     this.restaurant = restaurant;
     this.#onRestaurantUpdate = onRestaurantUpdate;
-    this.#like = restaurant.getLike();
+    this.#isLike = restaurant.getIsLike();
     this.#createStar();
     this.#bindEvent();
   }
@@ -15,12 +15,12 @@ class Star {
   #createStar() {
     const star = document.createElement('button');
     star.classList.add('star-icon');
-    this.#like ? star.classList.add('like') : star.classList.add('unlike');
+    this.#isLike ? star.classList.add('like') : star.classList.add('unlike');
     this.#star = star;
   }
 
-  #toggle(like) {
-    if (like) {
+  #toggle(isLike) {
+    if (isLike) {
       this.#star.classList.remove('unlike');
       this.#star.classList.add('like');
     } else {
@@ -31,9 +31,9 @@ class Star {
 
   #bindEvent = () => {
     this.#star.addEventListener('click', () => {
-      this.#like = !this.#like;
-      this.restaurant.setLike(this.#like);
-      this.#toggle(this.#like);
+      this.#isLike = !this.#isLike;
+      this.restaurant.setIsLike(this.#isLike);
+      this.#toggle(this.#isLike);
       if (this.#onRestaurantUpdate) {
         this.#onRestaurantUpdate();
       }

@@ -27,11 +27,11 @@ class Restaurants {
     return this.#restaurantList;
   }
 
-  updateLike(restaurantName: string, like: boolean): Restaurant[] {
+  updateIsLike(restaurantName: string, isLike: boolean): Restaurant[] {
     const restaurant = this.#restaurantList.find((restaurant) => restaurant.getName() === restaurantName);
 
     if (restaurant) {
-      restaurant.setLike(like);
+      restaurant.setIsLike(isLike);
     }
 
     return this.#restaurantList;
@@ -46,7 +46,7 @@ class Restaurants {
     }
 
     if (header === '자주 가는 음식점') {
-      filteredList = filteredList.filter((restaurant) => restaurant.getLike() === true);
+      filteredList = filteredList.filter((restaurant) => restaurant.getIsLike() === true);
     }
 
     if (sorting === 'name') {

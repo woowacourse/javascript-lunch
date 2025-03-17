@@ -8,10 +8,10 @@ type Distance = 5 | 10 | 15 | 20 | 30;
 interface RestaurantProps {
   name: string;
   distance: Distance;
-  description: string;
   category: Category;
+  description: string;
   link: string;
-  like: boolean;
+  isLike: boolean;
 }
 
 class Restaurant {
@@ -20,9 +20,9 @@ class Restaurant {
   #description: string;
   #category: Category;
   #link: string;
-  #like: boolean;
+  #isLike: boolean;
 
-  constructor({ name, distance, description, category, link, like }: RestaurantProps) {
+  constructor({ name, distance, description, category, link, isLike }: RestaurantProps) {
     validateName(name);
     validateDescription(description);
     validateLink(link);
@@ -32,7 +32,7 @@ class Restaurant {
     this.#description = description;
     this.#category = category;
     this.#link = link;
-    this.#like = like;
+    this.#isLike = isLike;
   }
 
   getName(): string {
@@ -55,12 +55,12 @@ class Restaurant {
     return String(this.#link);
   }
 
-  getLike(): boolean {
-    return this.#like;
+  getIsLike(): boolean {
+    return this.#isLike;
   }
 
-  setLike(like: boolean) {
-    this.#like = like;
+  setIsLike(isLike: boolean) {
+    this.#isLike = isLike;
   }
 }
 
