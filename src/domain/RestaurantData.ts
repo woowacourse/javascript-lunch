@@ -36,7 +36,6 @@ export default class RestaurantData {
     this.#validateDistance(distance);
     this.#validateName(name);
 
-    console.log(id);
     this.id = id || crypto.randomUUID();
     this.src = CATEGORY_IMAGE[category];
     this.alt = category;
@@ -71,16 +70,16 @@ export default class RestaurantData {
   }
 
   #validateCategory(category: string): void {
-    if (Validation.isValidateOption(category))
+    if (!Validation.isValidateOption(category))
       throw Error(ERROR_MESSAGE.category);
   }
 
   #validateDistance(distance: number): void {
-    if (Validation.isValidateOption(distance))
+    if (!Validation.isValidateOption(distance))
       throw Error(ERROR_MESSAGE.distance);
   }
 
   #validateName(name: string): void {
-    if (Validation.isValidateName(name)) throw Error(ERROR_MESSAGE.name);
+    if (!Validation.isValidateName(name)) throw Error(ERROR_MESSAGE.name);
   }
 }

@@ -4,8 +4,8 @@ const Validation = {
   },
 
   isValidateName(name: string): boolean {
-    const NAME_LENGTH_MIN = 2;
-    return name.length < NAME_LENGTH_MIN;
+    const NAME_LENGTH_MIN = 0;
+    return name.length > NAME_LENGTH_MIN;
   },
 };
 
