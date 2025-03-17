@@ -18,30 +18,30 @@ export default class AllLunchList extends Component {
     };
   }
 
-  filterByCategory(items) {
+  #filterByCategory(items) {
     if (this.state.category === "전체") return items;
     return items.filter((item) => item.category === this.state.category);
   }
 
-  sortByName(items) {
+  #sortByName(items) {
     return items.sort((a, b) => a.storeName.localeCompare(b.storeName));
   }
 
-  sortByDistance(items) {
+  #sortByDistance(items) {
     return items.sort((a, b) => {
       return a.distance - b.distance;
     });
   }
 
-  filterItems() {
-    const filteredByCategory = this.filterByCategory(this.props.items);
+  #filterItems() {
+    const filteredByCategory = this.#filterByCategory(this.props.items);
 
     if (this.state.sortBy === "이름순") {
-      return this.sortByName(filteredByCategory);
+      return this.#sortByName(filteredByCategory);
     }
 
     if (this.state.sortBy === "거리순") {
-      return this.sortByDistance(filteredByCategory);
+      return this.#sortByDistance(filteredByCategory);
     }
 
     return filteredByCategory;
@@ -76,7 +76,7 @@ export default class AllLunchList extends Component {
   renderLunchList() {
     const allLunchList = this.addChild(LunchList, {
       type: "ALL",
-      items: this.filterItems(),
+      items: this.#filterItems(),
       onItemClick: this.props.onItemClick,
     });
 
