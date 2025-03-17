@@ -2,7 +2,7 @@ import RestaurantFormModal from "./components/Modal/Modal/RestaurantFormModal.js
 import createHeader from "./components/Header/Header.js";
 import createCategoryFilter from "./components/Filter/CategoryFilter.js";
 import createSortFilter from "./components/Filter/SortFilter.js";
-import createTabFilter from "./components/Tab/tabFilter.js";
+import createTabFilter from "./components/Tab/TabFilter.js";
 import createRestaurantList from "./Restaurant/RestaurantList.js";
 import RestaurantList from "./Restaurant/RestaurantList.js";
 

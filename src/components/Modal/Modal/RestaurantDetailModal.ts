@@ -9,6 +9,7 @@ export default class RestaurantDetailModal {
   deleteButton;
   updateFavoriteStatus;
   deleteRestaurant;
+  boundHandleStarIconClick;
 
   constructor(
     restaurant: Restaurant,
@@ -19,6 +20,7 @@ export default class RestaurantDetailModal {
     this.modalElement = document.getElementById(
       "restaurant-detail-dialog"
     ) as HTMLDialogElement;
+    this.boundHandleStarIconClick = this.handleStarIconClick.bind(this);
     this.addRestaurantDetail();
     this.closeButton = document.querySelector(
       ".detail-close-button"
@@ -31,6 +33,22 @@ export default class RestaurantDetailModal {
     this.addEventListeners();
   }
 
+  handleStarIconClick(e: MouseEvent) {
+    let { name, isFavorite } = this.restaurant;
+
+    const starIcon = (e.target as HTMLElement).closest(
+      ".star-icon"
+    ) as HTMLImageElement;
+
+    if (starIcon) {
+      starIcon.src = !isFavorite ? "images/star.png" : "images/empty-star.png";
+
+      this.restaurant.isFavorite = !isFavorite;
+      this.updateFavoriteStatus(name);
+      return;
+    }
+  }
+
   addRestaurantDetail() {
     let { category, name, distance, description, link, isFavorite } =
       this.restaurant;
@@ -39,20 +57,7 @@ export default class RestaurantDetailModal {
       "#detail-modal-container"
     ) as HTMLElement;
 
-    container.addEventListener("click", (e) => {
-      const starIcon = (e.target as HTMLElement).closest(
-        ".star-icon"
-      ) as HTMLImageElement;
-      if (starIcon) {
-        starIcon.src = !isFavorite
-          ? "images/star.png"
-          : "images/empty-star.png";
-
-        isFavorite = !isFavorite;
-        this.updateFavoriteStatus(name);
-        return;
-      }
-    });
+    container.addEventListener("click", this.boundHandleStarIconClick);
 
     const mappedImage =
       IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category] || "images/default.png";
@@ -86,6 +91,11 @@ export default class RestaurantDetailModal {
 
   close() {
     this.modalElement.close();
+
+    const container = document.querySelector(
+      "#detail-modal-container"
+    ) as HTMLElement;
+    container.removeEventListener("click", this.boundHandleStarIconClick);
   }
 
   addEventListeners() {

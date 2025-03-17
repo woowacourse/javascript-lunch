@@ -9,6 +9,7 @@ const renderRestaurantElement = (
 ) => {
   const li = document.createElement("li");
   li.classList.add("restaurant");
+  li.dataset.name = name;
   const restaurant = {
     category,
     name,
@@ -29,7 +30,6 @@ const renderRestaurantElement = (
 
       restaurant.isFavorite = !restaurant.isFavorite;
       updateFavoriteStatus(name);
-
       return;
     }
 
