@@ -19,13 +19,7 @@ class InputDropDown {
 
     if (optionDefault != null) select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(optionDefault, ''));
 
-    const sortedOptions = Object.entries(this.#option).sort(([keyA], [keyB]) => {
-      if (keyA === '') return -1;
-      if (keyB === '') return 1;
-      return Number(keyA) - Number(keyB);
-    });
-
-    sortedOptions.forEach(([key, value]) => {
+    Object.entries(this.#option).forEach(([key, value]) => {
       select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(value, key));
     });
 
