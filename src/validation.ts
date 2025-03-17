@@ -1,6 +1,6 @@
 const Validation = {
   isValidateOption(value: string | number): boolean {
-    return !value;
+    return value === 0 || !!value;
   },
 
   isValidateName(name: string): boolean {
