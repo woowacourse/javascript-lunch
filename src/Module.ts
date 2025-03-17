@@ -46,7 +46,7 @@ export class Module {
           this.#filter.chageFilter({
             filter: name as FilterType,
           });
-          const filteredItems = this.#filter.updateFilterItem({
+          const filteredItems = this.#filter.filterFoodList({
             foodList: previousFoodList,
           });
 

@@ -22,7 +22,7 @@ export class Filter {
     else if (filter === "sorting") this.#sortingFilter = filterOption;
   }
 
-  updateFilterItem({ foodList }: UpdateFilterItemType) {
+  filterFoodList({ foodList }: UpdateFilterItemType) {
     const foodItems = [...foodList];
     const filteredItems = foodItems
       ?.filter((foodItem) => {
@@ -46,7 +46,7 @@ export class Filter {
 
   sortedFoodList({ foodList }: SortedFoodListType) {
     return (
-      this.updateFilterItem({ foodList })?.sort((a, b) =>
+      this.filterFoodList({ foodList })?.sort((a, b) =>
         this.#sortBy({ a, b })
       ) || []
     );
