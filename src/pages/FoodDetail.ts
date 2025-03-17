@@ -6,8 +6,7 @@ import {
   deleteFoodItem,
   updateFoodList,
 } from "../domain/handler/FoodItemHandler";
-import { HandleFavoriteButtonType } from "../types/domain/TabButtonHandlerType";
-
+import { ChangeFavoriteStatusType } from "../types/domain/TabButtonHandlerType";
 import { FoodDetailType } from "../types/pages/FoodDetailType";
 
 export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
@@ -17,7 +16,7 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
     foodItem: foodDetailItem,
     handleModal: () => {},
     handleTabButton: (event, foodItem) =>
-      handleTabButton({ event, foodItem, filter }),
+      changeFavoriteStatus({ event, foodItem, filter }),
   });
 
   const linkCompennt = document.createElement("div");
@@ -49,7 +48,7 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
   return container;
 }
 
-function handleTabButton({ foodItem, filter }: HandleFavoriteButtonType) {
+function changeFavoriteStatus({ foodItem, filter }: ChangeFavoriteStatusType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });

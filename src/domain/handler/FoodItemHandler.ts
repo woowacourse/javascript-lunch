@@ -20,7 +20,7 @@ import {
   readStorageFoodList,
   updateStorageFoodList,
 } from "./FoodStorageHandler";
-import { handleTabButton } from "./TabButtonHandler";
+import { changeFavoriteStatus } from "./TabButtonHandler";
 
 // CRUD - create : mock Data
 export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {
@@ -75,7 +75,7 @@ function createFoodItemComponent({
     foodItem: localFoodItem,
     handleModal: (foodItem) => openDetailModal({ filter, foodItem }),
     handleTabButton: (event, foodItem) =>
-      handleTabButton({ event, foodItem, filter }),
+      changeFavoriteStatus({ event, foodItem, filter }),
   });
 }
 function openDetailModal({ filter, foodItem }: OpenDetailModalType) {

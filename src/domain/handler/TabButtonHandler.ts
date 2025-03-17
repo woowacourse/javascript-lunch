@@ -1,11 +1,11 @@
-import { HandleFavoriteButtonType } from "../../types/domain/TabButtonHandlerType";
+import { ChangeFavoriteStatusType } from "../../types/domain/TabButtonHandlerType";
 import { showConvertedItem, updateFoodList } from "./FoodItemHandler";
 
-export function handleTabButton({
+export function changeFavoriteStatus({
   event,
   foodItem,
   filter,
-}: HandleFavoriteButtonType) {
+}: ChangeFavoriteStatusType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });

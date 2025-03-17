@@ -13,8 +13,3 @@ export interface FoodType {
   link: string;
   favorite: boolean;
 }
-
-export interface handleTabButton {
-  event: Event;
-  foodItem: FoodType;
-}
