@@ -4,7 +4,7 @@ import { removeStoredFoodItem, toggleFavorite } from "../../managers/storageMana
 import { getImgSrcAlt } from "../../util/getImgSrcAlt.js";
 import { Button } from "../button/button/Button.js";
 import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
-import Modal from "../layout/modal/Modal.js";
+import Modal from "../common/modal/Modal.js";
 
 type CssTypeProps = "row" | "column";
 

@@ -3,7 +3,7 @@ import { DropdownContainer } from "../component/dropdown/DropdownContainer.ts";
 import FoodForm from "../component/food-form/FoodForm.ts";
 import FoodList from "../component/food-list/FoodList.ts";
 import { Header } from "../component/layout/header/Header.js";
-import Modal from "../component/layout/modal/Modal.js";
+import Modal from "../component/common/modal/Modal.js";
 import TabMenu from "../component/tab-menu/TabMenu.ts";
 import { DROPDOWN_OPTIONS } from "../constants/constants.ts";
 import { getStoredFoodItems } from "../managers/storageManagers.js";

@@ -6,7 +6,7 @@ import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
 import { Input } from "../input/Input.js";
 import { SelectInput } from "../input/SelectInput.js";
 import { TextareaInput } from "../input/TextareaInput.js";
-import { alertError } from "../layout/alert/alertError.js";
+import { alertError } from "../common/alert/alertError.js";
 
 interface FoodFormOptions {
   onCancel: () => void;
