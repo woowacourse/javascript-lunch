@@ -1,7 +1,7 @@
 import { FoodType } from "../component/FoodItemType";
 
 export interface UpdateStorageFoodListType {
-  newFoodItem: FoodType;
+  foodItem: FoodType;
 }
 
 export interface DeleteStorageFoodListType {

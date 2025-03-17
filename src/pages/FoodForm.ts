@@ -1,12 +1,16 @@
 import { CAPTION_MESSAGE } from "../constants/Message.js";
-import { addFoodFormItem } from "../domain/handler/FoodItemHandler.js";
+import { addFoodItem } from "../domain/handler/FoodItemHandler.js";
 import { Button } from "../component/button/Button.js";
 import { ButtonContainer } from "../component/button/ButtonContainer.js";
 import { Input } from "../component/input/Input.js";
 import { SelectInput } from "../component/input/SelectInput.js";
 import { TextareaInput } from "../component/input/TextareaInput.js";
 import { Modal } from "../component/layout/Modal.js";
-import { FoodFormType } from "../types/pages/FoodFormType.js";
+import {
+  AddFoodFormItemType,
+  FoodFormType,
+} from "../types/pages/FoodFormType.js";
+import { getFormFoodItem } from "../domain/handler/FoodFormHandler.js";
 
 const SELECT_OPTIONS = {
   category: [
@@ -95,4 +99,11 @@ export function FoodForm({ filter }: FoodFormType) {
   );
 
   return container;
+}
+
+function addFoodFormItem({ filter }: AddFoodFormItemType) {
+  const foodItem = getFormFoodItem();
+  if (!foodItem) return;
+  addFoodItem({ foodItem });
+  Modal.close({ filter });
 }

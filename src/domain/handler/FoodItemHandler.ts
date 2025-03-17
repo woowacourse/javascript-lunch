@@ -6,7 +6,8 @@ import { FoodType } from "../../types/component/FoodItemType";
 
 import {
   AddFoodItemType,
-  ConvertStorageToLocalType,
+  CreateFoodItemComponentType,
+  CreateFoodListComponentType,
   DeleteFoodItemType,
   OpenDetailModalType,
   ReadFoodListType,
@@ -14,7 +15,6 @@ import {
   ShowFoodItemType,
   UpdateFoodListType,
 } from "../../types/domain/FoodItemHandlerType";
-import { getFormFoodItem } from "./FoodFormHandler";
 import {
   deleteStorageFoodList,
   readStorageFoodList,
@@ -23,28 +23,30 @@ import {
 import { handleTabButton } from "./TabButtonHandler";
 
 // CRUD - create : mock Data
-export function readFoodList({ favoriteFilter }: ReadFoodListType) {
+export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {
   const previousFoodList = readStorageFoodList().filter((item: FoodType) => {
     if (favoriteFilter) return item.favorite === true;
     return item;
   });
   if (previousFoodList.length === 0 && !favoriteFilter) {
-    localStorage.setItem("foodList", JSON.stringify(foodItems));
+    setMockData();
   }
   return previousFoodList;
 }
 
+function setMockData() {
+  localStorage.setItem("foodList", JSON.stringify(foodItems));
+}
+
 // CRUD - update(add)
-export function addFoodFormItem({ filter }: AddFoodItemType) {
-  const foodItem = getFormFoodItem();
+export function addFoodItem({ foodItem }: AddFoodItemType) {
   if (!foodItem) return;
-  updateStorageFoodList({ newFoodItem: foodItem });
-  Modal.close({ filter });
+  updateStorageFoodList({ foodItem });
 }
 
 // CRUD - update
 export function updateFoodList({ foodItem }: UpdateFoodListType) {
-  updateStorageFoodList({ newFoodItem: foodItem });
+  updateStorageFoodList({ foodItem });
 }
 
 // CRUD - delete
@@ -55,22 +57,27 @@ export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {
 
 // < FoodItem-Data 관련 부가적인 기능 >
 // 화면에 보여주기
-export function convertStorageToLocal({
+export function createFoodListComponent({
   filter,
   foodList,
-}: ConvertStorageToLocalType) {
+}: CreateFoodListComponentType) {
   const FoodItemListComponent = foodList.map((localFoodItem) => {
-    const foodComponent = FoodItem({
-      foodItem: localFoodItem,
-      handleModal: (foodItem) => openDetailModal({ filter, foodItem }),
-      handleTabButton: (event, foodItem) =>
-        handleTabButton({ event, foodItem, filter }),
-    });
-    return foodComponent;
+    return createFoodItemComponent({ localFoodItem, filter });
   });
   showFoodItem({ foodListComponent: FoodItemListComponent || [] });
 }
 
+function createFoodItemComponent({
+  localFoodItem,
+  filter,
+}: CreateFoodItemComponentType) {
+  return FoodItem({
+    foodItem: localFoodItem,
+    handleModal: (foodItem) => openDetailModal({ filter, foodItem }),
+    handleTabButton: (event, foodItem) =>
+      handleTabButton({ event, foodItem, filter }),
+  });
+}
 function openDetailModal({ filter, foodItem }: OpenDetailModalType) {
   Modal.setContent({
     filter,
@@ -92,8 +99,8 @@ export function showConvertedItem({
   favoriteFilter,
   filter,
 }: ShowConvertedItemType) {
-  const previousFoodList = readFoodList({ favoriteFilter });
-  convertStorageToLocal({
+  const previousFoodList = getFilteredFoodList({ favoriteFilter });
+  createFoodListComponent({
     filter,
     foodList: filter.sortedFoodList({ foodList: previousFoodList }),
   });

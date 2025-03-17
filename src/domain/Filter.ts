@@ -19,11 +19,11 @@ export class Filter {
       document.querySelector(`select[name=${filter}]`) as HTMLSelectElement
     )?.value;
     if (filter === "category") this.#categoryFilter = filterOption;
-    else this.#sortingFilter = filterOption;
-    return this.updateFilterItem({ foodList });
+    else if (filter === "sorting") this.#sortingFilter = filterOption;
+    return this.#updateFilterItem({ foodList });
   }
 
-  updateFilterItem({ foodList }: UpdateFilterItemType) {
+  #updateFilterItem({ foodList }: UpdateFilterItemType) {
     const foodItems = [...foodList];
     const filteredItems = foodItems
       ?.filter((foodItem) => {
@@ -47,7 +47,7 @@ export class Filter {
 
   sortedFoodList({ foodList }: SortedFoodListType) {
     return (
-      this.updateFilterItem({ foodList })?.sort((a, b) =>
+      this.#updateFilterItem({ foodList })?.sort((a, b) =>
         this.#sortBy({ a, b })
       ) || []
     );

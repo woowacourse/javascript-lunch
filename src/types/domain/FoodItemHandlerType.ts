@@ -6,7 +6,7 @@ export interface ReadFoodListType {
 }
 
 export interface AddFoodItemType {
-  filter: Filter;
+  foodItem: FoodType;
 }
 
 export interface DeleteFoodItemType {
@@ -32,7 +32,12 @@ export interface ShowFoodItemType {
   foodListComponent: HTMLElement[];
 }
 
-export interface ConvertStorageToLocalType {
+export interface CreateFoodListComponentType {
   filter: Filter;
   foodList: FoodType[];
+}
+
+export interface CreateFoodItemComponentType {
+  localFoodItem: FoodType;
+  filter: Filter;
 }

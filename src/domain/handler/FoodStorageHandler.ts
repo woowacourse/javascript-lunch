@@ -11,19 +11,17 @@ export function readStorageFoodList() {
 }
 
 // CURD - update
-export function updateStorageFoodList({
-  newFoodItem,
-}: UpdateStorageFoodListType) {
+export function updateStorageFoodList({ foodItem }: UpdateStorageFoodListType) {
   let foodItems = readStorageFoodList(); // 기존 배열 가져오기
 
   const index = foodItems.findIndex(
-    (item: FoodType) => item.name === newFoodItem.name
+    (item: FoodType) => item.name === foodItem.name
   );
 
   if (index !== -1) {
-    foodItems[index].favorite = newFoodItem.favorite;
+    foodItems[index].favorite = foodItem.favorite;
   } else {
-    foodItems.push(newFoodItem);
+    foodItems.push(foodItem);
   }
   localStorage.setItem("foodList", JSON.stringify(foodItems));
   return foodItems;

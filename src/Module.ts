@@ -1,8 +1,8 @@
 import { Modal } from "./component/layout/Modal";
 import { Filter } from "./domain/Filter";
 import {
-  convertStorageToLocal,
-  readFoodList,
+  createFoodListComponent,
+  getFilteredFoodList,
   showConvertedItem,
 } from "./domain/handler/FoodItemHandler";
 import { isFavoriteState } from "./domain/handler/TabButtonHandler";
@@ -39,7 +39,7 @@ export class Module {
       document
         .querySelector(`select[name=${name}]`)
         ?.addEventListener("change", () => {
-          const previousFoodList = readFoodList({
+          const previousFoodList = getFilteredFoodList({
             favoriteFilter: isFavoriteState(),
           });
 
@@ -48,7 +48,7 @@ export class Module {
             filter: name as FilterType,
           });
 
-          convertStorageToLocal({
+          createFoodListComponent({
             filter: this.#filter,
             foodList: filteredItems,
           });
