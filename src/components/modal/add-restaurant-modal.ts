@@ -48,6 +48,7 @@ export const addRestaurant = (data: RestaurantProps): void => {
 };
 
 export const handleModalClose = (): void => {
+  console.log('닫아');
   const modal = document.querySelector(".modal");
   if (!modal) return;
   modal.classList.remove("modal--open");
