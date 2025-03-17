@@ -4,3 +4,5 @@ export const CAPTION = {
 };
 
 export const DELETE = "정말 삭제하시겠습니까? 삭제 이후에는 복구할 수 없습니다.";
+
+export const EMPTY_LIST = "음식점이 없습니다.";

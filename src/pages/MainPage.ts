@@ -7,6 +7,8 @@ import Modal from "../component/common/modal/Modal.js";
 import TabMenu from "../component/tab-menu/TabMenu.ts";
 import { DROPDOWN_OPTIONS } from "../constants/constants.ts";
 import { getStoredFoodItems } from "../managers/storageManagers.js";
+import { addItem } from "../component/food-list/FoodListManager.ts";
+import FoodItem from "../component/food-item/FoodItem.ts";
 
 export default class MainPage {
   container: HTMLDivElement;
@@ -14,6 +16,9 @@ export default class MainPage {
   modal: Modal;
   foodForm: FoodForm;
   tabMenu: TabMenu;
+
+  filterDropdown: Dropdown;
+  sortDropdown: Dropdown;
   dropdownContainer: DropdownContainer;
 
   constructor() {
@@ -21,7 +26,7 @@ export default class MainPage {
 
     this.foodForm = new FoodForm({
       onCancel: () => this.modal.close(),
-      onSubmit: this.handleSubmit.bind(this),
+      onSubmit: (formItem) => this.handleSubmit(formItem),
     });
 
     this.modal = new Modal({
@@ -30,17 +35,33 @@ export default class MainPage {
 
     this.tabMenu = new TabMenu();
     this.tabMenu.onTabChange = () => {
-      this.render();
+      this.renderDynamicSection();
     };
 
-    const dropdowns = [
-      new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.category, type: "filter" }),
-      new Dropdown({ name: "sort", options: DROPDOWN_OPTIONS.sort, type: "sort" }),
-    ];
-    this.dropdownContainer = new DropdownContainer({ dropdowns: dropdowns });
+    this.filterDropdown = new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.category, onChange: this.handleFilterChange.bind(this) });
+    this.sortDropdown = new Dropdown({ name: "sort", options: DROPDOWN_OPTIONS.sort, onChange: this.handleSortChange.bind(this) });
+    this.dropdownContainer = new DropdownContainer({ dropdowns: [this.filterDropdown, this.sortDropdown] });
 
     this.container = document.createElement("div");
 
+    this.render();
+  }
+
+  handleFilterChange() {
+    this.foodList.updateFilterItem(this.filterDropdown.selectValue);
+  }
+
+  handleSortChange() {
+    this.foodList.updateSortItem(this.sortDropdown.selectValue);
+  }
+
+  handleSubmit(foodItem: FoodItemType) {
+    addItem(getStoredFoodItems(), foodItem);
+    this.modal.close();
+  }
+
+  render() {
+    this.container.innerHTML = "";
     const body = document.querySelector("body")!;
 
     body.appendChild(this.modal.element);
@@ -48,29 +69,11 @@ export default class MainPage {
     body.appendChild(this.tabMenu.element);
     body.appendChild(this.container);
 
-    this.render();
+    this.renderDynamicSection();
   }
 
-  getFoodListElement() {
-    if (this.tabMenu.currentMenu === "favorite") {
-      this.foodList.filterFavoriteItem();
-      return this.foodList.element;
-    }
-    if (this.dropdownContainer.element) {
-      this.container.appendChild(this.dropdownContainer.element);
-    }
-    this.foodList.resetFavoriteFilter();
-    return this.foodList.element;
-  }
-
-  render() {
-    this.container.innerHTML = "";
-
-    this.container.appendChild(this.getFoodListElement());
-  }
-
-  handleSubmit(formData: FoodItemType) {
-    this.foodList.addItem(formData);
-    this.modal.close();
+  renderDynamicSection() {
+    this.container.appendChild(this.dropdownContainer.element);
+    this.container.appendChild(this.foodList.element);
   }
 }

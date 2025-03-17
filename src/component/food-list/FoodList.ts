@@ -1,12 +1,11 @@
-import { addDeleteItemChangeListeners } from "../../managers/eventManager/deleteEventManager.ts";
-import { addFavoriteChangeListeners } from "../../managers/eventManager/favoriteEventManager.ts";
-import { addFilterChangeListeners } from "../../managers/eventManager/filterEventManager.ts";
-import { addSortChangeListeners } from "../../managers/eventManager/sortEventManager.ts";
-import { storeFoodItems } from "../../managers/storageManagers.ts";
+import { EMPTY_LIST } from "../../constants/systemMessage.ts";
+import { filterFoodItemsByCategory } from "../../util/filterFoodItems.ts";
+import { sortFoodItem } from "../../util/sortFoodItem.ts";
+import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
+import { Button } from "../button/button/Button.js";
+import Modal from "../common/modal/Modal.js";
 import FoodItem from "../food-item/FoodItem.ts";
-
-type CategoryDropdownValue = "" | "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
-type SortDropdownValue = "이름순" | "거리순";
+import { deleteFoodItem, toggleFavoriteFoodItem } from "./FoodListManager.ts";
 
 interface FoodListOptions {
   foodItems: FoodItemType[];
@@ -14,22 +13,17 @@ interface FoodListOptions {
 
 export default class FoodList {
   #originFoodItems;
-  #renderFoodItems;
+  #foodItems;
   foodList;
 
   constructor({ foodItems }: FoodListOptions) {
     this.#originFoodItems = foodItems;
-    this.#renderFoodItems = foodItems;
+    this.#foodItems = foodItems;
 
     this.foodList = document.createElement("ul");
     this.foodList.className = "restaurant-list";
 
     this.updateSortItem("이름순");
-
-    addFavoriteChangeListeners(this.updateFavoriteItem.bind(this));
-    addDeleteItemChangeListeners(this.updateDeleteItem.bind(this));
-    addFilterChangeListeners(this.updateFilterItem.bind(this));
-    addSortChangeListeners(this.updateSortItem.bind(this));
 
     this.render();
   }
@@ -40,89 +34,98 @@ export default class FoodList {
 
   render() {
     this.foodList.innerHTML = "";
-    this.checkAndRenderEmptyList();
+
+    if (this.#foodItems.length === 0) {
+      this.showEmptyListMessage();
+    }
+
     const foodFragment = document.createDocumentFragment();
 
-    this.#renderFoodItems.forEach((foodItem: FoodItemType) => {
+    this.#foodItems.forEach((foodItem: FoodItemType) => {
       const foodItemElement = new FoodItem({
         data: foodItem,
         cssType: "row",
+        onFavoriteClick: (id: string) => this.updateFavoriteItem(id),
+        onDeleteClick: (id: string) => this.updateDeleteItem(id),
+        onFoodItemClick: () => this.renderDetailModal(foodItem),
       }).element;
+
       if (foodItemElement) {
         foodFragment.appendChild(foodItemElement);
       }
     });
+
     this.foodList.appendChild(foodFragment);
   }
 
-  checkAndRenderEmptyList() {
-    if (this.#originFoodItems.length === 0) {
-      this.foodList.innerHTML = `
-      <p class="empty-message">음식점이 없습니다. 우측 상단 버튼을 눌러 추가해 주세요.</p>
+  renderDetailModal(foodItem: FoodItemType) {
+    const foodItemElement = document.querySelectorAll(".restaurant");
+    if (!foodItemElement) return;
+
+    foodItemElement.forEach((element) => {
+      element.addEventListener("click", () => {
+        const fragment = document.createDocumentFragment();
+
+        const detailFoodItem = new FoodItem({
+          data: foodItem,
+          cssType: "column",
+          onFavoriteClick: this.updateFavoriteItem.bind(this),
+          onDeleteClick: this.updateDeleteItem.bind(this),
+          onFoodItemClick: () => {},
+        });
+        if (!detailFoodItem.element) return;
+        fragment.appendChild(detailFoodItem.element);
+
+        const buttonContainer = ButtonContainer({
+          buttons: [
+            Button({
+              name: "delete",
+              innerText: "삭제하기",
+              cssType: "secondary",
+              onClick: () => {
+                detailFoodItem.handleDeleteClick();
+                detailModal.close();
+              },
+            }),
+            Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
+          ],
+        });
+        fragment.appendChild(buttonContainer);
+
+        const detailModal = new Modal({ content: fragment });
+        detailModal.open();
+
+        const body = document.querySelector("body");
+        if (body) {
+          body.appendChild(detailModal.element);
+        }
+      });
+    });
+  }
+
+  showEmptyListMessage() {
+    this.foodList.innerHTML = `
+      <p class="empty-message">${EMPTY_LIST}</p>
     `;
-
-      return;
-    }
-    if (this.#renderFoodItems.length === 0) {
-      this.foodList.innerHTML = `
-        <p class="empty-message">즐겨찾기한 음식점이 없습니다.</p>
-      `;
-
-      return;
-    }
-  }
-
-  addItem(foodItem: FoodItemType) {
-    this.#originFoodItems = [...this.#originFoodItems, foodItem];
-    this.#renderFoodItems = this.#originFoodItems;
-    storeFoodItems(this.#originFoodItems);
-
-    this.render();
-  }
-
-  filterFavoriteItem() {
-    this.#renderFoodItems = this.#originFoodItems.filter((foodItem: FoodItemType) => foodItem.isFavorite);
-    this.render();
-  }
-
-  resetFavoriteFilter() {
-    this.#renderFoodItems = this.#originFoodItems;
-    this.render();
   }
 
   updateFavoriteItem(id: string) {
-    this.#originFoodItems = this.#originFoodItems.map((foodItem: FoodItemType) => {
-      if (foodItem.id === id) {
-        foodItem.isFavorite = !foodItem.isFavorite;
-      }
-      return foodItem;
-    });
+    this.#foodItems = toggleFavoriteFoodItem(this.#foodItems, id);
     this.render();
   }
 
   updateDeleteItem(id: string) {
-    this.#originFoodItems = this.#originFoodItems.filter((foodItem: FoodItemType) => foodItem.id !== id);
-    this.#renderFoodItems = this.#originFoodItems;
+    this.#foodItems = deleteFoodItem(this.#foodItems, id);
     this.render();
   }
 
-  updateFilterItem(category: CategoryDropdownValue) {
-    if (category === "") {
-      this.#renderFoodItems = this.#originFoodItems;
-      this.render();
-      return;
-    }
-    this.#renderFoodItems = this.#originFoodItems.filter((foodItem) => foodItem.category === category);
+  updateFilterItem(category: string) {
+    this.#foodItems = filterFoodItemsByCategory(category, this.#originFoodItems);
     this.render();
   }
 
-  updateSortItem(sortType: SortDropdownValue) {
-    if (sortType === "이름순") {
-      this.#renderFoodItems.sort((a, b) => a.name.localeCompare(b.name));
-    }
-    if (sortType === "거리순") {
-      this.#renderFoodItems.sort((a, b) => a.distance - b.distance);
-    }
+  updateSortItem(sortType: string) {
+    this.#foodItems = sortFoodItem(sortType, this.#foodItems);
     this.render();
   }
 }

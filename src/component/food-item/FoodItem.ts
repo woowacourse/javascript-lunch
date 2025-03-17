@@ -1,16 +1,16 @@
 import { DELETE } from "../../constants/systemMessage.ts";
-import { notifyDeleteChange } from "../../managers/eventManager/deleteEventManager.ts";
-import { removeStoredFoodItem, toggleFavorite } from "../../managers/storageManagers.js";
 import { getImgSrcAlt } from "../../util/getImgSrcAlt.js";
-import { Button } from "../button/button/Button.js";
-import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
-import Modal from "../common/modal/Modal.js";
 
 type CssTypeProps = "row" | "column";
 
 interface FoodItemOptions {
   data: FoodItemType;
   cssType: CssTypeProps;
+
+  onFavoriteClick: (id: string) => void;
+  onDeleteClick: (id: string) => void;
+  onFoodItemClick: () => void;
+
   isModalFoodItem?: boolean;
 }
 
@@ -18,60 +18,35 @@ export default class FoodItem {
   container: HTMLElement;
 
   #data: FoodItemType;
-  #id: string;
-  #category: CategoryType;
-  #name: string;
-  #distance: DistanceType;
-  #description: string;
-  #link: string;
-
-  #isFavorite;
 
   #cssType: CssTypeProps;
-  #isModalFoodItem: boolean;
 
-  constructor({ data, cssType, isModalFoodItem = false }: FoodItemOptions) {
+  #onFavoriteClick: (id: string) => void;
+  #onDeleteClick: (id: string) => void;
+  #onFoodItemClick: () => void;
+
+  constructor({ data, cssType, onFavoriteClick, onDeleteClick, onFoodItemClick }: FoodItemOptions) {
     this.#data = data;
     this.#cssType = cssType;
-    this.#isModalFoodItem = isModalFoodItem;
 
-    this.#id = data.id;
-    this.#category = data.category;
-    this.#name = data.name;
-    this.#distance = data.distance;
-    this.#description = data.description;
-    this.#isFavorite = data.isFavorite;
-    this.#link = data.link;
+    this.#onFavoriteClick = onFavoriteClick;
+    this.#onDeleteClick = onDeleteClick;
+    this.#onFoodItemClick = onFoodItemClick;
 
     this.container = document.createElement("div");
 
     this.render();
+
     this.setUpFavoriteToggle();
-    this.setCss();
-    if (!this.#isModalFoodItem) {
-      this.showDetail();
-    }
+    this.setDetailCss();
   }
 
   get element() {
     return this.container.firstElementChild;
   }
 
-  getBookmarkIconSrc() {
-    if (this.#isFavorite) {
-      return "./favorite-icon-filled.png";
-    }
-    return "./favorite-icon-lined.png";
-  }
-
-  setCss() {
-    if (this.#cssType === "column") {
-      this.container.querySelector("li")?.classList.add("restaurant-detail");
-    }
-  }
-
   render() {
-    const { imgAlt, imgSrc } = getImgSrcAlt(this.#category);
+    const { imgAlt, imgSrc } = getImgSrcAlt(this.#data.category);
 
     this.container.innerHTML = `
               <li class="restaurant">
@@ -83,14 +58,14 @@ export default class FoodItem {
               />
             </div>
             <div class="restaurant__info">
-              <h3 class="restaurant__name text-subtitle">${this.#name}</h3>
+              <h3 class="restaurant__name text-subtitle">${this.#data.name}</h3>
               <span class="restaurant__distance text-body"
-                >캠퍼스부터 ${this.#distance}분 내</span
+                >캠퍼스부터 ${this.#data.distance}분 내</span
               >
               <p class="restaurant__description ${this.#cssType === "column" ? "restaurant__description-detail" : ""} text-body">
-               ${this.#description}
+               ${this.#data.description}
               </p>
-              ${this.#cssType === "column" && this.#link ? `<p>${this.#link}</p>` : ""}
+              ${this.#cssType === "column" && this.#data.link ? `<p>${this.#data.link}</p>` : ""}
               <img src=${this.getBookmarkIconSrc()} alt="즐겨찾기" class="favorite-icon">
             </div>
           </li>
@@ -101,59 +76,40 @@ export default class FoodItem {
     const bookmarkIcon = this.container.querySelector(".favorite-icon");
     if (!bookmarkIcon) return;
 
-    bookmarkIcon.addEventListener("click", (event) => {
-      event.stopPropagation();
-
-      this.#isFavorite = !this.#isFavorite;
-      bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
-
-      toggleFavorite(this.#id);
-      this.render();
-    });
+    bookmarkIcon.addEventListener("click", this.handleFavoriteClick.bind(this));
   }
 
-  showDetail() {
-    this.container.querySelector("li")?.addEventListener("click", () => {
-      if (this.#isModalFoodItem) return;
+  handleFavoriteClick(event: Event) {
+    event.stopPropagation();
 
-      const fragment = document.createDocumentFragment();
+    this.updateFavoriteIcon();
+    this.#onFavoriteClick(this.#data.id);
 
-      const detailFoodItem = new FoodItem({
-        data: this.#data,
-        cssType: "column",
-        isModalFoodItem: true,
-      });
-      if (!detailFoodItem.element) return;
-      fragment.appendChild(detailFoodItem.element);
-
-      const buttonContainer = ButtonContainer({
-        buttons: [
-          Button({
-            name: "delete",
-            innerText: "삭제하기",
-            cssType: "secondary",
-            onClick: () => {
-              detailFoodItem.deleteItem();
-              detailModal.close();
-            },
-          }),
-          Button({ name: "close", innerText: "닫기", onClick: () => detailModal.close() }),
-        ],
-      });
-      fragment.appendChild(buttonContainer);
-
-      const detailModal = new Modal({ content: fragment });
-      detailModal.open();
-
-      document.querySelector("body")?.appendChild(detailModal.element);
-    });
+    this.render();
   }
 
-  deleteItem() {
+  updateFavoriteIcon() {
+    const bookmarkIcon = this.container.querySelector(".favorite-icon");
+    if (!bookmarkIcon) return;
+    bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
+  }
+
+  getBookmarkIconSrc() {
+    if (this.#data.isFavorite) {
+      return "./favorite-icon-filled.png";
+    }
+    return "./favorite-icon-lined.png";
+  }
+
+  setDetailCss() {
+    if (this.#cssType === "column") {
+      this.container.querySelector("li")?.classList.add("restaurant-detail");
+    }
+  }
+
+  handleDeleteClick() {
     if (confirm(DELETE)) {
-      notifyDeleteChange(this.#id);
-      removeStoredFoodItem(this.#id);
-      this.render();
+      this.#onDeleteClick(this.#data.id);
     }
   }
 }

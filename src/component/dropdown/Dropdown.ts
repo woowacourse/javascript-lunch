@@ -1,8 +1,3 @@
-import { notifyFilterChange } from "../../managers/eventManager/filterEventManager.ts";
-import { notifySortChange } from "../../managers/eventManager/sortEventManager.ts";
-
-type DropdownFeatureType = "filter" | "sort";
-
 interface OptionType {
   value: string;
   label: string;
@@ -11,24 +6,25 @@ interface OptionType {
 interface DropdownOption {
   name: string;
   options: OptionType[];
-  type: DropdownFeatureType;
+  onChange: Function;
 }
 
 export class Dropdown {
   container: HTMLElement;
   name: string;
   options: OptionType[];
-  type: DropdownFeatureType;
+  onChange: Function;
 
   #selectValue: string;
 
-  constructor({ name, options, type }: DropdownOption) {
+  constructor({ name, options, onChange }: DropdownOption) {
     this.container = document.createElement("div");
     this.options = options;
     this.name = name;
 
-    this.type = type;
     this.#selectValue = "";
+
+    this.onChange = onChange;
 
     this.render();
     this.setDropdownValue();
@@ -53,15 +49,10 @@ export class Dropdown {
   setDropdownValue() {
     this.container.querySelectorAll("select").forEach((element) =>
       element.addEventListener("change", (event: Event) => {
-        const target = event.target as HTMLSelectElement;
-
-        if (target && this.type === "filter") {
+        const target = event.target;
+        if (target instanceof HTMLSelectElement) {
           this.#selectValue = target.value;
-          notifyFilterChange(this.#selectValue);
-        }
-        if (target && this.type === "sort") {
-          this.#selectValue = target.value;
-          notifySortChange(this.#selectValue);
+          this.onChange(this.#selectValue);
         }
       }),
     );
