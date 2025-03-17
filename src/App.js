@@ -140,7 +140,7 @@ export default class App {
 
   #updateRestautantList = (newRestaurantList) => {
     this.#restaurantList = newRestaurantList;
-    this.updateRestaurantListUI();
+    this.#updateRestaurantListUI();
   };
 
   #updateLocalRestautantList = (newRestaurantList) => {
@@ -155,7 +155,7 @@ export default class App {
     this.#renderFilterAndNavigation();
   };
 
-  updateRestaurantListUI() {
+  #updateRestaurantListUI() {
     this.#renderRestaurantList();
     this.#resetForm();
   }
