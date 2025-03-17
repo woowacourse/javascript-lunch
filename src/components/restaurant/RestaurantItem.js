@@ -11,7 +11,7 @@ export default function RestaurantItem({
   description,
   isWish,
   link,
-  isColumn = false
+  isColumn = false,
 }) {
   const $restaurantItem = createElement({
     tag: "li",
@@ -25,7 +25,7 @@ export default function RestaurantItem({
   });
 
   const $categoryIcon = createElement({
-    tag: 'img',
+    tag: "img",
     src,
     alt,
     classNames: ["category-icon"],
@@ -47,8 +47,8 @@ export default function RestaurantItem({
   });
 
   const $restaurantDescription = createElement({
-      tag: "p",
-      classNames: ["restaurant__description", "text-body"],
+    tag: "p",
+    classNames: ["restaurant__description", "text-body"],
   });
 
   const $restaurantWish = createElement({
@@ -58,7 +58,7 @@ export default function RestaurantItem({
 
   const $restaurantStar = createElement({
     tag: "span",
-    classNames: ["restaurant-star", `${isWish && 'active'}`],
+    classNames: ["restaurant-star", `${isWish && "active"}`],
     id,
   });
 
@@ -67,10 +67,9 @@ export default function RestaurantItem({
     href: link,
     target: "_blank",
     classNames: ["text-body"],
-  })
+  });
 
-
-  if(isColumn) {
+  if (isColumn) {
     $restaurantItem.classList.add("modal-column");
     $restaurantDescription.classList.add("text-column");
   }
@@ -78,18 +77,16 @@ export default function RestaurantItem({
   $restaurantStar.addEventListener("click", (event) => {
     event.stopPropagation();
     toggleStar();
-  })
-
-
+  });
 
   function toggleStar() {
     const isWish = restaurantDataList.updateIsWish(id);
-    if(!isWish && isColumn) {
-      $restaurantStar.classList.toggle('active');
-    } 
+    if (!isWish && isColumn) {
+      $restaurantStar.classList.toggle("active");
+    }
 
-    if(!isColumn) {
-      Restaurant({isReRender: true});
+    if (!isColumn) {
+      Restaurant({ isReRender: true });
     }
   }
 
@@ -108,10 +105,10 @@ export default function RestaurantItem({
   $restaurantName.textContent = name;
   $restaurantDistance.textContent = `캠퍼스로부터 ${distance}분 내`;
   $restaurantDescription.textContent = description;
-  $restaurantStar.textContent = "★"
-  
-  if(isColumn) {
-    console.log(link)
+  $restaurantStar.textContent = "★";
+
+  if (isColumn) {
+    console.log(link);
     $restaurantInfo.appendChild($restaurantLink);
     $restaurantLink.textContent = link;
   }

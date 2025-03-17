@@ -3,8 +3,9 @@ import closeModal from "../../util/closeModal";
 import Button from "../util/Button";
 import restaurantDataList from "../../domain/RestaurantDataList";
 
-export default function RestaurantItemDetailModalButtonContainer({restaurantId}) {
-  
+export default function RestaurantItemDetailModalButtonContainer({
+  restaurantId,
+}) {
   const $div = createElement({
     tag: "div",
     classNames: ["button-container"],
