@@ -1,57 +1,48 @@
-import image from "../public/icons/favorite-icon-filled.png";
-import Header from "./components/Header.js";
-import RestaurantList from "./components/RestaurantList.js";
-import { restaurants } from "./database/restaurants.js";
-import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
-import Modal from "./components/common/Modal.js";
 import Component from "./components/core/Component.js";
-import { $ } from "./utils/selector.js";
-import RestaurantItem from "./components/RestaurantItem.js";
-
-import {
-  setItemToLocalStorage,
-  getItemFromLocalStorage,
-} from "./database/localStorage.js";
+import Header from "./components/Header.js";
+import TabNavigation from "./components/TabNavigation.js";
+import Modal from "./components/common/Modal.js";
+import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
 import RestaurantInfoModal from "./components/modal/RestaurantInfoModal/index.js";
-import { makeUniqueId } from "./utils/makeUniqueId.js";
+import RestaurantList from "./components/RestaurantList.js";
+import RestaurantItem from "./components/RestaurantItem.js";
 import CategoryFilter from "./components/CategoryFilter.js";
 import SortingFilter from "./components/SortingFilter.js";
-import sortAndFilter from "./utils/sortAndFilter.js";
+
+import { $ } from "./utils/selector.js";
+
+import lunchRestaurantsService from "./domain/lunchRestaurantsService.js";
 
 import emptyStar from "../public/icons/emptyStar.svg";
 import filledStar from "../public/icons/filledStar.svg";
 
-import TabNavigation from "./components/TabNavigation.js";
-
 class App extends Component {
   setup() {
     this.state = {
-      restaurants: sortAndFilter(
-        this.props.getItemFromLocalStorage(this.props.KEY)
-      ),
+      restaurants: this.props.lunchDomain.getRestaurants(),
       activeTab: "all",
     };
+    this.props.lunchDomain.saveRestaurants(this.state.restaurants);
   }
 
   updateRestaurant(newRestaurant) {
-    const newRestaurantList = [newRestaurant, ...this.state.restaurants];
-    this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
+    const { newRestaurantList, newRestaurantWithId } =
+      this.props.lunchDomain.addRestaurant(
+        this.state.restaurants,
+        newRestaurant
+      );
+    this.setState({ restaurants: newRestaurantList });
 
-    this.setState({
-      restaurants: newRestaurantList,
-    });
+    this.updateNewRestaurant(newRestaurantWithId);
+  }
 
+  updateNewRestaurant(newRestaurant) {
     const $categoryFilter = $(document, "#category-filter");
     if ($categoryFilter.value !== newRestaurant.category) {
       return;
     }
 
-    this.updateNewRestaurant(newRestaurant);
-  }
-
-  updateNewRestaurant(newRestaurant) {
     const $restaurantList = $(document, ".restaurant-list");
-
     $restaurantList.insertAdjacentHTML(
       "afterbegin",
       RestaurantItem(newRestaurant)
@@ -59,14 +50,11 @@ class App extends Component {
   }
 
   deleteRestaurant(targetRestaurant) {
-    const newRestaurantList = [...this.state.restaurants].filter(
-      ({ id }) => id !== targetRestaurant.id
+    const updatedList = this.props.lunchDomain.deleteRestaurant(
+      this.state.restaurants,
+      targetRestaurant
     );
-    this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
-
-    this.setState({
-      restaurants: newRestaurantList,
-    });
+    this.setState({ restaurants: updatedList });
 
     this.renderDeleteRestaurant(targetRestaurant);
   }
@@ -79,27 +67,14 @@ class App extends Component {
 
   handleTabChange(tab) {
     this.setState({ activeTab: tab });
-    const restaurantSection = $(document, ".restaurant-list-container");
-    restaurantSection.remove();
-
-    const $restaurantFilterContainer = $(
-      document,
-      ".restaurant-filter-container"
-    );
-    $restaurantFilterContainer.replaceChildren();
-
-    if (tab === "favorite") {
-      this.renderFavorite();
-      return;
-    }
-
-    this.renderAll();
+    this.renderContent();
   }
 
   template() {
     return /*html*/ `
         <main>
           <section class="restaurant-filter-container"></section>
+          <div class="restaurant-list-container"></div>
         </main>
         <div id="modal"></div>
     `;
@@ -107,13 +82,14 @@ class App extends Component {
 
   componentDidUpdate() {}
 
-  renderAll() {
-    const $restaurantFilterContainer = $(
-      document,
-      ".restaurant-filter-container"
-    );
+  renderFilterAndSort($restaurantFilterContainer) {
+    this.renderCategoryFilter($restaurantFilterContainer);
+    this.renderSortingFilter($restaurantFilterContainer);
+  }
+
+  renderCategoryFilter($restaurantFilterContainer) {
     $restaurantFilterContainer.insertAdjacentHTML(
-      "afterbegin",
+      "beforeend",
       CategoryFilter()
     );
 
@@ -123,18 +99,21 @@ class App extends Component {
       const restaurantSection = $(document, ".restaurant-list-container");
       restaurantSection.remove();
 
-      const restaurantList = this.state.restaurants;
-
       const category = event.target.value;
-
       const $sortingFilter = $($restaurantFilterContainer, "#sorting-filter");
       const sorting = $sortingFilter.value;
 
       this.renderRestaurantList(
-        sortAndFilter(restaurantList, sorting, category)
+        this.props.lunchDomain.filterAndSortRestaurants(
+          this.state.restaurants,
+          sorting,
+          category
+        )
       );
     });
+  }
 
+  renderSortingFilter($restaurantFilterContainer) {
     $restaurantFilterContainer.insertAdjacentHTML("beforeend", SortingFilter());
     const $sortingFilter = $($restaurantFilterContainer, "#sorting-filter");
 
@@ -142,26 +121,106 @@ class App extends Component {
       const restaurantSection = $(document, ".restaurant-list-container");
       restaurantSection.remove();
 
-      const restaurantList = this.state.restaurants;
-
       const $categoryFilter = $($restaurantFilterContainer, "#category-filter");
       const category = $categoryFilter.value;
-
       const sorting = event.target.value;
 
       this.renderRestaurantList(
-        sortAndFilter(restaurantList, sorting, category)
+        this.props.lunchDomain.filterAndSortRestaurants(
+          this.state.restaurants,
+          sorting,
+          category
+        )
       );
     });
-
-    this.renderRestaurantList(sortAndFilter(this.state.restaurants));
   }
 
-  renderFavorite() {
-    const favoriteRestaurants = this.state.restaurants.filter(
-      ({ isFavorite }) => isFavorite
+  renderRestaurantList(restaurants) {
+    const $main = $(document, "main");
+    $main.insertAdjacentHTML("beforeend", RestaurantList(restaurants));
+
+    $(document, "#restaurant-list").addEventListener("click", (event) => {
+      const restaurantItem = event.target.closest("li");
+      const restaurant = this.state.restaurants.find(
+        ({ id }) => id === restaurantItem.id
+      );
+
+      const $button = event.target.closest("button");
+      if ($button && $button.dataset.buttonid === restaurantItem.id) {
+        const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
+          this.state.restaurants,
+          restaurantItem.id
+        );
+
+        this.setState({ restaurants: updatedList });
+        const updatedRestaurant = updatedList.find(
+          ({ id }) => id === restaurantItem.id
+        );
+
+        const $img = $($button, ".favorite-icon");
+        $img.setAttribute(
+          "src",
+          updatedRestaurant.isFavorite ? filledStar : emptyStar
+        );
+        return;
+      }
+
+      const changeLocalStorageState = (restaurant) => {
+        const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
+          this.state.restaurants,
+          restaurant.id
+        );
+        this.setState({ restaurants: updatedList });
+        const updatedRestaurant = updatedList.find(
+          ({ id }) => id === restaurant.id
+        );
+        const $img = $(
+          $(document, "#restaurant-info-container"),
+          ".favorite-icon"
+        );
+        $img.setAttribute(
+          "src",
+          updatedRestaurant.isFavorite ? filledStar : emptyStar
+        );
+      };
+
+      const restaurantInfoModal = new RestaurantInfoModal(
+        $(document, "#modal"),
+        {
+          data: restaurant,
+          deleteRestaurant: this.deleteRestaurant.bind(this),
+          changeLocalStorageState,
+        }
+      );
+      restaurantInfoModal.open();
+    });
+  }
+
+  renderContent() {
+    const restaurantSection = $(document, ".restaurant-list-container");
+    restaurantSection.remove();
+
+    const $restaurantFilterContainer = $(
+      document,
+      ".restaurant-filter-container"
     );
-    this.renderRestaurantList(sortAndFilter(favoriteRestaurants));
+    $restaurantFilterContainer.replaceChildren();
+
+    if (this.state.activeTab === "favorite") {
+      const restaurantsToRender = this.state.restaurants.filter(
+        ({ isFavorite }) => isFavorite
+      );
+
+      this.renderRestaurantList(
+        this.props.lunchDomain.filterAndSortRestaurants(restaurantsToRender)
+      );
+      return;
+    }
+
+    this.renderFilterAndSort($restaurantFilterContainer);
+    this.renderRestaurantList(
+      this.props.lunchDomain.filterAndSortRestaurants(this.state.restaurants)
+    );
   }
 
   componentDidMount() {
@@ -191,102 +250,9 @@ class App extends Component {
       onTabChange: this.handleTabChange.bind(this),
     });
 
-    this.renderAll();
-  }
-
-  renderRestaurantList(restaurants) {
-    const $main = $(document, "main");
-    $main.insertAdjacentHTML("beforeend", RestaurantList(restaurants));
-
-    $(document, "#restaurant-list").addEventListener("click", (event) => {
-      const restaurantItem = event.target.closest("li");
-      const restaurantList = this.props.getItemFromLocalStorage(this.props.KEY);
-
-      const restaurant = restaurantList.find(
-        ({ id }) => id === restaurantItem.id
-      );
-
-      const $button = event.target.closest("button");
-      if ($button && $button.dataset.buttonid === restaurantItem.id) {
-        const newRestaurant = {
-          ...restaurant,
-          isFavorite: !restaurant.isFavorite,
-        };
-        const newRestaurantList = [
-          ...restaurantList.filter(({ id }) => id !== restaurantItem.id),
-          newRestaurant,
-        ];
-
-        this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
-        this.setState({
-          restaurants: newRestaurantList,
-        });
-
-        const $img = $($button, ".favorite-icon");
-        $img.setAttribute(
-          "src",
-          newRestaurant.isFavorite ? filledStar : emptyStar
-        );
-        return;
-      }
-
-      const changeLocalStorageState = (restaurant) => {
-        const restaurantList = this.props.getItemFromLocalStorage(
-          this.props.KEY
-        );
-
-        const newRestaurant = {
-          ...restaurant,
-          isFavorite: !restaurant.isFavorite,
-        };
-
-        const newRestaurantList = [
-          ...restaurantList.filter(({ id }) => id !== restaurant.id),
-          newRestaurant,
-        ];
-
-        this.props.setItemToLocalStorage(this.props.KEY, newRestaurantList);
-        this.setState({
-          restaurants: newRestaurantList,
-        });
-
-        const $img = $(
-          $(document, "#restaurant-info-container"),
-          ".favorite-icon"
-        );
-        $img.setAttribute(
-          "src",
-          newRestaurant.isFavorite ? filledStar : emptyStar
-        );
-      };
-
-      const restaurantInfoModal = new RestaurantInfoModal(
-        $(document, "#modal"),
-        {
-          data: restaurant,
-          deleteRestaurant: this.deleteRestaurant.bind(this),
-          changeLocalStorageState,
-        }
-      );
-      restaurantInfoModal.open();
-    });
+    this.renderContent();
   }
 }
 
-const KEY = "restaurantList";
-
-const initializeRestaurantList = (restaurants) => {
-  return restaurants.map((restaurant) => ({
-    ...restaurant,
-    id: makeUniqueId(restaurant.name), // id 추가
-    isFavorite: false,
-  }));
-};
-
-const initialList = initializeRestaurantList(restaurants);
-const restaurantList = getItemFromLocalStorage(KEY) ?? initialList;
-
-setItemToLocalStorage(KEY, restaurantList);
-
 const app = $(document, "#app");
-new App(app, { setItemToLocalStorage, getItemFromLocalStorage, KEY });
+new App(app, { lunchDomain: lunchRestaurantsService });
