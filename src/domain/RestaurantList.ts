@@ -105,13 +105,15 @@ export class RestaurantList {
   }
 
   sortRestaurantList(dataList: RestaurantProp[]) {
-    if (this.sortedFlag === SORTED.distance) {
-      dataList.sort((a, b) => a.distance - b.distance);
-    } else {
-      dataList.sort((a, b) => a.name.localeCompare(b.name, "ko"));
-    }
+    const sortFunctions: Record<
+      Values<typeof SORTED>,
+      (a: RestaurantProp, b: RestaurantProp) => number
+    > = {
+      [SORTED.distance]: (a, b) => a.distance - b.distance,
+      [SORTED.name]: (a, b) => a.name.localeCompare(b.name, "ko"),
+    };
 
-    return dataList;
+    return dataList.sort(sortFunctions[this.sortedFlag]);
   }
 
   subscribe(callback: (data: RestaurantProp[]) => void) {
