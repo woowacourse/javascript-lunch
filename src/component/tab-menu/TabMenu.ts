@@ -1,14 +1,28 @@
 import { MenuProps } from "../../types/menu.ts";
 
+interface TabMenuOption {
+  onTabChange: (currentMenu: string) => void;
+}
+
 export default class TabMenu {
   container: HTMLElement;
   #currentMenu: MenuProps = "all";
-  onTabChange: () => void = () => {};
+  #onTabChange: (currentMenu: string) => void = () => {};
 
-  constructor() {
+  constructor({ onTabChange }: TabMenuOption) {
     this.container = document.createElement("div");
     this.container.classList.add("tabmenu-container");
     this.render();
+
+    this.#onTabChange = onTabChange;
+  }
+
+  get element() {
+    return this.container;
+  }
+
+  get currentMenu() {
+    return this.#currentMenu;
   }
 
   render() {
@@ -30,7 +44,7 @@ export default class TabMenu {
         if (currentMenu === "all" || currentMenu === "favorite") {
           this.#currentMenu = currentMenu;
           this.setActiveTabStyle();
-          this.onTabChange();
+          this.#onTabChange(this.currentMenu);
         }
       }),
     );
@@ -39,12 +53,5 @@ export default class TabMenu {
   setActiveTabStyle() {
     this.container.querySelector(".tabmenu--active")?.classList.remove("tabmenu--active");
     this.container.querySelector(`[data-tab=${this.#currentMenu}]`)?.classList.add("tabmenu--active");
-  }
-
-  get element() {
-    return this.container;
-  }
-  get currentMenu() {
-    return this.#currentMenu;
   }
 }

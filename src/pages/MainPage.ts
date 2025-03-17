@@ -8,7 +8,6 @@ import TabMenu from "../component/tab-menu/TabMenu.ts";
 import { DROPDOWN_OPTIONS } from "../constants/constants.ts";
 import { getStoredFoodItems } from "../managers/storageManagers.js";
 import { addItem } from "../component/food-list/FoodListManager.ts";
-import FoodItem from "../component/food-item/FoodItem.ts";
 
 export default class MainPage {
   container: HTMLDivElement;
@@ -33,10 +32,7 @@ export default class MainPage {
       content: this.foodForm.element,
     });
 
-    this.tabMenu = new TabMenu();
-    this.tabMenu.onTabChange = () => {
-      this.renderDynamicSection();
-    };
+    this.tabMenu = new TabMenu({ onTabChange: (currentMenu: string) => this.foodList.updateFavoriteList(currentMenu) });
 
     this.filterDropdown = new Dropdown({ name: "category", options: DROPDOWN_OPTIONS.category, onChange: this.handleFilterChange.bind(this) });
     this.sortDropdown = new Dropdown({ name: "sort", options: DROPDOWN_OPTIONS.sort, onChange: this.handleSortChange.bind(this) });

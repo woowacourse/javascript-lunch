@@ -24,3 +24,10 @@ export function toggleFavoriteFoodItem(originFoodItems: FoodItemType[], id: stri
 
   return updatedFoodItems;
 }
+
+export function filterFavoriteFoodItems(originFoodItems: FoodItemType[], tabMenu: string) {
+  if (tabMenu === "favorite") {
+    return originFoodItems.filter((foodItem: FoodItemType) => foodItem.isFavorite);
+  }
+  return originFoodItems;
+}

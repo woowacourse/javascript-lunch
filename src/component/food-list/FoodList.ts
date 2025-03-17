@@ -5,7 +5,7 @@ import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
 import { Button } from "../button/button/Button.js";
 import Modal from "../common/modal/Modal.js";
 import FoodItem from "../food-item/FoodItem.ts";
-import { deleteFoodItem, toggleFavoriteFoodItem } from "./FoodListManager.ts";
+import { deleteFoodItem, filterFavoriteFoodItems, toggleFavoriteFoodItem } from "./FoodListManager.ts";
 
 interface FoodListOptions {
   foodItems: FoodItemType[];
@@ -47,7 +47,7 @@ export default class FoodList {
         cssType: "row",
         onFavoriteClick: (id: string) => this.updateFavoriteItem(id),
         onDeleteClick: (id: string) => this.updateDeleteItem(id),
-        onFoodItemClick: (foodItem: FoodItemType) => this.openDetailModal(foodItem),
+        onFoodItemClick: (foodItem: FoodItemType) => this.renderDetailModal(foodItem),
       }).element;
 
       if (foodItemElement) {
@@ -58,7 +58,7 @@ export default class FoodList {
     this.foodList.appendChild(foodFragment);
   }
 
-  openDetailModal(foodItem: FoodItemType) {
+  renderDetailModal(foodItem: FoodItemType) {
     const fragment = document.createDocumentFragment();
 
     const detailFoodItem = new FoodItem({
@@ -119,6 +119,11 @@ export default class FoodList {
 
   updateSortItem(sortType: string) {
     this.#foodItems = sortFoodItem(sortType, this.#foodItems);
+    this.render();
+  }
+
+  updateFavoriteList(tabMenu: string) {
+    this.#foodItems = filterFavoriteFoodItems(this.#originFoodItems, tabMenu);
     this.render();
   }
 }
