@@ -1,4 +1,5 @@
 import { createElement } from "../../utils/createElement";
+import RestaurantList from "../restaurantList";
 
 const Tab = ({ text, id, active = false, changeState }) => {
   const tab = createElement(/*html*/ `
@@ -12,11 +13,7 @@ const Tab = ({ text, id, active = false, changeState }) => {
     e.target.nextSibling?.classList.remove("active");
     e.target.classList.add("active");
 
-    if (e.target.id === "favorite-all") {
-      changeState({ favorite: false });
-      return;
-    }
-    changeState({ favorite: true });
+    RestaurantList(changeState());
   });
 
   return tab;
