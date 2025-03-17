@@ -2,6 +2,7 @@ import Modal from "./components/Modal.js";
 import TabButton from "./components/TabButton.js";
 import restaurantStorage from "./stores/restaurantStorage.ts";
 import querySelector from "./utils/querySelector.js";
+import restaurantData from "./data/restaurantData.ts";
 
 import { modalHandler } from "./handlers/modalHandler.ts";
 import { restaurantHandler } from "./handlers/restaurantHandler.ts";
@@ -10,6 +11,10 @@ import { RestaurantItem } from "./types/restaurantItem.js";
 import { FilterAndSortOptions } from "./types/filterAndSortOptions.js";
 
 addEventListener("load", () => {
+  if (restaurantStorage.getRestaurantList().length === 0) {
+    restaurantStorage.setRestaurantList(restaurantData);
+  }
+
   let isFavoriteTabActive = false;
 
   const categoryFilter = querySelector("#category-filter");
