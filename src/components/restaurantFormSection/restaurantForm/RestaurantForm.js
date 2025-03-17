@@ -11,7 +11,7 @@ import {
   BUTTON_TEXTS,
   BUTTON_TYPES,
 } from "../../../constants/constants.js";
-import { extractValuesByKey } from "../../utils/extractValuesByKey.js";
+import { extractValuesByKey } from "../../../utils/extractValuesByKey.js";
 
 export default class RestaurantForm {
   constructor(updateList, list) {

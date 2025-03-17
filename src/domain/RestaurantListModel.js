@@ -1,4 +1,4 @@
-import { getItem, RESTAURANT_LIST_KEY } from "../components/utils/storage";
+import { getItem, RESTAURANT_LIST_KEY } from "../utils/storage";
 
 export default class RestaurantListModel {
   #restaurantList;
