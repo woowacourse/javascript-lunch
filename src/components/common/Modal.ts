@@ -1,3 +1,4 @@
+import Portal from '../../lib/modules/Portal.ts';
 import { html } from '../../lib/utils.ts';
 import { Component } from '../core/index.ts';
 
@@ -8,6 +9,14 @@ interface ModalProps {
 }
 
 export default class Modal extends Component<ModalProps> {
+  #portal: Portal;
+
+  constructor(props: ModalProps) {
+    super(props);
+
+    this.#portal = new Portal('modal-portal');
+  }
+
   override template() {
     return html`
       <div class="modal modal--open" id="${this.props.id ?? ''}">
@@ -40,6 +49,15 @@ export default class Modal extends Component<ModalProps> {
   }
 
   private _removeModal() {
+    this.remove();
     this.props.onModalClose();
+  }
+
+  open() {
+    this.#portal.append(this.element);
+  }
+
+  remove() {
+    this.#portal.clear();
   }
 }

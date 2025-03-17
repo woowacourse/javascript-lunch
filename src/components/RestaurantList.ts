@@ -39,8 +39,6 @@ export default class RestaurantList extends Component<null, RestaurantListState>
         <section class="restaurant-list-container">
           <ul class="restaurant-list"></ul>
         </section>
-        <section class="restaurant-add-modal"></section>
-        <section class="restaurant-detail-modal"></section>
       </div>
     `;
   }
@@ -133,7 +131,7 @@ export default class RestaurantList extends Component<null, RestaurantListState>
       onModalClose: () => this.setState({ isRestaurantAddModal: false }),
     });
 
-    this.appendChild(restaurantAddModal.element, '.restaurant-add-modal');
+    restaurantAddModal.open();
   }
 
   private _appendRestaurantDetailModal() {
@@ -153,7 +151,7 @@ export default class RestaurantList extends Component<null, RestaurantListState>
       onModalClose: () => this.setState({ restaurantDetailId: null }),
     });
 
-    this.appendChild(restaurantDetailModal.element, '.restaurant-detail-modal');
+    restaurantDetailModal.open();
   }
 
   private _addRestaurant(restaurant: RestaurantType) {
