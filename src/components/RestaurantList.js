@@ -26,12 +26,13 @@ function updateRestaurantList(inputData) {
 }
 
 function deleteRestaurantById(id) {
-  const index = RESTAURANT_ITEMS.findIndex((item) => item.id === id);
-  if (index !== -1) {
-    RESTAURANT_ITEMS.splice(index, 1);
-  }
+  let storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
+
+  storedData = storedData.filter((item) => item.id !== id);
+  localStorage.setItem('addedRestaurants', JSON.stringify(storedData));
+
   const $container = document.querySelector('.restaurant-list-container');
-  const $updatedList = createRestaurantList(RESTAURANT_ITEMS);
+  const $updatedList = createRestaurantList([...RESTAURANT_ITEMS, ...storedData]);
 
   const oldList = $container.querySelector('.restaurant-list');
   if (oldList) oldList.remove();

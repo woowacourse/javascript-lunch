@@ -7,9 +7,16 @@ import createTabBar from './components/Tabbar.js';
 
 const program = {
   enrollRestaurantModal: null,
-  filteredItems: [...RESTAURANT_ITEMS],
+  filteredItems: [],
+
+  loadData() {
+    const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
+    this.filteredItems = [...RESTAURANT_ITEMS, ...storedData];
+  },
 
   initUI() {
+    this.loadData();
+
     const $main = document.getElementsByTagName('main')[0];
 
     const $filterContainer = createSectionContainer('restaurant-list-container');
@@ -26,7 +33,7 @@ const program = {
 
     $filterContainer.appendChild(createRestaurantList(this.filteredItems));
 
-    const $enrollRestaurantModal = createRestaurantEnrollModal(updateRestaurantList);
+    const $enrollRestaurantModal = createRestaurantEnrollModal(this.addRestaurant.bind(this));
     this.enrollRestaurantModal = $enrollRestaurantModal;
 
     $main.append($filterContainer, $enrollRestaurantModal.getElement());
@@ -67,10 +74,20 @@ const program = {
 
   handleTabClick(tab) {
     if (tab === 'favorite') {
-      this.filteredItems = RESTAURANT_ITEMS.filter((item) => item.favorite);
+      this.filteredItems = this.filteredItems.filter((item) => item.favorite);
     } else {
-      this.filteredItems = [...RESTAURANT_ITEMS];
+      this.loadData();
     }
+    this.updateRestaurantList();
+  },
+
+  addRestaurant(newRestaurant) {
+    const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
+
+    storedData.push(newRestaurant);
+    localStorage.setItem('addedRestaurants', JSON.stringify(storedData));
+
+    this.filteredItems.push(newRestaurant);
     this.updateRestaurantList();
   },
 
