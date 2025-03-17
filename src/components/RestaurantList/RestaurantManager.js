@@ -7,7 +7,7 @@ import {
   deleteRestaurant,
   addRestaurant,
   toggleFavorite,
-} from "../../domains/restaurantAPI.ts";
+} from "../../APIs/restaurantAPI.ts";
 
 class RestaurantManager {
   constructor(filterManager, restaurants) {

@@ -1,22 +1,11 @@
-import { Restaurant } from "./restaurant.ts";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { Restaurant } from "../domains/restaurant.ts";
+import { apiRequest } from "./APIRequest.ts";
 
 export async function fetchRestaurants(): Promise<Restaurant[]> {
   try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/restaurants`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP Error! Status: ${response.status}`);
-    }
-
-    const data: Restaurant[] = await response.json();
+    const data = await apiRequest<Restaurant[]>("/restaurants", {
+      method: "GET",
+    });
     return data;
   } catch (error) {
     alert("데이터를 불러오지 못했습니다. 다시 시도해주세요.");
@@ -29,17 +18,10 @@ export async function addRestaurant(
   newRestaurant: Restaurant
 ): Promise<Restaurant[]> {
   try {
-    const response = await fetch(`${API_URL}/restaurants`, {
+    const createdRestaurant = await apiRequest<Restaurant>("/restaurants", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newRestaurant),
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to add restaurant");
-    }
-
-    const createdRestaurant = await response.json();
     return [...restaurants, createdRestaurant];
   } catch (error) {
     alert("음식점을 추가하지 못했습니다. 다시 시도해주세요.");
@@ -52,14 +34,9 @@ export async function deleteRestaurant(
   restaurantId: string
 ): Promise<Restaurant[]> {
   try {
-    const response = await fetch(`${API_URL}/restaurants/${restaurantId}`, {
+    await apiRequest<void>(`/restaurants/${restaurantId}`, {
       method: "DELETE",
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to delete restaurant");
-    }
-
     return restaurants.filter((restaurant) => restaurant.id !== restaurantId);
   } catch (error) {
     alert("음식점을 삭제하지 못했습니다. 다시 시도해주세요.");
@@ -79,16 +56,10 @@ export async function toggleFavorite(
   const updatedRestaurant = { ...target, isFavorite: !target.isFavorite };
 
   try {
-    const response = await fetch(`${API_URL}/restaurants/${restaurantId}`, {
+    await apiRequest<Restaurant>(`/restaurants/${restaurantId}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedRestaurant),
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to update favorite status");
-    }
-
     return restaurants.map((restaurant) =>
       restaurant.id === restaurantId ? updatedRestaurant : restaurant
     );

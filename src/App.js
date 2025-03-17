@@ -5,7 +5,7 @@ import FilterManager from "./components/FilterBar/FilterManager.js";
 import TabManager from "./components/TabBar/TabManager.js";
 import RestaurantManager from "./components/RestaurantList/RestaurantManager.js";
 import TabBar from "./components/TabBar/index.js";
-import { fetchRestaurants } from "./domains/restaurantAPI.ts";
+import { fetchRestaurants } from "./APIs/restaurantAPI.ts";
 
 class App {
   #restaurants = [];
