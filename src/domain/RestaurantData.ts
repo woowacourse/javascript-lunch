@@ -32,9 +32,9 @@ export default class RestaurantData {
     category,
     isWish,
   }: Restaurant) {
-    this.validateCategory(category);
-    this.validateDistance(distance);
-    this.validateName(name);
+    this.#validateCategory(category);
+    this.#validateDistance(distance);
+    this.#validateName(name);
 
     console.log(id);
     this.id = id || crypto.randomUUID();
@@ -70,17 +70,17 @@ export default class RestaurantData {
     this.isWish = !this.isWish;
   }
 
-  validateCategory(category: string): void {
+  #validateCategory(category: string): void {
     if (Validation.isValidateOption(category))
       throw Error(ERROR_MESSAGE.category);
   }
 
-  validateDistance(distance: number): void {
+  #validateDistance(distance: number): void {
     if (Validation.isValidateOption(distance))
       throw Error(ERROR_MESSAGE.distance);
   }
 
-  validateName(name: string): void {
+  #validateName(name: string): void {
     if (Validation.isValidateName(name)) throw Error(ERROR_MESSAGE.name);
   }
 }
