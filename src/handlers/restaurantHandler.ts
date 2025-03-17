@@ -149,6 +149,20 @@ export const restaurantHandler = {
     restaurantHandler.updateStarIconUI(name, isFavorite);
   },
 
+  applyFavoriteChange: (name: string, isFavorite: boolean): void => {
+    const restaurantList = restaurantStorage.getRestaurantList();
+    const restaurant = restaurantList.find(
+      (restaurant: RestaurantItem) => restaurant.name === name
+    );
+
+    if (restaurant) {
+      restaurant.isFavorite = isFavorite;
+      restaurantStorage.setRestaurantList(restaurantList);
+
+      restaurantHandler.updateStarIconUI(name, isFavorite);
+    }
+  },
+
   addFavoriteEvent: (listItem: HTMLElement, name: string) => {
     listItem
       .querySelector(".star-icon-container")

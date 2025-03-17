@@ -10,8 +10,11 @@ import querySelector from "../utils/querySelector.js";
 import validate from "../utils/validate.js";
 import { RestaurantItem } from "../types/restaurantItem.js";
 import { restaurantHandler } from "./restaurantHandler.js";
+import { getStarIconSrc } from "../components/StarIcon.js";
 
 export const modalHandler = {
+  tempFavoriteState: null as { name: string; isFavorite: boolean } | null,
+
   openModal: () => {
     const modal = querySelector(".modal");
     modal.classList.add("modal--open");
@@ -22,6 +25,14 @@ export const modalHandler = {
     const modal = querySelector(".modal");
     const modalContainer = querySelector(".modal-container");
     modal.classList.toggle("modal--open");
+
+    if (modalHandler.tempFavoriteState) {
+      restaurantHandler.applyFavoriteChange(
+        modalHandler.tempFavoriteState.name,
+        modalHandler.tempFavoriteState.isFavorite
+      );
+      modalHandler.tempFavoriteState = null;
+    }
 
     while (modalContainer.firstChild) {
       modalContainer.removeChild(modalContainer.firstChild);
@@ -47,6 +58,7 @@ export const modalHandler = {
 
     querySelector("#delete-button").addEventListener("click", () => {
       restaurantHandler.removeRestaurant(restaurantDetail.name);
+      modalHandler.tempFavoriteState = null; // 삭제 시 임시 상태 초기화
       modalHandler.closeModal();
     });
 
@@ -54,10 +66,28 @@ export const modalHandler = {
       modalHandler.closeModal();
     });
 
-    restaurantHandler.addFavoriteEvent(
-      restaurantDetailItem,
-      restaurantDetail.name
-    );
+    modalContainer
+      .querySelector(".star-icon-container")
+      ?.addEventListener("click", (e: Event) => {
+        e.stopPropagation();
+
+        const isFavorite = modalHandler.tempFavoriteState
+          ? !modalHandler.tempFavoriteState.isFavorite
+          : !restaurantDetail.isFavorite;
+
+        modalHandler.tempFavoriteState = {
+          name: restaurantDetail.name,
+          isFavorite: isFavorite,
+        };
+
+        const starIcon = modalContainer.querySelector(
+          ".star-icon-container img"
+        ) as HTMLImageElement;
+
+        if (starIcon) {
+          starIcon.src = getStarIconSrc(isFavorite);
+        }
+      });
   },
 
   addForm: () => {
