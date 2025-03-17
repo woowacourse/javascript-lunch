@@ -36,7 +36,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     cy.clickAddButton();
 
     // then
-    cy.get("#submit-form").should("not.have.class", "modal--open");
+    cy.isSubmitModalClose();
     cy.contains("h3", "얌샘 김밥").should("exist").and("be.visible");
     cy.contains("span", "캠퍼스부터 10분 내").should("exist").and("be.visible");
     cy.contains("p", "맛있는 김밥").should("exist").and("be.visible");
@@ -57,7 +57,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     cy.clickAddButton();
 
     // then
-    cy.get("#submit-form").should("have.class", "modal--open");
+    cy.isSubmitModalOpen();
     cy.contains("h3", "얌샘 김밥").should("not.exist");
     cy.contains("span", "캠퍼스부터 10분 내").should("not.exist");
     cy.contains("p", "맛있는 김밥").should("not.exist");
@@ -95,7 +95,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     cy.clickAddButton();
 
     // then
-    cy.get("#submit-form").should("not.have.class", "modal--open");
+    cy.isSubmitModalClose();
     cy.contains("h3", "얌샘 김밥").should("exist").and("be.visible");
     cy.contains("h3", "짜장면").should("exist").and("be.visible");
     cy.contains("span", "캠퍼스부터 10분 내").should("exist").and("be.visible");

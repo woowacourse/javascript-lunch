@@ -21,20 +21,12 @@ describe("음식점 상세 정보 바텀 시트 보기 플로우 테스트", () 
   it("음식점 목록에서 특정 음식점 클릭 시 해당 음식점에 대한 상세 정보가 보인다.", () => {
     // given
     // when
-    cy.get(".restaurant-list .restaurant")
-      .should("exist")
-      .and("be.visible")
-      .first()
-      .click();
+    cy.openDetailModal();
 
     // then
 
     // favorite button
-    cy.get(
-      ".modal-container .restaurant-detail__form-container .favorite-button"
-    )
-      .should("exist")
-      .and("be.visible");
+    cy.checkFavoriteButtonInDetailModal();
 
     // category
     cy.get(".restaurant-detail__category .category-icon")
