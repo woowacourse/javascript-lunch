@@ -21,7 +21,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     openFormAndCheckLabels();
 
     const category = "한식";
-    cy.get('select[name="category"]')
+    cy.get('form select[name="category"]')
       .should("be.visible")
       .select(category)
       .should("have.value", category);
@@ -58,7 +58,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     openFormAndCheckLabels();
 
     const category = "한식";
-    cy.get('select[name="category"]')
+    cy.get('form select[name="category"]')
       .should("be.visible")
       .select(category)
       .should("have.value", category);
@@ -84,7 +84,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     openFormAndCheckLabels();
 
     const category = "한식";
-    cy.get('select[name="category"]')
+    cy.get('form select[name="category"]')
       .should("be.visible")
       .select(category)
       .should("have.value", category);
@@ -114,7 +114,7 @@ describe("새로운 음식점 추가 플로우 테스트", () => {
     openFormAndCheckLabels();
 
     const category = "한식";
-    cy.get('select[name="category"]')
+    cy.get('form select[name="category"]')
       .should("be.visible")
       .select(category)
       .should("have.value", category);
