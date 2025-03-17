@@ -19,6 +19,10 @@ body {
   font-size: 16px;
 }
 
+li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 .phone-button {
   position: absolute;
   width: 12px;
