@@ -61,6 +61,7 @@ export default class RestaurantStore {
         ? { ...restaurant, isFavorite: !restaurant.isFavorite }
         : restaurant
     );
+    this.updateSelectedRestaurant(restaurantId);
     this.#saveToLocalStorage();
     this.#notifyListeners();
   }

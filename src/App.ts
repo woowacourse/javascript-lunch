@@ -92,7 +92,6 @@ export default class App {
     this.$restaurantList = new RestaurantList(restaurantList, {
       onToggleFavorite: (restaurantId: Restaurant["id"]) => {
         this.store.toggleFavorite(restaurantId);
-        this.store.updateSelectedRestaurant(restaurantId);
       },
       onOpenDetail: (restaurantId: Restaurant["id"]) => {
         this.store.updateSelectedRestaurant(restaurantId);
@@ -124,7 +123,6 @@ export default class App {
     this.$restaurantDetail = new RestaurantDetail({
       onToggleFavorite: (restaurantId: Restaurant["id"]) => {
         this.store.toggleFavorite(restaurantId);
-        this.store.updateSelectedRestaurant(restaurantId);
       },
       onDelete: (restaurantId: Restaurant["id"]) => {
         this.store.deleteRestaurant(restaurantId);
