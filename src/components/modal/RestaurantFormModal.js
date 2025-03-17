@@ -9,15 +9,14 @@ import Restaurant from "../restaurant/Restaurant.js";
 import closeModal from "../../util/closeModal.js";
 
 export default function RestaurantFormModal() {
-
-  function submitRestaurantForm (event) {
+  function submitRestaurantForm(event) {
     try {
       event.preventDefault();
       const $form = document.querySelector(".form");
       const data = Object.fromEntries(new FormData($form));
       restaurantDataList.addData(data);
       closeModal();
-      Restaurant({isReRender: true});
+      Restaurant({ isReRender: true });
     } catch (e) {
       alert(e.message);
     }
