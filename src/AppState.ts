@@ -9,7 +9,7 @@ import { isFavoriteState } from "./domain/handler/TabButtonHandler";
 import { FoodForm } from "./pages/FoodForm";
 import { FilterType } from "./types/domain/FilterType";
 
-export class Module {
+export class AppState {
   #filter;
 
   constructor(filter: Filter) {
