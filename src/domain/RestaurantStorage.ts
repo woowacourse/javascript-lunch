@@ -1,5 +1,5 @@
 import { DummyData } from './DummyData';
-import Restaurant, { Category, Distance } from './Restaurant';
+import Restaurant, { RestaurantProps, Distance, Category } from './Restaurant';
 import Restaurants from './Restaurants';
 
 const RESTAURANT_STORAGE_ERROR = Object.freeze({
@@ -22,14 +22,7 @@ class RestaurantStorage {
     }
 
     try {
-      const parsedData: {
-        name: string;
-        distance: Distance;
-        description: string;
-        category: Category;
-        link: string;
-        isLike: boolean;
-      }[] = JSON.parse(storedData);
+      const parsedData: RestaurantProps[] = JSON.parse(storedData);
 
       const restaurantList = parsedData.map(
         (item) =>
@@ -37,7 +30,7 @@ class RestaurantStorage {
             name: item.name,
             distance: Number(item.distance) as Distance,
             description: item.description,
-            category: item.category,
+            category: item.category as Category,
             link: item.link,
             isLike: item.isLike,
           }),
