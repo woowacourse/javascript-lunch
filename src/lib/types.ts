@@ -20,3 +20,8 @@ export type RestaurantType = {
 export type HTMLType = 'HTMLType';
 
 export type LocalStorageKeyType = keyof typeof LOCAL_STORAGE_KEY_MAP;
+
+export interface StrictObject {
+  [key: string]: any;
+  length?: never;
+}
