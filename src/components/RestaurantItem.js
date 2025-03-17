@@ -1,5 +1,5 @@
-import emptyStar from "../../public/icons/emptyStar.svg";
-import filledStar from "../../public/icons/filledStar.svg";
+import emptyStar from "../../public/icons/favorite-icon-lined.png";
+import filledStar from "../../public/icons/favorite-icon-filled.png";
 
 const CATEGORY_IMAGES = Object.freeze({
   한식: "category-korean.png",
@@ -25,7 +25,9 @@ const RestaurantItem = ({
   return /* html */ `
     <li id="${id}" class="restaurant">
       <button data-buttonId="${id}" type='button' class="favorite-icon-button">
-        <img src=${isFavorite ? filledStar : emptyStar} class="favorite-icon"/>
+        <img src=${
+          isFavorite ? filledStar : emptyStar
+        } class="favorite-icon" data-testid="favorite-icon"/>
       </button> 
       <div class="restaurant__category">
         <img src="./icons/${imageSource(

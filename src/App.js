@@ -13,8 +13,8 @@ import { $ } from "./utils/selector.js";
 
 import lunchRestaurantsService from "./domain/lunchRestaurantsService.js";
 
-import emptyStar from "../public/icons/emptyStar.svg";
-import filledStar from "../public/icons/filledStar.svg";
+import emptyStar from "../public/icons/favorite-icon-lined.png";
+import filledStar from "../public/icons/favorite-icon-filled.png";
 
 class App extends Component {
   setup() {

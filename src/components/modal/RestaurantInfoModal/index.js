@@ -1,7 +1,7 @@
 import Modal from "../../common/Modal.js";
 import { $ } from "../../../utils/selector.js";
-import filledStar from "../../../../public/icons/filledStar.svg";
-import emptyStar from "../../../../public/icons/emptyStar.svg";
+import filledStar from "../../../../public/icons/favorite-icon-filled.png";
+import emptyStar from "../../../../public/icons/favorite-icon-lined.png";
 
 const CATEGORY_IMAGES = Object.freeze({
   한식: "category-korean.png",
@@ -22,9 +22,11 @@ class RestaurantInfoModal extends Modal {
       this.props.data;
 
     return /*html */ `
-    <div id='restaurant-info-container' class="restaurant__info-container"> 
-      <button data-buttonId="${id}" type='button' class="favorite-icon-button">
-        <img src=${isFavorite ? filledStar : emptyStar} class="favorite-icon"/>
+    <div id='restaurant-info-container' class="restaurant__info-container" data-testid="restaurant-info-modal"> 
+      <button data-buttonId="${id}" type='button' class="favorite-icon-button" data-testid="favorite-detail-button">
+        <img src=${
+          isFavorite ? filledStar : emptyStar
+        } class="favorite-icon" data-testid="favorite-icon"/>
       </button> 
       <div class="restaurant__detail__category">
         <img src="./icons/${imageSource(
@@ -43,7 +45,6 @@ class RestaurantInfoModal extends Modal {
         <button id="delete-restaurant-info" class="button button--secondary text-caption">삭제하기</button>
         <button type="button" id="cancel-restaurant-info" class="button button--primary text-caption" data-testid="cancel-restaurant-info">닫기</button>
       </div>
-      
     </div>
     `;
   }
