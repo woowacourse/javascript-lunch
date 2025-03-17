@@ -1,3 +1,4 @@
+import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
 import { MenuProps } from "../../types/menu.ts";
 
 interface TabMenuOption {
@@ -37,8 +38,11 @@ export default class TabMenu {
   handleCurrentMenu() {
     this.container.querySelectorAll(".tabmenu-item")?.forEach((tabMenu) =>
       tabMenu.addEventListener("click", (event: Event) => {
-        const target = event.target as HTMLButtonElement | null;
-        if (!target) return;
+        const target = event.target;
+
+        if (!(target instanceof HTMLButtonElement)) {
+          throw new Error(DEV_ERROR_MESSAGE.invalidElement);
+        }
 
         const currentMenu = target.dataset.tab;
         if (currentMenu === "all" || currentMenu === "favorite") {

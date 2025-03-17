@@ -1,3 +1,4 @@
+import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
 import { DELETE } from "../../constants/systemMessage.ts";
 import { getImgSrcAlt } from "../../util/getImgSrcAlt.js";
 
@@ -75,7 +76,9 @@ export default class FoodItem {
 
   setUpFavoriteToggle() {
     const bookmarkIcon = this.container.querySelector(".favorite-icon");
-    if (!bookmarkIcon) return;
+    if (!bookmarkIcon) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound("favorite-icon"));
+    }
 
     bookmarkIcon.addEventListener("click", this.handleFavoriteClick.bind(this));
   }
@@ -91,7 +94,9 @@ export default class FoodItem {
 
   updateFavoriteIcon() {
     const bookmarkIcon = this.container.querySelector(".favorite-icon");
-    if (!bookmarkIcon) return;
+    if (!bookmarkIcon) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound("favorite-icon"));
+    }
     bookmarkIcon.setAttribute("src", this.getBookmarkIconSrc());
   }
 

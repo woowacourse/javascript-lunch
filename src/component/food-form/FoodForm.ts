@@ -7,6 +7,7 @@ import { Input } from "../input/Input.js";
 import { SelectInput } from "../input/SelectInput.js";
 import { TextareaInput } from "../input/TextareaInput.js";
 import { alertError } from "../common/alert/alertError.js";
+import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
 
 interface FoodFormOptions {
   onCancel: () => void;
@@ -99,7 +100,10 @@ export default class FoodForm {
 
         this.container.reset();
       } catch (error: unknown) {
-        const customError = error as Error;
+        if (!(error instanceof Error)) {
+          throw new Error(DEV_ERROR_MESSAGE.invalidElement);
+        }
+        const customError = error;
         alertError(customError.message);
       }
     };
@@ -109,11 +113,17 @@ export default class FoodForm {
     const formData = new FormData(this.container);
     const formObject = Object.fromEntries(formData.entries());
 
-    return {
-      ...formObject,
+    const foodItem: FoodItemType = {
       id: crypto.randomUUID(),
       isFavorite: false,
-    } as FoodItemType;
+      name: String(formObject.name),
+      category: String(formObject.category),
+      distance: String(formObject.distance),
+      description: String(formObject.description),
+      link: String(formObject.link),
+    };
+
+    return foodItem;
   }
 
   validateFoodForm(formData: FoodItemType) {

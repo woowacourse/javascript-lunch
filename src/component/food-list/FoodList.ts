@@ -1,3 +1,4 @@
+import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
 import { DELETE, EMPTY_LIST } from "../../constants/systemMessage.ts";
 import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
 import { Button } from "../button/button/Button.js";
@@ -51,9 +52,10 @@ export default class FoodList {
         },
       }).element;
 
-      if (foodItemElement) {
-        foodFragment.appendChild(foodItemElement);
+      if (!foodItemElement) {
+        throw new Error(DEV_ERROR_MESSAGE.notFound("foodItemElement"));
       }
+      foodFragment.appendChild(foodItemElement);
     });
 
     this.foodList.appendChild(foodFragment);
@@ -75,7 +77,9 @@ export default class FoodList {
       onFoodItemClick: () => {},
     });
 
-    if (!detailFoodItem.element) return;
+    if (!detailFoodItem.element) {
+      throw new Error(DEV_ERROR_MESSAGE.notFound("detailFoodItem.element"));
+    }
 
     fragment.appendChild(detailFoodItem.element);
 
@@ -110,7 +114,7 @@ export default class FoodList {
 
   updateAddItem(foodItem: FoodItemType) {
     this.foodListManager.addItem(foodItem);
-    this.render();
+    this.render(this.foodListManager.processFoodItems());
   }
 
   updateFavoriteItem(id: string) {
@@ -121,25 +125,22 @@ export default class FoodList {
   updateDeleteItem(id: string) {
     if (confirm(DELETE)) {
       this.foodListManager.deleteFoodItem(id);
-      this.render();
+      this.render(this.foodListManager.processFoodItems());
     }
   }
 
   updateFilterItem(category: string) {
     this.foodListManager.setFilterType(category);
-    const filteredItems = this.foodListManager.processFoodItems();
-    this.render(filteredItems);
+    this.render(this.foodListManager.processFoodItems());
   }
 
   updateSortItem(sortType: string) {
     this.foodListManager.setSortType(sortType);
-    const sortedItems = this.foodListManager.processFoodItems();
-    this.render(sortedItems);
+    this.render(this.foodListManager.processFoodItems());
   }
 
   updateFavoriteList(tabMenu: string) {
     this.foodListManager.setCurrentMenu(tabMenu);
-    const favoriteItems = this.foodListManager.processFoodItems();
-    this.render(favoriteItems);
+    this.render(this.foodListManager.processFoodItems());
   }
 }
