@@ -16,7 +16,7 @@ export default function RestaurantItemFavorite({ isFavorite, id }) {
   $favoriteWrap.appendChild($favorite);
 
   $favorite.addEventListener("click", () => {
-    restaurantDataList.changeFavorite(id);
+    restaurantDataList.toggleFavorite(id);
 
     const dataById = restaurantDataList.getRestaurantById(id);
     $favorite.src = dataById.isFavorite

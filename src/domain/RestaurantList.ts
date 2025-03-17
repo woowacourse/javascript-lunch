@@ -70,7 +70,7 @@ export class RestaurantList {
     postData(this.dataList);
   }
 
-  changeFavorite(id: number | string) {
+  toggleFavorite(id: number | string) {
     const targetData = this.dataList.find(
       (restaurantData) => restaurantData.id === id
     );
