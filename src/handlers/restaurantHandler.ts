@@ -20,7 +20,11 @@ export const restaurantHandler = {
     querySelector(".restaurant-list").appendChild(listItem);
   },
 
-  uploadRestaurant: (restaurantList: RestaurantItem[], e: Event) => {
+  uploadRestaurant: (
+    restaurantList: RestaurantItem[],
+    e: Event,
+    isFavoriteTabActive: boolean = false
+  ) => {
     const newRestaurant = restaurantHandler.createRestaurantData(e);
 
     try {
@@ -33,9 +37,21 @@ export const restaurantHandler = {
       validate.linkForm(newRestaurant.link);
 
       restaurantList.push(newRestaurant);
-      restaurantHandler.addRestaurantItem(newRestaurant);
-
       restaurantStorage.setRestaurantList(restaurantList);
+
+      const categoryFilter = document.querySelector(
+        "#category-filter"
+      ) as HTMLSelectElement;
+      const currentCategory = categoryFilter ? categoryFilter.value : "all";
+
+      if (
+        !isFavoriteTabActive &&
+        (currentCategory === "all" ||
+          newRestaurant.category === currentCategory)
+      ) {
+        restaurantHandler.addRestaurantItem(newRestaurant);
+      }
+
       modalHandler.closeModal();
     } catch (error) {
       restaurantHandler.checkRequired(

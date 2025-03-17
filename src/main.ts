@@ -114,12 +114,24 @@ addEventListener("load", () => {
     modalHandler.openModal();
     modalHandler.addForm();
 
-    querySelector(".modal-form").addEventListener("submit", (e: Event) =>
+    querySelector(".modal-form").addEventListener("submit", (e: Event) => {
+      const currentCategory = categoryFilter.value;
+      const currentSortOption = sortingFilter.value;
+
       restaurantHandler.uploadRestaurant(
         restaurantStorage.getRestaurantList(),
-        e
-      )
-    );
+        e,
+        isFavoriteTabActive
+      );
+
+      if (!isFavoriteTabActive) {
+        updateRestaurantList(
+          getCurrentList(),
+          currentCategory,
+          currentSortOption
+        );
+      }
+    });
   });
 
   querySelector(".modal-backdrop").addEventListener(
