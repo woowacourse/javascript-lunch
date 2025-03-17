@@ -23,7 +23,7 @@ const changeFilterSelect = (category: Category) => {
   const categorySelect = document.getElementById(
     "category-filter"
   ) as HTMLSelectElement;
-  categorySelect.value = category;
+  if (categorySelect.value !== "") categorySelect.value = category;
 
   const sortSelect = document.getElementById(
     "sorting-filter"
