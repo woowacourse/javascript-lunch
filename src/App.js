@@ -38,7 +38,10 @@ class App extends Component {
 
   updateNewRestaurant(newRestaurant) {
     const $categoryFilter = $(document, "#category-filter");
-    if ($categoryFilter.value !== newRestaurant.category) {
+    if (
+      $categoryFilter.value !== "전체" &&
+      $categoryFilter.value !== newRestaurant.category
+    ) {
       return;
     }
 
