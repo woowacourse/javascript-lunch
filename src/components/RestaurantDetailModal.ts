@@ -4,9 +4,7 @@ import type { RestaurantType } from './../lib/types';
 import { Button } from './common/index.ts';
 import { Component } from './core/index.ts';
 
-interface RestaurantDetailModalProps extends RestaurantType {
-  onModalClose: () => void;
-}
+interface RestaurantDetailModalProps extends RestaurantType {}
 
 export default class RestaurantDetailModal extends Component<RestaurantDetailModalProps> {
   override template() {

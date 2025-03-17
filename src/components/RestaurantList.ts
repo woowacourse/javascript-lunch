@@ -148,7 +148,6 @@ export default class RestaurantList extends Component<null, RestaurantListState>
       id: 'restaurant-detail-modal',
       children: new RestaurantDetailModal({
         ...restaurantDetail,
-        onModalClose: () => this.setState({ restaurantDetailId: null }),
       }).element,
       onModalClose: () => this.setState({ restaurantDetailId: null }),
     });
