@@ -1,0 +1,21 @@
+#tabBar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-top: 20px;
+}
+
+#tabBar button {
+  background-color: var(--grey-100);
+  border: none;
+  border-bottom: 2px solid var(--grey-100);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#tabBar button.active {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
