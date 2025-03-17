@@ -1,16 +1,9 @@
-import { concat, flat, map, pipe, reduce, zip } from '@fxts/core';
-import { Component } from '../components/core/index';
+import { concat, flat, pipe, reduce, zip } from '@fxts/core';
 import type { HTMLType } from './types';
 
 export function html(strings: TemplateStringsArray, ...values: any[]): HTMLType {
   return pipe(
-    zip(
-      strings,
-      concat(
-        map((value) => (value instanceof Component ? value.template() : value), values),
-        [''],
-      ),
-    ),
+    zip(strings, concat(values, [''])),
     flat,
     reduce((a, b) => a + b),
   );
