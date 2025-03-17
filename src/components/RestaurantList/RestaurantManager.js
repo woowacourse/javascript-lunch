@@ -1,11 +1,13 @@
 import RestaurantList from "./index.js";
 import {
   filterAndSortRestaurants,
-  toggleFavorite,
+  getFavoriteRestaurants,
+} from "../../domains/restaurantUtils.ts";
+import {
   deleteRestaurant,
   addRestaurant,
-  getFavoriteRestaurants,
-} from "../../domains/restaurantService.ts";
+  toggleFavorite,
+} from "../../domains/restaurantAPI.ts";
 
 class RestaurantManager {
   constructor(filterManager, restaurants) {
