@@ -1,6 +1,7 @@
-import { LunchItem } from "../components/function/LunchItem.js";
-import { LunchList } from "../components/function/LunchList.js";
+import { LunchItem } from "../components/function/LunchItem.ts";
+import { LunchList } from "../components/function/LunchList.ts";
 import { openModal } from "../components/function/modal.js";
+import { LunchListData } from "../constants/LunchListData.ts";
 import { getStorage, setStorage } from "./storage.js";
 
 class ClickEvent {
@@ -16,6 +17,13 @@ class ClickEvent {
     if (confirm("저장소를 초기화하시겠습니까?(되돌리기 불가)")) {
       this.reload();
       setStorage("lunchItems", []);
+    }
+  }
+
+  setDefaultState() {
+    if (confirm("기본 식당 데이터를 불러오시겠습니까?")) {
+      setStorage("lunchItems", LunchListData);
+      this.reload();
     }
   }
 

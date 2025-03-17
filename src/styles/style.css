@@ -259,19 +259,32 @@ main::-webkit-scrollbar-thumb:hover {
 }
 
 /* 음식점 목록 *****************************************/
+.set-default-state-btn {
+  position: absolute;
+  width: 60px;
+  right: 28px;
+  bottom: 20px;
+  opacity: 40%;
+  cursor: pointer;
+}
+
+.set-default-state-btn:hover {
+  opacity: 100%;
+}
+
 .empty-info-container {
   width: 100%;
   height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 26%;
 }
 .empty-info-box {
   width: 70%;
   display: flex;
   align-items: center;
   flex-direction: column;
+  opacity: 26%;
 }
 
 .empty-icon {
