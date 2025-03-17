@@ -84,8 +84,9 @@ class AppController {
   }
 
   #addRestaurantItem(restaurant: Restaurant) {
-    this.restaurants.addRestaurant({ ...restaurant, isFavorite: false });
-    this.restaurantListController.addItem(restaurant);
+    const newRestaurant = { ...restaurant, isFavorite: false };
+    this.restaurants.addRestaurant(newRestaurant);
+    this.restaurantListController.addItem(newRestaurant);
   }
 }
 

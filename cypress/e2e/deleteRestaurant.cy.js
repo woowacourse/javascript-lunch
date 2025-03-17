@@ -6,8 +6,6 @@ describe('음식점 상세 정보 확인 및 삭제 테스트', () => {
 
     addRestaurant({ category: 'japanese', name: '재영이', distance: 2 });
     addRestaurant({ category: 'chinese', name: '재오재오재오', distance: 1 });
-
-    cy.reload();
   });
 
   it('음식점을 클릭하면 모달이 open 되면서 상세 정보를 확인할 수 있다.', () => {

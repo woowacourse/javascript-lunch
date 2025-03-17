@@ -6,8 +6,6 @@ describe('자주 가는 음식점 기능 테스트', () => {
 
     addRestaurant({ category: 'japanese', name: '재영이', distance: 2 });
     addRestaurant({ category: 'chinese', name: '재오재오재오', distance: 1 });
-
-    cy.reload();
   });
 
   it('음식점 목록에서 자주 가는 음식점을 추가할 수 있다', () => {

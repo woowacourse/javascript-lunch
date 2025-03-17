@@ -26,14 +26,17 @@ class RestaurantListController {
   }
 
   updateList(restaurants: Restaurant[]) {
+    this.#restaurants = restaurants;
     RestaurantListView.updateList(restaurants);
   }
 
   addItem(restaurant: Restaurant) {
+    this.#restaurants.push(restaurant);
     RestaurantListView.addItem(restaurant);
   }
 
   removeItem(restaurantName: string) {
+    this.#restaurants.filter((restaurant) => restaurant.name !== restaurantName);
     RestaurantListView.removeItem(restaurantName);
   }
 

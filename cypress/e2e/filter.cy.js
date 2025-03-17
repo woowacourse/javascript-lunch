@@ -6,8 +6,6 @@ describe('음식점 필터링 테스트', () => {
 
     addRestaurant({ category: 'japanese', name: '재영이', distance: 2 });
     addRestaurant({ category: 'chinese', name: '재오재오재오', distance: 1 });
-
-    cy.reload();
   });
 
   it('카테고리 필터를 일식으로 하면 일식 음식점만 보여야 한다.', () => {
