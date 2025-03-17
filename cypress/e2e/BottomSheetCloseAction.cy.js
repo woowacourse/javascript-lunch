@@ -12,7 +12,7 @@ describe("바텀 시트 닫는 기능 테스트", () => {
 
   it("바텀 시트의 백드롭 화면을 클릭했을 때 바텀 시트가 닫힌다.", () => {
     cy.get(".gnb__button").click();
-    cy.get(".modal-backdrop").click({ force: true });
+    cy.get("#add-modal .modal-backdrop").click({ force: true });
     cy.get(".modal").should("not.have.class", "modal--open");
   });
 });
