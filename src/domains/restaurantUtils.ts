@@ -1,10 +1,20 @@
 import { Restaurant } from "./restaurant.ts";
 import { FILTER_OPTIONS } from "../constants/rules.js";
 
+type SortingOption = "name" | "distance";
+type CategoryOption =
+  | "전체"
+  | "한식"
+  | "중식"
+  | "일식"
+  | "양식"
+  | "아시안"
+  | "기타";
+
 export function filterAndSortRestaurants(
   restaurants: Restaurant[],
-  category: string,
-  sorting: string
+  category: CategoryOption,
+  sorting: SortingOption
 ): Restaurant[] {
   let filteredRestaurants = [...restaurants];
 
