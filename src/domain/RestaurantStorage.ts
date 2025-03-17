@@ -76,7 +76,7 @@ class RestaurantStorage {
     }
   }
 
-  static deleteRestaurant(restaurantName: string): Restaurants | [] {
+  static deleteRestaurant(restaurantName: string): Restaurants {
     const restaurants = this.getRestaurants();
 
     if (restaurants instanceof Restaurants) {
@@ -88,7 +88,7 @@ class RestaurantStorage {
     }
   }
 
-  static updateRestaurantIsLike(restaurantName: string, isLike: boolean): Restaurants | [] {
+  static updateRestaurantIsLike(restaurantName: string, isLike: boolean): Restaurants {
     const restaurants = this.getRestaurants();
 
     if (restaurants instanceof Restaurants) {
