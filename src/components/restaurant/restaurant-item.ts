@@ -1,6 +1,29 @@
-const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, description }) => {
+import $favoriteButton from "../common/favorite-button";
+
+type RestaurantItemProps = {
+  dataId: number;
+  categoryIcon: string;
+  categoryTitle: string;
+  name: string;
+  distance: number;
+  distanceCaption: string;
+  description: string;
+  isFavorite: boolean;
+};
+
+const $restaurantItem = ({
+  dataId,
+  categoryIcon,
+  categoryTitle,
+  name,
+  distance,
+  distanceCaption,
+  description,
+  isFavorite,
+}: RestaurantItemProps): HTMLLIElement => {
   const restaurantItem = document.createElement("li");
   restaurantItem.classList.add("restaurant");
+  restaurantItem.setAttribute("data-id", dataId.toString());
 
   // 아이콘
   const category = document.createElement("div");
@@ -18,15 +41,27 @@ const $restaurantItem = ({ categoryIcon, categoryTitle, name, distance, descript
   const info = document.createElement("div");
   info.classList.add("restaurant__info");
 
+  const restaurantHeader = document.createElement("div");
+  restaurantHeader.classList.add("restaurant-header");
+  const restaurantDetails = document.createElement("div");
   const restaurantName = document.createElement("h3");
   restaurantName.classList.add("restaurant__name", "text-subtitle");
   restaurantName.innerText = name;
-  info.appendChild(restaurantName);
+  restaurantDetails.appendChild(restaurantName);
 
   const restaurantDistance = document.createElement("span");
   restaurantDistance.classList.add("restaurant__distance", "text-body");
-  restaurantDistance.innerText = distance;
-  info.appendChild(restaurantDistance);
+  restaurantDistance.innerText = distanceCaption;
+  restaurantDetails.appendChild(restaurantDistance);
+  restaurantHeader.appendChild(restaurantDetails);
+
+  const favButton = $favoriteButton({
+    isFavorite: isFavorite,
+    className: ["button-favorite"],
+  });
+  favButton.setAttribute("data-restaurant-id", dataId.toString());
+  restaurantHeader.appendChild(favButton);
+  info.appendChild(restaurantHeader);
 
   const restaurantDescription = document.createElement("p");
   restaurantDescription.classList.add("restaurant__description", "text-body");
