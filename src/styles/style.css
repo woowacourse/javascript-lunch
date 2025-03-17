@@ -181,6 +181,9 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
+
+  height: 100%;
+  overflow: scroll;
 }
 
 .modal-title {
