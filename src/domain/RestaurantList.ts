@@ -13,6 +13,7 @@ class RestaurantList {
   #items;
   #totalTab;
   #category;
+  #renderingItems = [];
 
   constructor() {
     if (!localStorage.getItem("restaurantList")) {
@@ -33,18 +34,24 @@ class RestaurantList {
     localStorage.setItem("restaurantList", JSON.stringify(this.#items));
   }
 
+  setCategoryTab(category: Category) {
+    this.#category = category;
+
+    this.render();
+  }
+
   render() {
     const el = $(".restaurant-list");
 
-    let data = this.filterByCategory();
+    this.#renderingItems = this.filterByCategory();
 
     if (!this.#totalTab) {
-      data = this.filterByFavorite(data);
+      this.#renderingItems = this.filterByFavorite(this.#renderingItems);
     }
 
-    el.innerHTML = data.map(LunchInfoCard).join("");
+    el.innerHTML = this.#renderingItems.map(LunchInfoCard).join("");
 
-    data.forEach((item: Restaurant) => {
+    this.#renderingItems.forEach((item: Restaurant) => {
       const $li = document.getElementById(`restaurant_${item.name}`);
 
       new FavoriteButton($li, item.name, item.favorite, this);
@@ -63,12 +70,6 @@ class RestaurantList {
         Modal.open(`restaurantModal_${item.name}`);
       });
     });
-  }
-
-  resetFilter() {
-    this.#items = JSON.parse(localStorage.getItem("restaurantList") || "[]");
-    this.#category = "선택해 주세요";
-    this.render();
   }
 
   renderTab() {
@@ -96,15 +97,15 @@ class RestaurantList {
     });
   }
 
-  add(newRestaurant: Restaurant) {
-    this.#items.push(newRestaurant);
-    this.setLocalStorage();
+  resetFilter() {
+    this.#items = JSON.parse(localStorage.getItem("restaurantList") || "[]");
+    this.#category = "선택해 주세요";
     this.render();
   }
 
-  setCategoryTab(category: Category) {
-    this.#category = category;
-
+  add(newRestaurant: Restaurant) {
+    this.#items.push(newRestaurant);
+    this.setLocalStorage();
     this.render();
   }
 
