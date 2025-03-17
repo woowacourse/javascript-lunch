@@ -123,10 +123,9 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
-
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -295,4 +294,71 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.tab-container{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr; 
+  width: 100%;
+  margin-top: 30px;
+  padding: 0px 16px;
+}
+
+button.tab.enabled{
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  background-color: transparent;
+}
+
+button.tab {
+  border: none;
+  border-bottom: 2px solid var(--grey-200);
+  padding-bottom: 9px;
+  color: var(--grey-300);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.favorites-icon {
+  display: block;
+  margin-left: auto;
+
+  background-size: cover;
+  cursor: pointer;
+}
+
+.select-sort-container{
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 16px 24px;
+}
+
+.select-sort-container select{
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.restaurant.information{
+  display: block;
+  cursor: default;
+}
+
+.restaurant.information .restaurant__description {
+  display: block; 
+}
+
+.restaurant.information .restaurant__name {
+  margin: 12px 0px;
+}
+
+.restaurant.information .favorites-icon{
+  position: absolute;
+  top: 32px;
+  right: 16px;
+}
+
+.restaurant.information .link__text{
+  color: var(--grey-500);
 }
