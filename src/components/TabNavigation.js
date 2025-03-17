@@ -13,10 +13,10 @@ class TabNavigation extends Component {
       <div id='tab-navigation' class="tab-navigation">
         <button id='all-tab' class="tab ${
           this.state.activeTab === "all" ? "active" : ""
-        }" data-tab="all">모든 음식점</button>
+        }" data-tab="all" data-testid="all-tab">모든 음식점</button>
         <button id='favorite-tab' class="tab ${
           this.state.activeTab === "favorite" ? "active" : ""
-        }" data-tab="favorite">자주 가는 음식점</button>
+        }" data-tab="favorite" data-testid="favorite-tab">자주 가는 음식점</button>
       </div>
     `;
   }

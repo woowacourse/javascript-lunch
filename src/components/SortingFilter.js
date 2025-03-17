@@ -7,7 +7,7 @@ const SortingFilter = () => {
   const options = Object.entries(sortingOptions);
 
   return /*html*/ `
-    <select name="sorting" id="sorting-filter" class="restaurant-filter">
+    <select name="sorting" id="sorting-filter" class="restaurant-filter" data-testid="sorting-filter">
       ${options
         .map(
           ([option, text]) => ` <option value="${option}">${text}순</option>`
