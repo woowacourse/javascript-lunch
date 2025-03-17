@@ -1,15 +1,38 @@
 import {
   setItemToLocalStorage,
   getItemFromLocalStorage,
-} from "../database/localStorage.js";
-import { restaurants } from "../database/restaurants.js";
+} from "./database/localStorage.js";
+import { restaurants } from "./database/restaurants.js";
 import { makeUniqueId } from "../utils/makeUniqueId.js";
 import sortAndFilter from "./utils/sortAndFilter.js";
+import { SortOptions, CategoryFilterOptions } from "./utils/sortAndFilter.js";
+
+export type Category = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
+type Distance = 5 | 10 | 15 | 20 | 30;
+
+export interface RestaurantInfo {
+  category: Category;
+  name: string;
+  distance: Distance;
+  description?: string;
+  link?: string;
+}
+
+interface AdditionalInfo {
+  id: string;
+  isFavorite: boolean;
+}
+
+export interface RestaurantInfoWithAdditionalInfo
+  extends RestaurantInfo,
+    AdditionalInfo {}
 
 const lunchRestaurantsService = {
   LUNCH_KEY: "lunchRestaurantList",
 
-  initializeRestaurantList(restaurants) {
+  initializeRestaurantList(
+    restaurants: RestaurantInfo[]
+  ): RestaurantInfoWithAdditionalInfo[] {
     return restaurants.map((restaurant) => ({
       ...restaurant,
       id: makeUniqueId(restaurant.name),
@@ -24,11 +47,14 @@ const lunchRestaurantsService = {
     );
   },
 
-  saveRestaurants(restaurants) {
+  saveRestaurants(restaurants: RestaurantInfoWithAdditionalInfo[]) {
     setItemToLocalStorage(this.LUNCH_KEY, restaurants);
   },
 
-  addRestaurant(restaurants, newRestaurant) {
+  addRestaurant(
+    restaurants: RestaurantInfoWithAdditionalInfo[],
+    newRestaurant: RestaurantInfo
+  ) {
     const newRestaurantWithId = {
       ...newRestaurant,
       id: makeUniqueId(newRestaurant.name),
@@ -40,7 +66,10 @@ const lunchRestaurantsService = {
     return { newRestaurantList, newRestaurantWithId };
   },
 
-  deleteRestaurant(restaurants, restaurantToDelete) {
+  deleteRestaurant(
+    restaurants: RestaurantInfoWithAdditionalInfo[],
+    restaurantToDelete: RestaurantInfoWithAdditionalInfo
+  ) {
     const newRestaurantList = restaurants.filter(
       ({ id }) => id !== restaurantToDelete.id
     );
@@ -48,7 +77,10 @@ const lunchRestaurantsService = {
     return newRestaurantList;
   },
 
-  toggleFavoriteRestaurant(restaurants, restaurantId) {
+  toggleFavoriteRestaurant(
+    restaurants: RestaurantInfoWithAdditionalInfo[],
+    restaurantId: string
+  ) {
     const updatedRestaurants = restaurants.map((restaurant) =>
       restaurant.id === restaurantId
         ? { ...restaurant, isFavorite: !restaurant.isFavorite }
@@ -58,7 +90,11 @@ const lunchRestaurantsService = {
     return updatedRestaurants;
   },
 
-  filterAndSortRestaurants(restaurants, sortingOption, categoryFilter) {
+  filterAndSortRestaurants(
+    restaurants: RestaurantInfoWithAdditionalInfo[],
+    sortingOption: SortOptions,
+    categoryFilter: CategoryFilterOptions
+  ) {
     return sortAndFilter(restaurants, sortingOption, categoryFilter);
   },
 };
