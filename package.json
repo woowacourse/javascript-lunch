@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test-unit": "jest --no-cache",
     "test-e2e": "cypress open",
-    "deploy": "vite build --base=/javascript-lunch/ --minify=false && npx gh-pages -d dist"
+    "deploy": "vite build --base=/javascript-lunch/ --minify=false && npx gh-pages -d dist",
+    "type-check": "tsc --noEmit"
   },
   "homepage": "https://AHHYUNJU.github.io/javascript-lunch",
   "devDependencies": {
