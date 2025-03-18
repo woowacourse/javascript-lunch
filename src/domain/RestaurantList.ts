@@ -10,9 +10,9 @@ import { $ } from "../utils/querySelectors.js";
 import toElement from "../utils/toElement.js";
 
 class RestaurantList {
-  #items;
-  #totalTab;
-  #category;
+  #items: Restaurant[];
+  #totalTab: boolean;
+  #category: Category;
   #renderingItems = [];
 
   constructor() {
