@@ -2,7 +2,6 @@ import Modal from "./component/Modal.js";
 import Header from "./component/Header.js";
 import AddLunchModalForm from "./component/AddLunchModalForm.js";
 import IconButton from "./component/IconButton.js";
-import MOCK_ITEM from "./mockItem.js";
 import { $ } from "./utils/querySelectors.js";
 import Select from "./component/Select.js";
 import { CATEGORY_DROPDOWN } from "./constants/constants.js";
