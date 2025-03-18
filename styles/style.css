@@ -14,9 +14,10 @@
   padding: 10px;
   border-bottom: 2px solid #d0d5dd;
   cursor: pointer;
-}
-.tab.active {
-  border-color: var(--primary-color);
+
+  &.active {
+    border-color: var(--primary-color);
+  }
 }
 
 .restaurant-filter-container {
