@@ -1,24 +1,28 @@
 {
+  "root": true,
   "env": {
     "node": true,
     "jest": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "rules": {
     "lines-between-class-members": ["warn", "always", { "exceptAfterSingleLine": true }],
-    "functional/no-let": "error",
     "max-depth": ["error", 1],
     "max-params": ["error", 2],
-    "max-lines-per-function": ["error", 10]
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-object-type": "off",
+    "@typescript-eslint/no-namespace": "off"
   },
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "extends": ["airbnb", "eslint:recommended", "prettier"],
-  "plugins": ["simple-import-sort"]
+  "extends": ["eslint:recommended", "prettier", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["simple-import-sort", "@typescript-eslint"]
 }

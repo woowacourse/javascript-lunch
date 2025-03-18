@@ -1,37 +1,30 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+import { CategoryType, DistanceType } from '@/lib/types';
+
+type RestaurantAddType = {
+  name: string;
+  category: CategoryType;
+  distance: DistanceType;
+  description?: string;
+  url?: string;
+};
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      addRestaurant(restaurantAdd: RestaurantAddType): Chainable;
+    }
+  }
+}
+
+/** @ts-expect-error cypress */
+Cypress.Commands.add('addRestaurant', (restaurantAdd: RestaurantAddType) => {
+  cy.get('[data-action="restaurant-add"]').click();
+  cy.get('[data-action="category"]').select(restaurantAdd.category);
+  cy.get('[data-action="name"]').type(restaurantAdd.name);
+  cy.get('[data-action="distance"]').select(String(restaurantAdd.distance));
+
+  if (restaurantAdd.description) cy.get('[data-action="description"]').type(restaurantAdd.description);
+  if (restaurantAdd.url) cy.get('[data-action="url"]').type(restaurantAdd.url);
+
+  cy.get('[data-action="modal-add"]').click();
+});
