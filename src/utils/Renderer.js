@@ -6,7 +6,7 @@ import LocalStorage from "./LocalStorage.ts";
 import RestaurantListUtils from "./RestaurantListUtils.ts";
 
 const Renderer = {
-  renderOuter() {
+  restaurantList() {
     if (state.currentRestaurantListId === "allRestaurant")
       this.applyFilter("allRestaurant");
     if (state.currentRestaurantListId === "favoriteRestaurant") {

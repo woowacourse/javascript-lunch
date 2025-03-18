@@ -41,7 +41,7 @@ const DetailModalButtonContainer = {
       id
     );
     LocalStorage.setJSON(RESTAURANT_LIST_KEY, deletedList);
-    Renderer.renderOuter();
+    Renderer.restaurantList();
     Modal.close("detail");
   },
 };

@@ -38,7 +38,7 @@ function initNavigationButton() {
       Renderer.applyFilter("allRestaurant");
       DOM.$filterContainer.style.display = "flex";
       DOM.$restaurantContainer.style.display = "block";
-      Renderer.renderOuter();
+      Renderer.restaurantList();
     }
     if (e.target.classList.contains("favorite_restaurant_nav")) {
       const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
@@ -46,7 +46,7 @@ function initNavigationButton() {
       );
       RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
       DOM.$favoriteContainer.style.display = "block";
-      Renderer.renderOuter();
+      Renderer.restaurantList();
     }
 
     $$(".navigation__button").forEach((btn) =>

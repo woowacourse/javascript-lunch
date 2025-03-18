@@ -52,7 +52,7 @@ const DetailModalContent = {
           Number(e.target.id)
         );
         LocalStorage.setJSON(RESTAURANT_LIST_KEY, favoriteList);
-        Renderer.renderOuter();
+        Renderer.restaurantList();
       }
     );
   },
