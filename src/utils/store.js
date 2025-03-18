@@ -1,9 +1,5 @@
 import { LIST_ITEM_CONTENTS } from "../contants.js";
 
-export function generateUniqueId() {
-  return crypto.randomUUID();
-}
-
 export function getRestaurantStorage() {
   if (!localStorage.getItem("restaurant")) {
     localStorage.setItem("restaurant", JSON.stringify(LIST_ITEM_CONTENTS));

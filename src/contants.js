@@ -1,4 +1,4 @@
-import { generateUniqueId } from "./utils/store.js";
+import { generateUniqueId } from "./utils/restaurant.js";
 
 export const HEADER_CONTENTS = {
   TITLE: "점심 뭐 먹지",

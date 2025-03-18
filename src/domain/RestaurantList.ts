@@ -1,5 +1,6 @@
-import { generateUniqueId, setRestaurantStorage } from "../utils/store";
-import Restaurant from "./Restaurant";
+import { generateUniqueId } from "../utils/restaurant.js";
+import { setRestaurantStorage } from "../utils/store.js";
+import Restaurant from "./Restaurant.js";
 import { RestaurantInformation } from "./type";
 
 class RestaurantList {
