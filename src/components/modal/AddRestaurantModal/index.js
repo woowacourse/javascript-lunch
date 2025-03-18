@@ -1,4 +1,4 @@
-import Modal from "../Modal.js";
+import Modal from "../common/Modal.js";
 import Category from "./Category.js";
 import RestaurantName from "./RestaurantName.js";
 import Distance from "./Distance.js";
@@ -11,6 +11,13 @@ import validateDescription from "../../../validators/validateDescription.js";
 import validateLink from "../../../validators/validateLink.js";
 
 class AddRestaurantModal extends Modal {
+  #addRestaurant;
+
+  constructor($target, addRestaurant) {
+    super($target);
+    this.#addRestaurant = addRestaurant;
+  }
+
   contents() {
     return /*html */ `
       <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -29,41 +36,39 @@ class AddRestaurantModal extends Modal {
     `;
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    if (this.state.isOpen) {
-      this.addEventListeners();
+  open() {
+    super.open();
+    if (this.getIsOpen()) {
+      this.#addEventListeners();
     }
   }
 
-  addEventListeners() {
+  #addEventListeners() {
     const $cancelButton = document.querySelector("#cancel-add-restaurant-form");
     const $addForm = document.querySelector("#add-restaurant-form");
 
     $cancelButton.removeEventListener("click", this.handleClose);
-    $addForm.removeEventListener("submit", this.handleSubmit);
+    $addForm.removeEventListener("submit", this.#handleSubmit);
 
     $cancelButton.addEventListener("click", this.handleClose);
-    $addForm.addEventListener("submit", this.handleSubmit);
+    $addForm.addEventListener("submit", this.#handleSubmit);
   }
 
-  handleSubmit = (event) => {
+  #handleSubmit = (event) => {
     event.preventDefault();
-
     try {
       const formData = new FormData(event.target);
       const data = Object.fromEntries(formData.entries());
-
-      this.validateData(data);
-
-      this.props.updateRestaurant(data);
+      data["isFavorite"] = false;
+      this.#validateData(data);
+      this.#addRestaurant(data);
       this.close();
     } catch (error) {
       alert(error.message);
     }
   };
 
-  validateData(data) {
+  #validateData(data) {
     const { category, name, distance, description, link } = data;
     validateCategory(category);
     validateRestaurantName(name);

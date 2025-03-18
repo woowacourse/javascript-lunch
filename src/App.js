@@ -1,63 +1,81 @@
 import Header from "./components/Header.js";
-import RestaurantList from "./components/RestaurantList.js";
-import { restaurants } from "./database/restaurants.js";
+import TabBarView from "./components/TabBar/index.js";
 import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
-import Component from "./components/core/Component.js";
-import RestaurantItem from "./components/RestaurantItem.js";
+import FilterManager from "./components/FilterBar/FilterManager.js";
+import TabManager from "./components/TabBar/TabManager.js";
+import RestaurantManager from "./components/RestaurantList/RestaurantManager.js";
+import TabBar from "./components/TabBar/index.js";
+import { fetchRestaurants } from "./APIs/restaurantAPI.ts";
 
-class App extends Component {
-  setup() {
-    this.state = {
-      restaurants: restaurants,
-    };
+class App {
+  #restaurants = [];
+  #$target;
+  #filterBarManager;
+  #tabManager;
+  #restaurantManager;
+
+  constructor($target) {
+    this.#$target = $target;
+    this.#$target.appendChild(this.#template());
+    this.$main = document.querySelector("main");
+
+    const $tabContainer = this.#$target.querySelector("#tab-container");
+    $tabContainer.appendChild(TabBar());
+
+    this.#filterBarManager = new FilterManager();
+    this.#init();
   }
 
-  updateRestaurant(newRestaurant) {
-    this.setState({
-      restaurants: [...this.state.restaurants, newRestaurant],
-    });
-
-    this.componentDidUpdate(newRestaurant);
+  #template() {
+    const template = document.createElement("template");
+    template.innerHTML = /* html */ `
+      ${Header()}
+      <div id="tab-container"></div>
+      <main></main>
+      <div id="modal"></div>
+    `.trim();
+    return template.content;
   }
 
-  template() {
-    return /*html*/ `
-        ${Header()}
-        <main></main>
-        <div id="modal"></div>
-    `;
-  }
-
-  componentDidUpdate(newRestaurant) {
-    const $restaurantList = document.querySelector("#restaurant-list");
-    $restaurantList.insertAdjacentHTML(
-      "afterbegin",
-      RestaurantItem(newRestaurant)
+  async #init() {
+    this.#restaurants = await fetchRestaurants();
+    this.#restaurantManager = new RestaurantManager(
+      this.$main,
+      this.#filterBarManager,
+      this.#restaurants,
+      () => false
     );
-  }
-
-  componentDidMount() {
-    const $modal = new AddRestaurantModal(document.querySelector("#modal"), {
-      updateRestaurant: this.updateRestaurant.bind(this),
-    });
-    const $gnbButton = this.$target.querySelector(".gnb__button");
-
-    $gnbButton.addEventListener("click", () => {
-      $modal.open();
-    });
-
-    this.renderRestaurantList();
-  }
-
-  renderRestaurantList() {
-    const $main = document.querySelector("main");
-
-    $main.insertAdjacentHTML(
-      "afterbegin",
-      RestaurantList(this.state.restaurants)
+    this.#tabManager = new TabManager(
+      this.#restaurantManager,
+      this.#renderMainArea.bind(this)
     );
+    this.#restaurantManager.getIsFavoriteTabActive =
+      this.#tabManager.getIsFavoriteTabActive.bind(this.#tabManager);
+    this.#mount();
+    this.#renderMainArea();
+  }
+
+  #mount() {
+    const $gnbButton = this.#$target.querySelector(".gnb__button");
+
+    const $addModal = new AddRestaurantModal(
+      document.querySelector("#modal"),
+      this.#restaurantManager.handleAddRestaurant.bind(this.#restaurantManager)
+    );
+
+    $gnbButton.addEventListener("click", () => $addModal.open());
+  }
+
+  #renderMainArea() {
+    this.$main.replaceChildren();
+
+    this.#filterBarManager.render(
+      this.$main,
+      this.#restaurantManager.updateList.bind(this.#restaurantManager)
+    );
+
+    this.#restaurantManager.renderRestaurantList();
   }
 }
 
-const app = document.querySelector("#app");
-new App(app);
+export default App;

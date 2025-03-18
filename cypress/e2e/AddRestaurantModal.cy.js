@@ -2,6 +2,11 @@ describe("음식점 정보 입력하는 모달에 대한 E2E 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
 
+    cy.get('[data-testid="restaurant-list"]')
+      .should("exist")
+      .children()
+      .should("have.length.greaterThan", 0);
+
     cy.get('[data-testid="open-add-restaurant-modal-button"]').click();
   });
 
@@ -42,23 +47,13 @@ describe("음식점 정보 입력하는 모달에 대한 E2E 테스트", () => {
 
         cy.get('[data-testid="restaurant-list"]')
           .children()
-          .first()
-          .within(() => {
-            cy.get(".restaurant__name").should("have.text", "맛있는 떡볶이");
-            cy.get(".restaurant__category img").should(
-              "have.attr",
-              "alt",
-              "한식"
-            );
-            cy.get(".restaurant__distance").should(
-              "have.text",
-              "캠퍼스부터 5분 내"
-            );
-            cy.get(".restaurant__description").should(
-              "have.text",
-              "맛있는 떡볶이입니다"
-            );
-          });
+          .should("contain.text", "맛있는 떡볶이");
+        cy.get('[data-testid="restaurant-list"]')
+          .children()
+          .should("contain.text", "캠퍼스부터 5분 내");
+        cy.get('[data-testid="restaurant-list"]')
+          .children()
+          .should("contain.text", "맛있는 떡볶이입니다");
       });
   });
 

@@ -13,6 +13,13 @@
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.restaurant:hover {
+  background: var(--grey-200);
+  transition: background 0.3s;
 }
 
 .restaurant__category {
@@ -35,10 +42,24 @@
   height: 36px;
 }
 
+.favorite-icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .restaurant__name {
