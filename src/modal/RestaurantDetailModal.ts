@@ -4,7 +4,7 @@ import {
   GetAllRestaurants,
 } from "../domain/RestaurantService";
 import { SaveFavoriteRestaurantInModal } from "../components/SaveFavoriteRestaurant";
-import DetailModal from "../modal/DetailModal";
+import DetailModal from "./DetailModal";
 import { CreateRestaurantList } from "../components/CreateRestaurantList";
 
 export default function RestaurantDetailModal() {

@@ -10,7 +10,7 @@ import {
   validateNameInput,
   validateSelectInput,
 } from "./validation/validator";
-import AddRestaurantModal from "./view/AddRestaurantModal";
+import AddRestaurantModal from "./modal/AddRestaurantModal";
 
 export default function InitModalHandler() {
   const $modalButton = document.getElementById(
