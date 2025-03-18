@@ -131,9 +131,7 @@ class RestaurantList {
   }
 
   filterByFavorite(data: Restaurant[]) {
-    return data.filter(
-      (restaurant: Restaurant) => restaurant.favorite === true
-    );
+    return data.filter((restaurant: Restaurant) => restaurant.favorite);
   }
 
   remove(targetName: string, modalId: string) {
