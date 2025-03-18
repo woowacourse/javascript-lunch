@@ -8,11 +8,11 @@ class DetailModal extends Modal {
   #deleteButton;
   #star;
   #currentRestaurant;
-  #onDeleteButtonClick;
+  #onClickDeleteButton;
 
-  constructor({ appContainer, onDeleteButtonClick }) {
+  constructor({ appContainer, onClickDeleteButton }) {
     super(appContainer);
-    this.#onDeleteButtonClick = onDeleteButtonClick;
+    this.#onClickDeleteButton = onClickDeleteButton;
     this.#init();
     this.#createAddModal();
     this.#bindEvent();
@@ -71,7 +71,7 @@ class DetailModal extends Modal {
 
   #bindDeleteButtonEvent = () => {
     this.#deleteButton.addEventListener('click', (event) => {
-      this.#onDeleteButtonClick(this.#currentRestaurant.getName());
+      this.#onClickDeleteButton(this.#currentRestaurant.getName());
       this.#clearModalContent();
       this.closeModal();
     });
