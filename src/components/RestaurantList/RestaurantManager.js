@@ -13,11 +13,13 @@ class RestaurantManager {
   #$main;
   #filterManager;
   #restaurants;
+  #getIsFavoriteTabActive;
 
-  constructor($main, filterManager, restaurants) {
+  constructor($main, filterManager, restaurants, getIsFavoriteTabActive) {
     this.#$main = $main;
     this.#filterManager = filterManager;
     this.#restaurants = restaurants;
+    this.#getIsFavoriteTabActive = getIsFavoriteTabActive;
   }
 
   renderRestaurantList() {
@@ -36,7 +38,7 @@ class RestaurantManager {
   }
 
   updateList() {
-    if (this.#isFavoriteTabActive()) {
+    if (this.#getIsFavoriteTabActive()) {
       const favorites = getFavoriteRestaurants(this.restaurants);
       this.#renderList(this.#$main, favorites);
       return;
@@ -81,10 +83,6 @@ class RestaurantManager {
   async handleToggleFavorite(clickedId) {
     this.restaurants = await toggleFavorite(this.restaurants, clickedId);
     this.updateList();
-  }
-
-  #isFavoriteTabActive() {
-    return document.querySelector("#favorite-tab").classList.contains("active");
   }
 }
 

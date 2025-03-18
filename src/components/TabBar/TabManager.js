@@ -10,6 +10,10 @@ class TabManager {
     this.#setupTabListeners();
   }
 
+  getIsFavoriteTabActive() {
+    return this.#activeTab === "favorite";
+  }
+
   #setupTabListeners() {
     const $listTab = document.querySelector("#list-tab");
     const $favoriteTab = document.querySelector("#favorite-tab");

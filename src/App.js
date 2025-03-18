@@ -42,12 +42,15 @@ class App {
     this.#restaurantManager = new RestaurantManager(
       this.$main,
       this.#filterBarManager,
-      this.#restaurants
+      this.#restaurants,
+      () => false
     );
     this.#tabManager = new TabManager(
       this.#restaurantManager,
       this.#renderMainArea.bind(this)
     );
+    this.#restaurantManager.getIsFavoriteTabActive =
+      this.#tabManager.getIsFavoriteTabActive;
     this.#mount();
     this.#renderMainArea();
   }
