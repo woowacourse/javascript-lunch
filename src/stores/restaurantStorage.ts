@@ -1,16 +1,29 @@
 import { RestaurantItem } from "../types/restaurantItem.js";
 
+const localStorage = {
+  getItem: (key: string) => {
+    const item = window.localStorage.getItem(key);
+
+    return item ? JSON.parse(item) : null;
+  },
+  setItem: <T>(key: string, value: T) => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  },
+};
+
 const restaurantStorage = {
   getRestaurantList: () => {
-    const restaurantList = window.localStorage.getItem("restaurantList");
-    return restaurantList ? JSON.parse(restaurantList) : [];
+    const restaurantList = localStorage.getItem("restaurantList");
+
+    if (!restaurantList) {
+      return [];
+    }
+
+    return restaurantList;
   },
 
   setRestaurantList: (restaurantList: RestaurantItem[]): void => {
-    window.localStorage.setItem(
-      "restaurantList",
-      JSON.stringify(restaurantList)
-    );
+    localStorage.setItem("restaurantList", restaurantList);
   },
 };
 
