@@ -51,13 +51,13 @@ export function openRestaurantModal(app, listContainerElement) {
   ModalController({
     children: { titleElement, formElement },
     submit: handleSubmit,
-    cancle: handleCancel,
+    cancel: handleCancel,
   });
 
   EventHandler.modalToggle(app);
 }
 
-export function ModalController({ children, submit = null, cancle = null }) {
+export function ModalController({ children, submit = null, cancel = null }) {
   const mainElement = app.querySelector("main");
   const modalElement = Modal(convertObjectToArray(children));
   const closeButtonElement = children.formElement.querySelector("button[type='button']");
@@ -65,7 +65,7 @@ export function ModalController({ children, submit = null, cancle = null }) {
   const favoriteElement = document.querySelector(".favorites-icon");
 
   modalBackdropElement.addEventListener("click", () => EventHandler.modalToggle(mainElement, children.formElement));
-  closeButtonElement.addEventListener("click", () => cancle());
+  closeButtonElement.addEventListener("click", () => cancel());
   children.formElement.addEventListener("submit", (event) => submit(event));
 
   mainElement.appendChild(modalElement);

@@ -46,7 +46,7 @@ function openModal(restaurantList, restaurantId) {
       const restaurantList = new RestaurantList(storedRestaurants);
       restaurantList.deleteRestaurant(restaurantElement.dataset.id);
     },
-    cancle: () => {
+    cancel: () => {
       EventHandler.modalToggle(mainElement, formElement);
     },
   });
