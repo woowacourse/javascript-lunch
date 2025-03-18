@@ -114,10 +114,17 @@ class App {
     this.#restaurantList.sortRestaurantList(this.#currentCategory, this.#currentSorting, this.#currentHeader);
   }
 
+  #handleDeleteRestaurant = (restaurantName) => {
+    this.#restaurantList.deleteRestaurant(restaurantName);
+  };
+
   #initAppUI() {
     this.#restaurantList = new RestaurantList(this.restaurantListContainer, this.#handleRestaurantUpdate.bind(this));
 
-    this.detailModal = new DetailModal(this.appContainer, this.#restaurantList);
+    this.detailModal = new DetailModal({
+      appContainer: this.appContainer,
+      onDeleteButtonClick: this.#handleDeleteRestaurant,
+    });
     this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.#restaurantList);
 
     this.#restaurantList.setModal(this.detailModal);
