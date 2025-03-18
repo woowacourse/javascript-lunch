@@ -6,12 +6,12 @@ import Star from './Star.js';
 class RestaurantItem {
   #restaurantElement;
   #onRestaurantUpdate;
-  #detailModal;
   #restaurant;
+  #onClickItem;
 
-  constructor(restaurant, onRestaurantUpdate, detailModal) {
+  constructor(restaurant, onRestaurantUpdate, onClickItem) {
     this.#onRestaurantUpdate = onRestaurantUpdate;
-    this.#detailModal = detailModal;
+    this.#onClickItem = onClickItem;
     this.#restaurant = restaurant;
     this.#createRestaurantItem(restaurant);
     this.#bindEvent(this.#restaurantElement);
@@ -41,11 +41,9 @@ class RestaurantItem {
       const clonedRestaurant = new RestaurantItem(
         this.#restaurant,
         this.#onRestaurantUpdate,
-        this.#detailModal,
+        this.#onClickItem,
       ).getElement();
-
-      this.#detailModal.addRestaurant(clonedRestaurant, this.#restaurant);
-      this.#detailModal.openModal();
+      this.#onClickItem(clonedRestaurant, this.#restaurant);
     });
   };
 

@@ -5,18 +5,20 @@ import { LIKE_HEADER_STATE } from './components/LikeHeader';
 
 class RestaurantList {
   #restaurantListContainer; // 레스토랑 리스트 컨테이너
-  #restaurants;
   #onRestaurantUpdate; // 레스토랑 리스트 리로드 함수
   #detailModal; // 레스토랑 상세정보 모달
   #restaurantData; // localStorage 레스토랑 데이터
-  #currentCategory = '';
-  #currentSorting = 'name';
-  #currentHeader = LIKE_HEADER_STATE.ALL;
+  #restaurants;
+  #currentCategory;
+  #currentSorting;
+  #currentHeader;
+  #onClickItem;
 
-  constructor(restaurantListContainer, onRestaurantUpdate, detailModal) {
+  constructor(restaurantListContainer, onRestaurantUpdate, onClickItem) {
     this.#restaurantListContainer = restaurantListContainer;
     this.#onRestaurantUpdate = onRestaurantUpdate;
-    this.#detailModal = detailModal;
+    this.#onClickItem = onClickItem;
+    // this.#detailModal = detailModal;
 
     this.#restaurants = RestaurantStorage.getRestaurants();
     this.#renderRestaurantList();
@@ -25,7 +27,7 @@ class RestaurantList {
   #createRestaurantList(restaurantList) {
     this.#restaurantListContainer.innerHTML = '';
     restaurantList.forEach((restaurant) => {
-      const restaurantItem = new RestaurantItem(restaurant, this.#onRestaurantUpdate, this.#detailModal).getElement();
+      const restaurantItem = new RestaurantItem(restaurant, this.#onRestaurantUpdate, this.#onClickItem).getElement();
       this.#restaurantListContainer.appendChild(restaurantItem);
     });
   }
@@ -67,11 +69,6 @@ class RestaurantList {
 
   getRestaurantData() {
     return this.#restaurants.getAll();
-  }
-
-  setModal(detailModal) {
-    this.#detailModal = detailModal;
-    this.#renderRestaurantList();
   }
 }
 

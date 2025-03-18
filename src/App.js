@@ -118,16 +118,22 @@ class App {
     this.#restaurantList.deleteRestaurant(restaurantName);
   };
 
+  #handleDetailModal = (clonedRestaurant, restaurantData) => {
+    this.detailModal.setDetailModal(clonedRestaurant, restaurantData);
+  };
+
   #initAppUI() {
-    this.#restaurantList = new RestaurantList(this.restaurantListContainer, this.#handleRestaurantUpdate.bind(this));
+    this.#restaurantList = new RestaurantList(
+      this.restaurantListContainer,
+      this.#handleRestaurantUpdate.bind(this),
+      this.#handleDetailModal,
+    );
 
     this.detailModal = new DetailModal({
       appContainer: this.appContainer,
       onDeleteButtonClick: this.#handleDeleteRestaurant,
     });
     this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.#restaurantList);
-
-    this.#restaurantList.setModal(this.detailModal);
 
     new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
     this.#likeHeader = new LikeHeader(this.likeHeaderContainer);
