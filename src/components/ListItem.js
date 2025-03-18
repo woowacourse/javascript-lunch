@@ -35,7 +35,7 @@ function ListItem({ id, category, name, distance, description, favorites, link }
 
   listElement.innerHTML = `
     <div class="restaurant__category">
-      <img src=${CATRGORY_IMAGE_PATH[category]} alt=${category} class="category-icon" />
+      <img src=${CATRGORY_IMAGE_PATH[category]} alt="${category} 카테고리 이미지" class="category-icon" />
     </div>
     <div class="restaurant__info">
       <h3 class="restaurant__name text-subtitle">${name}</h3>
@@ -44,7 +44,7 @@ function ListItem({ id, category, name, distance, description, favorites, link }
       ${description}
       </p>
       </div>
-      <img src="${renderFavoritesImg(favorites)}" alt=favorites class="favorites-icon" />
+      <img src="${renderFavoritesImg(favorites)}" alt="자주가는 음식점 버튼" class="favorites-icon" />
       ${createLink()}
     `;
   return listElement;
