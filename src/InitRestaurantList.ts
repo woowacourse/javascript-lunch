@@ -1,5 +1,5 @@
-import { CreateRestaurantList } from "./ui/CreateRestaurantList";
-import HeaderCategory from "./ui/HeaderCategory";
+import { CreateRestaurantList } from "./components/CreateRestaurantList";
+import HeaderCategory from "./components/HeaderCategory";
 import { GetAllRestaurants } from "./domain/RestaurantService";
 
 export default function InitRestaurantList() {

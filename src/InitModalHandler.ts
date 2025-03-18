@@ -3,7 +3,7 @@ import {
   AddNewRestaurant,
   GetAllRestaurants,
 } from "./domain/RestaurantService";
-import { CreateRestaurantList } from "./ui/CreateRestaurantList";
+import { CreateRestaurantList } from "./components/CreateRestaurantList";
 import { categoryMapping } from "./utils/categoryMapping";
 import {
   validateDescriptionInput,
