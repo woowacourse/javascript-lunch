@@ -38,19 +38,15 @@ class Restaurants {
     const { category, sorting, header } = options;
     let filteredList = [...this.#restaurantList];
 
-    if (category) {
-      filteredList = filteredList.filter((restaurant) => restaurant.getCategory() === category);
-    }
+    filteredList = filteredList.filter((restaurant) => {
+      if (category && restaurant.getCategory() !== category) return false;
+      if (header === LIKE_HEADER_STATE.LIKE && restaurant.getIsLiked() !== true) return false;
+      return true;
+    });
 
-    if (header === LIKE_HEADER_STATE.LIKE) {
-      filteredList = filteredList.filter((restaurant) => restaurant.getIsLiked() === true);
-    }
-
-    if (sorting === 'name') {
-      filteredList = filteredList.sort((a, b) => a.getName().localeCompare(b.getName()));
-    } else if (sorting === 'distance') {
+    if (sorting === 'name') filteredList = filteredList.sort((a, b) => a.getName().localeCompare(b.getName()));
+    if (sorting === 'distance')
       filteredList = filteredList.sort((a, b) => Number(a.getDistance()) - Number(b.getDistance()));
-    }
 
     return filteredList;
   }
