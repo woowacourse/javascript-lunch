@@ -1,5 +1,8 @@
 import TextButton from "../TextButton.js";
 import Modal from "../Modal.js";
+import LocalStorage from "../../utils/LocalStorage.js";
+import RestaurantListUtils from "../../utils/RestaurantListUtils.js";
+import Renderer from "../../utils/Renderer.js";
 
 const DetailModalButtonContainer = {
   create() {
@@ -10,6 +13,7 @@ const DetailModalButtonContainer = {
         {
           id: "delete__button",
           title: "삭제하기",
+          onClick: this.onDeleteButtonClick,
         },
         "secondary"
       )
@@ -26,6 +30,16 @@ const DetailModalButtonContainer = {
     );
 
     return buttonContainerElement;
+  },
+
+  onDeleteButtonClick() {
+    const deletedList = RestaurantListUtils.delete(
+      LocalStorage.getJSON(RESTAURANT_LIST_KEY),
+      id
+    );
+    LocalStorage.setJSON(RESTAURANT_LIST_KEY, deletedList);
+    Renderer.renderOuter();
+    Modal.close("detail");
   },
 };
 

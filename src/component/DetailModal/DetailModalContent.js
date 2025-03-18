@@ -2,6 +2,7 @@ import { RESTAURANT_LIST_KEY } from "../../constants/constants.js";
 import state from "../../state.js";
 import LocalStorage from "../../utils/LocalStorage.ts";
 import { $ } from "../../utils/querySelectors.js";
+import Renderer from "../../utils/Renderer.js";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.js";
 import FilterSelect from "../FilterSelect.js";
 import Modal from "../Modal.js";
@@ -34,21 +35,7 @@ const DetailModalContent = {
         <p class="restaurant__link text-body">${link ? link : ""}</p>
     </div>
   `;
-
-    this.handleDeleteButton(id);
     this.handleFavoriteButton();
-  },
-
-  handleDeleteButton(id) {
-    $("#delete__button").onclick = () => {
-      const deletedList = RestaurantListUtils.delete(
-        LocalStorage.getJSON(RESTAURANT_LIST_KEY),
-        id
-      );
-      LocalStorage.setJSON(RESTAURANT_LIST_KEY, deletedList);
-      this.renderAll();
-      Modal.close("detail");
-    };
   },
 
   handleFavoriteButton() {
@@ -71,7 +58,7 @@ const DetailModalContent = {
             Number(e.target.id)
           )
         );
-        this.renderAll();
+        Renderer.renderOuter();
       }
     );
   },
@@ -86,17 +73,6 @@ const DetailModalContent = {
     if (alt == "noFavoriteIcon") {
       target.alt = "favoriteIcon";
       target.src = "./favorite-icon-filled.png";
-    }
-  },
-
-  renderAll() {
-    if (state.currentRestaurantListId === "allRestaurant")
-      FilterSelect.applyFilter("allRestaurant");
-    if (state.currentRestaurantListId === "favoriteRestaurant") {
-      const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
-        LocalStorage.getJSON(RESTAURANT_LIST_KEY)
-      );
-      RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
     }
   },
 };
