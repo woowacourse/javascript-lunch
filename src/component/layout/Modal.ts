@@ -1,6 +1,6 @@
-import { showConvertedItem } from "../../domain/handler/FoodItemHandler";
+import { showConvertedItem } from "../../domain/FoodService";
 
-import { isFavoriteState } from "../../domain/handler/TabButtonHandler";
+import { isFavoriteState } from "../../domain/FavoriteService";
 import {
   ModalCloseContentType,
   ModalSetContentType,

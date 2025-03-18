@@ -2,10 +2,7 @@ import { Button } from "../component/button/Button";
 import { ButtonContainer } from "../component/button/ButtonContainer";
 import { FoodItem } from "../component/FoodItem";
 import { Modal } from "../component/layout/Modal";
-import {
-  deleteFoodItem,
-  updateFoodList,
-} from "../domain/handler/FoodItemHandler";
+import { deleteFoodItem, updateFoodList } from "../domain/FoodService";
 import { ChangeFavoriteStatusType } from "../types/domain/TabButtonHandlerType";
 import { FoodDetailType } from "../types/pages/FoodDetailType";
 

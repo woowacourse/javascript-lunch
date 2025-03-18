@@ -3,8 +3,8 @@ import {
   createFoodListComponent,
   getFilteredFoodList,
   showConvertedItem,
-} from "./handler/FoodItemHandler";
-import { isFavoriteState } from "./handler/TabButtonHandler";
+} from "./FoodService";
+import { isFavoriteState } from "./FavoriteService";
 import { FoodForm } from "../pages/FoodForm";
 import { FilterType } from "../types/domain/FilterType";
 import { InitAppStateType } from "../types/domain/InitAppStateType";

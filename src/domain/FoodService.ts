@@ -1,8 +1,8 @@
-import { FoodItem } from "../../component/FoodItem";
-import { Modal } from "../../component/layout/Modal";
-import { foodItems } from "../../mocks/foodItems";
-import { FoodDetail } from "../../pages/FoodDetail";
-import { FoodType } from "../../types/component/FoodItemType";
+import { FoodItem } from "../component/FoodItem";
+import { Modal } from "../component/layout/Modal";
+import { foodItems } from "../mocks/foodItems";
+import { FoodDetail } from "../pages/FoodDetail";
+import { FoodType } from "../types/component/FoodItemType";
 
 import {
   AddFoodItemType,
@@ -14,13 +14,13 @@ import {
   ShowConvertedItemType,
   ShowFoodItemType,
   UpdateFoodListType,
-} from "../../types/domain/FoodItemHandlerType";
+} from "../types/domain/FoodItemHandlerType";
 import {
   deleteStorageFoodList,
   readStorageFoodList,
   updateStorageFoodList,
-} from "./FoodStorageHandler";
-import { changeFavoriteStatus } from "./TabButtonHandler";
+} from "./FoodStorage";
+import { changeFavoriteStatus } from "./FavoriteService";
 
 // CRUD - create : mock Data
 export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {

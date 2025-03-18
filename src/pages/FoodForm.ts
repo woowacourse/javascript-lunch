@@ -1,5 +1,5 @@
 import { CAPTION_MESSAGE } from "../constants/Message.js";
-import { addFoodItem } from "../domain/handler/FoodItemHandler.js";
+import { addFoodItem } from "../domain/FoodService.js";
 import { Button } from "../component/button/Button.js";
 import { ButtonContainer } from "../component/button/ButtonContainer.js";
 import { Input } from "../component/input/Input.js";

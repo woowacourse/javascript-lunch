@@ -1,5 +1,5 @@
-import { ChangeFavoriteStatusType } from "../../types/domain/TabButtonHandlerType";
-import { showConvertedItem, updateFoodList } from "./FoodItemHandler";
+import { ChangeFavoriteStatusType } from "../types/domain/TabButtonHandlerType";
+import { showConvertedItem, updateFoodList } from "./FoodService";
 
 export function changeFavoriteStatus({
   event,
