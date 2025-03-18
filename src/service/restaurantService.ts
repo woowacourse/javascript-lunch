@@ -1,6 +1,5 @@
-import { getLocalStorage, setLocalStorage, removeItemFromLocalStorage } from '../util/localStorage';
+import { getLocalStorage, setLocalStorage, removeItemById, LOCAL_STORAGE_KEYS } from '../util/localStorage';
 import { Restaurant } from '../type';
-import { FAVORITE_KEY, RESTAURANT_KEY } from '../components/constant/localStorage';
 const DATA_URL = 'data/restaurants.json';
 
 async function loadInitialRestaurants(): Promise<Restaurant[]> {
@@ -15,11 +14,11 @@ async function loadInitialRestaurants(): Promise<Restaurant[]> {
 }
 
 export async function getAllRestaurants(): Promise<Restaurant[]> {
-  let restaurants = getLocalStorage<Restaurant[]>(RESTAURANT_KEY, []);
+  let restaurants = getLocalStorage<Restaurant[]>(LOCAL_STORAGE_KEYS.RESTAURANT, []);
 
   if (restaurants.length === 0) {
     restaurants = await loadInitialRestaurants();
-    setLocalStorage(RESTAURANT_KEY, restaurants);
+    setLocalStorage(LOCAL_STORAGE_KEYS.RESTAURANT, restaurants);
   }
 
   return restaurants;
@@ -28,13 +27,13 @@ export async function getAllRestaurants(): Promise<Restaurant[]> {
 export async function addRestaurant(newRestaurant: Restaurant): Promise<void> {
   const storedRestaurants = await getAllRestaurants();
   storedRestaurants.push(newRestaurant);
-  setLocalStorage(RESTAURANT_KEY, storedRestaurants);
+  setLocalStorage(LOCAL_STORAGE_KEYS.RESTAURANT, storedRestaurants);
 }
 
 export async function removeRestaurant(id: number): Promise<void> {
-  removeItemFromLocalStorage<Restaurant>(RESTAURANT_KEY, (restaurant) => restaurant.id !== id);
+  removeItemById<Restaurant>(LOCAL_STORAGE_KEYS.RESTAURANT, id);
 
-  removeItemFromLocalStorage<number>(FAVORITE_KEY, (favId) => favId !== id);
+  removeItemById(LOCAL_STORAGE_KEYS.FAVORITE, id);
 
   const restaurantItem = document.querySelector(`.restaurant[data-id="${id}"]`);
   if (restaurantItem) {
