@@ -35,19 +35,16 @@ function initNavigationButton() {
   $(".navigation-bar-container").addEventListener("click", (e) => {
     $$("main section").forEach((section) => (section.style.display = "none"));
     if (e.target.classList.contains("all_restaurant_nav")) {
-      Renderer.applyFilter("allRestaurant");
-      DOM.$filterContainer.style.display = "flex";
+      state.setCurrentRestaurantListId("allRestaurant");
       DOM.$restaurantContainer.style.display = "block";
-      Renderer.restaurantList();
     }
+
     if (e.target.classList.contains("favorite_restaurant_nav")) {
-      const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
-        LocalStorage.getJSON(RESTAURANT_LIST_KEY)
-      );
-      RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
+      state.setCurrentRestaurantListId("favoriteRestaurant");
       DOM.$favoriteContainer.style.display = "block";
-      Renderer.restaurantList();
     }
+
+    Renderer.restaurantList();
 
     $$(".navigation__button").forEach((btn) =>
       btn.classList.remove("activated")

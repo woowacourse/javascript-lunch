@@ -7,6 +7,7 @@ import RestaurantListUtils from "./RestaurantListUtils.ts";
 
 const Renderer = {
   restaurantList() {
+    console.log(state.currentRestaurantListId);
     if (state.currentRestaurantListId === "allRestaurant")
       this.applyFilter("allRestaurant");
     if (state.currentRestaurantListId === "favoriteRestaurant") {
