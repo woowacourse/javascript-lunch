@@ -3,7 +3,7 @@ import Component from "./Component.js";
 import Header from "./Header/Header.js";
 import Modal from "./Modal/Modal.js";
 import {
-  addResturantContent,
+  addRestaurantContent,
   restaurantInfoContent,
 } from "./Modal/getModalContent.js";
 import Tab from "./Tab/tab.js";
@@ -68,7 +68,7 @@ class App extends Component {
       toggleModal: () => this.toggleModal(),
       content: this.state.selectedRestaurant
         ? restaurantInfoContent(this.state.selectedRestaurant)
-        : addResturantContent(),
+        : addRestaurantContent(),
       modalType: this.state.selectedRestaurant ? "info" : "add",
     });
   }

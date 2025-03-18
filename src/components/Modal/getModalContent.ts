@@ -3,8 +3,7 @@ import { categoryValue, distanceValue } from "../../constants/optionValue.js";
 import Dropdown from "../Dropdown/Dropdown.js";
 import Input from "../Input/Input.js";
 
-
-export const addResturantContent = (): string => {
+export const addRestaurantContent = (): string => {
   return ` <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id='input-form'>
           ${Dropdown({ id: "category", required: "required", optionValue: categoryValue })}
