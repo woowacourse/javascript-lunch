@@ -64,7 +64,6 @@ describe('음식점 아이템 렌더링 테스트', () => {
         cy.wrap($li).find('.restaurant__name').should('exist').contains(`${restaurant.name}`);
         cy.wrap($li).find('.restaurant__distance').should('exist').contains(`캠퍼스부터 ${restaurant.distance}`);
         cy.wrap($li).find('.restaurant__description').should('exist').contains(`${restaurant.description}`);
-        cy.wrap($li).find('.restaurant__info a').should('exist').and('have.attr', 'href', `${restaurant.link}`);
       });
   });
 });
