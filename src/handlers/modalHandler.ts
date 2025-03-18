@@ -1,6 +1,6 @@
 import Button from "../components/Button.js";
 import FormContent from "../components/FormContent.js";
-import OptionInput from "../components/OptionInput.js";
+import FormOptionInput from "../components/FormOptionInput.js";
 import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
 import RestaurantDetail from "../components/RestaurantDetail.js";
@@ -96,11 +96,11 @@ export const modalHandler = {
 
     const modalForm = querySelector(".modal-form");
     modalForm.appendChild(
-      OptionInput("category", RESTAURANT_ADD_FORM_SELECT_OPTIONS.CATEGORY)
+      FormOptionInput("category", RESTAURANT_ADD_FORM_SELECT_OPTIONS.CATEGORY)
     );
     modalForm.appendChild(TextInput("name", true));
     modalForm.appendChild(
-      OptionInput("distance", RESTAURANT_ADD_FORM_SELECT_OPTIONS.DISTANCE)
+      FormOptionInput("distance", RESTAURANT_ADD_FORM_SELECT_OPTIONS.DISTANCE)
     );
     modalForm.appendChild(
       TextArea("description", RESTAURANT_ADD_FORM_HELP_TEXT.DESCRIPTION)
