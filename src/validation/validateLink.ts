@@ -7,7 +7,7 @@ function hasNotPrefixProtocol(input: string) {
 }
 
 export function validateLink(input: RestaurantProps['link']) {
-  if (!isBlank(input) && hasNotPrefixProtocol(input)) {
+  if (input && !isBlank(input) && hasNotPrefixProtocol(input)) {
     throw new Error(ERROR_MESSAGES.INVALID_LINK_FORMAT);
   }
 }
