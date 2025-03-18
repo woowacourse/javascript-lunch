@@ -19,13 +19,20 @@ class FilterController {
   }
 
   #bindEvents() {
-    $<HTMLSelectElement>('#category-filter')?.addEventListener('change', (event) => {
-      this.#onFilterChange('category', (event.target as HTMLSelectElement)?.value);
-    });
-    $<HTMLSelectElement>('#sorting-filter')?.addEventListener('change', (event) => {
-      this.#onFilterChange('sort', (event.target as HTMLSelectElement)?.value);
-    });
+    const categoryFilter = $<HTMLSelectElement>('#category-filter');
+    const sortingFilter = $<HTMLSelectElement>('#sorting-filter');
+
+    categoryFilter?.addEventListener('change', this.#handleCategoryChange);
+    sortingFilter?.addEventListener('change', this.#handleSortChange);
   }
+
+  #handleCategoryChange = (event: Event) => {
+    this.#onFilterChange('category', (event.target as HTMLSelectElement).value);
+  };
+
+  #handleSortChange = (event: Event) => {
+    this.#onFilterChange('sort', (event.target as HTMLSelectElement).value);
+  };
 }
 
 export default FilterController;
