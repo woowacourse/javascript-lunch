@@ -24,7 +24,7 @@ import {
   createRestaurantItem,
   createSelect,
   createTextarea,
-} from '../components/index.ts';
+} from '../templates/index.ts';
 import { renderElement, selectElement, selectElements } from '../utils/dom.ts';
 import { Restaurant } from '../../types/domain';
 
