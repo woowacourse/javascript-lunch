@@ -13,13 +13,12 @@ class RestaurantManager {
   #$main;
   #filterManager;
   #restaurants;
-  #getIsFavoriteTabActive;
 
   constructor($main, filterManager, restaurants, getIsFavoriteTabActive) {
     this.#$main = $main;
     this.#filterManager = filterManager;
     this.#restaurants = restaurants;
-    this.#getIsFavoriteTabActive = getIsFavoriteTabActive;
+    this.getIsFavoriteTabActive = getIsFavoriteTabActive;
   }
 
   renderRestaurantList() {
@@ -38,18 +37,12 @@ class RestaurantManager {
   }
 
   updateList() {
-    if (this.#getIsFavoriteTabActive()) {
-      const favorites = getFavoriteRestaurants(this.restaurants);
-      this.#renderList(this.#$main, favorites);
+    if (this.getIsFavoriteTabActive()) {
+      this.renderFavoriteList();
       return;
     }
 
-    const filtered = filterAndSortRestaurants(
-      this.#restaurants,
-      this.#filterManager.getSelectedCategory(),
-      this.#filterManager.getSelectedSorting()
-    );
-    this.#renderList(this.#$main, filtered);
+    this.renderRestaurantList();
   }
 
   #renderList($main, restaurants) {
@@ -71,17 +64,17 @@ class RestaurantManager {
   }
 
   async handleAddRestaurant(newRestaurant) {
-    this.restaurants = await addRestaurant(this.restaurants, newRestaurant);
+    this.#restaurants = await addRestaurant(this.#restaurants, newRestaurant);
     this.updateList();
   }
 
   async handleDeleteRestaurant(clickedId) {
-    this.restaurants = await deleteRestaurant(this.restaurants, clickedId);
+    this.#restaurants = await deleteRestaurant(this.#restaurants, clickedId);
     this.updateList();
   }
 
   async handleToggleFavorite(clickedId) {
-    this.restaurants = await toggleFavorite(this.restaurants, clickedId);
+    this.#restaurants = await toggleFavorite(this.#restaurants, clickedId);
     this.updateList();
   }
 }

@@ -50,7 +50,7 @@ class App {
       this.#renderMainArea.bind(this)
     );
     this.#restaurantManager.getIsFavoriteTabActive =
-      this.#tabManager.getIsFavoriteTabActive;
+      this.#tabManager.getIsFavoriteTabActive.bind(this.#tabManager);
     this.#mount();
     this.#renderMainArea();
   }
