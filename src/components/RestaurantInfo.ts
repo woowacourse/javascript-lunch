@@ -1,7 +1,7 @@
 import { Restaurant } from '../../types/domain';
 import { IMAGE } from '../constants/elements.js';
 
-function createRestaurantInfo({ id, category, name, distance, description, favorite }: Restaurant) {
+function createRestaurantInfo({ id, category, name, distance, description, link, favorite }: Restaurant) {
   const information = `<div class="restaurant restaurant__body" data-id="${id}">
                 <div class="restaurant__category">
                   <img src="${IMAGE.get(category)}" alt="${category}" class="category-icon" />
@@ -13,6 +13,7 @@ function createRestaurantInfo({ id, category, name, distance, description, favor
                 <h3 class="restaurant__name text-subtitle">${name}</h3>
                 <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
                 <p class="restaurant__description__details text-body">${description}</p>
+                <a href="${link}" class="restaurant__link text-body">${link}</a>
               </div>
             </div>
             `;
