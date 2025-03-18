@@ -18,9 +18,9 @@ export const filterAndSortHandler = {
     sortOption: FilterAndSortOptions["sortOption"]
   ) => {
     if (sortOption === "name") {
-      return restaurantList.sort((a, b) => a.name.localeCompare(b.name));
+      return [...restaurantList].sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    return restaurantList.sort((a, b) => Number(a.dist) - Number(b.dist));
+    return [...restaurantList].sort((a, b) => Number(a.dist) - Number(b.dist));
   },
 };
