@@ -7,7 +7,7 @@ const TabBar = () => {
     </section>
   `.trim();
 
-  return template.content.firstElementChild;
+  return template.content;
 };
 
 export default TabBar;
