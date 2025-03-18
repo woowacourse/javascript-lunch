@@ -1,5 +1,3 @@
-import { FilterRestaurantByCategory } from "../domain/FilterRestaurantByCategory";
-
 interface FilterProps {
   e: Event;
   $allRestaurants: HTMLElement[];
@@ -47,4 +45,18 @@ function updateRestaurantList(
   filteredRestaurants: HTMLElement[]
 ) {
   $restaurantList.replaceChildren(...filteredRestaurants);
+}
+
+function FilterRestaurantByCategory(
+  category: string,
+  restaurants: HTMLElement[]
+): HTMLElement[] {
+  if (category === "전체") return restaurants;
+
+  return restaurants.filter((item) => {
+    const categoryElement = item.querySelector(
+      ".category-icon"
+    ) as HTMLImageElement | null;
+    return categoryElement?.alt === category;
+  });
 }

@@ -7,3 +7,8 @@ export interface Restaurant {
   link: string;
   favorite: boolean;
 }
+
+export interface SortProps {
+  $restaurantList: HTMLUListElement;
+  $restaurantItems: HTMLElement[];
+}
