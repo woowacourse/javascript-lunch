@@ -13,7 +13,7 @@ class RestaurantList {
   #items: Restaurant[];
   #totalTab: boolean;
   #category: Category;
-  #renderingItems = [];
+  #renderingItems: Restaurant[];
 
   constructor() {
     if (!localStorage.getItem("restaurantList")) {
@@ -25,6 +25,7 @@ class RestaurantList {
     this.#totalTab = true;
     this.#category = "선택해 주세요";
     this.#items = JSON.parse(localStorage.getItem("restaurantList") || "[]");
+    this.#renderingItems = this.#items;
 
     this.sortByName();
     this.renderTab();
@@ -62,10 +63,7 @@ class RestaurantList {
           return;
         }
         $("main").append(
-          new Modal(
-            `restaurantModal_${item.name}`,
-            RestaurantDetail(item, this)
-          )
+          Modal(`restaurantModal_${item.name}`, RestaurantDetail(item, this))
         );
         Modal.open(`restaurantModal_${item.name}`);
       });
