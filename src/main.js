@@ -75,7 +75,7 @@ function initFilterSelect() {
 
 function initRestaurantList() {
   DOM.$restaurantContainer.append(RestaurantList.create("allRestaurant"));
-  RestaurantList.applyData("allRestaurant");
+  Renderer.restaurantList();
 }
 
 function initFavoriteList() {

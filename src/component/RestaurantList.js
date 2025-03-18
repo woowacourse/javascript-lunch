@@ -29,14 +29,6 @@ const RestaurantList = {
     Renderer.restaurantList();
   },
 
-  applyData(restaurantListId) {
-    this.applyList(restaurantListId, LocalStorage.getJSON(RESTAURANT_LIST_KEY));
-  },
-
-  applyState(restaurantListId) {
-    this.applyList(restaurantListId, state.currentRestaurantList);
-  },
-
   applyList(restaurantListId, restaurantList) {
     state.setCurrentRestaurantList(restaurantList);
     const restaurantElementList = this.getRestaurantElementList(restaurantList);
