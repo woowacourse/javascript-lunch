@@ -3,8 +3,8 @@ import {
   NAME_MAX_LENGTH,
 } from "../constants/constants.js";
 import { ValidateFoodItemType } from "../types/vaildate/ValidateFoodItemType.js";
-import { alertError } from "../util/alertError.js";
-import { resetError } from "../util/errorHandler.js";
+import { alertError } from "../util/errorDisplay.js";
+import { resetError } from "../util/errorService.js";
 import { InputGuide } from "./InputGuide.js";
 
 export function validateFoodItem({

@@ -1,4 +1,4 @@
-import { RemoveErrorType, SetErrorType } from "../types/util/ErrorHandlerType";
+import { RemoveErrorType, SetErrorType } from "../types/util/ErrorServiceType";
 
 export function setError({ name }: SetErrorType) {
   document.querySelector(`[name=${name}]`)?.classList.add("error");

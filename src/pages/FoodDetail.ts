@@ -3,7 +3,7 @@ import { ButtonContainer } from "../component/button/ButtonContainer";
 import { FoodItem } from "../component/FoodItem";
 import { Modal } from "../component/layout/Modal";
 import { deleteFoodItem, updateFoodList } from "../domain/FoodService";
-import { ChangeFavoriteStatusType } from "../types/domain/TabButtonHandlerType";
+import { ChangeFavoriteStatusType } from "../types/domain/FavoriteServiceType";
 import { FoodDetailType } from "../types/pages/FoodDetailType";
 
 export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {

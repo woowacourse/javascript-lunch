@@ -14,7 +14,7 @@ import {
   ShowConvertedItemType,
   ShowFoodItemType,
   UpdateFoodListType,
-} from "../types/domain/FoodItemHandlerType";
+} from "../types/domain/FoodServiceType";
 import {
   deleteStorageFoodList,
   readStorageFoodList,

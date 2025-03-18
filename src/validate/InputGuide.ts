@@ -7,7 +7,7 @@ import {
   LinkType,
   NameType,
 } from "../types/vaildate/InputGuideType.js";
-import { removeError, setError } from "../util/errorHandler.js";
+import { removeError, setError } from "../util/errorService.js";
 
 export class InputGuide {
   error;
