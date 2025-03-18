@@ -1,6 +1,6 @@
 import { Restaurant } from "../../types/global";
 import IconButton from "./Button/IconButton.js";
-import getRestaurant from "./Restaurant/Restaurant.js";
+import getRestaurant from "./Restaurant/getRestaurant.js";
 import "./restaurantlist.css";
 
 const renderRestaurants = (
