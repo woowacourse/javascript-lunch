@@ -11,14 +11,32 @@ const distanceValue = {
   30: "30분 내",
 };
 
+const categoryDropdown = Dropdown({
+  id: "category",
+  required: "required",
+  optionValue: categoryValue,
+});
+const nameInput = Input({ id: "name", required: "required", type: "text" });
+const distanceDropdown = Dropdown({
+  id: "distance",
+  required: "required",
+  optionValue: distanceValue,
+});
+const descriptionInput = Input({
+  id: "description",
+  required: "",
+  type: "text",
+});
+const linkInput = Input({ id: "link", required: "", type: "url" });
+
 export const addRestaurantContent = (): string => {
   return ` <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id='input-form'>
-          ${Dropdown({ id: "category", required: "required", optionValue: categoryValue })}
-          ${Input({ id: "name", required: "required", type: "text" })}
-          ${Dropdown({ id: "distance", required: "required", optionValue: distanceValue })}
-          ${Input({ id: "description", required: "", type: "text" })}
-          ${Input({ id: "link", required: "", type: "url" })}
+          ${categoryDropdown}
+          ${nameInput}
+          ${distanceDropdown}
+          ${descriptionInput}
+          ${linkInput}
           <div class="button-container">
             <button type="button" class="button button--secondary text-caption">취소하기</button>
             <button class="button button--primary text-caption">추가하기</button>
