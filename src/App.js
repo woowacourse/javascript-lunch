@@ -18,7 +18,7 @@ class App {
   #sortingFilter;
   #currentCategory;
   #currentSorting;
-  #currentHeader = '모든 음식점';
+  #currentHeader;
   #restaurantList;
   #likeHeader;
 
@@ -63,7 +63,7 @@ class App {
       name: 'category',
       id: 'category-filter',
       option: CATEGORY,
-      addDefaultOption: true,
+      // addDefaultOption: true,
       optionDefault: '전체',
     });
     this.#sortingFilter = new InputDropDown({
@@ -123,7 +123,7 @@ class App {
     this.#restaurantList.setModal(this.detailModal);
 
     new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
-    this.#likeHeader = new LikeHeader(this.likeHeaderContainer, '모든 음식점', '자주 가는 음식점');
+    this.#likeHeader = new LikeHeader(this.likeHeaderContainer);
   }
 }
 

@@ -1,3 +1,4 @@
+import { LIKE_HEADER_TITLE } from '../constant/LikeHeaderTitle';
 import Restaurant, { Category } from './Restaurant';
 
 interface FilterOptions {
@@ -45,7 +46,7 @@ class Restaurants {
       filteredList = filteredList.filter((restaurant) => restaurant.getCategory() === category);
     }
 
-    if (header === '자주 가는 음식점') {
+    if (header === LIKE_HEADER_TITLE.LIKE_RESTAURANTS) {
       filteredList = filteredList.filter((restaurant) => restaurant.getIsLike() === true);
     }
 

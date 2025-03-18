@@ -1,13 +1,15 @@
+import { LIKE_HEADER_TITLE } from '../constant/LikeHeaderTitle';
+
 class LikeHeader {
   #likeHeaderContainer;
   #leftTitle;
   #rightTitle;
   #currentHeader;
 
-  constructor(likeHeaderContainer, leftTitle, rightTitle) {
+  constructor(likeHeaderContainer) {
     this.#likeHeaderContainer = likeHeaderContainer;
-    this.#currentHeader = '모든 음식점';
-    this.#createLikeHeader(leftTitle, rightTitle);
+    this.#currentHeader = LIKE_HEADER_TITLE.ALL_RESTAURANTS;
+    this.#createLikeHeader(LIKE_HEADER_TITLE.ALL_RESTAURANTS, LIKE_HEADER_TITLE.LIKE_RESTAURANTS);
     this.#bindEvent();
   }
 
@@ -31,13 +33,13 @@ class LikeHeader {
     this.#leftTitle.addEventListener('click', () => {
       this.#leftTitle.classList.add('selected');
       this.#rightTitle.classList.remove('selected');
-      this.#currentHeader = '모든 음식점';
+      this.#currentHeader = LIKE_HEADER_TITLE.ALL_RESTAURANTS;
     });
 
     this.#rightTitle.addEventListener('click', () => {
       this.#leftTitle.classList.remove('selected');
       this.#rightTitle.classList.add('selected');
-      this.#currentHeader = '자주 가는 음식점';
+      this.#currentHeader = LIKE_HEADER_TITLE.LIKE_RESTAURANTS;
     });
   };
 

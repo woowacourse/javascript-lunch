@@ -1,5 +1,6 @@
 import RestaurantItem from './components/Restaurant/RestaurantItem.js';
 import CATEGORY from './constant/category.js';
+import { LIKE_HEADER_TITLE } from './constant/LikeHeaderTitle.js';
 import Restaurant from './domain/Restaurant';
 import RestaurantStorage from './domain/RestaurantStorage';
 
@@ -11,7 +12,7 @@ class RestaurantList {
   #restaurantData; // localStorage 레스토랑 데이터
   #currentCategory = '';
   #currentSorting = 'name';
-  #currentHeader = '모든 음식점';
+  #currentHeader = LIKE_HEADER_TITLE.ALL_RESTAURANTS;
 
   constructor(restaurantListContainer, onRestaurantUpdate, detailModal) {
     this.#restaurantListContainer = restaurantListContainer;
