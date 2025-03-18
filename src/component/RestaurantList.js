@@ -2,6 +2,7 @@ import { CATEGORY_ICON, RESTAURANT_LIST_KEY } from "../constants/constants.ts";
 import state from "../state.ts";
 import LocalStorage from "../utils/LocalStorage.ts";
 import { $ } from "../utils/querySelectors.js";
+import Renderer from "../utils/Renderer.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
 import LunchInfoCard from "./LunchInfoCard.js";
 
@@ -25,13 +26,7 @@ const RestaurantList = {
       Number(target.id)
     );
     LocalStorage.setJSON(RESTAURANT_LIST_KEY, favoriteList);
-    state.setCurrentRestaurantList(
-      RestaurantListUtils.favoriteById(
-        state.currentRestaurantList,
-        Number(target.id)
-      )
-    );
-    this.applyState(restaurantListId);
+    Renderer.renderOuter();
   },
 
   applyData(restaurantListId) {

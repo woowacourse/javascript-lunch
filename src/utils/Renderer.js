@@ -8,13 +8,18 @@ import RestaurantListUtils from "./RestaurantListUtils.ts";
 const Renderer = {
   renderOuter() {
     if (state.currentRestaurantListId === "allRestaurant")
-      FilterSelect.applyFilter("allRestaurant");
+      this.applyFilter("allRestaurant");
     if (state.currentRestaurantListId === "favoriteRestaurant") {
       const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
         LocalStorage.getJSON(RESTAURANT_LIST_KEY)
       );
       RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
     }
+  },
+
+  applyFilter(restaurantListId) {
+    const filteredList = FilterSelect.getFilteredList();
+    RestaurantList.applyList(restaurantListId, filteredList);
   },
 };
 

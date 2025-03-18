@@ -1,6 +1,7 @@
 import { RESTAURANT_LIST_KEY } from "../constants/constants.ts";
 import LocalStorage from "../utils/LocalStorage.ts";
 import { $ } from "../utils/querySelectors.js";
+import Renderer from "../utils/Renderer.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
 import RestaurantList from "./RestaurantList.js";
 
@@ -17,33 +18,29 @@ const FilterSelect = {
     `;
 
     filterElement.addEventListener("change", (e) =>
-      this.applyFilter("allRestaurant")
+      Renderer.applyFilter("allRestaurant")
     );
 
     return filterElement;
   },
 
-  applyFilter(restaurantListId) {
+  getFilteredList() {
     const category = $("#category-filter").value;
     const sortingRule = $("#sorting-filter").value;
-    const filteredListByCategory = this.getFilteredListByCategory(
+    const filteredListByCategory = FilterSelect.getFilteredListByCategory(
       LocalStorage.getJSON(RESTAURANT_LIST_KEY),
       category
     );
-    const filteredListByBoth = this.getFilteredListBySorting(
+    const filteredListByBoth = FilterSelect.getFilteredListBySorting(
       filteredListByCategory,
       sortingRule
     );
-    RestaurantList.applyList(restaurantListId, filteredListByBoth);
+
+    return filteredListByBoth;
   },
 
   getFilteredListByCategory(restaurantList, category) {
-    const filteredList = RestaurantListUtils.filterByCategory(
-      restaurantList,
-      category
-    );
-
-    return filteredList;
+    return RestaurantListUtils.filterByCategory(restaurantList, category);
   },
 
   getFilteredListBySorting(restaurantList, sortingRule) {

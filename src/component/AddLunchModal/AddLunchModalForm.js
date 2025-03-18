@@ -9,9 +9,9 @@ import {
 } from "../../constants/dropdownList.ts";
 import { Validator } from "../../utils/Validator.ts";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
-import FilterSelect from "../FilterSelect.js";
 import LocalStorage from "../../utils/LocalStorage.ts";
 import { RESTAURANT_LIST_KEY } from "../../constants/constants.ts";
+import Renderer from "../../utils/Renderer.js";
 
 const AddLunchModalForm = {
   create() {
@@ -84,7 +84,7 @@ const AddLunchModalForm = {
     try {
       this.validateFormInputs({ name, link, description });
       this.addRestaurant({ category, name, distance, description, link });
-      FilterSelect.applyFilter("allRestaurant");
+      Renderer.applyFilter("allRestaurant");
       Modal.close("addLunch");
       Modal.reset("addLunch");
     } catch (e) {

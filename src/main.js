@@ -15,6 +15,7 @@ import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
 import LocalStorage from "./utils/LocalStorage.ts";
 import { RESTAURANT_LIST_KEY } from "./constants/constants.js";
 import state from "./state.ts";
+import Renderer from "./utils/Renderer.js";
 
 DOM.$body.prepend(Header.create());
 initLocalStorage();
@@ -34,10 +35,10 @@ function initNavigationButton() {
   $(".navigation-bar-container").addEventListener("click", (e) => {
     $$("main section").forEach((section) => (section.style.display = "none"));
     if (e.target.classList.contains("all_restaurant_nav")) {
-      FilterSelect.applyFilter("allRestaurant");
+      Renderer.applyFilter("allRestaurant");
       DOM.$filterContainer.style.display = "flex";
       DOM.$restaurantContainer.style.display = "block";
-      state.setCurrentRestaurantListId("allRestaurant");
+      Renderer.renderOuter();
     }
     if (e.target.classList.contains("favorite_restaurant_nav")) {
       const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
@@ -45,7 +46,7 @@ function initNavigationButton() {
       );
       RestaurantList.applyList("favoriteRestaurant", favoriteRestaurantList);
       DOM.$favoriteContainer.style.display = "block";
-      state.setCurrentRestaurantListId("favoriteRestaurant");
+      Renderer.renderOuter();
     }
 
     $$(".navigation__button").forEach((btn) =>

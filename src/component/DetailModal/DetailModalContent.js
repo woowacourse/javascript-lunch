@@ -52,12 +52,6 @@ const DetailModalContent = {
           Number(e.target.id)
         );
         LocalStorage.setJSON(RESTAURANT_LIST_KEY, favoriteList);
-        state.setCurrentRestaurantList(
-          RestaurantListUtils.favoriteById(
-            state.currentRestaurantList,
-            Number(e.target.id)
-          )
-        );
         Renderer.renderOuter();
       }
     );
