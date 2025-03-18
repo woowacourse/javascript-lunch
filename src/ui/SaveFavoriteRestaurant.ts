@@ -1,7 +1,7 @@
 import {
   GetAllRestaurants,
   SaveFavoriteRestaurantInStorage,
-} from "../domain/RestaurantStorage";
+} from "../domain/RestaurantService";
 
 export function SaveFavoriteRestaurant() {
   const $favoriteButtons: NodeListOf<Element> = document.querySelectorAll(

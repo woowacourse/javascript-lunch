@@ -2,7 +2,7 @@ import { ERRORS } from "./constants/errors";
 import {
   AddNewRestaurant,
   GetAllRestaurants,
-} from "./domain/RestaurantStorage";
+} from "./domain/RestaurantService";
 import { CreateRestaurantList } from "./ui/CreateRestaurantList";
 import { categoryMapping } from "./utils/categoryMapping";
 import {

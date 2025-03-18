@@ -2,7 +2,7 @@ import { Restaurant } from "../shared/types";
 import {
   DeleteRestaurant,
   GetAllRestaurants,
-} from "../domain/RestaurantStorage";
+} from "../domain/RestaurantService";
 import { SaveFavoriteRestaurantInModal } from "../ui/SaveFavoriteRestaurant";
 import DetailModal from "../ui/DetailModal";
 import { CreateRestaurantList } from "../ui/CreateRestaurantList";
