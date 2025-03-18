@@ -137,7 +137,7 @@ class RestaurantList {
   remove(targetName: string, modalId: string) {
     Modal.close(modalId);
     this.#items = this.#items.filter(
-      (restaurnat: Restaurant) => restaurnat.name !== targetName
+      (restaurant: Restaurant) => restaurant.name !== targetName
     );
     this.setLocalStorage();
     this.render();
