@@ -3,7 +3,7 @@ import { $ } from "../../../utils/dom";
 import RestaurantList from "../../restaurantList";
 
 export const modalCloseAndFilter = (filter) => {
-  RestaurantList(filter());
+  RestaurantList(filter.filter());
   modalClose();
 };
 
