@@ -1,6 +1,6 @@
 import { showConvertedItem } from "../../domain/FoodService";
 
-import { isFavoriteState } from "../../domain/FavoriteService";
+import { favoriteState } from "../../domain/FavoriteService";
 import {
   ModalCloseContentType,
   ModalSetContentType,
@@ -37,6 +37,6 @@ export class Modal {
   static close({ filter }: ModalCloseContentType) {
     const modalContent = document.querySelector(".modal");
     modalContent?.classList.remove("modal--open");
-    showConvertedItem({ favoriteFilter: isFavoriteState(), filter });
+    showConvertedItem({ favoriteFilter: favoriteState(), filter });
   }
 }

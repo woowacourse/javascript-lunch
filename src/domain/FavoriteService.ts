@@ -9,11 +9,11 @@ export function changeFavoriteStatus({
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });
-  showConvertedItem({ filter, favoriteFilter: isFavoriteState() });
+  showConvertedItem({ filter, favoriteFilter: favoriteState() });
   event.stopPropagation();
 }
 
-export function isFavoriteState() {
+export function favoriteState() {
   return (
     document
       .querySelector(".tab-button .tab-button_favorite")

@@ -4,7 +4,7 @@ import {
   getFilteredFoodList,
   showConvertedItem,
 } from "./FoodService";
-import { isFavoriteState } from "./FavoriteService";
+import { favoriteState } from "./FavoriteService";
 import { FoodForm } from "../pages/FoodForm";
 import { FilterType } from "../types/domain/FilterType";
 import { InitAppStateType } from "../types/domain/InitAppStateType";
@@ -34,7 +34,7 @@ function setFilteredItems({ filter }: InitAppStateType) {
       .querySelector(`select[name=${name}]`)
       ?.addEventListener("change", () => {
         const previousFoodList = getFilteredFoodList({
-          favoriteFilter: isFavoriteState(),
+          favoriteFilter: favoriteState(),
         });
 
         filter.chageFilter({
