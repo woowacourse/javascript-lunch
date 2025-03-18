@@ -10,46 +10,50 @@ import {
 } from "../../APIs/restaurantAPI.ts";
 
 class RestaurantManager {
-  constructor(filterManager, restaurants) {
-    this.filterManager = filterManager;
-    this.restaurants = restaurants;
+  #$main;
+  #filterManager;
+  #restaurants;
+
+  constructor($main, filterManager, restaurants) {
+    this.#$main = $main;
+    this.#filterManager = filterManager;
+    this.#restaurants = restaurants;
   }
 
-  renderRestaurantList($main) {
+  renderRestaurantList() {
     const filtered = filterAndSortRestaurants(
-      this.restaurants,
-      this.filterManager.getSelectedCategory(),
-      this.filterManager.getSelectedSorting()
+      this.#restaurants,
+      this.#filterManager.getSelectedCategory(),
+      this.#filterManager.getSelectedSorting()
     );
-    this.#renderList($main, filtered);
+    this.#renderList(this.#$main, filtered);
   }
 
   renderFavoriteList() {
-    const $main = document.querySelector("main");
-    $main.replaceChildren();
-    const favorites = getFavoriteRestaurants(this.restaurants);
-    this.#renderList($main, favorites);
+    this.#$main.replaceChildren();
+    const favorites = getFavoriteRestaurants(this.#restaurants);
+    this.#renderList(this.#$main, favorites);
   }
 
   updateList() {
-    const $main = document.querySelector("main");
-
     if (this.#isFavoriteTabActive()) {
       const favorites = getFavoriteRestaurants(this.restaurants);
-      this.#renderList($main, favorites);
+      this.#renderList(this.#$main, favorites);
       return;
     }
 
     const filtered = filterAndSortRestaurants(
-      this.restaurants,
-      this.filterManager.getSelectedCategory(),
-      this.filterManager.getSelectedSorting()
+      this.#restaurants,
+      this.#filterManager.getSelectedCategory(),
+      this.#filterManager.getSelectedSorting()
     );
-    this.#renderList($main, filtered);
+    this.#renderList(this.#$main, filtered);
   }
 
   #renderList($main, restaurants) {
-    const $oldContainer = $main.querySelector(".restaurant-list-container");
+    const $oldContainer = this.#$main.querySelector(
+      ".restaurant-list-container"
+    );
 
     const $newList = new RestaurantList(restaurants, {
       onToggleFavorite: this.handleToggleFavorite.bind(this),

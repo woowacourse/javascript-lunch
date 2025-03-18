@@ -1,8 +1,12 @@
 class TabManager {
+  #restaurantManager;
+  #renderMainArea;
+  #activeTab;
+
   constructor(restaurantManager, renderMainArea) {
-    this.restaurantManager = restaurantManager;
-    this.renderMainArea = renderMainArea;
-    this.activeTab = "list";
+    this.#restaurantManager = restaurantManager;
+    this.#renderMainArea = renderMainArea;
+    this.#activeTab = "list";
     this.#setupTabListeners();
   }
 
@@ -15,22 +19,22 @@ class TabManager {
   }
 
   #switchTab(type) {
-    if (this.activeTab === type) return;
+    if (this.#activeTab === type) return;
 
-    this.activeTab = type;
+    this.#activeTab = type;
     const $listTab = document.querySelector("#list-tab");
     const $favoriteTab = document.querySelector("#favorite-tab");
 
     if (type === "list") {
       $listTab.classList.add("active");
       $favoriteTab.classList.remove("active");
-      this.renderMainArea();
+      this.#renderMainArea();
       return;
     }
 
     $listTab.classList.remove("active");
     $favoriteTab.classList.add("active");
-    this.restaurantManager.renderFavoriteList();
+    this.#restaurantManager.renderFavoriteList();
   }
 }
 

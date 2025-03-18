@@ -17,6 +17,7 @@ class App {
   constructor($target) {
     this.#$target = $target;
     this.#$target.appendChild(this.#template());
+    this.$main = document.querySelector("main");
 
     const $tabContainer = this.#$target.querySelector("#tab-container");
     $tabContainer.appendChild(TabBar());
@@ -39,6 +40,7 @@ class App {
   async #init() {
     this.#restaurants = await fetchRestaurants();
     this.#restaurantManager = new RestaurantManager(
+      this.$main,
       this.#filterBarManager,
       this.#restaurants
     );
@@ -62,15 +64,14 @@ class App {
   }
 
   #renderMainArea() {
-    const $main = document.querySelector("main");
-    $main.replaceChildren();
+    this.$main.replaceChildren();
 
     this.#filterBarManager.render(
-      $main,
+      this.$main,
       this.#restaurantManager.updateList.bind(this.#restaurantManager)
     );
 
-    this.#restaurantManager.renderRestaurantList($main);
+    this.#restaurantManager.renderRestaurantList();
   }
 }
 
