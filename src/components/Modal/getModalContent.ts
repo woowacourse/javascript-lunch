@@ -1,7 +1,15 @@
 import { Restaurant } from "../../../types/global.js";
-import { categoryValue, distanceValue } from "../../constants/optionValue.js";
+import { categoryValue } from "../../constants/optionValue.js";
 import Dropdown from "../Dropdown/Dropdown.js";
 import Input from "../Input/Input.js";
+
+const distanceValue = {
+  5: "5분 내",
+  10: "10분 내",
+  15: "15분 내",
+  20: "20분 내",
+  30: "30분 내",
+};
 
 export const addRestaurantContent = (): string => {
   return ` <h2 class="modal-title text-title">새로운 음식점</h2>
