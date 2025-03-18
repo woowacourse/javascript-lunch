@@ -28,6 +28,11 @@ class DetailModal extends Modal {
     this.getModalContainer().classList.add('restaurant-modal');
   }
 
+  setDetailModal(restaurant, restaurantData) {
+    this.addRestaurant(restaurant, restaurantData);
+    this.openModal();
+  }
+
   #createButton() {
     const divButton = document.createElement('div');
     divButton.classList.add('button-container');
