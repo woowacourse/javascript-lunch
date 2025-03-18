@@ -19,7 +19,7 @@ class Restaurant {
     return { ...this.#information };
   }
 
-  updateInformation(): void {
+  updateFavorite(): void {
     this.#information.favorites = !this.#information.favorites;
   }
 }

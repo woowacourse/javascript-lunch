@@ -36,7 +36,7 @@ class RestaurantList {
   updateRestaurant(id: string): void {
     const targetRestaurant = this.#restaurants.find((restaurant) => restaurant.information.id === id);
     if (targetRestaurant) {
-      targetRestaurant.updateInformation();
+      targetRestaurant.updateFavorite();
       const newRestaurantData: RestaurantInformation[] = this.#restaurants.map((restaurant) => restaurant.information);
       setRestaurantStorage(newRestaurantData);
     }
