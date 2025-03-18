@@ -18,24 +18,20 @@ class Restaurants {
     return this.#restaurantList;
   }
 
-  add(restaurant: Restaurant): Restaurant[] {
+  add(restaurant: Restaurant): void {
     this.#restaurantList.push(restaurant);
-    return this.#restaurantList;
   }
 
-  delete(restaurantName: string): Restaurant[] {
+  delete(restaurantName: string): void {
     this.#restaurantList = this.#restaurantList.filter((restaurant) => restaurant.getName() !== restaurantName);
-    return this.#restaurantList;
   }
 
-  updateIsLike(restaurantName: string, isLike: boolean): Restaurant[] {
+  updateIsLike(restaurantName: string, isLike: boolean): void {
     const restaurant = this.#restaurantList.find((restaurant) => restaurant.getName() === restaurantName);
 
     if (restaurant) {
       restaurant.setIsLike(isLike);
     }
-
-    return this.#restaurantList;
   }
 
   filterAndSort(options: FilterOptions = {}): Restaurant[] {
