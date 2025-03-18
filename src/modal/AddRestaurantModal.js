@@ -22,11 +22,11 @@ class AddRestaurantModal extends Modal {
   #divDescription;
   #divLink;
   #modalForm;
-  #restaurantList;
+  #onClickAddButton;
 
-  constructor(appContainer, restaurantList) {
+  constructor(appContainer, onClickAddButton) {
     super(appContainer);
-    this.#restaurantList = restaurantList;
+    this.#onClickAddButton = onClickAddButton;
     this.#init();
     this.#bindEvent();
     this.#createAddModal();
@@ -133,7 +133,7 @@ class AddRestaurantModal extends Modal {
       isLiked: false,
     });
 
-    this.#restaurantList.addRestaurant(newRestaurant);
+    this.#onClickAddButton(newRestaurant);
   }
 
   #validateInputs() {

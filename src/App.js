@@ -20,7 +20,7 @@ class App {
   #currentSorting;
   #currentHeader;
   #restaurantList;
-  #likeHeader;
+  #$likeHeader;
 
   constructor() {
     this.#init();
@@ -63,7 +63,6 @@ class App {
       name: 'category',
       id: 'category-filter',
       option: CATEGORY,
-      // addDefaultOption: true,
       optionDefault: '전체',
     });
     this.#sortingFilter = new InputDropDown({
@@ -94,8 +93,8 @@ class App {
   };
 
   #bindLikeHeaderEvent = () => {
-    this.#likeHeader.getElement().addEventListener('click', () => {
-      this.#currentHeader = this.#likeHeader.getCurrentHeader();
+    this.#$likeHeader.getElement().addEventListener('click', () => {
+      this.#currentHeader = this.#$likeHeader.getCurrentHeader();
       this.#handleRestaurantUpdate();
     });
   };
@@ -118,6 +117,10 @@ class App {
     this.#restaurantList.deleteRestaurant(restaurantName);
   };
 
+  #handleAddRestaurant = (restaurant) => {
+    this.#restaurantList.addRestaurant(restaurant);
+  };
+
   #handleDetailModal = (clonedRestaurant, restaurantData) => {
     this.detailModal.setDetailModal(clonedRestaurant, restaurantData);
   };
@@ -131,12 +134,12 @@ class App {
 
     this.detailModal = new DetailModal({
       appContainer: this.appContainer,
-      onDeleteButtonClick: this.#handleDeleteRestaurant,
+      onClickDeleteButton: this.#handleDeleteRestaurant,
     });
-    this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.#restaurantList);
+    this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.#handleAddRestaurant);
 
     new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
-    this.#likeHeader = new LikeHeader(this.likeHeaderContainer);
+    this.#$likeHeader = new LikeHeader(this.likeHeaderContainer);
   }
 }
 
