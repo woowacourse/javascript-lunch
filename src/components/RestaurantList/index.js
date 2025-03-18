@@ -32,47 +32,39 @@ class RestaurantList {
   }
 
   #addEventListeners($element) {
-    const $ul = $element.querySelector("#restaurant-list");
-    $ul.addEventListener("click", (event) => {
-      this.#handleFavoriteClick(event);
-      this.#handleRestaurantClick(event);
+    const $lis = $element.querySelectorAll(".restaurant");
+
+    $lis.forEach(($li) => {
+      const restaurantId = $li.dataset.id;
+
+      const $favoriteIcon = $li.querySelector(".favorite-icon");
+      $favoriteIcon.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        if (this.#onToggleFavorite) {
+          this.#onToggleFavorite(restaurantId);
+        }
+        if (this.#updateList) {
+          this.#updateList();
+        }
+      });
+
+      $li.addEventListener("click", () => {
+        const targetRestaurant = this.#restaurants.find(
+          (restaurant) => restaurant.id === restaurantId
+        );
+
+        const $detailModal = new RestaurantDetailModal(
+          document.querySelector("#modal"),
+          {
+            restaurant: targetRestaurant,
+            onToggleFavorite: this.#onToggleFavorite,
+            onDeleteRestaurant: this.#onDeleteRestaurant,
+          }
+        );
+        $detailModal.open();
+      });
     });
-  }
-
-  #handleFavoriteClick(event) {
-    const $target = event.target;
-    if (!$target.classList.contains("favorite-icon")) return;
-
-    const $li = $target.closest(".restaurant");
-    if (!$li) return;
-
-    const id = $li.dataset.id;
-    if (this.#onToggleFavorite) {
-      this.#onToggleFavorite(id);
-    }
-    if (this.#updateList) {
-      this.#updateList();
-    }
-  }
-
-  #handleRestaurantClick(event) {
-    const $target = event.target;
-    if ($target.classList.contains("favorite-icon")) return;
-
-    const $li = $target.closest(".restaurant");
-    if (!$li) return;
-
-    const $detailModal = new RestaurantDetailModal(
-      document.querySelector("#modal"),
-      {
-        restaurant: this.#restaurants.find(
-          (restaurant) => restaurant.id === $li.dataset.id
-        ),
-        onToggleFavorite: this.#onToggleFavorite,
-        onDeleteRestaurant: this.#onDeleteRestaurant,
-      }
-    );
-    $detailModal.open();
   }
 
   render() {
