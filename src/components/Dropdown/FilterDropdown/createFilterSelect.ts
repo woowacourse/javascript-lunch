@@ -5,7 +5,7 @@ import {
 import FilterDropdown from "./FilterDropdown.js";
 
 export const createCategoryFilter = (
-  onChange: void,
+  onChange: (value: string) => void,
   selectedCategory: string,
 ) => {
   return new FilterDropdown(
@@ -19,7 +19,10 @@ export const createCategoryFilter = (
   );
 };
 
-export const createSortingFilter = (onChange: void, sortOption: string) => {
+export const createSortingFilter = (
+  onChange: (value: string) => void,
+  sortOption: string,
+) => {
   return new FilterDropdown(
     document.querySelector(".sorting-filter-container"),
     {
