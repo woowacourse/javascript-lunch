@@ -97,3 +97,12 @@
 - [x] 거리순 정렬시, 같을 경우, 이름순으로 정렬
 - [x] 모달 폼의 링크 input 타입 변경
 - [ ] ButtonForm 컴포넌트 리팩토링 -> Button 컴포넌트에 종속 시키기 (Button을 모아주는 역할 밖에 안하기 때문에, 단순히 껍데기 역할)
+
+### 피드백 바탕 수정 사항
+
+- [ ] controller들 클래스로 변환
+- [ ] 폴더구조 개선 (controller 파일 분리)
+- [ ] 이벤트 핸들러 -> 클래스로 변환
+- [ ] controller들 각자 내부에서 요소 결합하기 (mainElement 인자로 전달)
+- [ ] restaurantList 도메인 필터링list 필드값 제거
+- [ ] constant - distance값 -> select 컴포넌트 value는 숫자로 저장
