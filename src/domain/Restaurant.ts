@@ -11,7 +11,7 @@ interface RestaurantProps {
   category: Category;
   description?: string;
   link?: string;
-  isLike: boolean;
+  isLiked: boolean;
 }
 
 class Restaurant {
@@ -20,9 +20,9 @@ class Restaurant {
   #description: string;
   #category: Category;
   #link: string;
-  #isLike: boolean;
+  #isLiked: boolean;
 
-  constructor({ name, distance, description = '', category, link = '', isLike }: RestaurantProps) {
+  constructor({ name, distance, description = '', category, link = '', isLiked }: RestaurantProps) {
     validateName(name);
     validateDescription(description);
     validateLink(link);
@@ -32,7 +32,7 @@ class Restaurant {
     this.#description = description;
     this.#category = category;
     this.#link = link;
-    this.#isLike = isLike;
+    this.#isLiked = isLiked;
   }
 
   getName(): string {
@@ -55,12 +55,12 @@ class Restaurant {
     return String(this.#link);
   }
 
-  getIsLike(): boolean {
-    return this.#isLike;
+  getIsLiked(): boolean {
+    return this.#isLiked;
   }
 
-  setIsLike(isLike: boolean) {
-    this.#isLike = isLike;
+  setIsLiked(isLiked: boolean) {
+    this.#isLiked = isLiked;
   }
 }
 

@@ -32,7 +32,7 @@ class RestaurantStorage {
             description: item.description,
             category: item.category as Category,
             link: item.link,
-            isLike: item.isLike,
+            isLiked: item.isLiked,
           }),
       );
       return new Restaurants(restaurantList);
@@ -50,7 +50,7 @@ class RestaurantStorage {
       description: restaurant.getDescription(),
       category: restaurant.getCategory(),
       link: restaurant.getLink(),
-      isLike: restaurant.getIsLike(),
+      isLiked: restaurant.getIsLiked(),
     }));
 
     localStorage.setItem(this.#STORAGE_KEY, JSON.stringify(serializableData));
@@ -80,11 +80,11 @@ class RestaurantStorage {
     }
   }
 
-  static updateRestaurantIsLike(restaurantName: string, isLike: boolean): Restaurants {
+  static updateRestaurantIsLiked(restaurantName: string, isLiked: boolean): Restaurants {
     const restaurants = this.getRestaurants();
 
     if (restaurants instanceof Restaurants) {
-      restaurants.updateIsLike(restaurantName, isLike);
+      restaurants.updateIsLiked(restaurantName, isLiked);
       this.saveRestaurants(restaurants);
       return restaurants;
     } else {

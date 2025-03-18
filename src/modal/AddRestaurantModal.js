@@ -130,7 +130,7 @@ class AddRestaurantModal extends Modal {
       description: formData.description,
       category: formData.category,
       link: formData.link,
-      isLike: false,
+      isLiked: false,
     });
 
     this.#restaurantList.addRestaurant(newRestaurant);
