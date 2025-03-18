@@ -1,14 +1,10 @@
-@keyframes open {
+@keyframes slideIn {
   from {
-    opacity: 0;
+    transform: translateY(100%);
   }
   to {
-    opacity: 1;
+    transform: translateY(0);
   }
-}
-
-.modal {
-  animation: open 0.5s forwards;
 }
 
 .modal--open {
@@ -29,6 +25,7 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  animation: slideIn 0.5s ease-in-out;
 
   padding: 32px 16px;
 

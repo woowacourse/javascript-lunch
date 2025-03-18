@@ -1,31 +1,34 @@
-import createButton from "../../button/button.js";
-import createDropdownBox from "../../dropdown/dropdown.js";
-import createInputBox from "../../input/input.js";
-import createTextAreaBox from "../../textarea/textarea.js";
+import createButton from "../../button/button.ts";
+import createDropdownBox from "../../dropdown/dropdown.ts";
+import createInputBox from "../../input/input.ts";
+import createTextAreaBox from "../../textarea/textarea.ts";
 import {
   FOOD_CATEGORY,
   RESTAURANT_DISTANCE,
-} from "../../../settings/settings.js";
-import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.js";
-import { extractFormData } from "../../../utils/extract.js";
-import createRestaurantItem from "../item/item.js";
-
-const modal = document.querySelector(".modal");
-
-function handleModalClose() {
-  modal.close();
-}
+} from "../../../settings/settings.ts";
+import { restaurantFormValidation } from "../../../validation/restaurantFormValidation.ts";
+import { extractFormData } from "../../../utils/extract.ts";
+import type { Restaurant } from "../../../types/type.ts";
+import { addRestaurantItem } from "../list/restaurantList.ts";
+import { handleCategoryFilterSelect } from "../../filterBox/filterBox.ts";
+import { handleModalClose } from "../../bottomSheet/bottomSheet.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export default function createRestaurantForm() {
+  const title = createElement("h2", {
+    className: ["modal-title", "text-title"],
+    textContent: "새로운 음식점",
+  });
   const restaurantAddForm = createElement("form", {
     className: "restaurant-add-form",
   });
 
+  const defaultOption = { value: "", text: "선택해 주세요" };
   restaurantAddForm.append(
     createDropdownBox({
       labelText: "카테고리",
       id: "category",
-      dropdownList: FOOD_CATEGORY,
+      dropdownList: [defaultOption, ...FOOD_CATEGORY],
       required: true,
     }),
     createInputBox({
@@ -37,7 +40,7 @@ export default function createRestaurantForm() {
     createDropdownBox({
       labelText: "거리(도보 이동 시간)",
       id: "distance",
-      dropdownList: RESTAURANT_DISTANCE,
+      dropdownList: [defaultOption, ...RESTAURANT_DISTANCE],
       required: true,
     }),
     createTextAreaBox({
@@ -78,22 +81,26 @@ export default function createRestaurantForm() {
 
   restaurantAddForm.appendChild(buttonContainer);
 
-  function handleAddRestaurantFormSubmit(event) {
+  function handleAddRestaurantFormSubmit(event: SubmitEvent) {
     event.preventDefault();
 
     try {
-      const formData = extractFormData(restaurantAddForm);
+      const formData = extractFormData(
+        restaurantAddForm
+      ) as unknown as Restaurant;
       restaurantFormValidation(formData);
-      const restaurantList = document.querySelector(".restaurant-list");
-      restaurantList.appendChild(createRestaurantItem(formData));
+      addRestaurantItem({ ...formData, id: uuidv4(), isFavorite: false });
+      handleCategoryFilterSelect(formData.category);
       restaurantAddForm.reset();
       handleModalClose();
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   }
 
   restaurantAddForm.addEventListener("submit", handleAddRestaurantFormSubmit);
 
-  return restaurantAddForm;
+  return createElementsFragment([title, restaurantAddForm]);
 }

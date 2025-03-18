@@ -1,13 +1,18 @@
-const defaultOption = { value: "", text: "선택해 주세요" };
+import type { Props, ReadOnlyOptionList } from "../../types/type";
+
+interface DropdownBoxProps extends Props<"select"> {
+  labelText: string;
+  dropdownList: ReadOnlyOptionList;
+}
 
 export default function createDropdownBox({
   labelText,
-  id,
   dropdownList,
+  id,
   required = false,
-}) {
+}: DropdownBoxProps) {
   const dropdownBox = createElement("div", {
-    className: ["form-item", `${required && "form-item--required"}`],
+    className: required ? ["form-item", "form-item--required"] : "form-item",
   });
   const dropdownLabel = createElement("label", {
     htmlFor: id,
@@ -20,8 +25,7 @@ export default function createDropdownBox({
     required,
   });
 
-  const optionList = [defaultOption, ...dropdownList];
-  const optionElements = optionList.map(({ value, text }) =>
+  const optionElements = dropdownList.map(({ value, text }) =>
     createElement("option", {
       value,
       textContent: text,

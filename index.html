@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="gnb.css" />
     <link rel="stylesheet" href="restaurant-filter.css" />
     <link rel="stylesheet" href="restaurant-list.css" />
+    <link rel="stylesheet" href="restaurant-tab.css" />
     <link rel="stylesheet" href="/modal.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.ts"></script>
   </head>
 
   <body>
@@ -26,37 +27,15 @@
         </button>
       </header>
       <main>
+        <section class="restaurant-tab-container"></section>
         <!-- 카테고리/정렬 필터 -->
-        <section class="restaurant-filter-container">
-          <select
-            name="category"
-            id="category-filter"
-            class="restaurant-filter"
-          >
-            <option value="전체">전체</option>
-            <option value="한식">한식</option>
-            <option value="중식">중식</option>
-            <option value="일식">일식</option>
-            <option value="양식">양식</option>
-            <option value="아시안">아시안</option>
-            <option value="기타">기타</option>
-          </select>
-          <!-- 정렬 셀렉트 박스 -->
-          <select name="sorting" id="sorting-filter" class="restaurant-filter">
-            <option value="name">이름순</option>
-            <option value="distance">거리순</option>
-          </select>
-        </section>
+        <section class="restaurant-filter-container"></section>
         <!-- 음식점 목록 -->
-        <section class="restaurant-list-container">
-          <ul class="restaurant-list"></ul>
-        </section>
+        <section class="restaurant-list-container"></section>
         <!-- 음식점 추가 모달 -->
         <dialog class="modal">
           <div class="modal-backdrop"></div>
-          <div class="modal-container">
-            <h2 class="modal-title text-title">새로운 음식점</h2>
-          </div>
+          <div class="modal-container"></div>
         </dialog>
       </main>
     </div>

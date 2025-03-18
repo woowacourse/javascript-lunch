@@ -3,11 +3,12 @@ import {
   ERROR_MESSAGE,
   RESTAURANT_FIELD_LENGTH,
   RESTAURANT_DISTANCE,
-} from "../settings/settings.js";
-import { extractByKey } from "../utils/extract.js";
-import { isInRange } from "../utils/predicate.js";
+} from "../settings/settings.ts";
+import { extractByKey } from "../utils/extract.ts";
+import { isInRange } from "../utils/predicate.ts";
+import type { Category, Distance, Restaurant } from "../types/type.ts";
 
-export function _validateRestaurantCategory(category) {
+export function _validateRestaurantCategory(category: Category) {
   const categoryList = extractByKey(FOOD_CATEGORY, "value");
 
   if (!categoryList.includes(category)) {
@@ -15,7 +16,7 @@ export function _validateRestaurantCategory(category) {
   }
 }
 
-export function _validateRestaurantName(restaurantName) {
+export function _validateRestaurantName(restaurantName: string) {
   if (
     !isInRange(
       restaurantName.length,
@@ -27,7 +28,7 @@ export function _validateRestaurantName(restaurantName) {
   }
 }
 
-export function _validateRestaurantDistance(distance) {
+export function _validateRestaurantDistance(distance: Distance) {
   const distanceList = extractByKey(RESTAURANT_DISTANCE, "value");
 
   if (!distanceList.includes(distance)) {
@@ -35,7 +36,7 @@ export function _validateRestaurantDistance(distance) {
   }
 }
 
-export function _validateRestaurantDescription(description) {
+export function _validateRestaurantDescription(description: string) {
   if (
     !isInRange(
       description.length,
@@ -47,7 +48,7 @@ export function _validateRestaurantDescription(description) {
   }
 }
 
-export function _validateRestaurantLink(link) {
+export function _validateRestaurantLink(link: string) {
   if (
     !isInRange(
       link.length,
@@ -65,10 +66,10 @@ export function restaurantFormValidation({
   distance,
   description,
   link,
-}) {
+}: Restaurant) {
   _validateRestaurantCategory(category);
   _validateRestaurantName(name);
-  _validateRestaurantDistance(distance);
-  _validateRestaurantDescription(description);
-  _validateRestaurantLink(link);
+  _validateRestaurantDistance(Number(distance) as Distance);
+  description && _validateRestaurantDescription(description);
+  link && _validateRestaurantLink(link);
 }

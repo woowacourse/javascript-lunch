@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "types"]
+  "include": ["src", "types", "auto-imports.d.ts", "cypress"]
 }

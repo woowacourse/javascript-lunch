@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "category": "한식",
+    "name": "가",
+    "distance": 20,
+    "isFavorite": false
+  },
+  {
+    "id": "2",
+    "category": "중식",
+    "name": "나",
+    "distance": 30,
+    "isFavorite": false
+  },
+  {
+    "id": "3",
+    "category": "일식",
+    "name": "다",
+    "distance": 10,
+    "isFavorite": true
+  },
+  {
+    "id": "4",
+    "category": "양식",
+    "name": "라",
+    "distance": 15,
+    "isFavorite": false
+  },
+  {
+    "id": "5",
+    "category": "아시안",
+    "name": "사",
+    "distance": 30,
+    "isFavorite": true
+  },
+  {
+    "id": "6",
+    "category": "양식",
+    "name": "양식2",
+    "distance": 15,
+    "isFavorite": false
+  },
+  {
+    "id": "7",
+    "category": "아시안",
+    "name": "아시안2",
+    "distance": 30,
+    "isFavorite": true
+  },
+  {
+    "id": "8",
+    "category": "한식",
+    "name": "한식2",
+    "distance": 10,
+    "isFavorite": true
+  },
+  {
+    "id": "9",
+    "category": "중식",
+    "name": "중식2",
+    "distance": 20,
+    "isFavorite": true
+  },
+  {
+    "id": "10",
+    "category": "한식",
+    "name": "한식3",
+    "distance": 5,
+    "isFavorite": true
+  }
+]

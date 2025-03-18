@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../../src/settings/settings.js";
+import { ERROR_MESSAGE } from "../../src/settings/settings.ts";
 
 describe("음식점 추가가 잘 되는지 확인하는 시나리오", () => {
   beforeEach(() => {

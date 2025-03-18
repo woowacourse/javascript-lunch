@@ -1,0 +1,65 @@
+@keyframes rightToLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes leftToRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.restaurant-tab-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  gap: 1rem;
+  position: relative;
+}
+
+.tab-button {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  background-color: var(--grey-100);
+  padding: 1rem;
+  cursor: pointer;
+  color: var(--grey-300);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.5rem; /* 150% */
+  letter-spacing: 0.03125rem;
+  border-bottom: 2px solid var(--grey-200);
+}
+
+.select-tab-button {
+  color: var(--primary-color);
+}
+
+.select-effect {
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  height: 1px;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.select-all-restaurant-tab {
+  left: 1%;
+  animation: rightToLeft 0.45s ease forwards;
+}
+
+.select-favorite-restaurant-tab {
+  left: 49%;
+  animation: leftToRight 0.45s ease forwards;
+}

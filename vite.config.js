@@ -5,11 +5,11 @@ import path from "node:path";
 export default defineConfig({
   plugins: [
     AutoImport({
-      include: [/src\/components\/.+\.js$/],
+      include: [/src\/components\/.+\.ts$/],
 
       imports: [
         {
-          "@/utils/dom.js": ["createElement", "createElementsFragment"],
+          "@/utils/dom.ts": ["createElement", "createElementsFragment"],
         },
       ],
 
