@@ -13,8 +13,10 @@ import { modalClose } from "../common/modal/handleCloseModal";
 import Select from "../common/select";
 import TextArea from "../common/textArea";
 import ButtonContainer from "../common/buttonContainer";
+import { Filter } from "../../domain/filter.ts";
+import RestaurantList from "../restaurantList/index.js";
 
-const RegisterForm = (addRestaurant) => {
+const RegisterForm = (onRegister) => {
   const registerForm = document.createElement("form");
   registerForm.setAttribute("id", "register-form");
   registerForm.appendChild(
@@ -73,7 +75,7 @@ const RegisterForm = (addRestaurant) => {
         style: "button--primary",
         onClick: (e) => {
           try {
-            registerRestaurant(e, addRestaurant);
+            registerRestaurant(e, onRegister);
           } catch (e) {
             onSubmitFailed(e);
           }
@@ -91,13 +93,16 @@ const onSubmitFailed = (e) => {
   currentInputField.appendChild(ErrorMessage(e.message));
 };
 
-const registerRestaurant = (e, addRestaurant) => {
+const registerRestaurant = (e, onRegister) => {
   e.preventDefault();
+  const { addRestaurant, onChangeCategoryAll } = onRegister;
 
   const info = getInfo();
   addRestaurant(new Restaurant(info));
   $("select#category").value = "all";
+  const restaurants = onChangeCategoryAll();
 
+  RestaurantList(restaurants);
   modalClose();
 };
 

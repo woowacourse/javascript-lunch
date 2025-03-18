@@ -16,7 +16,12 @@ addEventListener("load", () => {
 
   RestaurantList(filteredItem);
 
-  $("#app").prepend(header(restaurants.addRestaurant));
+  $("#app").prepend(
+    header({
+      addRestaurant: restaurants.addRestaurant,
+      onChangeCategoryAll: () => filter.filterBySortType("category", "all"),
+    })
+  );
 
   $("main").prepend(
     CategoryAndSortFilter({
@@ -34,5 +39,5 @@ addEventListener("load", () => {
   );
 
   // TODO: 필터 클래스 적용(모달 닫힐때, 식당 추가할때, 즐겨찾기 눌렀을 때)
-  $("main").appendChild(Modal(filter.filter));
+  $("main").appendChild(Modal(filter));
 });

@@ -1,7 +1,7 @@
 import Title from "../common/title";
 import registerIcon from "./registerIcon";
 
-const header = (addRestaurant) => {
+const header = (onRegister) => {
   const header = document.createElement("header");
   header.classList.add("gnb");
 
@@ -13,7 +13,7 @@ const header = (addRestaurant) => {
     })
   );
 
-  header.appendChild(registerIcon(addRestaurant));
+  header.appendChild(registerIcon(onRegister));
 
   return header;
 };

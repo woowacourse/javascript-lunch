@@ -4,7 +4,7 @@ import ModalContent from "../common/modal/modalContent";
 import Title from "../common/title";
 import RegisterForm from "../registerForm";
 
-const registerIcon = (addRestaurant) => {
+const registerIcon = (onRegister) => {
   const registerIcon = document.createElement("button");
 
   registerIcon.classList.add("gnb__button");
@@ -18,7 +18,7 @@ const registerIcon = (addRestaurant) => {
         tagName: "h2",
         className: ["modal-title", "text-title"],
       }),
-      RegisterForm(addRestaurant),
+      RegisterForm(onRegister),
     ]);
   });
 
