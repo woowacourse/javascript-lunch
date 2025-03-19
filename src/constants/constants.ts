@@ -1,13 +1,19 @@
-export const RESTAURANT_NAME_LENGTH_MAX = 30;
-export const DESCRIPTION_LENGTH_MAX = 200;
+import { Category } from "../../types/RestaurantType";
 
-export const ERROR_MESSAGE = {
+export const RESTAURANT_NAME_LENGTH_MAX: number = 30;
+export const DESCRIPTION_LENGTH_MAX: number = 200;
+
+export const ERROR_MESSAGE: {
+  NAME_LENGTH_MAX: string;
+  DESCRIPTION_MAX: string;
+  LINK: string;
+} = {
   NAME_LENGTH_MAX: `가게 이름은 ${RESTAURANT_NAME_LENGTH_MAX}자를 넘을 수 없습니다.`,
   DESCRIPTION_MAX: `설명은 ${DESCRIPTION_LENGTH_MAX}자를 넘을 수 없습니다.`,
   LINK: "유효하지 않은 링크입니다.",
 };
 
-export const CATEGORY_DROPDOWN = [
+export const CATEGORY_DROPDOWN: { value: string; label: Category }[] = [
   {
     value: "",
     label: "선택해 주세요",
@@ -38,7 +44,14 @@ export const CATEGORY_DROPDOWN = [
   },
 ];
 
-export const CATEGORY_ICON = {
+export const CATEGORY_ICON: {
+  한식: string;
+  중식: string;
+  일식: string;
+  양식: string;
+  아시안: string;
+  기타: string;
+} = {
   한식: "./category-korean.png",
   중식: "./category-chinese.png",
   일식: "./category-japanese.png",
@@ -47,7 +60,10 @@ export const CATEGORY_ICON = {
   기타: "./category-etc.png",
 };
 
-export const FAVORITE_ICON = {
+export const FAVORITE_ICON: {
+  true: string;
+  false: string;
+} = {
   true: "./favorite-icon-filled.png",
   false: "./favorite-icon-lined.png",
 };
