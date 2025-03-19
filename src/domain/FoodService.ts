@@ -1,6 +1,5 @@
 import { FoodItem } from "../component/FoodItem";
 import { Modal } from "../component/layout/Modal";
-import { foodItems } from "../mocks/foodItems";
 import { FoodDetail } from "../pages/FoodDetail";
 import { FoodType } from "../types/component/FoodItemType";
 
@@ -22,6 +21,7 @@ import {
 } from "./FoodStorage";
 import { changeFavoriteStatus } from "./FavoriteService";
 import { Filter } from "./Filter";
+import { mockFoodList } from "../mocks/mockFoodList";
 
 // CRUD - create : mock Data
 export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {
@@ -36,7 +36,7 @@ export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {
 }
 
 function setMockData() {
-  localStorage.setItem("foodList", JSON.stringify(foodItems));
+  localStorage.setItem("foodList", JSON.stringify(mockFoodList));
 }
 
 // CRUD - update(add)

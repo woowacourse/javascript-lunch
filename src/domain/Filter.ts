@@ -22,16 +22,16 @@ export class Filter {
     else if (filterName === "sorting") this.#sortingFilter = filterOption;
   }
 
-  filterFoodList({ foodList }: UpdateFilterItemType) {
-    const foodItems = [...foodList];
-    const filteredItems = foodItems
+  filteredFoodList({ foodList }: UpdateFilterItemType) {
+    const newfoodList = [...foodList];
+    const filteredFoodList = newfoodList
       ?.filter((foodItem) => {
         if (this.#categoryFilter === "전체") return foodItem;
         return foodItem.imgAlt === this.#categoryFilter;
       })
       .sort((a, b) => this.#sortBy({ a, b }));
 
-    return filteredItems || [];
+    return filteredFoodList || [];
   }
 
   #sortBy({ a, b }: SortByType) {
@@ -46,7 +46,7 @@ export class Filter {
 
   sortedFoodList({ foodList }: SortedFoodListType) {
     return (
-      this.filterFoodList({ foodList })?.sort((a, b) =>
+      this.filteredFoodList({ foodList })?.sort((a, b) =>
         this.#sortBy({ a, b })
       ) || []
     );

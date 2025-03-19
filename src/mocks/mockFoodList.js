@@ -1,4 +1,4 @@
-export const foodItems = [
+export const mockFoodList = [
   {
     imgSrc: "./category-korean.png",
     imgAlt: "한식",

@@ -39,7 +39,7 @@ function setFilteredItems({ filter }: InitAppStateType) {
         filter.chageFilter({
           filterName: name as FilterType,
         });
-        const filteredItems = filter.filterFoodList({
+        const filteredItems = filter.filteredFoodList({
           foodList: previousFoodList,
         });
 

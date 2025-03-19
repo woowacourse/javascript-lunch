@@ -12,30 +12,30 @@ export function readStorageFoodList() {
 
 // CURD - update
 export function updateStorageFoodList({ foodItem }: UpdateStorageFoodListType) {
-  let foodItems = readStorageFoodList(); // 기존 배열 가져오기
+  let foodList = readStorageFoodList(); // 기존 배열 가져오기
 
-  const index = foodItems.findIndex(
+  const index = foodList.findIndex(
     (item: FoodType) => item.name === foodItem.name
   );
 
   if (index !== -1) {
-    foodItems[index].favorite = foodItem.favorite;
+    foodList[index].favorite = foodItem.favorite;
   } else {
-    foodItems.push(foodItem);
+    foodList.push(foodItem);
   }
-  localStorage.setItem("foodList", JSON.stringify(foodItems));
-  return foodItems;
+  localStorage.setItem("foodList", JSON.stringify(foodList));
+  return foodList;
 }
 
 // CRUD - delete
 export function deleteStorageFoodList({
   newFoodItem,
 }: DeleteStorageFoodListType) {
-  let foodItems = readStorageFoodList();
-  foodItems = foodItems.filter(
+  let foodList = readStorageFoodList();
+  foodList = foodList.filter(
     (foodItem: FoodType) =>
       JSON.stringify(foodItem) != JSON.stringify(newFoodItem)
   );
-  localStorage.setItem("foodList", JSON.stringify(foodItems));
-  return foodItems;
+  localStorage.setItem("foodList", JSON.stringify(foodList));
+  return foodList;
 }
