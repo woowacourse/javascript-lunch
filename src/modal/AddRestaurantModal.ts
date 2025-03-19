@@ -1,9 +1,9 @@
-import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options.js";
-import CustomDropdown from "../shared/CustomDropdown.js";
-import CustomInput from "../shared/CustomInput.js";
-import CustomButton from "../shared/CustomButton.js";
+import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options";
+import CustomInput from "../shared/CustomInput";
+import CustomButton from "../shared/CustomButton";
+import CustomDropdown from "../shared/CustomDropdown";
 
-export default function AddRestaurantModal(container) {
+export default function AddRestaurantModal(container: HTMLElement): void {
   container.innerHTML += `
         <div class="modal modal--open">
         <div class="modal-backdrop"></div>

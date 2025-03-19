@@ -1,7 +1,7 @@
 import { ERRORS } from "../constants/errors";
 import { MESSAGES } from "../constants/messages";
 
-export const validateNameInput = (input) => {
+export const validateNameInput = (input: string) => {
   if (input === "") {
     throw new Error(ERRORS.EMPTY_NAME);
   }
@@ -11,13 +11,13 @@ export const validateNameInput = (input) => {
   }
 };
 
-export const validateDescriptionInput = (input) => {
+export const validateDescriptionInput = (input: string) => {
   if (input.length > MESSAGES.MAXIMUM_DESCRIPTION_LENGTH) {
     throw new Error(ERRORS.MAXIMUM_DESCRIPTION);
   }
 };
 
-export const validateSelectInput = (selectValue, title) => {
+export const validateSelectInput = (selectValue: string, title: string) => {
   if (selectValue === "") {
     throw new Error(ERRORS.EMPTY_SELECT(title));
   }

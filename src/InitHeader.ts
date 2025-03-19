@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 
 export default function InitHeader() {
-  const $headerContainer = document.querySelector(".gnb");
+  const $headerContainer = document.querySelector(".gnb") as HTMLElement;
   Header($headerContainer);
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>점심 뭐 먹지</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./public/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
@@ -12,6 +12,14 @@
     <header class="gnb"></header>
 
     <main id="app">
+      <div class="header-category">
+        <button id="all-button" class="header-category-button">
+          모든 음식점
+        </button>
+        <button id="favorite-button" class="header-category-button">
+          자주 가는 음식점
+        </button>
+      </div>
       <!-- 카테고리/정렬 필터 -->
       <section class="restaurant-filter-container">
         <select name="category" id="category-filter" class="restaurant-filter">
@@ -36,6 +44,6 @@
         <ul class="restaurant-list"></ul>
       </section>
     </main>
+    <script type="module" src="src/main.js"></script>
   </body>
-  <script type="module" src="src/main.js"></script>
 </html>

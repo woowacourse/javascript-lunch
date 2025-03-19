@@ -1,4 +1,4 @@
-export default function Header(container) {
+export default function Header(container: HTMLElement): void {
   container.innerHTML += `
     <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
     <button
