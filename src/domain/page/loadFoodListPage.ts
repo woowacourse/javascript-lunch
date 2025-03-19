@@ -1,21 +1,18 @@
 import { IconButton } from "../../component/button/IconButton.js";
+import { SelectFilter } from "../../component/input/SelectFilter.js";
 import { Header } from "../../component/layout/Header.js";
 import { LoadFoodListType } from "../../types/domain/LoadFoodListType.js";
 
 const categoryFilter = [
-  { value: "전체", text: "전체" },
-  { value: "한식", text: "한식" },
-  { value: "중식", text: "중식" },
-  { value: "일식", text: "일식" },
-  { value: "양식", text: "양식" },
-  { value: "아시안", text: "아시안" },
-  { value: "기타", text: "기타" },
+  "전체",
+  "한식",
+  "중식",
+  "일식",
+  "양식",
+  "아시안",
+  "기타",
 ];
-
-const sortingFilter = [
-  { value: "이름순", text: "이름순" },
-  { value: "거리순", text: "거리순" },
-];
+const sortingFilter = ["이름순", "거리순"];
 
 export default function loadFoodListPage({ title }: LoadFoodListType) {
   const AddFoodItemIcon = IconButton({
@@ -24,12 +21,12 @@ export default function loadFoodListPage({ title }: LoadFoodListType) {
     onClick: () => {},
   });
 
-  //load header / main
+  // header, main 생성
   const body = document.querySelector("body");
   const main = document.createElement("main");
   body?.append(Header({ title, icon: AddFoodItemIcon }), main);
 
-  //load FavoriteButton
+  // 즐겨찾기 버튼 생성
   const tabButtonContainer = document.createElement("div");
   tabButtonContainer.className = "tab-button";
   tabButtonContainer.innerHTML = `
@@ -37,25 +34,23 @@ export default function loadFoodListPage({ title }: LoadFoodListType) {
         <button class="tab-button_favorite"> 자주 가는 음식점 </button>
     `;
 
-  //load Filter
+  // 필터 컨테이너 생성, 카테고리 & 정렬 필터 추가
   const FilterContainer = document.createElement("section");
   FilterContainer.className = "restaurant-filter-container";
-  FilterContainer.innerHTML = /*html */ `
-      <select name="category" id="category-filter" class="restaurant-filter">
-      ${categoryFilter.map(
-        ({ value, text }) => `<option value=${value}>${text}</option>`
-      )}
-      </select>
+  FilterContainer.append(
+    SelectFilter({
+      name: "category",
+      id: "category-filter",
+      options: categoryFilter,
+    }),
+    SelectFilter({
+      name: "sorting",
+      id: "sorting-filter",
+      options: sortingFilter,
+    })
+  );
 
-      <!-- 정렬 셀렉트 박스 -->
-      <select name="sorting" id="sorting-filter" class="restaurant-filter">
-      ${sortingFilter.map(
-        ({ value, text }) => `<option value=${value}>${text}</option>`
-      )}
-      </select>
-    `;
-
-  //load FoodList
+  // FoodList ul 태그 생성
   const container = document.createElement("div");
   container.className = "restaurant-list-container";
   container.innerHTML = `
@@ -64,6 +59,4 @@ export default function loadFoodListPage({ title }: LoadFoodListType) {
     `;
 
   main.append(tabButtonContainer, FilterContainer, container);
-  // main.append(FilterContainer);
-  // main.appendChild(container);
 }
