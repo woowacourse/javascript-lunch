@@ -1,7 +1,7 @@
 import { Modal } from "../../component/layout/Modal";
 import {
   createFoodListComponent,
-  getFilteredFoodList,
+  favoriteFilteredFoodList,
   renderFilteredFoodList,
 } from "../service/FoodService";
 import { FilterType } from "../../types/domain/SortingFilterType";
@@ -30,16 +30,18 @@ function setFoodFormMoal() {
 
 // SortingFilter 기능 설정
 function setFilteredItems({ filter }: SetFilteredItemsType) {
-  ["category", "sorting"].forEach((name) => {
+  const filterTabs = ["category", "sorting"] as const;
+
+  filterTabs.forEach((name) => {
     document
       .querySelector(`select[name=${name}]`)
       ?.addEventListener("change", () => {
-        const previousFoodList = getFilteredFoodList({
+        const previousFoodList = favoriteFilteredFoodList({
           isFavoriteFilterActive: favoriteFilter.currentStatus(),
         });
 
         filter.chageFilter({
-          filterName: name as FilterType,
+          filterName: name,
         });
         const filteredItems = filter.filteredFoodList({
           foodList: previousFoodList,
