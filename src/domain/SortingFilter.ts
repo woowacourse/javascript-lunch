@@ -4,13 +4,22 @@ import {
   UpdateFilterItemType,
 } from "../types/domain/SortingFilterType";
 
+const SORTING_OPTIONS = {
+  name: "이름순",
+  distance: "거리순",
+};
+
+const CATEGORY_OPTIONS = {
+  default: "전체",
+};
+
 export class SortingFilter {
   #categoryFilter;
   #sortingFilter;
 
   constructor() {
-    this.#categoryFilter = "전체";
-    this.#sortingFilter = "이름순";
+    this.#categoryFilter = CATEGORY_OPTIONS.default;
+    this.#sortingFilter = SORTING_OPTIONS.name;
   }
 
   chageFilter({ filterName }: ChangeCategoryType) {
@@ -24,7 +33,7 @@ export class SortingFilter {
   filterAndSortFoodList({ foodList }: UpdateFilterItemType) {
     const resultFoodList = [...foodList]
       ?.filter((foodItem) => {
-        if (this.#categoryFilter === "전체") return foodItem;
+        if (this.#categoryFilter === CATEGORY_OPTIONS.default) return foodItem;
         return foodItem.category === this.#categoryFilter;
       })
       .sort((a, b) => this.#sortByFilter({ a, b }));
@@ -33,10 +42,10 @@ export class SortingFilter {
   }
 
   #sortByFilter({ a, b }: SortByType) {
-    if (this.#sortingFilter === "이름순") {
+    if (this.#sortingFilter === SORTING_OPTIONS.name) {
       return a.name.localeCompare(b.name, "ko");
     }
-    if (this.#sortingFilter === "거리순") {
+    if (this.#sortingFilter === SORTING_OPTIONS.distance) {
       return Number(a.distance) - Number(b.distance);
     }
     return 0;
