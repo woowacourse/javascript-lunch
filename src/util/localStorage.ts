@@ -3,7 +3,7 @@ export const LOCAL_STORAGE_KEYS = {
   RESTAURANT: 'restaurants'
 } as const;
 
-type LocalStorageKey = (typeof LOCAL_STORAGE_KEYS)[keyof typeof LOCAL_STORAGE_KEYS]; // "favorite" | "restaurants"
+type LocalStorageKey = (typeof LOCAL_STORAGE_KEYS)[keyof typeof LOCAL_STORAGE_KEYS];
 
 export function getLocalStorage<T>(key: LocalStorageKey, defaultValue: T): T {
   const storedData = localStorage.getItem(key);
