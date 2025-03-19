@@ -1,7 +1,6 @@
 import {
   ChangeCategoryType,
   SortByType,
-  SortedFoodListType,
   UpdateFilterItemType,
 } from "../types/domain/SortingFilterType";
 
@@ -41,14 +40,6 @@ export class SortingFilter {
       return Number(a.distance) - Number(b.distance);
     }
     return 0;
-  }
-
-  sortedFoodList({ foodList }: SortedFoodListType) {
-    return (
-      this.filterAndSortFoodList({ foodList })?.sort((a, b) =>
-        this.#sortByFilter({ a, b })
-      ) || []
-    );
   }
 
   saveCurrentFilter() {

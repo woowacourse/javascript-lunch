@@ -13,6 +13,3 @@ export interface ChangeCategoryType {
 export interface UpdateFilterItemType {
   foodList: FoodType[];
 }
-export interface SortedFoodListType {
-  foodList: FoodType[];
-}

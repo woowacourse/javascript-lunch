@@ -104,6 +104,8 @@ export function renderFilteredFoodList({
   const filter = new SortingFilter();
   filter.saveCurrentFilter();
   createFoodListComponent({
-    foodList: filter.sortedFoodList({ foodList: favoriteFilteredFoodlist }),
+    foodList: filter.filterAndSortFoodList({
+      foodList: favoriteFilteredFoodlist,
+    }),
   });
 }

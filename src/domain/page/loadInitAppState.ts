@@ -4,7 +4,6 @@ import {
   favoriteFilteredFoodList,
   renderFilteredFoodList,
 } from "../service/FoodService";
-import { FilterType } from "../../types/domain/SortingFilterType";
 import { SetFilteredItemsType } from "../../types/domain/InitAppStateType";
 import { loadFoodForm } from "./loadFoodForm";
 import { SortingFilter } from "../SortingFilter";
