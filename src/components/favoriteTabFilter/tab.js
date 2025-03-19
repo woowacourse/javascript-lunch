@@ -13,7 +13,8 @@ const Tab = ({ text, id, active = false, changeState }) => {
     e.target.nextSibling?.classList.remove("active");
     e.target.classList.add("active");
 
-    RestaurantList(changeState());
+    const restaurantList = changeState();
+    RestaurantList(restaurantList);
   });
 
   return tab;

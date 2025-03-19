@@ -100,9 +100,9 @@ const registerRestaurant = (e, onRegister) => {
   const info = getInfo();
   addRestaurant(new Restaurant(info));
   $("select#category").value = "all";
-  const restaurants = onChangeCategoryAll();
+  const restaurantList = onChangeCategoryAll();
 
-  RestaurantList(restaurants);
+  RestaurantList(restaurantList);
   modalClose();
 };
 

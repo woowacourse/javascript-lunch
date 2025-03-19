@@ -17,7 +17,10 @@ const CategoryAndSortFilter = ({ onSortByCategory, onSortByOption }) => {
           value: key,
         })),
       ],
-      onChange: (e) => RestaurantList(onSortByCategory(e.target.value)),
+      onChange: (e) => {
+        const restaurantList = onSortByCategory(e.target.value);
+        RestaurantList(restaurantList);
+      },
     })
   );
 
@@ -29,7 +32,10 @@ const CategoryAndSortFilter = ({ onSortByCategory, onSortByOption }) => {
         { label: "이름순", value: "name" },
         { label: "거리순", value: "distance" },
       ],
-      onChange: (e) => RestaurantList(onSortByOption(e.target.value)),
+      onChange: (e) => {
+        const restaurantList = onSortByOption(e.target.value);
+        RestaurantList(restaurantList);
+      },
     })
   );
   return filterContainer;
