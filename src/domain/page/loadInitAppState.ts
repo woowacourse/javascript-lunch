@@ -2,7 +2,7 @@ import { Modal } from "../../component/layout/Modal";
 import {
   createFoodListComponent,
   getFilteredFoodList,
-  showConvertedItem,
+  renderFilteredFoodList,
 } from "../service/FoodService";
 import { FilterType } from "../../types/domain/SortingFilterType";
 import { SetFilteredItemsType } from "../../types/domain/InitAppStateType";
@@ -61,7 +61,7 @@ function setFavoriteFilter() {
   if (!buttons.total || !buttons.favorite) return;
 
   buttons.total.classList.toggle("selected-button");
-  showConvertedItem({ isFavoriteFilterActive: false });
+  renderFilteredFoodList({ isFavoriteFilterActive: false });
 
   Object.entries(buttons).forEach(([_, button]) =>
     button?.addEventListener("click", () =>

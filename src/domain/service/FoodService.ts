@@ -7,8 +7,8 @@ import {
   CreateFoodItemComponentType,
   CreateFoodListComponentType,
   DeleteFoodItemType,
+  FavoriteFilteredFoodListType,
   OpenDetailModalType,
-  ReadFoodListType,
   ShowConvertedItemType,
   ShowFoodItemType,
   UpdateFoodListType,
@@ -24,17 +24,17 @@ import { SortingFilter } from "../SortingFilter";
 import { favoriteFilter } from "../FavoriteFilter";
 
 // CRUD - create : mock Data
-export function getFilteredFoodList({
+export function favoriteFilteredFoodList({
   isFavoriteFilterActive,
-}: ReadFoodListType) {
-  const previousFoodList = readStorageFoodList().filter((item: FoodType) => {
+}: FavoriteFilteredFoodListType) {
+  const storageFoodList = readStorageFoodList().filter((item: FoodType) => {
     if (isFavoriteFilterActive) return item.favorite === true;
     return item;
   });
-  if (previousFoodList.length === 0 && !isFavoriteFilterActive) {
+  if (storageFoodList.length === 0 && !isFavoriteFilterActive) {
     setMockData();
   }
-  return previousFoodList;
+  return storageFoodList;
 }
 
 function setMockData() {
@@ -95,13 +95,15 @@ function showFoodItem({ foodListComponent }: ShowFoodItemType) {
 }
 
 // 필더링된 데이터를 읽고 화면에 보여주기
-export function showConvertedItem({
+export function renderFilteredFoodList({
   isFavoriteFilterActive,
 }: ShowConvertedItemType) {
-  const previousFoodList = getFilteredFoodList({ isFavoriteFilterActive });
+  const favoriteFilteredFoodlist = favoriteFilteredFoodList({
+    isFavoriteFilterActive,
+  });
   const filter = new SortingFilter();
   filter.saveCurrentFilter();
   createFoodListComponent({
-    foodList: filter.sortedFoodList({ foodList: previousFoodList }),
+    foodList: filter.sortedFoodList({ foodList: favoriteFilteredFoodlist }),
   });
 }

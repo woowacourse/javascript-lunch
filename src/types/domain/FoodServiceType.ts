@@ -1,6 +1,6 @@
 import { FoodType } from "../component/FoodItemType";
 
-export interface ReadFoodListType {
+export interface FavoriteFilteredFoodListType {
   isFavoriteFilterActive: boolean;
 }
 

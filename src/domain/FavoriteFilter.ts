@@ -1,5 +1,5 @@
 import { ToggleStatusType } from "../types/domain/FavoriteFilterType";
-import { showConvertedItem, updateFoodList } from "./service/FoodService";
+import { renderFilteredFoodList, updateFoodList } from "./service/FoodService";
 
 class FavoriteFilter {
   static instance: FavoriteFilter;
@@ -21,7 +21,7 @@ class FavoriteFilter {
     const newFoodItem = foodItem;
     newFoodItem.favorite = !foodItem.favorite;
     updateFoodList({ foodItem });
-    showConvertedItem({ isFavoriteFilterActive: this.currentStatus() });
+    renderFilteredFoodList({ isFavoriteFilterActive: this.currentStatus() });
     event.stopPropagation();
   }
 
@@ -36,7 +36,7 @@ class FavoriteFilter {
     cuttentButton.classList.toggle("selected-button");
     previousButton.classList.remove("selected-button");
     this.isFavorite = !this.isFavorite;
-    showConvertedItem({ isFavoriteFilterActive: this.isFavorite });
+    renderFilteredFoodList({ isFavoriteFilterActive: this.isFavorite });
   }
 
   currentStatus() {

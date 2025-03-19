@@ -1,5 +1,5 @@
 import { favoriteFilter } from "../../domain/FavoriteFilter";
-import { showConvertedItem } from "../../domain/service/FoodService";
+import { renderFilteredFoodList } from "../../domain/service/FoodService";
 import { ModalSetContentType } from "../../types/component/LayoutType";
 
 export class Modal {
@@ -33,7 +33,7 @@ export class Modal {
   static close() {
     const modalContent = document.querySelector(".modal");
     modalContent?.classList.remove("modal--open");
-    showConvertedItem({
+    renderFilteredFoodList({
       isFavoriteFilterActive: favoriteFilter.currentStatus(),
     });
   }
