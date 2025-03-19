@@ -16,6 +16,7 @@ export function getFormFoodItem() {
   try {
     validateFoodItem(foodItem);
     return {
+      category: foodItem.category,
       imgSrc,
       imgAlt,
       name: foodItem.name,

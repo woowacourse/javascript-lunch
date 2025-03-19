@@ -1,3 +1,5 @@
+import { Category } from "../domain/GetFormFoodItemType";
+
 export interface FoodItemType {
   foodItem: FoodType;
   handleModal: (foodItem: FoodType) => void;
@@ -5,6 +7,7 @@ export interface FoodItemType {
 }
 
 export interface FoodType {
+  category: Category;
   imgSrc: string;
   imgAlt: string;
   name: string;

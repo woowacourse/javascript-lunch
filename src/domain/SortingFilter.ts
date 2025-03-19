@@ -27,7 +27,7 @@ export class SortingFilter {
     const filteredFoodList = newfoodList
       ?.filter((foodItem) => {
         if (this.#categoryFilter === "전체") return foodItem;
-        return foodItem.imgAlt === this.#categoryFilter;
+        return foodItem.category === this.#categoryFilter;
       })
       .sort((a, b) => this.#sortByFilter({ a, b }));
 

@@ -1,5 +1,6 @@
 export const mockFoodList = [
   {
+    category: "한식",
     imgSrc: "./category-korean.png",
     imgAlt: "한식",
     name: "피양콩할마니",
@@ -10,6 +11,7 @@ export const mockFoodList = [
     favorite: false,
   },
   {
+    category: "중식",
     imgSrc: "./category-chinese.png",
     imgAlt: "중식",
     name: "친친",
@@ -20,6 +22,7 @@ export const mockFoodList = [
     favorite: false,
   },
   {
+    category: "일식",
     imgSrc: "./category-japanese.png",
     imgAlt: "일식",
     name: "잇쇼우",
@@ -30,6 +33,7 @@ export const mockFoodList = [
     favorite: false,
   },
   {
+    category: "양식",
     imgSrc: "./category-western.png",
     imgAlt: "양식",
     name: "이태리키친",
@@ -39,6 +43,7 @@ export const mockFoodList = [
     favorite: false,
   },
   {
+    category: "아시안",
     imgSrc: "./category-asian.png",
     imgAlt: "아시안",
     name: "호아빈 삼성점",
@@ -48,6 +53,7 @@ export const mockFoodList = [
     favorite: false,
   },
   {
+    category: "기타",
     imgSrc: "./category-etc.png",
     imgAlt: "기타",
     name: "도스타코스 선릉점",
