@@ -5,14 +5,17 @@ import { createElement } from "../../utils/createElement";
 import { $ } from "../../utils/dom";
 import Button from "../common/button";
 import ButtonContainer from "../common/buttonContainer";
-import { modalCloseAndFilter } from "../common/modal/handleCloseModal";
+import {
+  modalClose,
+  modalCloseAndFilter,
+} from "../common/modal/handleCloseModal";
 import ModalContent from "../common/modal/modalContent";
 import Space from "../common/space";
 import RestaurantList from "../restaurantList";
 import CategoryImage from "./categoryImage";
 import RestaurantInfo from "./restaurantInfo";
 
-const RestaurantCard = (restaurantData) => {
+const RestaurantCard = (restaurantData, restaurants) => {
   const { id, category, name, distance, description, favorite } =
     restaurantData.info;
   const restaurantCard = document.createElement("li");
@@ -28,19 +31,18 @@ const RestaurantCard = (restaurantData) => {
       favorite,
       toggleFavoriteMark: () => {
         restaurantData.toggleFavoriteMark();
-        RestaurantList(restaurants.filter.filter());
+        RestaurantList(restaurants.restaurants);
       },
-      handleClickTitle: () => handleClickTitle(restaurantData),
+      handleClickTitle: () => handleClickTitle(restaurantData, restaurants),
     })
   );
 
   return restaurantCard;
 };
 
-function handleClickTitle(restaurantData) {
+function handleClickTitle(restaurantData, restaurants) {
   const { category, name, distance, description, favorite, link } =
     restaurantData.info;
-  const restaurants = new Restaurants();
   $(".modal-backdrop").classList.add("open");
   ModalContent([
     CategoryImage(category),
@@ -62,7 +64,10 @@ function handleClickTitle(restaurantData) {
         onClick: () => {
           const isConfirm = confirm("정말 삭제하시겠습니까?");
           if (isConfirm) {
-            restaurants.deleteRestaurant(restaurantData.info.id);
+            RestaurantList(
+              restaurants.deleteRestaurant(restaurantData.info.id)
+            );
+            modalClose();
           }
         },
         type: "button",
@@ -71,7 +76,10 @@ function handleClickTitle(restaurantData) {
       Button({
         text: BUTTON_TEXT.CLOSE,
         style: "button--primary",
-        onClick: modalCloseAndFilter,
+        onClick: () => {
+          modalClose();
+          RestaurantList(restaurants.restaurants);
+        },
         id: "close-button",
       }),
     ]),

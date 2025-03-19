@@ -6,6 +6,7 @@ import RestaurantCard from "../restaurantCard";
 
 const RestaurantList = (restaurantListData) => {
   const restaurants = new Restaurants(restaurantListData);
+
   const ulTag = $(".restaurant-list");
   ulTag.replaceChildren();
 
@@ -17,7 +18,7 @@ const RestaurantList = (restaurantListData) => {
   }
 
   restaurantListData.forEach((restaurantData) => {
-    ulTag.appendChild(RestaurantCard(restaurantData));
+    ulTag.appendChild(RestaurantCard(restaurantData, restaurants));
   });
 };
 

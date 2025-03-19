@@ -4,14 +4,9 @@ import { RestaurantInfo } from "../../types/restaurant";
 
 class Restaurants {
   #restaurants!: Restaurant[];
-  static instance: Restaurants;
 
   constructor(restaurantsData: Restaurant[]) {
-    if (!Restaurants.instance) {
-      this.#restaurants = restaurantsData || [...defaultRestaurants];
-      Restaurants.instance = this;
-    }
-    return Restaurants.instance;
+    this.#restaurants = restaurantsData || [...defaultRestaurants];
   }
 
   setToLocalStorage() {
@@ -47,7 +42,12 @@ class Restaurants {
   deleteRestaurant = (id: number) => {
     this.#restaurants = this.#restaurants.filter((res) => res.info.id !== id);
     this.setToLocalStorage();
+    return this.#restaurants;
   };
+
+  get restaurants(): Restaurant[] {
+    return this.#restaurants;
+  }
 }
 
 export default Restaurants;
