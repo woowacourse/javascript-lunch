@@ -1,4 +1,4 @@
-import inputTitle from "../constants/inputTitle.js";
+import RESTAURANT_ADD_FORM_INPUT_TITLE from "../constants/restaurantAddForm/inputTitle.js";
 
 const TextInput = (name, isRequired, helpText) => {
   const formItem = document.createElement("div");
@@ -7,7 +7,7 @@ const TextInput = (name, isRequired, helpText) => {
 
   formItem.innerHTML = `
     <label for=${name} class="text-caption">${
-    inputTitle[name.toUpperCase()]
+    RESTAURANT_ADD_FORM_INPUT_TITLE[name.toUpperCase()]
   }</label>
     <input type="text" name=${name} id=${name} />
   `;

@@ -1,23 +1,23 @@
-import IMG_SRC from "../constants/imgSrc";
+import StarIcon from "./StarIcon";
+import CategoryIcon from "./CategoryIcon";
+import RestaurantName from "./RestaurantName";
+import RestaurantDistance from "./RestaurantDistance";
+import RestaurantDescription from "./RestaurantDescription";
 
 const Restaurant = (restaurantProps) => {
-  const imgSrc = getImgSrc(restaurantProps.category);
-
-  return `
-    <div class="restaurant__category">
-      <img src="${imgSrc}" alt=${restaurantProps.category} class="category-icon" />
-    </div>
+  return /*html*/ ` 
+    ${CategoryIcon(restaurantProps.category)}
     <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${restaurantProps.name}</h3>
-      <span class="restaurant__distance text-body">캠퍼스부터 ${restaurantProps.dist}분 내</span>
-      <p class="restaurant__description text-body">
-        ${restaurantProps.description}
-      </p>
-    </div>`;
-};
-
-const getImgSrc = (category) => {
-  return IMG_SRC[category];
+      <div class="restaurant__info_header">
+        <div>
+          ${RestaurantName(restaurantProps.name)}
+          ${RestaurantDistance(restaurantProps.dist)}
+        </div>
+        ${StarIcon(restaurantProps.isFavorite)}
+      </div>
+      ${RestaurantDescription(restaurantProps.description)}
+    </div>
+  `;
 };
 
 export default Restaurant;

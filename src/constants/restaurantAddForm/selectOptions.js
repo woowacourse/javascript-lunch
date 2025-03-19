@@ -1,6 +1,6 @@
-const selectOptions = {
+const RESTAURANT_ADD_FORM_SELECT_OPTIONS = {
   CATEGORY: ["한식", "중식", "일식", "양식", "아시안", "기타"],
   DISTANCE: ["5", "10", "15", "20", "25", "30"],
 };
 
-export default selectOptions;
+export default RESTAURANT_ADD_FORM_SELECT_OPTIONS;

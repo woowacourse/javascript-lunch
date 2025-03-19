@@ -23,6 +23,18 @@ const buttonCategory = {
     class: "button--primary",
     id: "add-button",
   },
+  delete: {
+    name: "삭제하기",
+    type: "button",
+    class: "button--secondary",
+    id: "delete-button",
+  },
+  close: {
+    name: "닫기",
+    type: "button",
+    class: "button--primary",
+    id: "close-button",
+  },
 };
 
 export default Button;

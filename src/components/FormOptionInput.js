@@ -1,4 +1,4 @@
-import inputTitle from "../constants/inputTitle.js";
+import RESTAURANT_ADD_FORM_INPUT_TITLE from "../constants/restaurantAddForm/inputTitle.js";
 
 const getOptionValue = (name, option) => {
   if (name === "distance") {
@@ -8,14 +8,14 @@ const getOptionValue = (name, option) => {
   return option;
 };
 
-const OptionInput = (name, options) => {
+const FormOptionInput = (name, options) => {
   const formItem = document.createElement("div");
   formItem.classList.add("form-item");
   formItem.classList.add("form-item--required");
 
   formItem.innerHTML = `
     <label for=${name} class="text-caption">${
-    inputTitle[name.toUpperCase()]
+    RESTAURANT_ADD_FORM_INPUT_TITLE[name.toUpperCase()]
   }</label>
     <select name=${name} id=${name}>
       <option value="">선택해 주세요</option>
@@ -31,4 +31,4 @@ const OptionInput = (name, options) => {
   return formItem;
 };
 
-export default OptionInput;
+export default FormOptionInput;
