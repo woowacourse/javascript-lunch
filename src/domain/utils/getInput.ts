@@ -1,4 +1,4 @@
-import { GetInputType } from "../types/util/GetInputType";
+import { GetInputType } from "../../types/domain/GetInputType";
 
 export function getInput({ name }: GetInputType) {
   const value = (

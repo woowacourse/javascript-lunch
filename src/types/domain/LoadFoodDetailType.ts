@@ -1,5 +1,5 @@
 import { FoodType } from "../component/FoodItemType";
 
-export interface FoodDetailType {
+export interface LoadFoodDetailType {
   foodDetailItem: FoodType;
 }

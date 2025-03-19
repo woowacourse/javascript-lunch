@@ -1,8 +1,8 @@
-import { FoodType } from "../types/component/FoodItemType";
+import { FoodType } from "../../types/component/FoodItemType";
 import {
   DeleteStorageFoodListType,
   UpdateStorageFoodListType,
-} from "../types/domain/FoodStorageType";
+} from "../../types/domain/FoodStorageType";
 
 // CRUD - read
 export function readStorageFoodList() {

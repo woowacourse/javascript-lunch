@@ -1,12 +1,12 @@
-import { CAPTION_MESSAGE } from "../constants/Message.js";
-import { addFoodItem } from "../domain/FoodService.js";
-import { Button } from "../component/button/Button.js";
-import { ButtonContainer } from "../component/button/ButtonContainer.js";
-import { Input } from "../component/input/Input.js";
-import { SelectInput } from "../component/input/SelectInput.js";
-import { TextareaInput } from "../component/input/TextareaInput.js";
-import { Modal } from "../component/layout/Modal.js";
-import { getFormFoodItem } from "../domain/getFormFoodItem.js";
+import { CAPTION_MESSAGE } from "../../constants/Message.js";
+import { addFoodItem } from "../service/FoodService.js";
+import { Button } from "../../component/button/Button.js";
+import { ButtonContainer } from "../../component/button/ButtonContainer.js";
+import { Input } from "../../component/input/Input.js";
+import { SelectInput } from "../../component/input/SelectInput.js";
+import { TextareaInput } from "../../component/input/TextareaInput.js";
+import { Modal } from "../../component/layout/Modal.js";
+import { getFormFoodItem } from "../utils/getFormFoodItem.js";
 
 const SELECT_OPTIONS = {
   category: [
@@ -28,7 +28,7 @@ const SELECT_OPTIONS = {
   ],
 };
 
-export function FoodForm() {
+export function loadFoodForm() {
   document.querySelector("form")?.reset();
   const container = document.createElement("form");
 

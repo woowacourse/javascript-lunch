@@ -1,4 +1,4 @@
-import { ChangeFavoriteStatusType } from "../types/domain/FavoriteServiceType";
+import { ChangeFavoriteStatusType } from "../../types/domain/FavoriteServiceType";
 import { showConvertedItem, updateFoodList } from "./FoodService";
 
 export function changeFavoriteStatus({

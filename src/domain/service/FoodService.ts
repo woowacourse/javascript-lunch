@@ -1,7 +1,6 @@
-import { FoodItem } from "../component/FoodItem";
-import { Modal } from "../component/layout/Modal";
-import { FoodDetail } from "../pages/FoodDetail";
-import { FoodType } from "../types/component/FoodItemType";
+import { FoodItem } from "../../component/FoodItem";
+import { Modal } from "../../component/layout/Modal";
+import { FoodType } from "../../types/component/FoodItemType";
 
 import {
   AddFoodItemType,
@@ -13,15 +12,16 @@ import {
   ShowConvertedItemType,
   ShowFoodItemType,
   UpdateFoodListType,
-} from "../types/domain/FoodServiceType";
+} from "../../types/domain/FoodServiceType";
 import {
   deleteStorageFoodList,
   readStorageFoodList,
   updateStorageFoodList,
 } from "./FoodStorage";
 import { changeFavoriteStatus } from "./FavoriteService";
-import { Filter } from "./Filter";
-import { mockFoodList } from "../mocks/mockFoodList";
+import { Filter } from "../Filter";
+import { mockFoodList } from "../../mocks/mockFoodList";
+import { loadFoodDetail } from "../page/loadFoodDetail";
 
 // CRUD - create : mock Data
 export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {
@@ -79,7 +79,7 @@ function createFoodItemComponent({
 }
 function openDetailModal({ foodItem }: OpenDetailModalType) {
   Modal.setContent({
-    modalContent: FoodDetail({ foodDetailItem: foodItem }),
+    modalContent: loadFoodDetail({ foodDetailItem: foodItem }),
   });
   Modal.open();
 }

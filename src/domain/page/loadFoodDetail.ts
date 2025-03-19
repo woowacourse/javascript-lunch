@@ -1,12 +1,12 @@
-import { Button } from "../component/button/Button";
-import { ButtonContainer } from "../component/button/ButtonContainer";
-import { FoodItem } from "../component/FoodItem";
-import { Modal } from "../component/layout/Modal";
-import { deleteFoodItem, updateFoodList } from "../domain/FoodService";
-import { ChangeFavoriteStatusType } from "../types/domain/FavoriteServiceType";
-import { FoodDetailType } from "../types/pages/FoodDetailType";
+import { Button } from "../../component/button/Button";
+import { ButtonContainer } from "../../component/button/ButtonContainer";
+import { FoodItem } from "../../component/FoodItem";
+import { Modal } from "../../component/layout/Modal";
+import { deleteFoodItem, updateFoodList } from "../service/FoodService";
+import { ChangeFavoriteStatusType } from "../../types/domain/FavoriteServiceType";
+import { LoadFoodDetailType } from "../../types/domain/LoadFoodDetailType";
 
-export function FoodDetail({ foodDetailItem }: FoodDetailType) {
+export function loadFoodDetail({ foodDetailItem }: LoadFoodDetailType) {
   const container = document.createElement("div");
 
   const foodDetailInfo = FoodItem({
@@ -50,6 +50,6 @@ function changeFavoriteStatus({ foodItem }: ChangeFavoriteStatusType) {
   updateFoodList({ foodItem });
 
   Modal.setContent({
-    modalContent: FoodDetail({ foodDetailItem: foodItem }),
+    modalContent: loadFoodDetail({ foodDetailItem: foodItem }),
   });
 }

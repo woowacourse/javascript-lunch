@@ -1,13 +1,10 @@
-import { initAppState } from "./domain/initAppState.js";
 import { Modal } from "./component/layout/Modal.js";
-import { Filter } from "./domain/Filter.js";
-import { FoodListPage } from "./pages/FoodListPage.js";
+
+import loadFoodListPage from "./domain/page/loadFoodListPage.js";
+import { loadInitAppState } from "./domain/page/loadinitAppState.js";
 
 addEventListener("load", () => {
-  const filter = new Filter();
-  FoodListPage.loadPage({
-    title: "점심 뭐 먹지",
-  });
-  Modal.setDefaultModal();
-  initAppState({ filter });
+  loadFoodListPage({ title: "점심 뭐 먹지" });
+  Modal.loadDefaultModal();
+  loadInitAppState();
 });

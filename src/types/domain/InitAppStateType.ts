@@ -1,5 +1,5 @@
 import { Filter } from "../../domain/Filter";
 
-export interface InitAppStateType {
+export interface SetFilteredItemsType {
   filter: Filter;
 }

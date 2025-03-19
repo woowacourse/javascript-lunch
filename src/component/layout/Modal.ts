@@ -1,10 +1,10 @@
-import { showConvertedItem } from "../../domain/FoodService";
+import { showConvertedItem } from "../../domain/service/FoodService";
 
-import { favoriteState } from "../../domain/FavoriteService";
+import { favoriteState } from "../../domain/service/FavoriteService";
 import { ModalSetContentType } from "../../types/component/LayoutType";
 
 export class Modal {
-  static setDefaultModal() {
+  static loadDefaultModal() {
     const container = document.createElement("div");
     container.classList.add("modal");
     container.innerHTML = `

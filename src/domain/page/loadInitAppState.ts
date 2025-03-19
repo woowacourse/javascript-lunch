@@ -1,15 +1,17 @@
-import { Modal } from "../component/layout/Modal";
+import { Modal } from "../../component/layout/Modal";
 import {
   createFoodListComponent,
   getFilteredFoodList,
   showConvertedItem,
-} from "./FoodService";
-import { favoriteState } from "./FavoriteService";
-import { FoodForm } from "../pages/FoodForm";
-import { FilterType } from "../types/domain/FilterType";
-import { InitAppStateType } from "../types/domain/InitAppStateType";
+} from "../service/FoodService";
+import { favoriteState } from "../service/FavoriteService";
+import { FilterType } from "../../types/domain/FilterType";
+import { SetFilteredItemsType } from "../../types/domain/InitAppStateType";
+import { Filter } from "../Filter";
+import { loadFoodForm } from "./loadFoodForm";
 
-export function initAppState({ filter }: InitAppStateType) {
+export function loadInitAppState() {
+  const filter = new Filter();
   setFoodFormMoal();
   setFilteredItems({ filter });
   setFavoriteButton();
@@ -20,14 +22,14 @@ function setFoodFormMoal() {
   document.querySelector(".gnb__button")?.addEventListener("click", () => {
     const formContainer = document.createElement("div");
     formContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
-    formContainer.appendChild(FoodForm());
+    formContainer.appendChild(loadFoodForm());
     Modal.setContent({ modalContent: formContainer });
     Modal.open();
   });
 }
 
 // Filter 기능 설정
-function setFilteredItems({ filter }: InitAppStateType) {
+function setFilteredItems({ filter }: SetFilteredItemsType) {
   ["category", "sorting"].forEach((name) => {
     document
       .querySelector(`select[name=${name}]`)

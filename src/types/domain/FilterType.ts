@@ -10,10 +10,6 @@ export interface ChangeCategoryType {
   filterName: FilterType;
 }
 
-export interface ChangeSortingType {
-  foodList: FoodType[];
-}
-
 export interface UpdateFilterItemType {
   foodList: FoodType[];
 }

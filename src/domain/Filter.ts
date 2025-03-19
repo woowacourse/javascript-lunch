@@ -29,12 +29,12 @@ export class Filter {
         if (this.#categoryFilter === "전체") return foodItem;
         return foodItem.imgAlt === this.#categoryFilter;
       })
-      .sort((a, b) => this.#sortBy({ a, b }));
+      .sort((a, b) => this.#sortByFilter({ a, b }));
 
     return filteredFoodList || [];
   }
 
-  #sortBy({ a, b }: SortByType) {
+  #sortByFilter({ a, b }: SortByType) {
     if (this.#sortingFilter === "이름순") {
       return a.name.localeCompare(b.name, "ko");
     }
@@ -47,7 +47,7 @@ export class Filter {
   sortedFoodList({ foodList }: SortedFoodListType) {
     return (
       this.filteredFoodList({ foodList })?.sort((a, b) =>
-        this.#sortBy({ a, b })
+        this.#sortByFilter({ a, b })
       ) || []
     );
   }
