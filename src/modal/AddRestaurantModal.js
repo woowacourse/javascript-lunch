@@ -1,15 +1,17 @@
 import Button from '../components/Button.js';
+import Input from '../components/Input.js';
 import InputDropDown from '../components/InputDropDown.js';
-import InputText from '../components/InputText.js';
 import Modal from '../components/Modal.js';
-import RestaurantItem from '../components/RestaurantItem.js';
+import RestaurantItem from '../components/Restaurant/RestaurantItem.js';
 import CATEGORY from '../constant/category.js';
 import DISTANCE from '../constant/distance.js';
-import Restaurant from '../Restaurant.js';
-import { validateDescription } from '../validation/validateDescription.js';
-import { validateDropDown } from '../validation/validateDropDown.js';
-import { validateLink } from '../validation/validateLink.js';
-import { validateName } from '../validation/validateName.js';
+import Restaurant from '../domain/Restaurant';
+import { validateDescription } from '../validation/validateDescription';
+import { validateDropDown } from '../validation/validateDropDown';
+import { validateLink } from '../validation/validateLink';
+import { validateName } from '../validation/validateName';
+import InputText from '../components/Text/InputText.js';
+import InputTextArea from '../components/Text/InputTextArea.js';
 
 class AddRestaurantModal extends Modal {
   #cancelButton;
@@ -20,11 +22,11 @@ class AddRestaurantModal extends Modal {
   #divDescription;
   #divLink;
   #modalForm;
-  #restaurantListContainer;
+  #onClickAddButton;
 
-  constructor(appContainer, restaurantListContainer) {
+  constructor(appContainer, onClickAddButton) {
     super(appContainer);
-    this.#restaurantListContainer = restaurantListContainer;
+    this.#onClickAddButton = onClickAddButton;
     this.#init();
     this.#bindEvent();
     this.#createAddModal();
@@ -34,11 +36,48 @@ class AddRestaurantModal extends Modal {
   #init() {
     this.#cancelButton = new Button('button--secondary', '취소하기');
     this.#addButton = new Button('button--primary', '추가하기');
-    this.#divCategory = new InputDropDown('카테고리', CATEGORY);
-    this.#divName = new InputText('이름');
-    this.#divDistance = new InputDropDown('거리(도보 이동 시간)', DISTANCE);
-    this.#divDescription = new InputText('설명');
-    this.#divLink = new InputText('참조 링크');
+    this.#divCategory = new Input({
+      name: 'category',
+      title: '카테고리',
+      required: true,
+      inputComponent: new InputDropDown({
+        name: 'category',
+        id: 'category',
+        required: true,
+        option: CATEGORY,
+        optionDefault: '선택해주세요',
+      }),
+    });
+    this.#divName = new Input({
+      name: 'name',
+      title: '이름',
+      required: true,
+      inputComponent: new InputText({ name: 'name', required: true }),
+    });
+    this.#divDistance = new Input({
+      name: 'distance',
+      title: '거리(도보 이동 시간)',
+      required: true,
+      inputComponent: new InputDropDown({
+        name: 'distance',
+        id: 'distance',
+        required: true,
+        option: DISTANCE,
+        optionDefault: '선택해주세요',
+      }),
+    });
+    this.#divDescription = new Input({
+      name: 'description',
+      title: '설명',
+      spanText: '메뉴 등 추가 정보를 입력해 주세요.',
+      inputComponent: new InputTextArea({ name: 'description' }),
+    });
+    this.#divLink = new Input({
+      name: 'link',
+      title: '참조 링크',
+      spanText: '매장 정보를 확인할 수 있는 링크를 입력해 주세요.',
+      inputComponent: new InputText({ name: 'link' }),
+    });
     this.#modalForm = document.createElement('form');
   }
 
@@ -84,15 +123,17 @@ class AddRestaurantModal extends Modal {
 
   #addNewRestaurant() {
     const formData = Object.fromEntries(new FormData(this.#modalForm));
-    const newRestaurant = new Restaurant(
-      formData.name,
-      formData.distance,
-      formData.description,
-      formData.category,
-      formData.link,
-    );
-    const newRestaurantItem = new RestaurantItem(newRestaurant);
-    this.#restaurantListContainer.appendChild(newRestaurantItem);
+
+    const newRestaurant = new Restaurant({
+      name: formData.name,
+      distance: Number(formData.distance),
+      description: formData.description,
+      category: formData.category,
+      link: formData.link,
+      isLiked: false,
+    });
+
+    this.#onClickAddButton(newRestaurant);
   }
 
   #validateInputs() {
@@ -129,7 +170,8 @@ class AddRestaurantModal extends Modal {
   };
 
   #bindModalBackDropEvent = () => {
-    document.querySelector('.modal-backdrop').addEventListener('click', () => {
+    const backdrop = this.getBackdrop();
+    backdrop.addEventListener('click', () => {
       this.#resetForm();
       this.closeModal();
     });

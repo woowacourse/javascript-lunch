@@ -1,4 +1,4 @@
-import CATEGORY from '../constant/category.js';
+import CATEGORY from '../../constant/category.js';
 
 const RESTAURANT_ICON = (src, alt) => {
   return `<img src=${src} alt=${alt} class="category-icon">`;
@@ -18,7 +18,7 @@ class RestaurantIcon {
   };
 
   #getImageSrc = (category) => {
-    const url = `https://h0ngju.github.io/javascript-lunch/public/assets/category-`;
+    const url = `https://h0ngju.github.io/javascript-lunch/assets/category-`;
     const key = CATEGORY[category] ? category : 'etc';
     return `${url}${key}.png`;
   };

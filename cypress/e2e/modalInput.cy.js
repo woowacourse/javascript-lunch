@@ -7,7 +7,7 @@ describe('모달창에 입력을 할 수 있다.', () => {
   });
 
   describe('카테고리를 선택할 수 있다.', () => {
-    const categoryList = ['한식', '중식', '일식', '아시안', '양식', '기타'];
+    const categoryList = ['korean', 'chinese', 'japanese', 'asian', 'western', 'etc'];
     categoryList.forEach((category) => {
       it(`${category}를 선택할 수 있다.`, () => {
         cy.get('#category').select(category).should('have.value', category);

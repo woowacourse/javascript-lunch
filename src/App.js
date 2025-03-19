@@ -1,15 +1,36 @@
 import Header from './components/Header.js';
 import RestaurantList from './RestaurantList.js';
 import AddRestaurantModal from './modal/AddRestaurantModal.js';
+import DISTANCE from './constant/distance.js';
+import CATEGORY from './constant/category.js';
+import InputDropDown from './components/InputDropDown.js';
+import LikeHeader from './components/LikeHeader.js';
+import Modal from './components/Modal.js';
+import DetailModal from './modal/DetailModal.js';
+
+const SORT_BY = Object.freeze({
+  name: '이름 순',
+  distance: '거리 순',
+});
 
 class App {
+  #categoryFilter;
+  #sortingFilter;
+  #currentCategory;
+  #currentSorting;
+  #currentHeader;
+  #restaurantList;
+  #$likeHeader;
+
   constructor() {
     this.#init();
   }
 
   #init() {
     this.#createAppContainer();
+    this.#createFilter();
     this.#initAppUI();
+    this.#bindEvent();
   }
 
   #createAppContainer() {
@@ -17,6 +38,12 @@ class App {
     this.appContainer.id = 'app';
     this.appContainer.classList.add('app');
     document.body.appendChild(this.appContainer);
+
+    this.filterContainer = document.createElement('section');
+    this.filterContainer.classList.add('restaurant-filter-container');
+
+    this.likeHeaderContainer = document.createElement('section');
+    this.likeHeaderContainer.classList.add('like-header-container');
 
     this.restaurantListContainer = document.createElement('section');
     this.restaurantListContainer.classList.add('restaurant-list-container');
@@ -26,17 +53,93 @@ class App {
     this.restaurantList.id = 'restaurant-list';
 
     this.restaurantListContainer.appendChild(this.restaurantList);
+    this.appContainer.appendChild(this.likeHeaderContainer);
+    this.appContainer.appendChild(this.filterContainer);
     this.appContainer.appendChild(this.restaurantListContainer);
   }
 
-  #initAppUI() {
-    this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.restaurantListContainer);
-    const modalClickHandler = () => {
-      this.addRestaurantModal.openModal();
-    };
-    new Header({ appContainer: this.appContainer, onClickIcon: modalClickHandler });
+  #createFilter() {
+    this.#categoryFilter = new InputDropDown({
+      name: 'category',
+      id: 'category-filter',
+      option: CATEGORY,
+      optionDefault: '전체',
+    });
+    this.#sortingFilter = new InputDropDown({
+      nmae: 'sorting',
+      id: 'sorting-filter',
+      option: SORT_BY,
+    });
+    this.#currentCategory = '';
+    this.#currentSorting = 'name';
+    this.filterContainer.appendChild(this.#categoryFilter.getElement());
+    this.filterContainer.appendChild(this.#sortingFilter.getElement());
+  }
 
-    new RestaurantList(this.restaurantListContainer);
+  #bindCategoryEvent = () => {
+    const categoryElement = this.#categoryFilter.getElement();
+    categoryElement.addEventListener('change', (event) => {
+      this.#currentCategory = categoryElement.value;
+      this.#handleRestaurantUpdate();
+    });
+  };
+
+  #bindSortingEvent = () => {
+    const sortingElement = this.#sortingFilter.getElement();
+    sortingElement.addEventListener('change', (event) => {
+      this.#currentSorting = sortingElement.value;
+      this.#handleRestaurantUpdate();
+    });
+  };
+
+  #bindLikeHeaderEvent = () => {
+    this.#$likeHeader.getElement().addEventListener('click', () => {
+      this.#currentHeader = this.#$likeHeader.getCurrentHeader();
+      this.#handleRestaurantUpdate();
+    });
+  };
+
+  #bindEvent = () => {
+    this.#bindCategoryEvent();
+    this.#bindSortingEvent();
+    this.#bindLikeHeaderEvent();
+  };
+
+  #modalClickHandler = () => {
+    this.addRestaurantModal.openModal();
+  };
+
+  #handleRestaurantUpdate() {
+    this.#restaurantList.sortRestaurantList(this.#currentCategory, this.#currentSorting, this.#currentHeader);
+  }
+
+  #handleDeleteRestaurant = (restaurantName) => {
+    this.#restaurantList.deleteRestaurant(restaurantName);
+  };
+
+  #handleAddRestaurant = (restaurant) => {
+    this.#restaurantList.addRestaurant(restaurant);
+  };
+
+  #handleDetailModal = (clonedRestaurant, restaurantData) => {
+    this.detailModal.setDetailModal(clonedRestaurant, restaurantData);
+  };
+
+  #initAppUI() {
+    this.#restaurantList = new RestaurantList(
+      this.restaurantListContainer,
+      this.#handleRestaurantUpdate.bind(this),
+      this.#handleDetailModal,
+    );
+
+    this.detailModal = new DetailModal({
+      appContainer: this.appContainer,
+      onClickDeleteButton: this.#handleDeleteRestaurant,
+    });
+    this.addRestaurantModal = new AddRestaurantModal(this.appContainer, this.#handleAddRestaurant);
+
+    new Header({ appContainer: this.appContainer, onClickIcon: this.#modalClickHandler });
+    this.#$likeHeader = new LikeHeader(this.likeHeaderContainer);
   }
 }
 

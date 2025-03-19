@@ -1,57 +1,38 @@
-import CATEGORY from '../constant/category.js';
-import { convertStringToElement } from '../utils/convertStringToElement.js';
-
-const INPUT_DROPDOWN_TEMPLATE = (tag, title) => {
-  return `
-    <label for=${tag} class="text-caption">${title}</label>
-    <select name=${tag} id="${tag}" class="select-input" required>
-      <option value="">선택해주세요</option>
-    </select>
-  `;
-};
-
 const OPTION_TEMPLATE = (value, innerValue) => {
   return `<option value="${innerValue}">${value}</option>`;
 };
 
 class InputDropDown {
-  #input;
-  #inputContainer;
+  #select;
+  #option;
 
-  constructor(title, option) {
-    this.#inputContainer = this.#createInputDropDown(title, option);
-    return this;
+  constructor({ name, id, required = false, option, optionDefault }) {
+    this.#option = option;
+    this.#select = this.#createInputDropDown(name, id, required, optionDefault);
   }
 
-  #createInputDropDown = (title, option) => {
-    const inputDropDown = document.createElement('div');
-    inputDropDown.classList.add('form-item');
-    inputDropDown.classList.add('form-item--required');
-    const tag = title === '카테고리' ? 'category' : 'distance';
-    inputDropDown.innerHTML = INPUT_DROPDOWN_TEMPLATE(tag, title);
+  #createInputDropDown(name, id, required, optionDefault) {
+    const select = document.createElement('select');
+    select.setAttribute('name', name);
+    select.setAttribute('id', id);
+    if (required) select.required = true;
 
-    const select = inputDropDown.querySelector('select');
-    this.#input = select;
+    if (optionDefault != null) select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(optionDefault, ''));
 
-    Object.entries(option).forEach(([key, value]) => {
-      const optionHTML = this.#addTemplate(value, key);
-      select.insertAdjacentHTML('beforeend', optionHTML);
+    Object.entries(this.#option).forEach(([key, value]) => {
+      select.insertAdjacentHTML('beforeend', OPTION_TEMPLATE(value, key));
     });
 
-    return inputDropDown;
-  };
+    return select;
+  }
 
-  #addTemplate = (value, innerValue) => {
-    return OPTION_TEMPLATE(value, innerValue);
-  };
+  reset() {
+    this.#select.selectedIndex = 0;
+  }
 
-  reset = () => {
-    this.#input.selectedIndex = 0;
-  };
-
-  getElement = () => {
-    return this.#inputContainer;
-  };
+  getElement() {
+    return this.#select;
+  }
 }
 
 export default InputDropDown;

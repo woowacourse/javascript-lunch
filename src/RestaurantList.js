@@ -1,45 +1,74 @@
-import RestaurantItem from './components/RestaurantItem.js';
-import Restaurant from './Restaurant.js';
-
-const restaurantDatas = [
-  new Restaurant(
-    '피양콩할마니',
-    '10',
-    '평양 출신의 할머니가 수십 년간 운영해온 비지 전문점 피양콩 할마니. 두부를 빼지 않은 되비지를 맛볼 수 있는 곳으로, ‘피양’은 평안도 사투리로 ‘평양’을 의미한다.',
-    'korean',
-    '',
-  ),
-  new Restaurant(
-    '친친',
-    '5',
-    'Since 2004 편리한 교통과 주차, 그리고 관록만큼 깊은 맛과 정성으로 정통 중식의 세계를 펼쳐갑니다',
-    'chinese',
-    '',
-  ),
-  new Restaurant(
-    '잇쇼우',
-    '10',
-    '잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다',
-    'japanese',
-    '',
-  ),
-  new Restaurant('이태리키친', '20', '늘 변화를 추구하는 이태리키친입니다.', 'western', ''),
-  new Restaurant('호아빈 삼성점', '15', '푸짐한 양에 국물이 일품인 쌀국수', 'asian', ''),
-  new Restaurant('도스타코스 선릉점', '5', '멕시칸 캐주얼 그릴', 'etc', ''),
-];
+import RestaurantItem from './components/Restaurant/RestaurantItem.js';
+import Restaurant from './domain/Restaurant';
+import RestaurantStorage from './domain/RestaurantStorage';
+import { LIKE_HEADER_STATE } from './components/LikeHeader';
 
 class RestaurantList {
-  #restaurantListContainer;
+  #restaurantListContainer; // 레스토랑 리스트 컨테이너
+  #onRestaurantUpdate; // 레스토랑 리스트 리로드 함수
+  #detailModal; // 레스토랑 상세정보 모달
+  #restaurantData; // localStorage 레스토랑 데이터
+  #restaurants;
+  #currentCategory;
+  #currentSorting;
+  #currentHeader;
+  #onClickItem;
 
-  constructor(restaurantListContainer) {
+  constructor(restaurantListContainer, onRestaurantUpdate, onClickItem) {
     this.#restaurantListContainer = restaurantListContainer;
-    this.#createRestaurantList(restaurantDatas);
+    this.#onRestaurantUpdate = onRestaurantUpdate;
+    this.#onClickItem = onClickItem;
+    // this.#detailModal = detailModal;
+
+    this.#restaurants = RestaurantStorage.getRestaurants();
+    this.#renderRestaurantList();
   }
+
   #createRestaurantList(restaurantList) {
+    this.#restaurantListContainer.innerHTML = '';
     restaurantList.forEach((restaurant) => {
-      const restaurantItem = new RestaurantItem(restaurant);
+      const restaurantItem = new RestaurantItem(restaurant, this.#onRestaurantUpdate, this.#onClickItem).getElement();
       this.#restaurantListContainer.appendChild(restaurantItem);
     });
+  }
+
+  #renderRestaurantList() {
+    const restaurantList = this.#restaurants.filterAndSort({
+      category: this.#currentCategory,
+      sorting: this.#currentSorting,
+      header: this.#currentHeader,
+    });
+
+    this.#createRestaurantList(restaurantList);
+  }
+
+  sortRestaurantList(category, sorting, currentHeader) {
+    this.#currentCategory = category;
+    this.#currentSorting = sorting;
+    this.#currentHeader = currentHeader;
+
+    this.#renderRestaurantList();
+  }
+
+  addRestaurant(restaurant) {
+    this.#restaurantData = RestaurantStorage.addRestaurant(restaurant);
+    this.#restaurants = this.#restaurantData;
+    this.#renderRestaurantList();
+  }
+
+  deleteRestaurant(restaurantName) {
+    this.#restaurantData = RestaurantStorage.deleteRestaurant(restaurantName);
+    this.#restaurants = this.#restaurantData;
+    this.#renderRestaurantList();
+  }
+
+  updateRestaurantIsLiked(restaurantName, isLiked) {
+    this.#restaurantData = RestaurantStorage.updateRestaurantIsLiked(restaurantName, isLiked);
+    this.#renderRestaurantList();
+  }
+
+  getRestaurantData() {
+    return this.#restaurants.getAll();
   }
 }
 
