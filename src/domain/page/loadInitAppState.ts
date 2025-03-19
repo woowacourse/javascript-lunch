@@ -4,17 +4,17 @@ import {
   getFilteredFoodList,
   showConvertedItem,
 } from "../service/FoodService";
-import { favoriteState } from "../service/FavoriteService";
-import { FilterType } from "../../types/domain/FilterType";
+import { FilterType } from "../../types/domain/SortingFilterType";
 import { SetFilteredItemsType } from "../../types/domain/InitAppStateType";
-import { Filter } from "../Filter";
 import { loadFoodForm } from "./loadFoodForm";
+import { SortingFilter } from "../SortingFilter";
+import { favoriteFilter } from "../FavoriteFilter";
 
 export function loadInitAppState() {
-  const filter = new Filter();
+  const filter = new SortingFilter();
   setFoodFormMoal();
   setFilteredItems({ filter });
-  setFavoriteButton();
+  setFavoriteFilter();
 }
 
 // FoodForm 생성
@@ -28,14 +28,14 @@ function setFoodFormMoal() {
   });
 }
 
-// Filter 기능 설정
+// SortingFilter 기능 설정
 function setFilteredItems({ filter }: SetFilteredItemsType) {
   ["category", "sorting"].forEach((name) => {
     document
       .querySelector(`select[name=${name}]`)
       ?.addEventListener("change", () => {
         const previousFoodList = getFilteredFoodList({
-          favoriteFilter: favoriteState(),
+          showOnlyFavorites: favoriteFilter.currentStatus(),
         });
 
         filter.chageFilter({
@@ -52,26 +52,24 @@ function setFilteredItems({ filter }: SetFilteredItemsType) {
   });
 }
 
-function setFavoriteButton() {
+function setFavoriteFilter() {
   const buttons = {
     total: document.querySelector(".tab-button .tab-button_all"),
     favorite: document.querySelector(".tab-button .tab-button_favorite"),
   };
-  buttons.total?.classList.toggle("selected-button");
-  updateFoodList(false);
 
-  Object.entries(buttons).forEach(([key, button]) => {
-    button?.addEventListener("click", () => {
-      if (button.classList.contains("selected-button")) return;
-      button.classList.toggle("selected-button");
-      buttons[key === "total" ? "favorite" : "total"]?.classList.remove(
-        "selected-button"
-      );
-      updateFoodList(key === "favorite");
-    });
-  });
-}
+  if (!buttons.total || !buttons.favorite) return;
 
-function updateFoodList(isFavorite: boolean) {
-  showConvertedItem({ favoriteFilter: isFavorite });
+  buttons.total.classList.toggle("selected-button");
+  showConvertedItem({ showOnlyFavorites: false });
+
+  Object.entries(buttons).forEach(([_, button]) =>
+    button?.addEventListener("click", () =>
+      favoriteFilter.toggleFilter({
+        cuttentButton: button,
+        previousButton:
+          button === buttons.total! ? buttons.favorite! : buttons.total!,
+      })
+    )
+  );
 }

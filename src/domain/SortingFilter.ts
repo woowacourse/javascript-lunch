@@ -3,9 +3,9 @@ import {
   SortByType,
   SortedFoodListType,
   UpdateFilterItemType,
-} from "../types/domain/FilterType";
+} from "../types/domain/SortingFilterType";
 
-export class Filter {
+export class SortingFilter {
   #categoryFilter;
   #sortingFilter;
 

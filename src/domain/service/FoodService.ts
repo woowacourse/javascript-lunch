@@ -18,18 +18,18 @@ import {
   readStorageFoodList,
   updateStorageFoodList,
 } from "./FoodStorage";
-import { changeFavoriteStatus } from "./FavoriteService";
-import { Filter } from "../Filter";
 import { mockFoodList } from "../../mocks/mockFoodList";
 import { loadFoodDetail } from "../page/loadFoodDetail";
+import { SortingFilter } from "../SortingFilter";
+import { favoriteFilter } from "../FavoriteFilter";
 
 // CRUD - create : mock Data
-export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {
+export function getFilteredFoodList({ showOnlyFavorites }: ReadFoodListType) {
   const previousFoodList = readStorageFoodList().filter((item: FoodType) => {
-    if (favoriteFilter) return item.favorite === true;
+    if (showOnlyFavorites) return item.favorite === true;
     return item;
   });
-  if (previousFoodList.length === 0 && !favoriteFilter) {
+  if (previousFoodList.length === 0 && !showOnlyFavorites) {
     setMockData();
   }
   return previousFoodList;
@@ -74,7 +74,7 @@ function createFoodItemComponent({
     foodItem: localFoodItem,
     handleModal: (foodItem) => openDetailModal({ foodItem }),
     handleTabButton: (event, foodItem) =>
-      changeFavoriteStatus({ event, foodItem }),
+      favoriteFilter.toggleStatus({ event, foodItem }),
   });
 }
 function openDetailModal({ foodItem }: OpenDetailModalType) {
@@ -93,12 +93,13 @@ function showFoodItem({ foodListComponent }: ShowFoodItemType) {
 }
 
 // 필더링된 데이터를 읽고 화면에 보여주기
-export function showConvertedItem({ favoriteFilter }: ShowConvertedItemType) {
-  const previousFoodList = getFilteredFoodList({ favoriteFilter });
-  const filter = new Filter();
+export function showConvertedItem({
+  showOnlyFavorites,
+}: ShowConvertedItemType) {
+  const previousFoodList = getFilteredFoodList({ showOnlyFavorites });
+  const filter = new SortingFilter();
   filter.saveCurrentFilter();
   createFoodListComponent({
-    //filter 필요함
     foodList: filter.sortedFoodList({ foodList: previousFoodList }),
   });
 }

@@ -1,5 +1,5 @@
-import { Filter } from "../../domain/Filter";
+import { SortingFilter } from "../../domain/SortingFilter";
 
 export interface SetFilteredItemsType {
-  filter: Filter;
+  filter: SortingFilter;
 }

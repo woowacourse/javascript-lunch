@@ -1,7 +1,7 @@
 import { FoodType } from "../component/FoodItemType";
 
 export interface ReadFoodListType {
-  favoriteFilter: boolean;
+  showOnlyFavorites: boolean;
 }
 
 export interface AddFoodItemType {
@@ -21,7 +21,7 @@ export interface OpenDetailModalType {
 }
 
 export interface ShowConvertedItemType {
-  favoriteFilter: boolean;
+  showOnlyFavorites: boolean;
 }
 
 export interface ShowFoodItemType {

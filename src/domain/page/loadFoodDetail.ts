@@ -3,7 +3,7 @@ import { ButtonContainer } from "../../component/button/ButtonContainer";
 import { FoodItem } from "../../component/FoodItem";
 import { Modal } from "../../component/layout/Modal";
 import { deleteFoodItem, updateFoodList } from "../service/FoodService";
-import { ChangeFavoriteStatusType } from "../../types/domain/FavoriteServiceType";
+import { ToggleStatusType } from "../../types/domain/FavoriteFilterType";
 import { LoadFoodDetailType } from "../../types/domain/LoadFoodDetailType";
 
 export function loadFoodDetail({ foodDetailItem }: LoadFoodDetailType) {
@@ -12,8 +12,7 @@ export function loadFoodDetail({ foodDetailItem }: LoadFoodDetailType) {
   const foodDetailInfo = FoodItem({
     foodItem: foodDetailItem,
     handleModal: () => {},
-    handleTabButton: (event, foodItem) =>
-      changeFavoriteStatus({ event, foodItem }),
+    handleTabButton: (event, foodItem) => toggleStatus({ event, foodItem }),
   });
 
   const linkCompennt = document.createElement("div");
@@ -44,7 +43,7 @@ export function loadFoodDetail({ foodDetailItem }: LoadFoodDetailType) {
   return container;
 }
 
-function changeFavoriteStatus({ foodItem }: ChangeFavoriteStatusType) {
+function toggleStatus({ foodItem }: ToggleStatusType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });
