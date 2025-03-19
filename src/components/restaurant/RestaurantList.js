@@ -13,7 +13,7 @@ function RestaurantList({ restaurants }) {
         children: restaurants.map((restaurant) =>
           RestaurantItem({
             ...restaurant,
-            icon: RestaurantIcon({ src: restaurant.icon.src, alt: restaurant.icon.category })
+            icon: RestaurantIcon({ src: restaurant.icon.src, alt: restaurant.category })
           })
         )
       })

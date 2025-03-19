@@ -184,6 +184,7 @@ body {
 .modal--open {
   display: block;
   height: auto;
+  z-index: 1;
 }
 
 .modal-backdrop {

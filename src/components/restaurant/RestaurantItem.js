@@ -12,7 +12,7 @@ function RestaurantItem({ id, name, distance, description, icon, link, category 
       createDOMElement({
         tag: 'div',
         className: 'restaurant__category',
-        children: [icon]
+        children: [icon.cloneNode(true)]
       }),
       createDOMElement({
         tag: 'div',
@@ -42,7 +42,7 @@ function RestaurantItem({ id, name, distance, description, icon, link, category 
       })
     ],
     onClick: () => {
-      Modal.open(DetailModal({ id, name, distance, description, link, icon }));
+      Modal.open(DetailModal({ id, name, distance, description, link, icon: icon.cloneNode(true) }));
     }
   });
 }
