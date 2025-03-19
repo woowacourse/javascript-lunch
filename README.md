@@ -91,4 +91,5 @@
 - [x] filter를 파라미터에서 전달받는 것을 없애기
 - [x] FoodListPage에서 반복되는 SortingFilter 부분 컴포넌트화
 - [x] FavoriteFilter 싱글톤 배턴으로 변경
+- [x] boolean type의 경우 is~ 로 명칭 통일
 - [ ] 모달창에서 DOM을 바꾸는데 얼마의 비용이 드는지 측정해보기. +) 별표를 눌렀을 때 화면에 반영되는 나만의 기준을 세워보기

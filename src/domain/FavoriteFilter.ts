@@ -21,7 +21,7 @@ class FavoriteFilter {
     const newFoodItem = foodItem;
     newFoodItem.favorite = !foodItem.favorite;
     updateFoodList({ foodItem });
-    showConvertedItem({ showOnlyFavorites: this.currentStatus() });
+    showConvertedItem({ isFavoriteFilterActive: this.currentStatus() });
     event.stopPropagation();
   }
 
@@ -36,7 +36,7 @@ class FavoriteFilter {
     cuttentButton.classList.toggle("selected-button");
     previousButton.classList.remove("selected-button");
     this.isFavorite = !this.isFavorite;
-    showConvertedItem({ showOnlyFavorites: this.isFavorite });
+    showConvertedItem({ isFavoriteFilterActive: this.isFavorite });
   }
 
   currentStatus() {

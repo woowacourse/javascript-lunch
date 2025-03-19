@@ -35,7 +35,7 @@ function setFilteredItems({ filter }: SetFilteredItemsType) {
       .querySelector(`select[name=${name}]`)
       ?.addEventListener("change", () => {
         const previousFoodList = getFilteredFoodList({
-          showOnlyFavorites: favoriteFilter.currentStatus(),
+          isFavoriteFilterActive: favoriteFilter.currentStatus(),
         });
 
         filter.chageFilter({
@@ -61,7 +61,7 @@ function setFavoriteFilter() {
   if (!buttons.total || !buttons.favorite) return;
 
   buttons.total.classList.toggle("selected-button");
-  showConvertedItem({ showOnlyFavorites: false });
+  showConvertedItem({ isFavoriteFilterActive: false });
 
   Object.entries(buttons).forEach(([_, button]) =>
     button?.addEventListener("click", () =>

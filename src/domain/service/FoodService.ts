@@ -24,12 +24,14 @@ import { SortingFilter } from "../SortingFilter";
 import { favoriteFilter } from "../FavoriteFilter";
 
 // CRUD - create : mock Data
-export function getFilteredFoodList({ showOnlyFavorites }: ReadFoodListType) {
+export function getFilteredFoodList({
+  isFavoriteFilterActive,
+}: ReadFoodListType) {
   const previousFoodList = readStorageFoodList().filter((item: FoodType) => {
-    if (showOnlyFavorites) return item.favorite === true;
+    if (isFavoriteFilterActive) return item.favorite === true;
     return item;
   });
-  if (previousFoodList.length === 0 && !showOnlyFavorites) {
+  if (previousFoodList.length === 0 && !isFavoriteFilterActive) {
     setMockData();
   }
   return previousFoodList;
@@ -94,9 +96,9 @@ function showFoodItem({ foodListComponent }: ShowFoodItemType) {
 
 // 필더링된 데이터를 읽고 화면에 보여주기
 export function showConvertedItem({
-  showOnlyFavorites,
+  isFavoriteFilterActive,
 }: ShowConvertedItemType) {
-  const previousFoodList = getFilteredFoodList({ showOnlyFavorites });
+  const previousFoodList = getFilteredFoodList({ isFavoriteFilterActive });
   const filter = new SortingFilter();
   filter.saveCurrentFilter();
   createFoodListComponent({

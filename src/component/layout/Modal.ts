@@ -33,6 +33,8 @@ export class Modal {
   static close() {
     const modalContent = document.querySelector(".modal");
     modalContent?.classList.remove("modal--open");
-    showConvertedItem({ showOnlyFavorites: favoriteFilter.currentStatus() });
+    showConvertedItem({
+      isFavoriteFilterActive: favoriteFilter.currentStatus(),
+    });
   }
 }
