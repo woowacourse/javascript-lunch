@@ -1,4 +1,3 @@
-import { Filter } from "../../domain/Filter";
 import { FoodType } from "../component/FoodItemType";
 
 export interface ReadFoodListType {
@@ -10,7 +9,6 @@ export interface AddFoodItemType {
 }
 
 export interface DeleteFoodItemType {
-  filter: Filter;
   newFoodItem: FoodType;
 }
 
@@ -19,12 +17,10 @@ export interface UpdateFoodListType {
 }
 
 export interface OpenDetailModalType {
-  filter: Filter;
   foodItem: FoodType;
 }
 
 export interface ShowConvertedItemType {
-  filter: Filter;
   favoriteFilter: boolean;
 }
 
@@ -33,11 +29,9 @@ export interface ShowFoodItemType {
 }
 
 export interface CreateFoodListComponentType {
-  filter: Filter;
   foodList: FoodType[];
 }
 
 export interface CreateFoodItemComponentType {
   localFoodItem: FoodType;
-  filter: Filter;
 }

@@ -8,21 +8,20 @@ import { favoriteState } from "./FavoriteService";
 import { FoodForm } from "../pages/FoodForm";
 import { FilterType } from "../types/domain/FilterType";
 import { InitAppStateType } from "../types/domain/InitAppStateType";
-import { Filter } from "./Filter";
 
 export function initAppState({ filter }: InitAppStateType) {
-  setFoodFormMoal({ filter });
+  setFoodFormMoal();
   setFilteredItems({ filter });
-  setFavoriteButton({ filter });
+  setFavoriteButton();
 }
 
 // FoodForm 생성
-function setFoodFormMoal({ filter }: InitAppStateType) {
+function setFoodFormMoal() {
   document.querySelector(".gnb__button")?.addEventListener("click", () => {
     const formContainer = document.createElement("div");
     formContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>`;
-    formContainer.appendChild(FoodForm({ filter: filter }));
-    Modal.setContent({ filter: filter, modalContent: formContainer });
+    formContainer.appendChild(FoodForm());
+    Modal.setContent({ modalContent: formContainer });
     Modal.open();
   });
 }
@@ -38,27 +37,26 @@ function setFilteredItems({ filter }: InitAppStateType) {
         });
 
         filter.chageFilter({
-          filter: name as FilterType,
+          filterName: name as FilterType,
         });
         const filteredItems = filter.filterFoodList({
           foodList: previousFoodList,
         });
 
         createFoodListComponent({
-          filter: filter,
           foodList: filteredItems,
         });
       });
   });
 }
 
-function setFavoriteButton({ filter }: InitAppStateType) {
+function setFavoriteButton() {
   const buttons = {
     total: document.querySelector(".tab-button .tab-button_all"),
     favorite: document.querySelector(".tab-button .tab-button_favorite"),
   };
   buttons.total?.classList.toggle("selected-button");
-  updateFoodList(false, filter);
+  updateFoodList(false);
 
   Object.entries(buttons).forEach(([key, button]) => {
     button?.addEventListener("click", () => {
@@ -67,11 +65,11 @@ function setFavoriteButton({ filter }: InitAppStateType) {
       buttons[key === "total" ? "favorite" : "total"]?.classList.remove(
         "selected-button"
       );
-      updateFoodList(key === "favorite", filter);
+      updateFoodList(key === "favorite");
     });
   });
 }
 
-function updateFoodList(isFavorite: boolean, filter: Filter) {
-  showConvertedItem({ filter, favoriteFilter: isFavorite });
+function updateFoodList(isFavorite: boolean) {
+  showConvertedItem({ favoriteFilter: isFavorite });
 }

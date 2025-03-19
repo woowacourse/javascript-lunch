@@ -4,12 +4,11 @@ import { showConvertedItem, updateFoodList } from "./FoodService";
 export function changeFavoriteStatus({
   event,
   foodItem,
-  filter,
 }: ChangeFavoriteStatusType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });
-  showConvertedItem({ filter, favoriteFilter: favoriteState() });
+  showConvertedItem({ favoriteFilter: favoriteState() });
   event.stopPropagation();
 }
 

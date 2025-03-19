@@ -1,10 +1,7 @@
 import { showConvertedItem } from "../../domain/FoodService";
 
 import { favoriteState } from "../../domain/FavoriteService";
-import {
-  ModalCloseContentType,
-  ModalSetContentType,
-} from "../../types/component/LayoutType";
+import { ModalSetContentType } from "../../types/component/LayoutType";
 
 export class Modal {
   static setDefaultModal() {
@@ -20,12 +17,12 @@ export class Modal {
     if (mainCotainer) mainCotainer.appendChild(container);
   }
 
-  static setContent({ filter, modalContent }: ModalSetContentType) {
+  static setContent({ modalContent }: ModalSetContentType) {
     const modalContainer = document.querySelector(".modal-container");
     modalContainer && (modalContainer.innerHTML = "");
     modalContainer?.appendChild(modalContent);
     document.querySelector(".modal-backdrop")?.addEventListener("click", () => {
-      Modal.close({ filter });
+      Modal.close(); // filter
     });
   }
 
@@ -34,9 +31,9 @@ export class Modal {
     modal?.classList.add("modal--open");
   }
 
-  static close({ filter }: ModalCloseContentType) {
+  static close() {
     const modalContent = document.querySelector(".modal");
     modalContent?.classList.remove("modal--open");
-    showConvertedItem({ favoriteFilter: favoriteState(), filter });
+    showConvertedItem({ favoriteFilter: favoriteState() });
   }
 }

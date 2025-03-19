@@ -28,11 +28,11 @@ export class FoodListPage {
   constructor({ title, iconButton = null }: FoodListPageType) {
     this.#body = null;
     this.#main = null;
-    this.loadHeader({ title, iconButton });
-    this.loadMain();
-    this.loadTabButton();
-    this.loadFilter();
-    this.loadFoodList();
+    this.#loadHeader({ title, iconButton });
+    this.#loadMain();
+    this.#loadTabButton();
+    this.#loadFilter();
+    this.#loadFoodList();
   }
 
   static loadPage({ title }: LoadFoodListType) {
@@ -45,7 +45,7 @@ export class FoodListPage {
     return new FoodListPage({ title, iconButton: AddFoodItemIcon });
   }
 
-  loadHeader({ title, iconButton }: LoadHeaderType) {
+  #loadHeader({ title, iconButton }: LoadHeaderType) {
     this.#body = document.querySelector("body");
     if (iconButton) {
       this.#body?.appendChild(Header({ title, icon: iconButton }));
@@ -54,12 +54,12 @@ export class FoodListPage {
     }
   }
 
-  loadMain() {
+  #loadMain() {
     this.#main = document.createElement("main");
     this.#body?.appendChild(this.#main);
   }
 
-  loadTabButton() {
+  #loadTabButton() {
     const container = document.createElement("div");
     container.className = "tab-button";
     container.innerHTML = `
@@ -69,7 +69,7 @@ export class FoodListPage {
     this.#main?.appendChild(container);
   }
 
-  loadFilter() {
+  #loadFilter() {
     const container = document.createElement("section");
     container.className = "restaurant-filter-container";
     container.innerHTML = `
@@ -90,7 +90,7 @@ export class FoodListPage {
     this.#main?.appendChild(container);
   }
 
-  loadFoodList() {
+  #loadFoodList() {
     const container = document.createElement("div");
     container.className = "restaurant-list-container";
     container.innerHTML = `

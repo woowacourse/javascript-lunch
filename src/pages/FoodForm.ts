@@ -6,10 +6,6 @@ import { Input } from "../component/input/Input.js";
 import { SelectInput } from "../component/input/SelectInput.js";
 import { TextareaInput } from "../component/input/TextareaInput.js";
 import { Modal } from "../component/layout/Modal.js";
-import {
-  AddFoodFormItemType,
-  FoodFormType,
-} from "../types/pages/FoodFormType.js";
 import { getFormFoodItem } from "../domain/getFormFoodItem.js";
 
 const SELECT_OPTIONS = {
@@ -32,7 +28,7 @@ const SELECT_OPTIONS = {
   ],
 };
 
-export function FoodForm({ filter }: FoodFormType) {
+export function FoodForm() {
   document.querySelector("form")?.reset();
   const container = document.createElement("form");
 
@@ -87,12 +83,12 @@ export function FoodForm({ filter }: FoodFormType) {
         Button({
           cssType: "secondary",
           innerText: "취소하기",
-          onClick: () => Modal.close({ filter }),
+          onClick: () => Modal.close(), // filter
         }),
         Button({
           cssType: "primary",
           innerText: "추가하기",
-          onClick: () => addFoodFormItem({ filter }),
+          onClick: () => addFoodFormItem(),
         }),
       ],
     })
@@ -101,9 +97,9 @@ export function FoodForm({ filter }: FoodFormType) {
   return container;
 }
 
-function addFoodFormItem({ filter }: AddFoodFormItemType) {
+function addFoodFormItem() {
   const foodItem = getFormFoodItem();
   if (!foodItem) return;
   addFoodItem({ foodItem });
-  Modal.close({ filter });
+  Modal.close(); // filter
 }

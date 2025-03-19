@@ -6,14 +6,14 @@ import { deleteFoodItem, updateFoodList } from "../domain/FoodService";
 import { ChangeFavoriteStatusType } from "../types/domain/FavoriteServiceType";
 import { FoodDetailType } from "../types/pages/FoodDetailType";
 
-export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
+export function FoodDetail({ foodDetailItem }: FoodDetailType) {
   const container = document.createElement("div");
 
   const foodDetailInfo = FoodItem({
     foodItem: foodDetailItem,
     handleModal: () => {},
     handleTabButton: (event, foodItem) =>
-      changeFavoriteStatus({ event, foodItem, filter }),
+      changeFavoriteStatus({ event, foodItem }),
   });
 
   const linkCompennt = document.createElement("div");
@@ -30,13 +30,12 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
         Button({
           cssType: "secondary",
           innerText: "삭제하기",
-          onClick: () =>
-            deleteFoodItem({ filter, newFoodItem: foodDetailItem }),
+          onClick: () => deleteFoodItem({ newFoodItem: foodDetailItem }),
         }),
         Button({
           cssType: "primary",
           innerText: "닫기",
-          onClick: () => Modal.close({ filter }),
+          onClick: Modal.close,
         }),
       ],
     })
@@ -45,13 +44,12 @@ export function FoodDetail({ filter, foodDetailItem }: FoodDetailType) {
   return container;
 }
 
-function changeFavoriteStatus({ foodItem, filter }: ChangeFavoriteStatusType) {
+function changeFavoriteStatus({ foodItem }: ChangeFavoriteStatusType) {
   const newFoodItem = foodItem;
   newFoodItem.favorite = !foodItem.favorite;
   updateFoodList({ foodItem });
 
   Modal.setContent({
-    filter,
-    modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
+    modalContent: FoodDetail({ foodDetailItem: foodItem }),
   });
 }

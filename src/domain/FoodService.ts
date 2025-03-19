@@ -21,6 +21,7 @@ import {
   updateStorageFoodList,
 } from "./FoodStorage";
 import { changeFavoriteStatus } from "./FavoriteService";
+import { Filter } from "./Filter";
 
 // CRUD - create : mock Data
 export function getFilteredFoodList({ favoriteFilter }: ReadFoodListType) {
@@ -50,38 +51,35 @@ export function updateFoodList({ foodItem }: UpdateFoodListType) {
 }
 
 // CRUD - delete
-export function deleteFoodItem({ filter, newFoodItem }: DeleteFoodItemType) {
+export function deleteFoodItem({ newFoodItem }: DeleteFoodItemType) {
   deleteStorageFoodList({ newFoodItem });
-  Modal.close({ filter });
+  Modal.close(); // filter
 }
 
 // < FoodItem-Data 관련 부가적인 기능 >
 // 화면에 보여주기
 export function createFoodListComponent({
-  filter,
   foodList,
 }: CreateFoodListComponentType) {
   const FoodItemListComponent = foodList.map((localFoodItem) => {
-    return createFoodItemComponent({ localFoodItem, filter });
+    return createFoodItemComponent({ localFoodItem });
   });
   showFoodItem({ foodListComponent: FoodItemListComponent || [] });
 }
 
 function createFoodItemComponent({
   localFoodItem,
-  filter,
 }: CreateFoodItemComponentType) {
   return FoodItem({
     foodItem: localFoodItem,
-    handleModal: (foodItem) => openDetailModal({ filter, foodItem }),
+    handleModal: (foodItem) => openDetailModal({ foodItem }),
     handleTabButton: (event, foodItem) =>
-      changeFavoriteStatus({ event, foodItem, filter }),
+      changeFavoriteStatus({ event, foodItem }),
   });
 }
-function openDetailModal({ filter, foodItem }: OpenDetailModalType) {
+function openDetailModal({ foodItem }: OpenDetailModalType) {
   Modal.setContent({
-    filter,
-    modalContent: FoodDetail({ filter, foodDetailItem: foodItem }),
+    modalContent: FoodDetail({ foodDetailItem: foodItem }),
   });
   Modal.open();
 }
@@ -95,13 +93,12 @@ function showFoodItem({ foodListComponent }: ShowFoodItemType) {
 }
 
 // 필더링된 데이터를 읽고 화면에 보여주기
-export function showConvertedItem({
-  favoriteFilter,
-  filter,
-}: ShowConvertedItemType) {
+export function showConvertedItem({ favoriteFilter }: ShowConvertedItemType) {
   const previousFoodList = getFilteredFoodList({ favoriteFilter });
+  const filter = new Filter();
+  filter.saveCurrentFilter();
   createFoodListComponent({
-    filter,
+    //filter 필요함
     foodList: filter.sortedFoodList({ foodList: previousFoodList }),
   });
 }
