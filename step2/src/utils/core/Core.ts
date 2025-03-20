@@ -1,14 +1,27 @@
 import { UnPack } from '../../types/common';
 import { debounce } from '../@common/debounce';
+import { $, isTarget } from '../@common/domHelper';
 
 export interface Dispatch<T> {
   (value: T): void;
+}
+
+export interface EventCallback {
+  (e: HTMLElementEventMap[keyof HTMLElementEventMap]): void;
+}
+
+export interface Event {
+  parentSelector: string;
+  targetSelector: string;
+  event: keyof HTMLElementEventMap;
+  callback: EventCallback;
 }
 
 interface Options<T = unknown> {
   currentStateKey: number;
   renderCount: number;
   states: T[];
+  events: Event[];
   root: null | Element;
   rootComponent: null | (() => string);
 }
@@ -18,6 +31,7 @@ function Core() {
     currentStateKey: 0,
     renderCount: 0,
     states: [],
+    events: [],
     root: null,
     rootComponent: null,
   };
@@ -43,9 +57,14 @@ function Core() {
   const _render = debounce(() => {
     const { root, rootComponent } = options;
     if (!root || !rootComponent) return;
+
     root.innerHTML = rootComponent();
     options.currentStateKey = 0;
     options.renderCount += 1;
+
+    _addEvent();
+
+    options.events = [];
   });
 
   function render(
@@ -57,7 +76,38 @@ function Core() {
     _render();
   }
 
-  return { useState, render };
+  function reRender() {
+    _render();
+  }
+
+  function useEvents(parentSelector: string) {
+    function addEvent(
+      event: Event['event'],
+      targetSelector: Event['targetSelector'],
+      callback: Event['callback']
+    ) {
+      const { events } = options;
+
+      events.push({ event, targetSelector, parentSelector, callback });
+    }
+
+    return [addEvent];
+  }
+
+  function _addEvent() {
+    options.events.forEach(
+      ({ parentSelector, targetSelector, event, callback }) => {
+        $(parentSelector)?.addEventListener(event, (e) => {
+          const $parent = $(parentSelector);
+
+          if (isTarget(e.target, { targetSelector, parentSelector }) && $parent)
+            callback(e);
+        });
+      }
+    );
+  }
+
+  return { useState, render, reRender, useEvents };
 }
 
-export const { useState, render } = Core();
+export const { useState, render, reRender, useEvents } = Core();
