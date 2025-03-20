@@ -1,6 +1,6 @@
 import { CATEGORY, ORDER, TAB } from '../src/constants/SETTING.js';
 
-export interface IRestaurantInfo {
+export interface RestaurantInfo {
   id?: number;
   category: CategoryType;
   name: string;
@@ -10,26 +10,26 @@ export interface IRestaurantInfo {
   link?: string;
 }
 
-export interface IFilterParams {
+export interface FilterParams {
   id: number;
   tab: TabType;
   order: OrderType;
   category: CategoryType;
 }
 
-export interface ISortResult {
-  originalList: IRestaurantInfo[];
-  filteredList: IRestaurantInfo[];
+export interface SortResult {
+  originalList: RestaurantInfo[];
+  filteredList: RestaurantInfo[];
 }
 
-export interface IAddRestaurantParams {
-  data: IRestaurantInfo;
+export interface AddRestaurantParams {
+  data: RestaurantInfo;
   tab: TabType;
   order: OrderType;
   category: CategoryType;
 }
 
-export interface ISortOptionsParams {
+export interface SortOptionsParams {
   tab: TabType;
   order: OrderType;
   category: CategoryType;

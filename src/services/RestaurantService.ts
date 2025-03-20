@@ -1,9 +1,9 @@
 import {
   CategoryType,
-  IAddRestaurantParams,
-  IFilterParams,
-  IRestaurantInfo,
-  ISortResult,
+  AddRestaurantParams,
+  FilterParams,
+  RestaurantInfo,
+  SortResult,
   OrderType,
 } from '../../types/restaurants.js';
 import RestaurantList from '../domains/RestaurantList.js';
@@ -18,19 +18,19 @@ class RestaurantService {
     this.#restaurantList = new RestaurantList(this.#restaurantStorage.getAllRestaurants());
   }
 
-  getOrderedRestaurants(order: OrderType): IRestaurantInfo[] {
+  getOrderedRestaurants(order: OrderType): RestaurantInfo[] {
     return this.#restaurantList.getOrderedRestaurantList(order);
   }
 
-  getFilteredRestaurants(category: CategoryType, order: OrderType): IRestaurantInfo[] {
+  getFilteredRestaurants(category: CategoryType, order: OrderType): RestaurantInfo[] {
     return this.#restaurantList.filterRestaurant(category, order);
   }
 
-  getFavoriteRestaurants(): IRestaurantInfo[] {
+  getFavoriteRestaurants(): RestaurantInfo[] {
     return this.#restaurantList.filterFavorite();
   }
 
-  toggleFavorite({ id, tab, category, order }: IFilterParams): ISortResult {
+  toggleFavorite({ id, tab, category, order }: FilterParams): SortResult {
     const result = this.#restaurantList.toggleFavorite({
       id,
       tab,
@@ -42,7 +42,7 @@ class RestaurantService {
     return result;
   }
 
-  addRestaurant({ data, tab, category, order }: IAddRestaurantParams): ISortResult {
+  addRestaurant({ data, tab, category, order }: AddRestaurantParams): SortResult {
     const result = this.#restaurantList.addRestaurant({
       data,
       tab,
@@ -54,7 +54,7 @@ class RestaurantService {
     return result;
   }
 
-  deleteRestaurant({ id, tab, category, order }: IFilterParams): ISortResult {
+  deleteRestaurant({ id, tab, category, order }: FilterParams): SortResult {
     const result = this.#restaurantList.deleteRestaurant({
       id,
       tab,

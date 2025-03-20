@@ -1,22 +1,22 @@
 import {
   CategoryType,
-  IAddRestaurantParams,
-  IFilterParams,
-  IRestaurantInfo,
-  ISortOptionsParams,
-  ISortResult,
+  AddRestaurantParams,
+  FilterParams,
+  RestaurantInfo,
+  SortOptionsParams,
+  SortResult,
   OrderType,
 } from '../../types/restaurants.js';
 import { CATEGORY_KEY, ORDER, TAB } from '../constants/SETTING.js';
 
 class RestaurantList {
-  #restaurants: IRestaurantInfo[] = [];
+  #restaurants: RestaurantInfo[] = [];
 
-  constructor(initialDatas: IRestaurantInfo[] = []) {
+  constructor(initialDatas: RestaurantInfo[] = []) {
     initialDatas.forEach((data) => this.#restaurants.push(data));
   }
 
-  getOrderedRestaurantList(order: OrderType): IRestaurantInfo[] {
+  getOrderedRestaurantList(order: OrderType): RestaurantInfo[] {
     if (order === ORDER.NAME) {
       return [...this.#restaurants].sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
     } else if (order === ORDER.DISTANCE) {
@@ -26,11 +26,11 @@ class RestaurantList {
     return [...this.#restaurants];
   }
 
-  filterFavorite(): IRestaurantInfo[] {
+  filterFavorite(): RestaurantInfo[] {
     return [...this.#restaurants].filter((data) => data.isFavorite);
   }
 
-  toggleFavorite({ id, tab, category, order }: IFilterParams) {
+  toggleFavorite({ id, tab, category, order }: FilterParams) {
     this.#restaurants = [...this.#restaurants].map((data) => {
       if (data.id === id) {
         return {
@@ -45,17 +45,17 @@ class RestaurantList {
     return this.sortByOptions({ tab, order, category });
   }
 
-  deleteRestaurant({ id, tab, order, category }: IFilterParams) {
+  deleteRestaurant({ id, tab, order, category }: FilterParams) {
     this.#restaurants = this.#restaurants.filter((data) => data.id !== id);
     return this.sortByOptions({ tab, order, category });
   }
 
-  addRestaurant({ data, tab, order, category }: IAddRestaurantParams) {
+  addRestaurant({ data, tab, order, category }: AddRestaurantParams) {
     this.#restaurants.push(data);
     return this.sortByOptions({ tab, order, category });
   }
 
-  sortByOptions({ tab, order, category }: ISortOptionsParams): ISortResult {
+  sortByOptions({ tab, order, category }: SortOptionsParams): SortResult {
     if (tab === TAB.ALL) {
       return {
         originalList: this.#restaurants,
@@ -74,7 +74,7 @@ class RestaurantList {
     };
   }
 
-  filterRestaurant(category: CategoryType, order: OrderType): IRestaurantInfo[] {
+  filterRestaurant(category: CategoryType, order: OrderType): RestaurantInfo[] {
     let filteredRestaurants;
 
     if (category === '전체') {

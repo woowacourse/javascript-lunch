@@ -1,7 +1,7 @@
-import { IRestaurantInfo } from '../../types/restaurants';
+import { RestaurantInfo } from '../../types/restaurants';
 
 const RestaurantValidator = {
-  validate(restaurantInput: IRestaurantInfo): boolean {
+  validate(restaurantInput: RestaurantInfo): boolean {
     if (!restaurantInput.category || !restaurantInput.name || !restaurantInput.distance) {
       alert('카테고리, 이름, 거리 항목은 필수 입력입니다.');
       return false;

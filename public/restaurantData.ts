@@ -1,6 +1,6 @@
-import { CategoryType, IRestaurantInfo } from '../types/restaurants';
+import { CategoryType, RestaurantInfo } from '../types/restaurants';
 
-const RESTAURANT_DATA: IRestaurantInfo[] = [
+const RESTAURANT_DATA: RestaurantInfo[] = [
   {
     id: 1,
     category: 'korean',

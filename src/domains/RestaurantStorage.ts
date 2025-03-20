@@ -1,25 +1,25 @@
 import { RESTAURANT_DATA } from '../../public/restaurantData';
-import { IRestaurantInfo } from '../../types/restaurants';
+import { RestaurantInfo } from '../../types/restaurants';
 import { LOCAL_STORAGE_KEY } from '../constants/SETTING';
 
 class RestaurantStorage {
   #key;
-  #restaurants: IRestaurantInfo[];
+  #restaurants: RestaurantInfo[];
 
   constructor() {
     this.#key = LOCAL_STORAGE_KEY;
     this.#restaurants = this.#loadData();
   }
 
-  getAllRestaurants(): IRestaurantInfo[] {
+  getAllRestaurants(): RestaurantInfo[] {
     return [...this.#restaurants];
   }
 
-  saveToStorage(data: IRestaurantInfo[]) {
+  saveToStorage(data: RestaurantInfo[]) {
     localStorage.setItem(this.#key, JSON.stringify(data));
   }
 
-  updateStorage(data: IRestaurantInfo[]): void {
+  updateStorage(data: RestaurantInfo[]): void {
     this.#restaurants = [...data];
     localStorage.setItem(this.#key, JSON.stringify(data));
   }
