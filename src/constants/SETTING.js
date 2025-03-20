@@ -18,7 +18,9 @@ export const CATEGORY = {
   ETC: '기타',
 };
 
-export const LOCAL_STORAGE_KEY = 'restaurant';
+export const LOCAL_STORAGE_KEY = {
+  RESTAURANT: 'restaurant',
+};
 
 export const MODAL_TYPE = {
   DETAIL: 'detail',

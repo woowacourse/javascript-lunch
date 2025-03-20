@@ -7,7 +7,7 @@ class RestaurantStorage {
   #restaurants: RestaurantInfo[];
 
   constructor() {
-    this.#key = LOCAL_STORAGE_KEY;
+    this.#key = LOCAL_STORAGE_KEY.RESTAURANT;
     this.#restaurants = this.#loadData();
   }
 
