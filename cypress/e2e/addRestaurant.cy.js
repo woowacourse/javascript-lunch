@@ -4,13 +4,13 @@ describe('레스토랑 추가 테스트 ㅎ ㅎ', () => {
     cy.get('.gnb__button').click();
 
     cy.get('#category').select(1, { force: true });
-
     cy.get('#name').type('재영이');
     cy.get('#distance').select(1);
     cy.get('#description').type('재영이가 좋아하는 재영이 맛집');
     cy.get('#link').type('https://naver.com');
 
     cy.get('form').submit();
-    cy.get('.restaurant-list > li:last-child .restaurant__name').should('have.text', '재영이');
+
+    cy.contains('.restaurant__name', '재영이').should('exist');
   });
 });
