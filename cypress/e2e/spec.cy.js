@@ -1,81 +1,86 @@
-import { ERROR } from "../../src/constants/messages";
+beforeEach(() => {
+  cy.visit('http://localhost:5173/');
+});
 
-context("공통 설정", () => {
-  beforeEach(() => {
-    cy.visit("http://localhost:5173/");
-  });
-
-  describe("초기 화면 렌더링 테스트", () => {
-    it("첫 화면 렌더링 시 음식점 목록이 보인다.", () => {
-      cy.get(".restaurant-list").should("be.visible");
+describe('탭 전환', () => {
+  it('자주 가는 음식점 탭 클릭 시 즐겨찾기된 음식점만 표시되어야 함', () => {
+    cy.get('#nav-tab-2').click();
+    cy.get('.restaurant').each(($el) => {
+      cy.wrap($el)
+        .find('.restaurant__favorite-button img')
+        .should('have.attr', 'src')
+        .and('include', 'favorite');
     });
   });
+});
 
-  describe("음식점 추가 모달 기능 정상 동작 테스트", () => {
-    it("목록 추가 아이콘 클릭 시 음식점 추가 모달이 화면에 보인다.", () => {
-      cy.get(".modal-container").should("not.be.visible");
-      cy.get(".gnb__button").click();
-      cy.get(".modal-container").should("be.visible");
-    });
-
-    it("음식점 추가 모달에서 추가하기 버튼 클릭 시 restaurantList에 추가된다.", () => {
-      cy.get(".restaurant").then(($items) => {
-        const initialLength = $items.length;
-
-        cy.get(".gnb__button").click();
-        cy.get("#category").select("한식");
-        cy.get("#name").type("테스트음식점");
-        cy.get("#distance").select("10");
-        cy.get("#add-button").click();
-        cy.get(".restaurant-list").should("contain", "테스트음식점");
-        cy.get(".restaurant").should("have.length", initialLength + 1);
-      });
-    });
-
-    it("음식점 추가 모달에서 취소하기 버튼 클릭 시 모달이 닫힌다", () => {
-      cy.get(".modal-container").should("not.be.visible");
-      cy.get(".gnb__button").click();
-      cy.get(".modal-container").should("be.visible");
-
-      cy.get("#cancel-button").click();
-      cy.get(".modal-container").should("not.be.visible");
-    });
+describe('필터링', () => {
+  it('카테고리 필터 동작 확인', () => {
+    cy.get('#category-filter').select('한식');
+    cy.get('.restaurant').should('have.length.gt', 0);
   });
 
-  describe("음식점 추가 모달 기능 실패 동작 테스트", () => {
-    it("필수입력 값이 입력되지 않으면 alert가 작동한다", () => {
-      cy.get(".gnb__button").click();
-      cy.get("#category").select("한식");
-      cy.get("#distance").select("10");
+  it('정렬 필터 동작 확인', () => {
+    cy.get('#sorting-filter').select('거리순');
+    cy.wait(100); //상태 변화 대기 시간
 
-      cy.window().then((win) => {
-        cy.spy(win, "alert").as("alertSpy");
-      });
-
-      cy.get("#add-button").click();
-
-      cy.get("@alertSpy").should(
-        "have.been.calledOnceWith",
-        ERROR.INVALID_INPUT_REQUIRED
-      );
+    cy.get('.restaurant').each(($el) => {
+      let previousDistance = 0;
+      cy.wrap($el)
+        .find('.restaurant__distance')
+        .invoke('text')
+        .then((text) => {
+          const distance = parseInt(text.match(/\d+/)[0]);
+          expect(distance).to.be.at.least(previousDistance);
+          previousDistance = distance;
+        });
     });
+  });
+});
 
-    it("이름 입력값이 공백이면 alert가 작동한다", () => {
-      cy.get(".gnb__button").click();
-      cy.get("#category").select("한식");
-      cy.get("#distance").select("10");
-      cy.get("#name").type(" ");
+describe('좋아요 기능', () => {
+  it('좋아요 버튼 클릭 시 상태가 변경되어야 함', () => {
+    cy.get('.restaurant__favorite-button').first().click();
+    cy.get('.restaurant__favorite-button img')
+      .should('have.attr', 'src')
+      .and('include', 'favorite');
+  });
 
-      cy.window().then((win) => {
-        cy.spy(win, "alert").as("alertSpy");
-      });
+  it('좋아요 상태가 localStorage에 저장되어야 함', () => {
+    cy.get('.restaurant__favorite-button').first().click();
+    cy.window()
+      .its('localStorage')
+      .invoke('getItem', 'restaurant')
+      .should('include', '"isFavorite":true');
+  });
+});
 
-      cy.get("#link").click();
+describe('바텀시트', () => {
+  it('레스토랑 클릭 시 바텀시트가 열려야 함', () => {
+    cy.get('.restaurant__container').first().click();
+    cy.get('.modal-container').should('be.visible');
+  });
 
-      cy.get("@alertSpy").should(
-        "have.been.calledOnceWith",
-        ERROR.INVALID_EMPTY_INPUT
-      );
-    });
+  it('바텀시트에서 좋아요 토글이 동작해야 함', () => {
+    cy.get('.restaurant__container').first().click();
+    cy.get('.modal .restaurant__favorite-button').click();
+    cy.get('.restaurant__favorite-button img')
+      .should('have.attr', 'src')
+      .and('include', 'favorite');
+  });
+
+  it('바텀시트 닫기가 정상 동작해야 함', () => {
+    cy.get('.restaurant__container').first().click();
+    cy.get('#bottom-sheet-restaurant-close-button').click();
+    cy.get('.modal-container').should('not.exist');
+  });
+
+  it('바텀시트 내 삭제하기 버튼 클릭 시 로컬 스토리지에서 삭제 되어야 함', () => {
+    cy.get('.restaurant__container').first().click();
+    cy.get('#bottom-sheet-restaurant-delete-button').click();
+    cy.window()
+      .its('localStorage.restaurant')
+      .then(JSON.parse)
+      .should('have.length', 5);
   });
 });

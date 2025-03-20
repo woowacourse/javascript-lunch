@@ -22,5 +22,16 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "types"]
+  "include": [
+    "step2",
+    "src",
+    "types",
+    "components",
+    "App.ts",
+    "constants",
+    "hooks",
+    "mocks",
+    "utils",
+    "assets"
+  ]
 }
