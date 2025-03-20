@@ -34,3 +34,14 @@ export const sorting = (
 ) => {
   return sortCallback(restaurantList);
 };
+
+export const filterByFavorite = (
+  restaurants: RestaurantInfoWithAdditionalInfo[],
+  restaurantId: string
+) => {
+  return restaurants.map((restaurant) =>
+    restaurant.id === restaurantId
+      ? { ...restaurant, isFavorite: !restaurant.isFavorite }
+      : restaurant
+  );
+};
