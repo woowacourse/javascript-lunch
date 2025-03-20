@@ -41,6 +41,10 @@ function createRestaurantItem({ data, onClickItem, onClickStar, detail = false }
 
   const { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara } = createTags(data);
 
+  if (!detail) {
+    restaurantItem.style.cursor = 'pointer';
+  }
+
   if (onClickItem) {
     restaurantItem.addEventListener('click', (event) => {
       onClickItem(event, data);
