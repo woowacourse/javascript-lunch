@@ -1,4 +1,6 @@
-export const restaurants = [
+import { RestaurantInfo } from "../lunchRestaurantsService.ts";
+
+export const restaurants: RestaurantInfo[] = [
   {
     category: "한식",
     name: "피양콩할마니",

@@ -6,7 +6,7 @@ class Modal extends Component {
     this.state = {
       isOpen: false,
     };
-    this.closeModalByClick = this.close.bind(this);
+    this.closeModal = this.close.bind(this);
   }
 
   contents() {
@@ -14,10 +14,12 @@ class Modal extends Component {
   }
 
   componentDidMount() {
-    this.$backdrop = $(".modal-backdrop");
+    this.$backdrop = $(document, ".modal-backdrop");
     if (this.$backdrop) {
-      this.$backdrop.removeEventListener("click", this.closeModalByClick);
-      this.$backdrop.addEventListener("click", this.closeModalByClick);
+      this.$backdrop.removeEventListener("click", this.closeModal);
+      this.$backdrop.addEventListener("click", this.closeModal);
+
+      window.addEventListener("keydown", this.closeModalByEscapeKey);
     }
   }
 
@@ -26,6 +28,8 @@ class Modal extends Component {
       this.initialRender();
     }
   }
+
+  componentWillUnmount() {}
 
   template() {
     if (!this.state.isOpen) return "";
@@ -46,11 +50,20 @@ class Modal extends Component {
   }
 
   close() {
+    window.removeEventListener("keydown", this.closeModalByEscapeKey);
+
     if (this.state.isOpen) {
+      this.componentWillUnmount();
       this.setState({ isOpen: false });
       this.$target.replaceChildren();
     }
   }
+
+  closeModalByEscapeKey = (event) => {
+    if (event.key === "Escape") {
+      this.close();
+    }
+  };
 }
 
 export default Modal;

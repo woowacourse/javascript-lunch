@@ -1,47 +1,245 @@
-import image from "../public/icons/favorite-icon-filled.png";
-import Header from "./components/Header.js";
-import RestaurantList from "./components/RestaurantList.js";
-import { restaurants } from "./database/restaurants.js";
-import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
-import Modal from "./components/modal/Modal.js";
 import Component from "./components/core/Component.js";
-import { $ } from "./utils/selector.js";
+import Header from "./components/Header.js";
+import TabNavigation from "./components/TabNavigation.js";
+import Modal from "./components/common/Modal.js";
+import AddRestaurantModal from "./components/modal/AddRestaurantModal/index.js";
+import RestaurantInfoModal from "./components/modal/RestaurantInfoModal/index.js";
+import RestaurantList from "./components/RestaurantList.js";
 import RestaurantItem from "./components/RestaurantItem.js";
+import CategoryFilter from "./components/CategoryFilter.js";
+import SortingFilter from "./components/SortingFilter.js";
+
+import { $ } from "./utils/selector.js";
+
+import lunchRestaurantsService from "./domain/lunchRestaurantsService.js";
+
+import emptyStar from "../public/icons/favorite-icon-lined.png";
+import filledStar from "../public/icons/favorite-icon-filled.png";
 
 class App extends Component {
   setup() {
     this.state = {
-      restaurants: restaurants,
+      restaurants: this.props.lunchDomain.getRestaurants(),
+      activeTab: "all",
     };
+    this.props.lunchDomain.saveRestaurants(this.state.restaurants);
   }
 
   updateRestaurant(newRestaurant) {
-    this.setState({
-      restaurants: [...this.state.restaurants, newRestaurant],
-    });
-    this.updateNewRestaurant(newRestaurant);
+    const { newRestaurantList, newRestaurantWithId } =
+      this.props.lunchDomain.addRestaurant(
+        this.state.restaurants,
+        newRestaurant
+      );
+    this.setState({ restaurants: newRestaurantList });
+
+    this.addNewRestaurantToUI(newRestaurantWithId);
   }
 
-  updateNewRestaurant(newRestaurant) {
-    const $restaurantList = $(".restaurant-list");
+  addNewRestaurantToUI(newRestaurant) {
+    const $categoryFilter = $(document, "#category-filter");
+    if (
+      $categoryFilter.value !== "전체" &&
+      $categoryFilter.value !== newRestaurant.category
+    ) {
+      return;
+    }
 
+    const $restaurantList = $(document, ".restaurant-list");
     $restaurantList.insertAdjacentHTML(
       "afterbegin",
       RestaurantItem(newRestaurant)
     );
   }
 
+  deleteRestaurant(targetRestaurant) {
+    const updatedList = this.props.lunchDomain.deleteRestaurant(
+      this.state.restaurants,
+      targetRestaurant
+    );
+    this.setState({ restaurants: updatedList });
+
+    this.renderDeleteRestaurant(targetRestaurant);
+  }
+
+  renderDeleteRestaurant(targetRestaurant) {
+    const { id } = targetRestaurant;
+    const $targetRestaurant = $(document, `#${id}`);
+    $targetRestaurant.remove();
+  }
+
+  handleTabChange(tab) {
+    this.setState({ activeTab: tab });
+    this.renderTabByFilter();
+  }
+
   template() {
     return /*html*/ `
-        <main></main>
+        <main>
+          <section class="restaurant-filter-container"></section>
+          <div class="restaurant-list-container"></div>
+        </main>
         <div id="modal"></div>
     `;
   }
 
-  componentDidUpdate() {}
+  renderCategoryFilter($restaurantFilterContainer) {
+    $restaurantFilterContainer.insertAdjacentHTML(
+      "beforeend",
+      CategoryFilter()
+    );
+
+    const $categoryFilter = $($restaurantFilterContainer, "#category-filter");
+
+    $categoryFilter.addEventListener("change", (event) => {
+      const restaurantSection = $(document, ".restaurant-list-container");
+      restaurantSection.remove();
+
+      const category = event.target.value;
+      const $sortingFilter = $($restaurantFilterContainer, "#sorting-filter");
+      const sorting = $sortingFilter.value;
+
+      this.renderRestaurantList(
+        this.props.lunchDomain.filterAndSortRestaurants(
+          this.state.restaurants,
+          sorting,
+          category
+        )
+      );
+    });
+  }
+
+  renderSortingFilter($restaurantFilterContainer) {
+    $restaurantFilterContainer.insertAdjacentHTML("beforeend", SortingFilter());
+    const $sortingFilter = $($restaurantFilterContainer, "#sorting-filter");
+
+    $sortingFilter.addEventListener("change", (event) => {
+      const restaurantSection = $(document, ".restaurant-list-container");
+      restaurantSection.remove();
+
+      const $categoryFilter = $($restaurantFilterContainer, "#category-filter");
+      const category = $categoryFilter.value;
+      const sorting = event.target.value;
+
+      this.renderRestaurantList(
+        this.props.lunchDomain.filterAndSortRestaurants(
+          this.state.restaurants,
+          sorting,
+          category
+        )
+      );
+    });
+  }
+
+  renderRestaurantList(restaurants) {
+    const $main = $(document, "main");
+    $main.insertAdjacentHTML("beforeend", RestaurantList(restaurants));
+
+    $(document, "#restaurant-list").addEventListener("click", (event) => {
+      const restaurantItem = event.target.closest("li");
+      const restaurant = this.state.restaurants.find(
+        ({ id }) => id === restaurantItem.id
+      );
+
+      const $button = event.target.closest("button");
+      if ($button && $button.dataset.buttonid === restaurant.id) {
+        this.toggleFavoriteRestaurantAndUpdateState(restaurant, $button);
+        return;
+      }
+
+      this.openRestaurantInfoModal(restaurant);
+    });
+  }
+
+  openRestaurantInfoModal(restaurant) {
+    const changeLocalStorageState = (restaurant) => {
+      const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
+        this.state.restaurants,
+        restaurant.id
+      );
+      this.setState({ restaurants: updatedList });
+
+      const updatedRestaurant = updatedList.find(
+        ({ id }) => id === restaurant.id
+      );
+
+      this.toggleFavoriteToUI(
+        updatedList,
+        restaurant,
+        $(document, "#restaurant-info-container")
+      );
+    };
+
+    const restaurantInfoModal = new RestaurantInfoModal($(document, "#modal"), {
+      data: restaurant,
+      deleteRestaurant: this.deleteRestaurant.bind(this),
+      changeLocalStorageState,
+    });
+    restaurantInfoModal.open();
+  }
+
+  toggleFavoriteRestaurantAndUpdateState(restaurant, $button) {
+    const updatedList = this.props.lunchDomain.toggleFavoriteRestaurant(
+      this.state.restaurants,
+      restaurant.id
+    );
+    this.setState({ restaurants: updatedList });
+
+    this.toggleFavoriteToUI(updatedList, restaurant, $button);
+  }
+
+  toggleFavoriteToUI(updatedList, restaurant, $target) {
+    const updatedRestaurant = updatedList.find(
+      ({ id }) => id === restaurant.id
+    );
+
+    const $img = $($target, ".favorite-icon");
+    if ($img) {
+      $img.setAttribute(
+        "src",
+        updatedRestaurant.isFavorite ? filledStar : emptyStar
+      );
+    }
+  }
+
+  renderTabByFilter() {
+    const restaurantSection = $(document, ".restaurant-list-container");
+    restaurantSection.remove();
+
+    const $restaurantFilterContainer = $(
+      document,
+      ".restaurant-filter-container"
+    );
+    $restaurantFilterContainer.replaceChildren();
+
+    if (this.state.activeTab === "all") {
+      this.renderAllTab($restaurantFilterContainer);
+      return;
+    }
+
+    this.renderFavoriteTab();
+  }
+
+  renderAllTab($restaurantFilterContainer) {
+    this.renderCategoryFilter($restaurantFilterContainer);
+    this.renderSortingFilter($restaurantFilterContainer);
+    this.renderRestaurantList(
+      this.props.lunchDomain.filterAndSortRestaurants(this.state.restaurants)
+    );
+  }
+
+  renderFavoriteTab() {
+    const restaurantsToRender = this.state.restaurants.filter(
+      ({ isFavorite }) => isFavorite
+    );
+
+    this.renderRestaurantList(
+      this.props.lunchDomain.filterAndSortRestaurants(restaurantsToRender)
+    );
+  }
 
   componentDidMount() {
-    const $modal = new AddRestaurantModal($("#modal"), {
+    const $modal = new AddRestaurantModal($(document, "#modal"), {
       updateRestaurant: this.updateRestaurant.bind(this),
     });
 
@@ -52,15 +250,7 @@ class App extends Component {
       $modal.open();
     };
 
-    const closeModalByEscapeKey = (event) => {
-      if ($modal && event.key === "Escape") {
-        $modal.close();
-      }
-    };
-
-    window.addEventListener("keydown", closeModalByEscapeKey);
-
-    const $header = new Header($("#app"), {
+    const $header = new Header($(document, "#app"), {
       data: {
         title: "점심 뭐 먹지",
         ariaLabel: "음식점 추가",
@@ -68,20 +258,16 @@ class App extends Component {
         iconImageSource: "./icons/add-button.png",
         alt: "음식점 추가",
       },
-      buttonCallback: { openModal },
+      buttonCallback: openModal,
     });
 
-    this.renderRestaurantList();
-  }
+    new TabNavigation($(document, "main"), {
+      onTabChange: this.handleTabChange.bind(this),
+    });
 
-  renderRestaurantList() {
-    const $main = $("main");
-    $main.insertAdjacentHTML(
-      "afterbegin",
-      RestaurantList(this.state.restaurants)
-    );
+    this.renderTabByFilter();
   }
 }
 
-const app = $("#app");
-new App(app);
+const app = $(document, "#app");
+new App(app, { lunchDomain: lunchRestaurantsService });

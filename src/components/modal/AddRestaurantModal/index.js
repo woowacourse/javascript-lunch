@@ -1,4 +1,4 @@
-import Modal from "../Modal.js";
+import Modal from "../../common/Modal.js";
 import Category from "./Category.js";
 import RestaurantName from "./RestaurantName.js";
 import Distance from "./Distance.js";
@@ -38,13 +38,13 @@ class AddRestaurantModal extends Modal {
   }
 
   addEventListeners() {
-    const $cancelButton = $("#cancel-add-restaurant-form");
-    const $addForm = $("#add-restaurant-form");
+    const $cancelButton = $(document, "#cancel-add-restaurant-form");
+    const $addForm = $(document, "#add-restaurant-form");
 
-    $cancelButton.removeEventListener("click", this.closeModalByClick);
+    $cancelButton.removeEventListener("click", this.closeModal);
     $addForm.removeEventListener("submit", this.updateRestaurantList);
 
-    $cancelButton.addEventListener("click", this.closeModalByClick);
+    $cancelButton.addEventListener("click", this.closeModal);
     $addForm.addEventListener("submit", this.updateRestaurantList);
   }
 
