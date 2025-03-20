@@ -4,10 +4,10 @@ import RestaurantAddModal from './components/modal/RestaurantAddModal.js';
 import RestaurantList from './components/restaurant/RestaurantList.js';
 import { $ } from './util/selector.js';
 import DropdownContainer, { filterAndSortRestaurants } from './components/dropdown/DropdownContainer.js';
-import Tab from './components/tab/Tab.js';
 import modalInstance from '../src/components/Modal.js';
 import { addRestaurant } from './service/restaurantService.js';
 import { Category } from './type.js';
+import RestaurantTab from './components/tab/RestaurantTab.ts';
 
 addEventListener('load', () => {
   renderHeader();
@@ -26,7 +26,7 @@ const renderHeader = () => {
 const renderTab = () => {
   const main = $('main');
 
-  main.prepend(Tab());
+  main.prepend(RestaurantTab());
 };
 
 const renderRestaurantList = async () => {
