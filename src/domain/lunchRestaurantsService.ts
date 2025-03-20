@@ -6,9 +6,11 @@ import { restaurants } from "./database/restaurants.js";
 import { makeUniqueId } from "../utils/makeUniqueId.js";
 import sortAndFilter from "./utils/sortAndFilter.js";
 import { SortOptions, CategoryFilterOptions } from "./utils/sortAndFilter.js";
+import RESTAURANT_RULES from "../constants/rules.js";
 
-export type Category = "한식" | "중식" | "일식" | "양식" | "아시안" | "기타";
-type Distance = 5 | 10 | 15 | 20 | 30;
+export type Category = (typeof RESTAURANT_RULES.CATEGORIES)[number];
+
+type Distance = (typeof RESTAURANT_RULES.DISTANCES)[number];
 
 export interface RestaurantInfo {
   category: Category;
