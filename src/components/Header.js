@@ -17,10 +17,10 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    const openModal = this.props.buttonCallback;
+    const buttonCallback = this.props.buttonCallback;
 
     const $gnbButton = $(document, ".gnb__button");
-    $gnbButton.addEventListener("click", openModal);
+    $gnbButton.addEventListener("click", buttonCallback);
   }
 }
 
