@@ -20,8 +20,8 @@ import {
 } from "./FoodStorage";
 import { mockFoodList } from "../../mocks/mockFoodList";
 import { loadFoodDetail } from "../page/loadFoodDetail";
-import { SortingFilter } from "../SortingFilter";
 import { favoriteFilter } from "../FavoriteFilter";
+import { sortingFilter } from "../SortingFilter";
 
 // CRUD - create : mock Data
 export function favoriteFilteredFoodList({
@@ -101,10 +101,9 @@ export function renderFilteredFoodList({
   const favoriteFilteredFoodlist = favoriteFilteredFoodList({
     isFavoriteFilterActive,
   });
-  const filter = new SortingFilter();
-  filter.saveCurrentFilter();
+  sortingFilter.saveCurrentFilter();
   createFoodListComponent({
-    foodList: filter.filterAndSortFoodList({
+    foodList: sortingFilter.filterAndSortFoodList({
       foodList: favoriteFilteredFoodlist,
     }),
   });

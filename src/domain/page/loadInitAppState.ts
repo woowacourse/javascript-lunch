@@ -4,15 +4,13 @@ import {
   favoriteFilteredFoodList,
   renderFilteredFoodList,
 } from "../service/FoodService";
-import { SetFilteredItemsType } from "../../types/domain/InitAppStateType";
 import { loadFoodForm } from "./loadFoodForm";
-import { SortingFilter } from "../SortingFilter";
 import { favoriteFilter } from "../FavoriteFilter";
+import { sortingFilter } from "../SortingFilter";
 
 export function loadInitAppState() {
-  const filter = new SortingFilter();
   setFoodFormMoal();
-  setFilteredItems({ filter });
+  setFilteredItems();
   setFavoriteFilter();
 }
 
@@ -28,7 +26,7 @@ function setFoodFormMoal() {
 }
 
 // SortingFilter 기능 설정
-function setFilteredItems({ filter }: SetFilteredItemsType) {
+function setFilteredItems() {
   const filterTabs = ["category", "sorting"] as const;
 
   filterTabs.forEach((name) => {
@@ -39,10 +37,10 @@ function setFilteredItems({ filter }: SetFilteredItemsType) {
           isFavoriteFilterActive: favoriteFilter.currentStatus(),
         });
 
-        filter.chageFilter({
+        sortingFilter.chageFilter({
           filterName: name,
         });
-        const filteredItems = filter.filterAndSortFoodList({
+        const filteredItems = sortingFilter.filterAndSortFoodList({
           foodList: previousFoodList,
         });
 

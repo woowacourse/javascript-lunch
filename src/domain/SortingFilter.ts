@@ -13,13 +13,21 @@ const CATEGORY_OPTIONS = {
   default: "전체",
 };
 
-export class SortingFilter {
+class SortingFilter {
+  static instance: SortingFilter;
   #categoryFilter;
   #sortingFilter;
 
   constructor() {
     this.#categoryFilter = CATEGORY_OPTIONS.default;
     this.#sortingFilter = SORTING_OPTIONS.name;
+  }
+
+  static getInstance(): SortingFilter {
+    if (!SortingFilter.instance) {
+      SortingFilter.instance = new SortingFilter();
+    }
+    return SortingFilter.instance;
   }
 
   chageFilter({ filterName }: ChangeCategoryType) {
@@ -63,3 +71,5 @@ export class SortingFilter {
     this.#sortingFilter = sortingFilter;
   }
 }
+
+export const sortingFilter = SortingFilter.getInstance();
