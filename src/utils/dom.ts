@@ -29,3 +29,23 @@ export const renderElement = (
     targetElement.insertAdjacentHTML(position, component);
   }
 };
+
+// export const createDOMElement = <K extends keyof HTMLElementTagNameMap>(
+//   tagName: K,
+//   attributes: Partial<HTMLElementTagNameMap[K]>,
+//   children: string[] = [],
+// ) => {
+//   const element = document.createElement(tagName) as HTMLElement;
+
+//   Object.entries(attributes).forEach(([key, value]) => {
+//     element.setAttribute(key, value);
+//   });
+
+//   if (children.length > 0) {
+//     children.forEach((child) => {
+//       element.append(child);
+//     });
+//   }
+
+//   return element;
+// };

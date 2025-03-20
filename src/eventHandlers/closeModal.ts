@@ -24,7 +24,11 @@ function closeModal() {
   const handleEscapeKeydown = (event: KeyboardEvent) => {
     const openedModals = [...selectElements('.modal--open')];
     if (event.key === 'Escape' && openedModals.length > 0) {
-      const targetModal = openedModals.pop() as HTMLDivElement;
+      const targetModal = openedModals.pop();
+
+      if (!(targetModal instanceof HTMLDivElement)) {
+        return;
+      }
 
       resetForm();
       targetModal.classList.remove('modal--open');

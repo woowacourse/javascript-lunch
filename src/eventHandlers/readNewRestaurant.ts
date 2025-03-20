@@ -21,13 +21,29 @@ function readNewRestaurant(dataHandler: (data: RestaurantInput) => void, rendere
 }
 
 function extractFormData(): RestaurantInput {
-  return {
-    category: (selectElement('#category') as HTMLSelectElement).value,
-    name: (selectElement('#name') as HTMLInputElement).value,
-    distance: Number((selectElement('#distance') as HTMLSelectElement).value.replace('분 내', '')),
-    description: (selectElement('#description') as HTMLTextAreaElement).value,
-    link: (selectElement('#link') as HTMLInputElement).value,
-  };
+  const category = selectElement('#category');
+  const name = selectElement('#name');
+  const distance = selectElement('#distance');
+  const description = selectElement('#description');
+  const link = selectElement('#link');
+
+  if (
+    category instanceof HTMLSelectElement &&
+    name instanceof HTMLInputElement &&
+    distance instanceof HTMLSelectElement &&
+    description instanceof HTMLTextAreaElement &&
+    link instanceof HTMLInputElement
+  ) {
+    return {
+      category: category.value,
+      name: name.value,
+      distance: Number(distance.value.replace('분 내', '')),
+      description: description.value,
+      link: link.value,
+    };
+  }
+
+  throw new Error('form 요소의 값이 존재하지 않습니다.');
 }
 
 export default readNewRestaurant;

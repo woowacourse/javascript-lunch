@@ -13,8 +13,10 @@ function deleteRestaurant(dataHandler: (id: number) => void, renderer: () => voi
     renderer();
   };
 
-  const deleteItemButton = selectElement('.delete-item-button') as HTMLButtonElement;
-  deleteItemButton.addEventListener('click', handleDeleteClick);
+  const deleteItemButton = selectElement('.delete-item-button');
+  if (deleteItemButton instanceof HTMLButtonElement) {
+    deleteItemButton.addEventListener('click', handleDeleteClick);
+  }
 }
 
 export default deleteRestaurant;
