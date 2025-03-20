@@ -7,6 +7,7 @@ import { isValidStringLength } from "../../validate/isValidStringLength";
 export const getInfo = () => {
   const form = $("#register-form");
   const formData = new FormData(form);
+  console.log(formData.entries());
   const info = Object.fromEntries(formData.entries());
 
   clearError();

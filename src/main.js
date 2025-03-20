@@ -10,6 +10,8 @@ import Tab from "./components/Tab";
 import storage from "./domain/storage.ts";
 import { restaurants } from "./restaurantListData";
 import { clearInput } from "./utils/clearInput.js";
+import renderAllpage from "./ui/renderAllpage.js";
+import renderFavoritePage from "./ui/renderFavoritePage.js";
 
 addEventListener("load", () => {
   initStorage();
@@ -25,10 +27,14 @@ addEventListener("load", () => {
   restaurantList.setNameOrDistance(nameOrDistance);
 
   const app = $("#app");
-  
+
   app.prepend(header());
 
-  $("nav").appendChild(Tab(restaurantList));
+  $("nav").appendChild(
+    Tab(restaurantList, (seletedTab) =>
+      renderPageContent(seletedTab, restaurantList)
+    )
+  );
 
   $("main").appendChild(
     Modal({
@@ -74,5 +80,13 @@ const initStorage = () => {
   }
   if (storage.loadTabInfo() === null) {
     storage.saveTabInfo("all");
+  }
+};
+
+const renderPageContent = (selectedTab, restaurantList) => {
+  if (selectedTab === "all") {
+    renderAllpage(restaurantList);
+  } else {
+    renderFavoritePage(restaurantList);
   }
 };

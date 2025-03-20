@@ -1,16 +1,11 @@
 import { FOOD_CATEGORY } from "../../../constants/foodCategory";
 import storage from "../../../domain/storage.ts";
-import renderFilteredRestaurants from "../../../ui/renderFilteredRestaurant.js";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
 import Select from "../../common/Select";
 
-const CategorySelector = (restaurantList) => {
+const CategorySelector = (handleSeletedCatetoryChanged) => {
   const events = {
-    change: (e) => {
-      storage.saveCategory(e.target.value);
-      restaurantList.setCategory(e.target.value);
-      renderFilteredRestaurants(restaurantList);
-    },
+    change: (e) => handleSeletedCatetoryChanged(e),
   };
 
   return Select({

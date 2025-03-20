@@ -1,11 +1,9 @@
 import storage from "../../domain/storage.ts";
-import renderAllpage from "../../ui/renderAllpage.js";
-import renderFavoritePage from "../../ui/renderFavoritePage";
 import createElement from "../../utils/createElement/createElement";
 import { $ } from "../../utils/dom";
 import TabItem from "./TabItem";
 
-const Tab = (restaurantList) => {
+const Tab = (handleSeletedTabChange) => {
   const allTab = TabItem({
     text: "모든 음식점",
     selected: true,
@@ -17,7 +15,7 @@ const Tab = (restaurantList) => {
         $(".tab--selected").classList.remove("tab--selected");
         e.target.classList.add("tab--selected");
 
-        renderAllpage(restaurantList);
+        handleSeletedTabChange("all");
         $("#category-sorting").value = storage.loadCategory();
         $("#sorting").value = storage.loadNameOrDistance();
       },
@@ -35,7 +33,7 @@ const Tab = (restaurantList) => {
         $(".tab--selected").classList.remove("tab--selected");
         e.target.classList.add("tab--selected");
 
-        renderFavoritePage(restaurantList);
+        handleSeletedTabChange("favorites");
       },
     },
   });

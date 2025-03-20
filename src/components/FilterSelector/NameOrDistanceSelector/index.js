@@ -1,15 +1,10 @@
 import storage from "../../../domain/storage.ts";
-import renderFilteredRestaurants from "../../../ui/renderFilteredRestaurant.js";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
 import Select from "../../common/Select";
 
-const NameOrDistanceSelector = (restaurantList) => {
+const NameOrDistanceSelector = (handleNameOrDistanceChanged) => {
   const events = {
-    change: (e) => {
-      storage.saveNameOrDistance(e.target.value);
-      restaurantList.setNameOrDistance(e.target.value);
-      renderFilteredRestaurants(restaurantList);
-    },
+    change: (e) => handleNameOrDistanceChanged(e),
   };
 
   return Select({
