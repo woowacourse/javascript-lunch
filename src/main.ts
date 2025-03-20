@@ -162,15 +162,15 @@ const handleItemsController = () => {
 };
 
 const handleRestaurantItems = () => {
+  initRestaurantItems();
+
   restaurantItems.render({
     restaurants: () => {
       const restaurantsData = restaurantService.getRestaurants();
       return restaurantsData.map((restaurant) => createRestaurantItem(restaurant)).join('');
     },
   });
-
   restaurantItems.setEvent([
-    initRestaurantItems,
     () => toggleFavoriteButton(restaurantService.toggleFavorite.bind(restaurantService), updateFavoriteIcon),
   ]);
 };
