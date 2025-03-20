@@ -4,9 +4,14 @@ import {
 } from "./database/localStorage.js";
 import { restaurants } from "./database/restaurants.js";
 import { makeUniqueId } from "../utils/makeUniqueId.js";
-import sortAndFilter from "./utils/sortAndFilter.js";
-import { SortOptions, CategoryFilterOptions } from "./utils/sortAndFilter.js";
 import RESTAURANT_RULES from "../constants/rules.js";
+import {
+  filterByCategory,
+  sortByOptions,
+  sorting,
+  SortOptions,
+  CategoryFilterOptions,
+} from "./utils/sortAndFilter.js";
 
 export type Category = (typeof RESTAURANT_RULES.CATEGORIES)[number];
 
@@ -94,10 +99,11 @@ const lunchRestaurantsService = {
 
   filterAndSortRestaurants(
     restaurants: RestaurantInfoWithAdditionalInfo[],
-    sortingOption: SortOptions,
-    categoryFilter: CategoryFilterOptions
+    sortingOption: SortOptions = "name",
+    categoryFilter: CategoryFilterOptions = "전체"
   ) {
-    return sortAndFilter(restaurants, sortingOption, categoryFilter);
+    const sortByOption = sortByOptions[sortingOption];
+    return sorting(filterByCategory(restaurants, categoryFilter), sortByOption);
   },
 };
 
