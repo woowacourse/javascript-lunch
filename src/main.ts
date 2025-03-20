@@ -78,7 +78,7 @@ const handleAddRestaurantModal = () => {
   });
 
   addRestaurantModal.setEvent([
-    () => initFormValidation,
+    initFormValidation,
     () =>
       readNewRestaurant(restaurantService.addRestaurant.bind(restaurantService), () =>
         restaurantItems.render({
@@ -170,7 +170,7 @@ const handleRestaurantItems = () => {
   });
 
   restaurantItems.setEvent([
-    () => initRestaurantItems,
+    initRestaurantItems,
     () => toggleFavoriteButton(restaurantService.toggleFavorite.bind(restaurantService), updateFavoriteIcon),
   ]);
 };
