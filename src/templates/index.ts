@@ -5,3 +5,4 @@ export { default as createModal } from './Modal.ts';
 export { default as createRestaurantItem } from './RestaurantItem.ts';
 export { default as createSelect } from './Select.ts';
 export { default as createTextarea } from './Textarea.ts';
+export { default as createRestaurantInfo } from './RestaurantInfo.ts';
