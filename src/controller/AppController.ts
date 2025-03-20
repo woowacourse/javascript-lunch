@@ -17,33 +17,22 @@ class AppController {
   restaurantListController;
 
   constructor() {
-    this.tabController = new TabController((tabType) => {
-      this.#onTabChange(tabType);
-    });
-    this.filterController = new FilterController((type, value) => {
-      this.#onFilterChange(type, value);
-    });
+    this.tabController = new TabController(this.#onTabChange.bind(this));
+
+    this.filterController = new FilterController(this.#onFilterChange.bind(this));
+
     this.modalController = new ModalController(
-      (restaurant) => {
-        this.#addRestaurantItem(restaurant);
-      },
-      (restaurantName) => {
-        this.restaurants.removeRestaurant(restaurantName);
-        this.restaurantListController.removeItem(restaurantName);
-      },
-      (restaurantName) => {
-        this.restaurants.toggleFavoriteRestaurant(restaurantName);
-      },
+      this.#onAddRestaurant.bind(this),
+      this.#onRemoveRestaurant.bind(this),
+      this.#onToggleFavorite.bind(this),
     );
+
     this.restaurants = new Restaurants(LocalStorage<Restaurant[]>());
+
     this.restaurantListController = new RestaurantListController(
       this.restaurants.items,
-      (restaurantName) => {
-        this.restaurants.toggleFavoriteRestaurant(restaurantName);
-      },
-      (restaurant) => {
-        this.modalController.openRestaurantDetailModal(restaurant);
-      },
+      this.#onToggleFavorite.bind(this),
+      this.#onSelectRestaurant.bind(this),
     );
   }
 
@@ -83,10 +72,23 @@ class AppController {
     this.restaurantListController.updateList(filteredRestaurants);
   }
 
-  #addRestaurantItem(restaurant: Restaurant) {
+  #onAddRestaurant(restaurant: Restaurant) {
     const newRestaurant = { ...restaurant, isFavorite: false };
     this.restaurants.addRestaurant(newRestaurant);
     this.restaurantListController.addItem(newRestaurant);
+  }
+
+  #onRemoveRestaurant(restaurantName: string) {
+    this.restaurants.removeRestaurant(restaurantName);
+    this.restaurantListController.removeItem(restaurantName);
+  }
+
+  #onToggleFavorite(restaurantName: string) {
+    this.restaurants.toggleFavoriteRestaurant(restaurantName);
+  }
+
+  #onSelectRestaurant(restaurant: Restaurant) {
+    this.modalController.openRestaurantDetailModal(restaurant);
   }
 }
 
