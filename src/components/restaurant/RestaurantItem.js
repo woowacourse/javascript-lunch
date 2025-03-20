@@ -4,16 +4,13 @@ import Modal from '../Modal.js';
 import FavoriteButton from '../button/FavoriteButton.js';
 
 function RestaurantItem({ id, name, distance, description, icon, link, category }) {
+  console.log(icon);
   return createDOMElement({
     tag: 'li',
     className: 'restaurant',
     attributes: { 'data-id': id },
     children: [
-      createDOMElement({
-        tag: 'div',
-        className: 'restaurant__category',
-        children: [icon.cloneNode(true)]
-      }),
+      icon,
       createDOMElement({
         tag: 'div',
         className: 'restaurant__info',
