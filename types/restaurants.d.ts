@@ -1,7 +1,7 @@
 import { CATEGORY, ORDER, TAB } from '../src/constants/SETTING.js';
 
 export interface RestaurantInfo {
-  id?: number;
+  id: number;
   category: CategoryType;
   name: string;
   distance: number;
