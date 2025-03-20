@@ -1,9 +1,23 @@
 import RestaurantList from "../domain/RestaurantList.ts";
 import createFavoriteListView from "../view/createFavoriteListView.js";
 
-function FavoriteListController(restaurantList: RestaurantList) {
-  const { favoriteListElement, updateFavoriteListView } = createFavoriteListView(restaurantList);
-  return { favoriteListElement, updateFavoriteListView };
+class FavoriteListController {
+  favoriteListElement;
+  updateFavoriteListView;
+
+  constructor(restaurantList: RestaurantList) {
+    const { favoriteListElement, updateFavoriteListView } = createFavoriteListView(restaurantList);
+    this.favoriteListElement = favoriteListElement;
+    this.updateFavoriteListView = updateFavoriteListView;
+  }
+
+  getFavoriteListElement(): HTMLElement {
+    return this.favoriteListElement;
+  }
+
+  updateFavoriteList(): void {
+    this.updateFavoriteListView();
+  }
 }
 
 export default FavoriteListController;

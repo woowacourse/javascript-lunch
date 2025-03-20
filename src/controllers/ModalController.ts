@@ -7,11 +7,25 @@ interface ModalControllerType {
   restaurantList: RestaurantList;
 }
 
-export function ModalController({ updateCategorySortListView, restaurantList }: ModalControllerType) {
-  const { modalElement, formElement } = createModalView();
-  ModalEventHandler({ modalElement, formElement, updateCategorySortListView, restaurantList });
+class ModalController {
+  modalElement;
+  formElement;
+  constructor({ updateCategorySortListView, restaurantList }: ModalControllerType) {
+    const { modalElement, formElement } = createModalView();
+    this.modalElement = modalElement;
+    this.formElement = formElement;
 
-  return modalElement;
+    ModalEventHandler({
+      modalElement: this.modalElement,
+      formElement: this.formElement,
+      updateCategorySortListView,
+      restaurantList,
+    });
+  }
+
+  getModalElement() {
+    return this.modalElement;
+  }
 }
 
 export default ModalController;

@@ -1,11 +1,16 @@
 import HeaderEventHandler from "../event/headerEventHandler.ts";
 import createHeaderView from "../view/createHeaderView.js";
 
-export function HeaderController(modalElement: HTMLDivElement) {
-  const headerElement = createHeaderView();
-  HeaderEventHandler(headerElement, modalElement);
+class HeaderController {
+  headerElement;
+  constructor(modalElement: HTMLDivElement) {
+    this.headerElement = createHeaderView();
+    HeaderEventHandler(this.headerElement, modalElement);
+  }
 
-  return headerElement;
+  getHeaderElement() {
+    return this.headerElement;
+  }
 }
 
 export default HeaderController;

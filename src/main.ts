@@ -1,3 +1,5 @@
 import MainController from "./controllers/MainController.ts";
 
-MainController();
+const main = new MainController();
+
+main.init();

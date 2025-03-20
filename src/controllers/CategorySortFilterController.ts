@@ -2,21 +2,37 @@ import { updateListViewType } from "../../types/common.ts";
 import CategorySortFilterEventHandler from "../event/filterEventHandlers.ts";
 import createCategorySortFilterView from "../view/createCategorySortFilterView.js";
 
-function CategorySortFilterController(updateListView: updateListViewType) {
-  const categorySortFilterContainerElement = createCategorySortFilterView();
+class CategorySortFilterController {
+  updateListView;
+  categorySortFilterContainerElement;
+  categoryFilterElement;
+  sortingFilterElement;
 
-  const categoryFilterElement = categorySortFilterContainerElement.querySelector(
-    "#category-filter",
-  ) as HTMLSelectElement;
-  const sortingFilterElement = categorySortFilterContainerElement.querySelector("#sorting-filter") as HTMLSelectElement;
+  constructor(updateListView: updateListViewType) {
+    this.updateListView = updateListView;
+    this.categorySortFilterContainerElement = createCategorySortFilterView();
 
-  CategorySortFilterEventHandler({ categoryFilterElement, sortingFilterElement, updateListView });
+    this.categoryFilterElement = this.categorySortFilterContainerElement.querySelector(
+      "#category-filter",
+    ) as HTMLSelectElement;
+    this.sortingFilterElement = this.categorySortFilterContainerElement.querySelector(
+      "#sorting-filter",
+    ) as HTMLSelectElement;
 
-  function updateCategorySortListView() {
-    updateListView(categoryFilterElement.value, sortingFilterElement.value);
+    CategorySortFilterEventHandler({
+      categoryFilterElement: this.categoryFilterElement,
+      sortingFilterElement: this.sortingFilterElement,
+      updateListView: this.updateListView.bind(this),
+    });
   }
 
-  return { categorySortFilterContainerElement, updateCategorySortListView };
+  getContainerElement(): HTMLElement {
+    return this.categorySortFilterContainerElement;
+  }
+
+  updateCategorySortListView(): void {
+    this.updateListView(this.categoryFilterElement.value, this.sortingFilterElement.value);
+  }
 }
 
 export default CategorySortFilterController;

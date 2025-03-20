@@ -1,10 +1,22 @@
 import RestaurantList from "../domain/RestaurantList.ts";
 import createListView from "../view/createListView.js";
 
-function ListController(restaurantList: RestaurantList) {
-  const { listElement, updateListView } = createListView(restaurantList);
+class ListController {
+  listElement;
+  updateListView;
+  constructor(restaurantList: RestaurantList) {
+    const { listElement, updateListView } = createListView(restaurantList);
+    this.listElement = listElement;
+    this.updateListView = updateListView;
+  }
 
-  return { listElement, updateListView };
+  getListElement(): HTMLElement {
+    return this.listElement;
+  }
+
+  updateList(category: string, sortOption: string) {
+    this.updateListView(category, sortOption);
+  }
 }
 
 export default ListController;

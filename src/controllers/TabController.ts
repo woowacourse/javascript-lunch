@@ -7,17 +7,30 @@ interface TabControllerType {
   updateFavoriteListView: () => void;
 }
 
-function TabController({ mainElement, updateCategorySortListView, updateFavoriteListView }: TabControllerType) {
-  const tabContainerElement = createTabView();
+class TabController {
+  mainElement;
+  updateCategorySortListView;
+  updateFavoriteListView;
+  tabContainerElement;
 
-  // 업데이트 뷰 함수 매핑
-  const tabActionsUpdateListView = {
-    "all-restaurant": updateCategorySortListView,
-    "favorite-restaurant": updateFavoriteListView,
-  };
-  TabEventHandler(tabContainerElement, mainElement, tabActionsUpdateListView);
+  constructor({ mainElement, updateCategorySortListView, updateFavoriteListView }: TabControllerType) {
+    this.mainElement = mainElement;
+    this.updateCategorySortListView = updateCategorySortListView;
+    this.updateFavoriteListView = updateFavoriteListView;
 
-  return tabContainerElement;
+    this.tabContainerElement = createTabView();
+
+    const tabActionsUpdateListView = {
+      "all-restaurant": this.updateCategorySortListView,
+      "favorite-restaurant": this.updateFavoriteListView,
+    };
+
+    TabEventHandler(this.tabContainerElement, this.mainElement, tabActionsUpdateListView);
+  }
+
+  getTabContainerElement() {
+    return this.tabContainerElement;
+  }
 }
 
 export default TabController;

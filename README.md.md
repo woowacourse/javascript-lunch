@@ -101,6 +101,13 @@
 ### 피드백 바탕 수정 사항
 
 - [ ] controller들 클래스로 변환
+  - [x] ListController
+  - [x] FavoriteListController
+  - [x] HeaderController
+  - [x] ModalController
+  - [x] TabController
+  - [x] CategorySortFilterController
+  - [ ] DetailModalController
 - [ ] 폴더구조 개선 (controller 파일 분리)
 - [ ] 이벤트 핸들러 -> 클래스로 변환
 - [ ] controller들 각자 내부에서 요소 결합하기 (mainElement 인자로 전달)
