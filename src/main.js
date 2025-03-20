@@ -31,9 +31,7 @@ addEventListener("load", () => {
   app.prepend(header());
 
   $("nav").appendChild(
-    Tab(restaurantList, (seletedTab) =>
-      renderPageContent(seletedTab, restaurantList)
-    )
+    Tab((seletedTab) => renderPageContent(seletedTab, restaurantList))
   );
 
   $("main").appendChild(
