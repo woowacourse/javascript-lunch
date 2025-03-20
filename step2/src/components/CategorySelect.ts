@@ -1,8 +1,7 @@
 import Select from './Select';
 import { Category } from '../types/restaurants';
-import EventManager from '../utils/@common/EventManager';
-import { $ } from '../utils/@common/domHelper';
 import { CATEGORIES } from '../constants/options';
+import { useEvents } from '../utils/core/Core';
 
 interface CategorySelectProps {
   handleCategoryChange: (category: Category) => void;
@@ -11,9 +10,9 @@ interface CategorySelectProps {
 
 export const CategorySelect = (props: CategorySelectProps) => {
   const { handleCategoryChange, category } = props;
-  const eventManager = new EventManager($('#app'));
+  const [addEvent] = useEvents('.restaurant-filter');
 
-  eventManager.addEvent('change', '#category-filter', (e: Event) => {
+  addEvent('change', '#category-filter', (e: Event) => {
     const target = e.target as HTMLSelectElement;
     handleCategoryChange(target.value as Category);
   });

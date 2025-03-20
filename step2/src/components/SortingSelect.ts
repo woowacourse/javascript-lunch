@@ -1,6 +1,5 @@
 import { Sorting } from '../types/restaurants';
-import { $ } from '../utils/@common/domHelper';
-import EventManager from '../utils/@common/EventManager';
+import { useEvents } from '../utils/core/Core';
 import Select from './Select';
 
 const SORTING_OPTIONS = [
@@ -15,9 +14,9 @@ interface SortingSelectProps {
 
 export const SortingSelect = (props: SortingSelectProps) => {
   const { handleSortChange, sorting } = props;
-  const eventManager = new EventManager($('#app'));
+  const [addEvent] = useEvents('#sorting-filter');
 
-  eventManager.addEvent('change', '#sorting-filter', (e: Event) => {
+  addEvent('change', '#sorting-filter', (e: Event) => {
     const target = e.target as HTMLSelectElement;
     handleSortChange(target.value as Sorting);
   });
@@ -25,7 +24,7 @@ export const SortingSelect = (props: SortingSelectProps) => {
   return Select({
     attribute: {
       id: 'sorting-filter',
-      class: 'restaurant-filter',
+      class: 'sorting-filter',
       name: 'sorting',
     },
     children: Select.Option({

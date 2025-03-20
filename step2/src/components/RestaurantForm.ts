@@ -1,33 +1,37 @@
 import Select from './Select';
 import Button from './@common/Button';
 import { CATEGORIES, DISTANCE_OPTIONS } from '../constants/options';
-import EventManager from '../utils/@common/EventManager';
-import { $ } from '../utils/@common/domHelper';
 import useRestaurantForm from '../hooks/useRestaurantForm';
 import Input from './@common/Input';
+import { useEvents } from '../utils/core/Core';
 
 interface RestaurantFormProps {
-  closeModal: () => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
 function RestaurantForm(props: RestaurantFormProps) {
-  const { closeModal } = props;
-  const eventManager = new EventManager($('#app'));
+  const { setIsModalOpen } = props;
   const { addRestaurant } = useRestaurantForm();
 
-  eventManager.addEvent('submit', 'form', (e: Event) => {
+  const [addEvent] = useEvents('.restaurant-form');
+
+  addEvent('submit', 'form', (e: Event) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
     addRestaurant(formData);
 
-    closeModal();
+    setIsModalOpen(false);
     window.location.reload();
   });
 
+  addEvent('click', '#cancel-button', () => {
+    setIsModalOpen(false);
+  });
+
   return `
-    <form>
+    <form class="restaurant-form">
       <div class="form-item form-item--required">
         <label for="category" class="text-caption">카테고리</label>
         ${Select({

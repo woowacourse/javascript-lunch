@@ -5,7 +5,6 @@ import RestaurantList from './src/components/RestaurantList';
 import { TAB, Tab } from './src/constants/restaurantTypes';
 import useRestaurants from './src/hooks/useRestaurants';
 import { Category, Sorting } from './src/types/restaurants';
-import { getStorage } from './src/utils/@common/localStorage';
 import { useState } from './src/utils/core/Core';
 
 type FilterOptions = {
@@ -41,8 +40,9 @@ function App() {
           : `
             ${RestaurantList({
               restaurants:
-                getStorage()?.filter((restaurant) => restaurant.isFavorite) ??
-                [],
+                getFilteredRestaurants()?.filter(
+                  (restaurant) => restaurant.isFavorite
+                ) ?? [],
             })}
           `
       }

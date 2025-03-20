@@ -1,20 +1,19 @@
-import useModal from '../hooks/useModal';
-import { $ } from '../utils/@common/domHelper';
-import EventManager from '../utils/@common/EventManager';
+import { useEvents, useState } from '../utils/core/Core';
 import Button from './@common/Button';
 import Modal from './@common/Modal';
 import RestaurantForm from './RestaurantForm';
 
 function Header() {
-  const [isModalOpen, openModal, closeModal] = useModal(false);
-  const eventManager = new EventManager($('#app'));
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  eventManager.addEvent('click', '.gnb__button', () => {
-    openModal();
+  const [addEvent] = useEvents('.gnb');
+
+  addEvent('click', '.gnb__button', () => {
+    setIsModalOpen(true);
   });
 
-  eventManager.addEvent('click', '#cancel-button', () => {
-    closeModal();
+  addEvent('click', '#cancel-button', () => {
+    setIsModalOpen(false);
   });
 
   return `
@@ -35,7 +34,7 @@ function Header() {
             children: `
               <h2 class="modal-title text-title">새로운 음식점</h2>
               ${RestaurantForm({
-                closeModal,
+                setIsModalOpen,
               })}
             `,
           })

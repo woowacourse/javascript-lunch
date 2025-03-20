@@ -1,10 +1,7 @@
 import { CATEGORY_IMAGES, ICON_IMAGES } from '../assets/images';
 import useFavorite from '../hooks/useFavorite';
-import useModal from '../hooks/useModal';
 import { RestaurantType } from '../types/restaurants';
-import { $ } from '../utils/@common/domHelper';
-import EventManager from '../utils/@common/EventManager';
-import { useState } from '../utils/core/Core';
+import { useEvents, useState } from '../utils/core/Core';
 import Button from './@common/Button';
 import BottomSheet from './BottomSheet';
 
@@ -12,20 +9,21 @@ interface RestaurantProps extends RestaurantType {}
 
 const Restaurant = (props: RestaurantProps) => {
   const { category, name, distance, description, link, isFavorite } = props;
-  const [favorite, setFavorite] = useState(isFavorite);
-  const [isBottomSheetOpen, openBottomSheet, closeBottomSheet] =
-    useModal(false);
+  const [favorite, setFavorite] = useState<boolean>(isFavorite);
+
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+
   const { handleFavoriteToggle } = useFavorite();
-  const eventManager = new EventManager($('#app'));
+  const [addEvent] = useEvents('.restaurant-list');
 
   const buttonId = `favorite-${crypto.randomUUID()}`;
   const restaurantId = `restaurant-${crypto.randomUUID()}`;
 
-  eventManager.addEvent('click', `#${restaurantId}`, () => {
-    openBottomSheet();
+  addEvent('click', `#${restaurantId}`, () => {
+    setIsBottomSheetOpen(true);
   });
 
-  eventManager.addEvent('click', `#${buttonId}`, () => {
+  addEvent('click', `#${buttonId}`, () => {
     handleFavoriteToggle(name, isFavorite, setFavorite);
   });
 
@@ -63,16 +61,16 @@ const Restaurant = (props: RestaurantProps) => {
       })}
     </li>
     ${
-      isBottomSheetOpen
+      isBottomSheetOpen === true
         ? BottomSheet({
+            name,
             favorite,
             category,
-            name,
             distance,
             description,
             link,
             onClose: () => {
-              closeBottomSheet();
+              setIsBottomSheetOpen(false);
             },
             handleFavoriteToggle: () => {
               handleFavoriteToggle(name, favorite, setFavorite);
