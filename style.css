@@ -153,6 +153,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
+  flex-grow: 1;
 }
 
 .restaurant__name {
@@ -181,6 +183,8 @@ body {
 
 .modal--open {
   display: block;
+  height: auto;
+  z-index: 1;
 }
 
 .modal-backdrop {
@@ -204,6 +208,11 @@ body {
   background: var(--grey-100);
 }
 
+.detail-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 .modal-title {
   margin-bottom: 36px;
 }
@@ -295,4 +304,70 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+.tab-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.tab-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* ✅ 수직 정렬 문제 해결 */
+  position: relative;
+  border-bottom: 2px solid var(--grey-200);
+}
+
+.tab-button {
+  flex: 1; /* ✅ 버튼이 가로로 정렬되도록 설정 */
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--grey-300);
+  transition: color 0.3s ease;
+}
+
+.tab-button.active-tab {
+  color: var(--primary-color);
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.star {
+  position: absolute;
+  right: 16px;
+  top: 32px;
+}
+.restaurant__star {
+  position: absolute;
+  right: 16px;
 }

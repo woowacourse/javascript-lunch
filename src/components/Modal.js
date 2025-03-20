@@ -1,35 +1,50 @@
 import createDOMElement from '../util/createDomElement.js';
 import { lockScroll, unlockScroll } from '../util/scroll.js';
+import { $ } from '../util/selector.js';
 
 class Modal {
-  constructor({ content }) {
-    this.modal = createDOMElement({
+  constructor() {
+    this.modal = $('.modal') || this.#createModal();
+    this.content = this.modal.querySelector('.modal-content');
+
+    this.handleEscKey = this.#handleEscKey.bind(this);
+  }
+
+  #createModal() {
+    const modal = createDOMElement({
       tag: 'div',
       className: 'modal',
       children: [
         createDOMElement({
           tag: 'div',
           className: 'modal-backdrop',
-          onclick: () => this.close()
+          onClick: () => this.close()
         }),
-        content
+        createDOMElement({
+          tag: 'div',
+          className: 'modal-content'
+        })
       ]
     });
 
-    document.body.appendChild(this.modal);
-    this.handleEscKey = this.#handleEscKey.bind(this);
+    document.body.appendChild(modal);
+    return modal;
   }
 
-  open() {
+  open(content) {
+    this.content.innerHTML = '';
+    this.content.appendChild(content);
+
     this.modal.classList.add('modal--open');
     lockScroll();
-    document.addEventListener('keydown', this.#handleEscKey);
+    document.addEventListener('keydown', this.handleEscKey);
   }
 
   close() {
     this.modal.classList.remove('modal--open');
     unlockScroll();
-    document.removeEventListener('keydown', this.#handleEscKey);
+    document.removeEventListener('keydown', this.handleEscKey);
+    this.content.innerHTML = '';
   }
 
   #handleEscKey(event) {
@@ -37,11 +52,6 @@ class Modal {
       this.close();
     }
   }
-
-  destroy() {
-    this.close();
-    this.modal.remove();
-  }
 }
 
-export default Modal;
+export default new Modal();
