@@ -7,7 +7,7 @@ import {
   SortResult,
   OrderType,
 } from '../../types/restaurants.js';
-import { CATEGORY_KEY, ORDER, TAB } from '../constants/SETTING.js';
+import { RESTAURANT_CATEGORY_KEY, RESTAURANT_ORDER, RESTAURANT_TAB } from '../constants/SETTING.js';
 
 class RestaurantList {
   #restaurants: RestaurantInfo[] = [];
@@ -17,9 +17,9 @@ class RestaurantList {
   }
 
   getOrderedRestaurantList(order: OrderType): RestaurantInfo[] {
-    if (order === ORDER.NAME) {
+    if (order === RESTAURANT_ORDER.NAME) {
       return [...this.#restaurants].sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
-    } else if (order === ORDER.DISTANCE) {
+    } else if (order === RESTAURANT_ORDER.DISTANCE) {
       return [...this.#restaurants].sort((a, b) => a.distance - b.distance);
     }
 
@@ -56,12 +56,12 @@ class RestaurantList {
   }
 
   sortByOptions({ tab, order, category }: SortOptionsParams): SortResult {
-    if (tab === TAB.ALL) {
+    if (tab === RESTAURANT_TAB.ALL) {
       return {
         originalList: this.#restaurants,
         filteredList: this.filterRestaurant(category, order),
       };
-    } else if (tab === TAB.FAVORITE) {
+    } else if (tab === RESTAURANT_TAB.FAVORITE) {
       return {
         originalList: this.#restaurants,
         filteredList: this.filterFavorite(),
@@ -81,13 +81,15 @@ class RestaurantList {
       filteredRestaurants = [...this.#restaurants];
     } else {
       filteredRestaurants = this.#restaurants.filter(
-        (data) => data.category === CATEGORY_KEY[category as keyof typeof CATEGORY_KEY]
+        (data) =>
+          data.category ===
+          RESTAURANT_CATEGORY_KEY[category as keyof typeof RESTAURANT_CATEGORY_KEY]
       );
     }
 
-    if (order === ORDER.NAME) {
+    if (order === RESTAURANT_ORDER.NAME) {
       filteredRestaurants.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
-    } else if (order === ORDER.DISTANCE) {
+    } else if (order === RESTAURANT_ORDER.DISTANCE) {
       filteredRestaurants.sort((a, b) => a.distance - b.distance);
     }
 

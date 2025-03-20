@@ -6,7 +6,13 @@ import {
   updateRestaurantList,
 } from '../components/RestaurantList.js';
 import createTabBar from '../components/TabBar.js';
-import { CATEGORY, MODAL_TYPE, ORDER, STATE_KEY, TAB } from '../constants/SETTING.js';
+import {
+  RESTAURANT_CATEGORY,
+  RESTAURANT_MODAL_TYPE,
+  RESTAURANT_ORDER,
+  RESTAURANT_STATE_KEY,
+  RESTAURANT_TAB,
+} from '../constants/SETTING.js';
 import ModalService from '../services/ModalService.js';
 import RestaurantService from '../services/RestaurantService.ts';
 
@@ -16,9 +22,9 @@ class RestaurantController {
   #main = document.getElementsByTagName('main')[0];
 
   #state = {
-    category: CATEGORY.ALL,
-    order: ORDER.NAME,
-    tab: TAB.ALL,
+    category: RESTAURANT_CATEGORY.ALL,
+    order: RESTAURANT_ORDER.NAME,
+    tab: RESTAURANT_TAB.ALL,
   };
 
   constructor() {
@@ -31,7 +37,7 @@ class RestaurantController {
     this.#modalService.appendModal();
 
     document.querySelector('.gnb__button').addEventListener('click', () => {
-      this.#modalService.toggleModal(MODAL_TYPE.ENROLL);
+      this.#modalService.toggleModal(RESTAURANT_MODAL_TYPE.ENROLL);
     });
   }
 
@@ -67,14 +73,14 @@ class RestaurantController {
   };
 
   #handleChangeCategory = (event) => {
-    this.#changeState(STATE_KEY.CATEGORY, event.target.value);
+    this.#changeState(RESTAURANT_STATE_KEY.CATEGORY, event.target.value);
     this.#updateRestaurantUI(
       this.#restaurantService.getFilteredRestaurants(this.#state.category, this.#state.order)
     );
   };
 
   #handleChangeFilter = (event) => {
-    this.#changeState(STATE_KEY.ORDER, event.target.value);
+    this.#changeState(RESTAURANT_STATE_KEY.ORDER, event.target.value);
     this.#updateRestaurantUI(
       this.#restaurantService.getFilteredRestaurants(this.#state.category, this.#state.order)
     );
@@ -83,12 +89,12 @@ class RestaurantController {
   #handleTabBar = (event) => {
     document.querySelector('.restaurant-filter-container').classList.toggle('hidden');
 
-    if (event.target.id === TAB.FAVORITE) {
-      this.#changeState(STATE_KEY.TAB, TAB.FAVORITE);
+    if (event.target.id === RESTAURANT_TAB.FAVORITE) {
+      this.#changeState(RESTAURANT_STATE_KEY.TAB, RESTAURANT_TAB.FAVORITE);
       this.#updateRestaurantUI(this.#restaurantService.getFavoriteRestaurants());
-    } else if (event.target.id === TAB.ALL) {
+    } else if (event.target.id === RESTAURANT_TAB.ALL) {
       this.#initialOptionState();
-      this.#changeState(STATE_KEY.TAB, TAB.ALL);
+      this.#changeState(RESTAURANT_STATE_KEY.TAB, RESTAURANT_TAB.ALL);
       this.#updateRestaurantUI(this.#restaurantService.getOrderedRestaurants(this.#state.order));
     }
   };
@@ -103,7 +109,7 @@ class RestaurantController {
           category: this.#state.category,
         }).filteredList
       );
-      this.#modalService.toggleModal(MODAL_TYPE.DETAIL);
+      this.#modalService.toggleModal(RESTAURANT_MODAL_TYPE.DETAIL);
       window.alert('삭제되었습니다.');
     }
   };
@@ -114,7 +120,7 @@ class RestaurantController {
       onClickStar: this.#handleClickStar,
       onDelete: this.#handleDelete,
     });
-    this.#modalService.toggleModal(MODAL_TYPE.DETAIL);
+    this.#modalService.toggleModal(RESTAURANT_MODAL_TYPE.DETAIL);
   };
 
   #handleAddRestaurant = (data) => {
@@ -132,7 +138,7 @@ class RestaurantController {
           category: this.#state.category,
         }).filteredList
       );
-      this.#modalService.toggleModal(MODAL_TYPE.ENROLL);
+      this.#modalService.toggleModal(RESTAURANT_MODAL_TYPE.ENROLL);
       window.alert('추가되었습니다.');
     }
   };
@@ -151,10 +157,10 @@ class RestaurantController {
   }
 
   #initialOptionState() {
-    document.querySelector('select#category-filter').value = CATEGORY.ALL;
-    document.querySelector('select#sorting-filter').value = ORDER.NAME;
-    this.#changeState(STATE_KEY.CATEGORY, CATEGORY.ALL);
-    this.#changeState(STATE_KEY.ORDER, ORDER.NAME);
+    document.querySelector('select#category-filter').value = RESTAURANT_CATEGORY.ALL;
+    document.querySelector('select#sorting-filter').value = RESTAURANT_ORDER.NAME;
+    this.#changeState(RESTAURANT_STATE_KEY.CATEGORY, RESTAURANT_CATEGORY.ALL);
+    this.#changeState(RESTAURANT_STATE_KEY.ORDER, RESTAURANT_ORDER.NAME);
   }
 }
 

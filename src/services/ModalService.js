@@ -1,6 +1,6 @@
 import RestaurantDetailModal from '../components/RestaurantDetailModal.js';
 import RestaurantEnrollModal from '../components/RestaurantEnrollModal.js';
-import { MODAL_TYPE } from '../constants/SETTING.js';
+import { RESTAURANT_MODAL_TYPE } from '../constants/SETTING.js';
 
 class ModalService {
   #enrollModal = null;
@@ -17,9 +17,9 @@ class ModalService {
   }
 
   toggleModal(type) {
-    if (type === MODAL_TYPE.DETAIL) {
+    if (type === RESTAURANT_MODAL_TYPE.DETAIL) {
       this.#detailModal.modal.toggle();
-    } else if (type === MODAL_TYPE.ENROLL) {
+    } else if (type === RESTAURANT_MODAL_TYPE.ENROLL) {
       this.#enrollModal.modal.toggle();
     }
   }

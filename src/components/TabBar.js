@@ -1,4 +1,4 @@
-import { TAB } from '../constants/SETTING.js';
+import { RESTAURANT_TAB } from '../constants/SETTING.js';
 import createElement from '../utils/createElement.js';
 import createSectionContainer from './common/SectionContainer.js';
 
@@ -14,7 +14,7 @@ function createTabBar(onClick) {
     className: 'tab-item tab-item-selected',
     textContent: '모든 음식점',
     attributes: {
-      id: TAB.ALL,
+      id: RESTAURANT_TAB.ALL,
     },
   });
   const favoriteTabDiv = createElement({
@@ -22,7 +22,7 @@ function createTabBar(onClick) {
     className: 'tab-item',
     textContent: '자주 가는 음식점',
     attributes: {
-      id: TAB.FAVORITE,
+      id: RESTAURANT_TAB.FAVORITE,
     },
   });
 
@@ -30,8 +30,9 @@ function createTabBar(onClick) {
     const { id } = event.target;
 
     if (
-      (id === TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
-      (id === TAB.FAVORITE && favoriteTabDiv.classList.contains('tab-item-selected'))
+      (id === RESTAURANT_TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
+      (id === RESTAURANT_TAB.FAVORITE &&
+        favoriteTabDiv.classList.contains('tab-item-selected'))
     ) {
       return;
     }
@@ -43,8 +44,9 @@ function createTabBar(onClick) {
   favoriteTabDiv.addEventListener('click', (event) => {
     const { id } = event.target;
     if (
-      (id === TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
-      (id === TAB.FAVORITE && favoriteTabDiv.classList.contains('tab-item-selected'))
+      (id === RESTAURANT_TAB.ALL && allTabDiv.classList.contains('tab-item-selected')) ||
+      (id === RESTAURANT_TAB.FAVORITE &&
+        favoriteTabDiv.classList.contains('tab-item-selected'))
     ) {
       return;
     }

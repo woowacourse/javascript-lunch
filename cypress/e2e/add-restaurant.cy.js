@@ -1,5 +1,5 @@
 import { RESTAURANT_DATA } from '../../public/restaurantData.ts';
-import { CATEGORY, DISTANCE_OPTIONS } from '../../src/constants/SETTING.js';
+import { RESTAURANT_CATEGORY, RESTAURANT_DISTANCE_OPTIONS } from '../../src/constants/SETTING.js';
 
 describe('음식점 목록 추가 테스트', () => {
   beforeEach(() => {
@@ -55,13 +55,13 @@ describe('음식점 목록 추가 테스트', () => {
   });
 
   it('카테고리는 "한식", "중식", "일식", "아시안", "양식", "기타" 중 하나를 선택한다.', () => {
-    Object.values(CATEGORY).forEach((categoryOption) => {
+    Object.values(RESTAURANT_CATEGORY).forEach((categoryOption) => {
       cy.get('select#category').should('contain.text', categoryOption);
     });
   });
 
   it('거리는 캠퍼스로부터 도보로 걸리는 시간(분). 5, 10, 15, 20, 30 중 하나를 선택한다.', () => {
-    DISTANCE_OPTIONS.forEach((distanceOption) => {
+    RESTAURANT_DISTANCE_OPTIONS.forEach((distanceOption) => {
       cy.get('select#distance').should('contain.text', distanceOption);
     });
   });
