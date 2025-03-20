@@ -24,28 +24,14 @@ function App() {
   );
 
   return `
-    <div>
+     <div>
       ${Header()}
       ${NavTab({ setCurrentTab })}
-      ${
-        currentTab === TAB.ALL
-          ? `
-            ${FilterSection({
-              setFilterOptions,
-            })}
-            ${RestaurantList({
-              restaurants: getFilteredRestaurants() ?? [],
-            })}
-          `
-          : `
-            ${RestaurantList({
-              restaurants:
-                getFilteredRestaurants()?.filter(
-                  (restaurant) => restaurant.isFavorite
-                ) ?? [],
-            })}
-          `
-      }
+      ${currentTab === TAB.ALL ? FilterSection({ setFilterOptions }) : ''}
+      ${RestaurantList({
+        restaurants: getFilteredRestaurants() ?? [],
+        currentTab, // 탭 상태를 RestaurantList에 전달
+      })}
     </div>
   `;
 }

@@ -2,6 +2,7 @@ import { Tab, TAB } from '../constants/restaurantTypes';
 import useTabChange from '../hooks/usetabChange';
 import { $ } from '../utils/@common/domHelper';
 import EventManager from '../utils/@common/EventManager';
+import { useEvents } from '../utils/core/Core';
 
 interface NavTabProps {
   setCurrentTab: (tab: Tab) => void;
@@ -9,15 +10,15 @@ interface NavTabProps {
 
 function NavTab({ setCurrentTab }: NavTabProps) {
   const { tab, handleTabChange } = useTabChange();
-  const eventManager = new EventManager($('#app'));
+  const [addEvent] = useEvents('.nav-tab');
 
   /**@todo 왜 렌더링이 2번씩 될까? 그리고 탭 클릭할 때마다 렌더링이 되는데 최적화방법 찾아보자 */
-  eventManager.addEvent('click', '#nav-tab-1', () => {
+  addEvent('click', '#nav-tab-1', () => {
     handleTabChange(TAB.ALL);
     setCurrentTab(TAB.ALL);
   });
 
-  eventManager.addEvent('click', '#nav-tab-2', (e) => {
+  addEvent('click', '#nav-tab-2', (e) => {
     e.stopPropagation();
     handleTabChange(TAB.FAVORITE);
     setCurrentTab(TAB.FAVORITE);
