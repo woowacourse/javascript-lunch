@@ -18,9 +18,9 @@ const text = (props = {}) => {
   };
 
   return `
-       <${tag} class="${colorStyle[color] || ""} ${sizeStyle[size] || ""}">
-         ${children}
-       </${tag}>
+    <${tag} class="${colorStyle[color] || ""} ${sizeStyle[size] || ""}">
+      ${children}
+    </${tag}>
     `;
 };
 

@@ -3,7 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <title>점심 뭐 먹지</title>
-    <link rel="stylesheet" href="./src/styles/style.css" />
+    <link rel="stylesheet" href="./src/styles/reset.css" />
+    <link rel="stylesheet" href="./src/styles/typography.css" />
+    <link rel="stylesheet" href="./src/styles/components.css" />
+    <link rel="stylesheet" href="./src/styles/restaurant.css" />
+    <link rel="stylesheet" href="./src/styles/modal.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
@@ -16,6 +20,9 @@
         </button>
       </header>
       <main>
+        <section class="restaurant-tab-container"></section>
+        <!-- 카테고리/정렬 필터 -->
+        <section class="restaurant-filter-container"></section>
         <!-- 음식점 목록 -->
         <section class="restaurant-list-container">
           <ul class="restaurant-list"></ul>
@@ -23,23 +30,7 @@
         <!-- 음식점 추가 모달 -->
         <div class="modal" id="restaurant-modal">
           <div class="modal-backdrop"></div>
-          <div class="modal-container">
-            <h2 class="modal-title text-title">새로운 음식점</h2>
-            <form>
-              <!-- 카테고리 -->
-              <div class="form-item form-item--required category-select"></div>
-              <!-- 음식점 이름 -->
-              <div class="form-item form-item--required name-input"></div>
-              <!-- 거리 -->
-              <div class="form-item form-item--required distance-select"></div>
-              <!-- 설명 -->
-              <div class="form-item description-area"></div>
-              <!-- 링크 -->
-              <div class="form-item link-input"></div>
-              <!-- 취소/추가 버튼 -->
-              <div class="button-container"></div>
-            </form>
-          </div>
+          <div class="modal-container"></div>
         </div>
       </main>
     </div>

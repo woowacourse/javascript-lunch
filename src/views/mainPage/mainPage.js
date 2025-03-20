@@ -1,19 +1,23 @@
-import buttonContainer from "./components/buttonContainer";
-import categorySelect from "./components/categorySelect";
-import description from "./components/description";
-import distanceSelect from "./components/distanceSelect";
-import linkInput from "./components/linkInput";
-import nameInput from "./components/nameInput";
-import restaurantList from "./components/restaurantList";
+import { sortRestaurants } from "../../domain/sortRestaurants.ts";
+import { StorageController } from "../../utils/storage.ts";
+import sortingFilter from "./components/filters/sortingFilter.js";
+import categoryFilter from "./components/filters/categoryFilter.js";
+import tabContainer from "./components/navigation/tabContainer.js";
+import { renderRestaurantList } from "./components/display/restaurantList.js";
+import { $ } from "../../utils/domHelpers.js";
+
+const restaurantStorage = new StorageController("restaurants");
 
 const renderMainPage = () => {
-  restaurantList();
-  buttonContainer();
-  nameInput();
-  linkInput();
-  distanceSelect();
-  categorySelect();
-  description();
+  const restaurants = restaurantStorage.getStorage() ?? [];
+  renderRestaurantList(sortRestaurants(restaurants));
+  tabContainer();
+
+  const $filterContainer = $(".restaurant-filter-container");
+  if ($filterContainer) {
+    $filterContainer.appendChild(categoryFilter());
+    $filterContainer.appendChild(sortingFilter());
+  }
 };
 
 export default renderMainPage;

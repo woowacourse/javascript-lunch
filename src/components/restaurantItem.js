@@ -5,6 +5,9 @@ import japaneseIcon from "/category-japanese.png";
 import westernIcon from "/category-western.png";
 import asianIcon from "/category-asian.png";
 import etcIcon from "/category-etc.png";
+import favoriteIconFilled from "/favorite-icon-filled.png";
+import favoriteIconLined from "/favorite-icon-lined.png";
+
 const categoryIcons = {
   korean: koreanIcon,
   chinese: chineseIcon,
@@ -13,14 +16,24 @@ const categoryIcons = {
   asian: asianIcon,
   etc: etcIcon,
 };
+
+const categoryAlt = {
+  korean: "한식",
+  chinese: "중식",
+  japanese: "일식",
+  western: "양식",
+  asian: "아시아식",
+  etc: "기타",
+};
+
 const restaurantItem = (props) => {
-  const { category, categoryAlt, title, distance, description } = props;
+  const { category, title, distance, description, id, isFavorite } = props;
   return `
-    <li class="restaurant">
+    <li class="restaurant" data-id="${id}">
       <div class="restaurant__category">
         <img
           src="${categoryIcons[category]}"
-          alt="${categoryAlt}"
+          alt="${categoryAlt[category]}"
           class="category-icon"
         />
       </div>
@@ -36,6 +49,9 @@ const restaurantItem = (props) => {
           ${description}
         </p>
       </div>
+      <img data-id="${id}" src="${
+    isFavorite ? favoriteIconFilled : favoriteIconLined
+  }" alt="favorite icon" class="favorite-icon">
     </li>
   `;
 };

@@ -1,15 +1,9 @@
-import { $ } from "./utils/domHelpers.js";
-import { restaurants } from "./mock-data/restaurantData.js";
-import modalHandler from "./eventHandler/modal.js";
 import renderMainPage from "./views/mainPage/mainPage.js";
+import registerEventHandlers from "./eventHandler/registerEventHandlers.ts";
 
-const eventHandler = () => {
-  modalHandler();
-};
-
-const render = () => {
+const initializeApp = () => {
   renderMainPage();
+  registerEventHandlers();
 };
 
-render();
-eventHandler();
+initializeApp();
