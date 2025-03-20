@@ -8,7 +8,9 @@ const validateDistance = (distance) => {
   });
 
   toThrowNewError({
-    condition: !RESTAURANT_RULES.DISTANCES.includes(parseInt(distance, 10)),
+    condition: !RESTAURANT_RULES.DISTANCES.includes(
+      Number.parseInt(distance, 10)
+    ),
     message: `거리(도보 이동 시간)는 ${RESTAURANT_RULES.DISTANCES.map(
       (distance) => `${Number.parseInt(distance, 10)}분`
     ).join(", ")} 중 하나여야 합니다.`,
