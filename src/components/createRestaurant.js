@@ -19,6 +19,8 @@ export const createRestaurant = (filteredData) => {
 };
 
 export const updateRestaurant = (newData) => {
+  if (localStorage.getItem("currentTab") === "favorite") return;
+
   const restaurantItem = createList();
   new Restaurant(restaurantItem, newData);
 };

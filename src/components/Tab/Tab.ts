@@ -20,17 +20,23 @@ class Tab extends Component {
     const favoriteTab = this.$target.querySelector(".favorite");
     allTab.addEventListener("click", () => {
       this.filterToggle();
+      this.setCurrentTab("all");
       this.renderAllRestaurants();
       allTab.classList.add("selected");
       favoriteTab.classList.remove("selected");
     });
     favoriteTab.addEventListener("click", () => {
       this.filterToggle();
+      this.setCurrentTab("favorite");
       this.renderFavoriteRestaurants();
       allTab.classList.remove("selected");
       favoriteTab.classList.add("selected");
     });
   }
+
+  setCurrentTab = (tab: string) => {
+    localStorage.setItem("currentTab", tab);
+  };
 
   filterToggle() {
     if (
