@@ -1,5 +1,6 @@
 import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
 import { DELETE, EMPTY_LIST } from "../../constants/systemMessage.ts";
+import { FoodItemType } from "../../types/food.ts";
 import { ButtonContainer } from "../button/button-container/ButtonContainer.js";
 import { Button } from "../button/button/Button.js";
 import Modal from "../common/modal/Modal.js";

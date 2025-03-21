@@ -1,5 +1,5 @@
 import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
-import { DELETE } from "../../constants/systemMessage.ts";
+import { FoodItemType } from "../../types/food.ts";
 import { getImgSrcAlt } from "../../util/getImgSrcAlt.js";
 
 type CssTypeProps = "row" | "column";
@@ -23,15 +23,13 @@ export default class FoodItem {
   #cssType: CssTypeProps;
 
   #onFavoriteClick: (id: string) => void;
-  #onDeleteClick: (id: string) => void;
   #onFoodItemClick: (data: FoodItemType) => void;
 
-  constructor({ data, cssType, onFavoriteClick, onDeleteClick, onFoodItemClick }: FoodItemOptions) {
+  constructor({ data, cssType, onFavoriteClick, onFoodItemClick }: FoodItemOptions) {
     this.#data = data;
     this.#cssType = cssType;
 
     this.#onFavoriteClick = onFavoriteClick;
-    this.#onDeleteClick = onDeleteClick;
     this.#onFoodItemClick = onFoodItemClick;
 
     this.container = document.createElement("div");

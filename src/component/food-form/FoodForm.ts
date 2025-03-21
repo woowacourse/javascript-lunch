@@ -8,6 +8,7 @@ import { SelectInput } from "../input/SelectInput.js";
 import { TextareaInput } from "../input/TextareaInput.js";
 import { alertError } from "../common/alert/alertError.js";
 import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
+import { FoodItemType } from "../../types/food.ts";
 
 interface FoodFormOptions {
   onCancel: () => void;

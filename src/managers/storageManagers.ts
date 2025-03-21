@@ -1,3 +1,5 @@
+import { FoodItemType } from "../types/food";
+
 export function storeFoodItems(foodItems: FoodItemType[]) {
   localStorage.setItem("foodItems", JSON.stringify(foodItems));
 }
