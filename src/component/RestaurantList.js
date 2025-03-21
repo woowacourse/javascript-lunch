@@ -36,10 +36,9 @@ const RestaurantList = {
   },
 
   applyElements(restaurantListId, elements) {
-    $(`.restaurant-list[id=${restaurantListId}]`).replaceChildren();
-    elements.forEach((element) =>
-      $(`.restaurant-list[id=${restaurantListId}]`).appendChild(element)
-    );
+    const restaurantListElement = $(`.restaurant-list[id=${restaurantListId}]`);
+    restaurantListElement.replaceChildren();
+    elements.forEach((element) => restaurantListElement.appendChild(element));
   },
 
   getRestaurantElementList(restaurantList) {
