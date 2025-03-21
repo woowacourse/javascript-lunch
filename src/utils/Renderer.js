@@ -9,7 +9,7 @@ const Renderer = {
   restaurantList() {
     console.log(state.currentRestaurantListId);
     if (state.currentRestaurantListId === "allRestaurant")
-      this.applyFilter("allRestaurant");
+      this.filteredList("allRestaurant");
     if (state.currentRestaurantListId === "favoriteRestaurant") {
       const favoriteRestaurantList = RestaurantListUtils.getFavoriteList(
         LocalStorage.getJSON(RESTAURANT_LIST_KEY)
@@ -18,7 +18,7 @@ const Renderer = {
     }
   },
 
-  applyFilter(restaurantListId) {
+  filteredList(restaurantListId) {
     const filteredList = FilterSelect.getFilteredList();
     RestaurantList.applyList(restaurantListId, filteredList);
   },
