@@ -1,7 +1,7 @@
 @import "./src/component/layout/header/header.css";
 @import "./src/component/food-item/food-item.css";
-@import "./src/component/layout/alert/alert.css";
-@import "./src/component/layout/modal/modal.css";
+@import "./src/component/common/alert/alert.css";
+@import "./src/component/common/modal/modal.css";
 @import "./src/component/food-form/food-form.css";
 @import "./src/component/button/button/button.css";
 @import "./src//component/button/button-container/button-container.css";

@@ -122,10 +122,4 @@ export default class FoodItem {
       this.#onFoodItemClick(this.#data);
     });
   }
-
-  handleDeleteClick() {
-    if (confirm(DELETE)) {
-      this.#onDeleteClick(this.#data.id);
-    }
-  }
 }
