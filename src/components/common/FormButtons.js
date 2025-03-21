@@ -1,3 +1,4 @@
+import { ClickActions } from "../../constants/Events.js";
 import { Button } from "./Button.js";
 
 export function FormButtons(formName) {
@@ -5,7 +6,7 @@ export function FormButtons(formName) {
     id: "closeModalBtn",
     type: "button",
     content: "취소하기",
-    dataSet: "removeModal",
+    dataSet: ClickActions.REMOVE_MODAL,
   })}
 
   ${Button({
@@ -18,7 +19,7 @@ export function FormButtons(formName) {
     id: "storeDeleteBtn",
     type: "submit",
     content: "삭제하기",
-    dataSet: "deleteStore",
+    dataSet: ClickActions.REMOVE_MODAL,
   })}
 
   ${Button({
@@ -26,7 +27,7 @@ export function FormButtons(formName) {
     id: "closeModalBtn",
     content: "닫기",
     styleType: "primary",
-    dataSet: "removeModal",
+    dataSet: ClickActions.REMOVE_MODAL,
   })}`;
 
   function template() {

@@ -1,3 +1,4 @@
+import { ChangeActions } from "../../constants/Events.js";
 import { SelectBox } from "./SelectBox.js";
 
 export function FilterBox() {
@@ -6,13 +7,13 @@ export function FilterBox() {
           id: "cartegoryFilter",
           name: "cartegoryFilter",
           optionName: "sortCategory",
-          onChange: "categoryFilter-change",
+          onChange: ChangeActions.SORT_FILTER,
         })}
         ${SelectBox({
           id: "sortFilter",
           name: "sortFilter",
           optionName: "sortOption",
-          onChange: "sortFilter-change",
+          onChange: ChangeActions.CATEGORY_FILTER,
         })}
     `;
 }

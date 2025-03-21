@@ -1,3 +1,4 @@
+import { ChangeActions } from "../constants/Events";
 import { ILunchItem } from "../type";
 
 function ChangeEvent(lunchList: ILunchItem[]): void {
@@ -12,10 +13,10 @@ function ChangeEvent(lunchList: ILunchItem[]): void {
     if (!action) return;
 
     switch (action) {
-      case "categoryFilter-change":
+      case ChangeActions.CATEGORY_FILTER:
         lunchList.updateFilter({ category: target.value });
         break;
-      case "sortFilter-change":
+      case ChangeActions.SORT_FILTER:
         lunchList.updateFilter({
           sortOption: target.value as "name" | "distance",
         });
