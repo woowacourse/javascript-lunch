@@ -8,7 +8,7 @@ import {
   createRestaurantForm,
   createRestaurantList,
   createRestaurantNavBar,
-} from "./factories";
+} from "./builders";
 import {
   BottomSheetBase,
   RestaurantDetail,
@@ -21,6 +21,7 @@ import RestaurantStore from "./stores/RestaurantStore.js";
 import appendElement from "./utils/appendElement.js";
 
 export default class App {
+  private store: RestaurantStore = new RestaurantStore();
   private $body = document.body;
   private $restaurantNavBar: RestaurantNavBar | undefined;
   private $restaurantFilter: RestaurantFilter | undefined;
@@ -29,7 +30,7 @@ export default class App {
   private $openDetailBottomSheet: BottomSheetBase | undefined;
   private $restaurantDetail: RestaurantDetail | undefined;
 
-  constructor(private store: RestaurantStore) {
+  constructor() {
     this.#initializeCompoenents();
 
     this.store.subscribe("restaurantList", (state) => {
