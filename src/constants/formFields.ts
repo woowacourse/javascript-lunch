@@ -13,21 +13,20 @@ import { TypeInput, TypeSelect, TypeTextarea } from "../types/types";
 
 const senseChangeRestaurantFormValue = () => {
   try {
-    const form = document.getElementById(
-      "add-restaurant-form"
-    ) as HTMLFormElement;
+    const form = document.getElementById("add-restaurant-form");
+    if (!(form instanceof HTMLFormElement)) return;
 
     validateRestaurantForm(form);
 
-    const submitButton = document.getElementById(
-      "addRestaurantButton"
-    ) as HTMLButtonElement;
+    const submitButton = document.getElementById("addRestaurantButton");
+    if (!(submitButton instanceof HTMLButtonElement)) return;
+
     submitButton?.classList.remove("button--disabled");
     submitButton.disabled = false;
   } catch (error) {
-    const submitButton = document.getElementById(
-      "addRestaurantButton"
-    ) as HTMLButtonElement;
+    const submitButton = document.getElementById("addRestaurantButton");
+    if (!(submitButton instanceof HTMLButtonElement)) return;
+
     submitButton?.classList.add("button--disabled");
     submitButton.disabled = true;
   }

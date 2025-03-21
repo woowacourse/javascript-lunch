@@ -13,21 +13,22 @@ import { Category, FormEventType, IRestaurant } from "../../types/types";
 
 const restaurantFormReset = () => {
   handleModalClose();
-  const form = document.getElementById(
-    "add-restaurant-form"
-  ) as HTMLFormElement;
+  const form = document.getElementById("add-restaurant-form");
+  if (!(form instanceof HTMLFormElement)) return;
   form.reset();
 };
 
 const changeFilterSelect = (category: Category) => {
-  const categorySelect = document.getElementById(
-    "category-filter"
-  ) as HTMLSelectElement;
-  if (categorySelect.value !== "") categorySelect.value = category;
+  const categorySelect = document.getElementById("category-filter");
+  if (!(categorySelect instanceof HTMLSelectElement)) return;
 
-  const sortSelect = document.getElementById(
-    "sorting-filter"
-  ) as HTMLSelectElement;
+  const sortSelect = document.getElementById("sorting-filter");
+  if (!(sortSelect instanceof HTMLSelectElement)) return;
+
+  if (categorySelect.value !== "") {
+    categorySelect.value = category;
+  }
+
   sortSelect.value = "";
 };
 
@@ -58,11 +59,12 @@ const handleAddRestaurant = (e: Event) => {
   e.preventDefault();
 
   try {
-    const form = document.getElementById(
-      "add-restaurant-form"
-    ) as HTMLFormElement;
+    const form = document.getElementById("add-restaurant-form");
+    if (!(form instanceof HTMLFormElement)) return;
+
     const formData = new FormData(form);
     const data = Object.fromEntries(formData) as unknown as IRestaurant;
+
     validateRestaurantForm(form);
     changeFilterSelect(data.category);
     addRestaurant(data);
@@ -81,7 +83,7 @@ const $createRestaurantForm = () => {
   const cancelEvent = {
     eventType: "click",
     eventHandler: restaurantFormReset,
-  } as FormEventType;
+  };
   const submitCancelButtons = $buttonContainer([
     $button(UI_CONFIG.BUTTONS.CANCEL, cancelEvent),
     $button(UI_CONFIG.BUTTONS.ADD),
@@ -104,7 +106,7 @@ const $createRestaurantForm = () => {
   const submitForm = {
     eventType: "submit",
     eventHandler: handleAddRestaurant,
-  } as FormEventType;
+  };
   container?.appendChild($form(restaurantAddForm, submitForm));
 
   handleModalOpen();

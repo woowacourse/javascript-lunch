@@ -35,16 +35,20 @@ const $createRestaurantList = () => {
   );
   restaurantContainer?.replaceChildren();
 
-  const categoryFilter = (
-    document.getElementById("category-filter") as HTMLSelectElement
-  )?.value as Category;
-  const sortFilter = (
-    document.getElementById("sorting-filter") as HTMLSelectElement
-  )?.value as Sort;
+  const categoryFilter = document.getElementById("category-filter");
+  if (!(categoryFilter instanceof HTMLSelectElement)) return;
+
+  const categoryFilterValue = categoryFilter.value as Category;
+
+  const sortFilter = document.getElementById("sorting-filter");
+  if (!(sortFilter instanceof HTMLSelectElement)) return;
+
+  const sortFilterValue = sortFilter.value as Sort;
+
   const restaurantItems = storageHandler.filterItem(
     STORAGE_KEY_NAME,
-    categoryFilter,
-    sortFilter,
+    categoryFilterValue,
+    sortFilterValue,
     document.querySelector(".select-tab-active")!.id
   );
 

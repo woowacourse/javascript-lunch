@@ -12,9 +12,13 @@ export const updateFavoriteIcon = (
     STORAGE_KEY_NAME,
     restaurantInfo
   );
-  const target = e.currentTarget as HTMLElement;
-  const favoriteIcon = target?.children[0];
-  const targetParent = target.parentNode as HTMLElement;
+  const target = e.currentTarget;
+  if (!(target instanceof HTMLElement)) return;
+
+  const favoriteIcon = target.children[0];
+  const targetParent = target.parentNode;
+  if (!(targetParent instanceof HTMLElement)) return;
+
   const isModalFavoriteIcon =
     targetParent.classList.contains("modal-container");
 

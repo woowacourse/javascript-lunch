@@ -8,7 +8,9 @@ const activeTabEvent = (id: string) => {
 };
 
 const toggleTabClick = (e: MouseEvent) => {
-  const target = e.target as HTMLElement;
+  const target = e.target;
+  if (!(target instanceof HTMLElement)) return;
+
   activeTabEvent(target.id);
   $createRestaurantList();
 };
