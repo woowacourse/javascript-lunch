@@ -10,12 +10,12 @@ class InputText {
   }
 
   #createInputFormItem(title: InputTitle): HTMLDivElement | undefined {
-    if (title === '이름') return this.#createNameFormItem(title);
+    if (title === '이름') return this.#createNameFormItem();
     if (title === '설명') return this.#createDescriptionFormItem();
     if (title === '참조 링크') return this.#createLinkFormItem();
   }
 
-  #createNameFormItem(title: string): HTMLDivElement {
+  #createNameFormItem(): HTMLDivElement {
     const formItem = document.createElement('div');
     formItem.classList.add('form-item');
     formItem.classList.add('form-item--required');
