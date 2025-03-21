@@ -45,11 +45,14 @@ const $createRestaurantList = () => {
 
   const sortFilterValue = sortFilter.value as Sort;
 
+  const activeTabId = document.querySelector(".select-tab-active");
+  if (!(activeTabId instanceof HTMLElement)) return;
+
   const restaurantItems = storageHandler.filterItem(
     STORAGE_KEY_NAME,
     categoryFilterValue,
     sortFilterValue,
-    document.querySelector(".select-tab-active")!.id
+    activeTabId.id
   );
 
   restaurantContainer?.appendChild($restaurantList(restaurantItems));
