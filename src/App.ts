@@ -1,4 +1,4 @@
-import { NavBarKey, FilterOptions, Restaurant } from "../types";
+import { FilterOptions, NavBarKey, Restaurant } from "../types";
 import {
   createBottomSheetBase,
   createHeader,
@@ -18,6 +18,7 @@ import {
 } from "./components/index";
 import { CATEGORY, NAV_BAR_KEYS } from "./constants";
 import RestaurantStore from "./stores/RestaurantStore.js";
+import { subscribeRestaurantStore } from "./stores/subscribeStore.js";
 import appendElement from "./utils/appendElement.js";
 
 export default class App {
@@ -33,16 +34,11 @@ export default class App {
   constructor() {
     this.#initializeCompoenents();
 
-    this.store.subscribe("restaurantList", (state) => {
-      if (this.$restaurantList) {
-        this.$restaurantList.updateRestaurantList(state.filteredRestaurants);
-      }
-    });
-    this.store.subscribe("restaurantDetail", (state) => {
-      if (this.$restaurantDetail) {
-        this.$restaurantDetail.updateAndOpenDetail(state.selectedRestaurant);
-      }
-    });
+    subscribeRestaurantStore(
+      this.store,
+      this.$restaurantList,
+      this.$restaurantDetail
+    );
   }
 
   #initializeCompoenents() {
