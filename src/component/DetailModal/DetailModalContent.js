@@ -1,5 +1,4 @@
 import { RESTAURANT_LIST_KEY } from "../../constants/constants.js";
-import state from "../../state.js";
 import LocalStorage from "../../utils/LocalStorage.ts";
 import { $ } from "../../utils/querySelectors.js";
 import Renderer from "../../utils/Renderer.js";

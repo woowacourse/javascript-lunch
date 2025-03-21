@@ -1,5 +1,4 @@
 import { CATEGORY_ICON, RESTAURANT_LIST_KEY } from "../constants/constants.ts";
-import state from "../state.ts";
 import LocalStorage from "../utils/LocalStorage.ts";
 import { $ } from "../utils/querySelectors.js";
 import Renderer from "../utils/Renderer.js";
@@ -30,7 +29,6 @@ const RestaurantList = {
   },
 
   applyList(restaurantListId, restaurantList) {
-    state.setCurrentRestaurantList(restaurantList);
     const restaurantElementList = this.getRestaurantElementList(restaurantList);
     this.applyElements(restaurantListId, restaurantElementList);
   },

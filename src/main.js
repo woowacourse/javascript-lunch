@@ -14,7 +14,6 @@ import data from "./data.js";
 import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
 import LocalStorage from "./utils/LocalStorage.ts";
 import { RESTAURANT_LIST_KEY } from "./constants/constants.js";
-import state from "./state.ts";
 import Renderer from "./utils/Renderer.js";
 
 DOM.$body.prepend(Header.create());
@@ -33,24 +32,22 @@ function initLocalStorage() {
 
 function initNavigationButton() {
   $(".navigation-bar-container").addEventListener("click", (e) => {
+    $$(".navigation__button").forEach((btn) =>
+      btn.classList.remove("activated")
+    );
+    e.target.classList.add("activated");
+
     $$("main section").forEach((section) => (section.style.display = "none"));
     if (e.target.classList.contains("all_restaurant_nav")) {
-      state.setCurrentRestaurantListId("allRestaurant");
       DOM.$filterContainer.style.display = "flex";
       DOM.$restaurantContainer.style.display = "block";
     }
 
     if (e.target.classList.contains("favorite_restaurant_nav")) {
-      state.setCurrentRestaurantListId("favoriteRestaurant");
       DOM.$favoriteContainer.style.display = "block";
     }
 
     Renderer.restaurantList();
-
-    $$(".navigation__button").forEach((btn) =>
-      btn.classList.remove("activated")
-    );
-    e.target.classList.add("activated");
   });
 }
 
