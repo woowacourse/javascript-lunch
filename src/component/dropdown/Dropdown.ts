@@ -15,14 +15,12 @@ export class Dropdown {
   options: OptionType[];
   onChange: (selectValue: string) => {};
 
-  #selectValue: string;
+  #selectValue: string = "";
 
   constructor({ name, options, onChange }: DropdownOption) {
     this.container = document.createElement("div");
     this.options = options;
     this.name = name;
-
-    this.#selectValue = "이름순";
 
     this.onChange = onChange;
 
