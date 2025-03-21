@@ -106,8 +106,6 @@ body {
 
   font-size: 16px;
 }
-
-
 .restaurant-filter {
   padding: 8px;
 }
@@ -151,11 +149,10 @@ body {
 }
 
 .restaurant__info {
+
   position: relative; /* 상대 위치 설정하여 기준점 만들기 */
   width: 100%; /* 전체 너비 사용 */
 }
-
-
 .restaurant__name {
   margin: 0;
 }
@@ -297,6 +294,7 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
 .restaurant-tabs-container{
   display: flex;
   justify-content: center;
@@ -388,3 +386,4 @@ input[name="link"] {
   height: 20px;
   vertical-align: middle;
 }
+

@@ -1,3 +1,4 @@
+
 // 모달 제거 및 관련 이벤트 정리를 위한 함수
 export default function removeModal() {
   const $modal = document.querySelector(".modal");
@@ -26,10 +27,12 @@ export default function removeModal() {
     setTimeout(() => {
       resetTabEventListeners();
     }, 0);
+
   } else {
     console.warn("제거할 모달을 찾을 수 없습니다.");
   }
 }
+
 
 // 탭 이벤트 리스너를 재설정하는 함수
 function resetTabEventListeners() {
@@ -48,3 +51,4 @@ function resetTabEventListeners() {
     console.error("탭 이벤트 리스너 재설정 중 오류 발생:", error);
   }
 }
+

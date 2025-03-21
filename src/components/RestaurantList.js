@@ -1,10 +1,13 @@
+
 import { initialRestaurants } from "../data/initialRestaurants.ts";
 import RestaurantItem from "./RestaurantItem.js";
+
 
 export default function RestaurantList(
   container,
   restaurants = initialRestaurants,
 ) {
+
   const render = () => {
     const $restaurantList = document.createElement("ul");
     $restaurantList.className = "restaurant-list";
@@ -18,4 +21,5 @@ export default function RestaurantList(
   };
 
   render();
+
 }
