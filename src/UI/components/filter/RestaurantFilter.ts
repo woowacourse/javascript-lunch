@@ -1,3 +1,5 @@
+import './RestaurantFilter.css';
+
 class RestaurantFilter {
   protected element: HTMLSelectElement;
   protected options: { value: string; text: string }[];

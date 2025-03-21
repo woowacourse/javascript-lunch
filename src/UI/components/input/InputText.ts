@@ -1,3 +1,5 @@
+import './Input.css';
+
 type InputTitle = '이름' | '설명' | '참조 링크';
 
 class InputText {

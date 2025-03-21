@@ -1,5 +1,5 @@
 import { FAVORITE_IMAGE_SRC } from '../../../../public/assets/imagePaths';
-
+import './FavoriteIcon.css';
 class FavoriteIcon {
   private element: HTMLDivElement;
   private isFavorite: boolean;

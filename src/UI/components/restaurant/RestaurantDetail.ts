@@ -1,6 +1,8 @@
 import RestaurantIcon from './RestaurantIcon';
 import FavoriteIcon from './FavoriteIcon';
 import Restaurant from '../../../Domain/Restaurant';
+import './Restaurant.css';
+import './RestaurantDetail.css';
 
 class RestaurantDetail {
   private element: HTMLDivElement;

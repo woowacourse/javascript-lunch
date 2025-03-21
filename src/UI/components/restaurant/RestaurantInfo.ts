@@ -1,6 +1,5 @@
 import Restaurant from '../../../Domain/Restaurant';
 import FavoriteIcon from './FavoriteIcon';
-import './Restaurant.css';
 
 class RestaurantInfo {
   private restaurant: Restaurant;

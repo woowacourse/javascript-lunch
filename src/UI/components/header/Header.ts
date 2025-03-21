@@ -1,6 +1,6 @@
 import { DOM } from '../../../dom';
 import { BUTTON_IMAGE_SRC } from '../../../../public/assets/imagePaths';
-
+import './Header.css';
 class Header {
   #onButtonClick: () => void;
 

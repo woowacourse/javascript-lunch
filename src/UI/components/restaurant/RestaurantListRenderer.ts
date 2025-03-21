@@ -8,6 +8,7 @@ import {
   removeRestaurantEventListener,
   RestaurantEventType,
 } from '../../../Domain/services/RestaurantService';
+import './Restaurant.css';
 
 class RestaurantListRenderer {
   private static instance: RestaurantListRenderer;

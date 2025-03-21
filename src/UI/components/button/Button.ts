@@ -1,3 +1,5 @@
+import './Button.css';
+
 type ButtonType = 'button' | 'submit' | 'reset';
 
 class Button {

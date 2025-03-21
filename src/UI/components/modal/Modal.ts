@@ -1,3 +1,5 @@
+import './Modal.css';
+
 import { DOM } from '../../../dom';
 
 class Modal {
