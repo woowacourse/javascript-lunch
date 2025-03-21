@@ -35,7 +35,6 @@ const DetailModalContent = {
         <p class="restaurant__link text-body">${link ? link : ""}</p>
     </div>
   `;
-    this.handleFavoriteButton();
   },
 
   handleFavoriteButton() {

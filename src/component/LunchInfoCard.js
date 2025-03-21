@@ -33,6 +33,7 @@ const LunchInfoCard = {
         link,
         favorite,
       });
+      DetailModalContent.handleFavoriteButton();
     });
 
     return LunchInfoCardElement;
