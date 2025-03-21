@@ -1,5 +1,4 @@
 import { updateListViewType } from "../../types/common.ts";
-import CategorySortFilterEventHandler from "../event/filterEventHandlers.ts";
 import createCategorySortFilterView from "../view/createCategorySortFilterView.js";
 
 class CategorySortFilterController {
@@ -19,11 +18,7 @@ class CategorySortFilterController {
       "#sorting-filter",
     ) as HTMLSelectElement;
 
-    CategorySortFilterEventHandler({
-      categoryFilterElement: this.categoryFilterElement,
-      sortingFilterElement: this.sortingFilterElement,
-      updateListView: this.updateListView.bind(this),
-    });
+    this.registerEvents();
   }
 
   getContainerElement(): HTMLElement {
@@ -36,6 +31,16 @@ class CategorySortFilterController {
 
   render(container: HTMLElement) {
     container.appendChild(this.categorySortFilterContainerElement);
+  }
+
+  registerEvents() {
+    this.categoryFilterElement.addEventListener("change", () => {
+      this.updateListView(this.categoryFilterElement.value, this.sortingFilterElement.value);
+    });
+
+    this.sortingFilterElement.addEventListener("change", () => {
+      this.updateListView(this.categoryFilterElement.value, this.sortingFilterElement.value);
+    });
   }
 }
 
