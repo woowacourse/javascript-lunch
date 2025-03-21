@@ -3,17 +3,14 @@ import { restaurantStore } from "../store/restaurantStore.ts";
 import RestaurantItem from "../components/RestaurantItem.js";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
 import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
-import { Category, Restaurant } from "../../types/Restaurant.ts";
-import { RestaurantElement } from "../../types/DomTypes.ts";
-// 저장된 필터
+import { Category } from "../../types/Restaurant.ts";
 
 interface FilterState {
-  category : Category | null;
-  sortBy : "distance" | "name";
-
+  category: Category | null;
+  sortBy: "distance" | "name";
 }
 
-const currentFilter : FilterState = {
+const currentFilter: FilterState = {
   category: null,
   sortBy: "distance", // 기본 정렬은 거리순
 };
@@ -25,7 +22,7 @@ export function applyFilter(): void {
   const $selectedTab = document.querySelector(".tab-button--active") as HTMLElement;
   const selectedFilter = $selectedTab?.dataset.tab || "all";
 
-  
+  // 1. 기본 필터링 (탭)
   let restaurants = restaurantStore.getRestaurants();
   let filteredRestaurants = restaurants.filter((restaurant) => {
     if (selectedFilter === "all") return true;
@@ -33,7 +30,7 @@ export function applyFilter(): void {
     return restaurant.category === selectedFilter;
   });
 
-  
+  // 2. 카테고리 필터 적용
   if (currentFilter.category) {
     filteredRestaurants = filteredRestaurants.filter(
       (restaurant) => restaurant.category === currentFilter.category
@@ -60,14 +57,15 @@ export function applyFilter(): void {
   setupFavoriteEventListeners();
 }
 
-export function handleCategoryFilter(e : Event) : void {
+export function handleCategoryFilter(e: Event): void {
   const target = e.target as HTMLSelectElement;
   const selectedCategory = target.value;
   currentFilter.category = selectedCategory === "all" ? null : selectedCategory as Category;
   applyFilter();
 }
-export function handleSortingFilter(e: Event) {
-  const target = e.target as HTMLSelectElement
+
+export function handleSortingFilter(e: Event): void {
+  const target = e.target as HTMLSelectElement;
   const selectedSorting = target.value;
   currentFilter.sortBy = selectedSorting as "distance" | "name";
   applyFilter();

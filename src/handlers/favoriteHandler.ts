@@ -1,6 +1,5 @@
 import { applyFilter } from "./filterHandler.js";
 import { restaurantStore } from "../store/restaurantStore.ts";
-import { rerenderRestaurantList } from "./restaurantHandler.ts";
 
 export function handleFavoriteClick(e: MouseEvent): void {
   e.stopPropagation();
@@ -20,7 +19,6 @@ export function handleFavoriteClick(e: MouseEvent): void {
     if ($starImg) {
       $starImg.src = `./${restaurant.favorites ? "fill-star" : "blank-star"}.png`;
     }
-    
   }
 
   applyFilter();
