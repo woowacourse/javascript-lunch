@@ -7,12 +7,11 @@ import removeModal from "../utils/removeModal.js";
 import { ERROR_TYPES } from "../constants/errors.js";
 import RestaurantItem from "../components/RestaurantItem.js";
 import { generateId } from "../utils/generateId.js";
-import { storeRestaurants } from "../utils/localStorage.ts";
-import { initialRestaurants } from "../data/initialRestaurants.ts";
+import { restaurantStore } from "../store/restaurantStore.ts";
 import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
 import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 import { categoryMapping } from "../utils/categoryMapping.ts";
-import { Restaurant, Category,CategoryName } from "../../types/Restaurant.ts";
+import { Restaurant, Category, CategoryName } from "../../types/Restaurant.ts";
 
 export function handleDeleteRestaurant(e: MouseEvent): void {
   e.preventDefault();
@@ -28,21 +27,14 @@ export function handleDeleteRestaurant(e: MouseEvent): void {
       }
     });
 
-    // initialRestaurants 배열에서 레스토랑 제거
-    const index = initialRestaurants.findIndex(
-      (restaurant) => restaurant.id === Number(selectedId)
-    );
-    if (index !== -1) {
-      initialRestaurants.splice(index, 1);
-      // localStorage 업데이트
-      storeRestaurants(initialRestaurants);
-    }
+    // restaurantStore에서 레스토랑 제거
+    restaurantStore.deleteRestaurant(Number(selectedId));
   } else {
     console.warn("레스토랑 목록이나 선택된 레스토랑을 찾을 수 없습니다.");
   }
 }
 
-export function handleAddRestaurant(e : MouseEvent) : void{
+export function handleAddRestaurant(e: MouseEvent): void {
   e.preventDefault();
 
   const $category = document.getElementById("category") as HTMLSelectElement;
@@ -70,9 +62,9 @@ export function handleAddRestaurant(e : MouseEvent) : void{
     validateSelectInput(category, ERROR_TYPES.CATEGORY);
 
     // 새로운 레스토랑 객체 생성
-    const newRestaurant : Restaurant = {
+    const newRestaurant: Restaurant = {
       id: generateId(),
-      category : category as Category,
+      category: category as Category,
       categoryName: categoryValue as CategoryName,
       name: nameValue,
       distance: distanceValue,
@@ -80,10 +72,8 @@ export function handleAddRestaurant(e : MouseEvent) : void{
       favorites: false,
     };
 
-    // initialRestaurants 배열에 추가
-    initialRestaurants.push(newRestaurant);
-
-    storeRestaurants(initialRestaurants);
+    // restaurantStore에 추가
+    restaurantStore.addRestaurant(newRestaurant);
 
     // UI 업데이트
     const $restaurantList = document.querySelector(".restaurant-list");
@@ -106,18 +96,20 @@ export function handleAddRestaurant(e : MouseEvent) : void{
   }
 }
 
-export function rerenderRestaurantList(restaurantId : number) : void{
+export function rerenderRestaurantList(restaurantId: number): void {
   const $restaurantList = document.querySelector(".restaurant-list");
   if (!$restaurantList) return;
-   const visibleItems = initialRestaurants.filter(restaurant => {
+  
+  const restaurants = restaurantStore.getRestaurants();
+  const visibleItems = restaurants.filter(restaurant => {
     // TODO : 필터조건 추가 구현
     return true;
   });
+  
   $restaurantList.innerHTML = visibleItems.map(restaurant => 
     RestaurantItem(restaurant)
   ).join("");
+  
   setupRestaurantItemEventListeners();
   setupFavoriteEventListeners();
-
-
 }

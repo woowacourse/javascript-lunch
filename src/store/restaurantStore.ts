@@ -1,5 +1,73 @@
-import { initializeRestaurants } from "../utils/localStorage.ts";
-import { Restaurant } from "../../types/Restaurant.js";
+import { Restaurant } from "../../types/Restaurant.ts";
+import {
+  initializeRestaurants,
+  storeRestaurants,
+} from "../utils/localStorage.ts";
+
+type Listener = (restaurants: Restaurant[]) => void;
+
+class RestaurantStore {
+  private restaurants: Restaurant[];
+  private listeners: Listener[];
+
+  constructor(defaultRestaurants: Restaurant[]) {
+    this.restaurants = initializeRestaurants(defaultRestaurants);
+    this.listeners = [];
+  }
+
+  getRestaurants(): Restaurant[] {
+    return [...this.restaurants];
+  }
+
+  getById(id: number): Restaurant | undefined {
+    return this.restaurants.find((restaurant) => restaurant.id === id);
+  }
+
+  addRestaurant(restaurant: Restaurant): void {
+    this.restaurants.push(restaurant);
+    this._persist();
+    this._notifyListeners();
+  }
+
+  updateRestaurant(id: number, updates: Partial<Restaurant>): boolean {
+    const index = this.restaurants.findIndex((r) => r.id === id);
+    if (index === -1) return false;
+
+    this.restaurants[index] = { ...this.restaurants[index], ...updates };
+    this._persist();
+    this._notifyListeners();
+    return true;
+  }
+
+  deleteRestaurant(id: number): boolean {
+    const initialLength = this.restaurants.length;
+    this.restaurants = this.restaurants.filter(
+      (restaurant) => restaurant.id !== id,
+    );
+
+    if (this.restaurants.length !== initialLength) {
+      this._persist();
+      this._notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  subscribe(listener: Listener): () => void {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter((l) => l !== listener);
+    };
+  }
+
+  private _persist(): void {
+    storeRestaurants(this.restaurants);
+  }
+
+  private _notifyListeners(): void {
+    this.listeners.forEach((listener) => listener(this.restaurants));
+  }
+}
 
 const defaultRestaurants: Restaurant[] = [
   {
@@ -61,4 +129,4 @@ const defaultRestaurants: Restaurant[] = [
   },
 ];
 
-export const initialRestaurants:Restaurant[] = initializeRestaurants(defaultRestaurants);
+export const restaurantStore = new RestaurantStore(defaultRestaurants);

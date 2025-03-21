@@ -16,7 +16,7 @@ export function getStoredRestaurants():Restaurant[] | null{
   }
 }
 
-// localStorage에 레스토랑 데이터 저장하기
+
 export function storeRestaurants(restaurants: Restaurant[]): void {
   try {
     localStorage.setItem(STORAGE_KEYS.RESTAURANTS, JSON.stringify(restaurants));

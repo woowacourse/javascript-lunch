@@ -1,46 +1,33 @@
-import { applyFilter } from "./filterHandler.ts";
-import { initialRestaurants } from "../data/initialRestaurants.ts";
-import { storeRestaurants } from "../utils/localStorage.ts";
-import { Restaurant } from "../../types/Restaurant.ts";
+import { applyFilter } from "./filterHandler.js";
+import { restaurantStore } from "../store/restaurantStore.ts";
 import { rerenderRestaurantList } from "./restaurantHandler.ts";
 
-export function handleFavoriteClick(e : MouseEvent) : void {
+export function handleFavoriteClick(e: MouseEvent): void {
   e.stopPropagation();
 
   const $favoriteButton = (e.target as HTMLElement).closest(".favorite-button") as HTMLElement;
   const restaurantId = Number($favoriteButton.dataset.restaurantId);
 
-  const updatedRestaurants : Restaurant[] = initialRestaurants.map((restaurant) => {
-    if (restaurant.id === restaurantId) {
-      return {
-        ...restaurant,
-        favorites: !restaurant.favorites,
-      };
+  const restaurant = restaurantStore.getById(restaurantId);
+  if (restaurant) {
+    restaurant.favorites = !restaurant.favorites;
+    restaurantStore.updateRestaurant(restaurantId, { favorites: restaurant.favorites });
+
+    // UI 업데이트
+    const $starImg = $favoriteButton.querySelector("img");
+    if ($starImg) {
+      $starImg.src = `./${restaurant.favorites ? "fill-star" : "blank-star"}.png`;
     }
-    return restaurant;
-  });
+  }
 
-  Object.assign(initialRestaurants, updatedRestaurants);
-
-  storeRestaurants(updatedRestaurants);
-
-  // UI 업데이트
-  const $starImg = $favoriteButton.querySelector("img") as HTMLImageElement;
-  const $restaurantElement = $favoriteButton.closest(".restaurant") as HTMLElement;
-  const newFavoriteState = !(
-    $restaurantElement.dataset.favorites === "true"
-  );
-  $starImg.src = `./${newFavoriteState ? "fill-star" : "blank-star"}.png`;
-  $restaurantElement.dataset.favorites =
-    String(newFavoriteState);
-
-  rerenderRestaurantList();
+  rerenderRestaurantList(restaurantId);
   applyFilter();
 }
 
-export function setupFavoriteEventListeners() {
-  const $favoriteButtons = document.querySelectorAll(".favorite-button") ;
+export function setupFavoriteEventListeners(): void {
+  const $favoriteButtons = document.querySelectorAll(".favorite-button");
   $favoriteButtons.forEach((button) => {
+    button.removeEventListener("click", handleFavoriteClick as EventListener);
     button.addEventListener("click", handleFavoriteClick as EventListener);
   });
 }

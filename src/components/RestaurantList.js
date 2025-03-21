@@ -1,13 +1,10 @@
-
-import { initialRestaurants } from "../data/initialRestaurants.ts";
+import { restaurantStore } from "../store/restaurantStore";
 import RestaurantItem from "./RestaurantItem.js";
-
 
 export default function RestaurantList(
   container,
-  restaurants = initialRestaurants,
+  restaurants = restaurantStore.getRestaurants(),
 ) {
-
   const render = () => {
     const $restaurantList = document.createElement("ul");
     $restaurantList.className = "restaurant-list";
@@ -21,5 +18,4 @@ export default function RestaurantList(
   };
 
   render();
-
 }

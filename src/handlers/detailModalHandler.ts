@@ -1,5 +1,6 @@
 import { Restaurant } from "../../types/Restaurant.ts";
 import { AddDetailModal } from "../components/DetailModal.js"
+import { restaurantStore } from "../store/restaurantStore.ts";
 
 
 export function handleRestaurantClick(e: MouseEvent): void {
@@ -12,18 +13,14 @@ export function handleRestaurantClick(e: MouseEvent): void {
   const restaurantId = $clickedItem.dataset.restaurantId;
   if (!restaurantId) return;
   
-  import("../data/initialRestaurants.ts").then(({ initialRestaurants }) => {
-    const selectedRestaurant = initialRestaurants.find(
-      (restaurant) => restaurant.id === Number(restaurantId)
-    );
-    
-    if (selectedRestaurant) {
-      const $appContainer = document.getElementById("app");
-      if ($appContainer) {
-        AddDetailModal($appContainer, selectedRestaurant);
-      }
+  const selectedRestaurant = restaurantStore.getById(Number(restaurantId));
+  
+  if (selectedRestaurant) {
+    const $appContainer = document.getElementById("app");
+    if ($appContainer) {
+      AddDetailModal($appContainer, selectedRestaurant);
     }
-  });
+  }
 }
 
 export function setupRestaurantItemEventListeners(): void {

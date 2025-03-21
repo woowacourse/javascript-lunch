@@ -1,9 +1,7 @@
-import { initialRestaurants } from "../data/initialRestaurants.ts";
+import { restaurantStore } from "../store/restaurantStore.ts";
 
 export function generateId() {
-  const maxId = Math.max(
-    ...initialRestaurants.map((restaurant) => restaurant.id),
-    0,
-  );
+  const restaurants = restaurantStore.getRestaurants();
+  const maxId = Math.max(...restaurants.map((restaurant) => restaurant.id), 0);
   return maxId + 1;
 }

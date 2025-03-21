@@ -1,6 +1,8 @@
 /* eslint-disable radix */
-import { initialRestaurants } from "../data/initialRestaurants.ts";
-import { tabState } from "./tabHandler.ts";
+import { restaurantStore } from "../store/restaurantStore.ts";
+import RestaurantItem from "../components/RestaurantItem.js";
+import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
+import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 import { Category, Restaurant } from "../../types/Restaurant.ts";
 import { RestaurantElement } from "../../types/DomTypes.ts";
 // 저장된 필터
@@ -16,65 +18,46 @@ const currentFilter : FilterState = {
   sortBy: "distance", // 기본 정렬은 거리순
 };
 
-export function applyFilter() : void {
-  const $restaurantItems = document.querySelectorAll(".restaurant");
-  if ($restaurantItems.length === 0) {
-    console.warn("필터링할 레스토랑 항목이 없습니다.");
-    return;
-  }
+export function applyFilter(): void {
+  const $restaurantList = document.querySelector(".restaurant-list");
+  if (!$restaurantList) return;
 
-  // 카테고리 필터 적용
-  $restaurantItems.forEach((item) => {
-    const restaurantItem = item as RestaurantElement;
-    restaurantItem.style.display = "flex";
+  const $selectedTab = document.querySelector(".tab--selected") as HTMLElement;
+  const selectedFilter = $selectedTab?.dataset.filter || "all";
 
-    if (currentFilter.category !== null) {
-      const itemCategory = restaurantItem.dataset.category;
-
-      if (itemCategory !== currentFilter.category) {
-        restaurantItem.style.display = "none";
-      }
-    }
-
-    // 탭필터 (그 자주가는 음식점이 활성화 된 경우)
-    if (tabState.activeTab === "favorites") {
-      const isFavorite = restaurantItem.dataset.favorites === "true";
-
-      if (!isFavorite) {
-        restaurantItem.style.display = "none";
-      }
-    }
+  // 1. 기본 필터링 (탭)
+  let restaurants = restaurantStore.getRestaurants();
+  let filteredRestaurants = restaurants.filter((restaurant) => {
+    if (selectedFilter === "all") return true;
+    if (selectedFilter === "favorites") return restaurant.favorites;
+    return restaurant.category === selectedFilter;
   });
 
-  // 정렬 적용
-  if (currentFilter.sortBy !== null) {
-    const $restaurantList = document.querySelector(".restaurant-list");
-    if (!$restaurantList) return;
-
-    // 목록의 모든 요소를 배열로 변환
-    const visibleItems = Array.from($restaurantList.children);
-
-    visibleItems.sort((a, b) => {
-      if (currentFilter.sortBy === "distance") {
-        const distanceTextA = a.querySelector(".restaurant__distance")?.textContent || "0";
-        const distanceTextB = b.querySelector(".restaurant__distance")?.textContent || "0";
-        const distanceA = parseInt(distanceTextA.match(/\d+/)?.[0] || "0");
-        const distanceB = parseInt(distanceTextB.match(/\d+/)?.[0] || "0");
-        return distanceA - distanceB;
-      }
-      if (currentFilter.sortBy === "name") {
-         const nameA = a.querySelector(".restaurant__name")?.textContent || "";
-        const nameB = b.querySelector(".restaurant__name")?.textContent || "";
-        return nameA.localeCompare(nameB, "ko");
-      }
-      return 0;
-    });
-
-    // 정렬된 순서대로 DOM에 추가
-    visibleItems.forEach((item) => {
-      $restaurantList.appendChild(item);
-    });
+  // 2. 카테고리 필터 적용
+  if (currentFilter.category) {
+    filteredRestaurants = filteredRestaurants.filter(
+      (restaurant) => restaurant.category === currentFilter.category
+    );
   }
+
+  // 3. 정렬 적용
+  filteredRestaurants.sort((a, b) => {
+    if (currentFilter.sortBy === "distance") {
+      return Number(a.distance) - Number(b.distance);
+    }
+    if (currentFilter.sortBy === "name") {
+      return a.name.localeCompare(b.name, "ko");
+    }
+    return 0;
+  });
+
+  // 4. UI 업데이트
+  $restaurantList.innerHTML = filteredRestaurants
+    .map((restaurant) => RestaurantItem(restaurant))
+    .join("");
+
+  setupRestaurantItemEventListeners();
+  setupFavoriteEventListeners();
 }
 
 export function handleCategoryFilter(e : Event) : void {
