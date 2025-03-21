@@ -50,10 +50,9 @@ export class Dropdown {
     this.container.querySelectorAll("select").forEach((element) =>
       element.addEventListener("change", (event: Event) => {
         const target = event.target;
-        if (target instanceof HTMLSelectElement) {
-          this.#selectValue = target.value;
-          this.onChange(this.#selectValue);
-        }
+        if (!(target instanceof HTMLSelectElement)) return;
+        this.#selectValue = target.value;
+        this.onChange(this.#selectValue);
       }),
     );
   }
