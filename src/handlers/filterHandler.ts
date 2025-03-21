@@ -25,7 +25,7 @@ export function applyFilter(): void {
   const $selectedTab = document.querySelector(".tab-button--active") as HTMLElement;
   const selectedFilter = $selectedTab?.dataset.tab || "all";
 
-  // 1. 기본 필터링 (탭)
+  
   let restaurants = restaurantStore.getRestaurants();
   let filteredRestaurants = restaurants.filter((restaurant) => {
     if (selectedFilter === "all") return true;
@@ -33,7 +33,7 @@ export function applyFilter(): void {
     return restaurant.category === selectedFilter;
   });
 
-  // 2. 카테고리 필터 적용
+  
   if (currentFilter.category) {
     filteredRestaurants = filteredRestaurants.filter(
       (restaurant) => restaurant.category === currentFilter.category
