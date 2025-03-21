@@ -3,7 +3,6 @@ import LocalStorage from "../utils/LocalStorage.ts";
 import { $ } from "../utils/querySelectors.js";
 import Renderer from "../utils/Renderer.js";
 import RestaurantListUtils from "../utils/RestaurantListUtils.ts";
-import RestaurantList from "./RestaurantList.js";
 
 const FilterSelect = {
   create({ id, name, dropdownList }) {

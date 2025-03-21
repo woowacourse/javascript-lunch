@@ -3,9 +3,6 @@ import LocalStorage from "../../utils/LocalStorage.ts";
 import { $ } from "../../utils/querySelectors.js";
 import Renderer from "../../utils/Renderer.js";
 import RestaurantListUtils from "../../utils/RestaurantListUtils.js";
-import FilterSelect from "../FilterSelect.js";
-import Modal from "../Modal.js";
-import RestaurantList from "../RestaurantList.js";
 import DetailModalButtonContainer from "./DetailModalButtonContainer.js";
 
 const DetailModalContent = {

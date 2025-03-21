@@ -9,7 +9,6 @@ import {
   SORT_FILTER_DROPDOWN_LIST,
 } from "./constants/dropdownList.js";
 import { $, $$ } from "./utils/querySelectors.js";
-import RestaurantListUtils from "./utils/RestaurantListUtils.js";
 import data from "./data.js";
 import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
 import LocalStorage from "./utils/LocalStorage.ts";
