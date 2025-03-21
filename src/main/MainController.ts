@@ -2,13 +2,13 @@ import { LIST_ITEM_CONTENTS } from "../constants/listData.ts";
 import RestaurantList from "../domain/RestaurantList.ts";
 import favoriteEventHandler from "../event/favoriteEventHandler.ts";
 import listItemOpenEventHandler from "../event/listItemOpenEventHandler.ts";
-import CategorySortFilterController from "./CategorySortFilterController.ts";
-import DetailModalController from "./DetailModalController.ts";
-import FavoriteListController from "./FavoriteListController.ts";
-import HeaderController from "./HeaderController.ts";
-import ListController from "./ListController.ts";
-import ModalController from "./ModalController.ts";
-import TabController from "./TabController.ts";
+import CategorySortFilterController from "../controllers/CategorySortFilterController.ts";
+import DetailModalController from "../controllers/DetailModalController.ts";
+import FavoriteListController from "../controllers/FavoriteListController.ts";
+import HeaderController from "../controllers/HeaderController.ts";
+import ListController from "../controllers/ListController.ts";
+import ModalController from "../controllers/ModalController.ts";
+import TabController from "../controllers/TabController.ts";
 
 class MainController {
   appElement;
@@ -17,7 +17,6 @@ class MainController {
   favoriteListContainerElement;
   restaurantList;
 
-  // ❗ 컨트롤러 프로퍼티 추가
   listController!: ListController;
   favoriteListController!: FavoriteListController;
   categorySortFilterController!: CategorySortFilterController;
@@ -27,9 +26,7 @@ class MainController {
 
   constructor() {
     this.appElement = document.getElementById("app") as HTMLElement;
-
     this.mainElement = this.appElement.querySelector("main") as HTMLElement;
-
     this.allListContainerElement = this.mainElement.querySelector(".all-restaurant-list-container") as HTMLElement;
     this.favoriteListContainerElement = this.mainElement.querySelector(
       ".favorite-restaurant-list-container",
