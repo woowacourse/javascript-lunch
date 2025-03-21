@@ -18,13 +18,15 @@ export const storageHandler = {
     sort: Sort,
     id: string
   ) => {
+    const data = storageHandler.getItem(storageKey);
     let restaurantData;
+
     if (id === "all") {
-      restaurantData = storageHandler.getItem(storageKey);
+      restaurantData = data;
     } else if (id === "favorite") {
-      restaurantData = storageHandler
-        .getItem(storageKey)
-        .filter((item: IRestaurant) => item.isFavorite === true);
+      restaurantData = data.filter(
+        (item: IRestaurant) => item.isFavorite === true
+      );
     }
 
     if (!category && !sort) {
@@ -65,20 +67,20 @@ export const storageHandler = {
     );
   },
   updateFavorite: (storageKey: string, restaurantInfo: IRestaurant) => {
-    const favoriteData = storageHandler
-      .getItem(storageKey)
-      .filter((item: IRestaurant) => item.id === restaurantInfo.id);
+    const data = storageHandler.getItem(storageKey);
 
-    const updateData = storageHandler
-      .getItem(storageKey)
-      .map((item: IRestaurant) => {
-        if (item.id === restaurantInfo.id) {
-          restaurantInfo.isFavorite = !favoriteData[0].isFavorite;
-          return restaurantInfo;
-        }
+    const favoriteData = data.filter(
+      (item: IRestaurant) => item.id === restaurantInfo.id
+    );
 
-        return item;
-      });
+    const updateData = data.map((item: IRestaurant) => {
+      if (item.id === restaurantInfo.id) {
+        restaurantInfo.isFavorite = !favoriteData[0].isFavorite;
+        return restaurantInfo;
+      }
+
+      return item;
+    });
 
     storageHandler.setItem(storageKey, updateData);
 
