@@ -13,9 +13,9 @@ import uiBasicText from "./constants/uiBasicText.js";
 addEventListener("load", () => {
   // 초기 세팅
   initRenderer.setHeader(uiBasicText.HEADER_TEXT);
-  MenuBar();
   initRenderer.setRestaurantFilter();
   const storeList = initRenderer.setStoreList();
+  MenuBar(storeList);
 
   // 메뉴 추가 버튼
   document.querySelector(".gnb__button").addEventListener("click", () => {
@@ -82,11 +82,4 @@ addEventListener("load", () => {
       storeRenderer.rerenderStoreList(storeList.filteredList);
     });
   });
-
-  // 전체/자주 가는 음식점 메뉴바
-  document
-    .querySelector(".restaurant-menuBar-container")
-    .addEventListener("click", (e) => {
-      storeRenderer.setMenuBar(storeList, e);
-    });
 });

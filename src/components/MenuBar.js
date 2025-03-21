@@ -1,8 +1,9 @@
 import uiBasicText from "../constants/uiBasicText.js";
+import storeRenderer from "../render/storeRenderer.js";
 import createElement from "../utils/createElement.js";
 
 // 모든 음식점 / 자주 가는 음식점 메뉴바
-const MenuBar = () => {
+const MenuBar = (storeList) => {
   const container = document.querySelector(".restaurant-menuBar-container");
 
   const allButton = createElement({
@@ -30,6 +31,13 @@ const MenuBar = () => {
   favoriteButton.appendChild(favoriteButtonText);
 
   container.append(allButton, favoriteButton);
+
+  // 이벤트
+  document
+    .querySelector(".restaurant-menuBar-container")
+    .addEventListener("click", (e) => {
+      storeRenderer.setMenuBar(storeList, e);
+    });
 };
 
 export default MenuBar;
