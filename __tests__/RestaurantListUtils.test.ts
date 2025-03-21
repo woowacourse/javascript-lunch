@@ -71,8 +71,8 @@ describe("RestaurantList 유틸 함수 테스트", () => {
 
   test("음식점 목록과 id를 주면 해당하는 음식점의 favorite 값이 변경된다", () => {
     const resultList: Restaurant[] = [
-      { id: 0, label: "한식", name: "한식집", distance: 10, favorite: false },
       { id: 1, label: "일식", name: "초밥집", distance: 5, favorite: false },
+      { id: 0, label: "한식", name: "한식집", distance: 10, favorite: false },
       { id: 2, label: "양식", name: "돈가스집", distance: 15, favorite: true },
       { id: 3, label: "한식", name: "국밥집", distance: 20, favorite: false },
     ];

@@ -18,13 +18,11 @@ const RestaurantListUtils = {
   },
 
   sortById(restaurantList: Restaurant[]) {
-    const resultList = [...restaurantList];
-    return resultList.sort((a, b) => a.id - b.id);
+    return restaurantList.sort((a, b) => a.id - b.id);
   },
 
   sortByName(restaurantList: Restaurant[]) {
-    const resultList = [...restaurantList];
-    return resultList.sort((a, b) => {
+    return restaurantList.sort((a, b) => {
       const nameA = a.name.toUpperCase();
       const nameB = b.name.toUpperCase();
       if (nameA < nameB) return -1;
@@ -34,8 +32,7 @@ const RestaurantListUtils = {
   },
 
   sortByDistance(restaurantList: Restaurant[]) {
-    const resultList = [...restaurantList];
-    return resultList.sort((a, b) => a.distance - b.distance);
+    return restaurantList.sort((a, b) => a.distance - b.distance);
   },
 
   favoriteById(restaurantList: Restaurant[], id: number) {
