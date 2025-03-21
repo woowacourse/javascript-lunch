@@ -2,12 +2,9 @@ import { DOM } from '../../../dom';
 import { BUTTON_IMAGE_SRC } from '../../../../public/assets/imagePaths';
 import './Header.css';
 class Header {
-  #onButtonClick: () => void;
-
   constructor(onButtonClick: () => void) {
-    this.#onButtonClick = onButtonClick;
     this.#createHeader();
-    this.#bindEvent();
+    this.#bindEvent(onButtonClick);
   }
 
   #createHeader(): void {
@@ -48,10 +45,10 @@ class Header {
     return button;
   }
 
-  #bindEvent(): void {
+  #bindEvent(onButtonClick: () => void): void {
     const addButton = document.querySelector('.gnb__button');
     if (addButton) {
-      addButton.addEventListener('click', this.#onButtonClick);
+      addButton.addEventListener('click', onButtonClick);
     } else {
       console.error('Add button element not found');
     }
