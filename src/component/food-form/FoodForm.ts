@@ -9,6 +9,7 @@ import { TextareaInput } from "../input/TextareaInput.js";
 import { alertError } from "../common/alert/alertError.js";
 import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
 import { FoodItemType } from "../../types/food.ts";
+import { isCategoryType, isDistanceType } from "./typeGuards.ts";
 
 interface FoodFormOptions {
   onCancel: () => void;
@@ -114,12 +115,18 @@ export default class FoodForm {
     const formData = new FormData(this.container);
     const formObject = Object.fromEntries(formData.entries());
 
-    const foodItem: FoodItemType = {
+    const category = String(formObject.category);
+    if (!isCategoryType(category)) throw new Error("잘못된 카테고리");
+
+    const distance = String(formObject.distance);
+    if (!isDistanceType(distance)) throw new Error("잘못된 거리");
+
+    const foodItem = {
       id: crypto.randomUUID(),
       isFavorite: false,
       name: String(formObject.name),
-      category: String(formObject.category),
-      distance: String(formObject.distance),
+      category,
+      distance,
       description: String(formObject.description),
       link: String(formObject.link),
     };
@@ -132,8 +139,12 @@ export default class FoodForm {
     validateRequiredInput(formData.name);
     validateLength(formData.name, NAME_MAX_LENGTH);
     validateRequiredInput(formData.distance);
-    validateLength(formData.description, DESCRIPTION_MAX_LENGTH);
-    validateURL(formData.link);
+    if (formData.description) {
+      validateLength(formData.description, DESCRIPTION_MAX_LENGTH);
+    }
+    if (formData.link) {
+      validateURL(formData.link);
+    }
   }
 
   get element() {

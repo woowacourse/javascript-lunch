@@ -1,3 +1,5 @@
+import { CategoryType } from "../types/food";
+
 const categoryMap = {
   한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },
   중식: { imgAlt: "중식", imgSrc: "./category-chinese.png" },
