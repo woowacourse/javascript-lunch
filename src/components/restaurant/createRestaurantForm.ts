@@ -45,12 +45,11 @@ const addRestaurant = ({
     distance,
     description,
     link,
-    id: new Date(),
+    id: new Date().toString(),
     isFavorite: false,
   };
 
-  const currentItem = storageHandler.getItem(STORAGE_KEY_NAME);
-  storageHandler.setItem(STORAGE_KEY_NAME, [...currentItem, newRestaurant]);
+  storageHandler.addItem(STORAGE_KEY_NAME, newRestaurant);
 
   $createRestaurantList();
 };

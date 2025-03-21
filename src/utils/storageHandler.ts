@@ -5,6 +5,10 @@ export const storageHandler = {
     JSON.parse(localStorage.getItem(storageKey) ?? "[]") || [],
   setItem: (storageKey: string, value: IRestaurant[]) =>
     localStorage.setItem(storageKey, JSON.stringify(value)),
+  addItem: (storageKey: string, value: IRestaurant) => {
+    const data = storageHandler.getItem(storageKey);
+    storageHandler.setItem(storageKey, [...data, value]);
+  },
   deleteItem: (storageKey: string, value: string) => {
     const newData = storageHandler
       .getItem(storageKey)
