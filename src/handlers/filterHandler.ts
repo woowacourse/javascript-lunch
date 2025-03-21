@@ -1,7 +1,7 @@
 /* eslint-disable radix */
 import { restaurantStore } from "../store/restaurantStore.ts";
 import RestaurantItem from "../components/RestaurantItem.js";
-import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
+import { setupRestaurantItemEventListeners } from "../components/DetailModal.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 import { Category } from "../../types/Restaurant.ts";
 

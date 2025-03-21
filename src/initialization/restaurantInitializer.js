@@ -1,5 +1,5 @@
 import RestaurantList from "../components/RestaurantList.js";
-import { setupRestaurantItemEventListeners } from "../handlers/detailModalHandler.ts";
+import { setupRestaurantItemEventListeners } from "../components/DetailModal.js";
 
 export function initializeRestaurantList() {
   const $restaurantContainer = document.querySelector(

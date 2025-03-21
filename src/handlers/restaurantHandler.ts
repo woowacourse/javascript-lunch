@@ -8,26 +8,24 @@ import { ERROR_TYPES } from "../constants/errors.js";
 import RestaurantItem from "../components/RestaurantItem.js";
 import { generateId } from "../utils/generateId.js";
 import { restaurantStore } from "../store/restaurantStore.ts";
-import { setupRestaurantItemEventListeners } from "./detailModalHandler.ts";
+import { setupRestaurantItemEventListeners } from "../components/DetailModal.js";
 import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 import { categoryMapping } from "../utils/categoryMapping.ts";
 import { Restaurant, Category, CategoryName } from "../../types/Restaurant.ts";
 
-export function handleDeleteRestaurant(e: MouseEvent): void {
-  e.preventDefault();
+export function handleDeleteRestaurant(restaurantId: string): void {
   const $restaurantList = document.querySelector(".restaurant-list");
   const $restaurantItems = $restaurantList?.querySelectorAll<HTMLElement>(".restaurant");
-  const selectedId = (e.currentTarget as HTMLElement).closest('.modal')?.querySelector<HTMLElement>('.restaurant')?.dataset.restaurantId;
 
-  if ($restaurantItems && selectedId) {
+  if ($restaurantItems && restaurantId) {
     $restaurantItems.forEach((item) => {
-      if (item.dataset.restaurantId === selectedId) {
+      if (item.dataset.restaurantId === restaurantId) {
         item.remove();
       }
     });
 
     // restaurantStore에서 레스토랑 제거
-    restaurantStore.deleteRestaurant(selectedId);
+    restaurantStore.deleteRestaurant(restaurantId);
   } else {
     console.warn("레스토랑 목록이나 선택된 레스토랑을 찾을 수 없습니다.");
   }

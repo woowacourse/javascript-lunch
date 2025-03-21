@@ -1,5 +1,5 @@
 import { applyFilter } from "../handlers/filterHandler.js";
-import { setupRestaurantItemEventListeners } from "../handlers/detailModalHandler.js";
+import { setupRestaurantItemEventListeners } from "./DetailModal.js";
 
 export class RestaurantHeaderTabs {
   constructor(container, activeTab = "all") {
