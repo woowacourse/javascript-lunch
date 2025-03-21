@@ -1,9 +1,7 @@
-import $createRestaurantForm from "../restaurant/createRestaurantForm.ts";
-import { UI_CONFIG } from "../../constants/uiConfig.ts";
+import $createRestaurantForm from "../restaurant/createRestaurantForm";
+import { HeaderConfigType } from "../../types/uiConfigType";
 
-type UiConfigHeader = (typeof UI_CONFIG)["HEADER"];
-
-const $headerTitle = ({ title }: UiConfigHeader) => {
+const $headerTitle = ({ title }: HeaderConfigType) => {
   const headerTitle = document.createElement("h1");
   headerTitle.classList.add("gnb__title", "text-title");
   headerTitle.textContent = title;
@@ -11,7 +9,7 @@ const $headerTitle = ({ title }: UiConfigHeader) => {
   return headerTitle;
 };
 
-const $headerModalButton = ({ buttonImage, buttonTitle }: UiConfigHeader) => {
+const $headerModalButton = ({ buttonImage, buttonTitle }: HeaderConfigType) => {
   const modalButton = document.createElement("button");
   modalButton.type = "button";
   modalButton.classList.add("gnb__button");
@@ -26,7 +24,7 @@ const $headerModalButton = ({ buttonImage, buttonTitle }: UiConfigHeader) => {
   return modalButton;
 };
 
-const $header = (headerInfo: UiConfigHeader) => {
+const $header = (headerInfo: HeaderConfigType) => {
   const header = document.createElement("header");
   header.classList.add("gnb");
 

@@ -15,7 +15,6 @@ export type TypeSelect = Exclude<SelectFields[SelectFieldKey], "create">;
 type TextareaFields = typeof FORM_FIELDS.TEXTAREAS;
 type TextareaFieldKey = keyof TextareaFields;
 export type TypeTextarea = Exclude<TextareaFields[TextareaFieldKey], "create">;
-
 export interface IRestaurant {
   category: Category;
   distance: Distance;
@@ -25,7 +24,6 @@ export interface IRestaurant {
   link?: string;
   description?: string;
 }
-
 export interface EventType {
   eventType: string;
   eventHandler: (e: Event) => void;

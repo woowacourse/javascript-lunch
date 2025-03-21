@@ -1,4 +1,6 @@
-export const UI_CONFIG = {
+import { UIConfigType } from "../types/uiConfigType";
+
+export const UI_CONFIG: UIConfigType = {
   HEADER: {
     title: "점심 뭐 먹지",
     buttonTitle: "음식점 추가",
@@ -42,8 +44,6 @@ export const UI_CONFIG = {
     },
     DELETE: {
       text: "삭제하기",
-      eventType: "click",
-      event: null,
       attribute: {
         id: "deleteRestaurantButton",
         type: "button",

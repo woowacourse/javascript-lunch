@@ -1,13 +1,7 @@
-import { UI_CONFIG } from "../../constants/uiConfig";
 import { EventType } from "../../types/types";
+import { ButtonConfigType } from "../../types/uiConfigType";
 
-type UiConfigButton = (typeof UI_CONFIG)["BUTTONS"];
-type UiConfigButtonKey = keyof UiConfigButton;
-
-const $button = (
-  buttonInfo: UiConfigButton[UiConfigButtonKey],
-  buttonEvent?: EventType
-) => {
+const $button = (buttonInfo: ButtonConfigType, buttonEvent?: EventType) => {
   const { attribute, text } = buttonInfo;
   const { eventType, eventHandler } = buttonEvent ?? {};
 
