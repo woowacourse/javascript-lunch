@@ -18,7 +18,7 @@ const FilterSelect = {
     `;
 
     filterElement.addEventListener("change", (e) =>
-      Renderer.applyFilter("allRestaurant")
+      Renderer.filteredList("allRestaurant")
     );
 
     return filterElement;

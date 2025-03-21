@@ -36,6 +36,7 @@ function initNavigationButton() {
     $$("main section").forEach((section) => (section.style.display = "none"));
     if (e.target.classList.contains("all_restaurant_nav")) {
       state.setCurrentRestaurantListId("allRestaurant");
+      DOM.$filterContainer.style.display = "flex";
       DOM.$restaurantContainer.style.display = "block";
     }
 
