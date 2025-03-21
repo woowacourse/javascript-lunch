@@ -1,4 +1,4 @@
-import { ChangeActions } from "../../constants/Events.js";
+import { ChangeActions } from "../../components-event/constants/Events.js";
 import { SelectBox } from "./SelectBox.js";
 
 export function FilterBox() {

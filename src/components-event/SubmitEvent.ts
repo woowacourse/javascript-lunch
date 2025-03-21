@@ -1,6 +1,6 @@
 import { LunchList } from "../components/function/LunchList";
 import { ILunchItem } from "../type";
-import { getStorage, setStorage } from "./storage";
+import { getStorage, setStorage } from "../utils/storage";
 
 const getHTML = (id: string): HTMLElement | null => document.getElementById(id);
 

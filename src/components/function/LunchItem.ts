@@ -1,4 +1,4 @@
-import { ClickActions } from "../../constants/Events.js";
+import { ClickActions } from "../../components-event/constants/Events.js";
 import { ILunchItem } from "../../type.ts";
 import { createElement } from "../../utils/utils.ts";
 import { StoreInfo } from "./StoreInfo.ts";
@@ -19,6 +19,7 @@ export function LunchItem({
   function render() {
     li.innerHTML = `
     ${StoreInfo({
+      id,
       category,
       name,
       distance,

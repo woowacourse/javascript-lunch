@@ -2,7 +2,7 @@ import { LunchItem } from "../components/function/LunchItem.ts";
 import { LunchList } from "../components/function/LunchList.ts";
 import { openModal } from "../components/function/modal.js";
 import { LunchListData } from "../constants/LunchListData.ts";
-import { getStorage, setStorage } from "./storage.js";
+import { getStorage, setStorage } from "../utils/storage.js";
 
 class ClickEvent {
   constructor(elem) {
@@ -93,4 +93,4 @@ class ClickEvent {
   }
 }
 
-new ClickEvent(document);
+export default ClickEvent;

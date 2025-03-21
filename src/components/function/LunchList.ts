@@ -1,4 +1,4 @@
-import { ClickActions } from "../../constants/Events.js";
+import { ClickActions } from "../../components-event/constants/Events.js";
 import { ILunchItem } from "../../type.ts";
 import { sortFilter, updateFilterState } from "../../utils/sortFilter.js";
 import { getStorage, setStorage } from "../../utils/storage.ts";

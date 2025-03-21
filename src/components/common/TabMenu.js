@@ -1,4 +1,4 @@
-import { ClickActions } from "../../constants/Events";
+import { ClickActions } from "../../components-event/constants/Events";
 
 export function TabMenu() {
   return `

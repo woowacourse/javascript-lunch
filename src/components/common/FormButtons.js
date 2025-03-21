@@ -1,4 +1,4 @@
-import { ClickActions } from "../../constants/Events.js";
+import { ClickActions } from "../../components-event/constants/Events.js";
 import { Button } from "./Button.js";
 
 export function FormButtons(formName) {

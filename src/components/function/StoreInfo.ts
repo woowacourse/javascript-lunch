@@ -1,7 +1,7 @@
 import { StarButton } from "../common/StarButton.js";
 import type { ILunchItem } from "../../type.ts";
 import { CategoryIcon } from "../common/CategoryIcon.js";
-import { ClickActions } from "../../constants/Events.js";
+import { ClickActions } from "../../components-event/constants/Events.js";
 
 interface StoreInfoProps extends ILunchItem {
   type: string;

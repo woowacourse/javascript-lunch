@@ -1,5 +1,5 @@
-import { ChangeActions } from "../constants/Events";
-import { ILunchItem } from "../type";
+import { ChangeActions } from "./constants/Events.js";
+import { ILunchItem } from "../type.js";
 
 function ChangeEvent(lunchList: ILunchItem[]): void {
   document.removeEventListener("change", onChange);
