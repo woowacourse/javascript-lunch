@@ -36,11 +36,11 @@ const $createRestaurantInfo = (restaurantInfo: IRestaurant) => {
   InfoDescription.classList.add("restaurant__description", "text-body");
   InfoDescription.textContent = description ?? "";
 
-  container?.appendChild(categoryBox);
-  container?.appendChild(InfoName);
-  container?.appendChild(InfoDistance);
-  container?.appendChild(InfoDescription);
-  container?.appendChild(InfoDescription);
+  const fragment = new DocumentFragment();
+  fragment.append(categoryBox);
+  fragment.append(InfoName);
+  fragment.append(InfoDistance);
+  fragment.append(InfoDescription);
 
   if (link) {
     const InfoLink = document.createElement("a");
@@ -49,7 +49,7 @@ const $createRestaurantInfo = (restaurantInfo: IRestaurant) => {
     InfoLink.rel = "noopener noreferrer";
     InfoLink.textContent = link;
 
-    container?.appendChild(InfoLink);
+    fragment.append(InfoLink);
   }
 
   const favoriteIcon = $favoriteIcon(isFavorite);
@@ -58,7 +58,8 @@ const $createRestaurantInfo = (restaurantInfo: IRestaurant) => {
 
     updateFavoriteIcon(restaurantInfo, e);
   });
-  container?.appendChild(favoriteIcon);
+
+  fragment.append(favoriteIcon);
 
   const itemDelete = () => {
     if (confirm(USER_MESSAGE.CONFIRM_DELETE)) {
@@ -78,7 +79,9 @@ const $createRestaurantInfo = (restaurantInfo: IRestaurant) => {
     $button(UI_CONFIG.BUTTONS.CLOSE, closeEvent),
   ]);
 
-  container?.appendChild(deleteCloseButtons);
+  fragment.append(deleteCloseButtons);
+
+  container?.appendChild(fragment);
 
   handleModalOpen();
 };
