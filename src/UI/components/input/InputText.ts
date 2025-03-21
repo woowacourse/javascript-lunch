@@ -13,7 +13,6 @@ class InputText {
     if (title === '이름') return this.#createNameFormItem(title);
     if (title === '설명') return this.#createDescriptionFormItem();
     if (title === '참조 링크') return this.#createLinkFormItem();
-    return undefined;
   }
 
   #createNameFormItem(title: string): HTMLDivElement {
