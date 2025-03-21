@@ -11,36 +11,46 @@ import { Restaurant, FilterOptions } from "../types/interfaces.js";
 import { CATEGORY, NAV_BAR_KEYS } from "./constants/constants.js";
 
 export default class App {
-  private $body!: HTMLElement;
-  private $main!: HTMLElement;
-  private $restaurantNavBar!: RestaurantNavBar;
-  private $restaurantFilter!: RestaurantFilter;
-  private $restaurantList!: RestaurantList;
-  private $submitFormBottomSheet!: BottomSheetBase;
-  private $openDetailBottomSheet!: BottomSheetBase;
-  private $restaurantDetail!: RestaurantDetail;
+  private $body = document.body;
+  private $main: HTMLElement | undefined;
+  private $restaurantNavBar: RestaurantNavBar | undefined;
+  private $restaurantFilter: RestaurantFilter | undefined;
+  private $restaurantList: RestaurantList | undefined;
+  private $submitFormBottomSheet: BottomSheetBase | undefined;
+  private $openDetailBottomSheet: BottomSheetBase | undefined;
+  private $restaurantDetail: RestaurantDetail | undefined;
 
   constructor(private store: RestaurantStore) {
-    this.store = store;
-    this.render();
+    this.#initializeCompoenents();
 
-    this.store.subscribe("restaurantList", (state) =>
-      this.$restaurantList.updateRestaurantList(state.filteredRestaurants)
-    );
+    this.store = store;
+    this.store.subscribe("restaurantList", (state) => {
+      if (this.$restaurantList) {
+        this.$restaurantList.updateRestaurantList(state.filteredRestaurants);
+      }
+    });
     this.store.subscribe("restaurantDetail", (state) => {
-      this.$restaurantDetail.updateAndOpenDetail(state.selectedRestaurant);
+      if (this.$restaurantDetail) {
+        this.$restaurantDetail.updateAndOpenDetail(state.selectedRestaurant);
+      }
     });
   }
 
-  render() {
-    this.$body = document.querySelector("body")!;
+  #initializeCompoenents() {
     this.#renderHeader();
     this.#renderMain();
+    this.#renderRestaurantNavBar();
+    this.#renderRestaurantFilter();
+    this.#renderRestaurantList();
+    this.#renderSubmitFormBottomSheet();
+    this.#renderOpenDetailBottomSheet();
   }
 
   #renderHeader() {
     const $header = new Header({
-      onOpen: () => this.$submitFormBottomSheet.open(),
+      onOpen: () => {
+        if (this.$submitFormBottomSheet) this.$submitFormBottomSheet.open();
+      },
     });
     this.$body.append($header.render());
   }
@@ -48,12 +58,6 @@ export default class App {
   #renderMain() {
     this.$main = document.createElement("main");
     this.$body.append(this.$main);
-
-    this.#renderRestaurantNavBar();
-    this.#renderRestaurantFilter();
-    this.#renderRestaurantList();
-    this.#renderSubmitFormBottomSheet();
-    this.#renderOpenDetailBottomSheet();
   }
 
   #renderRestaurantNavBar() {
@@ -63,10 +67,12 @@ export default class App {
           ...this.store.state.currentFilter,
           tabType,
         });
-        this.$restaurantFilter.toggleFilterVisibility({ tabType });
+        if (this.$restaurantFilter) {
+          this.$restaurantFilter.toggleFilterVisibility({ tabType });
+        }
       },
     });
-    this.$main.append(this.$restaurantNavBar.render());
+    if (this.$main) this.$main.append(this.$restaurantNavBar.render());
   }
 
   #renderRestaurantFilter() {
@@ -78,7 +84,7 @@ export default class App {
         });
       },
     });
-    this.$main.append(this.$restaurantFilter.render());
+    if (this.$main) this.$main.append(this.$restaurantFilter.render());
   }
 
   #renderRestaurantList() {
@@ -95,10 +101,10 @@ export default class App {
       },
       onOpenDetail: (restaurantId: Restaurant["id"]) => {
         this.store.updateSelectedRestaurant(restaurantId);
-        this.$openDetailBottomSheet.open();
+        if (this.$openDetailBottomSheet) this.$openDetailBottomSheet.open();
       },
     });
-    this.$main.append(this.$restaurantList.render());
+    if (this.$main) this.$main.append(this.$restaurantList.render());
   }
 
   #renderSubmitFormBottomSheet() {
@@ -106,9 +112,11 @@ export default class App {
       title: "새로운 음식점",
       onSubmit: (newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">) => {
         this.store.addRestaurant(newRestaurantInfo);
-        this.$submitFormBottomSheet.close();
+        if (this.$submitFormBottomSheet) this.$submitFormBottomSheet.close();
       },
-      onCancel: () => this.$submitFormBottomSheet.close(),
+      onCancel: () => {
+        if (this.$submitFormBottomSheet) this.$submitFormBottomSheet.close();
+      },
     });
 
     this.$submitFormBottomSheet = new BottomSheetBase({
@@ -116,7 +124,7 @@ export default class App {
       $children: $restaurantForm.render(),
     });
 
-    this.$main.append(this.$submitFormBottomSheet.render());
+    if (this.$main) this.$main.append(this.$submitFormBottomSheet.render());
   }
 
   #renderOpenDetailBottomSheet() {
@@ -127,7 +135,9 @@ export default class App {
       onDelete: (restaurantId: Restaurant["id"]) => {
         this.store.deleteRestaurant(restaurantId);
       },
-      onClose: () => this.$openDetailBottomSheet.close(),
+      onClose: () => {
+        if (this.$openDetailBottomSheet) this.$openDetailBottomSheet.close();
+      },
     });
 
     this.$openDetailBottomSheet = new BottomSheetBase({
@@ -135,6 +145,6 @@ export default class App {
       $children: this.$restaurantDetail.render(),
     });
 
-    this.$main.append(this.$openDetailBottomSheet.render());
+    if (this.$main) this.$main.append(this.$openDetailBottomSheet.render());
   }
 }
