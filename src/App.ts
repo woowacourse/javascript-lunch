@@ -1,10 +1,18 @@
 import { FilterOptions, Restaurant } from "../types/interfaces.js";
 import { NavBarKey } from "./../types/types";
+import {
+  createBottomSheetBase,
+  createHeader,
+  createMain,
+  createRestaurantDetail,
+  createRestaurantFilter,
+  createRestaurantForm,
+  createRestaurantList,
+  createRestaurantNavBar,
+} from "./components/AppComponents.js";
 import BottomSheetBase from "./components/common/bottom-sheet-base/BottomSheetBase.js";
-import Header from "./components/header/Header.js";
 import RestaurantDetail from "./components/restaurant-detail/RestaurantDetail.js";
 import RestaurantFilter from "./components/restaurant-filter-section/RestaurantFilter.js";
-import RestaurantForm from "./components/restaurant-form-section/restaurant-form/RestaurantForm.js";
 import RestaurantList from "./components/restaurant-list-section/restaurant-list/RestaurantList.js";
 import RestaurantNavBar from "./components/restaurant-nav-bar/RestaurantNavBar.js";
 import { CATEGORY, NAV_BAR_KEYS } from "./constants/constants.js";
@@ -23,7 +31,6 @@ export default class App {
   constructor(private store: RestaurantStore) {
     this.#initializeCompoenents();
 
-    this.store = store;
     this.store.subscribe("restaurantList", (state) => {
       if (this.$restaurantList) {
         this.$restaurantList.updateRestaurantList(state.filteredRestaurants);
@@ -38,7 +45,7 @@ export default class App {
 
   #initializeCompoenents() {
     const $header = this.#createHeader();
-    const $main = this.#createMain();
+    const $main = createMain();
     appendElement([$header, $main], this.$body);
 
     if (!$main) return;
@@ -55,21 +62,15 @@ export default class App {
   }
 
   #createHeader() {
-    const $header = new Header({
+    return createHeader({
       onOpen: () => {
         if (this.$submitFormBottomSheet) this.$submitFormBottomSheet.open();
       },
-    });
-
-    return $header.render();
-  }
-
-  #createMain() {
-    return document.createElement("main");
+    }).render();
   }
 
   #createRestaurantNavBar() {
-    this.$restaurantNavBar = new RestaurantNavBar({
+    this.$restaurantNavBar = createRestaurantNavBar({
       onTabChange: (tabType: NavBarKey) => {
         this.store.setFilter({
           ...this.store.state.currentFilter,
@@ -85,7 +86,7 @@ export default class App {
   }
 
   #createRestaurantFilter() {
-    this.$restaurantFilter = new RestaurantFilter({
+    this.$restaurantFilter = createRestaurantFilter({
       onFilterChange: (filterType: FilterOptions["filterType"]) => {
         this.store.setFilter({
           ...this.store.state.currentFilter,
@@ -105,7 +106,7 @@ export default class App {
         sortFilterType: "name",
       },
     });
-    this.$restaurantList = new RestaurantList(restaurantList, {
+    this.$restaurantList = createRestaurantList(restaurantList, {
       onToggleFavorite: (restaurantId: Restaurant["id"]) => {
         this.store.toggleFavorite(restaurantId);
       },
@@ -119,7 +120,7 @@ export default class App {
   }
 
   #createSubmitFormBottomSheet() {
-    const $restaurantForm = new RestaurantForm({
+    const $restaurantForm = createRestaurantForm({
       title: "새로운 음식점",
       onSubmit: (newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">) => {
         this.store.addRestaurant(newRestaurantInfo);
@@ -130,7 +131,7 @@ export default class App {
       },
     });
 
-    this.$submitFormBottomSheet = new BottomSheetBase({
+    this.$submitFormBottomSheet = createBottomSheetBase({
       id: "submit-form",
       $children: $restaurantForm.render(),
     });
@@ -139,7 +140,7 @@ export default class App {
   }
 
   #createOpenDetailBottomSheet() {
-    this.$restaurantDetail = new RestaurantDetail({
+    this.$restaurantDetail = createRestaurantDetail({
       onToggleFavorite: (restaurantId: Restaurant["id"]) => {
         this.store.toggleFavorite(restaurantId);
       },
@@ -151,7 +152,7 @@ export default class App {
       },
     });
 
-    this.$openDetailBottomSheet = new BottomSheetBase({
+    this.$openDetailBottomSheet = createBottomSheetBase({
       id: "open-detail",
       $children: this.$restaurantDetail.render(),
     });
