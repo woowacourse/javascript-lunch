@@ -33,6 +33,10 @@ class CategorySortFilterController {
   updateCategorySortListView(): void {
     this.updateListView(this.categoryFilterElement.value, this.sortingFilterElement.value);
   }
+
+  render(container: HTMLElement) {
+    container.appendChild(this.categorySortFilterContainerElement);
+  }
 }
 
 export default CategorySortFilterController;

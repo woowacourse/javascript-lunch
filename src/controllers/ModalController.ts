@@ -26,6 +26,10 @@ class ModalController {
   getModalElement() {
     return this.modalElement;
   }
+
+  render(container: HTMLElement) {
+    return container.appendChild(this.modalElement);
+  }
 }
 
 export default ModalController;

@@ -18,6 +18,10 @@ class FavoriteListController {
   updateFavoriteList(): void {
     this.updateFavoriteListView();
   }
+
+  render(container: HTMLElement) {
+    container.appendChild(this.favoriteListElement);
+  }
 }
 
 export default FavoriteListController;

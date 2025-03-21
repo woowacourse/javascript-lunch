@@ -31,6 +31,10 @@ class TabController {
   getTabContainerElement() {
     return this.tabContainerElement;
   }
+
+  render(container: HTMLElement) {
+    container.prepend(this.tabContainerElement);
+  }
 }
 
 export default TabController;

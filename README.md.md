@@ -110,6 +110,6 @@
   - [x] DetailModalController
 - [x] 폴더구조 개선 (controller 파일 분리)
 - [ ] 이벤트 핸들러 -> 클래스로 변환
-- [ ] controller들 각자 내부에서 요소 결합하기 (mainElement 인자로 전달)
+- [x] controller들 각자 내부에서 요소 결합하기
 - [ ] restaurantList 도메인 필터링list 필드값 제거
 - [ ] constant - distance값 -> select 컴포넌트 value는 숫자로 저장

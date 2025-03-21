@@ -17,6 +17,10 @@ class ListController {
   updateList(category: string, sortOption: string) {
     this.updateListView(category, sortOption);
   }
+
+  render(container: HTMLElement) {
+    container.appendChild(this.listElement);
+  }
 }
 
 export default ListController;

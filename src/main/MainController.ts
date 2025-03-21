@@ -39,18 +39,15 @@ class MainController {
     // 컨트롤러 초기화
     this.listController = new ListController(this.restaurantList);
     this.favoriteListController = new FavoriteListController(this.restaurantList);
-
     this.categorySortFilterController = new CategorySortFilterController(
       this.listController.updateList.bind(this.listController),
     );
-
     this.modalController = new ModalController({
       updateCategorySortListView: this.categorySortFilterController.updateCategorySortListView.bind(
         this.categorySortFilterController,
       ),
       restaurantList: this.restaurantList,
     });
-
     this.tabController = new TabController({
       mainElement: this.mainElement,
       updateCategorySortListView: this.categorySortFilterController.updateCategorySortListView.bind(
@@ -86,12 +83,12 @@ class MainController {
   }
 
   render() {
-    this.appElement.prepend(this.headerController.getHeaderElement());
-    this.mainElement.prepend(this.tabController.getTabContainerElement());
-    this.mainElement.appendChild(this.modalController.getModalElement());
-    this.allListContainerElement.appendChild(this.categorySortFilterController.getContainerElement());
-    this.allListContainerElement.appendChild(this.listController.getListElement());
-    this.favoriteListContainerElement.appendChild(this.favoriteListController.getFavoriteListElement());
+    this.headerController.render(this.appElement);
+    this.tabController.render(this.mainElement);
+    this.modalController.render(this.mainElement);
+    this.categorySortFilterController.render(this.allListContainerElement);
+    this.listController.render(this.allListContainerElement);
+    this.favoriteListController.render(this.favoriteListContainerElement);
   }
 }
 

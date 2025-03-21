@@ -11,6 +11,10 @@ class HeaderController {
   getHeaderElement() {
     return this.headerElement;
   }
+
+  render(container: HTMLElement) {
+    container.prepend(this.headerElement);
+  }
 }
 
 export default HeaderController;
