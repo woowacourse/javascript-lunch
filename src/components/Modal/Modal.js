@@ -8,9 +8,11 @@ class Modal extends Component {
   render() {
     this.$target.innerHTML = this.template();
     this.setEvent();
+    document.body.style.overflow = "hidden";
   }
 
   handleModalClose() {
+    document.body.style.overflow = "";
     document.querySelector(".modal")?.classList.toggle("modal--open");
   }
 }

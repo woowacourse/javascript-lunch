@@ -26,6 +26,7 @@ class ModalAdd extends Modal {
   render() {
     this.$target.innerHTML = this.template();
     this.setEvent();
+    document.body.style.overflow = "hidden";
     createModalInputs();
   }
 
