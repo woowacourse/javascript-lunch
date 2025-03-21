@@ -3,6 +3,7 @@ import RestaurantItemFavorite from "../../restaurant/restaurantItem/RestaurantIt
 import RestaurantItemNameDistance from "../../restaurant/restaurantItem/RestaurantItemNameDistance";
 import restaurantDataList from "../../../domain/RestaurantList.ts";
 import createElement from "../../../util/createElement.js";
+import restaurantUI from "../../../domain/RestaurantUI.ts";
 
 export default function RestaurantDetailModalInfo({
   id,
@@ -46,7 +47,7 @@ export default function RestaurantDetailModalInfo({
   const $favorite = RestaurantItemFavorite({ isFavorite, id });
 
   $favorite.addEventListener("click", () => {
-    restaurantDataList.renderRestaurantList();
+    restaurantUI.renderRestaurantList();
   });
 
   $starWrap.appendChild($favorite);

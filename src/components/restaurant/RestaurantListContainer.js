@@ -1,6 +1,7 @@
 import RestaurantItem from "./restaurantItem/RestaurantItem.js";
 import createElement from "../../util/createElement.js";
 import restaurantDataList from "../../domain/RestaurantList.ts";
+import restaurantUI from "../../domain/RestaurantUI.ts";
 
 export default function RestaurantListContainer() {
   const $restaurantListContainer = createElement({
@@ -31,7 +32,7 @@ export default function RestaurantListContainer() {
     $restaurantListContainer.appendChild($restaurantList);
   }
 
-  restaurantDataList.subscribe(render);
+  restaurantUI.subscribe(render);
 
   return $restaurantListContainer;
 }

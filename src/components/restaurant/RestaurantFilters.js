@@ -2,6 +2,7 @@ import SELECT_OPTION from "../../constants/selectOption.js";
 import restaurantDataList from "../../domain/RestaurantList.ts";
 import createElement from "../../util/createElement";
 import Select from "../common/Select";
+import restaurantUI from "../../domain/RestaurantUI.ts";
 
 const SORTING_OPTIONS = ["이름순", "거리순"];
 
@@ -38,12 +39,12 @@ export default function RestaurantFilters() {
 
 function handleCategoryChange(event) {
   const selectedCategory = event.target.value;
-  restaurantDataList.setCategory(selectedCategory);
-  restaurantDataList.renderRestaurantList();
+  restaurantUI.setCategory(selectedCategory);
+  restaurantUI.renderRestaurantList();
 }
 
 function handleSortingChange(event) {
   const selectedSorting = event.target.value;
-  restaurantDataList.setSortedFlag(selectedSorting);
-  restaurantDataList.renderRestaurantList();
+  restaurantUI.setSortedFlag(selectedSorting);
+  restaurantUI.renderRestaurantList();
 }

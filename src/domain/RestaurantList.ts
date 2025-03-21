@@ -7,27 +7,8 @@ export const VIEW_STATE = {
   favorite: "자주 가는 음식점",
 } as const;
 
-const CATEGORY = {
-  all: "전체",
-  korean: "한식",
-  chinese: "중식",
-  japanese: "일식",
-  western: "양식",
-  asian: "아시안",
-  etc: "기타",
-} as const;
-
-const SORTED = {
-  name: "name",
-  distance: "distance",
-} as const;
-
 export class RestaurantList {
   private dataList: RestaurantProp[];
-  private subscribers: ((data: RestaurantProp[]) => void)[] = [];
-  private viewState: Values<typeof VIEW_STATE> = VIEW_STATE.all;
-  private sortedFlag: Values<typeof SORTED> = SORTED.name;
-  private category: Values<typeof CATEGORY> = CATEGORY.all;
 
   constructor() {
     const restaurantDataList = getAllData();
@@ -35,6 +16,10 @@ export class RestaurantList {
     this.dataList = restaurantDataList.map((restaurantData: RestaurantProp) =>
       new Restaurant(restaurantData).getData()
     );
+  }
+
+  getDataList() {
+    return this.dataList;
   }
 
   getFavoriteRestaurantList() {
@@ -49,18 +34,6 @@ export class RestaurantList {
     return this.dataList.find(
       (restaurantData: RestaurantProp) => restaurantData.id === id
     );
-  }
-
-  setViewState(viewState: Values<typeof VIEW_STATE>) {
-    this.viewState = viewState;
-  }
-
-  setCategory(category: Values<typeof CATEGORY>) {
-    this.category = category;
-  }
-
-  setSortedFlag(sortedFlag: Values<typeof SORTED>) {
-    this.sortedFlag = sortedFlag;
   }
 
   addRestaurant(data: RestaurantProp) {
@@ -84,44 +57,6 @@ export class RestaurantList {
     this.dataList = this.dataList.filter((restaurant) => restaurant.id !== id);
 
     postData(this.dataList);
-  }
-
-  renderRestaurantList() {
-    const restaurantDataList =
-      this.viewState === VIEW_STATE.favorite
-        ? this.getFavoriteRestaurantList()
-        : this.dataList;
-
-    if (this.category === CATEGORY.all) {
-      this.notify(this.sortRestaurantList(restaurantDataList));
-      return;
-    }
-
-    const filteredList = restaurantDataList.filter(
-      (restaurantData) => restaurantData.category === this.category
-    );
-    const sortedFilteredList = this.sortRestaurantList(filteredList);
-    this.notify(sortedFilteredList);
-  }
-
-  sortRestaurantList(dataList: RestaurantProp[]) {
-    const sortFunctions: Record<
-      Values<typeof SORTED>,
-      (a: RestaurantProp, b: RestaurantProp) => number
-    > = {
-      [SORTED.distance]: (a, b) => a.distance - b.distance,
-      [SORTED.name]: (a, b) => a.name.localeCompare(b.name, "ko"),
-    };
-
-    return dataList.sort(sortFunctions[this.sortedFlag]);
-  }
-
-  subscribe(callback: (data: RestaurantProp[]) => void) {
-    this.subscribers.push(callback);
-  }
-
-  notify(data: RestaurantProp[]) {
-    this.subscribers.forEach((callback) => callback(data));
   }
 }
 

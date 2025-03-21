@@ -1,5 +1,6 @@
 import restaurantDataList, { VIEW_STATE } from "../../domain/RestaurantList.ts";
 import createElement from "../../util/createElement";
+import restaurantUI from "../../domain/RestaurantUI.ts";
 
 export default function RestaurantNav() {
   const $nav = createElement({ tag: "nav", classNames: ["restaurant-nav"] });
@@ -23,8 +24,8 @@ export default function RestaurantNav() {
     $allRestaurant.classList.add("select");
     $favoriteRestaurant.classList.remove("select");
 
-    restaurantDataList.setViewState(VIEW_STATE.all);
-    restaurantDataList.renderRestaurantList();
+    restaurantUI.setViewState(VIEW_STATE.all);
+    restaurantUI.renderRestaurantList();
   });
 
   $favoriteRestaurant.addEventListener("click", (e) => {
@@ -32,11 +33,11 @@ export default function RestaurantNav() {
     $allRestaurant.classList.remove("select");
     $favoriteRestaurant.classList.add("select");
 
-    restaurantDataList.setViewState(VIEW_STATE.favorite);
-    restaurantDataList.renderRestaurantList();
+    restaurantUI.setViewState(VIEW_STATE.favorite);
+    restaurantUI.renderRestaurantList();
   });
 
-  restaurantDataList.renderRestaurantList();
+  restaurantUI.renderRestaurantList();
   $nav.append($allRestaurant, $favoriteRestaurant);
   return $nav;
 }

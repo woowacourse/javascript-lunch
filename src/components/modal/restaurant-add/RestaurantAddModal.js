@@ -7,6 +7,7 @@ import RestaurantAddModalButtonContainer from "./RestaurantAddModalButtonContain
 import restaurantDataList from "../../../domain/RestaurantList.ts";
 import { removeModal } from "../Modal.js";
 import SELECT_OPTION from "../../../constants/selectOption.js";
+import restaurantUI from "../../../domain/RestaurantUI.ts";
 
 const DISTANCE_OPTIONS = ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"];
 
@@ -40,7 +41,7 @@ function createRestaurantItem(event) {
 
     const restaurantData = Object.fromEntries(new FormData(event.target));
     restaurantDataList.addRestaurant(restaurantData);
-    restaurantDataList.renderRestaurantList();
+    restaurantUI.renderRestaurantList();
 
     removeModal();
   } catch (e) {
