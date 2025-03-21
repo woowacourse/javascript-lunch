@@ -1,9 +1,9 @@
-import { Restaurant } from "./../../../../types/interfaces.js";
+import { Restaurant } from "./../../../../types";
 import {
   CATEGORY_ASSETS,
   EVENT_TYPES,
   FAVORITE_ASSETS,
-} from "../../../constants/constants.js";
+} from "../../../constants";
 import "./restaurantListItem.css";
 
 interface listItemData {

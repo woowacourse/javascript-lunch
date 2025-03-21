@@ -1,4 +1,4 @@
-import { LABEL_NAMES } from "../../../constants/constants.js";
+import { LABEL_NAMES } from "../../../constants";
 
 export default class LinkInput {
   render() {

@@ -1,4 +1,4 @@
-import { CATEGORY_ASSETS } from "../../src/constants/constants";
+import { CATEGORY_ASSETS } from "../../src/constants";
 
 const formData = {
   category: "한식",

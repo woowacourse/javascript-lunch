@@ -1,5 +1,5 @@
-import { Category, Distance, LabelKey } from "../../../../types/types.js";
-import { LABEL_NAMES } from "../../../constants/constants.js";
+import { Category, Distance, LabelKey } from "../../../../types";
+import { LABEL_NAMES } from "../../../constants";
 
 interface SelectBoxProps {
   label: Extract<LabelKey, "category" | "distance">;

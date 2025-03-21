@@ -1,4 +1,4 @@
-import { Uuid } from "../../types/types";
+import { Uuid } from "../../types";
 
 const generateUUID = (): Uuid => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {

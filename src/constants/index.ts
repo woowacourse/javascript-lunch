@@ -1,4 +1,4 @@
-import { ButtonType, Category, LabelKey, NavBarKey } from "../../types/types";
+import { ButtonType, Category, LabelKey, NavBarKey } from "../../types";
 
 export const LABEL_KEYS = Object.freeze({
   category: "category",

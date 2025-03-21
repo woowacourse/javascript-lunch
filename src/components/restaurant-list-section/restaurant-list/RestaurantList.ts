@@ -1,5 +1,5 @@
-import { Restaurant } from "../../../../types/interfaces.js";
-import RestaurantListItem from "../restaurant-list-item/RestaurantListItem.js";
+import { Restaurant } from "../../../../types";
+import { RestaurantListItem } from "../../index";
 import "./restaurantList.css";
 
 interface RestaurantListCallbackProps {

@@ -1,10 +1,10 @@
-import { FilterOptions } from "../../../types/interfaces.js";
+import { FilterOptions } from "../../../types";
 import {
   EVENT_TYPES,
   NAV_BAR_KEYS,
   SORT_OPTIONS,
   CATEGORY,
-} from "../../constants/constants.js";
+} from "../../constants";
 import "./restaurantFilter.css";
 
 type FilterChangeCallback = (filterType: FilterOptions["filterType"]) => void;

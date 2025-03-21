@@ -1,5 +1,5 @@
-import { FAVORITE_ASSETS } from "../../src/constants/constants";
-import { Restaurant } from "./../../types/interfaces";
+import { FAVORITE_ASSETS } from "../../src/constants";
+import { Restaurant } from "./../../types";
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to

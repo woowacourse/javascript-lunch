@@ -1,9 +1,5 @@
-import { NavBarKey } from "../../../types/types.js";
-import {
-  EVENT_TYPES,
-  NAV_BAR_KEYS,
-  NAV_BAR_OPTIONS,
-} from "../../constants/constants.js";
+import { NavBarKey } from "../../../types";
+import { EVENT_TYPES, NAV_BAR_KEYS, NAV_BAR_OPTIONS } from "../../constants";
 import "./restaurantNavBar.css";
 
 const activeTabStyle = "active-tab-menu";

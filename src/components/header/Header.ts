@@ -1,4 +1,4 @@
-import { EVENT_TYPES } from "../../constants/constants.js";
+import { EVENT_TYPES } from "../../constants";
 import "./header.css";
 
 type OpenCallback = () => void;

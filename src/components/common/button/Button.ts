@@ -1,5 +1,5 @@
-import { ButtonType } from "../../../../types/types.js";
-import { BUTTON_TYPES } from "../../../constants/constants.js";
+import { ButtonType } from "../../../../types";
+import { BUTTON_TYPES } from "../../../constants";
 import "./button.css";
 
 const primaryActions: ButtonType[] = [BUTTON_TYPES.add, BUTTON_TYPES.close];

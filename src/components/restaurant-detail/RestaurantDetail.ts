@@ -1,12 +1,12 @@
-import { Restaurant } from "../../../types/interfaces.js";
+import { Restaurant } from "../../../types";
 import {
   BUTTON_TEXTS,
   BUTTON_TYPES,
   CATEGORY_ASSETS,
   EVENT_TYPES,
   FAVORITE_ASSETS,
-} from "../../constants/constants.js";
-import Button from "../common/button/Button.js";
+} from "../../constants";
+import { Button } from "../index";
 import "./restaurantDetail.css";
 
 type ToggleFavoriteCallback = (restaurantId: Restaurant["id"]) => void;

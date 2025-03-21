@@ -1,4 +1,4 @@
-import { FAVORITE_ASSETS } from "../../src/constants/constants";
+import { FAVORITE_ASSETS } from "../../src/constants";
 
 const formData = {
   category: "한식",

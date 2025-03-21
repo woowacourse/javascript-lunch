@@ -1,8 +1,10 @@
-import Button from "../../common/button/Button.js";
-import LinkInput from "../link-input/LinkInput.js";
-import NameInput from "../name-input/NameInput.js";
-import DescriptionInput from "../description-input/DescriptionInput.js";
-import SelectBox from "../../common/select-box/SelectBox.js";
+import {
+  Button,
+  LinkInput,
+  NameInput,
+  DescriptionInput,
+  SelectBox,
+} from "../../index";
 import "./restaurantForm.css";
 import {
   CATEGORY,
@@ -10,8 +12,8 @@ import {
   EVENT_TYPES,
   BUTTON_TEXTS,
   BUTTON_TYPES,
-} from "../../../constants/constants.js";
-import { Restaurant } from "../../../../types/interfaces.js";
+} from "../../../constants";
+import { Restaurant } from "../../../../types";
 
 type SubmitCallback = (
   newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">

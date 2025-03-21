@@ -1,5 +1,5 @@
-import { FilterOptions, Restaurant } from "../../types/interfaces.js";
-import { CATEGORY, LABEL_KEYS, NAV_BAR_KEYS } from "../constants/constants.js";
+import { FilterOptions, Restaurant } from "../../types";
+import { CATEGORY, LABEL_KEYS, NAV_BAR_KEYS } from "../constants";
 import generateUUID from "../utils/generateUUID.js";
 
 type Listeners = Map<string, (state: StoreState) => void>;

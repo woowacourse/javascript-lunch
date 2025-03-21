@@ -1,12 +1,13 @@
-import { FilterOptions, Restaurant } from "../../types/interfaces";
-import { NavBarKey } from "../../types/types";
-import BottomSheetBase from "./common/bottom-sheet-base/BottomSheetBase";
-import Header from "./header/Header";
-import RestaurantDetail from "./restaurant-detail/RestaurantDetail";
-import RestaurantFilter from "./restaurant-filter-section/RestaurantFilter";
-import RestaurantForm from "./restaurant-form-section/restaurant-form/RestaurantForm";
-import RestaurantList from "./restaurant-list-section/restaurant-list/RestaurantList";
-import RestaurantNavBar from "./restaurant-nav-bar/RestaurantNavBar";
+import { NavBarKey, FilterOptions, Restaurant } from "../../types";
+import {
+  Header,
+  BottomSheetBase,
+  RestaurantDetail,
+  RestaurantFilter,
+  RestaurantForm,
+  RestaurantList,
+  RestaurantNavBar,
+} from "../components/index";
 
 export function createHeader(options: { onOpen: () => void }): Header {
   return new Header(options);

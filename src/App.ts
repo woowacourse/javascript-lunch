@@ -1,5 +1,4 @@
-import { FilterOptions, Restaurant } from "../types/interfaces.js";
-import { NavBarKey } from "./../types/types";
+import { NavBarKey, FilterOptions, Restaurant } from "../types";
 import {
   createBottomSheetBase,
   createHeader,
@@ -9,13 +8,15 @@ import {
   createRestaurantForm,
   createRestaurantList,
   createRestaurantNavBar,
-} from "./components/AppComponents.js";
-import BottomSheetBase from "./components/common/bottom-sheet-base/BottomSheetBase.js";
-import RestaurantDetail from "./components/restaurant-detail/RestaurantDetail.js";
-import RestaurantFilter from "./components/restaurant-filter-section/RestaurantFilter.js";
-import RestaurantList from "./components/restaurant-list-section/restaurant-list/RestaurantList.js";
-import RestaurantNavBar from "./components/restaurant-nav-bar/RestaurantNavBar.js";
-import { CATEGORY, NAV_BAR_KEYS } from "./constants/constants.js";
+} from "./factories";
+import {
+  BottomSheetBase,
+  RestaurantDetail,
+  RestaurantFilter,
+  RestaurantList,
+  RestaurantNavBar,
+} from "./components/index";
+import { CATEGORY, NAV_BAR_KEYS } from "./constants";
 import RestaurantStore from "./stores/RestaurantStore.js";
 import appendElement from "./utils/appendElement.js";
 
