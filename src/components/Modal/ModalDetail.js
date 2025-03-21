@@ -37,10 +37,10 @@ class ModalDetail extends Modal {
   setEvent() {
     this.$target
       .querySelector(".modal-backdrop")
-      ?.addEventListener("click", () => this.handleModalClose());
+      ?.addEventListener("click", () => this.modalClose());
     this.$target
       .querySelector("#close_button")
-      ?.addEventListener("click", () => this.handleModalClose());
+      ?.addEventListener("click", () => this.modalClose());
     this.$target
       .querySelector("#delete_button")
       ?.addEventListener("click", () => this.handleDeleteRestaurant());
@@ -90,7 +90,7 @@ class ModalDetail extends Modal {
     const currentSort = localStorage.getItem("sortType") || "name";
     filterRestaurants(currentCategory, currentSort);
 
-    this.handleModalClose();
+    this.modalClose();
   }
 }
 export default ModalDetail;

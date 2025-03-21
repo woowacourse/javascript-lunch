@@ -33,10 +33,10 @@ class ModalAdd extends Modal {
   setEvent() {
     this.$target
       .querySelector(".modal-backdrop")
-      ?.addEventListener("click", () => this.handleModalClose());
+      ?.addEventListener("click", () => this.modalClose());
     this.$target
       .querySelector("#close_button")
-      ?.addEventListener("click", () => this.handleModalClose());
+      ?.addEventListener("click", () => this.modalClose());
     this.submitForm();
   }
 
@@ -45,7 +45,7 @@ class ModalAdd extends Modal {
       .querySelector("#input-form")
       ?.addEventListener("submit", (event) => {
         event.preventDefault();
-        this.handleModalClose();
+        this.modalClose();
         const newData = addData();
         document.dispatchEvent(
           new CustomEvent("restaurantUpdated", { detail: newData }),

@@ -11,7 +11,7 @@ class Modal extends Component {
     document.body.style.overflow = "hidden";
   }
 
-  handleModalClose() {
+  modalClose() {
     document.body.style.overflow = "";
     document.querySelector(".modal")?.classList.toggle("modal--open");
   }
