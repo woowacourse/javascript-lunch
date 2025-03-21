@@ -3,7 +3,7 @@ describe("E2E Test Group", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
     cy.viewport(1920, 1080);
-    cy.get(".gnb__button").click();
+    cy.get(".gnb .gnb__button").click();
     cy.get("#category").select("한식");
     cy.get("#name").type("한식가게이름");
     cy.get("#distance").select("5");
@@ -43,16 +43,94 @@ describe("E2E Test Group", () => {
   it("이미 list가 추가된 상황에서 한번 더 폼 입력을 했을 때 리스트가 추가된다. ", () => {
     cy.get(".button-container button").eq(1).click();
 
-    cy.get(".gnb__button").click();
+    cy.get(".gnb .gnb__button").click();
     cy.get("#category").select("중식");
     cy.get("#name").type("중식가게이름");
     cy.get("#distance").select("15");
     cy.get(".button-container button").eq(1).click();
 
     cy.get(".restaurant")
+      .should("have.length", 8) // 요소가 정확히 2개인지 확인
+      .each(($el) => {
+        cy.wrap($el).should("be.visible"); // 각 요소가 보이는지 확인
+      });
+  });
+
+  it("'거리순' 필터링을 선택했을 때 음식점이 거리순으로 정렬되어 있는지 확인한다.", () => {
+    cy.get(".button-container button").eq(1).click();
+
+    cy.get("#sorting-filter").select("거리순");
+    cy.get(".restaurant-list .restaurant .restaurant__distance").then(
+      ($distances) => {
+        const distances = $distances
+          .toArray()
+          .map((el) => parseInt(el.innerText.match(/\d+/)?.[0] || "0"));
+        const sortedDistances = [...distances].sort((a, b) => a - b);
+        expect(distances).to.deep.equal(sortedDistances);
+      }
+    );
+  });
+
+  it("한식 필터링을 선택했을 때 '한식' 카테고리의 음식점만 선택되었는지 확인한다.", () => {
+    cy.get(".button-container button").eq(1).click();
+    cy.get("#category-filter").select("한식");
+
+    cy.get(".restaurant")
       .should("have.length", 2) // 요소가 정확히 2개인지 확인
       .each(($el) => {
         cy.wrap($el).should("be.visible"); // 각 요소가 보이는지 확인
+      });
+  });
+
+  it("새로 만든 음식점을 선택해서 모달창에 정보가 되어있는지 확인하고 삭제한다.", () => {
+    cy.get(".button-container button").eq(1).click();
+
+    cy.get(".restaurant").eq(0).click();
+    cy.get(".modal").should("exist");
+    cy.get(".modal .button").eq(0).click();
+
+    cy.get(".restaurant")
+      .should("have.length", 7)
+      .each(($el) => {
+        cy.wrap($el).should("exist");
+      });
+  });
+
+  it("즐겨찾기 버튼을 눌렀을 때 '자주가는 음식점'목록에 추가되는지 확인하고 '자주가는 음식점'목록에서 즐겨찾기 버튼을 해제했을 때 아이템이 사라지는지 확인한다.", () => {
+    cy.get(".button-container button").eq(1).click();
+
+    cy.get(".restaurant").eq(0).find(".gnb__button").click();
+    cy.get(".tab-button .tab-button_favorite").click();
+    cy.get(".restaurant")
+      .should("have.length", 1)
+      .each(($el) => {
+        cy.wrap($el).should("exist");
+      });
+
+    cy.get(".restaurant").eq(0).find(".gnb__button").click();
+    cy.get(".tab-button .tab-button_favorite").click();
+    cy.get(".restaurant")
+      .should("have.length", 0)
+      .each(($el) => {
+        cy.wrap($el).should("exist");
+      });
+  });
+
+  it("새로 만든 음식점을 선택해서 모달창에 정보가 되어있는지 확인하고 즐겨찾기 버튼을 눌러 '자주가는 음식점 목록'에 추가한다.", () => {
+    cy.get(".button-container button").eq(1).click();
+
+    cy.get(".restaurant").eq(0).click();
+    cy.get(".modal").should("exist");
+    cy.get(".modal").find(".gnb__button").click();
+    cy.get(".modal .button").eq(1).click();
+
+    cy.get(".tab-button .tab-button_favorite").click();
+
+    console.log("Aaa", cy.get(".restaurant"));
+    cy.get(".restaurant-list .restaurant")
+      .should("have.length", 1)
+      .each(($el) => {
+        cy.wrap($el).should("exist");
       });
   });
 });

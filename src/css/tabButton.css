@@ -1,0 +1,30 @@
+.tab-button {
+  display: flex;
+  padding: 0 16px;
+  margin: 16px 0;
+  width: 100%;
+}
+
+.tab-button button {
+  background-color: white;
+  width: 50%;
+  padding: 4px;
+  color: #667085;
+  border: none;
+  border-bottom: 2px solid #d0d5dd;
+  cursor: pointer;
+
+  /* test style */
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.tab-button button.selected-button {
+  color: var(--primary-color);
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+}

@@ -2,7 +2,9 @@
 
 점심 메뉴 추천 웹사이트
 
-## 기능 요구사항
+# 1차 미션
+
+## 기능 요구사항 (1차 미션)
 
 - [x] 음식점 목록 페이지 구현
 - [x] 우측 상단의 추가 버튼을 눌러 모달창을 띄운다
@@ -18,61 +20,6 @@
   - [x] 음식점 설명이 200자가 넘을 경우 에러 메세지 출력
   - [x] 음식점 참고 링크가 링크 형식이 아닐 경우 에러 메세지 출력
 
-## 파일 구조
-
-```base
-src
-├── component
-│   ├── button
-│   │   ├── Button.js
-│   │   ├── ButtonContainer.js
-│   │   ├── IconButton.js
-│   ├── input
-│   │   ├── Input.js
-│   │   ├── SelectInput.js
-│   │   ├── TextareaInput.js
-│   ├── layout
-│   │   ├── Alert.js
-│   │   ├── Header.js
-│   │   ├── Modal.js
-│   ├── FoodForm.js
-│   ├── FoodItem.js
-│   ├── FoodList.js
-├── constants
-│   ├── constants.js
-│   ├── errorMessage.js
-│   ├── systemMessage.js
-├── css
-│   ├── alert.css
-│   ├── button.css
-│   ├── filter.css
-│   ├── foodItem.css
-│   ├── form.css
-│   ├── header.css
-│   ├── modal.css
-├── mock
-│   ├── mockItem.js
-├── pages
-│   ├── FoodListPage.js
-├── util
-│   ├── alertError.js
-│   ├── errorHandler.js
-│   ├── getImgSrcAlt.js
-│   ├── getInput.js
-│   ├── modalHandler.js
-│   ├── validate
-│   │   ├── validateCondition.js
-│   │   ├── validateFoodItem.js
-├── main.js
-```
-
-- component : 재사용 가능한 UI 컴포넌트
-- constants : 상수 값 및 에러 메세지
-- css : 스타일(CSS) 파일을 모아둔 폴더
-- mock : 페이지 로딩 시 기본적으로 들어있어야 할 음식점 이름 리스트
-- page : 화면에 보일 페이지들을 모아둔 폴더
-- util : utility 함수 모음 (공통 기능 핸들링)
-
 ## 📄 사용 예제
 
 ### 헤더 아이콘을 클릭하면 음식점 추가 모달이 열린다
@@ -87,7 +34,7 @@ src
 
 <img src="https://github.com/user-attachments/assets/ef4955d5-e336-4020-9c0e-09e1cb78b53e" width="300"/>
 
-## 피드백 반영
+## 피드백 반영 (1차 미션)
 
 - [x] modalHandler 수정 - class화로 변경
 - [x] Header에서 Icon Props로 분리
@@ -98,3 +45,51 @@ src
 - [x] props로 컴포넌트가 들어가는 경우 변수명 변경 (대문자로 시작)
 - [x] constants 하나의 message로 통합
 - [x] 도메인 로직과 UI 로직 분리
+
+<br/>
+<br/>
+
+---
+
+# 2차 미션
+
+## 기능 요구사항
+
+- [x] FoodInventory domain 로직과 ui 로직 분리하기
+- [x] 음식점 목록을 확인할 수 있다. (ui)
+  - [x] 음식점 목록을 localStorage에 저장한다. (doamin)
+  - [x] localStorage에 저장된 음식점 목록을 불러온다. (domain)
+  - [x] 카테코리 목록을 확인할 수 있다 (ui)
+  - [x] 카테고리별로 필터링 가능하다 (domain)
+  - [x] 필터링 된 목록들을 확인할 수 있다. (ui)
+  - [x] 이름순/거리순으로으로 정렬한다.
+  - [x] 정렬된 목록들을 확인할 수 있다. (ui)
+- [x] 음식점 상세 정보를 확인할 수 있다. (ui)
+  - [x] 카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다. (ui)
+  - [x] 음식점을 삭제할 수 있다. (domain)
+- 자주 가는 음식점을 추가하고 목록으로 확인할 수 있다.
+  - [x] 음식점 목록에서 자주 가는 음식점을 추가할 수 있다. (domain)
+  - [x] 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다. (domain)
+  - [x] 자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다. (ui)
+- [x] 새로고침해도 추가한 정보들이 유지되어야 한다. (ui)
+- [x] ts로 마이그레이션카테고리 & 정렬 필터 추가
+
+## 프로그래밍 요구사항
+
+- 컴포넌트 단위로 구현하는 것을 고민하고 적용해본다.
+  - 정적으로 렌더링할 영역과 동적으로 렌더링할 영역을 구분해서 고민한다.
+  - 재사용할 수 있는 컴포넌트에 대해 고민하고 적용해본다.
+  - 단, 웹 컴포넌트를 사용하지 않는다
+- 도메인 영역을 TypeScript으로 변환한다. (UI 영역은 선택)
+  - any를 사용하지 않는다.
+  - interface 또는 type alias 를 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
+- 데이터 유지를 위해 localStorage를 활용한다.
+
+## 피드백 반영 (2차 미션)
+
+- [x] 이름이 모호한 함수 이름 수정
+- [x] filter를 파라미터에서 전달받는 것을 없애기
+- [x] FoodListPage에서 반복되는 SortingFilter 부분 컴포넌트화
+- [x] FavoriteFilter 싱글톤 배턴으로 변경
+- [x] boolean type의 경우 is~ 로 명칭 통일
+- [ ] 모달창에서 DOM을 바꾸는데 얼마의 비용이 드는지 측정해보기. +) 별표를 눌렀을 때 화면에 반영되는 나만의 기준을 세워보기

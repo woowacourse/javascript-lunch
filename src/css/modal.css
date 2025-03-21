@@ -25,6 +25,8 @@
 
   border-radius: 8px 8px 0px 0px;
   background: var(--grey-100);
+  overflow: scroll;
+  max-height: -webkit-fill-available;
 }
 
 .modal-title {

@@ -1,10 +1,20 @@
 .restaurant {
   display: flex;
+  position: relative;
   align-items: flex-start;
 
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+}
+
+.restaurant-star {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }
 
 .restaurant-list-container {
