@@ -22,8 +22,8 @@ export function applyFilter(): void {
   const $restaurantList = document.querySelector(".restaurant-list");
   if (!$restaurantList) return;
 
-  const $selectedTab = document.querySelector(".tab--selected") as HTMLElement;
-  const selectedFilter = $selectedTab?.dataset.filter || "all";
+  const $selectedTab = document.querySelector(".tab-button--active") as HTMLElement;
+  const selectedFilter = $selectedTab?.dataset.tab || "all";
 
   // 1. 기본 필터링 (탭)
   let restaurants = restaurantStore.getRestaurants();

@@ -7,8 +7,8 @@ import {
 type Listener = (restaurants: Restaurant[]) => void;
 
 class RestaurantStore {
-  private restaurants: Restaurant[];
-  private listeners: Listener[];
+  private restaurants: Restaurant[] = [];
+  private listeners: Listener[] = [];
 
   constructor(defaultRestaurants: Restaurant[]) {
     this.restaurants = initializeRestaurants(defaultRestaurants);
@@ -19,7 +19,8 @@ class RestaurantStore {
     return [...this.restaurants];
   }
 
-  getById(id: number): Restaurant | undefined {
+  getById(id: string): Restaurant | undefined {
+    //타입 출력해바야겠다.
     return this.restaurants.find((restaurant) => restaurant.id === id);
   }
 
@@ -29,7 +30,7 @@ class RestaurantStore {
     this._notifyListeners();
   }
 
-  updateRestaurant(id: number, updates: Partial<Restaurant>): boolean {
+  updateRestaurant(id: string, updates: Partial<Restaurant>): boolean {
     const index = this.restaurants.findIndex((r) => r.id === id);
     if (index === -1) return false;
 
@@ -39,10 +40,10 @@ class RestaurantStore {
     return true;
   }
 
-  deleteRestaurant(id: number): boolean {
+  deleteRestaurant(id: string): boolean {
     const initialLength = this.restaurants.length;
     this.restaurants = this.restaurants.filter(
-      (restaurant) => restaurant.id !== id,
+      (restaurant) => restaurant.id !== id
     );
 
     if (this.restaurants.length !== initialLength) {
@@ -71,7 +72,7 @@ class RestaurantStore {
 
 const defaultRestaurants: Restaurant[] = [
   {
-    id: 1,
+    id: "1",
     name: "친친",
     category: "chinese",
     categoryName: "중식",
@@ -81,7 +82,7 @@ const defaultRestaurants: Restaurant[] = [
     favorites: false,
   },
   {
-    id: 2,
+    id: "2",
     category: "korean",
     categoryName: "한식",
     name: "피양콩할마니",
@@ -91,7 +92,7 @@ const defaultRestaurants: Restaurant[] = [
     favorites: false,
   },
   {
-    id: 3,
+    id: "3",
     category: "japanese",
     categoryName: "일식",
     name: "잇쇼우",
@@ -101,7 +102,7 @@ const defaultRestaurants: Restaurant[] = [
     favorites: false,
   },
   {
-    id: 4,
+    id: "4",
     category: "western",
     categoryName: "양식",
     name: "이태리키친",
@@ -110,7 +111,7 @@ const defaultRestaurants: Restaurant[] = [
     favorites: false,
   },
   {
-    id: 5,
+    id: "5",
     category: "asian",
     categoryName: "아시안",
     name: "호아빈 삼성점",
@@ -119,7 +120,7 @@ const defaultRestaurants: Restaurant[] = [
     favorites: false,
   },
   {
-    id: 6,
+    id: "6",
     category: "etc",
     categoryName: "기타",
     name: "도스타코스 선릉점",

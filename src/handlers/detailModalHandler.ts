@@ -9,12 +9,11 @@ export function handleRestaurantClick(e: MouseEvent): void {
   if (!$clickedItem || $clickedItem.classList.contains("modal-restaurant")) {
     return;
   }
-
   const restaurantId = $clickedItem.dataset.restaurantId;
   if (!restaurantId) return;
   
-  const selectedRestaurant = restaurantStore.getById(Number(restaurantId));
-  
+  //FIX: 여기서 값을 못찾음.
+  const selectedRestaurant = restaurantStore.getById(restaurantId);
   if (selectedRestaurant) {
     const $appContainer = document.getElementById("app");
     if ($appContainer) {

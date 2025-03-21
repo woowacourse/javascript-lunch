@@ -6,7 +6,9 @@ export function handleFavoriteClick(e: MouseEvent): void {
   e.stopPropagation();
 
   const $favoriteButton = (e.target as HTMLElement).closest(".favorite-button") as HTMLElement;
-  const restaurantId = Number($favoriteButton.dataset.restaurantId);
+  const restaurantId = $favoriteButton.dataset.restaurantId;
+  
+  if (!restaurantId) return;
 
   const restaurant = restaurantStore.getById(restaurantId);
   if (restaurant) {
@@ -18,9 +20,9 @@ export function handleFavoriteClick(e: MouseEvent): void {
     if ($starImg) {
       $starImg.src = `./${restaurant.favorites ? "fill-star" : "blank-star"}.png`;
     }
+    
   }
 
-  rerenderRestaurantList(restaurantId);
   applyFilter();
 }
 

@@ -1,7 +1,5 @@
 import { restaurantStore } from "../store/restaurantStore.ts";
 
 export function generateId() {
-  const restaurants = restaurantStore.getRestaurants();
-  const maxId = Math.max(...restaurants.map((restaurant) => restaurant.id), 0);
-  return maxId + 1;
+  return Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
 }

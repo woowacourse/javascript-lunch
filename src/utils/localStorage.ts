@@ -47,7 +47,7 @@ declare global {
 window.clearLocalStorage = clearLocalStorage;
 
 // localStorage에서 레스토랑 데이터 초기화하기
-export function initializeRestaurants(initialData:Restaurant[]):Restaurant[] {
+export function initializeRestaurants(initialData: Restaurant[]): Restaurant[] {
   const storedRestaurants = getStoredRestaurants();
 
   if (!storedRestaurants) {
@@ -55,5 +55,9 @@ export function initializeRestaurants(initialData:Restaurant[]):Restaurant[] {
     return initialData;
   }
 
-  return storedRestaurants;
+  return storedRestaurants.map(restaurant => ({
+    ...restaurant,
+    id: String(restaurant.id),
+    distance: String(restaurant.distance)
+  }));
 }

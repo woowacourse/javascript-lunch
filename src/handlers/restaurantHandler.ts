@@ -20,7 +20,6 @@ export function handleDeleteRestaurant(e: MouseEvent): void {
   const selectedId = (e.currentTarget as HTMLElement).closest('.modal')?.querySelector<HTMLElement>('.restaurant')?.dataset.restaurantId;
 
   if ($restaurantItems && selectedId) {
-    // DOM에서 레스토랑 제거
     $restaurantItems.forEach((item) => {
       if (item.dataset.restaurantId === selectedId) {
         item.remove();
@@ -28,7 +27,7 @@ export function handleDeleteRestaurant(e: MouseEvent): void {
     });
 
     // restaurantStore에서 레스토랑 제거
-    restaurantStore.deleteRestaurant(Number(selectedId));
+    restaurantStore.deleteRestaurant(selectedId);
   } else {
     console.warn("레스토랑 목록이나 선택된 레스토랑을 찾을 수 없습니다.");
   }
@@ -96,7 +95,7 @@ export function handleAddRestaurant(e: MouseEvent): void {
   }
 }
 
-export function rerenderRestaurantList(restaurantId: number): void {
+export function rerenderRestaurantList(restaurantId: string): void {
   const $restaurantList = document.querySelector(".restaurant-list");
   if (!$restaurantList) return;
   

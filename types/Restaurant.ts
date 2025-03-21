@@ -2,7 +2,7 @@ export type Category = 'korean' | 'chinese' | 'japanese' | 'western' | 'asian' |
 export type CategoryName = '한식' | '중식' | '일식' | '양식' | '아시안' | '기타';
 
 export interface Restaurant {
-  id: number;
+  id: string;
   name: string;
   category: Category;
   categoryName: CategoryName;
