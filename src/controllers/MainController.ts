@@ -74,16 +74,18 @@ class MainController {
       updateFavoriteListView: this.favoriteListController.updateFavoriteListView.bind(this.favoriteListController),
     });
 
-    listItemOpenEventHandler(this.mainElement, (restaurantName) =>
-      DetailModalController({
+    listItemOpenEventHandler(this.mainElement, (restaurantName) => {
+      const detailModalController = new DetailModalController({
         restaurantName,
         restaurantList: this.restaurantList,
         updateCategorySortListView: this.categorySortFilterController.updateCategorySortListView.bind(
           this.categorySortFilterController,
         ),
         updateFavoriteListView: this.favoriteListController.updateFavoriteListView.bind(this.favoriteListController),
-      }),
-    );
+      });
+
+      return detailModalController.getElement();
+    });
   }
 
   render() {
@@ -95,36 +97,5 @@ class MainController {
     this.favoriteListContainerElement.appendChild(this.favoriteListController.getFavoriteListElement());
   }
 }
-
-// function MainController() {
-//   const { listElement, updateListView } = ListController(restaurantList);
-//   const { favoriteListElement, updateFavoriteListView } = FavoriteListController(restaurantList);
-//   const { categorySortFilterContainerElement, updateCategorySortListView } =
-//     CategorySortFilterController(updateListView);
-//   const modalElement = ModalController({ updateCategorySortListView, restaurantList });
-//   const tabContainerElement = TabController({ mainElement, updateCategorySortListView, updateFavoriteListView });
-//   const headerElement = HeaderController(modalElement);
-
-//   /*기존 돔에 추가*/
-//   app.prepend(headerElement); //헤더바
-//   mainElement.prepend(tabContainerElement); // 탭바
-//   mainElement.appendChild(modalElement); // 가게 추가 모달
-//   allListContainerElement.appendChild(categorySortFilterContainerElement); // 필터링바
-//   allListContainerElement.appendChild(listElement); // 잔체 가게 리스트
-//   favoriteListContainerElement.appendChild(favoriteListElement); // 좋아하는 가게 리스트
-
-//   //좋아요 버튼 클릭 이벤트 등록
-//   favoriteEventHandler({ mainElement, restaurantList, updateFavoriteListView });
-
-//   //listItem open 이벤트 등록
-//   listItemOpenEventHandler(mainElement, (restaurantName: string) =>
-//     DetailModalController({
-//       restaurantName,
-//       restaurantList,
-//       updateCategorySortListView,
-//       updateFavoriteListView,
-//     }),
-//   );
-// }
 
 export default MainController;
