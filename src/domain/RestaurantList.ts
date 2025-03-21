@@ -3,7 +3,6 @@ import Restaurant from "./Restaurant.ts";
 
 class RestaurantList {
   #restaurants = [] as Restaurant[];
-  #filteredRestaurants = [] as Restaurant[];
 
   constructor(listItemContents: RestaurantType[]) {
     this.loadRestaurants(listItemContents);
@@ -38,7 +37,6 @@ class RestaurantList {
   addRestaurant(restaurant: RestaurantType): void {
     const newRestaurant = new Restaurant(restaurant);
     this.#restaurants.push(newRestaurant);
-    this.#filteredRestaurants = [...this.#restaurants];
     this.updateLocalStorage();
   }
 
@@ -56,37 +54,40 @@ class RestaurantList {
   }
 
   // 카테고리 필터링
-  filterByCategory(category: string): void {
-    if (category === "전체") {
-      this.#filteredRestaurants = [...this.#restaurants];
-    } else {
-      this.#filteredRestaurants = this.#restaurants.filter(
-        ({ restaurant }: { restaurant: RestaurantType }) => restaurant.category === category,
-      );
-    }
+  filterByCategory(category: string): Restaurant[] {
+    if (category === "전체") return [...this.#restaurants];
+
+    return this.#restaurants.filter(
+      ({ restaurant }: { restaurant: RestaurantType }) => restaurant.category === category,
+    );
   }
 
   // 정렬 필터링
-  sortByOption(sortOption: "이름순" | "거리순"): void {
+  sortByOption(restaurants: Restaurant[], sortOption: "이름순" | "거리순") {
     if (sortOption === "이름순") {
-      this.#filteredRestaurants.sort((a: Restaurant, b: Restaurant) =>
-        a.restaurant.name.localeCompare(b.restaurant.name),
-      );
-    } else if (sortOption === "거리순") {
-      this.#filteredRestaurants.sort((a: Restaurant, b: Restaurant) => {
+      return [...restaurants].sort((a, b) => a.restaurant.name.localeCompare(b.restaurant.name));
+    }
+
+    if (sortOption === "거리순") {
+      return [...restaurants].sort((a, b) => {
         const distanceA = parseInt(a.restaurant.distance.match(/\d+/)?.[0] || "0");
         const distanceB = parseInt(b.restaurant.distance.match(/\d+/)?.[0] || "0");
-        if (distanceA === distanceB) return a.restaurant.name.localeCompare(b.restaurant.name);
+        if (distanceA === distanceB) {
+          return a.restaurant.name.localeCompare(b.restaurant.name);
+        }
         return distanceA - distanceB;
       });
     }
+
+    return restaurants;
   }
 
   // 카테고리 + 정렬
   filterAndSort(category: string, sortOption: "이름순" | "거리순"): Restaurant[] {
-    this.filterByCategory(category);
-    this.sortByOption(sortOption);
-    return [...this.#filteredRestaurants];
+    const filtered = this.filterByCategory(category);
+    const filteredRestaurants = this.sortByOption(filtered, sortOption);
+
+    return filteredRestaurants;
   }
 }
 

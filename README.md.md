@@ -111,5 +111,4 @@
 - [x] 폴더구조 개선 (controller 파일 분리)
 - [x] 이벤트 핸들러 -> controller 클래스 추가
 - [x] controller들 각자 내부에서 요소 결합하기
-- [ ] restaurantList 도메인 필터링list 필드값 제거
-- [ ] constant - distance값 -> select 컴포넌트 value는 숫자로 저장
+- [x] restaurantList 도메인 필터링list 필드값 제거
