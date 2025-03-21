@@ -14,13 +14,31 @@ import { setupFavoriteEventListeners } from "./favoriteHandler.ts";
 import { categoryMapping } from "../utils/categoryMapping.ts";
 import { Restaurant, Category,CategoryName } from "../../types/Restaurant.ts";
 
-export function handleDeleteRestaurant(e : MouseEvent) : void {
+export function handleDeleteRestaurant(e: MouseEvent): void {
   e.preventDefault();
   const $restaurantList = document.querySelector(".restaurant-list");
-  if ($restaurantList) {
-    $restaurantList.innerHTML = "";
+  const $restaurantItems = $restaurantList?.querySelectorAll<HTMLElement>(".restaurant");
+  const selectedId = (e.currentTarget as HTMLElement).closest('.modal')?.querySelector<HTMLElement>('.restaurant')?.dataset.restaurantId;
+
+  if ($restaurantItems && selectedId) {
+    // DOM에서 레스토랑 제거
+    $restaurantItems.forEach((item) => {
+      if (item.dataset.restaurantId === selectedId) {
+        item.remove();
+      }
+    });
+
+    // initialRestaurants 배열에서 레스토랑 제거
+    const index = initialRestaurants.findIndex(
+      (restaurant) => restaurant.id === Number(selectedId)
+    );
+    if (index !== -1) {
+      initialRestaurants.splice(index, 1);
+      // localStorage 업데이트
+      storeRestaurants(initialRestaurants);
+    }
   } else {
-    console.warn("레스토랑 목록을 DOM에서 찾을 수 없습니다.");
+    console.warn("레스토랑 목록이나 선택된 레스토랑을 찾을 수 없습니다.");
   }
 }
 
