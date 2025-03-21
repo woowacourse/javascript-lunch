@@ -87,6 +87,7 @@ describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한
     cy.get(".button--add").click();
     cy.on("window:alert", (text) => {
       expect(text).to.equal(ERROR_MESSAGE.link);
+
     });
   });
 });
