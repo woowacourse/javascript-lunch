@@ -1,15 +1,16 @@
 import RestaurantFilter from '../../../components/filter/RestaurantFilter';
+import { SortOption } from '../../../../Domain/types/FilterOption';
 
 class SortingFilter {
-  private filter: RestaurantFilter;
+  private filter: RestaurantFilter<SortOption>;
 
-  constructor(onChange?: (sortBy: string) => void) {
+  constructor(onChange?: (sortBy: SortOption) => void) {
     const sortingOptions = [
-      { value: 'name', text: '이름순' },
-      { value: 'distance', text: '거리순' },
+      { value: 'name' as SortOption, text: '이름순' },
+      { value: 'distance' as SortOption, text: '거리순' },
     ];
 
-    this.filter = new RestaurantFilter(sortingOptions, onChange);
+    this.filter = new RestaurantFilter<SortOption>(sortingOptions, onChange);
     this.filter.getElement().id = 'sorting-filter';
     this.filter.getElement().name = 'sorting';
   }
@@ -18,7 +19,7 @@ class SortingFilter {
     return this.filter.getElement();
   }
 
-  getValue(): string {
+  getValue(): SortOption {
     return this.filter.getValue();
   }
 }

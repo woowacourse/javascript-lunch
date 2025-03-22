@@ -1,11 +1,12 @@
 import './RestaurantFilter.css';
+import { FilterOption } from '../../../Domain/types/FilterOption';
 
-class RestaurantFilter {
+class RestaurantFilter<T extends string> {
   protected element: HTMLSelectElement;
-  protected options: { value: string; text: string }[];
-  protected onChange?: (value: string) => void;
+  protected options: FilterOption<T>[];
+  protected onChange?: (value: T) => void;
 
-  constructor(options: { value: string; text: string }[] = [], onChange?: (value: string) => void) {
+  constructor(options: FilterOption<T>[] = [], onChange?: (value: T) => void) {
     this.options = options;
     this.onChange = onChange;
     this.element = this.#createFilter();
@@ -32,7 +33,7 @@ class RestaurantFilter {
     if (this.onChange) {
       this.element.addEventListener('change', (e) => {
         const target = e.target as HTMLSelectElement;
-        this.onChange!(target.value);
+        this.onChange!(target.value as T);
       });
     }
   }
@@ -41,8 +42,8 @@ class RestaurantFilter {
     return this.element;
   }
 
-  getValue(): string {
-    return this.element.value;
+  getValue(): T {
+    return this.element.value as T;
   }
 }
 

@@ -1,22 +1,17 @@
 import RestaurantFilter from '../../../components/filter/RestaurantFilter';
-
-const CATEGORY_LIST = [
-  ['전체', '전체'],
-  ['한식', '한식'],
-  ['중식', '중식'],
-  ['일식', '일식'],
-  ['양식', '양식'],
-  ['아시안', '아시안'],
-  ['기타', '기타'],
-];
+import { Category, FilterOption } from '../../../../Domain/types/FilterOption';
 
 class CategoryFilter {
-  private filter: RestaurantFilter;
+  private filter: RestaurantFilter<Category>;
 
-  constructor(onChange?: (category: string) => void) {
-    const categoryOptions = CATEGORY_LIST.map(([value, text]) => ({ value, text }));
+  constructor(onChange?: (category: Category) => void) {
+    const categories: Category[] = ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'];
+    const categoryOptions: FilterOption<Category>[] = categories.map((category) => ({
+      value: category,
+      text: category,
+    }));
 
-    this.filter = new RestaurantFilter(categoryOptions, onChange);
+    this.filter = new RestaurantFilter<Category>(categoryOptions, onChange);
     this.filter.getElement().id = 'category-filter';
     this.filter.getElement().name = 'category';
   }
@@ -25,7 +20,7 @@ class CategoryFilter {
     return this.filter.getElement();
   }
 
-  getValue(): string {
+  getValue(): Category {
     return this.filter.getValue();
   }
 }
