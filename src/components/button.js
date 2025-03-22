@@ -1,11 +1,13 @@
-const Button = (props) => {
-  const button = document.createElement("button");
-  button.setAttribute("type", props.type);
-  button.setAttribute("id", props.id);
-  button.classList.add(props.class, "text-caption", "button");
-  button.textContent = props.name;
+import createElement from "../utils/createElement";
 
-  return button;
+const Button = (props) => {
+  return createElement({
+    tag: "button",
+    type: props.type,
+    id: props.id,
+    classList: [...props.class, "text-caption", "button"],
+    textContent: props.name,
+  });
 };
 
 export default Button;

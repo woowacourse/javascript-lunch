@@ -35,13 +35,13 @@ const modalRenderer = {
         {
           name: "취소하기",
           type: "button",
-          class: "button--secondary",
+          class: ["button--secondary"],
           id: "cancel-button",
         },
         {
           name: "추가하기",
           type: "submit",
-          class: "button--primary",
+          class: ["button--primary"],
           id: "add-button",
         },
       ])
@@ -129,13 +129,13 @@ const modalRenderer = {
         {
           name: "삭제하기",
           type: "button",
-          class: "button--secondary",
+          class: ["button--secondary"],
           id: "delete-button",
         },
         {
           name: "닫기",
           type: "button",
-          class: "button--primary",
+          class: ["button--primary"],
           id: "close-button",
         },
       ])

@@ -13,6 +13,7 @@ const MenuBar = (storeList) => {
   const allButtonText = createElement({
     tag: "span",
     classList: ["all-restaurant-button-text", "button-text"],
+    textContent: uiBasicText.ALL_MENUBAR_TEXT,
   });
 
   const favoriteButton = createElement({
@@ -22,10 +23,8 @@ const MenuBar = (storeList) => {
   const favoriteButtonText = createElement({
     tag: "span",
     classList: ["favorite-restaurant-button-text", "button-text"],
+    textContent: uiBasicText.FAVORITE_MENUBAR_TEXT,
   });
-
-  allButtonText.textContent = uiBasicText.ALL_MENUBAR_TEXT;
-  favoriteButtonText.textContent = uiBasicText.FAVORITE_MENUBAR_TEXT;
 
   allButton.appendChild(allButtonText);
   favoriteButton.appendChild(favoriteButtonText);
