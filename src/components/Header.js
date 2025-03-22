@@ -1,5 +1,4 @@
 import IMG_SRC from "../constants/imgSrc";
-import createElement from "../utils/createElement";
 
 const Header = (title) => {
   const header = document.querySelector(".header");

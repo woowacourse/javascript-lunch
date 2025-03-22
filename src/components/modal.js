@@ -1,5 +1,4 @@
 import modalRenderer from "../render/modalRenderer.js";
-import storeRenderer from "../render/storeRenderer.js";
 import createElement from "../utils/createElement.js";
 
 const Modal = (storeList, classList) => {

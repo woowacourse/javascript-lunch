@@ -3,8 +3,6 @@ import IMG_SRC from "../constants/imgSrc.js";
 import storage from "../utils/storage.ts";
 import validate from "../utils/validate.ts";
 import modalRenderer from "./modalRenderer.js";
-import { v4 as uuidv4 } from "uuid";
-import options from "../constants/options.js";
 
 const storeRenderer = {
   // 새로운 식당 추가
