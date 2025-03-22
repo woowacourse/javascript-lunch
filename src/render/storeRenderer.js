@@ -21,6 +21,9 @@ const storeRenderer = {
   updateStore: (storeList, e) => {
     const newStore = storeRenderer.createStore(e);
 
+    const categoryFilter = Object.keys(options.sortCategory)[0];
+    const sortFilter = Object.keys(options.sortFilter)[0];
+
     try {
       e.preventDefault();
 
@@ -45,12 +48,8 @@ const storeRenderer = {
         .classList.remove("onMenuBar");
 
       // 새로운 음식점이 추가되는 경우 카테고리/정렬 드롭박스 초기화
-      document.querySelector("#category-filter").value = Object.keys(
-        options.sortCategory
-      )[0];
-      document.querySelector("#sorting-filter").value = Object.keys(
-        options.sortFilter
-      )[0];
+      document.querySelector("#category-filter").value = categoryFilter;
+      document.querySelector("#sorting-filter").value = sortFilter;
 
       storeRenderer.rerenderStoreList(storeList.list);
 
