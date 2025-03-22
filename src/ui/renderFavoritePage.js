@@ -1,4 +1,3 @@
-import RestaurantCard from "../components/RestaurantCard/index.js";
 import RestaurantCardList from "../components/RestaurantCardList/index.js";
 import restaurantCardEvents from "../events/restaurantCardEvents.js";
 import { $ } from "../utils/dom";

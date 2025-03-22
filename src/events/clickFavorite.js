@@ -5,7 +5,6 @@ import renderFilteredRestaurants from "../ui/renderFilteredRestaurant";
 const clickFavorite = (restaurantList) => {
   Persistence.saveRestaurantList(restaurantList.value);
   if (Persistence.loadTabInfo() === "favorites") {
-    console.log(Persistence.loadTabInfo());
     renderFavoritePage(restaurantList);
   } else {
     renderFilteredRestaurants(restaurantList);

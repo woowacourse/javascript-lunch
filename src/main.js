@@ -4,7 +4,6 @@ import Modal from "./components/common/Modal";
 import Title from "./components/common/Title";
 import RegisterForm from "./components/RegisterForm";
 import modalClose from "./components/common/Modal/modalClose.js";
-import Restaurant from "./domain/Restaurant";
 import RestaurantList from "./domain/RestaurantList";
 import Tab from "./components/Tab";
 import { restaurants } from "./restaurantListData";

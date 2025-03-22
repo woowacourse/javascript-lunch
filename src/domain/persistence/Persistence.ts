@@ -1,11 +1,9 @@
-import { isEmpty } from "./../../validate/isEmpty";
 import { STORAGE_KEYS } from "../consts";
 import Restaurant from "../Restaurant";
 import {
   CategoryFilter,
   NameOrDistanceFilter,
   RestaurantAppStorage,
-  RestaurantValue,
   TabInfo,
 } from "../types";
 import LocalPersistence from "./LocalPersistence";
@@ -22,7 +20,8 @@ interface PersistenceStrategy {
 }
 
 class Persistence {
-  #persistenceStrategy;
+  #persistenceStrategy: PersistenceStrategy;
+
   constructor(persistenceStrategy: PersistenceStrategy) {
     this.#persistenceStrategy = persistenceStrategy;
   }
@@ -43,7 +42,6 @@ class Persistence {
   }
 
   saveRestaurantList(restaurants: Restaurant[]) {
-    console.log("restaurants", restaurants);
     const values = restaurants.map((r) => r.value);
     this.#persistenceStrategy.set(STORAGE_KEYS.RESTAURANT_LIST, values);
   }
