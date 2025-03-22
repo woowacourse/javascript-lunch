@@ -6,58 +6,68 @@ import {
   TabInfo,
 } from "./types";
 
-const STORAGE_KEYS = {
-  RESTAURANT_LIST: "restaurantList",
-  CATEGORY: "category",
-  NAME_OR_DISTANCE: "nameOrDistance",
-  TAB_INFO: "TabInfo",
+const STORAGE_KEY = "restaurantApp";
+
+type RestaurantAppStorage = {
+  restaurantList?: RestaurantValue[];
+  category?: CategoryFilter;
+  nameOrDistance?: NameOrDistanceFilter;
+  tabInfo?: TabInfo;
 };
 
 const storage = {
+  _loadAll(): RestaurantAppStorage {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  },
+
+  _saveAll(data: RestaurantAppStorage) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  },
+
   saveRestaurantList(value: Restaurant[]) {
-    const restaurantListValue = value.map((restaurant) => {
-      return restaurant.value;
-    });
-    localStorage.setItem(
-      STORAGE_KEYS.RESTAURANT_LIST,
-      JSON.stringify(restaurantListValue)
-    );
+    const restaurantList = value.map((restaurant) => restaurant.value);
+    const data = this._loadAll();
+    data.restaurantList = restaurantList;
+    this._saveAll(data);
   },
 
   loadRestaurantList(): RestaurantValue[] | null {
-    const restaurantList = localStorage.getItem(STORAGE_KEYS.RESTAURANT_LIST);
-
-    return restaurantList ? JSON.parse(restaurantList) : null;
+    const data = this._loadAll();
+    return data.restaurantList ?? null;
   },
 
   saveCategory(value: CategoryFilter) {
-    localStorage.setItem(STORAGE_KEYS.CATEGORY, JSON.stringify(value));
+    const data = this._loadAll();
+    data.category = value;
+    this._saveAll(data);
   },
 
   loadCategory(): CategoryFilter | null {
-    const category = localStorage.getItem(STORAGE_KEYS.CATEGORY);
-
-    return category ? JSON.parse(category) : null;
+    const data = this._loadAll();
+    return data.category ?? null;
   },
 
   saveNameOrDistance(value: NameOrDistanceFilter) {
-    localStorage.setItem(STORAGE_KEYS.NAME_OR_DISTANCE, JSON.stringify(value));
+    const data = this._loadAll();
+    data.nameOrDistance = value;
+    this._saveAll(data);
   },
 
   loadNameOrDistance(): NameOrDistanceFilter | null {
-    const nameOrDistance = localStorage.getItem(STORAGE_KEYS.NAME_OR_DISTANCE);
-
-    return nameOrDistance ? JSON.parse(nameOrDistance) : null;
+    const data = this._loadAll();
+    return data.nameOrDistance ?? null;
   },
 
   saveTabInfo(value: TabInfo) {
-    localStorage.setItem(STORAGE_KEYS.TAB_INFO, JSON.stringify(value));
+    const data = this._loadAll();
+    data.tabInfo = value;
+    this._saveAll(data);
   },
 
   loadTabInfo(): TabInfo | null {
-    const tabInfo = localStorage.getItem(STORAGE_KEYS.TAB_INFO);
-
-    return tabInfo ? JSON.parse(tabInfo) : null;
+    const data = this._loadAll();
+    return data.tabInfo ?? null;
   },
 };
 
