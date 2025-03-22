@@ -1,45 +1,29 @@
-import { CATEGORY_KEY, CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../public/restaurantData.js';
 import createElement from '../utils/createElement.js';
-import createButton from './Button.js';
-import createInputBox from './InputBox.js';
-import createSectionContainer from './SectionContainer.js';
-import createSelectBox from './SelectBox.js';
-import createTextArea from './TextArea.js';
-import { updateRestaurantList } from './RestaurantList.js';
+import createButton from './common/Button.js';
+import createSectionContainer from './common/SectionContainer.js';
+import createTextArea from './common/TextArea.js';
+import createInputBox from './common/InputBox.js';
+import { createLabeldSelectBox } from './common/SelectBox.js';
+import {
+  RESTAURANT_CATEGORY,
+  RESTAURANT_CATEGORY_KEY,
+  RESTAURANT_DISTANCE_OPTIONS,
+} from '../constants/SETTING.js';
 
-const restaurantInput = {
-  category: null,
-  name: null,
-  distance: null,
-  description: null,
-  link: null,
-};
-
-function resetInput() {
-  document.querySelector('select#category').value = '';
-  document.querySelector('input#name').value = '';
-  document.querySelector('select#distance').value = '';
-  document.querySelector('textarea#description').value = '';
-  document.querySelector('input#link').value = '';
-
-  Object.keys(restaurantInput).forEach((key) => {
-    restaurantInput[key] = null;
-  });
-}
-
-function createRestaurantEnrollForm(onCancel) {
+function createRestaurantEnrollForm({ restaurantInput, onEnroll, onCancel }) {
   const $enrollForm = createElement({ tag: 'form' });
 
-  const $categoryBox = createSelectBox({
-    options: CATEGORY_OPTIONS,
+  const $categoryBox = createLabeldSelectBox({
+    options: Object.values(RESTAURANT_CATEGORY),
+    label: '카테고리',
     isRequired: true,
     type: 'category',
     onChange: (event) => {
-      restaurantInput.category = CATEGORY_KEY[event.target.value];
+      restaurantInput.category = RESTAURANT_CATEGORY_KEY[event.target.value];
     },
   });
 
-  const $$nameInputBox = createInputBox({
+  const $nameInputBox = createInputBox({
     label: '이름',
     isRequired: true,
     type: 'name',
@@ -48,8 +32,9 @@ function createRestaurantEnrollForm(onCancel) {
     },
   });
 
-  const $distanceBox = createSelectBox({
-    options: DISTANCE_OPTIONS,
+  const $distanceBox = createLabeldSelectBox({
+    options: RESTAURANT_DISTANCE_OPTIONS,
+    label: '거리(도보 이동 시간)',
     isRequired: true,
     type: 'distance',
     onChange: (event) => {
@@ -66,7 +51,7 @@ function createRestaurantEnrollForm(onCancel) {
     },
   });
 
-  const $$linkInputBox = createInputBox({
+  const $linkInputBox = createInputBox({
     label: '참고 링크',
     isRequired: false,
     type: 'link',
@@ -89,28 +74,21 @@ function createRestaurantEnrollForm(onCancel) {
     textContent: '등록하기',
     onClick: (event) => {
       event.preventDefault();
-
-      if (!restaurantInput.category || !restaurantInput.name || !restaurantInput.distance) {
-        alert('카테고리, 이름, 거리 항목은 필수 입력입니다.');
-        return;
-      }
-
-      updateRestaurantList(restaurantInput);
-      onCancel();
+      onEnroll(event);
     },
   });
 
   $buttonContainer.append($cancelButton, $enrollButton);
   $enrollForm.append(
     $categoryBox,
-    $$nameInputBox,
+    $nameInputBox,
     $distanceBox,
     $descriptionTextArea,
-    $$linkInputBox,
+    $linkInputBox,
     $buttonContainer
   );
 
   return $enrollForm;
 }
 
-export { createRestaurantEnrollForm, resetInput };
+export default createRestaurantEnrollForm;

@@ -1,12 +1,13 @@
 import createElement from '../utils/createElement.js';
 import createRestaurantItem from './RestaurantItem.js';
 
-function createRestaurantList(datas) {
+function createRestaurantList({ datas, onClickItem, onClickStar }) {
   const restaurantList = createElement({ tag: 'ul', className: 'restaurant-list' });
 
   const fragment = new DocumentFragment();
+
   datas.forEach((data) => {
-    const restaurantItem = createRestaurantItem(data);
+    const restaurantItem = createRestaurantItem({ data, onClickItem, onClickStar });
     fragment.appendChild(restaurantItem);
   });
 
@@ -15,13 +16,31 @@ function createRestaurantList(datas) {
   return restaurantList;
 }
 
-function updateRestaurantList(inputData) {
+function addRestaurantList({ data, onClickItem, onClickStar }) {
   const $restaurantList = document.querySelector('.restaurant-list');
-  const $restaurantItem = createRestaurantItem(inputData);
+  const $restaurantItem = createRestaurantItem({ data, onClickItem, onClickStar });
 
   $restaurantList.appendChild($restaurantItem);
 
   return $restaurantList;
 }
 
-export { createRestaurantList, updateRestaurantList };
+function updateRestaurantList({ datas, onClickItem, onClickStar }) {
+  const $listContainer = document.querySelector('.restaurant-list-container');
+  $listContainer.replaceChildren();
+
+  const restaurantList = createElement({ tag: 'ul', className: 'restaurant-list' });
+  const fragment = new DocumentFragment();
+
+  datas.forEach((data) => {
+    const restaurantItem = createRestaurantItem({ data, onClickItem, onClickStar });
+    fragment.appendChild(restaurantItem);
+  });
+
+  restaurantList.appendChild(fragment);
+  $listContainer.appendChild(restaurantList);
+
+  return $listContainer;
+}
+
+export { createRestaurantList, updateRestaurantList, addRestaurantList };

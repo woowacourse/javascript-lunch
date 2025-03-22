@@ -1,15 +1,16 @@
-import createElement from '../utils/createElement.js';
+import createElement from '../../utils/createElement.js';
 
-function createSelectBox({ options, isRequired, type, onChange }) {
+function createLabeldSelectBox({ options, label, isRequired, type, onChange }) {
   const selectBoxDiv = createElement({
     tag: 'div',
-    className: `form-item ${isRequired ? 'form-item--required' : ''}`,
+    className: `form-item${isRequired ? ' form-item--required' : ''}`,
   });
   const categoryLabel = createElement({
     tag: 'label',
-    textContent: type === 'category' ? '카테고리' : '거리(도보 이동 시간)',
+    textContent: label,
     attributes: { for: `${type} text-caption` },
   });
+
   const selectBox = createElement({
     tag: 'select',
     attributes: {
@@ -43,4 +44,34 @@ function createSelectBox({ options, isRequired, type, onChange }) {
   return selectBoxDiv;
 }
 
-export default createSelectBox;
+function createSelectBox({ options, type, onChange }) {
+  const selectBox = createElement({
+    tag: 'select',
+    attributes: {
+      name: type,
+      id: `${type}-filter`,
+      class: 'restaurant-filter',
+    },
+  });
+
+  const fragment = new DocumentFragment();
+
+  options.forEach((option) => {
+    const optionTag = createElement({
+      tag: 'option',
+      textContent: option,
+      attributes: { value: option },
+    });
+    fragment.appendChild(optionTag);
+  });
+
+  selectBox.appendChild(fragment);
+
+  selectBox.addEventListener('change', (event) => {
+    onChange(event);
+  });
+
+  return selectBox;
+}
+
+export { createSelectBox, createLabeldSelectBox };

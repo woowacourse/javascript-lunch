@@ -1,4 +1,4 @@
-import createElement from '../utils/createElement.js';
+import createElement from '../../utils/createElement.js';
 
 function createTextArea({ label, type, helpText = '', onChange }) {
   const textAreaDiv = createElement({ tag: 'div', className: 'form-item' });
