@@ -3,7 +3,7 @@ import restaurantCardEvents from "../events/restaurantCardEvents.js";
 import { $ } from "../utils/dom";
 import renderRestaurants from "./renderRestaurant";
 
-const renderFavoritePage = (restaurantList) => {
+const renderFavoritesPage = (restaurantList) => {
   $(".restaurant-filter-container").innerHTML = "";
   $(".restaurant-list").innerHTML = "";
 
@@ -15,4 +15,4 @@ const renderFavoritePage = (restaurantList) => {
   return renderRestaurants(favoriteCardList);
 };
 
-export default renderFavoritePage;
+export default renderFavoritesPage;

@@ -4,7 +4,7 @@ import clickDelete from "../events/clickDelete.js";
 import { $ } from "../utils/dom.js";
 import restaurantCardEvents from "../events/restaurantCardEvents.js";
 
-const changeModalContents = (restaurant, restaurantList) => {
+const renderModalContents = (restaurant, restaurantList) => {
   const restaurantDetailModal = $(".restaurant-detail-modal");
   restaurantDetailModal.innerHTML = "";
 
@@ -18,4 +18,4 @@ const changeModalContents = (restaurant, restaurantList) => {
   return restaurantDetailModal;
 };
 
-export default changeModalContents;
+export default renderModalContents;
