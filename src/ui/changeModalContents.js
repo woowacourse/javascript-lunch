@@ -9,11 +9,8 @@ const changeModalContents = (restaurant, restaurantList) => {
   restaurantDetailModal.innerHTML = "";
 
   restaurantDetailModal.append(
-    RestaurantCard(
-      restaurant,
-      restaurantCardEvents( restaurantList)
-    ),
-    RestaurantDetailButtonContainer(restaurant, () => {
+    RestaurantCard(restaurant, restaurantCardEvents(restaurantList)),
+    RestaurantDetailButtonContainer(() => {
       clickDelete(restaurant, restaurantList);
     })
   );

@@ -1,3 +1,4 @@
+import clickDelete from "../../events/clickDelete";
 import createElement from "../../utils/createElement/createElement";
 import { $ } from "../../utils/dom";
 import Button from "../common/Button";
@@ -7,14 +8,14 @@ const BUTTON_TEXT = {
   CLOSE: "닫기",
 };
 
-const RestaurantDetailButtonContainer = (restaurant, clickDelete) => {
+const RestaurantDetailButtonContainer = (onClickDelete) => {
   const deleteButton = Button({
     text: BUTTON_TEXT.DELETE,
     style: "button--secondary",
     id: "delete-button",
     onClick: () => {
       $("#restaurant-detail-modal-backdrop").classList.remove("open");
-      clickDelete();
+      onClickDelete();
     },
   });
 
