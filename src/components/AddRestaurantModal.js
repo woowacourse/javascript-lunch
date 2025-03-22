@@ -2,8 +2,10 @@ import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options.js";
 import CustomDropdown from "../shared/CustomDropdown.js";
 import CustomInput from "../shared/CustomInput.js";
 import CustomButton from "../shared/CustomButton.js";
+import { handleAddRestaurant } from "../handlers/restaurantHandler.js";
+import removeModal from "../utils/removeModal.js";
 
-export default function AddRestaurantModal(container) {
+export default function AddRestaurantModal() {
   const formFields = [
     {
       type: "dropdown",
@@ -96,7 +98,8 @@ export default function AddRestaurantModal(container) {
   );
   const submitButton = CustomButton("", "button--primary", "추가하기");
 
-  container.innerHTML += /* html */ `
+  // HTML 문자열 반환
+  const modalHTML = /* html */ `
     <div class="modal modal--open">
       <div class="modal-backdrop"></div>
       <div class="modal-container">
@@ -111,4 +114,44 @@ export default function AddRestaurantModal(container) {
       </div>
     </div>
   `;
+
+  function render(container) {
+    const existingModal = document.querySelector(".modal");
+    if (existingModal) {
+      existingModal.remove();
+    }
+
+    container.insertAdjacentHTML("beforeend", modalHTML);
+    setupModalEventListeners();
+
+    return document.querySelector(".modal");
+  }
+
+  // 이벤트 리스너 설정 함수
+  function setupModalEventListeners() {
+    const $closeModalButton = document.getElementById("close-modal");
+    const $addRestaurantButton = document.querySelector(".button--primary");
+    const $modalBackdrop = document.querySelector(".modal-backdrop");
+
+    if ($closeModalButton) {
+      $closeModalButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        removeModal();
+      });
+    }
+
+    if ($modalBackdrop) {
+      $modalBackdrop.addEventListener("click", () => {
+        removeModal();
+      });
+    }
+
+    if ($addRestaurantButton) {
+      $addRestaurantButton.addEventListener("click", handleAddRestaurant);
+    }
+  }
+
+  return {
+    render,
+  };
 }
