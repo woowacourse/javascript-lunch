@@ -1,10 +1,10 @@
-import storage from "../domain/storage";
+import Persistence from "../domain/persistence/Persistence";
 import renderFilteredRestaurants from "../ui/renderFilteredRestaurant";
 
 const clickDelete = (restaurant, restaurantList) => {
   restaurantList.delete(restaurant);
 
-  storage.saveRestaurantList(restaurantList.value);
+  Persistence.saveRestaurantList(restaurantList.value);
 
   renderFilteredRestaurants(restaurantList);
 };

@@ -1,4 +1,4 @@
-import storage from "../domain/storage";
+import Persistence from "../domain/persistence/Persistence";
 import changeModalContents from "../ui/changeModalContents";
 import renderFavoritePage from "../ui/renderFavoritePage";
 import renderFilteredRestaurants from "../ui/renderFilteredRestaurant";
@@ -12,7 +12,7 @@ const eventHandlers = {
         changeModalContents(restaurant, restaurantList);
       },
       clickFavorite: () => {
-        storage.saveRestaurantList(restaurantList.value);
+        Persistence.saveRestaurantList(restaurantList.value);
         renderFilteredRestaurants(restaurantList);
       },
     };
@@ -21,7 +21,7 @@ const eventHandlers = {
   favorite(restaurantList) {
     return {
       clickFavorite: () => {
-        storage.saveRestaurantList(restaurantList.value);
+        Persistence.saveRestaurantList(restaurantList.value);
         renderFavoritePage(restaurantList);
       },
     };

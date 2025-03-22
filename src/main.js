@@ -7,18 +7,23 @@ import modalClose from "./components/common/Modal/modalClose.js";
 import Restaurant from "./domain/Restaurant";
 import RestaurantList from "./domain/RestaurantList";
 import Tab from "./components/Tab";
-import storage from "./domain/storage.ts";
 import { restaurants } from "./restaurantListData";
 import { clearInput } from "./utils/clearInput.js";
 import renderAllpage from "./ui/renderAllpage.js";
 import renderFavoritePage from "./ui/renderFavoritePage.js";
+import Persistence from "./domain/persistence/Persistence.ts";
 
 addEventListener("load", () => {
-  initStorage();
+  Persistence.init({
+    restaurantList: restaurants,
+    category: "",
+    nameOrDistance: "",
+    tabInfo: "all",
+  });
 
-  const restaurantListData = storage.loadRestaurantList().map(Restaurant.of);
-  const category = storage.loadCategory();
-  const nameOrDistance = storage.loadNameOrDistance();
+  const restaurantListData = Persistence.loadRestaurantList();
+  const category = Persistence.loadCategory();
+  const nameOrDistance = Persistence.loadNameOrDistance();
 
   const restaurantList = new RestaurantList(restaurantListData);
   restaurantList.category = category;
@@ -57,27 +62,12 @@ addEventListener("load", () => {
     })
   );
 
-  if (storage.loadTabInfo() === "favorites") {
+  if (Persistence.loadTabInfo() === "favorites") {
     $(".tab__item--favorites").click();
   } else {
     $(".tab__item--all").click();
   }
 });
-
-const initStorage = () => {
-  if (storage.loadRestaurantList() === null) {
-    storage.saveRestaurantList(restaurants);
-  }
-  if (storage.loadCategory() === null) {
-    storage.saveCategory("");
-  }
-  if (storage.loadNameOrDistance() === null) {
-    storage.saveNameOrDistance("");
-  }
-  if (storage.loadTabInfo() === null) {
-    storage.saveTabInfo("all");
-  }
-};
 
 const renderPageContent = (selectedTab, restaurantList) => {
   if (selectedTab === "all") {

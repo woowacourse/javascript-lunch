@@ -1,5 +1,4 @@
 import { FOOD_CATEGORY } from "../../../constants/foodCategory";
-import storage from "../../../domain/storage.ts";
 import createKeyValuePair from "../../../utils/createKeyValuePair";
 import Select from "../../common/Select";
 

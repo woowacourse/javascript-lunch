@@ -1,4 +1,4 @@
-import storage from "../../domain/storage.ts";
+import Persistence from "../../domain/persistence/Persistence";
 import createElement from "../../utils/createElement/createElement";
 import { $ } from "../../utils/dom";
 import TabItem from "./TabItem";
@@ -10,14 +10,14 @@ const Tab = (handleSeletedTabChange) => {
     classNames: ["tab__item--all"],
     events: {
       click: (e) => {
-        storage.saveTabInfo("all");
+        Persistence.saveTabInfo("all");
 
         $(".tab--selected").classList.remove("tab--selected");
         e.target.classList.add("tab--selected");
 
         handleSeletedTabChange("all");
-        $("#category-sorting").value = storage.loadCategory();
-        $("#sorting").value = storage.loadNameOrDistance();
+        $("#category-sorting").value = Persistence.loadCategory();
+        $("#sorting").value = Persistence.loadNameOrDistance();
       },
     },
   });
@@ -28,7 +28,7 @@ const Tab = (handleSeletedTabChange) => {
     classNames: ["tab__item--favorites"],
     events: {
       click: (e) => {
-        storage.saveTabInfo("favorites");
+        Persistence.saveTabInfo("favorites");
 
         $(".tab--selected").classList.remove("tab--selected");
         e.target.classList.add("tab--selected");

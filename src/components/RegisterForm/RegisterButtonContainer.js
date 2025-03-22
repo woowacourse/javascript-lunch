@@ -6,8 +6,8 @@ import { getInfo } from "./getInfo";
 import Button from "../common/Button";
 import ErrorMessage from "../common/ErrorMessage";
 import createElement from "../../utils/createElement/createElement";
-import storage from "../../domain/storage.ts";
 import renderFilteredRestaurants from "../../ui/renderFilteredRestaurant.js";
+import Persistence from "../../domain/persistence/Persistence.js";
 
 const RegisterButtonContainer = (restaurantList) => {
   const cancelButton = Button({
@@ -23,7 +23,7 @@ const RegisterButtonContainer = (restaurantList) => {
     style: "button--primary",
     onClick: (e) => {
       registerRestaurant(e, restaurantList);
-      if (storage.loadTabInfo() === "all") {
+      if (Persistence.loadTabInfo() === "all") {
         renderFilteredRestaurants(restaurantList);
       }
     },
@@ -59,7 +59,7 @@ const registerRestaurant = (e, restaurantList) => {
     const restaurant = new Restaurant(info);
 
     restaurantList.add(restaurant);
-    storage.saveRestaurantList(restaurantList.value);
+    Persistence.saveRestaurantList(restaurantList.value);
 
     $("#register-modal-backdrop").classList.remove("open");
 

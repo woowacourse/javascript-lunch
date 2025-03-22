@@ -2,7 +2,7 @@ import CategorySelector from "../components/FilterSelector/CategorySelector";
 import NameOrDistanceSelector from "../components/FilterSelector/NameOrDistanceSelector";
 import renderFilteredRestaurants from "./renderFilteredRestaurant";
 import { $ } from "../utils/dom";
-import storage from "../domain/storage";
+import Persistence from "../domain/persistence/Persistence";
 
 const renderAllpage = (restaurantList) => {
   $(".restaurant-filter-container").innerHTML = "";
@@ -24,13 +24,13 @@ const renderAllpage = (restaurantList) => {
 export default renderAllpage;
 
 const handleSeletedCatetoryChanged = (restaurantList) => (e) => {
-  storage.saveCategory(e.target.value);
+  Persistence.saveCategory(e.target.value);
   restaurantList.category = e.target.value;
   renderFilteredRestaurants(restaurantList);
 };
 
 const handleNameOrDistanceChanged = (restaurantList) => (e) => {
-  storage.saveNameOrDistance(e.target.value);
+  Persistence.saveNameOrDistance(e.target.value);
   restaurantList.nameOrDistance = e.target.value;
   renderFilteredRestaurants(restaurantList);
 };

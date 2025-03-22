@@ -12,3 +12,10 @@ export const DISTANCE_VALUES = [5, 10, 15, 20, 30] as const;
 export const NAME_OR_DISTANCE = ["name", "distance"] as const;
 
 export const ALL_OPTION = "" as const;
+
+export const STORAGE_KEYS = {
+  RESTAURANT_LIST: "restaurantList",
+  CATEGORY: "category",
+  NAME_OR_DISTANCE: "nameOrDistance",
+  TAB_INFO: "tabInfo",
+} as const;
