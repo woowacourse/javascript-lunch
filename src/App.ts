@@ -27,7 +27,7 @@ import {
 } from "./handlers/index.js";
 import RestaurantStore from "./stores/RestaurantStore.js";
 import { subscribeRestaurantStore } from "./stores/subscribeStore.js";
-import appendElement from "./utils/appendElement.js";
+import render from "./utils/render.js";
 
 export default class App {
   private store: RestaurantStore = new RestaurantStore();
@@ -51,10 +51,10 @@ export default class App {
   #initializeCompoenents() {
     const $header = this.#createHeader();
     const $main = this.#createMain();
-    appendElement([$header, $main], this.$body);
+    render([$header, $main], this.$body);
 
     if (!$main) return;
-    appendElement(
+    render(
       [
         this.#createRestaurantNavBar(),
         this.#createRestaurantFilter(),

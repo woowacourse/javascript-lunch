@@ -1,4 +1,4 @@
-const appendElement = (
+const render = (
   element: HTMLElement | HTMLElement[],
   container: HTMLElement
 ) => {
@@ -6,4 +6,4 @@ const appendElement = (
   else if (element instanceof HTMLElement) container.appendChild(element);
 };
 
-export default appendElement;
+export default render;
