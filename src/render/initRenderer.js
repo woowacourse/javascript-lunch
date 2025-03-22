@@ -10,15 +10,13 @@ import uiBasicText from "../constants/uiBasicText.js";
 import MenuBar from "../components/MenuBar.js";
 
 const initRenderer = {
-  // initUI() {
-  //   Header(uiBasicText.HEADER_TEXT);
-  //   const storeList = initRenderer.setStoreList();
-  //   initRenderer.setRestaurantFilter(storeList);
-  //   MenuBar(storeList);
-  // },
-
   // 카테고리/정렬 드롭박스 셋팅
+
   setRestaurantFilter: (storeList) => {
+    document
+      .querySelector(".restaurant-filter-container")
+      .classList.add("filter-open");
+
     const categorySelect = Select({
       tag: "select",
       name: "category",
@@ -40,7 +38,6 @@ const initRenderer = {
       options: options.sortFilter,
       callback: (e) => storeRenderer.sortStore(storeList, e),
     });
-
     document
       .querySelector(".restaurant-filter-container")
       .appendChild(sortSelect);

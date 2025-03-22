@@ -17,7 +17,6 @@ addEventListener("load", () => {
   const storeList = initRenderer.setStoreList();
   initRenderer.setRestaurantFilter(storeList);
   MenuBar(storeList);
-
   Modal(storeList);
 
   // 음식점 리스트
@@ -38,7 +37,6 @@ addEventListener("load", () => {
     const storeId = e.target.closest(".restaurant").getAttribute("id");
     const store = storeList.filterByStoreId(storeId);
 
-    initRenderer.setModal();
     document.querySelector(".modal").classList.add("modal--open");
     modalRenderer.setStoreInfoModal(store);
 

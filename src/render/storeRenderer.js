@@ -138,6 +138,9 @@ const storeRenderer = {
     if (buttonText === "모든 음식점") {
       storeList.filterByMenuBar(false);
       document
+        .querySelector(".restaurant-filter-container")
+        .classList.add("filter-open");
+      document
         .querySelector(".all-restaurant-button")
         .classList.add("onMenuBar");
       document
@@ -146,7 +149,9 @@ const storeRenderer = {
     }
     if (buttonText === "자주 가는 음식점") {
       storeList.filterByMenuBar(true);
-
+      document
+        .querySelector(".restaurant-filter-container")
+        .classList.remove("filter-open");
       document
         .querySelector(".favorite-restaurant-button")
         .classList.add("onMenuBar");

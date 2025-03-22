@@ -130,8 +130,7 @@ a {
 
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
-  display: flex;
-  justify-content: space-between;
+  display: none;
 
   padding: 0 16px;
   margin-top: 24px;
@@ -376,4 +375,9 @@ input[name="link"] {
 
 .info-link {
   margin: 20px 0;
+}
+
+.filter-open {
+  display: flex;
+  justify-content: space-between;
 }
