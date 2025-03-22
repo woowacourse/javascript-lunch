@@ -9,19 +9,22 @@ import modalRenderer from "./render/modalRenderer.js";
 import IMG_SRC from "./constants/imgSrc.js";
 import MenuBar from "./components/MenuBar.js";
 import uiBasicText from "./constants/uiBasicText.js";
+import Header from "./components/Header.js";
 
 addEventListener("load", () => {
   // 초기 세팅
-  initRenderer.setHeader(uiBasicText.HEADER_TEXT);
+  Header(uiBasicText.HEADER_TEXT);
   const storeList = initRenderer.setStoreList();
   initRenderer.setRestaurantFilter(storeList);
   MenuBar(storeList);
+  // initRenderer.initUI();
+
+  Modal();
+  modalRenderer.addForm();
 
   // 메뉴 추가 버튼
   document.querySelector(".gnb__button").addEventListener("click", () => {
-    initRenderer.setModal();
     document.querySelector(".modal").classList.add("modal--open");
-    modalRenderer.addForm();
 
     document
       .querySelector(".modal-form")

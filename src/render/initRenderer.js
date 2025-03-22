@@ -6,12 +6,16 @@ import storeData from "../data/storeData.js";
 import StoreList from "../class/StoreList.ts";
 import storeRenderer from "./storeRenderer.js";
 import storage from "../utils/storage.ts";
+import uiBasicText from "../constants/uiBasicText.js";
+import MenuBar from "../components/MenuBar.js";
 
 const initRenderer = {
-  setHeader: (title) => {
-    const header = document.querySelector(".header");
-    header.innerHTML = Header(title);
-  },
+  // initUI() {
+  //   Header(uiBasicText.HEADER_TEXT);
+  //   const storeList = initRenderer.setStoreList();
+  //   initRenderer.setRestaurantFilter(storeList);
+  //   MenuBar(storeList);
+  // },
 
   // 카테고리/정렬 드롭박스 셋팅
   setRestaurantFilter: (storeList) => {
@@ -51,11 +55,6 @@ const initRenderer = {
     });
 
     return storeList;
-  },
-
-  setModal: () => {
-    const modal = Modal();
-    document.querySelector("main").appendChild(modal);
   },
 };
 

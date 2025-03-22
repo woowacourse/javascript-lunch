@@ -64,10 +64,10 @@ const storeRenderer = {
   },
 
   // 필수 조건 확인
-  checkRequired: (input, value, error) => {
+  checkRequired: (inputName, value, error) => {
     if (value === "") {
-      const input = document.querySelector(`#${input}`);
-      modalRenderer.addErrorText(input, error);
+      const inputElement = document.querySelector(`#${inputName}`);
+      modalRenderer.addErrorText(inputElement, error);
     }
   },
 

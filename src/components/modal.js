@@ -14,7 +14,7 @@ const Modal = () => {
   modal.appendChild(modalBackdrop);
   modal.appendChild(modalContainer);
 
-  return modal;
+  document.querySelector("main").appendChild(modal);
 };
 
 export default Modal;

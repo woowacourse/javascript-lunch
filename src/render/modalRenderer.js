@@ -11,8 +11,8 @@ import initRenderer from "./initRenderer.js";
 const modalRenderer = {
   // 모달창 닫기
   closeModal: () => {
-    const modal = document.querySelector(".modal");
-    modal.remove();
+    document.querySelector(".modal").classList.remove("modal--open");
+    document.querySelector(".modal-form").reset();
   },
 
   // **모달 입력 폼**

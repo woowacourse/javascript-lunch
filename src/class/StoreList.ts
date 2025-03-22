@@ -25,7 +25,6 @@ class StoreList {
 
   // 식당 추가
   updateList(store: IList) {
-    console.log(Object.keys(options.sortFilter)[0]);
     this.#list.push(store);
     this.filterStoreList(Object.keys(options.sortCategory)[0], false);
     this.sortStoreList(Object.keys(options.sortFilter)[0]);
