@@ -83,34 +83,43 @@ export class DetailModal {
       this.modalElement.remove();
     }
   }
-}
 
-export function handleRestaurantClick(e) {
-  const $clickedItem = e.target.closest(".restaurant");
-  if (!$clickedItem || $clickedItem.classList.contains("modal-restaurant")) {
-    return;
-  }
+  static handleRestaurantClick(e) {
+    const $clickedItem = e.target.closest(".restaurant");
+    if (!$clickedItem || $clickedItem.classList.contains("modal-restaurant")) {
+      return;
+    }
 
-  const { restaurantId } = $clickedItem.dataset;
-  if (!restaurantId) return;
+    const { restaurantId } = $clickedItem.dataset;
+    if (!restaurantId) return;
 
-  const selectedRestaurant = restaurantStore.getById(restaurantId);
-  if (selectedRestaurant) {
-    const $appContainer = document.getElementById("app");
-    if ($appContainer) {
-      const modal = new DetailModal($appContainer, selectedRestaurant);
-      modal.render();
+    const selectedRestaurant = restaurantStore.getById(restaurantId);
+    if (selectedRestaurant) {
+      const $appContainer = document.getElementById("app");
+      if ($appContainer) {
+        const modal = new DetailModal($appContainer, selectedRestaurant);
+        modal.render();
+      }
     }
   }
+
+  static setupRestaurantItemEventListeners() {
+    const $restaurantItems = document.querySelectorAll(
+      ".restaurant:not(.modal-restaurant)",
+    );
+
+    $restaurantItems.forEach((item) => {
+      item.removeEventListener("click", DetailModal.handleRestaurantClick);
+      item.addEventListener("click", DetailModal.handleRestaurantClick);
+    });
+  }
+}
+
+// 외부에서 사용하기 위한 함수!
+export function handleRestaurantClick(e) {
+  DetailModal.handleRestaurantClick(e);
 }
 
 export function setupRestaurantItemEventListeners() {
-  const $restaurantItems = document.querySelectorAll(
-    ".restaurant:not(.modal-restaurant)",
-  );
-
-  $restaurantItems.forEach((item) => {
-    item.removeEventListener("click", handleRestaurantClick);
-    item.addEventListener("click", handleRestaurantClick);
-  });
+  DetailModal.setupRestaurantItemEventListeners();
 }
