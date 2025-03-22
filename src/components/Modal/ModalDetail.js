@@ -4,6 +4,11 @@ import {
 } from "../../domain/storeRestaurantData.ts";
 import { filterRestaurants } from "../../domain/filterRestaurants.ts";
 import Modal from "./Modal.js";
+import {
+  DEFAULT_CATEGORY,
+  SORT_TYPE,
+  STORAGE_KEY,
+} from "../../data/constants.ts";
 
 class ModalDetail extends Modal {
   template() {
@@ -86,8 +91,10 @@ class ModalDetail extends Modal {
     );
     setStoredRestaurantData(updatedData);
 
-    const currentCategory = localStorage.getItem("selectedCategory") || "전체";
-    const currentSort = localStorage.getItem("sortType") || "name";
+    const currentCategory =
+      localStorage.getItem(STORAGE_KEY.CATEGORY) || DEFAULT_CATEGORY;
+    const currentSort =
+      localStorage.getItem(STORAGE_KEY.SORT_TYPE) || SORT_TYPE.NAME;
     filterRestaurants(currentCategory, currentSort);
 
     this.modalClose();

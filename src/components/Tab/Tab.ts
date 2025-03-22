@@ -1,3 +1,4 @@
+import { STORAGE_KEY } from "../../data/constants.ts";
 import { filterRestaurants } from "../../domain/filterRestaurants.ts";
 import { getStoredRestaurantData } from "../../domain/storeRestaurantData.ts";
 import Component from "../Component.js";
@@ -56,8 +57,8 @@ class Tab extends Component {
 
   renderAllRestaurants() {
     filterRestaurants(
-      localStorage.getItem("selectedCategory")!,
-      localStorage.getItem("sortType")!,
+      localStorage.getItem(STORAGE_KEY.CATEGORY)!,
+      localStorage.getItem(STORAGE_KEY.SORT_TYPE)!,
     );
   }
 

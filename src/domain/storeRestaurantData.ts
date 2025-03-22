@@ -1,3 +1,9 @@
+import {
+  DEFAULT_CATEGORY,
+  DEFAULT_SORT_TYPE,
+  STORAGE_KEY,
+} from "../data/constants";
+
 export interface RestaurantInfo {
   name: string;
   distance: number;
@@ -72,8 +78,8 @@ const RestaurantData: RestaurantInfo[] = [
 
 export function initializeRestaurantData(): void {
   const storedData = localStorage.getItem("restaurantData");
-  localStorage.setItem("selectedCategory", "전체");
-  localStorage.setItem("sortType", "name");
+  localStorage.setItem(STORAGE_KEY.CATEGORY, DEFAULT_CATEGORY);
+  localStorage.setItem(STORAGE_KEY.SORT_TYPE, DEFAULT_SORT_TYPE);
 
   if (!storedData) {
     localStorage.setItem("restaurantData", JSON.stringify(RestaurantData));
