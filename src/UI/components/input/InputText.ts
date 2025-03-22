@@ -6,13 +6,19 @@ class InputText {
   private element: HTMLDivElement;
 
   constructor(title: InputTitle) {
-    this.element = this.#createInputFormItem(title) || document.createElement('div');
+    this.element = this.#createInputFormItem(title);
   }
 
-  #createInputFormItem(title: InputTitle): HTMLDivElement | undefined {
-    if (title === '이름') return this.#createNameFormItem();
-    if (title === '설명') return this.#createDescriptionFormItem();
-    if (title === '참조 링크') return this.#createLinkFormItem();
+  #createInputFormItem(title: InputTitle): HTMLDivElement {
+    if (title === '이름') {
+      return this.#createNameFormItem();
+    } else if (title === '설명') {
+      return this.#createDescriptionFormItem();
+    } else if (title === '참조 링크') {
+      return this.#createLinkFormItem();
+    } else {
+      throw new Error(`Invalid input title: ${title}`);
+    }
   }
 
   #createNameFormItem(): HTMLDivElement {
