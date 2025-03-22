@@ -35,9 +35,9 @@ class AddRestaurantModal {
   #onRestaurantAdded: () => void;
 
   constructor(onRestaurantAdded: () => void = () => {}) {
-    this.#modal = new Modal();
-    this.#modalForm = document.createElement('form');
     this.#onRestaurantAdded = onRestaurantAdded;
+    this.#modal = new Modal(() => this.close());
+    this.#modalForm = document.createElement('form');
     this.#init();
     this.#createAddModal();
   }
@@ -95,7 +95,7 @@ class AddRestaurantModal {
   }
 
   #handleCancelButton(): void {
-    this.handleToggleModal();
+    this.close();
   }
 
   #handleAddButton(event: Event): void {
@@ -113,10 +113,8 @@ class AddRestaurantModal {
 
     try {
       const newRestaurant = addRestaurant(restaurantData);
-
       this.#onRestaurantAdded();
-
-      this.handleToggleModal();
+      this.close();
     } catch (error: unknown) {
       if (error instanceof Error) {
         alert(error.message);
@@ -126,9 +124,17 @@ class AddRestaurantModal {
     }
   }
 
-  handleToggleModal(): void {
-    this.#modal.toggleModal();
+  open(): void {
+    this.#modal.open();
+  }
+
+  close(): void {
+    this.#modal.close();
     this.#modalForm.reset();
+  }
+
+  getElement(): HTMLDivElement {
+    return this.#modal.getElement();
   }
 }
 

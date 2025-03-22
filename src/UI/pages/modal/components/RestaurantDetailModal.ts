@@ -14,8 +14,8 @@ class RestaurantDetailModal {
 
   constructor(restaurant: Restaurant, onRestaurantDeleted: () => void = () => {}) {
     this.#restaurant = restaurant;
-    this.#modal = new Modal();
     this.#onRestaurantDeleted = onRestaurantDeleted;
+    this.#modal = new Modal(() => this.close());
     this.#init();
     this.#createDetailModal();
   }
@@ -39,7 +39,6 @@ class RestaurantDetailModal {
 
   #createDetailModal(): void {
     const modalContent = document.createElement('div');
-
     modalContent.classList.add('detail-modal');
     modalContent.appendChild(this.#restaurantDetail.getElement());
     modalContent.appendChild(this.#createButtonContainer());
@@ -60,12 +59,8 @@ class RestaurantDetailModal {
     toggleFavorite(this.#restaurant);
   }
 
-  handleToggleModal(): void {
-    this.#modal.toggleModal();
-  }
-
   #handleCancelButton(): void {
-    this.handleToggleModal();
+    this.close();
   }
 
   #handleDeleteButton(event: MouseEvent): void {
@@ -73,10 +68,8 @@ class RestaurantDetailModal {
 
     try {
       deleteRestaurant(this.#restaurant);
-
       this.#onRestaurantDeleted();
-
-      this.handleToggleModal();
+      this.close();
     } catch (error: unknown) {
       if (error instanceof Error) {
         alert(error.message);
@@ -86,8 +79,41 @@ class RestaurantDetailModal {
     }
   }
 
+  open(): void {
+    this.#modal.open();
+  }
+
+  close(): void {
+    this.#modal.close();
+  }
+
   getElement(): HTMLDivElement {
     return this.#modal.getElement();
+  }
+
+  updateRestaurant(restaurant: Restaurant): void {
+    this.#restaurant = restaurant;
+    this.#restaurantDetail = new RestaurantDetail(
+      restaurant.getName(),
+      restaurant.getDistance(),
+      restaurant.getCategory(),
+      restaurant.getDescription(),
+      restaurant.getLink(),
+      restaurant.isFavorite(),
+      restaurant,
+      (isFavorite) => this.#handleFavoriteToggle(isFavorite),
+    );
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('detail-modal');
+    modalContent.appendChild(this.#restaurantDetail.getElement());
+    modalContent.appendChild(this.#createButtonContainer());
+
+    const container = this.#modal.getElement().querySelector('.modal-container');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(modalContent);
+    }
   }
 }
 
