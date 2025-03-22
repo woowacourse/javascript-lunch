@@ -77,9 +77,7 @@ class RestaurantDetail {
 
   #createFavoriteIcon(isFavorite: boolean): HTMLElement {
     const handleFavoriteToggle = (newIsFavorite: boolean) => {
-      if (this.onFavoriteToggle) {
-        this.onFavoriteToggle(newIsFavorite);
-      }
+      this.onFavoriteToggle?.(newIsFavorite);
     };
 
     const favoriteIcon = new FavoriteIcon(isFavorite, this.restaurant ? handleFavoriteToggle : null, true);
