@@ -2,8 +2,7 @@ import { FilterOptions, Restaurant } from "../../types";
 import { DEFAULT_FILTER_OPTIONS, DEFAULT_RESTAURANT } from "../constants";
 import RestaurantStorage from "../storages/RestaurantStorage.js";
 import generateUUID from "../utils/generateUUID.js";
-
-type Listeners = Map<string, (state: StoreState) => void>;
+import { Observable } from "./Observable.js";
 
 interface StoreState {
   restaurants: Restaurant[];
@@ -11,19 +10,19 @@ interface StoreState {
   selectedRestaurant: Restaurant;
 }
 
-export default class RestaurantStore {
+export default class RestaurantStore extends Observable<StoreState> {
   private storage: RestaurantStorage = new RestaurantStorage();
 
   #restaurants: StoreState["restaurants"] = [];
   #currentFilter: StoreState["currentFilter"] = DEFAULT_FILTER_OPTIONS;
   #selectedRestaurant: Restaurant | null = null;
-  #listeners: Listeners = new Map();
 
   constructor() {
+    super();
     const savedRestaurants = this.storage.getRestaurants();
     if (savedRestaurants) {
       this.#restaurants = savedRestaurants;
-      this.#notifyListeners();
+      this.notifyListeners();
     }
   }
 
@@ -43,7 +42,7 @@ export default class RestaurantStore {
     };
     this.#restaurants = [...this.#restaurants, newRestaurant];
     this.storage.setRestaurants(this.#restaurants);
-    this.#notifyListeners();
+    this.notifyListeners();
   }
 
   deleteRestaurant(restaurantId: Restaurant["id"]) {
@@ -51,7 +50,7 @@ export default class RestaurantStore {
       (restaurant) => restaurant.id !== restaurantId
     );
     this.storage.setRestaurants(this.#restaurants);
-    this.#notifyListeners();
+    this.notifyListeners();
   }
 
   toggleFavorite(restaurantId: Restaurant["id"]) {
@@ -62,12 +61,12 @@ export default class RestaurantStore {
     );
     this.updateSelectedRestaurant(restaurantId);
     this.storage.setRestaurants(this.#restaurants);
-    this.#notifyListeners();
+    this.notifyListeners();
   }
 
   setFilter(options: FilterOptions) {
     this.#currentFilter = options;
-    this.#notifyListeners();
+    this.notifyListeners();
   }
 
   updateSelectedRestaurant(restaurantId: Restaurant["id"]) {
@@ -77,17 +76,6 @@ export default class RestaurantStore {
     if (restaurantInfoById) {
       this.#selectedRestaurant = restaurantInfoById;
     }
-    this.#notifyListeners();
-  }
-
-  subscribe(key: string, callback: (state: StoreState) => void) {
-    this.#listeners.set(key, callback);
-    callback(this.state);
-
-    return () => this.#listeners.delete(key);
-  }
-
-  #notifyListeners() {
-    this.#listeners.forEach((listener) => listener(this.state));
+    this.notifyListeners();
   }
 }

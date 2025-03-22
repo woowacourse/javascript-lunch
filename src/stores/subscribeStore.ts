@@ -2,12 +2,11 @@ import { RestaurantDetail, RestaurantList } from "../components";
 import getFilteredRestaurants from "../utils/getFilteredRestaurants";
 import RestaurantStore from "./RestaurantStore";
 
-export function subscribeRestaurantStore(
+function setupRestaurantListSubscription(
   store: RestaurantStore,
-  restaurantList: RestaurantList | undefined,
-  restaurantDetail: RestaurantDetail | undefined
+  restaurantList: RestaurantList | undefined
 ) {
-  store.subscribe("restaurantList", (state) => {
+  return store.subscribe("restaurantList", (state) => {
     if (restaurantList) {
       const filteredRestaurants = getFilteredRestaurants(
         state.restaurants,
@@ -16,10 +15,37 @@ export function subscribeRestaurantStore(
       restaurantList.updateRestaurantList(filteredRestaurants);
     }
   });
+}
 
-  store.subscribe("restaurantDetail", (state) => {
+function setupRestaurantDetailSubscription(
+  store: RestaurantStore,
+  restaurantDetail: RestaurantDetail | undefined
+) {
+  return store.subscribe("restaurantDetail", (state) => {
     if (restaurantDetail) {
       restaurantDetail.updateDetailContent(state.selectedRestaurant);
     }
   });
+}
+
+export function setupSubscriptions(
+  store: RestaurantStore,
+  components: {
+    restaurantList: RestaurantList | undefined;
+    restaurantDetail: RestaurantDetail | undefined;
+  }
+) {
+  const unsubscribes: Array<() => void> = [];
+
+  if (components.restaurantList) {
+    unsubscribes.push(
+      setupRestaurantListSubscription(store, components.restaurantList)
+    );
+  }
+
+  if (components.restaurantDetail) {
+    unsubscribes.push(
+      setupRestaurantDetailSubscription(store, components.restaurantDetail)
+    );
+  }
 }
