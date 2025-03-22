@@ -1,7 +1,7 @@
 import IMG_SRC from "../constants/imgSrc";
 
 // 식당 리스트에서 보여주는 식당 정보
-const Store = (storeProps, starIconId) => {
+const Store = (storeProps) => {
   const imgSrc = getImgSrc(storeProps.category);
 
   return `
@@ -22,7 +22,7 @@ const Store = (storeProps, starIconId) => {
         storeProps.isFavorite
           ? IMG_SRC.STAR_ICON_FILLED
           : IMG_SRC.STAR_ICON_LINED
-      } alt="star-icon" class="star-icon" id=${starIconId}>
+      } alt="star-icon" class="star-icon">
     </div>
 `;
 };

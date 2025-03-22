@@ -12,8 +12,7 @@ const storeRenderer = {
     const list = document.createElement("li");
     list.setAttribute("id", storeProps.id);
     list.classList.add("restaurant");
-    const starIconId = uuidv4();
-    const store = Store(storeProps, starIconId);
+    const store = Store(storeProps);
     list.innerHTML = store;
     document.querySelector(".restaurant-list").appendChild(list);
   },
