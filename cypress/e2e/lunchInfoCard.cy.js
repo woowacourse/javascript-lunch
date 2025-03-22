@@ -7,6 +7,16 @@ describe("LunchInfoCard 테스트", () => {
     cy.get(".restaurant-list").children(".restaurant").should("have.length", 6);
   });
 
+  it("식당을 하나 추가하면 7개가 있다.", () => {
+    cy.viewport(1920, 975);
+    cy.get(".gnb__button").click();
+    cy.get(".modal select[id='distance']").select("5분 내");
+    cy.get(".modal select[id='category']").select("한식");
+    cy.get(".modal input[id='name']").type("민성제밥집");
+    cy.get("#add__button").click();
+    cy.get(".restaurant-list").children(".restaurant").should("have.length", 7);
+  });
+
   it("LunchInfoCard에는 점심 음식점 이름이 들어있다.", () => {
     cy.get(".restaurant-list")
       .children(".restaurant")

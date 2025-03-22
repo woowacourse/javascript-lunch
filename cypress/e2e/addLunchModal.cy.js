@@ -1,4 +1,4 @@
-describe("Modal 테스트", () => {
+describe("AddLunchModal 테스트", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/");
     cy.viewport(1920, 975);
@@ -20,7 +20,7 @@ describe("Modal 테스트", () => {
   });
 
   it("모달 바깥 backdrop을 누르면 모달이 닫힌다", () => {
-    cy.get(".modal-backdrop").click({ force: true });
+    cy.get(".modal[id=addLunch] .modal-backdrop").click({ force: true });
     cy.get(".modal-container").should("not.be.visible");
   });
 
@@ -105,11 +105,14 @@ describe("Modal 테스트", () => {
     cy.get(".modal-container").should("be.visible");
   });
 
-  it("모든 필수 요소를 입력하면 정상적으로 제출된다.", () => {
+  it("모든 필수 요소를 입력하면 정상적으로 제출된 뒤, 값은 초기화된다.", () => {
     cy.get(".modal select[id='distance']").select("5분 내");
     cy.get(".modal select[id='category']").select("한식");
     cy.get(".modal input[id='name']").type("공원💖");
     cy.get("#add__button").click();
     cy.get(".modal-container").should("not.be.visible");
+    cy.get(".modal select[id='distance']").should("have.value", "");
+    cy.get(".modal select[id='category']").should("have.value", "");
+    cy.get(".modal input[id='name']").should("have.value", "");
   });
 });

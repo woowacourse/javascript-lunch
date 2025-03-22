@@ -1,15 +1,9 @@
-import { $, $$ } from "./querySelectors.js";
+import { $ } from "./querySelectors.js";
 
 export const DOM = {
   $body: $("body"),
   $main: $("main"),
-  $gnbButton: $(".gnb__button"),
-  $cancelButton: $("#cancel__button"),
-  $addButton: $("#add__button"),
-  $header: $(".gnb"),
-  $buttonContainer: $(".button-container"),
-  $restaurantList: $(".restaurant-list"),
-  $modalForm: $(".modal form"),
-  $modal: $(".modal"),
-  $modalContainer: $(".modal-container"),
+  $filterContainer: $(".restaurant-filter-container"),
+  $restaurantContainer: $(".restaurant-list-container"),
+  $favoriteContainer: $(".favorite-list-container"),
 };

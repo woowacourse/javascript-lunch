@@ -1,5 +1,3 @@
-import { DOM } from "../utils/dom.js";
-
 const InputForm = {
   create({ id, label, isRequired, bottomDescription }) {
     const InputFormElement = document.createElement("div");

@@ -6,17 +6,23 @@ const AddLunchButtonContainer = {
     const buttonContainerElement = document.createElement("div");
     buttonContainerElement.classList.add("button-container");
     buttonContainerElement.appendChild(
-      TextButton.create({
-        id: "cancel__button",
-        title: "취소하기",
-        onClick: () => Modal.close("addLunch"),
-      })
+      TextButton.create(
+        {
+          id: "cancel__button",
+          title: "취소하기",
+          onClick: () => Modal.close("addLunch"),
+        },
+        "secondary"
+      )
     );
     buttonContainerElement.appendChild(
-      TextButton.create({
-        id: "add__button",
-        title: "추가하기",
-      })
+      TextButton.create(
+        {
+          id: "add__button",
+          title: "추가하기",
+        },
+        "primary"
+      )
     );
 
     return buttonContainerElement;

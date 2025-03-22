@@ -1,19 +1,17 @@
-import { DOM } from "../../utils/dom.js";
 import Modal from "../Modal.js";
 import InputForm from "../InputForm.js";
 import SelectForm from "../SelectForm.js";
 import TextareaForm from "../TextareaForm.js";
-import TextButton from "../TextButton.js";
 import AddLunchButtonContainer from "./AddLunchButtonContainer.js";
-import render from "../../utils/render.js";
 import {
   CATEGORY_DROPDOWN_LIST,
-  CATEGORY_ICON,
   DISTANCE_DROPDOWN_LIST,
-} from "../../constants/constants.js";
-import { renderRestaurantList } from "../../main.js";
-import state from "../../state.js";
-import { Validator } from "../../utils/Validator.js";
+} from "../../constants/dropdownList.ts";
+import { Validator } from "../../utils/Validator.ts";
+import RestaurantListUtils from "../../utils/RestaurantListUtils.ts";
+import LocalStorage from "../../utils/LocalStorage.ts";
+import { RESTAURANT_LIST_KEY } from "../../constants/constants.ts";
+import Renderer from "../../utils/Renderer.js";
 
 const AddLunchModalForm = {
   create() {
@@ -85,9 +83,10 @@ const AddLunchModalForm = {
 
     try {
       this.validateFormInputs({ name, link, description });
-      this.addRestaurant({ category, name, distance, description });
-      renderRestaurantList();
+      this.addRestaurant({ category, name, distance, description, link });
+      Renderer.filteredList("allRestaurant");
       Modal.close("addLunch");
+      Modal.reset("addLunch");
     } catch (e) {
       alert(e.message);
     }
@@ -99,14 +98,17 @@ const AddLunchModalForm = {
     if (description !== "") Validator.description(description);
   },
 
-  addRestaurant({ category, name, distance, description }) {
-    state.restaurantList.push({
-      src: CATEGORY_ICON[category],
-      name: name,
+  addRestaurant({ category, name, distance, description, link }) {
+    const dataList = LocalStorage.getJSON(RESTAURANT_LIST_KEY);
+    const addList = RestaurantListUtils.add(dataList, {
+      id: dataList[dataList.length - 1].id + 1,
+      label: category,
+      name,
       distance,
       description,
-      label: category,
+      link,
     });
+    LocalStorage.setJSON(RESTAURANT_LIST_KEY, addList);
   },
 };
 

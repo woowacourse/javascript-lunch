@@ -1,6 +1,4 @@
-import { DOM } from "../utils/dom.js";
-import { $ } from "../utils/querySelectors.js";
-import AddLunchModalForm from "./AddLunchModal/AddLunchModalForm.js";
+import { $, $$ } from "../utils/querySelectors.js";
 
 const Modal = {
   create(id, modalContent) {
@@ -41,6 +39,14 @@ const Modal = {
     document.removeEventListener("keydown", (e) => {
       if (e.key === "Escape") Modal.close(id);
     });
+  },
+
+  reset(id) {
+    $$(`.modal[id=${id}] input`).forEach((input) => (input.value = ""));
+    $$(`.modal[id=${id}] select`).forEach((select) => (select.value = ""));
+    $$(`.modal[id=${id}] textarea`).forEach(
+      (textarea) => (textarea.value = "")
+    );
   },
 };
 

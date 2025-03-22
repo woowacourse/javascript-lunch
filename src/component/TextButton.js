@@ -1,15 +1,13 @@
-import { DOM } from "../utils/dom.js";
-
 const TextButton = {
-  create({ title, onClick, id }) {
+  create({ title, onClick, id }, type) {
     const TextButtonElement = document.createElement("button");
     TextButtonElement.setAttribute("id", id);
     TextButtonElement.setAttribute("class", "button");
     TextButtonElement.setAttribute("type", "button");
     TextButtonElement.classList.add("text-caption");
-    if (id === "cancel__button")
+    if (type === "secondary")
       TextButtonElement.classList.add("button--secondary");
-    if (id === "add__button") {
+    if (type === "primary") {
       TextButtonElement.setAttribute("type", "submit");
       TextButtonElement.classList.add("button--primary");
     }

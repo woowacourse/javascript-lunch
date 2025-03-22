@@ -1,10 +1,11 @@
+import { describe, expect, test } from "@jest/globals";
 import {
   RESTAURANT_NAME_LENGTH_MAX,
   DESCRIPTION_LENGTH_MAX,
   ERROR_MESSAGE,
-} from "../src/constants/constants.js";
+} from "../src/constants/constants";
 
-import { Validator } from "../src/utils/Validator.js";
+import { Validator } from "../src/utils/Validator";
 
 describe("Validator 테스트", () => {
   test(`가게 이름이 ${RESTAURANT_NAME_LENGTH_MAX}자를 넘어가면 예외가 발생한다.`, () => {

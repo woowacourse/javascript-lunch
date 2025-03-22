@@ -1,33 +1,89 @@
 import { DOM } from "./utils/dom.js";
-import IconButton from "./component/IconButton.js";
 import Modal from "./component/Modal.js";
-import TextButton from "./component/TextButton.js";
-import LunchInfoCard from "./component/LunchInfoCard.js";
-import SelectForm from "./component/SelectForm.js";
-import TextareaForm from "./component/TextareaForm.js";
-import InputForm from "./component/InputForm.js";
 import Header from "./component/Header.js";
-import render from "./utils/render.js";
-import state from "./state.js";
 import AddLunchModalForm from "./component/AddLunchModal/AddLunchModalForm.js";
+import RestaurantList from "./component/RestaurantList.js";
+import FilterSelect from "./component/FilterSelect.js";
+import {
+  CATEGORY_FILTER_DROPDOWN_LIST,
+  SORT_FILTER_DROPDOWN_LIST,
+} from "./constants/dropdownList.js";
+import { $, $$ } from "./utils/querySelectors.js";
+import data from "./data.js";
+import DetailModalContent from "./component/DetailModal/DetailModalContent.js";
+import LocalStorage from "./utils/LocalStorage.ts";
+import { RESTAURANT_LIST_KEY } from "./constants/constants.js";
+import Renderer from "./utils/Renderer.js";
 
 DOM.$body.prepend(Header.create());
-renderRestaurantList();
+initLocalStorage();
+initNavigationButton();
+initFilterSelect();
+initRestaurantList();
+initFavoriteList();
 initAddLunchModal();
+initDetailModal();
 
-export function renderRestaurantList() {
-  const restaurantElementList = state.restaurantList.map(
-    ({ src, name, distance, description, label }) =>
-      LunchInfoCard.create({ src, name, distance, description, label })
-  );
+function initLocalStorage() {
+  if (LocalStorage.getJSON(RESTAURANT_LIST_KEY) === null)
+    LocalStorage.setJSON(RESTAURANT_LIST_KEY, data.restaurantList);
+}
 
-  restaurantElementList.forEach((restaurantElement) =>
-    render(restaurantElement, DOM.$restaurantList)
-  );
+function initNavigationButton() {
+  $(".navigation-bar-container").addEventListener("click", (e) => {
+    $$(".navigation__button").forEach((btn) =>
+      btn.classList.remove("activated")
+    );
+    e.target.classList.add("activated");
+
+    $$("main section").forEach((section) => (section.style.display = "none"));
+    if (e.target.classList.contains("all_restaurant_nav")) {
+      DOM.$filterContainer.style.display = "flex";
+      DOM.$restaurantContainer.style.display = "block";
+    }
+
+    if (e.target.classList.contains("favorite_restaurant_nav")) {
+      DOM.$favoriteContainer.style.display = "block";
+    }
+
+    Renderer.restaurantList();
+  });
+}
+
+function initFilterSelect() {
+  const categoryFilter = FilterSelect.create({
+    id: "category-filter",
+    name: "category",
+    dropdownList: CATEGORY_FILTER_DROPDOWN_LIST,
+  });
+
+  const sortingFilter = FilterSelect.create({
+    id: "sorting-filter",
+    name: "sorting",
+    dropdownList: SORT_FILTER_DROPDOWN_LIST,
+  });
+
+  DOM.$filterContainer.append(categoryFilter);
+  DOM.$filterContainer.append(sortingFilter);
+}
+
+function initRestaurantList() {
+  DOM.$restaurantContainer.append(RestaurantList.create("allRestaurant"));
+  Renderer.restaurantList();
+}
+
+function initFavoriteList() {
+  DOM.$favoriteContainer.append(RestaurantList.create("favoriteRestaurant"));
 }
 
 function initAddLunchModal() {
   const addLunchModalContent = AddLunchModalForm.create();
   const addLunchModalElement = Modal.create("addLunch", addLunchModalContent);
   DOM.$main.append(addLunchModalElement);
+}
+
+function initDetailModal() {
+  const detailModalContent = DetailModalContent.create();
+  const detailModalElement = Modal.create("detail", detailModalContent);
+  DOM.$main.append(detailModalElement);
 }
