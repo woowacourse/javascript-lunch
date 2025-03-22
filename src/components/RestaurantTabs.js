@@ -2,29 +2,14 @@ import { applyFilter } from "../handlers/filterHandler.js";
 import { setupRestaurantItemEventListeners } from "./DetailModal.js";
 
 export class RestaurantHeaderTabs {
-  constructor(container, activeTab = "all") {
-    this.container = container;
+  constructor(activeTab = "all") {
     this.activeTab = activeTab;
     this.tabsElement = null;
     this.tabChangeListeners = [];
-    this.setupInitialState();
   }
 
-  setupInitialState() {
-    this.toggleSortingVisibility(this.activeTab);
-    setupRestaurantItemEventListeners();
-  }
-
-  toggleSortingVisibility(activeTab) {
-    const sortingDropdowns = document.querySelectorAll(".filter-dropdown");
-
-    sortingDropdowns.forEach((dropdown) => {
-      dropdown.style.display = activeTab === "all" ? "block" : "none";
-    });
-  }
-
-  render() {
-    const tabsHTML = `
+  generateHTML() {
+    return `
       <div class="restaurant-tabs">
         <button 
           class="tab-button ${this.activeTab === "all" ? "tab-button--active" : ""}" 
@@ -38,11 +23,23 @@ export class RestaurantHeaderTabs {
         </button>
       </div>
     `;
+  }
 
-    this.container.innerHTML += tabsHTML;
-    this.tabsElement = this.container.querySelector(".restaurant-tabs");
-
+  render(container) {
+    container.insertAdjacentHTML("beforeend", this.generateHTML());
+    this.tabsElement = container.querySelector(".restaurant-tabs");
     this.attachEventListeners();
+    this.toggleSortingVisibility(this.activeTab);
+    setupRestaurantItemEventListeners();
+    return this.tabsElement;
+  }
+
+  toggleSortingVisibility(activeTab) {
+    const sortingDropdowns = document.querySelectorAll(".filter-dropdown");
+
+    sortingDropdowns.forEach((dropdown) => {
+      dropdown.style.display = activeTab === "all" ? "block" : "none";
+    });
   }
 
   attachEventListeners() {
@@ -74,7 +71,6 @@ export class RestaurantHeaderTabs {
     applyFilter();
     this.notifyTabChangeListeners(selectedTab);
 
-    // 탭 변경 후 이벤트 리스너 재설정
     setTimeout(() => {
       setupRestaurantItemEventListeners();
     }, 10);
@@ -99,8 +95,11 @@ export class RestaurantHeaderTabs {
   }
 }
 
-export default function RestaurantTabs(container, activeTab = "all") {
-  const tabs = new RestaurantHeaderTabs(container, activeTab);
-  tabs.render();
-  return tabs;
+export default function RestaurantTabs(activeTab = "all") {
+  const tabs = new RestaurantHeaderTabs(activeTab);
+
+  return {
+    render: (container) => tabs.render(container),
+    instance: tabs,
+  };
 }
