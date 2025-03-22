@@ -1,8 +1,11 @@
-import { FilterOptions, Restaurant } from "../../types";
-import { DEFAULT_FILTER_OPTIONS, DEFAULT_RESTAURANT } from "../constants";
-import RestaurantStorage from "../storages/RestaurantStorage.js";
-import generateUUID from "../utils/generateUUID.js";
-import { Observable } from "./Observable.js";
+import { FilterOptions, Restaurant } from "../../../types/index.js";
+import {
+  DEFAULT_FILTER_OPTIONS,
+  DEFAULT_RESTAURANT,
+} from "../../constants/index.js";
+import RestaurantStorage from "../../storages/RestaurantStorage.js";
+import generateUUID from "../../utils/generateUUID.js";
+import { Observable } from "../core/Observable.js";
 
 interface StoreState {
   restaurants: Restaurant[];

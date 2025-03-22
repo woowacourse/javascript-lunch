@@ -1,5 +1,5 @@
-import { RestaurantDetail, RestaurantList } from "../components";
-import getFilteredRestaurants from "../utils/getFilteredRestaurants";
+import { RestaurantDetail, RestaurantList } from "../../components";
+import getFilteredRestaurants from "../../utils/getFilteredRestaurants";
 import RestaurantStore from "./RestaurantStore";
 
 function setupRestaurantListSubscription(

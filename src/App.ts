@@ -24,8 +24,8 @@ import {
   handleTabChange,
   handleToggleFavorite,
 } from "./handlers/index.js";
-import RestaurantStore from "./stores/RestaurantStore.js";
-import { setupSubscriptions } from "./stores/subscribeStore.js";
+import RestaurantStore from "./stores/restaurant/RestaurantStore.js";
+import { setupSubscriptions } from "./stores/restaurant/RestaurantSubscriber.js";
 import getFilteredRestaurants from "./utils/getFilteredRestaurants.js";
 import render from "./utils/render.js";
 

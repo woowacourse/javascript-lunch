@@ -1,6 +1,6 @@
 import { FilterOptions, NavBarKey, Restaurant } from "../../types";
 import { BottomSheetBase, RestaurantFilter } from "../components";
-import RestaurantStore from "../stores/RestaurantStore";
+import RestaurantStore from "../stores/restaurant/RestaurantStore";
 
 export function handleOpenSubmitForm(
   $submitFormBottomSheet: BottomSheetBase | undefined
