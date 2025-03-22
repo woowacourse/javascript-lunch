@@ -40,7 +40,7 @@ export function applyFilter(): void {
   // 3. 정렬 적용
   filteredRestaurants.sort((a, b) => {
     if (currentFilter.sortBy === "distance") {
-      return Number(a.distance) - Number(b.distance);
+      return a.distance - b.distance;
     }
     if (currentFilter.sortBy === "name") {
       return a.name.localeCompare(b.name, "ko");

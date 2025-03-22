@@ -78,7 +78,6 @@ export function handleAddRestaurant(e: MouseEvent): void {
       const restaurantItemHTML = RestaurantItem(newRestaurant);
       $restaurantList.innerHTML += restaurantItemHTML;
 
-      // 새로 추가된 레스토랑에 이벤트 리스너 설정
       setupRestaurantItemEventListeners();
       setupFavoriteEventListeners();
     } else {
