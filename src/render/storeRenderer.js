@@ -92,21 +92,13 @@ const storeRenderer = {
 
   // 식당 필터링
   filterStore: (storeList, e) => {
-    const isFavorite = document
-      .querySelector(".onMenuBar")
-      .classList.contains("favorite-restaurant-button");
-    storeList.filterStoreList(e.target.value, isFavorite);
-
+    storeList.filterStoreList(e.target.value);
     storeRenderer.rerenderStoreList(storeList.filteredList);
   },
 
   // 식당 정렬
   sortStore: (storeList, e) => {
-    const isFavorite = document
-      .querySelector(".onMenuBar")
-      .classList.contains("favorite-restaurant-button");
     storeList.sortStoreList(e.target.value);
-
     storeRenderer.rerenderStoreList(storeList.filteredList);
   },
 
@@ -119,7 +111,6 @@ const storeRenderer = {
       "src",
       storeInfo.isFavorite ? IMG_SRC.STAR_ICON_FILLED : IMG_SRC.STAR_ICON_LINED
     );
-
     const isFavorite = document
       .querySelector(".onMenuBar")
       .classList.contains("favorite-restaurant-button");
@@ -129,14 +120,14 @@ const storeRenderer = {
 
   // 모든 음식점 / 자주 가는 음식점 메뉴바 셋팅
   setMenuBar: (storeList, e) => {
-    document.querySelector("#category-filter").value = "전체";
-    document.querySelector("#sorting-filter").value = "name";
-
     const button = e.target.closest(".menuBar-button");
 
     const buttonText = button.querySelector(".button-text").textContent;
+    storeList.filterByMenuBar(buttonText);
     if (buttonText === "모든 음식점") {
-      storeList.filterByMenuBar(false);
+      document.querySelector("#category-filter").value = "전체";
+      document.querySelector("#sorting-filter").value = "name";
+
       document
         .querySelector(".restaurant-filter-container")
         .classList.add("filter-open");
@@ -148,7 +139,6 @@ const storeRenderer = {
         .classList.remove("onMenuBar");
     }
     if (buttonText === "자주 가는 음식점") {
-      storeList.filterByMenuBar(true);
       document
         .querySelector(".restaurant-filter-container")
         .classList.remove("filter-open");
@@ -174,7 +164,7 @@ const storeRenderer = {
       .querySelector(".onMenuBar")
       .classList.contains("favorite-restaurant-button");
 
-    storeList.deleteStore(storeId, isFavorite);
+    storeList.deleteStore(storeId);
 
     modalRenderer.closeModal();
     storeRenderer.rerenderStoreList(storeList.filteredList);

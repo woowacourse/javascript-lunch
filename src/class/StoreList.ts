@@ -26,30 +26,36 @@ class StoreList {
   // 식당 추가
   updateList(store: IList) {
     this.#list.push(store);
-    this.filterStoreList(Object.keys(options.sortCategory)[0], false);
+    this.filterStoreList(Object.keys(options.sortCategory)[0]);
     this.sortStoreList(Object.keys(options.sortFilter)[0]);
   }
 
   // 즐겨찾기 등록
-  updateIsFavorite(id: string, isFavorite: boolean) {
+  updateIsFavorite(id: string, isFavoriteMenu: boolean) {
     this.#list = this.#list.map((store) => {
       if (store.id === id) !store.isFavorite;
       return store;
     });
-    this.filterStoreList(this.#category, isFavorite);
-    this.sortStoreList(this.#sortBy);
+    if (!isFavoriteMenu) {
+      this.filterStoreList(this.#category);
+      this.sortStoreList(this.#sortBy);
+    } else {
+      this.#filteredList = this.#list.filter((store) => store.isFavorite);
+    }
+  }
+
+  filterByMenuBar(menu: string) {
+    if (menu === "모든 음식점") this.#filteredList = this.#list;
+    else if (menu === "자주 가는 음식점") {
+      this.#filteredList = this.#list.filter((store) => store.isFavorite);
+      this.sortStoreList("name");
+    }
   }
 
   // 식당 삭제
-  deleteStore(id: string, isFavorite: boolean) {
+  deleteStore(id: string) {
     this.#list = this.#list.filter((store) => store.id !== id);
-    this.filterStoreList(Object.keys(options.sortCategory)[0], isFavorite);
-    this.sortStoreList(Object.keys(options.sortFilter)[0]);
-  }
-
-  // 모든 음식점 or 자주 가는 음식점
-  filterByMenuBar(isFavorite: boolean) {
-    this.filterStoreList(Object.keys(options.sortCategory)[0], isFavorite);
+    this.filterStoreList(Object.keys(options.sortCategory)[0]);
     this.sortStoreList(Object.keys(options.sortFilter)[0]);
   }
 
@@ -59,20 +65,12 @@ class StoreList {
   }
 
   // 카테고리 필터 적용
-  filterStoreList(category: string, isFavorite: boolean) {
-    if (isFavorite) {
-      if (category === "전체")
-        this.#filteredList = this.#list.filter((store) => store.isFavorite);
-      else
-        this.#filteredList = this.#list.filter(
-          (l) => l.category === category && l.isFavorite
-        );
-      this.#category = category;
-      return;
-    }
+  filterStoreList(category: string) {
+    console.log(this.#category);
     if (category === "전체") this.#filteredList = this.#list;
     else this.#filteredList = this.#list.filter((l) => l.category === category);
     this.#category = category;
+    this.sortStoreList(this.#sortBy);
   }
 
   // 정렬 적용

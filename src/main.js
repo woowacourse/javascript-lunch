@@ -28,6 +28,7 @@ addEventListener("load", () => {
       const storeId = store.getAttribute("id");
       const icon = store.querySelector(".star-icon");
       storeRenderer.toggleFavorite(storeList, icon, storeId);
+      console.log(storeList.filteredList);
       storeRenderer.rerenderStoreList(storeList.filteredList);
     }
 

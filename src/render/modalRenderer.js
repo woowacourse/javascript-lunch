@@ -12,7 +12,8 @@ const modalRenderer = {
   // 모달창 닫기
   closeModal: () => {
     document.querySelector(".modal").classList.remove("modal--open");
-    document.querySelector(".modal-form").reset();
+    if (document.querySelector(".modal-form"))
+      document.querySelector(".modal-form").reset();
   },
 
   // **모달 입력 폼**
