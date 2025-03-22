@@ -3,5 +3,5 @@ export type SortOption = 'name' | 'distance';
 
 export interface FilterOption<T extends string> {
   value: T;
-  text: string;
+  label: string;
 }

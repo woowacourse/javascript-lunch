@@ -1,12 +1,12 @@
 import './RestaurantFilter.css';
-import { FilterOption } from '../../../Domain/types/FilterOption';
+import { FilterOption } from '../../../Domain/types/FilterOptionType';
 
 class RestaurantFilter<T extends string> {
   protected element: HTMLSelectElement;
-  protected options: FilterOption<T>[];
+  protected options: readonly FilterOption<T>[];
   protected onChange?: (value: T) => void;
 
-  constructor(options: FilterOption<T>[] = [], onChange?: (value: T) => void) {
+  constructor(options: readonly FilterOption<T>[] = [], onChange?: (value: T) => void) {
     this.options = options;
     this.onChange = onChange;
     this.element = this.#createFilter();
@@ -24,7 +24,7 @@ class RestaurantFilter<T extends string> {
     this.options.forEach((option) => {
       const optionElement = document.createElement('option');
       optionElement.value = option.value;
-      optionElement.textContent = option.text;
+      optionElement.textContent = option.label;
       this.element.appendChild(optionElement);
     });
   }
