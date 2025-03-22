@@ -24,7 +24,7 @@ export const label = {
 };
 
 export const DEFAULT_CATEGORY = "전체";
-export const DEFAULT_SORT_TYPE = "name";
+export const DEFAULT_SORT_TYPE = "distance";
 export const STORAGE_KEY = {
   CATEGORY: "selectedCategory",
   SORT_TYPE: "sortType",
