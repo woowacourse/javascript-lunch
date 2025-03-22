@@ -33,41 +33,35 @@ export const storageHandler = {
       );
     }
 
-    if (!category && !sort) {
-      return restaurantData.reverse();
-    }
-
-    if (!category && sort === "distance") {
-      return restaurantData.sort(
-        (a: IRestaurant, b: IRestaurant) => a[sort] - b[sort]
-      );
-    }
-
-    if (!category) {
-      return restaurantData.sort((a: IRestaurant, b: IRestaurant) =>
-        (a[sort as keyof IRestaurant] as string).toLowerCase() <
-        (b[sort as keyof IRestaurant] as string).toLowerCase()
-          ? -1
-          : 1
-      );
-    }
-
-    const categoryData = restaurantData.filter(
-      (item: IRestaurant) => item.category === category
+    const categoryData = storageHandler.filterByCategory(
+      restaurantData,
+      category
     );
+    const sortData = storageHandler.filterBySort(categoryData, sort);
 
-    if (!sort) {
-      return categoryData.reverse();
+    return sortData;
+  },
+  filterByCategory: (data: IRestaurant[], category: string) => {
+    if (category === "") {
+      return data;
+    }
+
+    return data.filter((item: IRestaurant) => item.category === category);
+  },
+  filterBySort: (data: IRestaurant[], sort: string) => {
+    if (sort === "") {
+      return data.reverse();
     }
 
     if (sort === "distance") {
-      return categoryData.sort(
-        (a: IRestaurant, b: IRestaurant) => a[sort] - b[sort]
-      );
+      return data.sort((a: IRestaurant, b: IRestaurant) => a[sort] - b[sort]);
     }
 
-    return categoryData.sort((a: IRestaurant, b: IRestaurant) =>
-      a[sort].toLowerCase() < b[sort].toLowerCase() ? -1 : 1
+    return data.sort((a: IRestaurant, b: IRestaurant) =>
+      (a[sort as keyof IRestaurant] as string).toLowerCase() <
+      (b[sort as keyof IRestaurant] as string).toLowerCase()
+        ? -1
+        : 1
     );
   },
   updateFavorite: (storageKey: string, restaurantInfo: IRestaurant) => {
