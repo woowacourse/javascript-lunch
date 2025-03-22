@@ -1,21 +1,29 @@
-import { restaurantStore } from "../store/restaurantStore";
+import { restaurantStore } from "../store/restaurantStore.js";
 import RestaurantItem from "./RestaurantItem.js";
+import { setupRestaurantItemEventListeners } from "./DetailModal.js";
+import { setupFavoriteEventListeners } from "../handlers/favoriteHandler.js";
 
 export default function RestaurantList(
-  container,
   restaurants = restaurantStore.getRestaurants(),
 ) {
-  const render = () => {
-    const $restaurantList = document.createElement("ul");
-    $restaurantList.className = "restaurant-list";
+  const restaurantItemsHTML = restaurants
+    .map((restaurant) => RestaurantItem(restaurant))
+    .join("");
 
-    const restaurantItemsHTML = restaurants
-      .map((restaurant) => RestaurantItem(restaurant))
-      .join("");
+  const listHTML = `
+    <ul class="restaurant-list">
+      ${restaurantItemsHTML}
+    </ul>
+  `;
 
-    $restaurantList.innerHTML = restaurantItemsHTML;
-    container.appendChild($restaurantList);
+  function render(container) {
+    container.insertAdjacentHTML("beforeend", listHTML);
+    setupRestaurantItemEventListeners();
+    setupFavoriteEventListeners();
+    return container.querySelector(".restaurant-list");
+  }
+
+  return {
+    render,
   };
-
-  render();
 }
