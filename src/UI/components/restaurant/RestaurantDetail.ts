@@ -44,12 +44,12 @@ class RestaurantDetail {
     const restaurantDistance = this.#createRestaurantDistance(distance);
     restaurantDetail.appendChild(restaurantDistance);
 
-    if (description !== '') {
+    if (description) {
       const restaurantDescription = this.#createRestaurantDescription(description);
       restaurantDetail.appendChild(restaurantDescription);
     }
 
-    if (link !== '') {
+    if (link) {
       const restaurantLink = this.#createRestaurantLink(link);
       restaurantDetail.appendChild(restaurantLink);
     }
