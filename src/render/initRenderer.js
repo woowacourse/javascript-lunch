@@ -3,6 +3,7 @@ import options from "../constants/options.js";
 import StoreList from "../class/StoreList.ts";
 import storeRenderer from "./storeRenderer.js";
 import storage from "../utils/storage.ts";
+import Store from "../components/store.js";
 
 const initRenderer = {
   // 카테고리/정렬 드롭박스 셋팅
@@ -43,7 +44,8 @@ const initRenderer = {
     const storeList = new StoreList(storage.getStorageItems());
 
     storeList.list.forEach((store) => {
-      storeRenderer.addStore(store);
+      // storeRenderer.addStore(store);
+      Store(store);
     });
 
     return storeList;

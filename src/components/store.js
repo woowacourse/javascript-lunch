@@ -1,10 +1,16 @@
 import IMG_SRC from "../constants/imgSrc";
+import createElement from "../utils/createElement";
 
 // 식당 리스트에서 보여주는 식당 정보
 const Store = (storeProps) => {
   const imgSrc = getImgSrc(storeProps.category);
 
-  return `
+  const list = createElement({
+    tag: "li",
+    id: storeProps.id,
+    classList: ["restaurant"],
+  });
+  list.innerHTML = `
     <div class="restaurant__category">
       <img src="${imgSrc}" alt=${storeProps.category} class="category-icon" />
     </div>
@@ -25,6 +31,7 @@ const Store = (storeProps) => {
       } alt="star-icon" class="star-icon">
     </div>
 `;
+  document.querySelector(".restaurant-list").appendChild(list);
 };
 
 const getImgSrc = (category) => {

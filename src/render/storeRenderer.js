@@ -6,16 +6,6 @@ import modalRenderer from "./modalRenderer.js";
 import { v4 as uuidv4 } from "uuid";
 
 const storeRenderer = {
-  // 새로운 식당 추가
-  addStore: (storeProps) => {
-    const list = document.createElement("li");
-    list.setAttribute("id", storeProps.id);
-    list.classList.add("restaurant");
-    const store = Store(storeProps);
-    list.innerHTML = store;
-    document.querySelector(".restaurant-list").appendChild(list);
-  },
-
   // 식당 리스트 업데이트
   updateStore: (storeList, e) => {
     const newStore = storeRenderer.createStore(e);
@@ -169,7 +159,7 @@ const storeRenderer = {
   rerenderStoreList(list) {
     storeRenderer.removeStoreElements();
     list.forEach((store) => {
-      storeRenderer.addStore(store);
+      Store(store);
     });
   },
 };

@@ -5,6 +5,7 @@ import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
 import helpText from "../constants/helpText.js";
 import options from "../constants/options.js";
+import createElement from "../utils/createElement.js";
 import validate from "../utils/validate.ts";
 import storeRenderer from "./storeRenderer.js";
 
@@ -62,8 +63,12 @@ const modalRenderer = {
 
   // 버튼 추가
   addButtons: (buttonProps) => {
-    const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("button-container");
+    const buttonContainer = createElement({
+      tag: "div",
+      classList: ["button-container"],
+    });
+    // const buttonContainer = document.createElement("div");
+    // buttonContainer.classList.add("button-container");
     buttonProps.forEach((props) => {
       buttonContainer.appendChild(Button(props));
     });
@@ -109,8 +114,12 @@ const modalRenderer = {
     if (!input.classList.contains("form-item--error")) {
       input.classList.add("form-item--error");
       const parentNode = input.parentNode;
-      const errorText = document.createElement("span");
-      errorText.classList.add("error-text");
+      const errorText = createElement({
+        tag: "span",
+        classList: ["error-text"],
+      });
+      // const errorText = document.createElement("span");
+      // errorText.classList.add("error-text");
       errorText.innerText = e.message;
       parentNode.appendChild(errorText);
     }
