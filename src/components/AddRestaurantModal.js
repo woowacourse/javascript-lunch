@@ -2,7 +2,7 @@ import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/options.js";
 import CustomDropdown from "../shared/CustomDropdown.js";
 import CustomInput from "../shared/CustomInput.js";
 import CustomButton from "../shared/CustomButton.js";
-import { handleAddRestaurant } from "../handlers/restaurantHandler.js";
+import { handleAddRestaurant } from "../handlers/restaurantHandler.ts";
 import removeModal from "../utils/removeModal.js";
 
 export default function AddRestaurantModal() {

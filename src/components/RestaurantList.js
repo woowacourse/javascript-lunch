@@ -6,24 +6,42 @@ import { setupFavoriteEventListeners } from "../handlers/favoriteHandler.js";
 export default function RestaurantList(
   restaurants = restaurantStore.getRestaurants(),
 ) {
-  const restaurantItemsHTML = restaurants
-    .map((restaurant) => RestaurantItem(restaurant))
-    .join("");
+  const currentRestaurants = [...restaurants];
 
-  const listHTML = `
-    <ul class="restaurant-list">
-      ${restaurantItemsHTML}
-    </ul>
-  `;
+  function generateHTML() {
+    return `
+      <ul class="restaurant-list">
+        ${currentRestaurants.map((restaurant) => RestaurantItem(restaurant)).join("")}
+      </ul>
+    `;
+  }
 
   function render(container) {
-    container.insertAdjacentHTML("beforeend", listHTML);
+    container.insertAdjacentHTML("beforeend", generateHTML());
     setupRestaurantItemEventListeners();
     setupFavoriteEventListeners();
     return container.querySelector(".restaurant-list");
   }
 
+  function rerender(filteredRestaurants = null) {
+    const $restaurantList = document.querySelector(".restaurant-list");
+    if (!$restaurantList) return;
+
+    if (filteredRestaurants) {
+      currentRestaurants = filteredRestaurants;
+    } else {
+      currentRestaurants = restaurantStore.getRestaurants();
+    }
+
+    $restaurantList.innerHTML = currentRestaurants
+      .map((restaurant) => RestaurantItem(restaurant))
+      .join("");
+
+    setupRestaurantItemEventListeners();
+    setupFavoriteEventListeners();
+  }
   return {
     render,
+    rerender,
   };
 }

@@ -92,21 +92,3 @@ export function handleAddRestaurant(e: MouseEvent): void {
     alert((error as Error).message);
   }
 }
-
-export function rerenderRestaurantList(restaurantId: string): void {
-  const $restaurantList = document.querySelector(".restaurant-list");
-  if (!$restaurantList) return;
-  
-  const restaurants = restaurantStore.getRestaurants();
-  const visibleItems = restaurants.filter(restaurant => {
-    // TODO : 필터조건 추가 구현
-    return true;
-  });
-  
-  $restaurantList.innerHTML = visibleItems.map(restaurant => 
-    RestaurantItem(restaurant)
-  ).join("");
-  
-  setupRestaurantItemEventListeners();
-  setupFavoriteEventListeners();
-}
