@@ -1,6 +1,6 @@
 import Button from "../components/Button.js";
 import OptionInput from "../components/OptionInput.js";
-import StoreDetail from "../components/StoreDetail.js";
+import { StoreDetail } from "../components/StoreDetail.js";
 import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
 import helpText from "../constants/helpText.js";
@@ -48,15 +48,16 @@ const modalRenderer = {
     modalRenderer.addFormCheck();
 
     document.querySelector("#cancel-button").addEventListener("click", () => {
+      console.log("cancel");
       document.querySelector(".modal-form").reset();
       modalRenderer.closeModal(".modal-add-store");
     });
 
-    document
-      .querySelector(".modal-form")
-      .addEventListener("submit", (e) =>
-        storeRenderer.updateStore(storeList, e)
-      );
+    document.querySelector(".modal-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log("submit clicked");
+      storeRenderer.updateStore(storeList, e);
+    });
   },
 
   // 버튼 추가

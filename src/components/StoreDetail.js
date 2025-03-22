@@ -1,8 +1,9 @@
 import IMG_SRC from "../constants/imgSrc.js";
+import storeRenderer from "../render/storeRenderer.js";
 import createElement from "../utils/createElement.js";
 
 // 식당 상세 정보
-const StoreDetail = ({
+export const StoreDetail = ({
   name,
   category,
   dist,
@@ -42,4 +43,14 @@ const StoreDetail = ({
   `;
 };
 
-export default StoreDetail;
+export const handleDetailFavorite = (storeList, storeId) => {
+  const modal = document.querySelector(".modal-store-detail");
+  const icon = modal
+    .querySelector(".modal-container")
+    .querySelector(".star-icon");
+  icon.addEventListener("click", (e) => {
+    const storeId = e.target.closest(".modal-container").getAttribute("id");
+    storeRenderer.toggleFavorite(storeList, icon, storeId);
+    storeRenderer.rerenderStoreList(storeList.filteredList);
+  });
+};

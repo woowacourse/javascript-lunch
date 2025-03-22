@@ -7,6 +7,7 @@ import modalRenderer from "./render/modalRenderer.js";
 import MenuBar from "./components/MenuBar.js";
 import uiBasicText from "./constants/uiBasicText.js";
 import Header from "./components/Header.js";
+import { handleDetailFavorite } from "./components/StoreDetail.js";
 
 addEventListener("load", () => {
   // 초기 세팅
@@ -49,15 +50,6 @@ addEventListener("load", () => {
       storeRenderer.deleteStore(storeList);
     });
 
-    // 음식점 상세 정보에서 즐겨찾기 눌렀을 때
-    const modal = document.querySelector(".modal-store-detail");
-    const icon = modal
-      .querySelector(".modal-container")
-      .querySelector(".star-icon");
-    icon.addEventListener("click", (e) => {
-      const storeId = e.target.closest(".modal-container").getAttribute("id");
-      storeRenderer.toggleFavorite(storeList, icon, storeId);
-      storeRenderer.rerenderStoreList(storeList.filteredList);
-    });
+    handleDetailFavorite(storeList, storeId);
   });
 });
