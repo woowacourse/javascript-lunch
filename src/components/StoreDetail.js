@@ -1,4 +1,5 @@
 import IMG_SRC from "../constants/imgSrc.js";
+import modalRenderer from "../render/modalRenderer.js";
 import storeRenderer from "../render/storeRenderer.js";
 import createElement from "../utils/createElement.js";
 
@@ -52,5 +53,19 @@ export const handleDetailFavorite = (storeList, storeId) => {
     const storeId = e.target.closest(".modal-container").getAttribute("id");
     storeRenderer.toggleFavorite(storeList, icon, storeId);
     storeRenderer.rerenderStoreList(storeList.filteredList);
+  });
+};
+
+export const handleCancelDetail = () => {
+  document
+    .querySelector("#close-button")
+    .addEventListener("click", () =>
+      modalRenderer.closeModal(".modal-store-detail")
+    );
+};
+
+export const handleDeleteStore = (storeList) => {
+  document.querySelector("#delete-button").addEventListener("click", () => {
+    storeRenderer.deleteStore(storeList);
   });
 };
