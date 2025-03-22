@@ -34,20 +34,6 @@ const notifyListeners = (eventType: RestaurantEventType, restaurant: Restaurant)
   eventListeners.forEach((listener) => listener(eventType, restaurant));
 };
 
-// localStorage에 현재 레스토랑 목록 저장
-const saveRestaurants = (): void => {
-  const restaurantDataList: RestaurantData[] = restaurantList.map((restaurant) => ({
-    name: restaurant.getName(),
-    distance: restaurant.getDistance(),
-    category: restaurant.getCategory(),
-    description: restaurant.getDescription(),
-    link: restaurant.getLink(),
-    isFavorite: restaurant.isFavorite(),
-  }));
-
-  saveRestaurantData(restaurantDataList);
-};
-
 export const getRestaurantList = (): Restaurant[] => [...restaurantList];
 
 export const getFilteredRestaurants = (category: string, sortBy: string): Restaurant[] => {
