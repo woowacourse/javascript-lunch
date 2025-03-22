@@ -1,4 +1,4 @@
-import { Restaurant } from "../../../../types";
+import { Restaurant, UIComponent } from "../../../../types";
 import { RestaurantListItem } from "../../index";
 import "./restaurantList.css";
 
@@ -7,7 +7,7 @@ interface RestaurantListCallbackProps {
   onOpenDetail: (restaurantId: Restaurant["id"]) => void;
 }
 
-export default class RestaurantList {
+export default class RestaurantList implements UIComponent {
   private restaurantList: Restaurant[];
   private onToggleFavorite: RestaurantListCallbackProps["onToggleFavorite"];
   private onOpenDetail: RestaurantListCallbackProps["onOpenDetail"];
@@ -32,7 +32,7 @@ export default class RestaurantList {
     this.$listSection.append(this.$list);
   }
 
-  render() {
+  render(): HTMLElement {
     this.$list.innerHTML = "";
     this.restaurantList.forEach((restaurantInfo) => {
       const $listItem = new RestaurantListItem(

@@ -1,3 +1,4 @@
+import { UIComponent } from "./../../../../types/index";
 import { Category, Distance, LabelKey } from "../../../../types";
 import { LABEL_NAMES } from "../../../constants";
 
@@ -6,7 +7,7 @@ interface SelectBoxProps {
   options: Category[] | Distance[];
 }
 
-export default class SelectBox {
+export default class SelectBox implements UIComponent {
   private label: SelectBoxProps["label"];
   private options: SelectBoxProps["options"];
 
@@ -15,7 +16,7 @@ export default class SelectBox {
     this.options = options;
   }
 
-  render() {
+  render(): HTMLDivElement {
     const $formItem = document.createElement("div");
     $formItem.className = "form-item form-item--required";
 

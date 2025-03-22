@@ -1,7 +1,8 @@
+import { UIComponent } from "./../../../../types/index";
 import { LABEL_NAMES } from "../../../constants";
 
-export default class DescriptionInput {
-  render() {
+export default class DescriptionInput implements UIComponent {
+  render(): HTMLDivElement {
     const $descriptionFormItem = document.createElement("div");
     $descriptionFormItem.className = "form-item";
 

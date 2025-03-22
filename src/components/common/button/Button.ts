@@ -1,4 +1,4 @@
-import { ButtonType } from "../../../../types";
+import { ButtonType, UIComponent } from "../../../../types";
 import { BUTTON_TYPES } from "../../../constants";
 import "./button.css";
 
@@ -22,7 +22,7 @@ interface ButtonProps {
   action: ButtonType;
 }
 
-export default class Button {
+export default class Button implements UIComponent {
   private type: ButtonProps["type"];
   private text: ButtonProps["text"];
   private action: ButtonProps["action"];
@@ -33,7 +33,7 @@ export default class Button {
     this.action = action;
   }
 
-  render() {
+  render(): HTMLButtonElement {
     const $button = document.createElement("button");
 
     if (this.type) $button.type = this.type;

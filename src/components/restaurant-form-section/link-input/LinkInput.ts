@@ -1,7 +1,8 @@
+import { UIComponent } from "../../../../types";
 import { LABEL_NAMES } from "../../../constants";
 
-export default class LinkInput {
-  render() {
+export default class LinkInput implements UIComponent {
+  render(): HTMLDivElement {
     const $linkFormItem = document.createElement("div");
     $linkFormItem.className = "form-item";
 

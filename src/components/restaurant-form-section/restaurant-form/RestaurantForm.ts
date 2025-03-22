@@ -13,7 +13,7 @@ import {
   BUTTON_TEXTS,
   BUTTON_TYPES,
 } from "../../../constants";
-import { Restaurant } from "../../../../types";
+import { Restaurant, UIComponent } from "../../../../types";
 
 type SubmitCallback = (
   newRestaurantInfo: Omit<Restaurant, "id" | "isFavorite">
@@ -34,7 +34,7 @@ interface FormElements {
   link: HTMLDivElement;
 }
 
-export default class RestaurantForm {
+export default class RestaurantForm implements UIComponent {
   private title: RestaurantFormProps["title"];
   private onSubmit: RestaurantFormProps["onSubmit"];
   private onCancel: RestaurantFormProps["onCancel"];
@@ -60,7 +60,7 @@ export default class RestaurantForm {
     };
   }
 
-  render() {
+  render(): DocumentFragment {
     const $fragment = new DocumentFragment();
 
     const $title = this.#renderTitle();

@@ -1,4 +1,4 @@
-import { Restaurant } from "./../../../../types";
+import { Restaurant, UIComponent } from "./../../../../types";
 import {
   CATEGORY_ASSETS,
   EVENT_TYPES,
@@ -21,7 +21,7 @@ interface RestaurantListItemProps {
   onOpenDetail: (restaurantId: Restaurant["id"]) => void;
 }
 
-export default class RestaurantListItem {
+export default class RestaurantListItem implements UIComponent {
   private id: listItemData["id"];
   private category: listItemData["category"];
   private name: listItemData["name"];
@@ -54,7 +54,7 @@ export default class RestaurantListItem {
     this.onOpenDetail = onOpenDetail;
   }
 
-  render() {
+  render(): HTMLLIElement {
     const $item = document.createElement("li");
     $item.className = "restaurant";
     $item.id = this.id;

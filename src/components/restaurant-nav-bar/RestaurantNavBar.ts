@@ -1,4 +1,4 @@
-import { NavBarKey } from "../../../types";
+import { NavBarKey, UIComponent } from "../../../types";
 import { EVENT_TYPES, NAV_BAR_KEYS, NAV_BAR_OPTIONS } from "../../constants";
 import "./restaurantNavBar.css";
 
@@ -10,7 +10,7 @@ interface RestaurantNavBarProps {
   onTabChange: TabChangeCallback;
 }
 
-export default class RestaurantNavBar {
+export default class RestaurantNavBar implements UIComponent {
   private onTabChange: TabChangeCallback;
   private currentTabType: NavBarKey;
 
@@ -19,7 +19,7 @@ export default class RestaurantNavBar {
     this.currentTabType = NAV_BAR_KEYS.all;
   }
 
-  render() {
+  render(): HTMLElement {
     const $navBar = document.createElement("nav");
     const $navList = document.createElement("ul");
     $navList.className = "restaurant-tab-menu";

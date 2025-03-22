@@ -1,4 +1,4 @@
-import { Restaurant, Uuid } from "../../../types";
+import { Restaurant, UIComponent, Uuid } from "../../../types";
 import {
   BUTTON_TEXTS,
   BUTTON_TYPES,
@@ -19,7 +19,7 @@ interface RestaurantDetailProps {
   onClose: CloseCallback;
 }
 
-export default class RestaurantDetail {
+export default class RestaurantDetail implements UIComponent {
   private id: Uuid | null = null;
 
   private onToggleFavorite: ToggleFavoriteCallback;
@@ -134,7 +134,7 @@ export default class RestaurantDetail {
     );
   }
 
-  render() {
+  render(): HTMLFormElement {
     return this.$form;
   }
 

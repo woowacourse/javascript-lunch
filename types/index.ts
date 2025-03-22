@@ -34,3 +34,7 @@ export interface FilterOptions {
     sortFilterType: Extract<LabelKey, "name" | "distance">;
   };
 }
+
+export interface UIComponent {
+  render(): HTMLElement | DocumentFragment;
+}

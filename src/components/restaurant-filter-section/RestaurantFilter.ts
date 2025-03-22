@@ -1,4 +1,4 @@
-import { FilterOptions } from "../../../types";
+import { FilterOptions, UIComponent } from "../../../types";
 import {
   EVENT_TYPES,
   NAV_BAR_KEYS,
@@ -13,7 +13,7 @@ interface RestaurantFilterProps {
   onFilterChange: FilterChangeCallback;
 }
 
-export default class RestaurantFilter {
+export default class RestaurantFilter implements UIComponent {
   private onFilterChange: FilterChangeCallback;
   private currentFilterType: FilterOptions["filterType"];
   private $filterContainer: HTMLElement = document.createElement("section");
@@ -27,7 +27,7 @@ export default class RestaurantFilter {
     };
   }
 
-  render() {
+  render(): HTMLElement {
     this.$filterContainer.className = "restaurant-filter-container";
 
     this.#renderFilterCategory();

@@ -1,3 +1,4 @@
+import { UIComponent } from "./../../../../types/index";
 import { EVENT_TYPES } from "../../../constants";
 import "./bottomSheetBase.css";
 
@@ -6,7 +7,7 @@ interface BottomSheetBaseProps {
   $children: DocumentFragment | HTMLFormElement;
 }
 
-export default class BottomSheetBase {
+export default class BottomSheetBase implements UIComponent {
   private id: BottomSheetBaseProps["id"];
   private $children: BottomSheetBaseProps["$children"];
   private $modal: HTMLDivElement;
@@ -17,7 +18,7 @@ export default class BottomSheetBase {
     this.$modal = document.createElement("div");
   }
 
-  render() {
+  render(): HTMLDivElement {
     this.$modal.className = "modal";
     if (this.id) this.$modal.id = this.id;
 
