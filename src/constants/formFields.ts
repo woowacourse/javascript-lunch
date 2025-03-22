@@ -9,7 +9,7 @@ import {
   sortingFilterOptions,
 } from "./selectOptions";
 import { validateRestaurantForm } from "../validation/validationForm";
-import { TypeInput, TypeSelect, TypeTextarea } from "../types/types";
+import { FormField, FormFields } from "../types/formFieldsType";
 
 const senseChangeRestaurantFormValue = () => {
   try {
@@ -32,91 +32,99 @@ const senseChangeRestaurantFormValue = () => {
   }
 };
 
-export const FORM_FIELDS: any = {
+export const FORM_FIELDS: FormFields = {
   INPUTS: {
-    name: {
-      label: "이름",
-      eventType: "input",
-      event: senseChangeRestaurantFormValue,
-      attribute: {
-        required: true,
-        id: "name",
-        name: "name",
-        type: "text",
-        maxlength: 30,
-        placeholder: "음식점 이름을 입력해주세요.",
+    fields: {
+      name: {
+        label: "이름",
+        eventType: "input",
+        event: senseChangeRestaurantFormValue,
+        attribute: {
+          required: true,
+          id: "name",
+          name: "name",
+          type: "text",
+          maxlength: 30,
+          placeholder: "음식점 이름을 입력해주세요.",
+        },
+      },
+      link: {
+        label: "참고 링크",
+        eventType: "input",
+        event: senseChangeRestaurantFormValue,
+        attribute: {
+          id: "link",
+          name: "link",
+          type: "text",
+          maxlength: 100,
+          placeholder: "https://www.woowacourse.io/",
+        },
       },
     },
-    link: {
-      label: "참고 링크",
-      eventType: "input",
-      event: senseChangeRestaurantFormValue,
-      attribute: {
-        id: "link",
-        name: "link",
-        type: "text",
-        maxlength: 100,
-        placeholder: "https://www.woowacourse.io/",
-      },
-    },
-    create: (info: TypeInput) => $input(info),
+    create: (info: FormField) => $input(info),
   },
   SELECTS: {
-    category: {
-      label: "카테고리",
-      options: categoryOptions,
-      eventType: "change",
-      event: senseChangeRestaurantFormValue,
-      attribute: {
-        required: true,
-        id: "category",
-        name: "category",
+    fields: {
+      category: {
+        label: "카테고리",
+        options: categoryOptions,
+        eventType: "change",
+        event: senseChangeRestaurantFormValue,
+        attribute: {
+          required: true,
+          id: "category",
+          name: "category",
+        },
+      },
+      distance: {
+        label: "거리(도보 이동 시간)",
+        options: distanceOptions,
+        eventType: "change",
+        event: senseChangeRestaurantFormValue,
+        attribute: {
+          required: true,
+          id: "distance",
+          name: "distance",
+        },
+      },
+      categoryFilter: {
+        label: "카테고리 필터",
+        options: categoryFilterOptions,
+        eventType: "change",
+        event: $createRestaurantList,
+        attribute: {
+          id: "category-filter",
+          name: "restaurant-filter",
+        },
+      },
+      sortingFilter: {
+        label: "정렬 필터",
+        options: sortingFilterOptions,
+        eventType: "change",
+        event: $createRestaurantList,
+        attribute: {
+          id: "sorting-filter",
+          name: "restaurant-filter",
+        },
       },
     },
-    distance: {
-      label: "거리(도보 이동 시간)",
-      options: distanceOptions,
-      eventType: "change",
-      event: senseChangeRestaurantFormValue,
-      attribute: {
-        required: true,
-        id: "distance",
-        name: "distance",
-      },
-    },
-    categoryFilter: {
-      options: categoryFilterOptions,
-      eventType: "change",
-      event: $createRestaurantList,
-      attribute: {
-        id: "category-filter",
-        name: "restaurant-filter",
-      },
-    },
-    sortingFilter: {
-      options: sortingFilterOptions,
-      eventType: "change",
-      event: $createRestaurantList,
-      attribute: {
-        id: "sorting-filter",
-        name: "restaurant-filter",
-      },
-    },
-    create: (info: TypeSelect) => $select(info),
+    create: (info: FormField) => $select(info),
   },
   TEXTAREAS: {
-    description: {
-      label: "설명",
-      helperText: "메뉴 등 추가 정보를 입력해 주세요.",
-      attribute: {
-        id: "description",
-        name: "description",
-        cols: "30",
-        rows: "5",
-        maxlength: 200,
-        placeholder: "너무 맛있는데 너무 매워서 배가 아파요,,,",
+    fields: {
+      description: {
+        label: "설명",
+        helperText: "메뉴 등 추가 정보를 입력해 주세요.",
+        attribute: {
+          id: "description",
+          name: "description",
+          cols: "30",
+          rows: "5",
+          maxlength: 200,
+          placeholder: "너무 맛있는데 너무 매워서 배가 아파요,,,",
+        },
       },
     },
-    create: (info: TypeTextarea) => $textarea(info),
+    create: (info: FormField) => $textarea(info),
   },
 } as const;

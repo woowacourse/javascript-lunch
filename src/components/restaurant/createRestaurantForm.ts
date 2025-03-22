@@ -9,7 +9,7 @@ import { handleModalClose, handleModalOpen } from "../modal/modal.ts";
 import { validateRestaurantForm } from "../../validation/validationForm";
 import { storageHandler } from "../../utils/storageHandler";
 import { STORAGE_KEY_NAME } from "../../constants/storage";
-import { Category, FormEventType, IRestaurant } from "../../types/types";
+import { Category, IRestaurant } from "../../types/types";
 
 const restaurantFormReset = () => {
   handleModalClose();

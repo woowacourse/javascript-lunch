@@ -1,15 +1,17 @@
-import { TypeSelect } from "../../types/types";
+import { SelectField } from "../../types/formFieldsType";
 
-const $select = ({ attribute, options, eventType, event }: TypeSelect) => {
+const $select = ({ attribute, options, eventType, event }: SelectField) => {
   const select = document.createElement("select");
   Object.assign(select, attribute);
 
-  Object.keys(options).forEach((selectName) => {
-    const option = document.createElement("option");
-    option.value = options[selectName];
-    option.textContent = selectName;
-    select.appendChild(option);
-  });
+  if (options) {
+    Object.keys(options).forEach((optionName) => {
+      const option = document.createElement("option");
+      option.value = String(options[optionName]);
+      option.textContent = optionName;
+      select.appendChild(option);
+    });
+  }
 
   if (eventType && event) {
     select.addEventListener(eventType, event);

@@ -16,8 +16,8 @@ addEventListener("load", () => {
   ]);
 
   const filterSelects = [
-    FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.categoryFilter),
-    FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.sortingFilter),
+    FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.fields.categoryFilter),
+    FORM_FIELDS.SELECTS.create(FORM_FIELDS.SELECTS.fields.sortingFilter),
   ];
 
   const main = document.querySelector("main");

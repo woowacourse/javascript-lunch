@@ -1,6 +1,6 @@
-import { TypeInput } from "../../types/types";
+import { BaseField } from "../../types/formFieldsType";
 
-const $input = ({ attribute, eventType, event }: TypeInput) => {
+const $input = ({ attribute, eventType, event }: BaseField) => {
   const input = document.createElement("input");
 
   Object.assign(input, attribute);
