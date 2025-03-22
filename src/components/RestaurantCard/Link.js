@@ -4,7 +4,7 @@ const Link = (link) =>
   createElement({
     tagName: "p",
     classNames: ["restaurant__link"],
-    text: `${link}`,
+    text: link,
   });
 
 export default Link;
