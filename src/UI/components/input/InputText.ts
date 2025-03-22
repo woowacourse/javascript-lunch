@@ -42,19 +42,19 @@ class InputText {
     return formItem;
   }
 
-  #createLabel(type: string, title: string): HTMLLabelElement {
+  #createLabel(title: string, text: string): HTMLLabelElement {
     const label = document.createElement('label');
-    label.setAttribute('for', type);
+    label.setAttribute('for', title);
     label.classList.add('text-caption');
-    label.textContent = title;
+    label.textContent = text;
     return label;
   }
 
-  #createInput(tag: string): HTMLInputElement {
+  #createInput(title: string): HTMLInputElement {
     const input = document.createElement('input');
     input.type = 'text';
-    input.name = tag;
-    input.id = tag;
+    input.name = title;
+    input.id = title;
     input.required = true;
     return input;
   }
