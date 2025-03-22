@@ -1,4 +1,4 @@
-import { FoodItemType } from "../types/food";
+import { FoodItemType } from "../../../types/food";
 
 export function sortFoodItem(sortOption: string, foodItems: FoodItemType[]) {
   if (sortOption === "이름순") {

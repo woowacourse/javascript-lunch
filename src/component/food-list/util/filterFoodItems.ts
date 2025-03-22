@@ -1,4 +1,4 @@
-import { FoodItemType } from "../types/food";
+import { FoodItemType } from "../../../types/food";
 
 export function filterFoodItemsByCategory(category: string, foodItems: FoodItemType[]) {
   if (category === "") {

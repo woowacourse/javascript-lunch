@@ -1,4 +1,4 @@
-import { CategoryType } from "../types/food";
+import { CategoryType } from "../../../types/food";
 
 const categoryMap = {
   한식: { imgAlt: "한식", imgSrc: "./category-korean.png" },

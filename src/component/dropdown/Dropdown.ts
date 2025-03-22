@@ -6,14 +6,14 @@ interface OptionType {
 interface DropdownOption {
   name: string;
   options: OptionType[];
-  onChange: (selectValue: string) => {};
+  onChange: (selectValue: string) => void;
 }
 
 export class Dropdown {
   container: HTMLElement;
   name: string;
   options: OptionType[];
-  onChange: (selectValue: string) => {};
+  onChange: (selectValue: string) => void;
 
   #selectValue: string = "";
 

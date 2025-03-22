@@ -1,6 +1,6 @@
 import { DEV_ERROR_MESSAGE } from "../../constants/devErrorMessage.ts";
 import { FoodItemType } from "../../types/food.ts";
-import { getImgSrcAlt } from "../../util/getImgSrcAlt.js";
+import { getImgSrcAlt } from "./util/getImgSrcAlt.ts";
 
 type CssTypeProps = "row" | "column";
 
