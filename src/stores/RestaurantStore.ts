@@ -1,5 +1,6 @@
 import { FilterOptions, Restaurant } from "../../types";
 import { DEFAULT_FILTER_OPTIONS, DEFAULT_RESTAURANT } from "../constants";
+import RestaurantStorage from "../storages/RestaurantStorage.js";
 import generateUUID from "../utils/generateUUID.js";
 
 type Listeners = Map<string, (state: StoreState) => void>;
@@ -11,13 +12,19 @@ interface StoreState {
 }
 
 export default class RestaurantStore {
+  private storage: RestaurantStorage = new RestaurantStorage();
+
   #restaurants: StoreState["restaurants"] = [];
   #currentFilter: StoreState["currentFilter"] = DEFAULT_FILTER_OPTIONS;
   #selectedRestaurant: Restaurant | null = null;
   #listeners: Listeners = new Map();
 
   constructor() {
-    this.#loadFromLocalStorage();
+    const savedRestaurants = this.storage.getRestaurants();
+    if (savedRestaurants) {
+      this.#restaurants = savedRestaurants;
+      this.#notifyListeners();
+    }
   }
 
   get state(): StoreState {
@@ -35,7 +42,7 @@ export default class RestaurantStore {
       isFavorite: false,
     };
     this.#restaurants = [...this.#restaurants, newRestaurant];
-    this.#saveToLocalStorage();
+    this.storage.setRestaurants(this.#restaurants);
     this.#notifyListeners();
   }
 
@@ -43,7 +50,7 @@ export default class RestaurantStore {
     this.#restaurants = this.#restaurants.filter(
       (restaurant) => restaurant.id !== restaurantId
     );
-    this.#saveToLocalStorage();
+    this.storage.setRestaurants(this.#restaurants);
     this.#notifyListeners();
   }
 
@@ -54,7 +61,7 @@ export default class RestaurantStore {
         : restaurant
     );
     this.updateSelectedRestaurant(restaurantId);
-    this.#saveToLocalStorage();
+    this.storage.setRestaurants(this.#restaurants);
     this.#notifyListeners();
   }
 
@@ -78,18 +85,6 @@ export default class RestaurantStore {
     callback(this.state);
 
     return () => this.#listeners.delete(key);
-  }
-
-  #loadFromLocalStorage() {
-    const savedRestaurants = localStorage.getItem("restaurants");
-    if (savedRestaurants) {
-      this.#restaurants = JSON.parse(savedRestaurants);
-      this.#notifyListeners();
-    }
-  }
-
-  #saveToLocalStorage() {
-    localStorage.setItem("restaurants", JSON.stringify(this.#restaurants));
   }
 
   #notifyListeners() {
