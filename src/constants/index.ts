@@ -1,4 +1,12 @@
-import { ButtonType, Category, LabelKey, NavBarKey } from "../../types";
+import {
+  ButtonType,
+  Category,
+  FilterOptions,
+  LabelKey,
+  NavBarKey,
+  Restaurant,
+  Uuid,
+} from "../../types";
 
 export const LABEL_KEYS = Object.freeze({
   category: "category",
@@ -82,3 +90,21 @@ export const BUTTON_TEXTS: Record<ButtonType, string> = Object.freeze({
   [BUTTON_TYPES.delete]: "삭제하기",
   [BUTTON_TYPES.close]: "닫기",
 });
+
+export const DEFAULT_RESTAURANT: Restaurant = {
+  id: "" as Uuid,
+  category: "한식",
+  name: "",
+  distance: "5",
+  description: "",
+  link: "https://",
+  isFavorite: false,
+} as const;
+
+export const DEFAULT_FILTER_OPTIONS: FilterOptions = {
+  tabType: NAV_BAR_KEYS.all,
+  filterType: {
+    categoryFilterType: CATEGORY[0],
+    sortFilterType: "name",
+  },
+};

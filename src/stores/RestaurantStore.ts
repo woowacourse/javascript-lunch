@@ -1,35 +1,18 @@
-import { FilterOptions, Restaurant, Uuid } from "../../types";
-import { CATEGORY, LABEL_KEYS, NAV_BAR_KEYS } from "../constants";
+import { FilterOptions, Restaurant } from "../../types";
+import { DEFAULT_FILTER_OPTIONS, DEFAULT_RESTAURANT } from "../constants";
 import generateUUID from "../utils/generateUUID.js";
 
 type Listeners = Map<string, (state: StoreState) => void>;
 
 interface StoreState {
   restaurants: Restaurant[];
-  filteredRestaurants: Restaurant[];
   currentFilter: FilterOptions;
   selectedRestaurant: Restaurant;
 }
 
-const DEFAULT_RESTAURANT: Restaurant = {
-  id: "" as Uuid,
-  category: "한식",
-  name: "",
-  distance: "5",
-  description: "",
-  link: "https://",
-  isFavorite: false,
-} as const;
-
 export default class RestaurantStore {
   #restaurants: StoreState["restaurants"] = [];
-  #currentFilter: StoreState["currentFilter"] = {
-    tabType: NAV_BAR_KEYS.all,
-    filterType: {
-      categoryFilterType: CATEGORY[0],
-      sortFilterType: "name",
-    },
-  };
+  #currentFilter: StoreState["currentFilter"] = DEFAULT_FILTER_OPTIONS;
   #selectedRestaurant: Restaurant | null = null;
   #listeners: Listeners = new Map();
 
@@ -40,7 +23,6 @@ export default class RestaurantStore {
   get state(): StoreState {
     return {
       restaurants: this.#restaurants,
-      filteredRestaurants: this.getFilteredRestaurants(this.#currentFilter),
       currentFilter: this.#currentFilter,
       selectedRestaurant: this.#selectedRestaurant ?? DEFAULT_RESTAURANT,
     };
@@ -89,42 +71,6 @@ export default class RestaurantStore {
       this.#selectedRestaurant = restaurantInfoById;
     }
     this.#notifyListeners();
-  }
-
-  getFilteredRestaurants({
-    tabType,
-    filterType: { categoryFilterType, sortFilterType },
-  }: FilterOptions): Restaurant[] {
-    const restaurants = [...this.#restaurants];
-
-    const tabTypeFn = {
-      [NAV_BAR_KEYS.all]: (restaurantsInfo: Restaurant[]) => {
-        if (categoryFilterType === CATEGORY[0]) return restaurantsInfo;
-        return restaurantsInfo.filter(
-          (restaurant) => restaurant.category === categoryFilterType
-        );
-      },
-      [NAV_BAR_KEYS.favorite]: (restaurantsInfo: Restaurant[]) => {
-        return restaurantsInfo.filter((restaurant) => restaurant.isFavorite);
-      },
-    };
-
-    const sortFilterTypeFn = {
-      [LABEL_KEYS.name]: (restaurantsInfo: Restaurant[]) => {
-        return restaurantsInfo.sort((a, b) => a.name.localeCompare(b.name));
-      },
-      [LABEL_KEYS.distance]: (restaurantsInfo: Restaurant[]) => {
-        return restaurantsInfo.sort(
-          (a, b) => parseInt(a.distance) - parseInt(b.distance)
-        );
-      },
-    };
-
-    if (tabType === NAV_BAR_KEYS.favorite) {
-      return tabTypeFn[tabType](restaurants);
-    }
-
-    return sortFilterTypeFn[sortFilterType](tabTypeFn[tabType](restaurants));
   }
 
   subscribe(key: string, callback: (state: StoreState) => void) {

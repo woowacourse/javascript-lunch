@@ -1,4 +1,5 @@
 import { RestaurantDetail, RestaurantList } from "../components";
+import getFilteredRestaurants from "../utils/getFilteredRestaurants";
 import RestaurantStore from "./RestaurantStore";
 
 export function subscribeRestaurantStore(
@@ -8,7 +9,11 @@ export function subscribeRestaurantStore(
 ) {
   store.subscribe("restaurantList", (state) => {
     if (restaurantList) {
-      restaurantList.updateRestaurantList(state.filteredRestaurants);
+      const filteredRestaurants = getFilteredRestaurants(
+        state.restaurants,
+        state.currentFilter
+      );
+      restaurantList.updateRestaurantList(filteredRestaurants);
     }
   });
 

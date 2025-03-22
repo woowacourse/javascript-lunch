@@ -14,7 +14,6 @@ import {
   RestaurantFilter,
   RestaurantList,
 } from "./components/index";
-import { CATEGORY, NAV_BAR_KEYS } from "./constants";
 import {
   handleCloseBottomSheet,
   handleDeleteRestaurant,
@@ -27,6 +26,7 @@ import {
 } from "./handlers/index.js";
 import RestaurantStore from "./stores/RestaurantStore.js";
 import { subscribeRestaurantStore } from "./stores/subscribeStore.js";
+import getFilteredRestaurants from "./utils/getFilteredRestaurants.js";
 import render from "./utils/render.js";
 
 export default class App {
@@ -93,13 +93,7 @@ export default class App {
   }
 
   #createRestaurantList() {
-    const restaurantList = this.store.getFilteredRestaurants({
-      tabType: NAV_BAR_KEYS.all,
-      filterType: {
-        categoryFilterType: CATEGORY[0],
-        sortFilterType: "name",
-      },
-    });
+    const restaurantList = getFilteredRestaurants(this.store.state.restaurants);
     this.$restaurantList = createRestaurantList(restaurantList, {
       onToggleFavorite: (restaurantId: Restaurant["id"]) =>
         handleToggleFavorite(restaurantId, this.store),
