@@ -129,6 +129,8 @@
 ```
 .
 ├── App.ts
+├── builders
+│   └── index.ts
 ├── components
 │   ├── common
 │   │   ├── bottom-sheet-base
@@ -142,6 +144,7 @@
 │   ├── header
 │   │   ├── Header.ts
 │   │   └── header.css
+│   ├── index.ts
 │   ├── restaurant-detail
 │   │   ├── RestaurantDetail.ts
 │   │   └── restaurantDetail.css
@@ -169,10 +172,21 @@
 │       ├── RestaurantNavBar.ts
 │       └── restaurantNavBar.css
 ├── constants
-│   └── constants.ts
+│   └── index.ts
+├── handlers
+│   └── index.ts
 ├── index.ts
+├── storages
+│   ├── RestaurantStorage.ts
+│   └── Storage.ts
 ├── stores
-│   └── RestaurantStore.ts
+│   ├── core
+│   │   └── Observable.ts
+│   └── restaurant
+│       ├── RestaurantStore.ts
+│       └── RestaurantSubscriber.ts
 └── utils
-    └── generateUUID.ts
+    ├── generateUUID.ts
+    ├── getFilteredRestaurants.ts
+    └── render.ts
 ```
