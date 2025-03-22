@@ -1,7 +1,5 @@
 import './Input.css';
 
-import CATEGORY from '../../constant/category';
-
 type DropDownTitle = '카테고리' | '거리(도보 이동 시간)';
 
 const TAG_MAP: Record<DropDownTitle, string> = {
