@@ -3,9 +3,8 @@ import RestaurantInfo from "./RestaurantInfo";
 import CategoryImage from "./CategoryImage";
 import FavoriteIcon from "./FavoriteIcon";
 
-const RestaurantCard = (restaurant, events = {}) => {
+const RestaurantCard = (restaurant, { clickFavorite, clickCard } = {}) => {
   const { category } = restaurant.value;
-  const { clickFavorite, clickCard } = events;
 
   const restaurantCard = createElement({
     tagName: "li",
