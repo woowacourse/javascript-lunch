@@ -34,6 +34,12 @@ class Application extends Component {
     localStorage.setItem('restaurantList', JSON.stringify(newRestaurantList));
   }
 
+  deleteRestaurant(id) {
+    const updatedList = this.state.restaurantList.filter((restaurant) => restaurant.id !== id);
+    this.setState({ ...this.state, restaurantList: updatedList });
+    localStorage.setItem('restaurantList', JSON.stringify(updatedList));
+  }
+
   filterCategory(category) {
     this.setState({ ...this.state, category });
   }
@@ -48,6 +54,7 @@ class Application extends Component {
       restaurantList: this.state.restaurantList,
       category: this.state.category,
       sort: this.state.sort,
+      deleteRestaurant: this.deleteRestaurant.bind(this),
     });
 
     $restaurantListContainer.appendChild(restaurantList.element);

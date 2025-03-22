@@ -2,6 +2,7 @@ import { RestaurantType } from '../../types/types';
 
 export const defaultRestaurantList: RestaurantType[] = [
   {
+    id: 1,
     imgUrl: 'category-korean.png',
     category: '한식',
     name: '피양콩할마니',
@@ -11,6 +12,7 @@ export const defaultRestaurantList: RestaurantType[] = [
     link: 'https://naver.me/xFLMsS9n',
   },
   {
+    id: 2,
     imgUrl: 'category-chinese.png',
     category: '중식',
     name: '친친',
@@ -19,6 +21,7 @@ export const defaultRestaurantList: RestaurantType[] = [
     link: 'https://naver.me/FV7Y4RTm',
   },
   {
+    id: 3,
     imgUrl: 'category-japanese.png',
     category: '일식',
     name: '잇쇼우',
@@ -28,6 +31,7 @@ export const defaultRestaurantList: RestaurantType[] = [
     link: 'https://naver.me/FLyTJ4dC',
   },
   {
+    id: 4,
     imgUrl: 'category-western.png',
     category: '양식',
     name: '이태리키친',
@@ -36,6 +40,7 @@ export const defaultRestaurantList: RestaurantType[] = [
     link: 'hhttps://naver.me/5huapW2k',
   },
   {
+    id: 5,
     imgUrl: 'category-asian.png',
     category: '아시안',
     name: '호아빈 삼성점',
@@ -44,6 +49,7 @@ export const defaultRestaurantList: RestaurantType[] = [
     link: 'https://naver.me/5WOQLjn6',
   },
   {
+    id: 6,
     imgUrl: 'category-etc.png',
     category: '기타',
     name: '도스타코스 선릉점',
