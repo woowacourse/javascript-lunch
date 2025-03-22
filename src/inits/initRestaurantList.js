@@ -1,7 +1,7 @@
 import Persistence from "../domain/persistence/Persistence";
 import RestaurantList from "../domain/RestaurantList";
 
-export const createRestaurantList = () => {
+export const initRestaurantList = () => {
   const data = Persistence.loadRestaurantList();
   const category = Persistence.loadCategory();
   const nameOrDistance = Persistence.loadNameOrDistance();
@@ -12,3 +12,5 @@ export const createRestaurantList = () => {
 
   return list;
 };
+
+export default initRestaurantList;
