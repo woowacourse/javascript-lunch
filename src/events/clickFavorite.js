@@ -1,11 +1,11 @@
 import Persistence from "../domain/persistence/Persistence";
-import renderFavoritePage from "../ui/renderFavoritePage";
+import renderFavoritesPage from "../ui/renderFavoritesPage";
 import renderFilteredRestaurants from "../ui/renderFilteredRestaurant";
 
 const clickFavorite = (restaurantList) => {
   Persistence.saveRestaurantList(restaurantList.value);
   if (Persistence.loadTabInfo() === "favorites") {
-    renderFavoritePage(restaurantList);
+    renderFavoritesPage(restaurantList);
   } else {
     renderFilteredRestaurants(restaurantList);
   }
