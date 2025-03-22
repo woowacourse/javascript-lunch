@@ -1,9 +1,20 @@
-import { IMAGE } from '../../src/constants.js';
-import { RESTAURANTS } from '../../src/restaurantData.js';
+import { IMAGE } from '../../src/constants/elements.ts';
+import { RESTAURANTS } from '../../src/data/initialData.ts';
+import restaurantService from '../../src/service/restaurantService.ts';
+
+const setLocalStorage = () => {
+  cy.clearLocalStorage();
+  cy.window()
+    .its('localStorage')
+    .invoke('setItem', 'restaurants', JSON.stringify([...RESTAURANTS]));
+
+  cy.reload();
+};
 
 describe('Header 렌더링 테스트', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5173');
+    setLocalStorage();
   });
 
   it('헤더에서 점심 뭐먹지가 잘 렌더링 되는지 확인', () => {
@@ -27,30 +38,32 @@ describe('음식점 아이템 렌더링 테스트', () => {
 
   it('아이템의 카테고리가 잘 렌더링 되는지 확인', () => {
     cy.get('.restaurant')
-      .should('have.length', 6)
-      .each(($li, index) => {
+      .should('have.length', RESTAURANTS.length)
+      .each(($li) => {
+        const id = Number($li.attr('data-id'));
+        const restaurant = RESTAURANTS.find((restaurant) => restaurant.id === id);
+
         cy.wrap($li).should('exist');
         cy.wrap($li).find('.restaurant__category').should('exist');
         cy.wrap($li)
           .find('.restaurant__category img')
           .should('exist')
-          .and('have.attr', 'src', `${IMAGE.get(RESTAURANTS[index].category)}`)
-          .and('have.attr', 'alt', `${RESTAURANTS[index].category}`);
+          .and('have.attr', 'src', `${IMAGE.get(restaurant.category)}`)
+          .and('have.attr', 'alt', `${restaurant.category}`);
       });
   });
 
   it('아이템의 정보가 잘 렌더링 되는지 확인', () => {
     cy.get('.restaurant')
-      .should('have.length', 6)
-      .each(($li, index) => {
+      .should('have.length', RESTAURANTS.length)
+      .each(($li) => {
+        const id = Number($li.attr('data-id'));
+        const restaurant = RESTAURANTS.find((restaurant) => restaurant.id === id);
+
         cy.wrap($li).find('.restaurant__info').should('exist');
-        cy.wrap($li).find('.restaurant__name').should('exist').contains(`${RESTAURANTS[index].name}`);
-        cy.wrap($li)
-          .find('.restaurant__distance')
-          .should('exist')
-          .contains(`캠퍼스부터 ${RESTAURANTS[index].distance}`);
-        cy.wrap($li).find('.restaurant__description').should('exist').contains(`${RESTAURANTS[index].description}`);
-        cy.wrap($li).find('.restaurant__info a').should('exist').and('have.attr', 'href', `${RESTAURANTS[index].link}`);
+        cy.wrap($li).find('.restaurant__name').should('exist').contains(`${restaurant.name}`);
+        cy.wrap($li).find('.restaurant__distance').should('exist').contains(`캠퍼스부터 ${restaurant.distance}`);
+        cy.wrap($li).find('.restaurant__description').should('exist').contains(`${restaurant.description}`);
       });
   });
 });

@@ -130,6 +130,8 @@ body {
 }
 
 .restaurant {
+  position: relative;
+
   display: flex;
   align-items: flex-start;
 
@@ -159,6 +161,8 @@ body {
 }
 
 .restaurant__info {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -170,6 +174,16 @@ body {
 
 .restaurant__distance {
   color: var(--primary-color);
+}
+
+.restaurant__favorite {
+  position: absolute;
+  right: 0px;
+
+  width: 32px !important;
+  height: 32px !important;
+
+  background: none;
 }
 
 .restaurant__description {
@@ -204,6 +218,10 @@ body {
 }
 
 .modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
   position: fixed;
   bottom: 0;
   width: 390px;
@@ -215,7 +233,7 @@ body {
 }
 
 .modal-title {
-  margin-bottom: 36px;
+  margin-bottom: 4px;
 }
 
 .form-item {
@@ -281,8 +299,6 @@ input[name='link'] {
   width: 100%;
   height: 44px;
 
-  margin-right: 16px;
-
   border: none;
   border-radius: 8px;
 
@@ -291,6 +307,7 @@ input[name='link'] {
 }
 
 .button:last-child {
+  margin-left: 16px;
   margin-right: 0;
 }
 
@@ -305,4 +322,61 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 탭 버튼 */
+
+.tab-container {
+  display: flex;
+  padding: 16px;
+}
+
+.tab {
+  margin: 0;
+
+  background-color: transparent;
+  border-bottom: 2px solid var(--grey-200);
+  border-radius: 0;
+
+  color: var(--grey-300);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.tab-container > .selected {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.items-controller {
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.items-controller > .form-item {
+  margin: 0;
+  width: 125px;
+}
+
+#category-filter,
+#sort-selector {
+  color: var(--grey-500);
+}
+
+.restaurant__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restaurant__info__details {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  gap: 16px;
 }
