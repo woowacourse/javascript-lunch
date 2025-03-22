@@ -13,10 +13,6 @@ export function createHeader(options: { onOpen: () => void }): Header {
   return new Header(options);
 }
 
-export function createMain(): HTMLElement {
-  return document.createElement("main");
-}
-
 export function createRestaurantNavBar(options: {
   onTabChange: (tabType: NavBarKey) => void;
 }): RestaurantNavBar {
