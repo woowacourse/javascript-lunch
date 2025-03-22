@@ -8,7 +8,7 @@ interface TabMenuOption {
 export default class TabMenu {
   container: HTMLElement;
   #currentMenu: MenuProps = "all";
-  #onTabChange: (currentMenu: string) => void = () => {};
+  #onTabChange: (currentMenu: MenuProps) => void = () => {};
 
   constructor({ onTabChange }: TabMenuOption) {
     this.container = document.createElement("div");

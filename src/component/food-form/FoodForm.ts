@@ -103,10 +103,9 @@ export default class FoodForm {
         this.container.reset();
       } catch (error: unknown) {
         if (!(error instanceof Error)) {
-          throw new Error(DEV_ERROR_MESSAGE.invalidElement);
+          throw new Error(DEV_ERROR_MESSAGE.invalidErrorObject);
         }
-        const customError = error;
-        alertError(customError.message);
+        alertError(error.message);
       }
     };
   }
