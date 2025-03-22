@@ -14,13 +14,14 @@ const initRenderer = {
   },
 
   // 카테고리/정렬 드롭박스 셋팅
-  setRestaurantFilter: () => {
+  setRestaurantFilter: (storeList) => {
     const categorySelect = Select({
       tag: "select",
       name: "category",
       id: "category-filter",
       classList: ["restaurant-filter"],
       options: options.sortCategory,
+      callback: (e) => storeRenderer.filterStore(storeList, e),
     });
 
     document
@@ -33,6 +34,7 @@ const initRenderer = {
       id: "sorting-filter",
       classList: ["restaurant-filter"],
       options: options.sortFilter,
+      callback: (e) => storeRenderer.sortStore(storeList, e),
     });
 
     document

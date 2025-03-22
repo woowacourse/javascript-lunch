@@ -13,8 +13,8 @@ import uiBasicText from "./constants/uiBasicText.js";
 addEventListener("load", () => {
   // 초기 세팅
   initRenderer.setHeader(uiBasicText.HEADER_TEXT);
-  initRenderer.setRestaurantFilter();
   const storeList = initRenderer.setStoreList();
+  initRenderer.setRestaurantFilter(storeList);
   MenuBar(storeList);
 
   // 메뉴 추가 버튼
@@ -33,14 +33,6 @@ addEventListener("load", () => {
       .querySelector(".modal-backdrop")
       .addEventListener("click", modalRenderer.closeModal);
   });
-
-  // 음식점 필터/정렬
-  document
-    .querySelector("#category-filter")
-    .addEventListener("change", (e) => storeRenderer.filterStore(storeList, e));
-  document
-    .querySelector("#sorting-filter")
-    .addEventListener("change", (e) => storeRenderer.sortStore(storeList, e));
 
   // 음식점 리스트
   document.querySelector(".restaurant-list").addEventListener("click", (e) => {
