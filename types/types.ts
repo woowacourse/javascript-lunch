@@ -3,6 +3,6 @@ export interface RestaurantType {
   category: string;
   name: string;
   distance: number;
-  description: string;
-  link: string;
+  description?: string;
+  link?: string;
 }
