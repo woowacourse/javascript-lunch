@@ -1,25 +1,24 @@
-import RestaurantData from "../../src/domain/RestaurantData";
+import { ERROR_MESSAGE } from "../../src/domain/Restaurant.ts";
 
 it("정상적으로 음식점을 등록한다.", () => {
   cy.visit("http://localhost:5173");
   cy.viewport(1280, 720);
 
-  cy.get(".restaurant-list li").then(($list) => {
-    const initialLength = $list.length;
+  cy.document().then((doc) => {
+    const initialLength =
+      doc.querySelectorAll(".restaurant-list li").length || 0;
 
-    cy.get(".gnb__button").click();
-    cy.get(".modal-container").should("be.visible");
-    cy.get("#category").select("한식");
-    cy.get("#name").type("더휴");
-    cy.get("#distance").select("5분 내");
-    cy.get("#description").type("이집맛집임");
-    cy.get("#link").type("https://www.naver.com");
-
-    cy.get(".button--add").click();
-    cy.get(".modal-container").should("not.exist");
+    cy.addRestaurant(
+      "한식",
+      "서울 한정식",
+      "5분 내",
+      "정갈한 한식",
+      "https://koreanfood.com"
+    );
 
     cy.get(".restaurant-list li").should("have.length", initialLength + 1);
-    cy.get(".restaurant-list li").last().should("contain.text", "더휴");
+
+    cy.get(".restaurant-list li").last().should("contain.text", "서울 한정식");
   });
 });
 
@@ -63,7 +62,7 @@ describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한
     cy.get("#distance").select("5분 내");
     cy.get(".button--add").click();
     cy.on("window:alert", (text) => {
-      expect(text).to.equal(RestaurantData.ERROR_MASSAGE.nameLength);
+      expect(text).to.equal(ERROR_MESSAGE.nameLength);
     });
   });
 
@@ -74,7 +73,7 @@ describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한
     cy.get("#distance").select("5분 내");
     cy.get(".button--add").click();
     cy.on("window:alert", (text) => {
-      expect(text).to.equal(RestaurantData.ERROR_MASSAGE.nameChar);
+      expect(text).to.equal(ERROR_MESSAGE.nameChar);
     });
   });
 
@@ -87,7 +86,8 @@ describe("필드 값을 제대로 채우지 못하면 경고 문구가 발생한
     cy.get("#link").type("www.naver.com");
     cy.get(".button--add").click();
     cy.on("window:alert", (text) => {
-      expect(text).to.equal(RestaurantData.ERROR_MASSAGE.link);
+      expect(text).to.equal(ERROR_MESSAGE.link);
+
     });
   });
 });

@@ -1,10 +1,10 @@
-describe("새로고침하면 데이터가 초기화된다.", () => {
+describe("새로고침하면 데이터가 초기화되지 않는다.", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173");
     cy.viewport(1280, 720);
   });
 
-  it("사용자가 목록에 음식점을 등록하고 새로고침을 하면 데이터가 초기 값으로 돌아간다.", () => {
+  it("사용자가 목록에 음식점을 등록하고 새로고침을 하면 데이터가 초기 값으로 돌아가지 않는다.", () => {
     cy.get(".gnb__button").click();
     cy.get(".modal-container").should("be.visible");
     cy.get("#category").select("한식");
@@ -19,6 +19,6 @@ describe("새로고침하면 데이터가 초기화된다.", () => {
 
     cy.reload();
 
-    cy.get("body").should("not.contain", "더휴");
+    cy.get("body").contains("더휴");
   });
 });

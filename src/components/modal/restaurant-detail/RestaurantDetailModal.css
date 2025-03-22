@@ -1,0 +1,52 @@
+.restaurantDetail__info {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurantDetail__star {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.restaurantDetail__link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.restaurantDetail__buttonWrap {
+  margin-top: 30px;
+  display: flex;
+  gap: 14px;
+}
+
+.restaurantDetail__button {
+  flex: 1;
+  padding: 10px 18px;
+  border-radius: 8px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.restaurantDetail_delete {
+  color: var(--grey-300);
+  background-color: white;
+
+  border: 1px solid var(--grey-300);
+}
+
+.restaurantDetail_close {
+  color: white;
+  background-color: var(--primary-color);
+
+  border: none;
+}
+
+.marginTopBottom-15 {
+  margin: 15px 0;
+}

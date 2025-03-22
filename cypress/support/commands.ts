@@ -35,3 +35,20 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add(
+  "addRestaurant",
+  (category, name, distance, description, link) => {
+    cy.get(".gnb__button").click();
+    cy.get(".modal-container").should("be.visible");
+
+    cy.get("#category").select(category);
+    cy.get("#name").type(name);
+    cy.get("#distance").select(distance);
+    cy.get("#description").type(description);
+    cy.get("#link").type(link);
+
+    cy.get(".button--add").click();
+    cy.get(".modal-container").should("not.exist");
+  }
+);

@@ -1,6 +1,7 @@
-import RestaurantItem from "./RestaurantItem.js";
+import RestaurantItem from "./restaurantItem/RestaurantItem.js";
 import createElement from "../../util/createElement.js";
-import restaurantDataList from "../../domain/RestaurantDataList.js";
+import restaurantDataList from "../../domain/RestaurantList.ts";
+import restaurantUI from "../../domain/RestaurantUI.ts";
 
 export default function RestaurantListContainer() {
   const $restaurantListContainer = createElement({
@@ -13,19 +14,25 @@ export default function RestaurantListContainer() {
     classNames: ["restaurant-list"],
   });
 
-  function render() {
-    const restaurantElements = restaurantDataList
-      .getDataList()
-      .map(({ id, src, alt, name, distance, description }) =>
-        RestaurantItem({ id, src, alt, name, distance, description })
-      );
+  function render(restaurantDataList) {
+    const restaurantElements = restaurantDataList.map(
+      ({ id, src, alt, name, distance, description, isFavorite }) =>
+        RestaurantItem({
+          id,
+          src,
+          alt,
+          name,
+          distance,
+          description,
+          isFavorite,
+        })
+    );
 
     $restaurantList.replaceChildren(...restaurantElements);
     $restaurantListContainer.appendChild($restaurantList);
   }
 
-  restaurantDataList.subscribe(render);
+  restaurantUI.subscribe(render);
 
-  render();
   return $restaurantListContainer;
 }
