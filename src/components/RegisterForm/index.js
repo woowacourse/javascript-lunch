@@ -5,7 +5,7 @@ import createKeyValuePair from "../../utils/createKeyValuePair";
 import InputField from "../common/InputField";
 import RegisterButtonContainer from "./RegisterButtonContainer";
 
-const RegisterForm = (restaurantList) => {
+const RegisterForm = (restaurantList, onClickAddButton) => {
   const foodCategoryField = InputField({
     inputType: "select",
     infoType: "category",
@@ -41,7 +41,9 @@ const RegisterForm = (restaurantList) => {
         inputType: "input",
         infoType: "link",
       }),
-      RegisterButtonContainer(restaurantList),
+      RegisterButtonContainer(restaurantList, {
+        onClickAddButton,
+      }),
     ],
   });
 

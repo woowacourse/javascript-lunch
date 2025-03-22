@@ -11,6 +11,9 @@ import { clearInput } from "./utils/clearInput.js";
 import renderAllpage from "./ui/renderAllpage.js";
 import renderFavoritePage from "./ui/renderFavoritePage.js";
 import Persistence from "./domain/persistence/Persistence.ts";
+import renderFilteredRestaurants from "./ui/renderFilteredRestaurant.js";
+import { getInfo } from "./components/RegisterForm/getInfo.js";
+import Restaurant from "./domain/Restaurant.ts";
 
 addEventListener("load", () => {
   if (Persistence.isEmpty()) {
@@ -44,7 +47,7 @@ addEventListener("load", () => {
       classNames: ["register-modal"],
       contents: [
         Title("새로운 음식점", "h2", "modal-title", "text-title"),
-        RegisterForm(restaurantList),
+        RegisterForm(restaurantList, handleclickAddButton),
       ],
     })
   );
@@ -71,5 +74,33 @@ const renderPageContent = (selectedTab, restaurantList) => {
     renderAllpage(restaurantList);
   } else {
     renderFavoritePage(restaurantList);
+  }
+};
+
+const handleclickAddButton = (e, restaurantList) => {
+  registerRestaurant(e, restaurantList);
+  if (Persistence.loadTabInfo() === "all") {
+    renderFilteredRestaurants(restaurantList);
+  }
+};
+
+const registerRestaurant = (e, restaurantList) => {
+  e.preventDefault();
+  try {
+    const info = getInfo();
+    const restaurant = new Restaurant(info);
+
+    restaurantList.add(restaurant);
+    Persistence.saveRestaurantList(restaurantList.value);
+
+    $("#register-modal-backdrop").classList.remove("open");
+
+    clearInput("#register-form");
+  } catch (e) {
+    console.log(e.message);
+
+    const currentInputField = $(`#${e.cause}-form-item`);
+
+    currentInputField.appendChild(ErrorMessage(e.message));
   }
 };
