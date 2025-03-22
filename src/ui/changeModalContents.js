@@ -8,11 +8,8 @@ const changeModalContents = (restaurant, restaurantList) => {
   const restaurantDetailModal = $(".restaurant-detail-modal");
   restaurantDetailModal.innerHTML = "";
 
-  restaurantDetailModal.appendChild(
-    RestaurantCard(restaurant, eventHandlers.favorite(restaurantList))
-  );
-
-  restaurantDetailModal.appendChild(
+  restaurantDetailModal.append(
+    RestaurantCard(restaurant, eventHandlers.favorite(restaurantList)),
     RestaurantDetailButtonContainer(restaurant, () => {
       clickDelete(restaurant, restaurantList);
     })
