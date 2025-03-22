@@ -23,8 +23,8 @@ addEventListener("load", () => {
   const nameOrDistance = storage.loadNameOrDistance();
 
   const restaurantList = new RestaurantList(restaurantListData);
-  restaurantList.setCategory(category);
-  restaurantList.setNameOrDistance(nameOrDistance);
+  restaurantList.category = category;
+  restaurantList.nameOrDistance = nameOrDistance;
 
   const app = $("#app");
 

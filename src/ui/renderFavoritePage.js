@@ -10,7 +10,7 @@ const renderFavoritePage = (restaurantList) => {
   $(".restaurant-list").innerHTML = "";
 
   const favoriteCardList = RestaurantCardList(
-    restaurantList.getFavoriteList(),
+    restaurantList.favoriteList,
     eventHandlers.favorite(restaurantList)
   );
 

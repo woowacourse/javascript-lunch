@@ -4,7 +4,7 @@ import RestaurantCardList from "../components/RestaurantCardList/index.js";
 
 const renderFilteredRestaurants = (restaurantList) => {
   const filteredCardList = RestaurantCardList(
-    restaurantList.filter(),
+    restaurantList.filteredList,
     eventHandlers.filtered(restaurantList)
   );
 

@@ -23,7 +23,7 @@ class RestaurantList {
     );
   }
 
-  filter(): Restaurant[] {
+  get filteredList(): Restaurant[] {
     let filteredList = this.#restaurantList;
     filteredList = this.filterByCategory(this.#currentCategory, filteredList);
 
@@ -37,7 +37,7 @@ class RestaurantList {
     return filteredList;
   }
 
-  getFavoriteList(): Restaurant[] {
+  get favoriteList(): Restaurant[] {
     const favoriteList = this.#restaurantList.filter(
       (restaurant) => restaurant.value.isFavorite
     );
@@ -61,11 +61,11 @@ class RestaurantList {
     return [...list].sort((a, b) => a.value.distance - b.value.distance);
   }
 
-  setCategory(category: CategoryFilter) {
+  set category(category: CategoryFilter) {
     this.#currentCategory = category;
   }
 
-  setNameOrDistance(sortBy: NameOrDistanceFilter) {
+  set nameOrDistance(sortBy: NameOrDistanceFilter) {
     this.#nameOrDistance = sortBy;
   }
 

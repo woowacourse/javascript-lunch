@@ -25,12 +25,12 @@ export default renderAllpage;
 
 const handleSeletedCatetoryChanged = (restaurantList) => (e) => {
   storage.saveCategory(e.target.value);
-  restaurantList.setCategory(e.target.value);
+  restaurantList.category = e.target.value;
   renderFilteredRestaurants(restaurantList);
 };
 
 const handleNameOrDistanceChanged = (restaurantList) => (e) => {
   storage.saveNameOrDistance(e.target.value);
-  restaurantList.setNameOrDistance(e.target.value);
+  restaurantList.nameOrDistance = e.target.value;
   renderFilteredRestaurants(restaurantList);
 };
