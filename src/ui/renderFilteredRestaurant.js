@@ -1,11 +1,11 @@
 import renderRestaurants from "./renderRestaurant.js";
-import eventHandlers from "../events/eventHandlers.js";
 import RestaurantCardList from "../components/RestaurantCardList/index.js";
+import restaurantCardEvents from "../events/restaurantCardEvents.js";
 
 const renderFilteredRestaurants = (restaurantList) => {
   const filteredCardList = RestaurantCardList(
     restaurantList.filteredList,
-    eventHandlers.filtered(restaurantList)
+    restaurantCardEvents(restaurantList)
   );
 
   return renderRestaurants(filteredCardList);

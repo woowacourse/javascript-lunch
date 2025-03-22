@@ -1,6 +1,6 @@
 import RestaurantCard from "../components/RestaurantCard/index.js";
 import RestaurantCardList from "../components/RestaurantCardList/index.js";
-import eventHandlers from "../events/eventHandlers.js";
+import restaurantCardEvents from "../events/restaurantCardEvents.js";
 import { $ } from "../utils/dom";
 import renderRestaurants from "./renderRestaurant";
 
@@ -10,7 +10,7 @@ const renderFavoritePage = (restaurantList) => {
 
   const favoriteCardList = RestaurantCardList(
     restaurantList.favoriteList,
-    eventHandlers.favorite(restaurantList)
+    restaurantCardEvents(restaurantList)
   );
 
   return renderRestaurants(favoriteCardList);

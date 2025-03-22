@@ -4,6 +4,7 @@ import CategoryImage from "./CategoryImage";
 import FavoriteIcon from "./FavoriteIcon";
 
 const RestaurantCard = (restaurant, { clickFavorite, clickCard } = {}) => {
+  console.log(clickFavorite);
   const { category } = restaurant.value;
 
   const restaurantCard = createElement({
