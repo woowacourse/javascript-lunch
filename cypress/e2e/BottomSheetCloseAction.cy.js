@@ -15,7 +15,7 @@ describe("음식점 추가 바텀 시트 닫는 기능 테스트", () => {
   it("음식점 추가 바텀 시트의 백드롭 화면을 클릭했을 때 바텀 시트가 닫힌다.", () => {
     // when
     cy.openForm();
-    cy.get("#submit-form .modal-backdrop").click({ force: true });
+    cy.get("#submit .modal-backdrop").click({ force: true });
 
     // then
     cy.isSubmitModalClose();
@@ -55,7 +55,7 @@ describe("음식점 상세 정보 바텀 시트 닫는 기능 테스트", () => 
     cy.clickAddButton();
 
     cy.openDetailModal();
-    cy.get("#open-detail .modal-backdrop").click({ force: true });
+    cy.get("#detail .modal-backdrop").click({ force: true });
 
     // then
     cy.isDetailModalClose();

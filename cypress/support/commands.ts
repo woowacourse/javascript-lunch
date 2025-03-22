@@ -93,22 +93,22 @@ Cypress.Commands.add("openDetailModal", () => {
 
 Cypress.Commands.add("isSubmitModalOpen", () => {
   // 제출 폼 바텀 시트가 보이는지 확인
-  cy.get("#submit-form").should("have.class", "modal--open");
+  cy.get("#submit").should("have.class", "modal--open");
 });
 
 Cypress.Commands.add("isSubmitModalClose", () => {
   // 제출 폼 바텀 시트가 보이지 않는지 확인
-  cy.get("#submit-form").should("not.have.class", "modal--open");
+  cy.get("#submit").should("not.have.class", "modal--open");
 });
 
 Cypress.Commands.add("isDetailModalOpen", () => {
   // 상세 정보 바텀 시트가 보이는지 확인
-  cy.get("#open-detail").should("have.class", "modal--open");
+  cy.get("#detail").should("have.class", "modal--open");
 });
 
 Cypress.Commands.add("isDetailModalClose", () => {
   // 상세 정보 바텀 시트가 보이지 않는지 확인
-  cy.get("#open-detail").should("not.have.class", "modal--open");
+  cy.get("#detail").should("not.have.class", "modal--open");
 });
 
 Cypress.Commands.add("clickFavoriteButtonInRestaurantList", () => {
@@ -132,7 +132,7 @@ Cypress.Commands.add("checkNotExistRestaurant", () => {
 
 Cypress.Commands.add("checkFavoriteButtonInDetailModal", () => {
   // 상세 정보 바텀 시트에 자주 가는 음식점 버튼 존재하는지 확인
-  cy.get("#open-detail .favorite-button").should("exist").and("be.visible");
+  cy.get("#detail .favorite-button").should("exist").and("be.visible");
 });
 
 Cypress.Commands.add(

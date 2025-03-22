@@ -11,10 +11,10 @@ export function handleOpenSubmitForm(
 export function handleOpenDetail(
   restaurantId: Restaurant["id"],
   store: RestaurantStore,
-  $openDetailBottomSheet: BottomSheetBase | undefined
+  $detailBottomSheet: BottomSheetBase | undefined
 ) {
   store.updateSelectedRestaurant(restaurantId);
-  if ($openDetailBottomSheet) $openDetailBottomSheet.open();
+  if ($detailBottomSheet) $detailBottomSheet.open();
 }
 
 export function handleCloseBottomSheet(

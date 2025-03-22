@@ -35,7 +35,7 @@ export default class App {
   private $restaurantFilter: RestaurantFilter | undefined;
   private $restaurantList: RestaurantList | undefined;
   private $submitFormBottomSheet: BottomSheetBase | undefined;
-  private $openDetailBottomSheet: BottomSheetBase | undefined;
+  private $detailBottomSheet: BottomSheetBase | undefined;
   private $restaurantDetail: RestaurantDetail | undefined;
 
   constructor() {
@@ -60,7 +60,7 @@ export default class App {
         this.#createRestaurantFilter(),
         this.#createRestaurantList(),
         this.#createSubmitFormBottomSheet(),
-        this.#createOpenDetailBottomSheet(),
+        this.#createDetailBottomSheet(),
       ],
       $main
     );
@@ -104,7 +104,7 @@ export default class App {
       onToggleFavorite: (restaurantId: Restaurant["id"]) =>
         handleToggleFavorite(restaurantId, this.store),
       onOpenDetail: (restaurantId: Restaurant["id"]) =>
-        handleOpenDetail(restaurantId, this.store, this.$openDetailBottomSheet),
+        handleOpenDetail(restaurantId, this.store, this.$detailBottomSheet),
     });
 
     return this.$restaurantList.render();
@@ -123,27 +123,27 @@ export default class App {
     });
 
     this.$submitFormBottomSheet = createBottomSheetBase({
-      id: "submit-form",
+      id: "submit",
       $children: $restaurantForm.render(),
     });
 
     return this.$submitFormBottomSheet.render();
   }
 
-  #createOpenDetailBottomSheet() {
+  #createDetailBottomSheet() {
     this.$restaurantDetail = createRestaurantDetail({
       onToggleFavorite: (restaurantId: Restaurant["id"]) =>
         handleToggleFavorite(restaurantId, this.store),
       onDelete: (restaurantId: Restaurant["id"]) =>
         handleDeleteRestaurant(restaurantId, this.store),
-      onClose: () => handleCloseBottomSheet(this.$openDetailBottomSheet),
+      onClose: () => handleCloseBottomSheet(this.$detailBottomSheet),
     });
 
-    this.$openDetailBottomSheet = createBottomSheetBase({
-      id: "open-detail",
+    this.$detailBottomSheet = createBottomSheetBase({
+      id: "detail",
       $children: this.$restaurantDetail.render(),
     });
 
-    return this.$openDetailBottomSheet.render();
+    return this.$detailBottomSheet.render();
   }
 }
