@@ -14,7 +14,7 @@ export function subscribeRestaurantStore(
 
   store.subscribe("restaurantDetail", (state) => {
     if (restaurantDetail) {
-      restaurantDetail.updateAndOpenDetail(state.selectedRestaurant);
+      restaurantDetail.updateDetailContent(state.selectedRestaurant);
     }
   });
 }
