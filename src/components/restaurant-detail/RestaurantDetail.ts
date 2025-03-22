@@ -98,9 +98,9 @@ export default class RestaurantDetail {
   }
 
   #initializeEventListeners() {
-    this.$favoriteButton.addEventListener(EVENT_TYPES.click, () =>
-      this.onToggleFavorite(this.id)
-    );
+    this.$favoriteButton.addEventListener(EVENT_TYPES.click, () => {
+      if (this.id) this.onToggleFavorite(this.id);
+    });
     if (this.$closeButton) {
       this.$closeButton.addEventListener(
         EVENT_TYPES.click,
@@ -140,7 +140,7 @@ export default class RestaurantDetail {
 
   #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    this.onDelete(this.id);
+    if (this.id) this.onDelete(this.id);
     this.onClose();
   }
 }
