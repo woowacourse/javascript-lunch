@@ -20,7 +20,16 @@ const addData = (): RestaurantInfo => {
     formData,
   ) as unknown as FormDataEntries;
 
+  const currentData = getStoredRestaurantData();
+  const maxId =
+    currentData.length > 0
+      ? Math.max(...currentData.map((restaurant) => restaurant.id || 0))
+      : 0;
+
+  const newId = maxId + 1;
+
   const information: RestaurantInfo = {
+    id: newId,
     name: submittedData.name,
     distance: Number(submittedData.distance),
     description: submittedData.description,
@@ -32,7 +41,6 @@ const addData = (): RestaurantInfo => {
     like: false,
   };
 
-  const currentData = getStoredRestaurantData();
   currentData.push(information);
   setStoredRestaurantData(currentData);
   return information;

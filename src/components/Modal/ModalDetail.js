@@ -87,7 +87,7 @@ class ModalDetail extends Modal {
 
   handleDeleteRestaurant() {
     let updatedData = getStoredRestaurantData().filter(
-      (restaurant) => restaurant.name !== this.props.data.name,
+      (restaurant) => restaurant.id !== this.props.data.id,
     );
     setStoredRestaurantData(updatedData);
 
