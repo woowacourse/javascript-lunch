@@ -26,5 +26,4 @@ export const filterRestaurants = (category?: string, sort?: string) => {
   localStorage.setItem("sortType", finalSort);
 
   createRestaurant(filteredData);
-  return filteredData;
 };
