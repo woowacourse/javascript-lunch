@@ -13,10 +13,10 @@ export const updateFavoriteIcon = (
     restaurantInfo
   );
   const target = e.currentTarget;
-  if (!(target instanceof HTMLElement)) return;
+  if (!(target instanceof EventTarget)) return;
 
-  const favoriteIcon = target.children[0];
-  const targetParent = target.parentNode;
+  const favoriteIcon = (target as HTMLElement).children[0];
+  const targetParent = (target as HTMLElement).parentNode;
   if (!(targetParent instanceof HTMLElement)) return;
 
   const isModalFavoriteIcon =
