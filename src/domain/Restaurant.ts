@@ -4,7 +4,7 @@ import { validateEmpty } from "../validate/validateEmpty";
 import { RestaurantValue } from "./types";
 
 class Restaurant {
-  #value;
+  readonly #value: RestaurantValue;
 
   constructor({
     category,
