@@ -24,6 +24,10 @@ class Restaurant {
     validateEmpty(this.#value.distance, ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED);
   }
 
+  static of(value: RestaurantValue) {
+    return new Restaurant(value);
+  }
+
   toggleFavorite() {
     this.#value.isFavorite = !this.#value.isFavorite;
   }

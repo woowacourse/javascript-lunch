@@ -16,9 +16,7 @@ import renderFavoritePage from "./ui/renderFavoritePage.js";
 addEventListener("load", () => {
   initStorage();
 
-  const restaurantListData = storage
-    .loadRestaurantList()
-    .map((restaurantData) => new Restaurant(restaurantData));
+  const restaurantListData = storage.loadRestaurantList().map(Restaurant.of);
   const category = storage.loadCategory();
   const nameOrDistance = storage.loadNameOrDistance();
 
