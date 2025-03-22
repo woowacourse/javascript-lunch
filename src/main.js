@@ -14,12 +14,10 @@ import renderFavoritePage from "./ui/renderFavoritePage.js";
 import Persistence from "./domain/persistence/Persistence.ts";
 
 addEventListener("load", () => {
-  Persistence.init({
-    restaurantList: restaurants,
-    category: "",
-    nameOrDistance: "",
-    tabInfo: "all",
-  });
+  if (Persistence.isEmpty()) {
+    Persistence.init();
+    Persistence.saveRestaurantList(restaurants);
+  }
 
   const restaurantListData = Persistence.loadRestaurantList();
   const category = Persistence.loadCategory();

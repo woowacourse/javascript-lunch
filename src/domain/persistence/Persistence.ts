@@ -1,3 +1,4 @@
+import { isEmpty } from "./../../validate/isEmpty";
 import { STORAGE_KEYS } from "../consts";
 import Restaurant from "../Restaurant";
 import {
@@ -10,6 +11,7 @@ import {
 import LocalPersistence from "./LocalPersistence";
 
 interface PersistenceStrategy {
+  init(): void;
   set<K extends keyof RestaurantAppStorage>(
     key: K,
     value: RestaurantAppStorage[K]
@@ -25,30 +27,34 @@ class Persistence {
     this.#persistenceStrategy = persistenceStrategy;
   }
 
-  init(initData: RestaurantAppStorage) {
+  isEmpty() {
+    if (this.#persistenceStrategy.get(STORAGE_KEYS.RESTAURANT_LIST) === null) {
+      return true;
+    }
+    return false;
+  }
+
+  init() {
     if (this.#persistenceStrategy.get(STORAGE_KEYS.RESTAURANT_LIST)) {
       return;
     }
 
-    this.#persistenceStrategy.set(
-      STORAGE_KEYS.RESTAURANT_LIST,
-      initData.restaurantList
-    );
-    this.#persistenceStrategy.set(STORAGE_KEYS.CATEGORY, initData.category);
-    this.#persistenceStrategy.set(
-      STORAGE_KEYS.NAME_OR_DISTANCE,
-      initData.nameOrDistance
-    );
-    this.#persistenceStrategy.set(STORAGE_KEYS.TAB_INFO, initData.tabInfo);
+    this.#persistenceStrategy.init();
   }
 
   saveRestaurantList(restaurants: Restaurant[]) {
+    console.log("restaurants", restaurants);
     const values = restaurants.map((r) => r.value);
     this.#persistenceStrategy.set(STORAGE_KEYS.RESTAURANT_LIST, values);
   }
 
-  loadRestaurantList(): RestaurantValue[] | null {
-    return this.#persistenceStrategy.get(STORAGE_KEYS.RESTAURANT_LIST);
+  loadRestaurantList(): Restaurant[] | null {
+    const restaurantListValue = this.#persistenceStrategy.get(
+      STORAGE_KEYS.RESTAURANT_LIST
+    );
+    if (restaurantListValue === null) return null;
+
+    return restaurantListValue.map(Restaurant.of);
   }
 
   saveCategory(category: CategoryFilter) {
