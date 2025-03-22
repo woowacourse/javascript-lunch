@@ -2,20 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/javascript-lunch/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>점심 뭐 먹지</title>
-    <link rel="stylesheet" href="src/UI/style/style.css" />
-    <link rel="stylesheet" href="src/UI/components/button/Button.css" />
-    <link rel="stylesheet" href="src/UI/components/header/Header.css" />
-    <link rel="stylesheet" href="src/UI/components/input/Input.css" />
-    <link rel="stylesheet" href="src/UI/components/modal/Modal.css" />
-    <link rel="stylesheet" href="src/UI/components/restaurant/Restaurant.css" />
+    <link rel="stylesheet" href="./public/styles/index.css" />
   </head>
   <body>
     <!-- GNB -->
     <div class="app" id="app">
       <main>
+        <!-- 음식점 토글 -->
+        <section class="restaurant-toggle-container" id="restaurant-toggle-container">
+          <div class="restaurant-toggle">
+            <h3 class="text-subtitle restaurant-toggle-item active" id="all-restaurants">모든 음식점</h3>
+            <h3 class="text-subtitle restaurant-toggle-item" id="favorite-restaurants">자주 가는 음식점</h3>
+          </div>
+        </section>
+
         <!-- 음식점 목록 -->
         <section class="restaurant-list-container">
           <ul class="restaurant-list" id="restaurant-list"></ul>
@@ -24,6 +27,6 @@
         <!-- 음식점 추가 모달 -->
       </main>
     </div>
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

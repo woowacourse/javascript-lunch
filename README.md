@@ -1,6 +1,8 @@
-# 🎯 기능 요구 사항
+# 🔽 기능 요구 사항
 
-점심 식사 스팟 목록을 관리하는 앱을 만든다.
+### 🍚 점심 식사 스팟 목록을 관리하는 앱을 만든다.
+
+### 1단계
 
 - 음식점 목록 페이지를 화면과 같이 구성한다.
 - 음식점 목록에서 우측 상단의 추가 버튼을 눌러 모달 창을 띄우면, 새로운 음식점을 추가할 수 있다.
@@ -13,42 +15,64 @@
   - 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 자유롭게 구현한다.
 - 새로고침 시 이전에 추가한 새로운 음식점 정보는 초기화된다.
 
-# 구현할 기능 목록
+### 2단계
+
+- 음식점의 상세 정보를 확인하고, 자주 가는 음식점으로 지정할 수 있는 기능을 추가한다.
+  - 음식점 목록을 확인할 수 있다.
+    - 카테고리별로 필터링해서 확인할 수 있다.
+    - 이름순/거리순으로 정렬해서 확인할 수 있다.
+  - 음식점 상세 정보를 확인할 수 있다.
+    - 카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다.
+    - 음식점을 삭제할 수 있다.
+  - 자주 가는 음식점을 추가하고 목록으로 확인할 수 있다.
+    - 음식점 목록에서 자주 가는 음식점을 추가할 수 있다.
+    - 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.
+    - 자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다.
+  - 새로고침해도 추가한 정보들이 유지되어야 한다.
+
+# 🔽 구현할 기능 목록
 
 ### 입력
 
-- [x] 가게 카테고리 선택 (필수)
+- [x] 음식점 카테고리 선택 (필수)
   - [x] 아무것도 선택되지 않으면 안된다.
   - [x] 추가하기 버튼이 눌렸을때, "한식", "중식", "일식", "아시안", "양식", "기타" 중 하나 선택
-- [x] 가게 이름 입력 (필수)
+- [x] 음식점 이름 입력 (필수)
   - [x] 이름은 빈 값일 수 없다.
   - [x] 이름은 1글자 이상 20글자 이하여야 한다.
-- [x] 가게 거리 선택 (필수)
+- [x] 음식점 거리 선택 (필수)
   - [x] 아무것도 선택되지 않으면 안된다.
-  - [x] 추가하기 버튼이 눌렸을때, 5, 1-, 15, 20, 30 중 하나 선택
-- [x] 가게 설명 입력
+  - [x] 추가하기 버튼이 눌렸을때, 5, 10, 15, 20, 30 중 하나 선택
+- [x] 음식점 설명 입력
   - [x] 설명은 200자 이내여야 한다.
-- [x] 가게 참고 링크 입력
+- [x] 음식점 참고 링크 입력
   - [x] 프로토콜(https:// or http://)이 접두사로 붙어야 한다.
 
 ### 출력
 
 - [x] 헤더 (제목, 목록 추가 버튼)
   - [x] 목록 추가 버튼 클릭시, 모달창 출력
-- [x] 가게 리스트 출력
-  - [x] 가게 카테고리 아이콘 출력
-  - [x] 가게 이름 출력
-  - [x] 가게 거리 출력
-  - [x] 가게 설명 출력
+- [x] 음식점 리스트 필터링
+  - [x] 카테고리별로 필터링하여 음식점 리스트 출력
+  - [x] 이름순/거리순으로 정렬하여 음식점 리스트 출력
+- [x] 음식점 리스트 출력
+  - [x] 음식점 카테고리 아이콘 출력
+  - [x] 음식점 이름 출력
+  - [x] 음식점 거리 출력
+  - [x] 음식점 설명 출력
+- [x] 음식점 아이템
+  - [x] 음식점 아이템 클릭시, 음식점 상세 모달창 출력
 
 ### 모달 이벤트
 
-- [x] 취소하기
+- [x] 취소하기 & 닫기
   - [x] 버튼 클릭시, 초기화 & 모달 제거
   - [x] esc 입력시, 초기화 & 모달 제거
   - [x] 백그라운드 클릭시, 초기화 & 모달 제거
 - [x] 추가하기
   - [x] 새로운 식당 리스트에 추가
+- [x] 삭제하기
+  - [x] 식당 리스트에서 제거
 
 # 구현할 컴포넌트 목록
 
@@ -57,16 +81,16 @@
 - [x] 헤더 : header
 - [x] 버튼 : common-button
 
-### 가게 목록
+### 음식점 목록
 
-- [x] 가게 목록 아이템 : restaurantItem
-  - [x] 가게 이름, 거리, 설명: restaurantInfo
-    - [x] 가게 이름 : restaurantName
-    - [x] 가게 거리 : restaurantDistance
-    - [x] 가게 설명 : restaurantDescriptions
-  - [x] 가게 아이콘: restaurantIcon
+- [x] 음식점 목록 아이템 : restaurantItem
+  - [x] 음식점 이름, 거리, 설명: restaurantInfo
+    - [x] 음식점 이름 : restaurantName
+    - [x] 음식점 거리 : restaurantDistance
+    - [x] 음식점 설명 : restaurantDescriptions
+  - [x] 음식점 아이콘: restaurantIcon
 
-### 모달
+### 추가하기 모달
 
 - [x] 드롭다운 : input-dropdown
   - [x] 카테고리 : category-dropdown
@@ -76,7 +100,52 @@
 - [x] 입력 아래 설명 : input-descripttion
 - [x] 입력 서브타이틀: input-title
 
+### 음식점 상세 모달
+
+- [x] 음식점 상세 정보를 확인할 수 있다.
+  - [x] 카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다.
+  - [x] 음식점을 삭제할 수 있다.
+- [x] 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.
+
 # E2E 테스트 목록
+
+1. 사용자가 음식점 목록 페이지에서 음식점 추가 기능을 사용할 수 있다.
+
+- 사용자가 음식점 목록에서 우측 상단의 추가 버튼을 눌러 모달 창을 띄운다.
+- 사용자가 모달 창을 닫을 수 있다.
+- 사용자가 모달창의 필수 입력 항목을 입력한 후 추가 버튼을 누르면 음식점 목록에 추가된다.
+
+2. 입력폼 유효성 검사
+
+- 필수 입력 항목을 입력하지 않고 추가 버튼을 누르면 오류 메시지를 확인할 수 있다.
+  - 사용자가 카테고리를 입력하지 않고 추가 버튼을 누르면 오류 메시지를 확인할 수 있다.
+  - 사용자가 이름을 입력하지 않고 추가 버튼을 누르면 오류 메시지를 확인할 수 있다.
+  - 사용자가 거리를 입력하지 않고 추가 버튼을 누르면 오류 메시지를 확인할 수 있다.
+- 유효성 검사
+  - 카테고리 : "한식", "중식", "일식", "아시안", "양식", "기타" 중 하나 필수 선택
+  - 이름 : 1글자 이상 20글자 이하
+  - 거리 : 5, 10, 15, 20, 30 중 하나 필수 선택
+  - 설명 : 200자 이내
+  - 링크 : 프로토콜(https:// or http://)이 접두사로 붙어야함
+
+3. 음식점의 상세 정보를 확인하고, 자주 가는 음식점으로 지정할 수 있는 기능을 추가한다.
+
+- 필터링
+  - 카테고리별로 필터링해서 확인할 수 있다.
+  - 이름순/거리순으로 정렬해서 확인할 수 있다.
+  - 자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다.
+- 상세 모달창
+  - 사용자가 음식점 아이템을 클릭하면 모달창으로 상세 정보를 확인할 수 있다.
+  - 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.
+  - 음식점 상세 정보에서 자주 가는 음식점을 취소할 수 있다.
+  - 닫기 버튼을 누르면 모달창이 닫힌다.
+  - 삭제하기 버튼을 누르면 음식점을 삭제할 수 있다.
+- 자주 가는 음식점을 추가하고 목록으로 확인할 수 있다.
+  - 음식점 목록에서 자주 가는 음식점을 추가할 수 있다.
+  - 음식점 목록에서 자주 가는 음식점을 삭제할 수 있다.
+
+<details>
+<summary>E2E 테스트 상세 목록 보기</summary>
 
 ### init.cy.js
 
@@ -159,58 +228,63 @@
     - [x] 링크 필드 값이 접두사로 'http://'를 갖지 않으면 alert창을 띄운다.
     - [x] 링크 필드 값이 접두사로 'https://'를 갖지 않으면 alert창을 띄운다.
 
-# 프로젝트 구조
+</details>
+
+# 🔽 프로젝트 구조
 
 ```
 javascript-lunch
 ├─ README.md
 ├─ cypress
-│  ├─ e2e
-│  │  ├─ constants
-│  │  │  ├─ testConstant.js
-│  │  │  └─ visitUrl.js
-│  │  ├─ header.cy.js
-│  │  ├─ init.cy.js
-│  │  ├─ modal.cy.js
-│  │  ├─ modalAlert.cy.js
-│  │  └─ modalInput.cy.js
+│  ├─ downloads
+│  └─ e2e
+│     ├─ constants
+│     │  ├─ testConstant.js
+│     │  └─ visitUrl.js
+│     └─ e2e.cy.js
 ├─ index.html
 ├─ public
 │  └─ assets
-│     ├─ add-button.png
-│     ├─ category-asian.png
-│     ├─ category-chinese.png
-│     ├─ category-etc.png
-│     ├─ category-japanese.png
-│     ├─ category-korean.png
-│     ├─ category-western.png
-│     ├─ favorite-icon-filled.png
-│     └─ favorite-icon-lined.png
-├─ src
-│  ├─ Restaurant.js
-│  ├─ RestaurantList.js
-│  ├─ components
-│  │  ├─ Button.js
-│  │  ├─ Header.js
-│  │  ├─ InputDropDown.js
-│  │  ├─ InputText.js
-│  │  ├─ Modal.js
-│  │  ├─ RestaurantIcon.js
-│  │  ├─ RestaurantInfo.js
-│  │  └─ RestaurantItem.js
-│  ├─ constant
-│  │  └─ category.js
-│  ├─ dom.js
-│  ├─ main.js
-│  ├─ modal
-│  │  └─ AddRestaurantModal.js
-│  ├─ style
-│  │  └─ style.css
-│  ├─ utils
-│  │  └─ convertStringToElement.js
-│  └─ validation
-│     └─ validations.js
-├─ templates
-   └─ index.html
+│     ├─ *.png
+│     └─ imgaePaths.js
+└─ src
+   ├─ Domain
+   │  ├─ Restaurant.js
+   │  │  └─ MockRestaurantData.js
+   │  ├─ services
+   │  ├─ data
+   │  │  └─ RestaurantService.js
+   │  └─ validation
+   │     └─ validations.js
+   ├─ UI
+   │  ├─ components              # 재사용 가능한 공통 컴포넌트 (각 컴포넌트별로 css, js를 갖음.)
+   │  │  ├─ button
+   │  │  │  ├─ Button.css
+   │  │  │  └─ Button.js
+   │  │  ├─ header
+   │  │  │  ├─ Header.css
+   │  │  │  └─ Header.js
+   │  │  ├─ input
+   │  │  │  ├─ Input.css
+   │  │  │  ├─ InputDropDown.js
+   │  │  │  └─ InputText.js
+   │  │  ├─ modal
+   │  │  │  ├─ Modal.css
+   │  │  │  └─ Modal.js
+   │  │  └─ restaurant
+   │  │     ├─ Restaurant.css
+   │  │     ├─ RestaurantIcon.js
+   │  │     ├─ RestaurantInfo.js
+   │  │     └─ RestaurantItem.js
+   │  ├─ constant
+   │  │  └─ category.js
+   │  ├─ pages                  # 페이지별 컴포넌트
+   │  │  └─ modal
+   │  │     └─ components
+   │  │        └─ AddRestaurantModal.js
+   │  └─ style
+   │     └─ style.css
+   ├─ dom.js
+   └─ main.js
 
 ```

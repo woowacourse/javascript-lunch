@@ -1,6 +1,6 @@
-import { VISIT_URL_CONSTANT } from './constants/visitUrl.js';
-import { ERROR_MESSAGES } from '../../src/Domain/validation/validations.js';
-import { TEST_CONSTANT } from './constants/testConstant.js';
+import { VISIT_URL_CONSTANT } from './constants/visitUrl';
+import { ERROR_MESSAGES } from '../../src/Domain/validation/validations';
+import { TEST_CONSTANT } from './constants/testConstant';
 
 describe('필수 입력 조건이 만족되지 않았을때, 모달창에서 추가하기 버튼을 클릭하면 Alert창을 띄운다.', () => {
   beforeEach(() => {
