@@ -7,19 +7,19 @@ import helpText from "../constants/helpText.js";
 import options from "../constants/options.js";
 import validate from "../utils/validate.ts";
 import initRenderer from "./initRenderer.js";
+import storeRenderer from "./storeRenderer.js";
 
 const modalRenderer = {
   // 모달창 닫기
-  closeModal: () => {
-    document.querySelector(".modal").classList.remove("modal--open");
-    if (document.querySelector(".modal-form"))
-      document.querySelector(".modal-form").reset();
+  closeModal: (selector) => {
+    document.querySelector(selector).classList.remove("modal--open");
   },
 
   // **모달 입력 폼**
   // 폼 추가
-  addForm: () => {
-    const modalContainer = document.querySelector(".modal-container");
+  addForm: (storeList) => {
+    const modal = document.querySelector(".modal-add-store");
+    const modalContainer = modal.querySelector(".modal-container");
     modalContainer.innerHTML = `<h2 class="modal-title text-title">새로운 음식점</h2>
     <form class="modal-form"></form>`;
 
@@ -48,9 +48,16 @@ const modalRenderer = {
     );
     modalRenderer.addFormCheck();
 
+    document.querySelector("#cancel-button").addEventListener("click", () => {
+      document.querySelector(".modal-form").reset();
+      modalRenderer.closeModal(".modal-add-store");
+    });
+
     document
-      .querySelector("#cancel-button")
-      .addEventListener("click", modalRenderer.closeModal);
+      .querySelector(".modal-form")
+      .addEventListener("submit", (e) =>
+        storeRenderer.updateStore(storeList, e)
+      );
   },
 
   // 버튼 추가
@@ -121,7 +128,8 @@ const modalRenderer = {
 
   // **식당 상세 정보**
   setStoreInfoModal: (store) => {
-    const modalContainer = document.querySelector(".modal-container");
+    const modal = document.querySelector(".modal-store-detail");
+    const modalContainer = modal.querySelector(".modal-container");
     modalContainer.setAttribute("id", store.id);
     modalContainer.innerHTML = StoreDetail(store);
     modalContainer.appendChild(

@@ -21,9 +21,6 @@ const storeRenderer = {
   updateStore: (storeList, e) => {
     const newStore = storeRenderer.createStore(e);
 
-    const categoryFilter = Object.keys(options.sortCategory)[0];
-    const sortFilter = Object.keys(options.sortFilter)[0];
-
     try {
       e.preventDefault();
 
@@ -47,13 +44,16 @@ const storeRenderer = {
         .querySelector(".favorite-restaurant-button")
         .classList.remove("onMenuBar");
 
-      // 새로운 음식점이 추가되는 경우 카테고리/정렬 드롭박스 초기화
-      document.querySelector("#category-filter").value = categoryFilter;
-      document.querySelector("#sorting-filter").value = sortFilter;
+      document
+        .querySelector(".restaurant-filter-container")
+        .classList.add("filter-open");
 
-      storeRenderer.rerenderStoreList(storeList.list);
+      storeList.applyFilterAndSort(false);
 
-      modalRenderer.closeModal();
+      storeRenderer.rerenderStoreList(storeList.filteredList);
+
+      document.querySelector(".modal-form").reset();
+      modalRenderer.closeModal(".modal-add-store");
     } catch (error) {
       storeRenderer.checkRequired("category", newStore.category, error);
       storeRenderer.checkRequired("name", newStore.name, error);
@@ -153,22 +153,18 @@ const storeRenderer = {
 
   // 식당 삭제
   deleteStore: (storeList) => {
-    const storeId = document
-      .querySelector(".modal-container")
-      .getAttribute("id");
+    const modal = document.querySelector(".modal-store-detail");
+    const storeId = modal.querySelector(".modal-container").getAttribute("id");
     window.localStorage.removeItem(JSON.stringify(storeId));
 
     const isFavorite = document
       .querySelector(".onMenuBar")
       .classList.contains("favorite-restaurant-button");
 
-    storeList.deleteStore(storeId);
+    storeList.deleteStore(storeId, isFavorite);
 
-    modalRenderer.closeModal();
+    modalRenderer.closeModal(".modal-store-detail");
     storeRenderer.rerenderStoreList(storeList.filteredList);
-
-    document.querySelector("#category-filter").value = "전체";
-    document.querySelector("#sorting-filter").value = "name";
   },
 
   rerenderStoreList(list) {

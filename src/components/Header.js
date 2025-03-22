@@ -11,7 +11,7 @@ const Header = (title) => {
     `;
 
   document.querySelector(".gnb__button").addEventListener("click", () => {
-    document.querySelector(".modal").classList.add("modal--open");
+    document.querySelector(".modal-add-store").classList.add("modal--open");
   });
 };
 

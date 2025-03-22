@@ -13,11 +13,13 @@ import Header from "./components/Header.js";
 
 addEventListener("load", () => {
   // 초기 세팅
-  Header(uiBasicText.HEADER_TEXT);
   const storeList = initRenderer.setStoreList();
+  Header(uiBasicText.HEADER_TEXT);
   initRenderer.setRestaurantFilter(storeList);
   MenuBar(storeList);
-  Modal(storeList);
+  Modal(storeList, ["modal-add-store"]);
+  modalRenderer.addForm(storeList);
+  Modal(storeList, ["modal-store-detail"]);
 
   // 음식점 리스트
   document.querySelector(".restaurant-list").addEventListener("click", (e) => {
@@ -28,7 +30,6 @@ addEventListener("load", () => {
       const storeId = store.getAttribute("id");
       const icon = store.querySelector(".star-icon");
       storeRenderer.toggleFavorite(storeList, icon, storeId);
-      console.log(storeList.filteredList);
       storeRenderer.rerenderStoreList(storeList.filteredList);
     }
 
@@ -38,19 +39,22 @@ addEventListener("load", () => {
     const storeId = e.target.closest(".restaurant").getAttribute("id");
     const store = storeList.filterByStoreId(storeId);
 
-    document.querySelector(".modal").classList.add("modal--open");
+    document.querySelector(".modal-store-detail").classList.add("modal--open");
     modalRenderer.setStoreInfoModal(store);
 
     document
       .querySelector("#close-button")
-      .addEventListener("click", modalRenderer.closeModal);
+      .addEventListener("click", () =>
+        modalRenderer.closeModal(".modal-store-detail")
+      );
 
     document.querySelector("#delete-button").addEventListener("click", () => {
       storeRenderer.deleteStore(storeList);
     });
 
     // 음식점 상세 정보에서 즐겨찾기 눌렀을 때
-    const icon = document
+    const modal = document.querySelector(".modal-store-detail");
+    const icon = modal
       .querySelector(".modal-container")
       .querySelector(".star-icon");
     icon.addEventListener("click", (e) => {

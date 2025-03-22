@@ -26,8 +26,7 @@ class StoreList {
   // 식당 추가
   updateList(store: IList) {
     this.#list.push(store);
-    this.filterStoreList(Object.keys(options.sortCategory)[0]);
-    this.sortStoreList(Object.keys(options.sortFilter)[0]);
+    this.applyFilterAndSort(false);
   }
 
   // 즐겨찾기 등록
@@ -45,18 +44,19 @@ class StoreList {
   }
 
   filterByMenuBar(menu: string) {
-    if (menu === "모든 음식점") this.#filteredList = this.#list;
-    else if (menu === "자주 가는 음식점") {
+    if (menu === "모든 음식점") {
+      this.filterStoreList("전체");
+      this.sortStoreList("name");
+    } else if (menu === "자주 가는 음식점") {
       this.#filteredList = this.#list.filter((store) => store.isFavorite);
       this.sortStoreList("name");
     }
   }
 
   // 식당 삭제
-  deleteStore(id: string) {
+  deleteStore(id: string, isFavorite: boolean) {
     this.#list = this.#list.filter((store) => store.id !== id);
-    this.filterStoreList(Object.keys(options.sortCategory)[0]);
-    this.sortStoreList(Object.keys(options.sortFilter)[0]);
+    this.applyFilterAndSort(isFavorite);
   }
 
   // id로 식당 정보 찾기
@@ -64,9 +64,17 @@ class StoreList {
     return this.#list.find((store) => store.id === id);
   }
 
+  applyFilterAndSort(isFavorite: boolean) {
+    if (!isFavorite) {
+      this.filterStoreList(this.#category);
+    } else {
+      this.#filteredList = this.#list.filter((store) => store.isFavorite);
+    }
+    this.sortStoreList(this.#sortBy);
+  }
+
   // 카테고리 필터 적용
   filterStoreList(category: string) {
-    console.log(this.#category);
     if (category === "전체") this.#filteredList = this.#list;
     else this.#filteredList = this.#list.filter((l) => l.category === category);
     this.#category = category;
