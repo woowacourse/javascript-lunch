@@ -1,13 +1,16 @@
+import { ALL_OPTION } from "./consts";
 import Restaurant from "./Restaurant";
-import { Category, NameOrDistance } from "./types";
+import { CategoryFilter, NameOrDistanceFilter } from "./types";
 
 class RestaurantList {
   #restaurantList: Restaurant[] = [];
-  #currentCategory: Category = "";
-  #nameOrDistance: NameOrDistance = "";
+  #currentCategory: CategoryFilter;
+  #nameOrDistance: NameOrDistanceFilter;
 
   constructor(restaurantList: Restaurant[] = []) {
     this.#restaurantList = restaurantList;
+    this.#currentCategory = "";
+    this.#nameOrDistance = "";
   }
 
   add(restaurant: Restaurant) {
@@ -42,8 +45,8 @@ class RestaurantList {
     return favoriteList;
   }
 
-  filterByCategory(category: Category, list: Restaurant[]) {
-    if (category === "") {
+  filterByCategory(category: CategoryFilter, list: Restaurant[]) {
+    if (category === ALL_OPTION) {
       return list;
     }
 
@@ -58,11 +61,11 @@ class RestaurantList {
     return [...list].sort((a, b) => a.value.distance - b.value.distance);
   }
 
-  setCategory(category: Category) {
+  setCategory(category: CategoryFilter) {
     this.#currentCategory = category;
   }
 
-  setNameOrDistance(sortBy: NameOrDistance) {
+  setNameOrDistance(sortBy: NameOrDistanceFilter) {
     this.#nameOrDistance = sortBy;
   }
 

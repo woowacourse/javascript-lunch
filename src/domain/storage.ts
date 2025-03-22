@@ -1,5 +1,10 @@
 import Restaurant from "./Restaurant";
-import { Category, NameOrDistance, RestaurantValue, TabInfo } from "./types";
+import {
+  CategoryFilter,
+  NameOrDistanceFilter,
+  RestaurantValue,
+  TabInfo,
+} from "./types";
 
 const storage = {
   saveRestaurantList(value: Restaurant[]) {
@@ -15,21 +20,21 @@ const storage = {
     return restaurantList ? JSON.parse(restaurantList) : null;
   },
 
-  saveCategory(value: Category) {
+  saveCategory(value: CategoryFilter) {
     localStorage.setItem("category", JSON.stringify(value));
   },
 
-  loadCategory(): Category | null {
+  loadCategory(): CategoryFilter | null {
     const category = localStorage.getItem("category");
 
     return category ? JSON.parse(category) : null;
   },
 
-  saveNameOrDistance(value: NameOrDistance) {
+  saveNameOrDistance(value: NameOrDistanceFilter) {
     localStorage.setItem("nameOrDistance", JSON.stringify(value));
   },
 
-  loadNameOrDistance(): NameOrDistance | null {
+  loadNameOrDistance(): NameOrDistanceFilter | null {
     const nameOrDistance = localStorage.getItem("nameOrDistance");
 
     return nameOrDistance ? JSON.parse(nameOrDistance) : null;
