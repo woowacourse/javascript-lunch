@@ -1,10 +1,8 @@
 function renderCaption(caption) {
-  return caption
-    ? `<span class="help-text text-caption">${caption}</span>`
-    : "";
+  return caption ? `<span class="help-text text-caption">${caption}</span>` : "";
 }
 
-export function Input({ isRequired = false, name, label, caption }) {
+export function Input({ isRequired = false, name, label, caption = "" }) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {
@@ -13,9 +11,7 @@ export function Input({ isRequired = false, name, label, caption }) {
 
   container.innerHTML = `
   <label for="link text-caption">${label}</label>
-  <input type="text" name="${name}" id="${name}" ${
-    isRequired ? "required" : ""
-  }/>
+  <input type="text" name="${name}" id="${name}" ${isRequired ? "required" : ""}/>
   ${renderCaption(caption)}
   `;
 

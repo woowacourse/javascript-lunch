@@ -6,7 +6,7 @@ export function TextareaInput({ isRequired = false, name, label, caption }) {
   }
 
   container.innerHTML = `
-                <label for="description text-caption">설명</label>
+                <label for="description text-caption">${label}</label>
               <textarea
                 name=${name}
                 id="description"
@@ -15,7 +15,7 @@ export function TextareaInput({ isRequired = false, name, label, caption }) {
                 ${isRequired ? "required" : ""}
               ></textarea>
               <span class="help-text text-caption"
-                >메뉴 등 추가 정보를 입력해 주세요.</span
+                >${caption}</span
               >
   `;
 

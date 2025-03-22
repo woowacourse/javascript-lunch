@@ -1,9 +1,4 @@
-export function SelectInput({
-  isRequired = false,
-  name,
-  label,
-  optionList = [],
-}) {
+export function SelectInput({ isRequired = false, name, label, optionList = [] }) {
   const container = document.createElement("div");
   container.classList.add("form-item");
   if (isRequired) {

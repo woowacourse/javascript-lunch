@@ -1,0 +1,22 @@
+.alert {
+  position: fixed;
+  top: 128px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  z-index: 1000;
+  display: inline-block;
+  padding: 12.8px 16px;
+  background-color: var(--alert);
+  color: white;
+  border-radius: 160px;
+  animation: fadeDown 0.3s ease;
+}
+@keyframes fadeDown {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

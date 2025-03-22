@@ -1,11 +1,21 @@
 {
-  "rules": {},
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "warn",
+    "prefer-template": "error",
+    "jsx-quotes": ["error", "prefer-double"],
+    "import/prefer-default-export": "off",
+    "newline-before-return": "error",
+    "padding-line-between-statements": ["error", { "blankLine": "always", "prev": "function", "next": "function" }]
+  },
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"]
 }
