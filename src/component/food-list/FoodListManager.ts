@@ -1,4 +1,4 @@
-import { removeStoredFoodItem, storeFoodItems } from "../../managers/storageManagers.ts";
+import { storeFoodItems } from "../../managers/storageManagers.ts";
 import { FoodItemType } from "../../types/food.ts";
 import { filterFoodItemsByCategory } from "./util/filterFoodItems.ts";
 import { sortFoodItem } from "./util/sortFoodItem.ts";
@@ -42,7 +42,6 @@ export default class FoodListManager {
   }
 
   deleteFoodItem(id: string) {
-    removeStoredFoodItem(id);
     this.#foodItems = this.#foodItems.filter((foodItem) => foodItem.id !== id);
     storeFoodItems(this.#foodItems);
   }
