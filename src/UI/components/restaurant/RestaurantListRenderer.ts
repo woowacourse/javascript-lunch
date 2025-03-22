@@ -1,6 +1,5 @@
 import Restaurant from '../../../Domain/Restaurant';
 import RestaurantItem from './RestaurantItem';
-import RestaurantDetailModal from '../../pages/modal/components/RestaurantDetailModal';
 import {
   getFilteredRestaurants,
   addRestaurantEventListener,
