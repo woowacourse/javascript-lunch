@@ -1,21 +1,15 @@
 import Restaurant from '../Restaurant';
 import { validateDropDown, validateName, validateDescription, validateLink } from '../validation/validations';
 import {
-  mockRestaurantData,
-  saveRestaurantData,
-  addRestaurant as addRestaurantToData,
-  updateRestaurant as updateRestaurantInData,
-  deleteRestaurant as deleteRestaurantFromData,
-} from '../data/MockRestaurantData';
+  getRestaurantData,
+  addRestaurant as addRestaurantToStorage,
+  updateRestaurant as updateRestaurantInStorage,
+  deleteRestaurant as deleteRestaurantFromStorage,
+} from '../data/RestaurantStorage';
 import { RestaurantData } from '../types/RestaurantTypes';
 
 export type RestaurantEventType = 'add' | 'delete' | 'favorite' | 'update';
 export type RestaurantEventListener = (eventType: RestaurantEventType, restaurant: Restaurant) => void;
-
-let restaurantList: Restaurant[] = mockRestaurantData.map(
-  (data) =>
-    new Restaurant(data.name, data.distance, data.category, data.description, data.link, data.isFavorite || false),
-);
 
 const eventListeners: RestaurantEventListener[] = [];
 
@@ -34,10 +28,16 @@ const notifyListeners = (eventType: RestaurantEventType, restaurant: Restaurant)
   eventListeners.forEach((listener) => listener(eventType, restaurant));
 };
 
-export const getRestaurantList = (): Restaurant[] => [...restaurantList];
+export const getRestaurantList = (): Restaurant[] => {
+  const restaurantData = getRestaurantData();
+  return restaurantData.map(
+    (data) =>
+      new Restaurant(data.name, data.distance, data.category, data.description, data.link, data.isFavorite || false),
+  );
+};
 
 export const getFilteredRestaurants = (category: string, sortBy: string): Restaurant[] => {
-  let filteredList = [...restaurantList];
+  let filteredList = getRestaurantList();
 
   if (category !== '전체') {
     filteredList = filteredList.filter((restaurant) => restaurant.getCategory() === category);
@@ -82,32 +82,26 @@ export const addRestaurant = (restaurantData: RestaurantData): Restaurant => {
     restaurantData.isFavorite || false,
   );
 
-  restaurantList = [...restaurantList, newRestaurant];
-
-  // localStorage에 저장
-  addRestaurantToData(restaurantData);
-
+  addRestaurantToStorage(restaurantData);
   notifyListeners('add', newRestaurant);
 
   return newRestaurant;
 };
 
 export const deleteRestaurant = (restaurant: Restaurant): void => {
+  const restaurantList = getRestaurantList();
   const index = restaurantList.findIndex(
     (r) => r.getName() === restaurant.getName() && r.getCategory() === restaurant.getCategory(),
   );
 
   if (index !== -1) {
-    restaurantList = restaurantList.filter((r) => r !== restaurant);
-
-    // localStorage에서 삭제
-    deleteRestaurantFromData(index);
-
+    deleteRestaurantFromStorage(index);
     notifyListeners('delete', restaurant);
   }
 };
 
 export const toggleFavorite = (restaurant: Restaurant): void => {
+  const restaurantList = getRestaurantList();
   const index = restaurantList.findIndex(
     (r) => r.getName() === restaurant.getName() && r.getCategory() === restaurant.getCategory(),
   );
@@ -115,7 +109,6 @@ export const toggleFavorite = (restaurant: Restaurant): void => {
   if (index !== -1) {
     restaurant.toggleFavorite();
 
-    // localStorage에 업데이트
     const updatedData: RestaurantData = {
       name: restaurant.getName(),
       distance: restaurant.getDistance(),
@@ -125,8 +118,7 @@ export const toggleFavorite = (restaurant: Restaurant): void => {
       isFavorite: restaurant.isFavorite(),
     };
 
-    updateRestaurantInData(index, updatedData);
-
+    updateRestaurantInStorage(index, updatedData);
     notifyListeners('favorite', restaurant);
   }
 };

@@ -1,7 +1,6 @@
 import { RestaurantData } from '../types/RestaurantTypes';
 
-// 초기 레스토랑 데이터
-const initialRestaurantData: RestaurantData[] = [
+export const InitialRestaurantData: RestaurantData[] = [
   {
     name: '피양콩할마니',
     distance: '10',
@@ -42,52 +41,3 @@ const initialRestaurantData: RestaurantData[] = [
     description: '멕시칸 캐주얼 그릴',
   },
 ];
-
-// localStorage에서 데이터 가져오기 또는 초기 데이터 사용
-const getRestaurantData = (): RestaurantData[] => {
-  // 브라우저 환경인지 확인 (SSR 대응)
-  if (typeof window === 'undefined') {
-    return initialRestaurantData;
-  }
-
-  const storedData = localStorage.getItem('restaurantData');
-  return storedData ? JSON.parse(storedData) : initialRestaurantData;
-};
-
-// localStorage에 데이터 저장
-export const saveRestaurantData = (data: RestaurantData[]): void => {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('restaurantData', JSON.stringify(data));
-  }
-};
-
-// 레스토랑 데이터 가져오기
-export let mockRestaurantData: RestaurantData[] = getRestaurantData();
-
-// 레스토랑 추가 함수
-export const addRestaurant = (restaurant: RestaurantData): void => {
-  const updatedData = [...mockRestaurantData, restaurant];
-  // 전역 변수 업데이트
-  mockRestaurantData = updatedData;
-  // localStorage에 저장
-  saveRestaurantData(updatedData);
-};
-
-// 레스토랑 수정 함수
-export const updateRestaurant = (index: number, restaurant: RestaurantData): void => {
-  const updatedData = [...mockRestaurantData];
-  updatedData[index] = restaurant;
-  // 전역 변수 업데이트
-  mockRestaurantData = updatedData;
-  // localStorage에 저장
-  saveRestaurantData(updatedData);
-};
-
-// 레스토랑 삭제 함수
-export const deleteRestaurant = (index: number): void => {
-  const updatedData = mockRestaurantData.filter((_, i) => i !== index);
-  // 전역 변수 업데이트
-  mockRestaurantData = updatedData;
-  // localStorage에 저장
-  saveRestaurantData(updatedData);
-};
