@@ -1,63 +1,25 @@
 import { Restaurant } from "../../types/Restaurant.ts";
 
-type StorageKey = "restaurants";
+const STORAGE_KEY = "restaurants";
 
-const STORAGE_KEYS: Record<string,StorageKey> = {
-  RESTAURANTS: "restaurants",
-};
-
-export function getStoredRestaurants():Restaurant[] | null{
+export function loadRestaurants(): Restaurant[] | null {
   try {
-    const storedData = localStorage.getItem(STORAGE_KEYS.RESTAURANTS);
-    return storedData ? JSON.parse(storedData) : null;
+    const storedData = localStorage.getItem(STORAGE_KEY);
+    if (!storedData) return null;
+    
+    return JSON.parse(storedData) as Restaurant[];
   } catch (error) {
-    console.error("레스토랑 데이터를 불러오는데 실패했습니다:", error);
+    console.error("localStorage에서 데이터 로드 중 오류 발생:", error);
     return null;
   }
 }
 
-
-export function storeRestaurants(restaurants: Restaurant[]): void {
+export function saveRestaurants(restaurants: Restaurant[]): boolean {
   try {
-    localStorage.setItem(STORAGE_KEYS.RESTAURANTS, JSON.stringify(restaurants));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(restaurants));
+    return true;
   } catch (error) {
-    console.error("레스토랑 데이터를 저장하는데 실패했습니다:", error);
+    console.error("localStorage에 데이터 저장 중 오류 발생:", error);
+    return false;
   }
-}
-
-// localStorage 초기화하기
-export function clearLocalStorage():void {
-  try {
-    // 특정 데이터만 삭제
-    localStorage.removeItem(STORAGE_KEYS.RESTAURANTS);
-    console.log("localStorage가 초기화되었습니다.");
-
-    // 페이지 새로고침
-    window.location.reload();
-  } catch (error) {
-    console.error("localStorage 초기화에 실패했습니다:", error);
-  }
-}
-
-declare global {
-  interface Window {
-    clearLocalStorage: () => void;
-  }
-}
-window.clearLocalStorage = clearLocalStorage;
-
-// localStorage에서 레스토랑 데이터 초기화하기
-export function initializeRestaurants(initialData: Restaurant[]): Restaurant[] {
-  const storedRestaurants = getStoredRestaurants();
-
-  if (!storedRestaurants) {
-    storeRestaurants(initialData);
-    return initialData;
-  }
-
-  return storedRestaurants.map(restaurant => ({
-    ...restaurant,
-    id: String(restaurant.id),
-    distance: String(restaurant.distance)
-  }));
 }

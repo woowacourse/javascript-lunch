@@ -1,74 +1,8 @@
 import { Restaurant } from "../../types/Restaurant.ts";
-import {
-  initializeRestaurants,
-  storeRestaurants,
-} from "../utils/localStorage.ts";
+import { loadRestaurants, saveRestaurants } from "../utils/localStorage.ts";
 
 type Listener = (restaurants: Restaurant[]) => void;
 
-class RestaurantStore {
-  private restaurants: Restaurant[] = [];
-  private listeners: Listener[] = [];
-
-  constructor(defaultRestaurants: Restaurant[]) {
-    this.restaurants = initializeRestaurants(defaultRestaurants);
-    this.listeners = [];
-  }
-
-  getRestaurants(): Restaurant[] {
-    return [...this.restaurants];
-  }
-
-  getById(id: string): Restaurant | undefined {
-    //타입 출력해바야겠다.
-    return this.restaurants.find((restaurant) => restaurant.id === id);
-  }
-
-  addRestaurant(restaurant: Restaurant): void {
-    this.restaurants.push(restaurant);
-    this._persist();
-    this._notifyListeners();
-  }
-
-  updateRestaurant(id: string, updates: Partial<Restaurant>): boolean {
-    const index = this.restaurants.findIndex((r) => r.id === id);
-    if (index === -1) return false;
-
-    this.restaurants[index] = { ...this.restaurants[index], ...updates };
-    this._persist();
-    this._notifyListeners();
-    return true;
-  }
-
-  deleteRestaurant(id: string): boolean {
-    const initialLength = this.restaurants.length;
-    this.restaurants = this.restaurants.filter(
-      (restaurant) => restaurant.id !== id
-    );
-
-    if (this.restaurants.length !== initialLength) {
-      this._persist();
-      this._notifyListeners();
-      return true;
-    }
-    return false;
-  }
-
-  subscribe(listener: Listener): () => void {
-    this.listeners.push(listener);
-    return () => {
-      this.listeners = this.listeners.filter((l) => l !== listener);
-    };
-  }
-
-  private _persist(): void {
-    storeRestaurants(this.restaurants);
-  }
-
-  private _notifyListeners(): void {
-    this.listeners.forEach((listener) => listener(this.restaurants));
-  }
-}
 
 const defaultRestaurants: Restaurant[] = [
   {
@@ -130,4 +64,108 @@ const defaultRestaurants: Restaurant[] = [
   },
 ];
 
-export const restaurantStore = new RestaurantStore(defaultRestaurants);
+class RestaurantStore {
+  private restaurants: Restaurant[] = [];
+  private listeners: Listener[] = [];
+  private initialized: boolean = false;
+
+  constructor() {
+    // 생성자에서는 데이터 초기화를 하지 않음
+    this.restaurants = [];
+    this.listeners = [];
+  }
+
+  
+  initialize(): void {
+    if (this.initialized) return;
+    
+    // localStorage에서 데이터 로드 시도
+    const storedRestaurants = loadRestaurants();
+    
+    // 저장된 데이터가 없으면 기본값 사용
+    this.restaurants = storedRestaurants || [...defaultRestaurants];
+    this.initialized = true;
+  }
+
+  getRestaurants(): Restaurant[] {
+    // 초기화 확인
+    if (!this.initialized) {
+      this.initialize();
+    }
+    return [...this.restaurants];
+  }
+
+  
+  getById(id: string): Restaurant | undefined {
+    // 초기화 확인
+    if (!this.initialized) {
+      this.initialize();
+    }
+    return this.restaurants.find((restaurant) => restaurant.id === id);
+  }
+
+ 
+  addRestaurant(restaurant: Restaurant): void {
+    // 초기화 확인
+    if (!this.initialized) {
+      this.initialize();
+    }
+    this.restaurants.push(restaurant);
+    this._persist();
+    this._notifyListeners();
+  }
+
+
+  updateRestaurant(id: string, updates: Partial<Restaurant>): boolean {
+    // 초기화 확인
+    if (!this.initialized) {
+      this.initialize();
+    }
+    
+    const index = this.restaurants.findIndex((r) => r.id === id);
+    if (index === -1) return false;
+
+    this.restaurants[index] = { ...this.restaurants[index], ...updates };
+    this._persist();
+    this._notifyListeners();
+    return true;
+  }
+
+
+  deleteRestaurant(id: string): boolean {
+    // 초기화 확인
+    if (!this.initialized) {
+      this.initialize();
+    }
+    
+    const initialLength = this.restaurants.length;
+    this.restaurants = this.restaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
+
+    if (this.restaurants.length !== initialLength) {
+      this._persist();
+      this._notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  subscribe(listener: Listener): () => void {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter((l) => l !== listener);
+    };
+  }
+
+  private _persist(): void {
+    saveRestaurants(this.restaurants);
+  }
+
+  private _notifyListeners(): void {
+    this.listeners.forEach((listener) => listener(this.restaurants));
+  }
+}
+
+
+export const restaurantStore = new RestaurantStore();
