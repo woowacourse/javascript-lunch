@@ -126,9 +126,7 @@ export default class RestaurantForm {
     key: K
   ): Restaurant[K] {
     const element = this.formElements[key];
-    if (!element) {
-      return "" as Restaurant[K];
-    }
+    if (!element) return "" as Restaurant[K];
 
     const selectorMap = {
       category: "select",

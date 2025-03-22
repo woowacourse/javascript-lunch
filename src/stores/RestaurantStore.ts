@@ -1,4 +1,4 @@
-import { FilterOptions, Restaurant } from "../../types";
+import { FilterOptions, Restaurant, Uuid } from "../../types";
 import { CATEGORY, LABEL_KEYS, NAV_BAR_KEYS } from "../constants";
 import generateUUID from "../utils/generateUUID.js";
 
@@ -11,6 +11,16 @@ interface StoreState {
   selectedRestaurant: Restaurant;
 }
 
+const DEFAULT_RESTAURANT: Restaurant = {
+  id: "" as Uuid,
+  category: "한식",
+  name: "",
+  distance: "5",
+  description: "",
+  link: "https://",
+  isFavorite: false,
+} as const;
+
 export default class RestaurantStore {
   #restaurants: StoreState["restaurants"] = [];
   #currentFilter: StoreState["currentFilter"] = {
@@ -20,7 +30,7 @@ export default class RestaurantStore {
       sortFilterType: "name",
     },
   };
-  #selectedRestaurant: Restaurant = {} as Restaurant;
+  #selectedRestaurant: Restaurant | null = null;
   #listeners: Listeners = new Map();
 
   constructor() {
@@ -32,7 +42,7 @@ export default class RestaurantStore {
       restaurants: this.#restaurants,
       filteredRestaurants: this.getFilteredRestaurants(this.#currentFilter),
       currentFilter: this.#currentFilter,
-      selectedRestaurant: this.#selectedRestaurant,
+      selectedRestaurant: this.#selectedRestaurant ?? DEFAULT_RESTAURANT,
     };
   }
 
