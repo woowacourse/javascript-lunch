@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let detailModal: RestaurantDetailModal | null = null;
 
   // 레스토랑 리스트 렌더러 초기화
-  const restaurantListRenderer = RestaurantListRenderer.getInstance((restaurant: Restaurant) => {
+  const restaurantListRenderer = new RestaurantListRenderer((restaurant: Restaurant) => {
     if (!detailModal) {
       detailModal = new RestaurantDetailModal(restaurant, () => restaurantListRenderer.refreshRestaurantList());
       if (DOM.APP) {

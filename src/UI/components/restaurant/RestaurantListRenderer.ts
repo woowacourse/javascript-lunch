@@ -8,14 +8,13 @@ import {
 import './Restaurant.css';
 
 class RestaurantListRenderer {
-  private static instance: RestaurantListRenderer;
   private currentCategory: string = '전체';
   private currentSortBy: string = 'name';
   private showOnlyFavorites: boolean = false;
   private listElement: HTMLUListElement;
   private onRestaurantClick: (restaurant: Restaurant) => void;
 
-  private constructor(onRestaurantClick: (restaurant: Restaurant) => void) {
+  constructor(onRestaurantClick: (restaurant: Restaurant) => void) {
     this.onRestaurantClick = onRestaurantClick;
     this.listElement = document.createElement('ul');
     this.listElement.id = 'restaurant-list';
@@ -28,13 +27,6 @@ class RestaurantListRenderer {
 
   private handleRestaurantEvent(eventType: RestaurantEventType, restaurant: Restaurant): void {
     this.refreshRestaurantList();
-  }
-
-  public static getInstance(onRestaurantClick: (restaurant: Restaurant) => void): RestaurantListRenderer {
-    if (!RestaurantListRenderer.instance) {
-      RestaurantListRenderer.instance = new RestaurantListRenderer(onRestaurantClick);
-    }
-    return RestaurantListRenderer.instance;
   }
 
   public renderRestaurantList(restaurantList: Restaurant[]): void {
