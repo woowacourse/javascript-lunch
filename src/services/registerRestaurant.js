@@ -1,10 +1,22 @@
-import { ERROR_MESSAGE } from "../../constants/error";
-import { clearError } from "../../utils/clearError";
-import { $ } from "../../utils/dom";
-import { isEmpty } from "../../validate/isEmpty";
-import { isValidStringLength } from "../../validate/isValidStringLength";
+import Persistence from "../domain/persistence/Persistence";
+import Restaurant from "../domain/Restaurant";
+import { ERROR_MESSAGE } from "../constants/error";
+import { clearError } from "../utils/clearError";
+import { isEmpty } from "../validate/isEmpty";
+import { isValidStringLength } from "../validate/isValidStringLength";
+import { $ } from "../utils/dom";
 
-export const getInfo = () => {
+const registerRestaurant = (restaurantList) => {
+  const info = getInfo();
+  const restaurant = new Restaurant(info);
+
+  restaurantList.add(restaurant);
+  Persistence.saveRestaurantList(restaurantList.value);
+};
+
+export default registerRestaurant;
+
+const getInfo = () => {
   const form = $("#register-form");
   const formData = new FormData(form);
   const info = Object.fromEntries(formData.entries());
