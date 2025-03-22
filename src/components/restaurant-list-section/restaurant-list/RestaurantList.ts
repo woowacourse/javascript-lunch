@@ -12,8 +12,8 @@ export default class RestaurantList {
   private onToggleFavorite: RestaurantListCallbackProps["onToggleFavorite"];
   private onOpenDetail: RestaurantListCallbackProps["onOpenDetail"];
 
-  private $listSection!: HTMLElement;
-  private $list!: HTMLUListElement;
+  private $listSection: HTMLElement = document.createElement("section");
+  private $list: HTMLUListElement = document.createElement("ul");
 
   constructor(
     restaurantList: Restaurant[],
@@ -27,9 +27,7 @@ export default class RestaurantList {
   }
 
   #initializeDOM() {
-    this.$listSection = document.createElement("section");
     this.$listSection.className = "restaurant-list-container";
-    this.$list = document.createElement("ul");
     this.$list.className = "restaurant-list";
     this.$listSection.append(this.$list);
   }

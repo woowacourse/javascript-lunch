@@ -16,7 +16,7 @@ interface RestaurantFilterProps {
 export default class RestaurantFilter {
   private onFilterChange: FilterChangeCallback;
   private currentFilterType: FilterOptions["filterType"];
-  private $filterContainer!: HTMLElement;
+  private $filterContainer: HTMLElement = document.createElement("section");
 
   constructor({ onFilterChange }: RestaurantFilterProps) {
     this.onFilterChange = onFilterChange;
@@ -28,7 +28,6 @@ export default class RestaurantFilter {
   }
 
   render() {
-    this.$filterContainer = document.createElement("section");
     this.$filterContainer.className = "restaurant-filter-container";
 
     this.#renderFilterCategory();
