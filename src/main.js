@@ -17,25 +17,8 @@ addEventListener("load", () => {
   const storeList = initRenderer.setStoreList();
   initRenderer.setRestaurantFilter(storeList);
   MenuBar(storeList);
-  // initRenderer.initUI();
 
-  Modal();
-  modalRenderer.addForm();
-
-  // 메뉴 추가 버튼
-  document.querySelector(".gnb__button").addEventListener("click", () => {
-    document.querySelector(".modal").classList.add("modal--open");
-
-    document
-      .querySelector(".modal-form")
-      .addEventListener("submit", (e) =>
-        storeRenderer.updateStore(storeList, e)
-      );
-
-    document
-      .querySelector(".modal-backdrop")
-      .addEventListener("click", modalRenderer.closeModal);
-  });
+  Modal(storeList);
 
   // 음식점 리스트
   document.querySelector(".restaurant-list").addEventListener("click", (e) => {

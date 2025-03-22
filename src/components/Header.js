@@ -9,6 +9,10 @@ const Header = (title) => {
       <img src=${IMG_SRC.MODAL_ICON_SRC} alt="음식점 추가" />
     </button>
     `;
+
+  document.querySelector(".gnb__button").addEventListener("click", () => {
+    document.querySelector(".modal").classList.add("modal--open");
+  });
 };
 
 export default Header;
