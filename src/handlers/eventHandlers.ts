@@ -1,4 +1,4 @@
-import stateStore from '../store/stateStore.ts';
+import stateStore, { RestaurantModalData } from '../store/stateStore.ts';
 import { restaurantStore, getNextRestaurantId, addRestaurant, deleteRestaurant } from '../store/restaurantStore.ts';
 import { updateRestaurantListBasedOnActiveTab } from '../utils/updateRestaurantList.ts';
 
@@ -171,16 +171,7 @@ let formSubmitHandler: (event: SubmitEvent) => void;
 
 function registerEventHandlers(
   addNewRestaurantItem: () => void,
-  openRestaurantModal: (data: {
-    id: number;
-    category: string;
-    name: string;
-    distance: string;
-    description: string;
-    image: string;
-    isFavorite: boolean;
-    link: string;
-  }) => void,
+  openRestaurantModal: (data: RestaurantModalData) => void,
 ) {
   const gnbButton = document.querySelector('.gnb__button');
   const closeButton = document.querySelector('.button--secondary');

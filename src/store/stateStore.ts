@@ -8,6 +8,11 @@ export interface State {
   isFavorite: boolean;
 }
 
+export type RestaurantModalData = Omit<State, 'distance'> & {
+  distance: string;
+  image: string;
+};
+
 const initialState: State = {
   id: 7,
   category: '',
