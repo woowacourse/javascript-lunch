@@ -7,7 +7,7 @@ import { SelectBox } from "./SelectBox.js";
 import { TextareaBox } from "./TextareaBox.js";
 
 export function StoreDeleteForm(dataID) {
-  const lunchItem = restuarantData.get().find(({ id }) => id === dataID);
+  const lunchItem = restuarantData.find(dataID);
 
   function template() {
     return `
