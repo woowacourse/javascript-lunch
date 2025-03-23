@@ -34,7 +34,7 @@ export default class RestaurantDetailModal {
   }
 
   handleStarIconClick(e: MouseEvent) {
-    let { name, isFavorite } = this.restaurant;
+    const { name, isFavorite } = this.restaurant;
 
     const starIcon = (e.target as HTMLElement).closest(
       ".star-icon"
@@ -50,7 +50,7 @@ export default class RestaurantDetailModal {
   }
 
   addRestaurantDetail() {
-    let { category, name, distance, description, link, isFavorite } =
+    const { category, name, distance, description, link, isFavorite } =
       this.restaurant;
 
     const container = document.querySelector(
@@ -105,8 +105,7 @@ export default class RestaurantDetailModal {
       this.close();
     });
     this.modalElement.addEventListener("click", (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest("#detail-modal-container")) {
+      if (event.target === event.currentTarget) {
         this.close();
       }
     });
