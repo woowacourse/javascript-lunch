@@ -108,12 +108,10 @@ input[name="link"] {
 .button--secondary {
   border: 1px solid var(--grey-300);
   background: transparent;
-
   color: var(--grey-300);
 }
 
 .button--primary {
   background: var(--primary-color);
-
   color: var(--grey-100);
 }

@@ -1,0 +1,48 @@
+.icon-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-restaurant__info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0 32px;
+  padding: 0 10px;
+}
+
+.detail-restaurant__name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.detail-restaurant__distance {
+  color: var(--primary-color);
+}
+
+.detail-restaurant__link {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  color: var(--grey-500);
+}
+
+.detail-button-box {
+  display: flex;
+}
+
+.detail-delete-button {
+  border: 1px solid var(--grey-300);
+  background: transparent;
+
+  color: var(--grey-300);
+}
+
+.detail-close-button {
+  background: var(--primary-color);
+
+  color: var(--grey-100);
+}

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/constants.js";
+import { ERROR_MESSAGE } from "../constants/constants";
 import validateRestaurant from "./validateRestaurant.js";
 
 describe("음식점 이름 테스트", () => {
