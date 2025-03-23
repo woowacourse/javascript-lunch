@@ -6,7 +6,6 @@ export const restaurantStore: State[] = initRestaurantStore();
 export function addRestaurant(newRestaurant: State) {
   restaurantStore.push(newRestaurant);
   localStorage.setItem('restaurantStore', JSON.stringify(restaurantStore));
-  console.log(restaurantStore);
 }
 
 export function getNextRestaurantId() {

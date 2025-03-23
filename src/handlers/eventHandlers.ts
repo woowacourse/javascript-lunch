@@ -127,7 +127,6 @@ function handleRestaurantClick(
 
   const restaurantId = restaurantItem.getAttribute('data-id') ? Number(restaurantItem.getAttribute('data-id')) : 0;
   const altValue = restaurantItem.querySelector('.category-icon')?.getAttribute('alt') || '';
-  console.log(altValue);
   const restaurantName = restaurantItem.querySelector('.restaurant__name')?.textContent || '';
   const restaurantDistance = restaurantItem.querySelector('.restaurant__distance')?.textContent || '';
   const numericValue = restaurantDistance.match(/\d+/)?.[0] || '';
