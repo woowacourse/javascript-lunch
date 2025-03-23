@@ -1,6 +1,6 @@
 import selectedFilterValue from "../../domain/SelectedFilterValue";
 import createElement from "../../util/createElement";
-import createTabButton from "../../util/createTabButton";
+import TabButton from "../util/TabButton";
 import Restaurant from "./Restaurant";
 
 const TAB_TITLE_ALL = "모든 음식점"
@@ -12,13 +12,13 @@ export default function RestaurantFilterTabs() {
         classNames: ["restaurant-filter-tabs"],
     });
     
-    const $allTab = createTabButton({
+    const $allTab = TabButton({
         className: "all-tab",
         text: TAB_TITLE_ALL,
         isWishTab: false,
     });
 
-    const $wishTab = createTabButton({
+    const $wishTab = TabButton({
         className: "wish-tab",
         text: TAB_TITLE_WISH,
         isWishTab: true,

@@ -7,7 +7,7 @@ import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import selectedFilterValue from "../../domain/SelectedFilterValue.js";
 
 import filterRestaurantDataList from "../../util/filterRestaurantDataList.js";
-import reRenderRestaurantListContainer from "../../util/reRenderRestaurantListContainer.js";
+import reRenderRestaurantListContainer from "./util/reRenderRestaurantListContainer.js";
 import RestaurantFilterTabs from "./RestaurantFilterTabs.js";
 import Modal from "../util/Modal.js";
 
