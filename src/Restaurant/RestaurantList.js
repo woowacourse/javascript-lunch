@@ -1,10 +1,10 @@
-import "./RestaurantList.css";
 import { restaurantsData } from "../../public/database/restaurants";
-import renderRestaurantElement from "./RestaurantItem";
-import createCategoryFilter from "../components/Filter/CategoryFilter";
-import createSortFilter from "../components/Filter/SortFilter";
-import StorageItem from "./StorageManager";
+import createCategoryFilter from "../components/Filter/CreateCategoryFilter";
+import createSortFilter from "../components/Filter/CreateSortFilter";
 import { STORAGE_KEYS } from "../constants/storageKey";
+import renderRestaurantElement from "./RestaurantItem";
+import "./RestaurantList.css";
+import StorageItem from "./StorageManager";
 
 class RestaurantList {
   selectedCategory;
