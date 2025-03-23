@@ -12,9 +12,9 @@ addEventListener("load", () => {
   const restaurantsData = restaurants.getFromLocalStorage();
 
   const filter = new Filter();
-  const filteredItem = filter.filter(restaurantsData);
+  // const filteredRestaurants = filter.filter(restaurantsData);
 
-  RestaurantList(filteredItem, restaurants);
+  RestaurantList(restaurants, filter);
 
   $("#app").prepend(
     header({

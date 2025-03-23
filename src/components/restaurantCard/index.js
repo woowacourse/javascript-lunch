@@ -15,7 +15,11 @@ import RestaurantList from "../restaurantList";
 import CategoryImage from "./categoryImage";
 import RestaurantInfo from "./restaurantInfo";
 
-const RestaurantCard = (restaurantData, restaurants) => {
+const RestaurantCard = (
+  restaurantData,
+  restaurantsInstance,
+  filterInstance
+) => {
   const { id, category, name, distance, description, favorite } =
     restaurantData.info;
   const restaurantCard = document.createElement("li");
@@ -31,16 +35,17 @@ const RestaurantCard = (restaurantData, restaurants) => {
       favorite,
       toggleFavoriteMark: () => {
         restaurantData.toggleFavoriteMark();
-        RestaurantList(restaurants.restaurants);
+        RestaurantList(restaurantsInstance, filterInstance);
       },
-      handleClickTitle: () => handleClickTitle(restaurantData, restaurants),
+      handleClickTitle: () =>
+        handleClickTitle(restaurantData, restaurantsInstance, filterInstance),
     })
   );
 
   return restaurantCard;
 };
 
-function handleClickTitle(restaurantData, restaurants) {
+function handleClickTitle(restaurantData, restaurantsInstance, filterInstance) {
   const { category, name, distance, description, favorite, link } =
     restaurantData.info;
   $(".modal-backdrop").classList.add("open");
@@ -64,9 +69,8 @@ function handleClickTitle(restaurantData, restaurants) {
         onClick: () => {
           const isConfirm = confirm("정말 삭제하시겠습니까?");
           if (isConfirm) {
-            RestaurantList(
-              restaurants.deleteRestaurant(restaurantData.info.id)
-            );
+            restaurantsInstance.deleteRestaurant(restaurantData.info.id);
+            RestaurantList(restaurantsInstance, filterInstance);
             modalClose();
           }
         },
@@ -78,7 +82,7 @@ function handleClickTitle(restaurantData, restaurants) {
         style: "button--primary",
         onClick: () => {
           modalClose();
-          RestaurantList(restaurants.restaurants);
+          RestaurantList(restaurantsInstance, filterInstance);
         },
         id: "close-button",
       }),
