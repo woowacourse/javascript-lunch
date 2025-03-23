@@ -91,26 +91,20 @@ class RestaurantList {
 
   renderAllTabData() {
     this.renderFilter();
-    let categoryFilteredData;
-    let sortFilteredData;
 
-    if (this.selectedCategory === "전체") {
-      categoryFilteredData = this.restaurants;
-    } else {
-      categoryFilteredData = this.restaurants.filter(
-        (restaurant) => restaurant.category === this.selectedCategory
-      );
-    }
+    const categoryFilteredData =
+      this.selectedCategory === "전체"
+        ? this.restaurants
+        : this.restaurants.filter(
+            (restaurant) => restaurant.category === this.selectedCategory
+          );
 
-    if (this.selectedSort === "name") {
-      sortFilteredData = categoryFilteredData
-        .slice()
-        .sort((a, b) => a.name.localeCompare(b.name, "ko"));
-    } else {
-      sortFilteredData = categoryFilteredData
-        .slice()
-        .sort((a, b) => a.distance - b.distance);
-    }
+    const sortFilteredData =
+      this.selectedSort === "name"
+        ? categoryFilteredData
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name, "ko"))
+        : categoryFilteredData.slice().sort((a, b) => a.distance - b.distance);
 
     sortFilteredData.forEach((restaurant) => {
       const restaurantItem = renderRestaurantElement(
