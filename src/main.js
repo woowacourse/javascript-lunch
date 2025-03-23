@@ -12,7 +12,6 @@ addEventListener("load", () => {
   const restaurantsData = restaurants.getFromLocalStorage();
 
   const filter = new Filter();
-  // const filteredRestaurants = filter.filter(restaurantsData);
 
   RestaurantList(restaurants, filter);
 
@@ -21,7 +20,7 @@ addEventListener("load", () => {
       addRestaurant: restaurants.addRestaurant,
       onChangeCategoryAll: () => {
         filter.filterBySortType("category", "all");
-        return filter.filter(restaurantsData);
+        RestaurantList(restaurants, filter);
       },
     })
   );
@@ -30,11 +29,11 @@ addEventListener("load", () => {
     CategoryAndSortFilter({
       onSortByCategory: (category) => {
         filter.filterBySortType("category", category);
-        return filter.filter(restaurantsData);
+        RestaurantList(restaurants, filter);
       },
       onSortByOption: (option) => {
         filter.filterBySortType("option", option);
-        return filter.filter(restaurantsData);
+        RestaurantList(restaurants, filter);
       },
     })
   );
@@ -43,11 +42,10 @@ addEventListener("load", () => {
     FavoriteTabFilters({
       onSortByFavorite: (favorite) => {
         filter.filterBySortType("favorite", favorite);
-        return filter.filter(restaurantsData);
+        RestaurantList(restaurants, filter);
       },
     })
   );
 
-  // TODO: 필터 클래스 적용(모달 닫힐때, 식당 추가할때, 즐겨찾기 눌렀을 때)
   $("main").appendChild(Modal(filter));
 });

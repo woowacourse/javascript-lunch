@@ -9,15 +9,14 @@ const RestaurantList = (restaurants, filter) => {
   const ulTag = $(".restaurant-list");
   ulTag.replaceChildren();
 
-  if (restaurants.restaurants.length === 0) {
+  const filteredRestaurants = filter.filter(restaurants.restaurants);
+
+  if (filteredRestaurants.length === 0) {
     ulTag.appendChild(
       createElement(`<div>등록된 식당이 존재하지 않습니다.</div>`)
     );
     return;
   }
-
-  const filteredRestaurants = filter.filter(restaurants.restaurants);
-
   filteredRestaurants.forEach((restaurantData) => {
     ulTag.appendChild(RestaurantCard(restaurantData, restaurants, filter));
   });
