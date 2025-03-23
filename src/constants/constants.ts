@@ -106,42 +106,42 @@ export const FAV_STAR = {
   inactiveSrc: 'favorite-icon-lined.png',
 };
 
-export interface multiSelect {
+export interface MultiSelect {
   name: string;
   id: string;
   class: string;
   options: string[];
 }
 
-export const CATEGORY_FILTER_SELECT: multiSelect = {
+export const CATEGORY_FILTER_SELECT: MultiSelect = {
   name: 'category',
   id: 'category-filter',
   class: 'restaurant-filter',
   options: ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'],
 };
 
-export const SORTING_FILTER_SELECT: multiSelect = {
+export const SORTING_FILTER_SELECT: MultiSelect = {
   name: 'sorting',
   id: 'sorting-filter',
   class: 'restaurant-filter',
   options: ['이름순', '거리순'],
 };
 
-export interface filterTab {
+export interface FilterTab {
   class: string;
   active: boolean;
   dataTab: string;
   text: string;
 }
 
-export const ALL_RESTAURANT_TAB: filterTab = {
+export const ALL_RESTAURANT_TAB: FilterTab = {
   class: 'tab',
   active: true,
   dataTab: 'all',
   text: '모든 음식점',
 };
 
-export const FAVORITE_RESTAURANT_TAB: filterTab = {
+export const FAVORITE_RESTAURANT_TAB: FilterTab = {
   class: 'tab',
   active: false,
   dataTab: 'favorites',
