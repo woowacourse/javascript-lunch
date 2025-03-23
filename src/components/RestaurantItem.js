@@ -1,21 +1,23 @@
-export default function RestaurantItem(container, restaurantData) {
-  const {
-    categoryCode,
-    categoryValue,
-    nameValue,
-    distanceValue,
-    descriptionValue,
-  } = restaurantData;
+export default function RestaurantItem(restaurant, isDetailModal = false) {
+  const modalStyle = isDetailModal ? ' style="flex-direction: column;"' : "";
+  const modalClass = isDetailModal ? " modal-restaurant" : "";
 
-  container.innerHTML += `
-    <li class="restaurant">
+  return `
+    <li class="restaurant${modalClass}"${modalStyle} data-restaurant-id="${restaurant.id}">
       <div class="restaurant__category">
-        <img src="./category-${categoryCode}.png" alt="${categoryValue}" class="category-icon">
+        <img src="./category-${restaurant.category}.png" alt="${restaurant.categoryName}" class="category-icon" />
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${nameValue}</h3>
-        <span class="restaurant__distance text-body">캠퍼스부터 ${distanceValue}분 내</span>
-        <p class="restaurant__description text-body">${descriptionValue}</p>
+        <div class="restaurant__star__container">
+          <div class="restaurant__name__and__distance">
+            <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
+            <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}분 내</span>
+          </div>
+          <button class="favorite-button" data-restaurant-id="${restaurant.id}">
+            <img src="./${restaurant.favorites ? "fill-star" : "blank-star"}.png"/>
+          </button>
+        </div>
+        <p class="restaurant__description text-body">${restaurant.description}</p>
       </div>
     </li>
   `;

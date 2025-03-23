@@ -1,30 +1,47 @@
-// components/RestaurantList.js
-import { initialRestaurants } from "../data/initialRestaurants.js";
+import { restaurantStore } from "../store/restaurantStore.js";
+import RestaurantItem from "./RestaurantItem.js";
+import { setupRestaurantItemEventListeners } from "./DetailModal.js";
+import { setupFavoriteEventListeners } from "../handlers/favoriteHandler.js";
 
 export default function RestaurantList(
-  container,
-  restaurants = initialRestaurants,
+  restaurants = restaurantStore.getRestaurants(),
 ) {
-  const restaurantItemsHTML = restaurants
-    .map(
-      (restaurant) => `
-      <li class="restaurant">
-        <div class="restaurant__category">
-          <img src="./category-${restaurant.category}.png" alt="${restaurant.categoryName}" class="category-icon" />
-        </div>
-        <div class="restaurant__info">
-          <h3 class="restaurant__name text-subtitle">${restaurant.name}</h3>
-          <span class="restaurant__distance text-body">캠퍼스부터 ${restaurant.distance}</span>
-          <p class="restaurant__description text-body">${restaurant.description}</p>
-        </div>
-      </li>
-    `,
-    )
-    .join("");
+  const currentRestaurants = [...restaurants];
 
-  container.innerHTML += `
-    <ul class="restaurant-list">
-      ${restaurantItemsHTML}
-    </ul>
-  `;
+  function generateHTML() {
+    return `
+      <ul class="restaurant-list">
+        ${currentRestaurants.map((restaurant) => RestaurantItem(restaurant)).join("")}
+      </ul>
+    `;
+  }
+
+  function render(container) {
+    container.insertAdjacentHTML("beforeend", generateHTML());
+    setupRestaurantItemEventListeners();
+    setupFavoriteEventListeners();
+    return container.querySelector(".restaurant-list");
+  }
+
+  function rerender(filteredRestaurants = null) {
+    const $restaurantList = document.querySelector(".restaurant-list");
+    if (!$restaurantList) return;
+
+    if (filteredRestaurants) {
+      currentRestaurants = filteredRestaurants;
+    } else {
+      currentRestaurants = restaurantStore.getRestaurants();
+    }
+
+    $restaurantList.innerHTML = currentRestaurants
+      .map((restaurant) => RestaurantItem(restaurant))
+      .join("");
+
+    setupRestaurantItemEventListeners();
+    setupFavoriteEventListeners();
+  }
+  return {
+    render,
+    rerender,
+  };
 }

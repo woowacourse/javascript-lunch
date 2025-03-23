@@ -16,16 +16,16 @@ export const DISTANCE_OPTIONS = [
 ];
 
 export const CATEGORY_FILTER_OPTIONS = [
-  { value: "전체", label: "전체" },
-  { value: "한식", label: "한식" },
-  { value: "중식", label: "중식" },
-  { value: "일식", label: "일식" },
-  { value: "양식", label: "양식" },
-  { value: "아시안", label: "아시안" },
-  { value: "기타", label: "기타" },
+  { value: "all", label: "전체" },
+  { value: "korean", label: "한식" },
+  { value: "chinese", label: "중식" },
+  { value: "japanese", label: "일식" },
+  { value: "western", label: "양식" },
+  { value: "asian", label: "아시안" },
+  { value: "etc", label: "기타" },
 ];
 
 export const SORTING_OPTIONS = [
-  { value: "name", label: "이름순" },
   { value: "distance", label: "거리순" },
+  { value: "name", label: "이름순" },
 ];

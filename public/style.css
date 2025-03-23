@@ -106,7 +106,6 @@ body {
 
   font-size: 16px;
 }
-
 .restaurant-filter {
   padding: 8px;
 }
@@ -150,11 +149,10 @@ body {
 }
 
 .restaurant__info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
 
+  position: relative; /* 상대 위치 설정하여 기준점 만들기 */
+  width: 100%; /* 전체 너비 사용 */
+}
 .restaurant__name {
   margin: 0;
 }
@@ -296,3 +294,96 @@ input[name="link"] {
 
   color: var(--grey-100);
 }
+
+.restaurant-tabs-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+}
+
+/* 탭 컨테이너 스타일 */
+.restaurant-tabs {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative; 
+}
+
+/* 탭 버튼 기본 스타일 */
+.tab-button {
+  margin-top: 30px;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #9e9e9e;
+  width: 50%; 
+  text-align: center; 
+}
+
+/* 활성 탭 스타일 */
+.tab-button--active {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+
+.tab-button--active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  background-color: var(--primary-color);
+  width: 50%; 
+  transition: transform 0.3s ease; 
+}
+
+
+.tab-button[data-tab="all"].tab-button--active::after {
+  transform: translateX(0%); 
+}
+
+.tab-button[data-tab="favorites"].tab-button--active::after {
+  transform: translateX(100%); 
+}
+
+/* 호버 효과 */
+.tab-button:hover {
+  color:  var(--primary-color);
+}
+
+.restaurant__star__container {
+  display: flex;
+  justify-content: space-between; /* 양쪽 끝에 요소 배치 */
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+  align-items: flex-start; /* 상단 정렬 */
+  margin-bottom: 8px; /* 아래 여백 추가 */
+}
+
+.restaurant__name__and__distance {
+  flex: 1; /* 가능한 많은 공간 차지 */
+  padding-right: 10px; /* 별과의 간격 */
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.star-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
