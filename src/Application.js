@@ -2,7 +2,6 @@ import { Header, Restaurant, InputModal, RestaurantList } from './components/ind
 import Filter from './components/Filter.js';
 import Component from './core/Component.js';
 import { defaultRestaurantList } from './data/defaultRestaurantList.ts';
-import Sorter from './components/Sorter.js';
 import Modal from './components/Modal.js';
 
 class Application extends Component {
@@ -66,19 +65,19 @@ class Application extends Component {
       {
         name: 'category',
         optionList: ['전체', '한식', '중식', '일식', '양식', '아시안', '기타'],
-        filterCategory: this.filterCategory.bind(this),
-        category: this.state.category,
+        filter: this.filterCategory.bind(this),
+        standard: this.state.category,
       },
       this.element,
     );
     $restaurantFilterContainer.appendChild(categoryfilter.element);
 
-    const listSorter = new Sorter(
+    const listSorter = new Filter(
       {
         name: 'sorting',
         optionList: ['이름순', '거리순'],
-        sortList: this.sortList.bind(this),
-        sort: this.state.sort,
+        filter: this.sortList.bind(this),
+        standard: this.state.sort,
       },
       this.element,
     );

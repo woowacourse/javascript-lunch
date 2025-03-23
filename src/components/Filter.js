@@ -6,14 +6,14 @@ class Filter extends Component {
           <select name="${this.props.name}" id="${this.props.name}-filter" class="restaurant-filter">
              ${this.props.optionList.map(
                (option) =>
-                 `<option value="${option}" ${this.props.category === option ? 'selected' : ''}>${option}</option>`,
+                 `<option value="${option}" ${this.props.standard === option ? 'selected' : ''}>${option}</option>`,
              )}
           </select>`;
   }
 
   onRender() {
     this.element.addEventListener('change', (e) => {
-      this.props.filterCategory(e.target.value);
+      this.props.filter(e.target.value);
     });
   }
 }

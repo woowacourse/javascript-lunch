@@ -24,7 +24,6 @@ class Header extends Component {
 
     $gnbButton.addEventListener('click', () => {
       const $modal = this.parent.querySelector('.modal');
-      console.log(this.parent);
       $modal.classList.remove('hidden');
     });
   }
