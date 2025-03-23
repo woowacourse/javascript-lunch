@@ -31,11 +31,7 @@ function sortByCategory(dataList) {
   }
 
   if (sorting === SORTING_DISTANCE) {
-    dataList.sort((a, b) => {
-      if (a.distance > b.distance) return 1;
-      if (a.distance < b.distance) return -1;
-      return 0;
-    });
+    dataList.sort((a, b) => a.distance - b.distance);
   }
 
   return dataList;
