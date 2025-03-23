@@ -125,18 +125,19 @@ function handleRestaurantClick(
 
   if (!restaurantItem) return;
 
-  const restaurantId = restaurantItem.getAttribute('data-id') ? Number(restaurantItem.getAttribute('data-id')) : 0;
-  const altValue = restaurantItem.querySelector('.category-icon')?.getAttribute('alt') || '';
-  const restaurantName = restaurantItem.querySelector('.restaurant__name')?.textContent || '';
-  const restaurantDistance = restaurantItem.querySelector('.restaurant__distance')?.textContent || '';
-  const numericValue = restaurantDistance.match(/\d+/)?.[0] || '';
-  const restaurantDescription = restaurantItem.querySelector('.restaurant__description')?.textContent || '';
-  const restaurantImage = restaurantItem.querySelector('.category-icon')?.getAttribute('src') || '';
+  const restaurantId = Number(restaurantItem.getAttribute('data-id') ?? 0);
+
+  const altValue = restaurantItem.querySelector('.category-icon')?.getAttribute('alt') ?? '';
+  const restaurantName = restaurantItem.querySelector('.restaurant__name')?.textContent ?? '';
+  const restaurantDistance = restaurantItem.querySelector('.restaurant__distance')?.textContent ?? '';
+  const numericValue = restaurantDistance.match(/\d+/)?.[0] ?? '';
+  const restaurantDescription = restaurantItem.querySelector('.restaurant__description')?.textContent ?? '';
+  const restaurantImage = restaurantItem.querySelector('.category-icon')?.getAttribute('src') ?? '';
 
   const favoriteStar = restaurantItem.querySelector('.favorite-star') as HTMLImageElement;
-  const isFavorite = favoriteStar?.getAttribute('src')?.includes('favorite-icon-filled.png') || false;
+  const isFavorite = favoriteStar?.getAttribute('src')?.includes('favorite-icon-filled.png') ?? false;
 
-  const restaurantLink = restaurantItem.querySelector('.restaurant__link')?.getAttribute('href') || '';
+  const restaurantLink = restaurantItem.querySelector('.restaurant__link')?.getAttribute('href') ?? '';
 
   openModal({
     id: restaurantId,
