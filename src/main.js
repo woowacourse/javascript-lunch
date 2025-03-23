@@ -12,6 +12,14 @@ const program = {
   loadData() {
     const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
     this.filteredItems = [...RESTAURANT_ITEMS, ...storedData];
+
+    this.filteredItems = [...RESTAURANT_ITEMS, ...storedData].map((item) => {
+      const storedRestaurant = storedData.find((stored) => stored.id === item.id);
+      if (storedRestaurant) {
+        item.favorite = storedRestaurant.favorite;
+      }
+      return item;
+    });
   },
 
   initUI() {
