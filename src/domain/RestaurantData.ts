@@ -1,7 +1,7 @@
 import Validation from "../validation.js";
 import ERROR_MESSAGE from "../constants/errorMessage.js";
 import Category from "../types/Category.js";
-import Restaurant from "../types/Restaurant.js";
+import Restaurant from "../types/RestaurantDataType.js";
 
 const CATEGORY_IMAGE: Readonly<Record<Category, string>> = Object.freeze({
   한식: "./category-korean.png",

@@ -1,6 +1,6 @@
 import Category from "./Category";
 
-interface Restaurant {
+interface RestaurantDataType {
     id: string;
     src?: string;
     alt?: string;
@@ -12,4 +12,4 @@ interface Restaurant {
     isWish: boolean;
 }
 
-export default Restaurant;
+export default RestaurantDataType;

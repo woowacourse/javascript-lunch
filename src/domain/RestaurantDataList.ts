@@ -1,4 +1,4 @@
-import Restaurant from "../types/Restaurant.ts";
+import RestaurantDataType from "../types/RestaurantDataType.ts";
 import RestaurantData from "./RestaurantData.ts";
 import restaurants from "../constants/restaurants.js";
 
@@ -10,10 +10,10 @@ class RestaurantDataList {
   constructor() {
     this.#initializeLocalStorage();
     const dataList = this.#getLocalStorage() || [];
-    this.#dataList = dataList.map((data: Restaurant) => this.#createData(data));
+    this.#dataList = dataList.map((data: RestaurantDataType) => this.#createData(data));
   }
 
-  getDataList(): Restaurant[] {
+  getDataList(): RestaurantDataType[] {
     return this.#dataList.map((restaurantData: RestaurantData) =>
       restaurantData.getData()
     );
@@ -25,12 +25,12 @@ class RestaurantDataList {
     );
   }
 
-  addData(data: Restaurant): void {
+  addData(data: RestaurantDataType): void {
     this.#dataList.push(this.#createData(data));
     this.#setLocalStorage(this.#dataList);
   }
 
-  #createData(data: Restaurant): RestaurantData {
+  #createData(data: RestaurantDataType): RestaurantData {
     return new RestaurantData(data);
   }
 
@@ -57,7 +57,7 @@ class RestaurantDataList {
     }
   }
 
-  #getLocalStorage(): Restaurant[] | null {
+  #getLocalStorage(): RestaurantDataType[] | null {
     const dataList = localStorage.getItem(LOCAL_STORAGE_KEY);
     return dataList ? JSON.parse(dataList) : null;
   }
