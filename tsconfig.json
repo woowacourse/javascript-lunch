@@ -14,12 +14,13 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "outDir": "./dist",
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src", "types"]
 }

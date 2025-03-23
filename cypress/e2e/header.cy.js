@@ -1,8 +1,8 @@
-import { HEADER_CONTENTS } from "../../src/contants.js";
+import { HEADER_CONTENTS } from "../../src/constants/listData.ts";
 
 describe("header 태그 E2E 테스트", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5500");
+    cy.visit("http://localhost:5173");
   });
 
   it("header 태그가 렌더링이 되었는지 확인한다.", () => {

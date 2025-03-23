@@ -1,6 +1,6 @@
 describe("modal E2E 테스트", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5500");
+    cy.visit("http://localhost:5173");
   });
 
   it("select-form 태그가 있는지 확인한다.", () => {

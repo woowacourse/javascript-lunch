@@ -1,11 +1,9 @@
-import Button from "../Button.js";
-
-function ButtonsForm(buttonsProperty) {
+function ButtonsForm(buttonItems) {
   const buttonContainerElement = document.createElement("div");
   buttonContainerElement.classList.add("button-container");
 
-  buttonsProperty.forEach((buttonProperty) => {
-    buttonContainerElement.appendChild(Button(buttonProperty));
+  buttonItems.forEach((buttonItem) => {
+    buttonContainerElement.appendChild(buttonItem);
   });
 
   return buttonContainerElement;

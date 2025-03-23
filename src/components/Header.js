@@ -4,7 +4,7 @@ function Header({ TITLE, LABEL }) {
   headerElement.innerHTML = `
     <h1 class="gnb__title text-title">${TITLE}</h1>
     <button type="button" class="gnb__button" aria-label=${LABEL}>
-      <img src="./public/add-button.png" alt=${LABEL} />
+      <img src="./add-button.png" alt=${LABEL} />
     </button>
     `;
   return headerElement;

@@ -1,9 +1,12 @@
-export const HEADER_CONTENTS = {
+import { headerContentType } from "../../types/common.ts";
+import RestaurantType from "../../types/restaurant.ts";
+
+export const HEADER_CONTENTS: headerContentType = {
   TITLE: "점심 뭐 먹지",
   LABEL: "음식점 추가",
 };
 
-export const LIST_ITEM_CONTENTS = [
+export const LIST_ITEM_CONTENTS: RestaurantType[] = [
   {
     category: "한식",
     name: "피양콩할마니",
@@ -20,7 +23,7 @@ export const LIST_ITEM_CONTENTS = [
   {
     category: "일식",
     name: "잇쇼우",
-    distance: "1분 내",
+    distance: "10분 내",
     description:
       "잇쇼우는 정통 자가제면 사누끼 우동이 대표메뉴입니다. 기술은 정성을 이길 수 없다는 신념으로 모든 음식에 최선을 다하는 잇쇼우는 고객 한분 한분께 최선을 다하겠습니다.",
   },
@@ -43,28 +46,3 @@ export const LIST_ITEM_CONTENTS = [
     description: "멕시칸 캐주얼 그릴.",
   },
 ];
-
-export const SELECT_CATEGORY = ["한식", "중식", "일식", "양식", "아시안", "기타"];
-
-export const SELECT_DISTANCE = ["5분 내", "10분 내", "15분 내", "20분 내", "30분 내"];
-
-export const MODAL_TITLE = { type: "modal", text: "새로운 음식점" };
-
-export const MODAL_FORM_CONFIG = {
-  fields: [
-    { type: "select", name: "category", options: SELECT_CATEGORY, required: true },
-    { type: "input", name: "name", inputType: "text", required: true },
-    { type: "select", name: "distance", options: SELECT_DISTANCE, required: true },
-    { type: "textarea", name: "description", notice: "메뉴 등 추가 정보를 입력해 주세요." },
-    {
-      type: "input",
-      name: "link",
-      inputType: "text",
-      notice: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
-    },
-  ],
-  buttons: [
-    { type: "button", stylingBased: "secondary", text: "취소하기" },
-    { type: "submit", stylingBased: "primary", text: "등록하기" },
-  ],
-};

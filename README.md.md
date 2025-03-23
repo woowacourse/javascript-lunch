@@ -1,0 +1,114 @@
+# 2단계 - 자주 가는 음식점
+
+## 📍 학습 목표
+
+- 어플리케이션을 컴포넌트 단위로 모듈화하여 개발
+- UI를 컴포넌트 단위로 생각하고 개발하는 연습
+- 재사용할 수 있는 컴포넌트를 고민해보기
+- **TypeScript**의 기본 문법을 익히며 필요성을 경험
+
+## 🎯 기능 요구 사항
+
+### 음식점의 상세 정보를 확인하고, 자주 가는 음식점으로 지정할 수 있는 기능을 추가한다.
+
+- 음식점 목록을 확인할 수 있다.
+- 카테고리별로 필터링해서 확인할 수 있다.
+- 이름순/거리순으로 정렬해서 확인할 수 있다.
+- 음식점 상세 정보를 확인할 수 있다.
+- 카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다.
+- 음식점을 삭제할 수 있다.
+- 자주 가는 음식점을 추가하고 목록으로 확인할 수 있다.
+- 음식점 목록에서 자주 가는 음식점을 추가할 수 있다.
+- 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.
+- 자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다.
+- 새로고침해도 추가한 정보들이 유지되어야 한다.
+
+## 🔥 기능 명세서
+
+- [x] 1단계 리팩토링
+
+  - [x] 도메인 데이터 분리 (MODAL_FORM_CONFIG -> html element 필드 데이터)
+  - [x] MODAL_FORM_CONFIG 데이터 -> 컴포넌트 함께 주입
+  - [x] FormItem 컴포넌트 강결합 분리
+  - [x] components/Form/ ~Form -> Field 파일 명 및 함수명 변경
+  - [x] EventHandler 파일 위치 이동, formUtils 분리 (form 내부 컴포넌트 제작)
+
+- [x] 2단계 기능
+  - [x] 음식점 목록 카테고리 필터링
+    - [x] 카테고리 및 정렬 필터링 동적 생성
+    - [x] 필터링 기능 구현
+      - [x] 카테고리 필터링 기능 구현 - 도메인 메소드 생성 및 이벤트 구현
+      - [x] 정렬 기능 구현 - 도메인 메소드 생성 및 이벤트 구현
+      - [x] 새 가게 추가시 (모달) -> 카테고리 및 정렬에 맞게끔 추가
+  - [x] 자주 가는 음식점 기능
+    - [x] 자주가는 음식점 tab 정적 구현
+    - [x] 자주가는 음식점 tab 동적 생성
+      - [x] tab 클릭시 -> 화면전환
+    - [x] 자주가는 음식점 리스트 화면 구현
+    - [x] 자주가는 음식점 ⭐️ 클릭 기능 추가 및 favoriteStar 도메인 데이터 추가
+    - [x] 자주 가는 음식점 탭 이동시, 재렌더링
+    - [x] 모든 음식점 탭 이동시, 재렌더링
+  - [x] 음식점 리스트 -> 음식점 클릭시, 모달 구현
+    - [x] detailModal 임시 동작 구현
+    - [x] detailItem 컴포넌트 제작 (모달 내부)
+    - [x] detailModal 내부 버튼 구현 (삭제하기, 닫기)
+    - [x] 삭제하기 버튼 클릭시, 모달 닫기 + 외부 리스트 반영
+    - [x] detailItem 별 클릭시, 외부 리스트 업데이트
+  - [x] 새로고침시, 데이터 저장 (도메인 데이터 로컬스토리지에서 관리)
+  - [x] 도메인 데이터 타입스크립트 적용
+    - [x] restaurant 도메인 타입 지정
+    - [x] restaurant, restaurantList 도메인 적용
+    - [x] 더미데이터 ts 적용
+    - [x] controllers 폴더 ts 적용
+    - [x] event 폴더 ts 적용
+    - [x] utils 폴더 ts 적용
+    - [x] import 구문 확장자명 변경
+  - [x] 테스트 코드
+    - [x] 좋아요 버튼 테스트 코드
+      - [x] 좋아요 버튼이 잘 눌리는지
+      - [x] 새로고침시, 좋아요 상태가 유지되는지
+      - [x] 자주 가는 음식점에 추가되는지
+    - [x] 카테고리 및 정렬 필터링 테스트
+      - [x] 카테고리에 맞게 목록이 출력되는지
+      - [x] 정렬 조건에 맞게 목록이 출력되는지
+    - [x] detailModal 테스트 코드
+      - [x] ListItem 클릭시, 모달창이 잘뜨는지
+      - [x] 닫기 버튼 클릭시, 모달이 닫히는지
+      - [x] 삭제하기 버튼 눌렀을때, 실제 리스트에서 삭제가 되는지
+      - [x] 새로고침 후에도 삭제한 리스트가 반영되는지
+
+### 리팩토링
+
+- [x] modal open 토글 이벤트 수정
+- [x] ListController, favoriteListController 리팩토링 (listView 파일 생성)
+  - [x] 클로저 기능 이용 (list create 후, update 함수 return )
+- [x] tabController 리팩토링
+- [x] categoryController 리팩토링
+- [x] modalController 리팩토링
+- [x] detailModalController 생성 및 리팩토링
+- [x] headerController 리팩토링
+- [x] MainController 리팩토링
+  - [x] 좋아요 버튼 이벤트 핸들러로 빼기
+- [x] restaurantList 도메인 리팩토링
+  - [x] restaurant 도메인 객체 네이밍 수정
+- [x] modalContainer css 높이 (max-height) 수정
+- [x] mainController에서 요소들 append 하기 (현재: 각 controller에서 append)
+- [x] 디테일 모달 -> ⭐️ 클릭시, 모든 음식점 리스트도 동일하게 반영 (동기화)
+- [x] 거리순 정렬시, 같을 경우, 이름순으로 정렬
+- [x] 모달 폼의 링크 input 타입 변경
+- [ ] ButtonForm 컴포넌트 리팩토링 -> Button 컴포넌트에 종속 시키기 (Button을 모아주는 역할 밖에 안하기 때문에, 단순히 껍데기 역할)
+
+### 피드백 바탕 수정 사항
+
+- [x] controller들 클래스로 변환
+  - [x] ListController
+  - [x] FavoriteListController
+  - [x] HeaderController
+  - [x] ModalController
+  - [x] TabController
+  - [x] CategorySortFilterController
+  - [x] DetailModalController
+- [x] 폴더구조 개선 (controller 파일 분리)
+- [x] 이벤트 핸들러 -> controller 클래스 추가
+- [x] controller들 각자 내부에서 요소 결합하기
+- [x] restaurantList 도메인 필터링list 필드값 제거
