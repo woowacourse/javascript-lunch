@@ -1,4 +1,7 @@
-const $headerTitle = ({ title }) => {
+import $createRestaurantForm from "../restaurant/createRestaurantForm";
+import { HeaderConfigType } from "../../types/uiConfigType";
+
+const $headerTitle = ({ title }: HeaderConfigType) => {
   const headerTitle = document.createElement("h1");
   headerTitle.classList.add("gnb__title", "text-title");
   headerTitle.textContent = title;
@@ -6,11 +9,12 @@ const $headerTitle = ({ title }) => {
   return headerTitle;
 };
 
-const $headerModalButton = ({ buttonImage, buttonTitle }) => {
+const $headerModalButton = ({ buttonImage, buttonTitle }: HeaderConfigType) => {
   const modalButton = document.createElement("button");
   modalButton.type = "button";
   modalButton.classList.add("gnb__button");
   modalButton.ariaLabel = buttonTitle;
+  modalButton.addEventListener("click", $createRestaurantForm);
 
   const modalButtonImage = document.createElement("img");
   modalButtonImage.src = buttonImage;
@@ -20,7 +24,7 @@ const $headerModalButton = ({ buttonImage, buttonTitle }) => {
   return modalButton;
 };
 
-const $header = (headerInfo) => {
+const $header = (headerInfo: HeaderConfigType) => {
   const header = document.createElement("header");
   header.classList.add("gnb");
 
