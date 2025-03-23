@@ -34,7 +34,6 @@
 ## 홈페이지 배포
 
 URL: https://ha-kuku.github.io/javascript-lunch
-<<<<<<< HEAD
 
 ## step2 기능요구사항
 
@@ -56,5 +55,10 @@ URL: https://ha-kuku.github.io/javascript-lunch
 - [x] any를 사용하지 않는다.
 - [x] interface 또는 type alias 를 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
 - [x] 데이터 유지를 위해 localStorage를 활용한다.
-=======
->>>>>>> ha-kuku
+
+## step2 리팩터링 사항
+
+- [ ] e2e 거리 관련 테스트 수정
+- [ ] e2e 테스트 추가
+- [ ] 자주 가는 음식점으로 지정한 음식점이 새로고침 후에도 유지하기
+- [ ] 컴포넌트 추상화
