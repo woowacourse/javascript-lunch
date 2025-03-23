@@ -6,4 +6,5 @@ export interface RestaurantType {
   distance: number;
   description?: string;
   link?: string;
+  favorite?: boolean;
 }

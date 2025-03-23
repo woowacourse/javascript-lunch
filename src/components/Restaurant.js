@@ -16,10 +16,18 @@ class Restaurant extends Component {
         />
       </div>
       <div class="restaurant__info">
-        <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
-        <span class="restaurant__distance text-body"
-          >캠퍼스로부터 ${this.props.distance}분 내</span
-        >
+        <div class="restaurant__info--header">
+          <div>
+            <h3 class="restausrant__name text-subtitle">${this.props.name}</h3>
+            <span class="restaurant__distance text-body"
+              >캠퍼스로부터 ${this.props.distance}분 내</span
+            >
+          </div>
+          <img class="restaurant__favorite" src="${
+            this.props.favorite ? '/images/favorite-icon-filled.png' : '/images/favorite-icon-lined.png'
+          }" alt="favorite"  />
+        </div>
+        <div>
         <p class="restaurant__description text-body">
           ${this.props.description}
         </p>
