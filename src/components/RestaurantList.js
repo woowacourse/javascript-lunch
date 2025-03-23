@@ -29,7 +29,6 @@ class RestaurantList extends Component {
       if (!restaurantElement) return;
 
       const restaurantId = restaurantElement.dataset.id;
-
       const restaurantData = this.props.restaurantList.find((restaurant) => String(restaurant.id) === restaurantId);
       if (!restaurantData) return;
 
@@ -43,6 +42,9 @@ class RestaurantList extends Component {
           this.props.deleteRestaurant(restaurantData.id);
         },
         link: restaurantData.link,
+        restaurantData: restaurantData,
+        addFavorite: this.props.addFavorite,
+        removeFavorite: this.props.removeFavorite,
       });
 
       this.element.appendChild(detailModal.element);
@@ -51,6 +53,20 @@ class RestaurantList extends Component {
       if ($modal) {
         $modal.classList.remove('hidden');
       }
+    });
+
+    this.element.addEventListener('click', (event) => {
+      if (event.target.closest('.restaurant__favorite')) {
+        const restaurantElement = event.target.closest('.restaurant');
+        if (event.target.src.includes('filled')) {
+          event.target.src = event.target.src.replace('filled', 'lined');
+          this.props.removeFavorite(restaurantElement.dataset.id);
+        } else {
+          event.target.src = event.target.src.replace('lined', 'filled');
+          this.props.addFavorite(restaurantElement.dataset.id);
+        }
+      }
+      event.stopPropagation();
     });
   }
 }

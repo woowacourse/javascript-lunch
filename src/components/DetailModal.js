@@ -4,7 +4,6 @@ import Button from './Button.js';
 
 class DetailModal extends Component {
   onRender() {
-    const $restaurant = this.element.querySelector('.restaurant');
     const deleteButton = new Button({
       type: 'submit',
       class: 'button--secondary',
@@ -27,21 +26,55 @@ class DetailModal extends Component {
           ${deleteButton.template()}
           ${cancelButton.template()}
         </div>
-
       `,
     });
     this.element.appendChild(detailModal.element);
 
     const $modal = this.element.querySelector('.modal');
+    const $deleteButton = this.element.querySelector('#modal-delete');
+    const $cancelButton = this.element.querySelector('#modal-cancel');
+    const $backdrop = this.element.querySelector('.modal-backdrop');
 
-    document.addEventListener('click', (event) => {
-      if (event.target.closest('#modal-delete')) {
+    if ($deleteButton) {
+      $deleteButton.addEventListener('click', () => {
         if (this.props.onDelete) {
           this.props.onDelete();
         }
         $modal.classList.add('hidden');
-      }
-    });
+      });
+    }
+
+    if ($cancelButton) {
+      $cancelButton.addEventListener('click', () => {
+        $modal.classList.add('hidden');
+      });
+    }
+
+    if ($backdrop) {
+      $backdrop.addEventListener('click', () => {
+        $modal.classList.add('hidden');
+      });
+    }
+
+    const $modalFavorite = this.element.querySelector('.restaurant__favorite');
+    if ($modalFavorite) {
+      $modalFavorite.addEventListener('click', (event) => {
+        const restaurantData = this.props.restaurantData;
+        if (!restaurantData) return;
+
+        if (restaurantData.favorite === true) {
+          restaurantData.favorite = false;
+          if (this.props.removeFavorite) {
+            this.props.removeFavorite(restaurantData.id);
+          }
+        } else {
+          restaurantData.favorite = true;
+          if (this.props.addFavorite) {
+            this.props.addFavorite(restaurantData.id);
+          }
+        }
+      });
+    }
   }
 }
 

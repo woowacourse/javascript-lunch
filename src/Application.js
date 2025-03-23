@@ -45,6 +45,22 @@ class Application extends Component {
     this.setState({ ...this.state, sort: list });
   }
 
+  addFavorite(restaurantId) {
+    const updatedList = this.state.restaurantList.map((r) =>
+      r.id === Number(restaurantId) ? { ...r, favorite: true } : r,
+    );
+    this.setState({ ...this.state, restaurantList: updatedList });
+    localStorage.setItem('restaurantList', JSON.stringify(updatedList));
+  }
+
+  removeFavorite(restaurantId) {
+    const updatedList = this.state.restaurantList.map((r) =>
+      r.id === Number(restaurantId) ? { ...r, favorite: false } : r,
+    );
+    this.setState({ ...this.state, restaurantList: updatedList });
+    localStorage.setItem('restaurantList', JSON.stringify(updatedList));
+  }
+
   onRender() {
     const $headerContainer = this.element.querySelector('#app-header');
     const headerInstance = new Header({ title: '점심 뭐 먹지' }, this.element);
@@ -57,6 +73,8 @@ class Application extends Component {
       category: this.state.category,
       sort: this.state.sort,
       deleteRestaurant: this.deleteRestaurant.bind(this),
+      addFavorite: this.addFavorite.bind(this),
+      removeFavorite: this.removeFavorite.bind(this),
     });
     $restaurantListContainer.appendChild(restaurantList.element);
 

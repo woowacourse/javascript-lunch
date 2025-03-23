@@ -23,9 +23,9 @@ class Restaurant extends Component {
               >캠퍼스로부터 ${this.props.distance}분 내</span
             >
           </div>
-          <img class="restaurant__favorite" src="${
-            this.props.favorite ? '/images/favorite-icon-filled.png' : '/images/favorite-icon-lined.png'
-          }" alt="favorite"  />
+          <img class="restaurant__favorite" src="/images/favorite-icon-${
+            this.props.favorite ? 'filled' : 'lined'
+          }.png" alt="favorite" />
         </div>
         <div>
         <p class="restaurant__description text-body">
