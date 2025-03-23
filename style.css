@@ -15,6 +15,12 @@ body {
   font-size: 16px;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 /* Colors *****************************************/
 :root {
   --primary-color: #ec4a0a;
@@ -51,26 +57,12 @@ body {
   font-weight: 400;
 }
 
-/* TODO: 2단계 미션: 카테고리/정렬 필터 */
-.restaurant-filter-container {
+/* Button Style *************************************/
+.button-container {
   display: flex;
-  justify-content: space-between;
-
-  padding: 0 16px;
-  margin-top: 24px;
 }
 
-.restaurant-filter-container select {
-  height: 44px;
-  min-width: 125px;
-
-  border: 1px solid #d0d5dd;
-  border-radius: 8px;
-  background: transparent;
-
-  font-size: 16px;
-}
-
-.restaurant-filter {
-  padding: 8px;
+.favorite-button {
+  width: 36px;
+  height: 36px;
 }

@@ -1,12 +1,22 @@
-import { LABEL_NAMES } from "../../../constants/constants.js";
+import { UIComponent } from "./../../../../types/index";
+import { Category, Distance, LabelKey } from "../../../../types";
+import { LABEL_NAMES } from "../../../constants";
 
-export default class SelectBox {
-  constructor({ label, options }) {
+interface SelectBoxProps {
+  label: Extract<LabelKey, "category" | "distance">;
+  options: Category[] | Distance[];
+}
+
+export default class SelectBox implements UIComponent {
+  private label: SelectBoxProps["label"];
+  private options: SelectBoxProps["options"];
+
+  constructor({ label, options }: SelectBoxProps) {
     this.label = label;
     this.options = options;
   }
 
-  render() {
+  render(): HTMLDivElement {
     const $formItem = document.createElement("div");
     $formItem.className = "form-item form-item--required";
 

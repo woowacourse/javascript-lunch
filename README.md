@@ -1,8 +1,8 @@
-# javascript-lunch
+# 🥗 javascript-lunch
 
-## 기능 요구 사항
+## ✅ `step1` 기능 요구 사항
 
-점심 식사 스팟 목록을 관리하는 앱을 만든다.
+### ✔️ 점심 식사 스팟 목록을 관리하는 앱을 만든다.
 
 - [x] 음식점 목록 페이지를 화면과 같이 구성한다.
 - [x] 음식점 목록에서 우측 상단의 추가 버튼을 눌러 모달 창을 띄우면, 새로운 음식점을 추가할 수 있다.
@@ -15,69 +15,178 @@
   - [x] 입력값이 잘못되었을 때 사용자에게 알려주는 방식은 자유롭게 구현한다.
 - [x] 새로고침 시 이전에 추가한 새로운 음식점 정보는 초기화된다.
 
-UI
+### ✔️ UI
 
 - 필요에 따라 예제로 주어진 템플릿을 활용한다.
   - 원한다면 직접 구현한다.
   - 수정이 필요한 부분이 있다면 수정하여 활용한다.
 - 구체화한 요구 사항에 따라 추가로 필요한 UI가 있다면 스스로 적절히 판단하여 구현한다.
 
-## 구현 목록
+## ✅ `step1` 구현 목록
 
 - [x] 각 컴포넌트별로 나눈다.
 - [x] 새로운 음식점을 추가할 수 있다.
   - [x] 입력값이 잘못되었을 때 화면에 에러를 출력한다.
 
-### 에러처리
+### ✔️ 에러처리
 
 - [x] 카테고리, 이름, 거리는 빈값이 올 수 없다.
 
-### 리팩토링
+### ✔️ 리팩토링
 
 - [x] 컴포넌트 variant 설정
 - [x] 컴포넌트 구조 재설계 및 적용
 - [x] CSS 분리
 - [x] 상수화 적용
 
-### 테스트 코드
+### ✔️ 테스트 코드
 
 - [x] E2E 테스트 코드 작성
 
-## 컴포넌트 폴더 구조
+## ✅ `step1` 프로그래밍 요구사항
+
+- [x] E2E 테스트를 진행한다.
+  - [x] 핵심이 되는 기능이라고 생각하는 기능 플로우를 선정하고 그에 대한 E2E 테스트를 추가한다.
+  - [x] E2E 테스트 도구를 이용하여 UI Test를 진행해 본다.
+- [x] 컴포넌트 단위로 구현하는 것을 고민하고 적용해본다.
+  - [x] 정적으로 렌더링할 영역과 동적으로 렌더링할 영역을 구분해서 고민한다.
+  - [x] 재사용할 수 있는 컴포넌트에 대해 고민하고 적용해본다.
+  - [x] 단, 웹 컴포넌트를 사용하지 않는다
+- [x] JavaScript 언어를 사용하여 구현한다.
+
+## 🏛️ `step1` 폴더 구조
 
 ```
-components
-├── 📂 common
-│ ├── 📂 bottomSheetBase
-│ │ ├── BottomSheetBase.js
-│ │ └── bottomSheetBase.css
-│ ├── 📂 button
-│ │ ├── Button.js
-│ │ └── button.css
-│ └── 📂 selectBox
-│   └── SelectBox.js
-├── 📂 header
-│ ├── Header.js
-│ └── header.css
-├── 📂 restaurantFormSection
-│ ├── 📂 categorySelect
-│ │ └── CategorySelect.js
-│ ├── 📂 descriptionInput
-│ │ └── DescriptionInput.js
-│ ├── 📂 distanceSelect
-│ │ └── DistanceSelect.js
-│ ├── 📂 linkInput
-│ │ └── LinkInput.js
-│ ├── 📂 restaurantForm
-│ │ ├── RestaurantForm.js
-│ │ └── restaurantForm.css
-│ └── 📂 restaurantNameInput
-│   └── RestaurantNameInput.js
-└── 📂 restaurantListSection
-  ├── 📂 restaurantList
-  │ ├── RestaurantList.js
-  │ └── restaurantList.css
-  └── 📂 restaurantListItem
-    ├── RestaurantListItem.js
-    └── restaurantListItem.css
+.
+├── App.js
+├── components
+│   ├── common
+│   │   ├── bottom-sheet-base
+│   │   │   ├── BottomSheetBase.js
+│   │   │   └── bottomSheetBase.css
+│   │   ├── button
+│   │   │   ├── Button.js
+│   │   │   └── button.css
+│   │   └── select-box
+│   │       └── SelectBox.js
+│   ├── header
+│   │   ├── Header.js
+│   │   └── header.css
+│   ├── restaurant-form-section
+│   │   ├── description-input
+│   │   │   └── DescriptionInput.js
+│   │   ├── link-input
+│   │   │   └── LinkInput.js
+│   │   ├── name-input
+│   │   │   └── NameInput.js
+│   │   └── restaurant-form
+│   │       ├── RestaurantForm.js
+│   │       └── restaurantForm.css
+│   └── restaurant-list-section
+│       ├── restaurant-list
+│       │   ├── RestaurantList.js
+│       │   └── restaurantList.css
+│       └── restaurant-list-item
+│           ├── RestaurantListItem.js
+│           └── restaurantListItem.css
+├── constants
+│   └── constants.js
+├── index.js
+├── services
+│   └── RestaurantService.js
+└── stores
+    └── RestaurantStore.js
+```
+
+## ✅ `step2` 기능 요구사항
+
+- [x] 음식점 목록을 확인할 수 있다.
+  - [x] 카테고리별로 필터링해서 확인할 수 있다.
+  - [x] 이름순/거리순으로 정렬해서 확인할 수 있다.
+- [x] 음식점 상세 정보를 확인할 수 있다.
+  - [x] 카테고리, 이름, 거리, 설명, 참고 링크를 확인할 수 있다.
+  - [x] 음식점을 삭제할 수 있다.
+- [x] 자주 가는 음식점을 추가하고 목록으로 확인할 수 있다.
+  - [x] 음식점 목록에서 자주 가는 음식점을 추가할 수 있다.
+  - [x] 음식점 상세 정보에서 자주 가는 음식점으로 추가할 수 있다.
+  - [x] 자주 가는 음식점 탭에서 추가한 음식점 목록을 확인할 수 있다.
+- [x] 새로고침해도 추가한 정보들이 유지되어야 한다.
+- [x] 추가 기능에 대한 E2E 테스트 코드 작성해야 한다.
+
+## ✅ `step2` 프로그래밍 요구사항
+
+- [x] 컴포넌트 단위로 구현하는 것을 고민하고 적용해본다.
+  - [x] 정적으로 렌더링할 영역과 동적으로 렌더링할 영역을 구분해서 고민한다.
+  - [x] 재사용할 수 있는 컴포넌트에 대해 고민하고 적용해본다.
+  - [x] 단, 웹 컴포넌트를 사용하지 않는다
+- [x] 도메인 영역을 TypeScript으로 변환한다. (UI 영역은 선택)
+  - [x] any를 사용하지 않는다.
+  - [x] interface 또는 type alias 를 이용하여, 주요 도메인 객체의 타입을 정의하고 설계한다.
+- [x] 데이터 유지를 위해 localStorage를 활용한다.
+
+## 🏛️ `step2` 폴더 구조
+
+```
+.
+├── App.ts
+├── builders
+│   └── index.ts
+├── components
+│   ├── common
+│   │   ├── bottom-sheet-base
+│   │   │   ├── BottomSheetBase.ts
+│   │   │   └── bottomSheetBase.css
+│   │   ├── button
+│   │   │   ├── Button.ts
+│   │   │   └── button.css
+│   │   └── select-box
+│   │       └── SelectBox.ts
+│   ├── header
+│   │   ├── Header.ts
+│   │   └── header.css
+│   ├── index.ts
+│   ├── restaurant-detail
+│   │   ├── RestaurantDetail.ts
+│   │   └── restaurantDetail.css
+│   ├── restaurant-filter-section
+│   │   ├── RestaurantFilter.ts
+│   │   └── restaurantFilter.css
+│   ├── restaurant-form-section
+│   │   ├── description-input
+│   │   │   └── DescriptionInput.ts
+│   │   ├── link-input
+│   │   │   └── LinkInput.ts
+│   │   ├── name-input
+│   │   │   └── NameInput.ts
+│   │   └── restaurant-form
+│   │       ├── RestaurantForm.ts
+│   │       └── restaurantForm.css
+│   ├── restaurant-list-section
+│   │   ├── restaurant-list
+│   │   │   ├── RestaurantList.ts
+│   │   │   └── restaurantList.css
+│   │   └── restaurant-list-item
+│   │       ├── RestaurantListItem.ts
+│   │       └── restaurantListItem.css
+│   └── restaurant-nav-bar
+│       ├── RestaurantNavBar.ts
+│       └── restaurantNavBar.css
+├── constants
+│   └── index.ts
+├── handlers
+│   └── index.ts
+├── index.ts
+├── storages
+│   ├── RestaurantStorage.ts
+│   └── Storage.ts
+├── stores
+│   ├── core
+│   │   └── Observable.ts
+│   └── restaurant
+│       ├── RestaurantStore.ts
+│       └── RestaurantSubscriber.ts
+└── utils
+    ├── generateUUID.ts
+    ├── getFilteredRestaurants.ts
+    └── render.ts
 ```

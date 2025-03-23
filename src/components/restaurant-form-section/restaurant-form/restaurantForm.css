@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 
 .form-item label {
@@ -51,8 +51,4 @@
 input[name="name"],
 input[name="link"] {
   height: 44px;
-}
-
-.button-container {
-  display: flex;
 }

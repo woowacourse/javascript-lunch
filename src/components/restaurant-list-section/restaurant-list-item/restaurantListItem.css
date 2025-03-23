@@ -1,10 +1,10 @@
 .restaurant {
   display: flex;
   align-items: flex-start;
-
+  justify-content: space-between;
   padding: 16px 8px;
-
   border-bottom: 1px solid #e9eaed;
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -15,22 +15,16 @@
   height: 64px;
   min-width: 64px;
   min-height: 64px;
-
   margin-right: 16px;
-
   border-radius: 50%;
   background: var(--lighten-color);
-}
-
-.category-icon {
-  width: 36px;
-  height: 36px;
 }
 
 .restaurant__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  flex-grow: 1;
 }
 
 .restaurant__name {
@@ -43,9 +37,7 @@
 
 .restaurant__description {
   display: -webkit-box;
-
   padding-top: 8px;
-
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;

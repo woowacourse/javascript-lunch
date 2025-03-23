@@ -1,7 +1,8 @@
-import { LABEL_NAMES } from "../../../constants/constants.js";
+import { UIComponent } from "../../../../types";
+import { LABEL_NAMES } from "../../../constants";
 
-export default class NameInput {
-  render() {
+export default class NameInput implements UIComponent {
+  render(): HTMLDivElement {
     const $nameFormItem = document.createElement("div");
     $nameFormItem.className = "form-item form-item--required";
 

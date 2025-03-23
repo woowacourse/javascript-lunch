@@ -1,12 +1,21 @@
-import { EVENT_TYPES } from "../../constants/constants.js";
+import { UIComponent } from "../../../types";
+import { EVENT_TYPES } from "../../constants";
 import "./header.css";
 
-export default class Header {
-  constructor({ onOpen }) {
+type OpenCallback = () => void;
+
+interface HeaderProps {
+  onOpen: OpenCallback;
+}
+
+export default class Header implements UIComponent {
+  private onOpen: OpenCallback;
+
+  constructor({ onOpen }: HeaderProps) {
     this.onOpen = onOpen;
   }
 
-  render() {
+  render(): HTMLElement {
     const $header = document.createElement("header");
     $header.className = "gnb";
 
