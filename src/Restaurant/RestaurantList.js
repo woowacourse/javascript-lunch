@@ -21,10 +21,9 @@ class RestaurantList {
     const storedSort = StorageItem.getItem(STORAGE_KEYS.SORT);
     const storedTab = StorageItem.getItem(STORAGE_KEYS.TAB);
 
-    this.selectedCategory = storedCategory ? storedCategory : "전체";
-    this.selectedSort = storedSort ? storedSort : "name";
-    this.selectedTab = storedTab ? storedTab : "allTab";
-
+    this.selectedCategory = storedCategory ?? "전체";
+    this.selectedSort = storedSort ?? "name";
+    this.selectedTab = storedTab ?? "allTab";
     this.restaurantListElement = null;
   }
 
