@@ -6,7 +6,7 @@ import RestaurantFormModalItem from "./RestaurantFormModalItem.js";
 import RestaurantFormModalButtonContainer from "./RestaurantFormModalButtonContainer.js";
 import restaurantDataList from "../../domain/RestaurantDataList.ts";
 import Restaurant from "../restaurant/Restaurant.js";
-import closeModal from "../../util/closeModal.js";
+import closeModal from "./util/closeModal.js";
 
 export default function RestaurantFormModal() {
   function submitRestaurantForm(event) {

@@ -1,5 +1,5 @@
 import createElement from "../../util/createElement";
-import closeModal from "../../util/closeModal";
+import closeModal from "./util/closeModal";
 import Button from "../util/Button";
 
 export default function RestaurantFormModalButtonContainer() {

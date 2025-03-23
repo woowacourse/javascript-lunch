@@ -1,5 +1,5 @@
 import createElement from "../../util/createElement";
-import closeModal from "../../util/closeModal";
+import closeModal from "../modal/util/closeModal";
 import Button from "../util/Button";
 import restaurantDataList from "../../domain/RestaurantDataList";
 
