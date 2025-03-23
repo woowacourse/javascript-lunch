@@ -13,8 +13,8 @@ export default class RestaurantDetailModal {
 
   constructor(
     restaurant: Restaurant,
-    updateFavoriteStatus: (name: string) => {},
-    deleteRestaurant: (name: string) => {}
+    updateFavoriteStatus: (name: string) => void,
+    deleteRestaurant: (name: string) => void
   ) {
     this.restaurant = restaurant;
     this.modalElement = document.getElementById(
