@@ -47,5 +47,9 @@ addEventListener("load", () => {
     })
   );
 
-  $("main").appendChild(Modal(filter));
+  $("main").appendChild(
+    Modal({
+      renderRestaurants: () => RestaurantList(restaurants, filter),
+    })
+  );
 });

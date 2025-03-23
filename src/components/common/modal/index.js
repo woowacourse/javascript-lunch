@@ -1,12 +1,14 @@
 import { createElement } from "../../../utils/createElement";
 import { modalCloseAndFilter } from "./handleCloseModal";
 
-const Modal = (filter) => {
+const Modal = ({ renderRestaurants }) => {
   const backDrop = createElement(/*html*/ `
     <div class="modal-backdrop"></div>
   `);
 
-  backDrop.addEventListener("click", () => modalCloseAndFilter(filter));
+  backDrop.addEventListener("click", () =>
+    modalCloseAndFilter(renderRestaurants)
+  );
   return backDrop;
 };
 
