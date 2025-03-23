@@ -1,6 +1,6 @@
 import { ClickActions } from "../../components-event/constants/Events.js";
 import { ILunchItem } from "../../type.ts";
-import { createElement } from "../../utils/utils.ts";
+import { toElement } from "../../utils/utils.ts";
 import { StoreInfo } from "./StoreInfo.ts";
 
 export function LunchItem({
@@ -12,12 +12,10 @@ export function LunchItem({
   link,
   isFavorite,
 }: ILunchItem) {
-  const li = createElement("li");
-  li.classList.add("restaurant");
-  li.setAttribute("data-action", ClickActions.SHOW_STORE_DELETE_MODAL);
-  li.setAttribute("data-id", id);
-  function render() {
-    li.innerHTML = `
+  const li = toElement(`
+    <li class="restaurant" data-id="${id}" data-action="${
+    ClickActions.SHOW_STORE_DELETE_MODAL
+  }">
     ${StoreInfo({
       id,
       category,
@@ -28,9 +26,7 @@ export function LunchItem({
       type: "summary",
       isFavorite,
     })}
-  `;
-    return li;
-  }
-
-  return render();
+    </li>
+    `);
+  return li;
 }
