@@ -38,7 +38,7 @@ export function LunchList(
         (item) => item.category === filterState.category
       );
     }
-.
+
     if (filterState.sortOption === "name") {
       filtered.sort((a, b) => a.name.localeCompare(b.name));
     }
