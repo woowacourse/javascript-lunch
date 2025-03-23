@@ -4,6 +4,7 @@ import renderRestaurantElement from "./RestaurantItem";
 import createCategoryFilter from "../components/Filter/CategoryFilter";
 import createSortFilter from "../components/Filter/SortFilter";
 import StorageItem from "./StorageManager";
+import { STORAGE_KEYS } from "../constants/storageKey";
 
 class RestaurantList {
   selectedCategory;
@@ -11,14 +12,14 @@ class RestaurantList {
   selectedTab;
 
   constructor() {
-    const storedRestaurants = StorageItem.getItem("restaurants");
+    const storedRestaurants = StorageItem.getItem(STORAGE_KEYS.RESTAURANTS);
     this.restaurants = storedRestaurants
       ? storedRestaurants
       : [...restaurantsData];
 
-    const storedCategory = StorageItem.getItem("category");
-    const storedSort = StorageItem.getItem("sort");
-    const storedTab = StorageItem.getItem("tab");
+    const storedCategory = StorageItem.getItem(STORAGE_KEYS.CATEGORY);
+    const storedSort = StorageItem.getItem(STORAGE_KEYS.SORT);
+    const storedTab = StorageItem.getItem(STORAGE_KEYS.TAB);
 
     this.selectedCategory = storedCategory ? storedCategory : "전체";
     this.selectedSort = storedSort ? storedSort : "name";
@@ -29,17 +30,17 @@ class RestaurantList {
 
   setSelectedCategory(category) {
     this.selectedCategory = category;
-    StorageItem.setItem("category", category);
+    StorageItem.setItem(STORAGE_KEYS.CATEGORY, category);
   }
 
   setSelectedSort(sortOption) {
     this.selectedSort = sortOption;
-    StorageItem.setItem("sort", sortOption);
+    StorageItem.setItem(STORAGE_KEYS.SORT, sortOption);
   }
 
   setSelectedTab(tab) {
     this.selectedTab = tab;
-    StorageItem.setItem("tab", tab);
+    StorageItem.setItem(STORAGE_KEYS.TAB, tab);
   }
 
   createRestaurantList() {
@@ -63,14 +64,14 @@ class RestaurantList {
       : "images/empty-star.png";
     restaurant.isFavorite = !restaurant.isFavorite;
 
-    const storedRestaurants = StorageItem.getItem("restaurants");
+    const storedRestaurants = StorageItem.getItem(STORAGE_KEYS.RESTAURANTS);
     const newData = storedRestaurants.map((data) => {
       if (data.name === name) {
         return { ...data, isFavorite: !data.isFavorite };
       }
       return data;
     });
-    StorageItem.setItem("restaurants", newData);
+    StorageItem.setItem(STORAGE_KEYS.RESTAURANTS, newData);
   }
 
   deleteRestaurant(name) {
@@ -135,7 +136,7 @@ class RestaurantList {
   }
 
   render() {
-    StorageItem.setItem("restaurants", this.restaurants);
+    StorageItem.setItem(STORAGE_KEYS.RESTAURANTS, this.restaurants);
     this.restaurantListElement.innerHTML = "";
 
     if (this.selectedTab === "allTab") {
