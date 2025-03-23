@@ -3,13 +3,13 @@ import { Restaurant } from "../../../../types/restaurant";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../../../constants/constants";
 import { clickStar } from "../../StarIcon/star";
 export default class RestaurantDetailModal {
-  restaurant;
-  modalElement;
-  closeButton;
-  deleteButton;
-  updateFavoriteStatus;
-  deleteRestaurant;
-  boundHandleStarIconClick;
+  restaurant: Restaurant;
+  modalElement: HTMLDialogElement;
+  closeButton: HTMLButtonElement;
+  deleteButton: HTMLButtonElement;
+  updateFavoriteStatus: (name: string) => void;
+  deleteRestaurant: (name: string) => void;
+  boundHandleStarIconClick: (e: MouseEvent) => void;
 
   constructor(
     restaurant: Restaurant,
