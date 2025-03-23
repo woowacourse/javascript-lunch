@@ -1,6 +1,6 @@
 import { ClickActions } from "../../components-event/constants/Events.js";
 import { ILunchItem } from "../../type.ts";
-import { getStorage, setStorage } from "../../utils/storage.ts";
+import { restuarantData } from "../../utils/storage.ts";
 import { getHTML, createElement } from "../../utils/utils.ts";
 import { LunchItem } from "./LunchItem.ts";
 
@@ -13,7 +13,7 @@ export function LunchList(
   lunchListID: string = "restaurantListBox",
   favoriteTargetID: string = "restaurantFavoriteSection"
 ) {
-  let lunchItems = (getStorage("lunchItems") as ILunchItem[]) ?? [];
+  let lunchItems = (restuarantData.get() as ILunchItem[]) ?? [];
   let filterState: FilterState = {
     category: "",
     sortOption: "name",
@@ -50,7 +50,7 @@ export function LunchList(
   }
 
   function reloadLunchItems() {
-    lunchItems = (getStorage("lunchItems") as ILunchItem[]) ?? [];
+    lunchItems = (restuarantData.get() as ILunchItem[]) ?? [];
   }
 
   function template<T extends ILunchItem>(items: T[]) {
@@ -141,7 +141,7 @@ export function LunchList(
       isFavorite: false,
     };
     lunchItems.push(newItem);
-    setStorage("lunchItems", lunchItems);
+    restuarantData.set(lunchItems);
     render();
   }
 

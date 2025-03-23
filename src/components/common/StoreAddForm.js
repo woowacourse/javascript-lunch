@@ -1,4 +1,3 @@
-import { getStorage } from "../../utils/storage.js";
 import { Button } from "./Button.js";
 import { FormButtons } from "./FormButtons.js";
 import { InputBox } from "./InputBox.js";

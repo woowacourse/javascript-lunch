@@ -1,4 +1,4 @@
-import { getStorage } from "../../utils/storage.js";
+import { restuarantData } from "../../utils/storage.js";
 import { StoreInfo } from "../function/StoreInfo.js";
 import { Button } from "./Button.js";
 import { FormButtons } from "./FormButtons.js";
@@ -7,7 +7,7 @@ import { SelectBox } from "./SelectBox.js";
 import { TextareaBox } from "./TextareaBox.js";
 
 export function StoreDeleteForm(dataID) {
-  const lunchItem = getStorage("lunchItems").find(({ id }) => id === dataID);
+  const lunchItem = restuarantData.get().find(({ id }) => id === dataID);
 
   function template() {
     return `

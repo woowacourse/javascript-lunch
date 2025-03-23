@@ -2,7 +2,7 @@ import { LunchItem } from "../components/function/LunchItem.ts";
 import { LunchList } from "../components/function/LunchList.ts";
 import { openModal } from "../components/function/modal.js";
 import { LunchListData } from "../constants/LunchListData.ts";
-import { getStorage, setStorage } from "../utils/storage.js";
+import { restuarantData } from "../utils/storage.js";
 
 class ClickEvent {
   constructor(elem) {
@@ -16,13 +16,13 @@ class ClickEvent {
   resetStorage() {
     if (confirm("저장소를 초기화하시겠습니까?(되돌리기 불가)")) {
       this.reload();
-      setStorage("lunchItems", []);
+      restuarantData.set([]);
     }
   }
 
   setDefaultState() {
     if (confirm("기본 식당 데이터를 불러오시겠습니까?")) {
-      setStorage("lunchItems", LunchListData);
+      restuarantData.set(LunchListData);
       this.reload();
     }
   }
@@ -70,10 +70,11 @@ class ClickEvent {
     if (!dataElement) return;
     const dataID = dataElement.dataset.id;
     if (!dataID) return;
-    const storageLunchItems = getStorage("lunchItems");
+    const storageLunchItems = restuarantData.get();
     const targetData = storageLunchItems.find((item) => item.id === dataID);
     targetData.isFavorite = !targetData.isFavorite;
-    setStorage("lunchItems", storageLunchItems);
+    restuarantData.set(storageLunchItems);
+
     LunchList().render();
     LunchList().renderFavorites();
     const isModal = target.closest("#storeDeleteForm");

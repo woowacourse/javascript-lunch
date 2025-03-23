@@ -1,5 +1,39 @@
-function storageController(storage: Storage) {
-  function getStorage(key: string) {
+// function storageController(storage: Storage) {
+//   function getStorage(key: string) {
+//     const item = storage.getItem(key);
+
+//     if (item) {
+//       return JSON.parse(item);
+//     }
+
+//     return [];
+//   }
+
+//   function setStorage<T>(key: string, value: T) {
+//     storage.setItem(key, JSON.stringify(value));
+//   }
+
+//   function removeStorage(key: string) {
+//     storage.removeItem(key);
+//   }
+
+//   function clearStorage() {
+//     storage.clear();
+//   }
+
+//   return {
+//     getStorage,
+//     setStorage,
+//     removeStorage,
+//     clearStorage,
+//   };
+// }
+
+// export const { getStorage, setStorage, removeStorage } =
+//   storageController(localStorage);
+
+function createStorage(key: string, storage = window.localStorage) {
+  function getStorage() {
     const item = storage.getItem(key);
 
     if (item) {
@@ -9,11 +43,11 @@ function storageController(storage: Storage) {
     return [];
   }
 
-  function setStorage<T>(key: string, value: T) {
+  function setStorage<T>(value: T) {
     storage.setItem(key, JSON.stringify(value));
   }
 
-  function removeStorage(key: string) {
+  function removeStorage() {
     storage.removeItem(key);
   }
 
@@ -22,12 +56,11 @@ function storageController(storage: Storage) {
   }
 
   return {
-    getStorage,
-    setStorage,
-    removeStorage,
-    clearStorage,
+    get: getStorage,
+    set: setStorage,
+    remove: removeStorage,
+    clear: clearStorage,
   };
 }
 
-export const { getStorage, setStorage, removeStorage } =
-  storageController(localStorage);
+export const restuarantData = createStorage("restaurant");

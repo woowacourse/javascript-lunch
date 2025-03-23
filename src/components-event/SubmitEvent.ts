@@ -1,6 +1,6 @@
 import { LunchList } from "../components/function/LunchList";
 import { ILunchItem } from "../type";
-import { getStorage, setStorage } from "../utils/storage";
+import { restuarantData } from "../utils/storage";
 
 const getHTML = (id: string): HTMLElement | null => document.getElementById(id);
 
@@ -31,14 +31,14 @@ function SubmitEvent(lunchList: ILunchItem[]) {
   function deleteStore(event: SubmitEvent, form): void {
     const dataID = form.dataset.id;
     if (!dataID) return;
-    const storageLunchItems = getStorage("lunchItems") as ILunchItem[];
+    const storageLunchItems = restuarantData.get() as ILunchItem[];
 
-    // storageLunchItems.splice(Number(lunchItemIndex), 1);
     const newStorageLunchItems = storageLunchItems.filter(
       (item) => item.id !== dataID
     );
 
-    setStorage("lunchItems", newStorageLunchItems);
+    restuarantData.set(newStorageLunchItems);
+    //setStorage("lunchItems", newStorageLunchItems);
     LunchList().render();
     LunchList().renderFavorites();
     closeModal();
