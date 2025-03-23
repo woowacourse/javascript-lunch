@@ -2,6 +2,8 @@ import Restaurant from "../types/Restaurant.ts";
 import RestaurantData from "./RestaurantData.ts";
 import restaurants from "../constants/restaurants.js";
 
+const LOCAL_STORAGE_KEY = "dataList";
+
 class RestaurantDataList {
   #dataList: RestaurantData[];
 
@@ -49,20 +51,20 @@ class RestaurantDataList {
   }
 
   #initializeLocalStorage(): void {
-    const existing = localStorage.getItem("dataList");
+    const existing = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!existing || JSON.parse(existing).length === 0) {
-      localStorage.setItem("dataList", JSON.stringify(restaurants));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(restaurants));
     }
   }
 
   #getLocalStorage(): Restaurant[] | null {
-    const dataList = localStorage.getItem("dataList");
+    const dataList = localStorage.getItem(LOCAL_STORAGE_KEY);
     return dataList ? JSON.parse(dataList) : null;
   }
 
   #setLocalStorage(dataList: RestaurantData[]): void {
     localStorage.setItem(
-      "dataList",
+      LOCAL_STORAGE_KEY,
       JSON.stringify(dataList.map((data) => data.getData()))
     );
   }
