@@ -19,16 +19,30 @@ class Component {
   setup() {}
 
   render() {
-    if (!this.#element) this.#element = document.createElement(this.#tagName);
-    if (this.#className) this.#element.classList.add(this.#className);
+    if (!this.#element) {
+      const templateElement = document.createElement('template');
+      templateElement.innerHTML = this.template().trim();
 
-    this.#element.innerHTML = this.template();
+      if (templateElement.content.childElementCount === 1) {
+        this.#element = templateElement.content.firstElementChild;
+      } else {
+        const wrapper = document.createElement('section');
+        wrapper.id = 'app-container';
+        while (templateElement.content.firstChild) {
+          wrapper.appendChild(templateElement.content.firstChild);
+        }
+        this.#element = wrapper;
+      }
+
+      if (this.#className) this.#element.classList.add(this.#className);
+    } else {
+      this.#element.innerHTML = this.template();
+    }
     this.onRender();
   }
 
   setState(nextState) {
     this.#state = nextState;
-
     this.render();
   }
 

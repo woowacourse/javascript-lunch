@@ -77,23 +77,22 @@ class InputModal extends Component {
   onRender() {
     const $modalCancelButton = this.element.querySelector('#modal-cancel');
     const $modalBackdrop = this.element.querySelector('.modal-backdrop');
-    const $modal = this.element.querySelector('.modal');
 
-    $modalCancelButton.addEventListener('click', function () {
-      $modal.classList.add('hidden');
+    $modalCancelButton.addEventListener('click', () => {
+      this.element.classList.add('hidden');
     });
-    $modalBackdrop.addEventListener('click', function () {
-      $modal.classList.add('hidden');
+    $modalBackdrop.addEventListener('click', () => {
+      this.element.classList.add('hidden');
     });
 
     const $addRestaurantButton = this.parent.querySelector('.gnb__button');
 
-    $addRestaurantButton.addEventListener('click', function () {
-      $modal.classList.remove('hidden');
+    $addRestaurantButton.addEventListener('click', () => {
+      this.element.classList.remove('hidden');
     });
 
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') $modal.classList.add('hidden');
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') this.element.classList.add('hidden');
     });
 
     const $modalForm = this.element.querySelector('.modal-form');

@@ -21,7 +21,7 @@ class RestaurantList extends Component {
       });
 
     restaurantList.forEach((restaurant) => {
-      $restaurantList.appendChild(restaurant.element);
+      this.element.appendChild(restaurant.element);
     });
 
     this.element.addEventListener('click', (event) => {

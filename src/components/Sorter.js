@@ -12,9 +12,7 @@ class Sorter extends Component {
   }
 
   onRender() {
-    const $listSorter = this.element.querySelector(`#${this.props.name}-filter`);
-
-    $listSorter.addEventListener('change', (e) => {
+    this.element.addEventListener('change', (e) => {
       this.props.sortList(e.target.value);
     });
   }

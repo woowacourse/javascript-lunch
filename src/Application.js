@@ -17,11 +17,9 @@ class Application extends Component {
 
   template() {
     return `
-      ${new Header({ title: '오늘 뭐 먹지' }).template()}
-      <section class="restaurant-filter-container"></section>
-      <section class="restaurant-list-container"></section>
-     
-
+        <div id="app-header"></div>
+        <section class="restaurant-filter-container"></section>
+        <section class="restaurant-list-container"></section>
     `;
   }
 
@@ -49,6 +47,11 @@ class Application extends Component {
   }
 
   onRender() {
+    const $headerContainer = this.element.querySelector('#app-header');
+    const headerInstance = new Header({ title: '점심 뭐 먹지' });
+    $headerContainer.appendChild(headerInstance.element);
+    headerInstance.onRender();
+
     const $restaurantListContainer = this.element.querySelector('.restaurant-list-container');
     const restaurantList = new RestaurantList({
       restaurantList: this.state.restaurantList,
@@ -56,7 +59,6 @@ class Application extends Component {
       sort: this.state.sort,
       deleteRestaurant: this.deleteRestaurant.bind(this),
     });
-
     $restaurantListContainer.appendChild(restaurantList.element);
 
     const $restaurantFilterContainer = this.element.querySelector('.restaurant-filter-container');

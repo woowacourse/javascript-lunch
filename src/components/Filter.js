@@ -12,9 +12,7 @@ class Filter extends Component {
   }
 
   onRender() {
-    const $categorySelect = this.element.querySelector(`#${this.props.name}-filter`);
-
-    $categorySelect.addEventListener('change', (e) => {
+    this.element.addEventListener('change', (e) => {
       this.props.filterCategory(e.target.value);
     });
   }
