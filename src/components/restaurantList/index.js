@@ -4,9 +4,7 @@ import { createElement } from "../../utils/createElement";
 import { $ } from "../../utils/dom";
 import RestaurantCard from "../restaurantCard";
 
-const RestaurantList = (restaurantListData) => {
-  const restaurants = new Restaurants(restaurantListData);
-
+const RestaurantList = (restaurantListData, restaurants) => {
   const ulTag = $(".restaurant-list");
   ulTag.replaceChildren();
 

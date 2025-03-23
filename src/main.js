@@ -9,32 +9,42 @@ import RestaurantList from "./components/restaurantList/index.js";
 
 addEventListener("load", () => {
   const restaurants = new Restaurants();
-  const restaurantList = restaurants.getFromLocalStorage();
+  const restaurantsData = restaurants.getFromLocalStorage();
 
-  const filter = new Filter(restaurantList);
-  const filteredItem = filter.filter();
+  const filter = new Filter();
+  const filteredItem = filter.filter(restaurantsData);
 
-  RestaurantList(filteredItem);
+  RestaurantList(filteredItem, restaurants);
 
   $("#app").prepend(
     header({
       addRestaurant: restaurants.addRestaurant,
-      onChangeCategoryAll: () => filter.filterBySortType("category", "all"),
+      onChangeCategoryAll: () => {
+        filter.filterBySortType("category", "all");
+        return filter.filter(restaurantsData);
+      },
     })
   );
 
   $("main").prepend(
     CategoryAndSortFilter({
-      onSortByCategory: (category) =>
-        filter.filterBySortType("category", category),
-      onSortByOption: (option) => filter.filterBySortType("option", option),
+      onSortByCategory: (category) => {
+        filter.filterBySortType("category", category);
+        return filter.filter(restaurantsData);
+      },
+      onSortByOption: (option) => {
+        filter.filterBySortType("option", option);
+        return filter.filter(restaurantsData);
+      },
     })
   );
 
   $("main").prepend(
     FavoriteTabFilters({
-      onSortByFavorite: (favorite) =>
-        filter.filterBySortType("favorite", favorite),
+      onSortByFavorite: (favorite) => {
+        filter.filterBySortType("favorite", favorite);
+        return filter.filter(restaurantsData);
+      },
     })
   );
 

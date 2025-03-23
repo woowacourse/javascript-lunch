@@ -9,15 +9,13 @@ interface FilterType {
 
 export class Filter {
   #filterType: FilterType;
-  #restaurants: Restaurant[];
 
-  constructor(restaurants: Restaurant[]) {
+  constructor() {
     this.#filterType = {
       category: "all",
       option: "name",
       favorite: false,
     };
-    this.#restaurants = restaurants;
   }
 
   filterBySortType = <K extends keyof FilterType>(
@@ -26,24 +24,24 @@ export class Filter {
   ) => {
     this.#filterType[sortType] = sortState;
 
-    return this.filter();
+    // return this.filter();
   };
 
-  filter = () => {
-    const filtered = this.#filterByCategory(this.#filterByFavorite());
+  filter = (restaurants: Restaurant[]) => {
+    const filtered = this.#filterByCategory(
+      this.#filterByFavorite(restaurants)
+    );
     if (this.#filterType.option === "name") this.#sortByName(filtered);
     if (this.#filterType.option === "distance") this.#sortByDistance(filtered);
 
     return filtered;
   };
 
-  #filterByFavorite() {
+  #filterByFavorite(restaurants: Restaurant[]) {
     if (this.#filterType.favorite) {
-      return [...this.#restaurants].filter(
-        (restaurant) => restaurant.info.favorite
-      );
+      return restaurants.filter((restaurant) => restaurant.info.favorite);
     }
-    return [...this.#restaurants];
+    return restaurants;
   }
 
   #filterByCategory(restaurants: Restaurant[]) {

@@ -26,11 +26,11 @@ class Restaurants {
       this.#restaurants = parsedData.map(
         (data: RestaurantInfo) => new Restaurant(data)
       );
-      return this.#restaurants;
+      return [...this.#restaurants];
     }
 
     this.setToLocalStorage();
-    return this.#restaurants;
+    return [...this.#restaurants];
   }
 
   addRestaurant = (restaurant: Restaurant) => {
@@ -42,11 +42,10 @@ class Restaurants {
   deleteRestaurant = (id: number) => {
     this.#restaurants = this.#restaurants.filter((res) => res.info.id !== id);
     this.setToLocalStorage();
-    return this.#restaurants;
   };
 
   get restaurants(): Restaurant[] {
-    return this.#restaurants;
+    return [...this.#restaurants];
   }
 }
 
