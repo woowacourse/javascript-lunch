@@ -25,24 +25,27 @@ describe('step2 기능 테스트', () => {
       });
     });
 
-    it('사용자가 한식 -> 중식 필터를 선택하면 중식 카테고리 음식점만 보인다.', () => {
-      cy.get('#category-filter').select('한식');
-      cy.get('#category-filter').select('중식');
+    it('사용자가 필터를 전체 → 한식 → 중식 → 전체 순으로 변경할 때 필터링이 정상 작동한다.', () => {
+      cy.get('#category-filter').select('전체');
+      cy.get('.restaurant-list .restaurant').should('have.length', 6);
 
+      cy.get('#category-filter').select('한식');
+      cy.get('.restaurant-list .restaurant').each(($restaurant) => {
+        cy.wrap($restaurant)
+          .find('.restaurant__category img')
+          .should('have.attr', 'alt', '한식');
+      });
+
+      cy.get('#category-filter').select('중식');
       cy.get('.restaurant-list .restaurant').each(($restaurant) => {
         cy.wrap($restaurant)
           .find('.restaurant__category img')
           .should('have.attr', 'alt', '중식');
       });
-    })
 
-    it('사용자가 한식 → 전체 필터를 선택하면 모든 음식점이 보인다.', () => {
-      cy.get('#category-filter').select('한식');
       cy.get('#category-filter').select('전체');
-
-      cy.get('.restaurant-list .restaurant')
-        .should('have.length', 6);
-    })
+      cy.get('.restaurant-list .restaurant').should('have.length', 6);
+    });
 
     it('필터를 선택했을 때 존재하는 음식점이 없으면 빈 화면이 보인다.', () => {
       cy.get('.restaurant[data-id="1"]').click();
