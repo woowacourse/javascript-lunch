@@ -3,6 +3,7 @@ import { restaurantsData } from "../../public/database/restaurants";
 import renderRestaurantElement from "./RestaurantItem";
 import createCategoryFilter from "../components/Filter/CategoryFilter";
 import createSortFilter from "../components/Filter/SortFilter";
+import StorageItem from "./StorageManager";
 
 class RestaurantList {
   selectedCategory;
@@ -10,14 +11,14 @@ class RestaurantList {
   selectedTab;
 
   constructor() {
-    const storedRestaurants = JSON.parse(localStorage.getItem("restaurants"));
+    const storedRestaurants = StorageItem.getItem("restaurants");
     this.restaurants = storedRestaurants
       ? storedRestaurants
       : [...restaurantsData];
 
-    const storedCategory = JSON.parse(localStorage.getItem("category"));
-    const storedSort = JSON.parse(localStorage.getItem("sort"));
-    const storedTab = JSON.parse(localStorage.getItem("tab"));
+    const storedCategory = StorageItem.getItem("category");
+    const storedSort = StorageItem.getItem("sort");
+    const storedTab = StorageItem.getItem("tab");
 
     this.selectedCategory = storedCategory ? storedCategory : "전체";
     this.selectedSort = storedSort ? storedSort : "name";
@@ -28,34 +29,31 @@ class RestaurantList {
 
   setSelectedCategory(category) {
     this.selectedCategory = category;
-    localStorage.setItem("category", JSON.stringify(category));
+    StorageItem.setItem("category", category);
   }
 
   setSelectedSort(sortOption) {
     this.selectedSort = sortOption;
-    localStorage.setItem("sort", JSON.stringify(sortOption));
+    StorageItem.setItem("sort", sortOption);
   }
 
   setSelectedTab(tab) {
     this.selectedTab = tab;
-    localStorage.setItem("tab", JSON.stringify(tab));
+    StorageItem.setItem("tab", tab);
   }
 
   createRestaurantList() {
     const restaurantListContainer = document.querySelector(
       ".restaurant-list-container"
     );
-
     const restaurantListHTML = `<ul class="restaurant-list"></ul>`;
     restaurantListContainer.insertAdjacentHTML("beforeend", restaurantListHTML);
-
     this.restaurantListElement = document.querySelector(".restaurant-list");
     this.render();
   }
 
   updateFavoriteStatus(name) {
     const restaurant = this.restaurants.find((r) => r.name === name);
-
     if (!restaurant) return;
 
     const item = document.querySelector(`[data-name="${name}"]`);
@@ -65,15 +63,14 @@ class RestaurantList {
       : "images/empty-star.png";
     restaurant.isFavorite = !restaurant.isFavorite;
 
-    const storedRestaurants = JSON.parse(localStorage.getItem("restaurants"));
+    const storedRestaurants = StorageItem.getItem("restaurants");
     const newData = storedRestaurants.map((data) => {
       if (data.name === name) {
         return { ...data, isFavorite: !data.isFavorite };
       }
-
       return data;
     });
-    localStorage.setItem("restaurants", JSON.stringify(newData));
+    StorageItem.setItem("restaurants", newData);
   }
 
   deleteRestaurant(name) {
@@ -144,7 +141,7 @@ class RestaurantList {
   }
 
   render() {
-    localStorage.setItem("restaurants", JSON.stringify(this.restaurants));
+    StorageItem.setItem("restaurants", this.restaurants);
     this.restaurantListElement.innerHTML = "";
 
     if (this.selectedTab === "allTab") {

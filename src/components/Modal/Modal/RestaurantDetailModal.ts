@@ -104,6 +104,7 @@ export default class RestaurantDetailModal {
       this.deleteRestaurant(this.restaurant.name);
       this.close();
     });
+
     this.modalElement.addEventListener("click", (event: MouseEvent) => {
       if (event.target === event.currentTarget) {
         this.close();
