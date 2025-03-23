@@ -1,5 +1,3 @@
-import RestaurantList from "../../Restaurant/RestaurantList";
-
 const createSortFilter = (restaurantList) => {
   const addrestaurant_filter_container = document.querySelector(
     ".restaurant-filter-container"
