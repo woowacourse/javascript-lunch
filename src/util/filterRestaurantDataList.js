@@ -1,5 +1,9 @@
 import selectedFilterValue from "../domain/SelectedFilterValue";
 
+const SORTING_ALL = "전체";
+const SORTING_NAME = "이름순"
+const SORTING_DISTANCE = "거리순";
+
 export default function filterRestaurantDataList({
   restaurantDataList,
   isWishList,
@@ -16,17 +20,17 @@ export default function filterRestaurantDataList({
 function filterByCategory(dataList) {
   const category = selectedFilterValue.getSelectedFilterCategoryValue();
   return dataList.filter(
-    (data) => category === "전체" || data.category === category
+    (data) => category === SORTING_ALL || data.category === category
   );
 }
 
 function sortByCategory(dataList) {
   const sorting = selectedFilterValue.getSelectedFilterSortingValue();
-  if (sorting === "이름순") {
+  if (sorting === SORTING_NAME) {
     dataList.sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  if (sorting === "거리순") {
+  if (sorting === SORTING_DISTANCE) {
     dataList.sort((a, b) => {
       if (a.distance > b.distance) return 1;
       if (a.distance < b.distance) return -1;
@@ -38,5 +42,5 @@ function sortByCategory(dataList) {
 }
 
 function filterByStar(dataList) {
-  return dataList.filter((data) => data.isWish === true) || [];
+  return dataList.filter((data) => data.isWish === true);
 }
