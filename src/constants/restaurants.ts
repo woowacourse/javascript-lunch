@@ -1,4 +1,4 @@
-import Restaurant from "../types/RestaurantDataType";
+import Restaurant from "../types/RestaurantDTO";
 
 const restaurants: Restaurant[] = [
   {

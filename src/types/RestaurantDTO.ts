@@ -1,6 +1,6 @@
 import Category from "./Category";
 
-interface RestaurantDataType {
+interface RestaurantDTO {
     id: string;
     src?: string;
     alt?: string;
@@ -12,4 +12,4 @@ interface RestaurantDataType {
     isWish: boolean;
 }
 
-export default RestaurantDataType;
+export default RestaurantDTO;

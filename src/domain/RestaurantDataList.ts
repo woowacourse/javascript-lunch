@@ -1,4 +1,4 @@
-import RestaurantDataType from "../types/RestaurantDataType.ts";
+import RestaurantDataType from "../types/RestaurantDTO.ts";
 import RestaurantData from "./RestaurantData.ts";
 import restaurants from "../constants/restaurants.js";
 
