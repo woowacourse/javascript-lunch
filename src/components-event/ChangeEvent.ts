@@ -1,7 +1,7 @@
 import { ChangeActions } from "./constants/Events.js";
-import { ILunchItem } from "../type.js";
+import { LunchList } from "../components/function/LunchList.js";
 
-function ChangeEvent(lunchList: ILunchItem[]): void {
+function ChangeEvent(lunchList: ReturnType<typeof LunchList>): void {
   document.removeEventListener("change", onChange);
   document.addEventListener("change", onChange.bind(this));
 
@@ -14,10 +14,10 @@ function ChangeEvent(lunchList: ILunchItem[]): void {
 
     switch (action) {
       case ChangeActions.CATEGORY_FILTER:
-        lunchList.updateFilter({ category: target.value });
+        lunchList.updateFilterState({ category: target.value });
         break;
       case ChangeActions.SORT_FILTER:
-        lunchList.updateFilter({
+        lunchList.updateFilterState({
           sortOption: target.value as "name" | "distance",
         });
         break;

@@ -7,13 +7,13 @@ export function FilterBox() {
           id: "cartegoryFilter",
           name: "cartegoryFilter",
           optionName: "sortCategory",
-          onChange: ChangeActions.SORT_FILTER,
+          onChange: ChangeActions.CATEGORY_FILTER,
         })}
         ${SelectBox({
           id: "sortFilter",
           name: "sortFilter",
           optionName: "sortOption",
-          onChange: ChangeActions.CATEGORY_FILTER,
+          onChange: ChangeActions.SORT_FILTER,
         })}
     `;
 }

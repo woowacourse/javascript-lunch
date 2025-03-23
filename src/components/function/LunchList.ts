@@ -1,19 +1,53 @@
 import { ClickActions } from "../../components-event/constants/Events.js";
 import { ILunchItem } from "../../type.ts";
-import { sortFilter, updateFilterState } from "../../utils/sortFilter.js";
 import { getStorage, setStorage } from "../../utils/storage.ts";
 import { getHTML, createElement } from "../../utils/utils.ts";
 import { LunchItem } from "./LunchItem.ts";
+
+interface FilterState {
+  category: string;
+  sortOption: "name" | "distance";
+}
 
 export function LunchList(
   lunchListID: string = "restaurantListBox",
   favoriteTargetID: string = "restaurantFavoriteSection"
 ) {
   let lunchItems = (getStorage("lunchItems") as ILunchItem[]) ?? [];
+  let filterState: FilterState = {
+    category: "",
+    sortOption: "name",
+  };
 
-  function updateFilter(newState) {
-    updateFilterState(newState);
+  function updateFilterState(newState: Partial<FilterState>) {
+    filterState = {
+      ...filterState,
+      ...newState,
+    };
+    console.log("FilterState Updated:", filterState); // 디버깅용 로그 추가ㄴ
     render();
+  }
+
+  function sortFilter(items: ILunchItem[]): ILunchItem[] {
+    if (!Array.isArray(items)) return items;
+
+    let filtered = items.map((item) => ({ ...item }));
+
+    if (filterState.category) {
+      filtered = filtered.filter(
+        (item) => item.category === filterState.category
+      );
+    }
+.
+    if (filterState.sortOption === "name") {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (filterState.sortOption === "distance") {
+      filtered.sort((a, b) => Number(a.distance) - Number(b.distance));
+    }
+
+    return filtered;
   }
 
   function reloadLunchItems() {
@@ -116,6 +150,6 @@ export function LunchList(
     render,
     addRestaurantItem,
     renderFavorites,
-    updateFilter,
+    updateFilterState,
   };
 }
