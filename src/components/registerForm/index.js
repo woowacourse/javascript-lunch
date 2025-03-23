@@ -13,8 +13,6 @@ import { modalClose } from "../common/modal/handleCloseModal";
 import Select from "../common/select";
 import TextArea from "../common/textArea";
 import ButtonContainer from "../common/buttonContainer";
-import { Filter } from "../../domain/filter.ts";
-import RestaurantList from "../restaurantList/index.js";
 
 const RegisterForm = (onRegister) => {
   const registerForm = document.createElement("form");

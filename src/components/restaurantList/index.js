@@ -1,5 +1,3 @@
-import { Filter } from "../../domain/filter";
-import Restaurants from "../../model/Restaurants";
 import { createElement } from "../../utils/createElement";
 import { $ } from "../../utils/dom";
 import RestaurantCard from "../restaurantCard";

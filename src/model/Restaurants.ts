@@ -7,6 +7,7 @@ class Restaurants {
 
   constructor(restaurantsData: Restaurant[]) {
     this.#restaurants = restaurantsData || [...defaultRestaurants];
+    this.#getFromLocalStorage();
   }
 
   setToLocalStorage() {
@@ -17,7 +18,7 @@ class Restaurants {
     localStorage.setItem("restaurants", stringifyData);
   }
 
-  getFromLocalStorage() {
+  #getFromLocalStorage() {
     const storedDataString = localStorage.getItem("restaurants");
 
     if (storedDataString) {

@@ -1,5 +1,4 @@
 import { createElement } from "../../utils/createElement";
-import RestaurantList from "../restaurantList";
 
 const Tab = ({ text, id, active = false, changeState }) => {
   const tab = createElement(/*html*/ `

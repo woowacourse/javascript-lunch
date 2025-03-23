@@ -1,14 +1,9 @@
 import { BUTTON_TEXT } from "../../constants/buttonText";
-import Restaurant from "../../model/Restaurant";
-import Restaurants from "../../model/Restaurants";
 import { createElement } from "../../utils/createElement";
 import { $ } from "../../utils/dom";
 import Button from "../common/button";
 import ButtonContainer from "../common/buttonContainer";
-import {
-  modalClose,
-  modalCloseAndFilter,
-} from "../common/modal/handleCloseModal";
+import { modalClose } from "../common/modal/handleCloseModal";
 import ModalContent from "../common/modal/modalContent";
 import Space from "../common/space";
 import RestaurantList from "../restaurantList";

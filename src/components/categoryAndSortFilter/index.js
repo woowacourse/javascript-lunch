@@ -1,6 +1,5 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import Select from "../common/select";
-import RestaurantList from "../restaurantList";
 
 const CategoryAndSortFilter = ({ onSortByCategory, onSortByOption }) => {
   const filterContainer = document.createElement("section");

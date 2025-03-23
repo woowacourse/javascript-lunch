@@ -1,4 +1,3 @@
-import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import Image from "../common/image";
 
 const CategoryImage = (category) => {

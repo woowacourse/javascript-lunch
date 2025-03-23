@@ -9,7 +9,6 @@ import RestaurantList from "./components/restaurantList/index.js";
 
 addEventListener("load", () => {
   const restaurants = new Restaurants();
-  const restaurantsData = restaurants.getFromLocalStorage();
 
   const filter = new Filter();
 
