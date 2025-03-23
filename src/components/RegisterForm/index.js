@@ -1,15 +1,11 @@
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { WALK_TIME_MINUTES } from "./walkTimeMinutes";
-import RestaurantList from "../../domain/RestaurantList";
 import createElement from "../../utils/createElement/createElement";
 import createKeyValuePair from "../../utils/createKeyValuePair";
-import Input from "../common/Input";
 import InputField from "../common/InputField";
-import Select from "../common/Select";
-import TextArea from "../common/TextArea";
-import ButtonContainer from "./ButtonContainer";
+import RegisterButtonContainer from "./RegisterButtonContainer";
 
-const RegisterForm = (restaurantList) => {
+const RegisterForm = (restaurantList, onClickAddButton) => {
   const foodCategoryField = InputField({
     inputType: "select",
     infoType: "category",
@@ -45,7 +41,9 @@ const RegisterForm = (restaurantList) => {
         inputType: "input",
         infoType: "link",
       }),
-      ButtonContainer(restaurantList),
+      RegisterButtonContainer(restaurantList, {
+        onClickAddButton,
+      }),
     ],
   });
 

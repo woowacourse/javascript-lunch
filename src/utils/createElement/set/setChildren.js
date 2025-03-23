@@ -1,7 +1,5 @@
 const setChildren = (element, children) => {
-  children.forEach((child) => {
-    if (child) element.appendChild(child);
-  });
+  element.append(...Array.from(children).filter(Boolean));
 };
 
 export default setChildren;

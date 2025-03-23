@@ -1,14 +1,24 @@
 import createElement from "../../utils/createElement/createElement";
-import CategoryImage from "./CategoryImage";
 import RestaurantInfo from "./RestaurantInfo";
+import CategoryImage from "./CategoryImage";
+import FavoriteIcon from "./FavoriteIcon";
 
-const RestaurantCard = (restaurant) => {
-  const { category, name, distance, description } = restaurant.value;
+const RestaurantCard = (restaurant, { clickFavorite, clickCard } = {}) => {
+  const { category } = restaurant.value;
 
   const restaurantCard = createElement({
     tagName: "li",
     classNames: ["restaurant"],
-    children: [CategoryImage(category), RestaurantInfo(restaurant.value)],
+    children: [
+      CategoryImage(category),
+      RestaurantInfo(restaurant.value),
+      FavoriteIcon(restaurant, clickFavorite),
+    ],
+    events: {
+      click: () => {
+        clickCard(restaurant);
+      },
+    },
   });
 
   return restaurantCard;

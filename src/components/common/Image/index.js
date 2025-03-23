@@ -1,10 +1,10 @@
 import createElement from "../../../utils/createElement/createElement";
 
-const Image = (src, alt, className) =>
+const Image = ({ src, alt, classNames }) =>
   createElement({
     tagName: "img",
     attributes: { src, alt },
-    classNames: [className],
+    classNames: classNames,
   });
 
 export default Image;

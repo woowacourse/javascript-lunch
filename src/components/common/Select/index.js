@@ -2,11 +2,11 @@ import createElement from "../../../utils/createElement/createElement";
 
 const SELECT_PLACEHOLDER = "선택해주세요.";
 
-const Select = (name, required, options) => {
+const Select = ({ name, required, options, defaultOptionText, events }) => {
   const defaultOption = createElement({
     tagName: "option",
     attributes: { value: "" },
-    text: SELECT_PLACEHOLDER,
+    text: defaultOptionText,
   });
 
   const optionsElement = Object.entries(options).map(([key, value]) =>
@@ -20,7 +20,8 @@ const Select = (name, required, options) => {
   const select = createElement({
     tagName: "select",
     attributes: { name, id: name, required },
-    children: [defaultOption, ...optionsElement],
+    children: [defaultOption, ...optionsElement], 
+    events,
   });
 
   return select;

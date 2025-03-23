@@ -1,12 +1,14 @@
-import RestaurantCard from "../components/RestaurantCard";
 import { $ } from "../utils/dom";
 
-const renderRestaurants = (...restaurantList) => {
+const renderRestaurants = (restaurantCardList) => {
   const ulTag = $(".restaurant-list");
+  ulTag.innerHTML = "";
 
-  [...restaurantList].forEach((restaurant) => {
-    ulTag.appendChild(RestaurantCard(restaurant));
+  restaurantCardList.forEach((restaurantCard) => {
+    ulTag.appendChild(restaurantCard);
   });
+
+  return ulTag;
 };
 
 export default renderRestaurants;
