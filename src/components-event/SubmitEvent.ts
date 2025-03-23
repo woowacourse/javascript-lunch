@@ -30,7 +30,6 @@ function SubmitEvent(lunchList: ILunchItem[]) {
 
   function deleteStore(event: SubmitEvent, form): void {
     const dataID = form.dataset.id;
-    console.log("dataID", dataID);
     if (!dataID) return;
     const storageLunchItems = getStorage("lunchItems") as ILunchItem[];
 
@@ -38,7 +37,6 @@ function SubmitEvent(lunchList: ILunchItem[]) {
     const newStorageLunchItems = storageLunchItems.filter(
       (item) => item.id !== dataID
     );
-    console.log("newStorageLunchItems", newStorageLunchItems);
 
     setStorage("lunchItems", newStorageLunchItems);
     LunchList().render();
@@ -56,7 +54,6 @@ function SubmitEvent(lunchList: ILunchItem[]) {
   function onSubmit(event: SubmitEvent): void {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    console.log("form??", form);
     if (!form) return;
 
     if (form.id === "restaurantForm") {

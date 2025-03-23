@@ -24,7 +24,6 @@ export function LunchList(
       ...filterState,
       ...newState,
     };
-    console.log("FilterState Updated:", filterState); // 디버깅용 로그 추가ㄴ
     render();
   }
 

@@ -3,7 +3,7 @@ import { LunchList } from "../components/function/LunchList.js";
 
 function ChangeEvent(lunchList: ReturnType<typeof LunchList>): void {
   document.removeEventListener("change", onChange);
-  document.addEventListener("change", onChange.bind(this));
+  document.addEventListener("change", onChange);
 
   function onChange(event: Event): void {
     const target = event.target as HTMLInputElement;

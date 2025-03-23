@@ -28,8 +28,6 @@ export function sortFilter<T extends Item>(items: T[]): T[] {
     ...item,
   }));
 
-  console.log("filtered!!!!", filtered);
-
   if (filterState.category) {
     filtered = filtered.filter(
       (item) => item.category === filterState.category
