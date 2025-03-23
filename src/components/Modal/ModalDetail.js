@@ -1,0 +1,103 @@
+import {
+  getStoredRestaurantData,
+  setStoredRestaurantData,
+} from "../../domain/storeRestaurantData.ts";
+import { filterRestaurants } from "../../domain/filterRestaurants.ts";
+import Modal from "./Modal.js";
+import {
+  DEFAULT_CATEGORY,
+  SORT_TYPE,
+  STORAGE_KEY,
+} from "../../data/constants.ts";
+
+class ModalDetail extends Modal {
+  template() {
+    const { name, distance, description, imgSrc, imgAlt, like, link } =
+      this.props.data;
+    const starImg = like ? "./filledStar.png" : "./unFilledStar.png";
+
+    return `
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+          <div class="modal-wrapper">
+            <div class="restaurant__category">
+                <img src=${imgSrc} alt=${imgAlt} class="category-icon"/>
+            </div>
+            <img src="${starImg}" id="modal__star" class="restaurant__like"/>
+          </div>
+          <div class="restaurant__info">
+            <h3 class="restaurant__name text-subtitle">${name}</h3>
+            <span class="restaurant__distance text-body">캠퍼스부터 ${distance}분 내</span>
+            <p class="restaurant__description text-body">${description}</p>
+            <a href="${link}" class="restaurant__link text-body">${name} 홈페이지</a>
+          </div>
+          <div class="button-container">
+            <button id="delete_button" type="button" class="button button--secondary text-caption">삭제하기</button>
+            <button id="close_button" class="button button--primary text-caption">닫기</button>
+          </div>
+        </div>
+      `;
+  }
+
+  setEvent() {
+    this.$target
+      .querySelector(".modal-backdrop")
+      ?.addEventListener("click", () => this.modalClose());
+    this.$target
+      .querySelector("#close_button")
+      ?.addEventListener("click", () => this.modalClose());
+    this.$target
+      .querySelector("#delete_button")
+      ?.addEventListener("click", () => this.handleDeleteRestaurant());
+    this.$target
+      .querySelector("#modal__star")
+      ?.addEventListener("click", () => this.handleLikeToggle());
+  }
+
+  handleLikeToggle() {
+    this.props.data.like = !this.props.data.like;
+    this.updateStoredData();
+    this.updateLikeUI();
+  }
+
+  updateStoredData() {
+    let storedData = getStoredRestaurantData();
+    storedData = storedData.map((restaurant) =>
+      restaurant.name === this.props.data.name
+        ? { ...restaurant, like: this.props.data.like }
+        : restaurant,
+    );
+    setStoredRestaurantData(storedData);
+  }
+
+  updateLikeUI() {
+    const starImg = this.props.data.like
+      ? "./filledStar.png"
+      : "./unFilledStar.png";
+    this.$target.querySelector("#modal__star").src = starImg;
+    document.querySelectorAll(".restaurant").forEach((item) => {
+      if (
+        item.querySelector(".restaurant__name")?.innerText ===
+        this.props.data.name
+      ) {
+        item.querySelector(".list__star").src = starImg;
+      }
+    });
+  }
+
+  handleDeleteRestaurant() {
+    let updatedData = getStoredRestaurantData().filter(
+      (restaurant) => restaurant.id !== this.props.data.id,
+    );
+    setStoredRestaurantData(updatedData);
+
+    const currentCategory =
+      localStorage.getItem(STORAGE_KEY.CATEGORY) || DEFAULT_CATEGORY;
+    const currentSort =
+      localStorage.getItem(STORAGE_KEY.SORT_TYPE) || SORT_TYPE.NAME;
+    filterRestaurants(currentCategory, currentSort);
+
+    this.modalClose();
+  }
+}
+export default ModalDetail;

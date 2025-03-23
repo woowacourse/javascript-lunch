@@ -124,6 +124,18 @@ input[name="link"] {
   color: var(--grey-100);
 }
 
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.restaurant__link {
+  margin: 15px 0 15px 0;
+  color: inherit;
+}
+
 @keyframes bottom-sheet-up {
   0% {
     transform: translateY(100%);

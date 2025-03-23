@@ -1,5 +1,5 @@
 import Component from "../Component.js";
-import Modal from "../Modal/Modal.js";
+import ModalAdd from "../Modal/ModalAdd.js";
 class Header extends Component {
   constructor($target) {
     super($target);
@@ -16,7 +16,7 @@ class Header extends Component {
   setEvent() {
     this.$target.querySelector(".gnb__button").addEventListener("click", () => {
       const modalContainer = document.querySelector(".modal");
-      new Modal(modalContainer);
+      new ModalAdd(modalContainer, { mode: "add" });
       modalContainer.classList.toggle("modal--open");
     });
   }

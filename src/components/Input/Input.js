@@ -1,4 +1,4 @@
-import { label } from "../../data/optionValue.js";
+import { label } from "../../data/constants.ts";
 import Component from "../Component.js";
 
 class Input extends Component {

@@ -37,11 +37,18 @@
 }
 
 .restaurant__info {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  cursor: pointer;
 }
 
+.restaurant__like {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
 .restaurant__name {
   margin: 0;
 }
