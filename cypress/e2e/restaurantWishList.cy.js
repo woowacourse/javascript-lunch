@@ -40,16 +40,21 @@ describe("음식점 관리 기능 테스트", () => {
     });
   
     describe("음식점 즐겨찾기(★) 기능을 테스트하는 경우", () => {
-      it("음식점 목록에서 즐겨찾기 버튼 클릭 시 추가 및 삭제 가능", () => {
+      it("음식점 목록에서 즐겨찾기 버튼 클릭 시 추가 가능", () => {
         cy.get(".restaurant").first().as("targetRestaurant");
   
         cy.get("@targetRestaurant").find(".restaurant-star").click();
-        cy.get("@targetRestaurant").find(".restaurant-star").should("have.class", "active");
-  
+        cy.get("@targetRestaurant").find(".restaurant-star").should("have.class", "active");  
+      });
+
+      it("음식점 목록에서 즐겨찾기 버튼 클릭 시 삭제 가능", () => {
+        cy.get(".restaurant").first().as("targetRestaurant");  
+
+        cy.get("@targetRestaurant").find(".restaurant-star").click();
+        cy.get("@targetRestaurant").find(".restaurant-star").should("have.class", "active");  
         cy.get("@targetRestaurant").find(".restaurant-star").click();
         cy.get("@targetRestaurant").find(".restaurant-star").should("not.have.class", "active");
       });
-
     });
   });
   
