@@ -1,18 +1,19 @@
-import "./Modal.css";
-import createCategory from "../Select/CategorySelect.js";
-import createName from "../Select/NameLink.js";
-import createDistance from "../Select/DistanceSelect.js";
-import createDescription from "../Select/DescriptionLink.js";
-import createLink from "../Select/LinkInput.js";
-import modalButton from "../Button/Button.js";
 import { restaurantsData } from "../../../../public/database/restaurants.js";
 import validateRestaurant from "../../../validators/validateRestaurant.js";
+import modalButton from "../Button/Button.js";
+import createCategory from "../Select/CreateCategory.js";
+import createDescription from "../Select/CreateDescription.js";
+import createDistance from "../Select/CreateDistance.js";
+import createLink from "../Select/CreateLink.js";
+import createName from "../Select/CreateName.js";
+import "./Modal.css";
 
 export default class RestaurantFormModal {
   constructor(restaurantList, openButton) {
     this.modalElement = document.getElementById("add-restaurant-dialog");
     this.restaurantList = restaurantList;
     this.addFormFields();
+    ß;
     this.openButton = openButton;
     this.formElement = this.modalElement.querySelector("form");
     this.closeButton = document.querySelector("#cancel-dialog-btn");

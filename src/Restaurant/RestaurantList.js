@@ -117,10 +117,10 @@ class RestaurantList {
   }
 
   renderFavoriteData() {
-    const addrestaurant_filter_container = document.querySelector(
+    const addrestaurantFilterContainer = document.querySelector(
       ".restaurant-filter-container"
     );
-    addrestaurant_filter_container.innerHTML = "";
+    addrestaurantFilterContainer.innerHTML = "";
     const favoriteData = this.restaurants.filter(
       (restaurant) => restaurant.isFavorite === true
     );
