@@ -31,7 +31,13 @@ describe("점심 뭐 먹지 E2E 테스트", () => {
   it("두 번째 테스트 - 선택한 음식점이 삭제되는지 확인", () => {
     cy.get(".restaurant-list li").eq(0).click();
     cy.get("#storeDeleteBtn").click();
-    cy.get(".restaurant").contains("잇쇼우").should("not.exist");
+    cy.get("#restaurantListSection > #restaurantListBox > .restaurant-list")
+      .contains("잇쇼우")
+      .should("not.exist");
+    cy.get('button[value="1"]').click();
+    cy.get("#restaurantFavoriteSection > .restaurant-list")
+      .contains("잇쇼우")
+      .should("not.exist");
   });
 
   it("세 번째 테스트(필터 테스트) - 거리순으로 정렬이 되고 카테고리별로 잘 보여지는지 확인", () => {
