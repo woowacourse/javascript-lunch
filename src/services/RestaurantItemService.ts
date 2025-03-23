@@ -1,4 +1,5 @@
 import { RESTAURANT_ITEMS, RestaurantItem } from '../../public/restaurantData.ts';
+import { saveRestaurants } from './RestaurantListService.ts';
 
 function createRestaurantData(
   data: Omit<RestaurantItem, 'favorite'> & { favorite?: boolean }
@@ -18,6 +19,8 @@ function toggleFavorite(id: string): void {
   const restaurant = RESTAURANT_ITEMS.find((item) => item.id === id);
   if (restaurant) {
     restaurant.favorite = !restaurant.favorite;
+
+    saveRestaurants(RESTAURANT_ITEMS);
   }
 }
 
