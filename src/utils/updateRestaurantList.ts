@@ -11,7 +11,7 @@ export function updateRestaurantListBasedOnActiveTab() {
   const currentSorting = sortingFilter ? sortingFilter.value : '이름순';
 
   const filteredRestaurants = filterByCategory(currentCategory);
-  const sortedRestaurants = sortByCondition(filteredRestaurants, currentSorting);
+  const sortedRestaurants = sortByCondition(filteredRestaurants, currentSorting as '이름순' | '거리순');
 
   if (activeTab && activeTab.id === 'favorites') {
     const favorites = sortedRestaurants.filter((restaurant) => restaurant.isFavorite);

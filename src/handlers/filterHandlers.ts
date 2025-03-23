@@ -9,7 +9,7 @@ export function filterByCategory(category: string): State[] {
   return restaurantStore.filter((restaurant) => restaurant.category === category);
 }
 
-export function sortByCondition(data: State[], sorting: string): State[] {
+export function sortByCondition(data: State[], sorting: '이름순' | '거리순'): State[] {
   if (sorting === '이름순') {
     return [...data].sort((a, b) => {
       const cmp = a.name.localeCompare(b.name);
@@ -33,7 +33,7 @@ export function applyFilters() {
   const currentSorting = sortingFilter ? sortingFilter.value : '이름순';
 
   const filteredRestaurants = filterByCategory(currentCategory);
-  const sortedRestaurants = sortByCondition(filteredRestaurants, currentSorting);
+  const sortedRestaurants = sortByCondition(filteredRestaurants, currentSorting as '이름순' | '거리순');
 
   reRenderRestaurantList(sortedRestaurants);
 }
