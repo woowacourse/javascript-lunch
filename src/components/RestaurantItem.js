@@ -19,7 +19,11 @@ function createTags(data) {
     `캠퍼스부터 ${data.distance}분 내`
   );
 
-  const starImg = createElement('div', 'restaurant__star');
+  const starImg = createElement('img', 'restaurant__star', null, {
+    src: data.favorite ? './images/Star.png' : './images/Star border.png',
+    alt: 'favorite star',
+  });
+
   const descriptionPara = createElement('p', 'restaurant__description text-body', data.description);
 
   return { categoryImg, nameHeading, distanceSpan, starImg, descriptionPara };
@@ -43,7 +47,10 @@ function createRestaurantItem(data) {
   starImg.addEventListener('click', (event) => {
     event.stopPropagation();
     toggleFavorite(restaurantData.id);
-    starImg.classList.toggle('favorite');
+    const newSrc = starImg.src.includes('Star.png')
+      ? './images/Star border.png'
+      : './images/Star.png';
+    starImg.src = newSrc;
     updateFavoriteRestaurants();
   });
 
