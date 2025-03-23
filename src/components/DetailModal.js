@@ -34,14 +34,6 @@ class DetailModal extends Component {
 
     const $modal = this.element.querySelector('.modal');
 
-    document.addEventListener('click', function (event) {
-      if (event.target.closest('.modal-backdrop')) $modal.classList.add('hidden');
-    });
-
-    document.addEventListener('click', function (event) {
-      if (event.target.closest('#modal-cancel')) $modal.classList.add('hidden');
-    });
-
     document.addEventListener('click', (event) => {
       if (event.target.closest('#modal-delete')) {
         if (this.props.onDelete) {
@@ -49,10 +41,6 @@ class DetailModal extends Component {
         }
         $modal.classList.add('hidden');
       }
-    });
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') $modal.classList.add('hidden');
     });
   }
 }

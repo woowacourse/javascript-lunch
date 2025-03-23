@@ -5,11 +5,28 @@ class Header extends Component {
     return `
       <header class="gnb">
         <h1 class="gnb__title text-title">${this.props.title}</h1>
+      </header>
+    `;
+  }
+
+  onRender() {
+    if (!this.element.querySelector('.gnb__button')) {
+      const gnbButton = `
         <button type="button" class="gnb__button" aria-label="음식점 추가">
           <img src="../../public/images/add-button.png" alt="음식점 추가" />
         </button>
-      </header>
-    `;
+      `;
+      const $gnbTitle = this.element.querySelector('.gnb__title');
+      $gnbTitle.insertAdjacentHTML('afterend', gnbButton);
+    }
+
+    const $gnbButton = this.element.querySelector('.gnb__button');
+
+    $gnbButton.addEventListener('click', () => {
+      const $modal = this.parent.querySelector('.modal');
+      console.log(this.parent);
+      $modal.classList.remove('hidden');
+    });
   }
 }
 

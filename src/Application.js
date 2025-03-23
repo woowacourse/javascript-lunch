@@ -48,7 +48,7 @@ class Application extends Component {
 
   onRender() {
     const $headerContainer = this.element.querySelector('#app-header');
-    const headerInstance = new Header({ title: '점심 뭐 먹지' });
+    const headerInstance = new Header({ title: '점심 뭐 먹지' }, this.element);
     $headerContainer.appendChild(headerInstance.element);
     headerInstance.onRender();
 

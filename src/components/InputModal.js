@@ -6,7 +6,7 @@ import Select from './Select.js';
 import Modal from './Modal.js';
 
 class InputModal extends Component {
-  template() {
+  onRender() {
     const inputBoxList = [
       new InputBox({
         input: new Select({
@@ -59,41 +59,19 @@ class InputModal extends Component {
       id: 'modal-add',
       message: '추가하기',
     });
-    return `
-             ${new Modal({
-               content: `
-               <h2 class="modal-title text-title">새로운 음식점</h2>
-                <form class="modal-form">
-                  ${inputBoxList.map((input) => input.template()).join('')}
-                  <div class="button-container">
-                    ${cancelButton.template()}
-                    ${addButtom.template()}
-                  </div>
-                </form>`,
-             }).template()}
-        `;
-  }
-
-  onRender() {
-    const $modalCancelButton = this.element.querySelector('#modal-cancel');
-    const $modalBackdrop = this.element.querySelector('.modal-backdrop');
-
-    $modalCancelButton.addEventListener('click', () => {
-      this.element.classList.add('hidden');
-    });
-    $modalBackdrop.addEventListener('click', () => {
-      this.element.classList.add('hidden');
+    const modal = new Modal({
+      content: `
+      <h2 class="modal-title text-title">새로운 음식점</h2>
+       <form class="modal-form">
+         ${inputBoxList.map((input) => input.template()).join('')}
+         <div class="button-container">
+           ${cancelButton.template()}
+           ${addButtom.template()}
+         </div>
+       </form>`,
     });
 
-    const $addRestaurantButton = this.parent.querySelector('.gnb__button');
-
-    $addRestaurantButton.addEventListener('click', () => {
-      this.element.classList.remove('hidden');
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') this.element.classList.add('hidden');
-    });
+    this.element.appendChild(modal.element);
 
     const $modalForm = this.element.querySelector('.modal-form');
 
