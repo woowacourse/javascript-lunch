@@ -1,6 +1,12 @@
 import { label } from "../../constants/optionValue.js";
 
-const Input = ({ id, required, type }) => {
+interface InputProps {
+  id: string;
+  required: string;
+  type: string;
+}
+
+const Input = ({ id, required, type }: InputProps) => {
   return `
   <div id="name" class="form-item ${required ? "form-item--required" : ""}">
       <label for="${id} text-caption">${label[id]}</label>

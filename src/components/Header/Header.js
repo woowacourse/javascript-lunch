@@ -3,10 +3,6 @@ import Modal from "../Modal/Modal.js";
 import "./header.css";
 
 class Header extends Component {
-  constructor($target, props) {
-    super($target, props);
-  }
-
   template() {
     return `
     <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
