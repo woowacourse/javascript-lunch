@@ -137,7 +137,7 @@ const modalRenderer = {
     const modal = document.querySelector(".modal-store-detail");
     const modalContainer = modal.querySelector(".modal-container");
     modalContainer.setAttribute("id", store.id);
-    modalContainer.innerHTML = StoreDetail(store);
+    StoreDetail(store, storeList);
     modalContainer.appendChild(
       modalRenderer.addButtons([
         {
@@ -154,13 +154,6 @@ const modalRenderer = {
         },
       ])
     );
-
-    const icon = modalContainer.querySelector(".star-icon");
-    const storeId = modalContainer.getAttribute("id");
-    icon.addEventListener("click", (e) => {
-      storeRenderer.toggleFavorite(storeList, icon, storeId);
-      storeRenderer.rerenderStoreList(storeList.filteredList);
-    });
 
     document
       .querySelector("#close-button")

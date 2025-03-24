@@ -4,15 +4,13 @@ import storeRenderer from "../render/storeRenderer.js";
 import createElement from "../utils/createElement.js";
 
 // 식당 상세 정보
-export const StoreDetail = ({
-  name,
-  category,
-  dist,
-  description,
-  link,
-  isFavorite,
-}) => {
-  return `
+export const StoreDetail = (
+  { id, name, category, dist, description, link, isFavorite },
+  storeList
+) => {
+  const modal = document.querySelector(".modal-store-detail");
+  const modalContainer = modal.querySelector(".modal-container");
+  modalContainer.innerHTML = `
     <div class="category-favorite-icon-container">
               <div class="restaurant__category">
                 <img
@@ -42,4 +40,10 @@ export const StoreDetail = ({
               >${link}</a
             >
   `;
+
+  const icon = modalContainer.querySelector(".star-icon");
+  icon.addEventListener("click", (e) => {
+    storeRenderer.toggleFavorite(storeList, icon, id);
+    storeRenderer.rerenderStoreList(storeList.filteredList);
+  });
 };
