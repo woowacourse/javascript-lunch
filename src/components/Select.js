@@ -1,7 +1,13 @@
 import createElement from "../utils/createElement";
 
 // 카테고리 필터 & 정렬 드롭박스
-const Select = ({ name = "", id = "", classList = [], options, callback }) => {
+const Select = ({
+  name = "",
+  id = "",
+  classList = [],
+  options,
+  handleChange,
+}) => {
   const select = createElement({
     tag: "select",
     name,
@@ -14,7 +20,7 @@ const Select = ({ name = "", id = "", classList = [], options, callback }) => {
     .map((key) => `<option value="${key}">${options[key]}</option>`)
     .join("")}`;
 
-  select.addEventListener("change", callback);
+  select.addEventListener("change", handleChange);
 
   return select;
 };

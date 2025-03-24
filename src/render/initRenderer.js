@@ -19,7 +19,7 @@ const initRenderer = {
       id: "category-filter",
       classList: ["restaurant-filter"],
       options: options.sortCategory,
-      callback: (e) => storeRenderer.filterStore(storeList, e),
+      handleChange: (e) => storeRenderer.filterStore(storeList, e),
     });
 
     document
@@ -32,7 +32,7 @@ const initRenderer = {
       id: "sorting-filter",
       classList: ["restaurant-filter"],
       options: options.sortFilter,
-      callback: (e) => storeRenderer.sortStore(storeList, e),
+      handleChange: (e) => storeRenderer.sortStore(storeList, e),
     });
     document
       .querySelector(".restaurant-filter-container")
@@ -44,7 +44,6 @@ const initRenderer = {
     const storeList = new StoreList(storage.getStorageItems());
 
     storeList.list.forEach((store) => {
-      // storeRenderer.addStore(store);
       Store(store);
     });
 
