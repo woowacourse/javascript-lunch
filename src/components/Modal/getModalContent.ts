@@ -29,7 +29,7 @@ const descriptionInput = Input({
 });
 const linkInput = Input({ id: "link", required: "", type: "url" });
 
-export const addRestaurantContent = (): string => {
+export const AddRestaurantContent = (): string => {
   return ` <h2 class="modal-title text-title">새로운 음식점</h2>
         <form id='input-form'>
           ${categoryDropdown}
@@ -44,7 +44,7 @@ export const addRestaurantContent = (): string => {
         </form>`;
 };
 
-export const restaurantInfoContent = (data: Partial<Restaurant> = {}) => {
+export const RestaurantInfoContent = (data: Partial<Restaurant> = {}) => {
   return `
     <div id="restaurant_info_content" data-restaurant-id="${data.id}">
       <div class="modal-header">
