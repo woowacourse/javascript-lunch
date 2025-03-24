@@ -1,4 +1,5 @@
 import Component from "../Component.js";
+import storageUtil from "../storageUtil.js";
 class IconButton extends Component {
   initState() {
     const savedFavorites = JSON.parse(
@@ -22,15 +23,16 @@ class IconButton extends Component {
 
   setEvent() {
     const favoriteButton = this.$target.querySelector(".favorite_add_button");
+
     if (favoriteButton) {
       favoriteButton.addEventListener("click", (e) => {
         e.stopPropagation();
 
         const newState = !this.state.isButtonClicked;
         this.setState({ isButtonClicked: newState });
-        const savedFavorites = JSON.parse(
-          localStorage.getItem("favoriteRestaurantList") || "[]",
-        );
+        const savedFavorites =
+          storageUtil.get("favoriteRestaurantList") || "[]";
+
         let updatedFavorites = [...savedFavorites];
 
         if (newState) {
@@ -43,10 +45,7 @@ class IconButton extends Component {
           );
         }
 
-        localStorage.setItem(
-          "favoriteRestaurantList",
-          JSON.stringify(updatedFavorites),
-        );
+        storageUtil.add("favoriteRestaurantList", updatedFavorites);
 
         document.dispatchEvent(
           new CustomEvent("favoriteUpdated", {
