@@ -162,6 +162,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .restaurant__name {
@@ -305,4 +306,9 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.tab-container {
+  display: flex;
+  padding: 0px 16px 0px 16px;
 }

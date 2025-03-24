@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="./src/styles/style.css" />
+    <link rel="stylesheet" href="./src/components/css/index.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>점심 뭐 먹지</title>
   </head>
@@ -11,12 +12,15 @@
   <body>
     <div id="app">
       <main>
-        <!-- 음식점 목록 -->
+        <div class="tab-container text-body"></div>
+
+        <section class="restaurant-filter-container"></section>
+
         <section class="restaurant-list-container">
           <ul class="restaurant-list"></ul>
         </section>
-        <template id="modal-template">
-          <div class="modal">
+        <template id="new-restaurant-modal-template">
+          <div class="modal new-restaurant-modal">
             <div class="modal-backdrop"></div>
             <div class="modal-container">
               <h2 class="modal-title text-title">새로운 음식점</h2>
@@ -24,8 +28,17 @@
             </div>
           </div>
         </template>
+
+        <template id="restaurant-detail-modal-template">
+          <div class="modal restaurant-detail-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-container">
+              <div id="restaurant-detail-content"></div>
+            </div>
+          </div>
+        </template>
       </main>
     </div>
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
