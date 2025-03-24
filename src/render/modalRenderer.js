@@ -136,7 +136,7 @@ const modalRenderer = {
   },
 
   // **식당 상세 정보**
-  setStoreInfoModal: (store) => {
+  setStoreInfoModal: (store, storeList) => {
     const modal = document.querySelector(".modal-store-detail");
     const modalContainer = modal.querySelector(".modal-container");
     modalContainer.setAttribute("id", store.id);
@@ -157,6 +157,16 @@ const modalRenderer = {
         },
       ])
     );
+
+    document
+      .querySelector("#close-button")
+      .addEventListener("click", () =>
+        modalRenderer.closeModal(".modal-store-detail")
+      );
+
+    document.querySelector("#delete-button").addEventListener("click", () => {
+      storeRenderer.deleteStore(storeList);
+    });
   },
 };
 

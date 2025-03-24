@@ -56,16 +56,16 @@ export const handleDetailFavorite = (storeList, storeId) => {
   });
 };
 
-export const handleCancelDetail = () => {
-  document
-    .querySelector("#close-button")
-    .addEventListener("click", () =>
-      modalRenderer.closeModal(".modal-store-detail")
-    );
-};
+// export const handleCancelDetail = () => {
+//   document
+//     .querySelector("#close-button")
+//     .addEventListener("click", () =>
+//       modalRenderer.closeModal(".modal-store-detail")
+//     );
+// };
 
-export const handleDeleteStore = (storeList) => {
-  document.querySelector("#delete-button").addEventListener("click", () => {
-    storeRenderer.deleteStore(storeList);
-  });
-};
+// export const handleDeleteStore = (storeList) => {
+//   document.querySelector("#delete-button").addEventListener("click", () => {
+//     storeRenderer.deleteStore(storeList);
+//   });
+// };

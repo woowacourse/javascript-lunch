@@ -7,11 +7,7 @@ import modalRenderer from "./render/modalRenderer.js";
 import MenuBar from "./components/MenuBar.js";
 import uiBasicText from "./constants/uiBasicText.js";
 import Header from "./components/Header.js";
-import {
-  handleCancelDetail,
-  handleDeleteStore,
-  handleDetailFavorite,
-} from "./components/StoreDetail.js";
+import { handleDetailFavorite } from "./components/StoreDetail.js";
 
 addEventListener("load", () => {
   // 초기 세팅
@@ -42,10 +38,8 @@ addEventListener("load", () => {
     const store = storeList.filterByStoreId(storeId);
 
     document.querySelector(".modal-store-detail").classList.add("modal--open");
-    modalRenderer.setStoreInfoModal(store);
+    modalRenderer.setStoreInfoModal(store, storeList);
 
-    handleCancelDetail();
-    handleDeleteStore(storeList);
     handleDetailFavorite(storeList, storeId);
   });
 });
