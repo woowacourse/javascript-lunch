@@ -1,3 +1,5 @@
+import { $ } from "../../../utils/dom";
+
 const ModalContent = (contents) => {
   const modalContent = document.createElement("div");
   modalContent.addEventListener("click", (e) => e.stopPropagation());
@@ -6,6 +8,8 @@ const ModalContent = (contents) => {
   contents.forEach((content) => {
     modalContent.appendChild(content);
   });
+
+  $(".modal-backdrop").appendChild(modalContent);
   return modalContent;
 };
 export default ModalContent;

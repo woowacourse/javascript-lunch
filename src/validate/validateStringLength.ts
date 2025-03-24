@@ -1,4 +1,12 @@
-const validateStringLength = (string, { minLength, maxLength }) => {
+interface Length {
+  minLength: number;
+  maxLength: number;
+}
+
+const validateStringLength = (
+  string: string,
+  { minLength, maxLength }: Length
+) => {
   if (string.length <= maxLength && string.length >= minLength) return;
 
   if (minLength === 0) throw new Error(`${maxLength}자 이하를 작성해주세요.`);

@@ -1,8 +1,10 @@
-const Title = (text, tagName, ...className) => {
+const Title = ({ text, tagName, handleClickTitle, className }) => {
   const title = document.createElement(tagName);
-  title.classList.add(...className);
-  title.textContent = text;
 
+  [...className].forEach((name) => title.classList.add(name));
+
+  title.textContent = text;
+  title.addEventListener("click", () => handleClickTitle());
   return title;
 };
 

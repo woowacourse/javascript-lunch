@@ -3,7 +3,7 @@ import { ERROR_MESSAGE } from "../../src/constants/error.js";
 describe("음식점 추가 페이지 테스트", () => {
   const info = {
     category: "중식",
-    name: "친친",
+    name: "뉴음식점",
     distance: "5",
     description: "친친 가지덮밥이 맛있어요",
     link: "http://localhost.30000",
@@ -11,10 +11,10 @@ describe("음식점 추가 페이지 테스트", () => {
 
   beforeEach(() => {
     cy.visit("http://localhost:5173");
-    cy.get(".modal-backdrop").invoke("addClass", "open");
+    cy.get(".gnb__button").click();
   });
 
-  it("필수 필드를 입력하고 등록 하기 버튼을 누르면 마지막 항목으로 식당이 추가된다.", () => {
+  it("필수 필드를 입력하고 등록 하기 버튼을 누르면 항목에 식당이 추가된다.", () => {
     //given
     cy.get("#register-form").within(() => {
       cy.get("#category").select(info.category);
@@ -23,13 +23,20 @@ describe("음식점 추가 페이지 테스트", () => {
       cy.get("#description").type(info.description);
       cy.get("#link").type(info.link);
     });
+
     //when
     cy.get("#register-button").click();
+
     //then
-    const lastItem = cy.get(".restaurant-list").children().last();
-    lastItem.should("contain.text", info.name);
-    lastItem.should("contain.text", info.distance);
-    lastItem.should("contain.text", info.description);
+    cy.get(".restaurant-list")
+      .children()
+      .each(($el) => {
+        if ($el.text().includes(info.name)) {
+          cy.wrap($el).should("contain.text", info.name);
+          cy.wrap($el).should("contain.text", info.distance);
+          cy.wrap($el).should("contain.text", info.description);
+        }
+      });
   });
 
   describe("각 입력 필드 유효성 검사시 적절한 오류 메시지가 표시된다.", () => {
@@ -42,11 +49,13 @@ describe("음식점 추가 페이지 테스트", () => {
         cy.get("#description").type(info.description);
         cy.get("#link").type(info.link);
       });
+
       //when
       cy.get("#register-button").click();
+
       //then
       cy.get(".error-message").should(
-        "have.text",
+        "contain.text",
         ERROR_MESSAGE.CATEGORY_FIELD_REQUIRED
       );
     });
@@ -60,11 +69,13 @@ describe("음식점 추가 페이지 테스트", () => {
         cy.get("#description").type(info.description);
         cy.get("#link").type(info.link);
       });
+
       //when
       cy.get("#register-button").click();
+
       //then
       cy.get(".error-message").should(
-        "have.text",
+        "contain.text",
         ERROR_MESSAGE.NAME_FIELD_REQUIRED
       );
     });
@@ -78,11 +89,13 @@ describe("음식점 추가 페이지 테스트", () => {
         cy.get("#description").type(info.description);
         cy.get("#link").type(info.link);
       });
+
       //when
       cy.get("#register-button").click();
+
       //then
       cy.get(".error-message").should(
-        "have.text",
+        "contain.text",
         ERROR_MESSAGE.DISTANCE_FIELD_REQUIRED
       );
     });

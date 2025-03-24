@@ -1,32 +1,36 @@
+import { BUTTON_TEXT } from "../../constants/buttonText";
 import { FOOD_CATEGORY } from "../../constants/foodCategory";
 import { INPUT_HELP_TEXT } from "../../constants/inputHelpText";
 import { WALK_TIME_MINUTES } from "../../constants/walkTimeMinutes";
-import createKeyValuePair from "../../utils/createKeyValuePair";
+import Restaurant from "../../model/Restaurant.ts";
 import { $ } from "../../utils/dom";
+import { getInfo } from "../../view/input";
+import Button from "../common/button";
 import ErrorMessage from "../common/errorMessage";
 import Input from "../common/input";
 import InputField from "../common/inputField";
+import { modalClose } from "../common/modal/handleCloseModal";
 import Select from "../common/select";
 import TextArea from "../common/textArea";
-import ButtonContainer from "./buttonContainer";
+import ButtonContainer from "../common/buttonContainer";
 
-const RegisterForm = () => {
+const RegisterForm = (onRegister) => {
   const registerForm = document.createElement("form");
   registerForm.setAttribute("id", "register-form");
-
   registerForm.appendChild(
     InputField(
       "category",
       Select({
         name: "category",
         required: true,
-        options: createKeyValuePair(
-          Object.keys(FOOD_CATEGORY),
-          Object.keys(FOOD_CATEGORY)
-        ),
+        options: Object.keys(FOOD_CATEGORY).map((key) => ({
+          label: FOOD_CATEGORY[key],
+          value: key,
+        })),
       })
     )
   );
+
   registerForm.appendChild(
     InputField("name", Input({ name: "name", required: true }))
   );
@@ -36,10 +40,10 @@ const RegisterForm = () => {
       Select({
         name: "distance",
         required: true,
-        options: createKeyValuePair(
-          WALK_TIME_MINUTES,
-          WALK_TIME_MINUTES.map((minute) => minute + "분 내")
-        ),
+        options: WALK_TIME_MINUTES.map((key) => ({
+          label: `${key}분 내`,
+          value: `${key}`,
+        })),
       })
     )
   );
@@ -54,7 +58,30 @@ const RegisterForm = () => {
     InputField("link", Input({ name: "link" }), INPUT_HELP_TEXT.LINK)
   );
 
-  registerForm.appendChild(ButtonContainer(onSubmitFailed));
+  registerForm.appendChild(
+    ButtonContainer([
+      Button({
+        text: BUTTON_TEXT.CANCEL,
+        style: "button--secondary",
+        onClick: modalClose,
+        type: "button",
+        id: "cancel-button",
+      }),
+      ,
+      Button({
+        text: BUTTON_TEXT.ADD,
+        style: "button--primary",
+        onClick: (e) => {
+          try {
+            registerRestaurant(e, onRegister);
+          } catch (e) {
+            onSubmitFailed(e);
+          }
+        },
+        id: "register-button",
+      }),
+    ])
+  );
 
   return registerForm;
 };
@@ -62,6 +89,18 @@ const RegisterForm = () => {
 const onSubmitFailed = (e) => {
   const currentInputField = $(`#${e.cause}-form-item`);
   currentInputField.appendChild(ErrorMessage(e.message));
+};
+
+const registerRestaurant = (e, onRegister) => {
+  e.preventDefault();
+  const { addRestaurant, onChangeCategoryAll } = onRegister;
+
+  const info = getInfo();
+  addRestaurant(new Restaurant(info));
+  $("select#category").value = "all";
+  onChangeCategoryAll();
+
+  modalClose();
 };
 
 export default RegisterForm;

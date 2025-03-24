@@ -1,9 +1,10 @@
-import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes";
-import Restaurant from "./model/Restaurant";
+import { WALK_TIME_MINUTES } from "./constants/walkTimeMinutes.js";
+import Restaurant from "./model/Restaurant.js";
 
-export const restaurantList = [
+export const defaultRestaurants: Restaurant[] = [
   new Restaurant({
-    category: "한식",
+    id: 1,
+    category: "korean",
     name: "피양콩할마니",
     distance: WALK_TIME_MINUTES[0],
     description:
@@ -11,15 +12,25 @@ export const restaurantList = [
     link: "http//localhost:30000",
   }),
   new Restaurant({
-    category: "중식",
+    id: 2,
+    category: "chinese",
     name: "친친",
-    distance: WALK_TIME_MINUTES[0],
+    distance: WALK_TIME_MINUTES[2],
     description: "설명입니다",
     link: "http//localhost:30000",
   }),
   new Restaurant({
-    category: "일식",
+    id: 3,
+    category: "japanese",
     name: "잇쇼우",
+    distance: WALK_TIME_MINUTES[1],
+    description: "설명입니다",
+    link: "http//localhost:30000",
+  }),
+  new Restaurant({
+    id: 4,
+    category: "japanese",
+    name: "한나",
     distance: WALK_TIME_MINUTES[0],
     description: "설명입니다",
     link: "http//localhost:30000",

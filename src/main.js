@@ -1,26 +1,54 @@
 import { $ } from "./utils/dom";
 import header from "./components/header";
 import Modal from "./components/common/modal";
-import Title from "./components/common/title";
-import RegisterForm from "./components/registerForm";
-import renderRestaurants from "./domain/renderRestaurant";
-import { registerModalClose } from "./components/common/modal/handleCloseModal";
-import { restaurantList } from "./restaurantList";
+import CategoryAndSortFilter from "./components/categoryAndSortFilter";
+import FavoriteTabFilters from "./components/favoriteTabFilter";
+import Restaurants from "./model/Restaurants.ts";
+import { Filter } from "./domain/filter.ts";
+import RestaurantList from "./components/restaurantList/index.js";
 
 addEventListener("load", () => {
-  $("#app").prepend(header());
-  renderRestaurants(...restaurantList);
+  const restaurants = new Restaurants();
+
+  const filter = new Filter();
+
+  RestaurantList(restaurants, filter);
+
+  $("#app").prepend(
+    header({
+      addRestaurant: restaurants.addRestaurant,
+      onChangeCategoryAll: () => {
+        filter.filterBySortType("category", "all");
+        RestaurantList(restaurants, filter);
+      },
+    })
+  );
+
+  $("main").prepend(
+    CategoryAndSortFilter({
+      onSortByCategory: (category) => {
+        filter.filterBySortType("category", category);
+        RestaurantList(restaurants, filter);
+      },
+      onSortByOption: (option) => {
+        filter.filterBySortType("option", option);
+        RestaurantList(restaurants, filter);
+      },
+    })
+  );
+
+  $("main").prepend(
+    FavoriteTabFilters({
+      onSortByFavorite: (favorite) => {
+        filter.filterBySortType("favorite", favorite);
+        RestaurantList(restaurants, filter);
+      },
+    })
+  );
 
   $("main").appendChild(
     Modal({
-      handleClose: registerModalClose,
-      headerComponent: Title(
-        "새로운 음식점",
-        "h2",
-        "modal-title",
-        "text-title"
-      ),
-      bodyComponent: RegisterForm(),
+      renderRestaurants: () => RestaurantList(restaurants, filter),
     })
   );
 });
