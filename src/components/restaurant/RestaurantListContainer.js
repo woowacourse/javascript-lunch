@@ -3,6 +3,7 @@ import RestaurantItem from "./RestaurantItem.js";
 import createElement from "../../util/createElement.js";
 
 export default function RestaurantListContainer(restaurantItems) {
+
   const $restaurantListContainer = createElement({
     tag: "section",
     classNames: ["restaurant-list-container"],
@@ -14,8 +15,8 @@ export default function RestaurantListContainer(restaurantItems) {
   });
 
   const restaurantElements = restaurantItems.map(
-    ({ src, alt, name, distance, description }) =>
-      RestaurantItem({ src, alt, name, distance, description })
+    (restaurantItem) =>
+      RestaurantItem({...restaurantItem})
   );
 
   $restaurantList.append(...restaurantElements);

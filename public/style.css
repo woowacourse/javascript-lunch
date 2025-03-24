@@ -127,6 +127,8 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -172,6 +174,60 @@ body {
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+/* 헤일리 작성 부분 */
+.restaurant-star { 
+  color: #ffffff;
+  -webkit-text-stroke: 1.5px #f6a889;
+  transition: color 0.3s;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.restaurant-star.active {
+  color: #ec4a0a;
+}
+
+.restaurant-list {
+  position: relative;
+}
+
+.restaurant-wish {
+  position: absolute;
+  right: 10px;
+}
+
+select {
+  cursor: pointer;
+}
+
+.modal-column {
+  flex-direction: column;
+  cursor: default;
+}
+
+.text-column {
+  -webkit-box-orient: horizontal;
+}
+
+.restaurant-filter-tabs {
+  display: flex;
+  
+}
+
+.restaurant-tab {
+  flex-grow: 1;
+  font-weight: 600;
+  color: #667085;
+  border: none;
+  border-bottom: 2px solid #D0D5DD;
+  height: 40px;
+}
+
+.restaurant-tab.active {
+  color: #ec4a0a;
+  border-bottom: 2px solid #ec4a0a;
 }
 
 /* 음식점 추가 모달 *****************************************/

@@ -9,7 +9,7 @@ function createHelpText(helpText) {
   return $span;
 }
 
-export default function RestaurantModalItem({
+export default function RestaurantFormModalItem({
   isRequired,
   name,
   text,

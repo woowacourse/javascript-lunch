@@ -9,7 +9,7 @@ describe("새로고침하면 데이터가 초기화된다.", () => {
     cy.get(".modal-container").should("be.visible");
     cy.get("#category").select("한식");
     cy.get("#name").type("더휴");
-    cy.get("#distance").select("5분 내");
+    cy.get("#distance").select(5);
     cy.get("#description").type("이집맛집임");
     cy.get("#link").type("링크임");
 

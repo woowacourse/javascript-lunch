@@ -1,4 +1,7 @@
+import Options from "./Options.js";
 import createElement from "../../util/createElement.js";
+import selectedFilterValue from "../../domain/SelectedFilterValue.js";
+import Restaurant from "../restaurant/Restaurant.js";
 
 export default function Select({
   name,
@@ -6,6 +9,7 @@ export default function Select({
   classNames = [],
   options,
   isRequired = false,
+  selectedValue = '',
 }) {
   const $select = createElement({
     tag: "select",
@@ -13,27 +17,18 @@ export default function Select({
     id,
     classNames,
     required: isRequired,
+    selectedValue,
   });
-  const $options = createOptions(options);
+  
+  const $options = Options(options, selectedValue);
+  
+  $select.addEventListener("change", function() {
+    selectedFilterValue.updateSelectedFilterValue(id, this.value) 
+    if(id === 'category-filter' || id === 'sorting-filter') {
+      Restaurant({isReRender: true});
+    }
+  });
 
   $select.appendChild($options);
   return $select;
-}
-
-function createOptions(options) {
-  const $fragment = document.createDocumentFragment();
-  const $defaultOption = createElement({
-    tag: "option",
-    value: "",
-  });
-  $defaultOption.textContent = "선택해 주세요.";
-  $fragment.appendChild($defaultOption);
-
-  options.forEach((option) => {
-    const $option = createElement({ tag: "option", value: option });
-    $option.textContent = option;
-    $fragment.appendChild($option);
-  });
-
-  return $fragment;
 }
