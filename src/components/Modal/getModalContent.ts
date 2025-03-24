@@ -9,7 +9,8 @@ const distanceValue = {
   15: "15분 내",
   20: "20분 내",
   30: "30분 내",
-};
+} as const
+
 
 const categoryDropdown = Dropdown({
   id: "category",
