@@ -43,29 +43,3 @@ export const StoreDetail = ({
             >
   `;
 };
-
-export const handleDetailFavorite = (storeList, storeId) => {
-  const modal = document.querySelector(".modal-store-detail");
-  const icon = modal
-    .querySelector(".modal-container")
-    .querySelector(".star-icon");
-  icon.addEventListener("click", (e) => {
-    const storeId = e.target.closest(".modal-container").getAttribute("id");
-    storeRenderer.toggleFavorite(storeList, icon, storeId);
-    storeRenderer.rerenderStoreList(storeList.filteredList);
-  });
-};
-
-// export const handleCancelDetail = () => {
-//   document
-//     .querySelector("#close-button")
-//     .addEventListener("click", () =>
-//       modalRenderer.closeModal(".modal-store-detail")
-//     );
-// };
-
-// export const handleDeleteStore = (storeList) => {
-//   document.querySelector("#delete-button").addEventListener("click", () => {
-//     storeRenderer.deleteStore(storeList);
-//   });
-// };

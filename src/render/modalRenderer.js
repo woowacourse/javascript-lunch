@@ -67,8 +67,7 @@ const modalRenderer = {
       tag: "div",
       classList: ["button-container"],
     });
-    // const buttonContainer = document.createElement("div");
-    // buttonContainer.classList.add("button-container");
+
     buttonProps.forEach((props) => {
       buttonContainer.appendChild(Button(props));
     });
@@ -118,8 +117,6 @@ const modalRenderer = {
         tag: "span",
         classList: ["error-text"],
       });
-      // const errorText = document.createElement("span");
-      // errorText.classList.add("error-text");
       errorText.innerText = e.message;
       parentNode.appendChild(errorText);
     }
@@ -157,6 +154,13 @@ const modalRenderer = {
         },
       ])
     );
+
+    const icon = modalContainer.querySelector(".star-icon");
+    const storeId = modalContainer.getAttribute("id");
+    icon.addEventListener("click", (e) => {
+      storeRenderer.toggleFavorite(storeList, icon, storeId);
+      storeRenderer.rerenderStoreList(storeList.filteredList);
+    });
 
     document
       .querySelector("#close-button")

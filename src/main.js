@@ -7,7 +7,6 @@ import modalRenderer from "./render/modalRenderer.js";
 import MenuBar from "./components/MenuBar.js";
 import uiBasicText from "./constants/uiBasicText.js";
 import Header from "./components/Header.js";
-import { handleDetailFavorite } from "./components/StoreDetail.js";
 
 addEventListener("load", () => {
   // 초기 세팅
@@ -39,7 +38,5 @@ addEventListener("load", () => {
 
     document.querySelector(".modal-store-detail").classList.add("modal--open");
     modalRenderer.setStoreInfoModal(store, storeList);
-
-    handleDetailFavorite(storeList, storeId);
   });
 });
