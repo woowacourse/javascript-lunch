@@ -1,8 +1,8 @@
-import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../constant/selectOptions.js';
-import createDOMElement from '../../util/createDomElement.js';
-import ActionButton from '../button/ActionButton.js';
-import CTAButton from '../button/CTAButton.js';
-import { InputBox } from '../InputBox.js';
+import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from '../../constant/selectOptions';
+import createDOMElement from '../../util/createDomElement';
+import ActionButton from '../button/ActionButton';
+import CTAButton from '../button/CTAButton';
+import { InputBox } from '../InputBox';
 
 function RestaurantAddModalForm() {
   return createDOMElement({
@@ -35,8 +35,8 @@ function RestaurantAddModalForm() {
         input: InputBox.TextArea({
           name: 'description',
           id: 'description',
-          cols: '30',
-          rows: '5',
+          cols: 30,
+          rows: 5,
         }),
         caption: InputBox.Caption({
           text: '메뉴 등 추가 정보를 입력해 주세요.',
@@ -56,7 +56,10 @@ function RestaurantAddModalForm() {
       createDOMElement({
         tag: 'div',
         class: 'button-container',
-        children: [ActionButton({ text: '취소하기', type: 'button' }), CTAButton({ text: '추가하기', type: 'submit' })],
+        children: [
+          ActionButton({ id: 'restaurantAddModalCancelButton', text: '취소하기', type: 'button' }),
+          CTAButton({ id: 'restaurantAddModalSubmitButton', text: '추가하기', type: 'submit' }),
+        ],
       }),
     ],
   });

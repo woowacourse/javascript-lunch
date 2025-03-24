@@ -1,16 +1,15 @@
-import createDOMElement from '../util/createDomElement.js';
+import createDOMElement from '../util/createDomElement';
 
-function Modal({ content }) {
+function Modal({ content }: { content?: HTMLElement }): { modal: HTMLElement; open: () => void; close: () => void } {
+  const modalBackdrop = createDOMElement({
+    tag: 'div',
+    class: 'modal-backdrop',
+  });
+
   const modal = createDOMElement({
     tag: 'div',
     class: 'modal',
-    children: [
-      createDOMElement({
-        tag: 'div',
-        class: 'modal-backdrop',
-      }),
-      content,
-    ],
+    children: [modalBackdrop, content],
   });
 
   function open() {
@@ -25,13 +24,13 @@ function Modal({ content }) {
     document.removeEventListener('keydown', handleEscKey);
   }
 
-  function handleEscKey(event) {
+  function handleEscKey(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       close();
     }
   }
 
-  modal.querySelector('.modal-backdrop').addEventListener('click', close);
+  modalBackdrop.addEventListener('click', close);
 
   return { modal, open, close };
 }

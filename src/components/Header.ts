@@ -1,13 +1,13 @@
-import createDOMElement from '../util/createDomElement.js';
+import createDOMElement from '../util/createDomElement';
 
-function Header({ title, right }) {
+function Header({ title, right }: { title: string; right: HTMLElement }) {
   return createDOMElement({
     tag: 'header',
     class: 'gnb',
     children: [
       createDOMElement({
         tag: 'h1',
-        class: ['gnb__title', 'text-title'],
+        class: 'gnb__title text-title',
         textContent: title,
       }),
       right,
