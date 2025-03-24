@@ -20,9 +20,5 @@ class FilterDropdown extends Component {
       this.props.onChange(e.target.value);
     });
   }
-  setState(newState) {
-    this.props.selectedValue = newState.selectedValue;
-    this.render();
-  }
 }
 export default FilterDropdown;
