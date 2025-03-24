@@ -1,3 +1,5 @@
+import { categoryValue } from "../src/constants/optionValue";
+
 export interface ImageProps {
   imgSrc: string;
   imgAlt: string;
@@ -14,6 +16,4 @@ export interface Restaurant extends ImageProps {
 
 export type isModalOpen = boolean;
 
-export interface Categories {
-  [key: string]: string;
-}
+export type Categories = typeof categoryValue;
