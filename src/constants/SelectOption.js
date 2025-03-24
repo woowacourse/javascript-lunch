@@ -16,4 +16,12 @@ export const SELECT_OPTIONS = {
     { value: "asian", label: "아시안" },
     { value: "etc", label: "기타" },
   ],
+  sortOption: [
+    { value: "name", label: "이름순" },
+    { value: "distance", label: "거리순" },
+  ],
 };
+
+SELECT_OPTIONS.sortCategory = SELECT_OPTIONS.category.map((option, index) =>
+  index === 0 ? { ...option, label: "전체" } : option
+);

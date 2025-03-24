@@ -4,14 +4,16 @@ import { InputBox } from "./InputBox.js";
 import { SelectBox } from "./SelectBox.js";
 import { TextareaBox } from "./TextareaBox.js";
 
-export function FormBox({ id, formName, label }) {
+export function StoreAddForm({ id, label }) {
   function template() {
     return `
-        ${(label && `<h2 class="modal-title text-title">새로운 음식점</h2>`) || ""}
+        ${
+          (label && `<h2 class="modal-title text-title">새로운 음식점</h2>`) ||
+          ""
+        }
         <form id="${id}" class="modal-form">
-          ${(formName === "storeAdd" && storeAddTemplate) || ""}
-          ${(formName === "storeDelete" && storeDeleteTemplate) || ""}
-          ${FormButtons({ formName })}
+          ${storeAddTemplate}
+          ${FormButtons("storeAdd")}
         </form>
     `;
   }
@@ -20,7 +22,6 @@ export function FormBox({ id, formName, label }) {
 }
 
 const storeAddTemplate = `
-      <!-- 카테고리 -->
         ${SelectBox({
           id: "category",
           name: "category",
@@ -29,7 +30,6 @@ const storeAddTemplate = `
           required: true,
         })}
 
-        <!-- 음식점 이름 -->
         ${InputBox({
           name: "name",
           id: "name",
@@ -40,7 +40,6 @@ const storeAddTemplate = `
           type: "text",
         })}
 
-        <!-- 거리 -->
         ${SelectBox({
           id: "distance",
           name: "distance",
@@ -49,7 +48,6 @@ const storeAddTemplate = `
           required: true,
         })}
 
-        <!-- 설명 -->
         ${TextareaBox({
           id: "description",
           name: "description",
@@ -60,7 +58,6 @@ const storeAddTemplate = `
           helpCaption: "메뉴 등 추가 정보를 입력해 주세요.",
         })}
 
-        <!-- 링크 -->
         ${InputBox({
           name: "link",
           id: "link",
@@ -72,5 +69,3 @@ const storeAddTemplate = `
           helpCaption: "매장 정보를 확인할 수 있는 링크를 입력해 주세요.",
         })}
 `;
-
-const storeDeleteTemplate = ``;
