@@ -56,6 +56,8 @@ class RestaurantList extends Component {
     });
 
     this.element.addEventListener('click', (event) => {
+      if (event.target.closest('.modal')) return;
+
       if (event.target.closest('.restaurant__favorite')) {
         const restaurantElement = event.target.closest('.restaurant');
         if (event.target.src.includes('filled')) {
