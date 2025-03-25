@@ -13,7 +13,7 @@ function RestaurantContainer(restaurantList) {
   renderingItems.forEach((item) => {
     const $li = document.getElementById(`restaurant_${item.name}`);
 
-    new FavoriteButton($li, item.name, item.favorite, restaurantList);
+    FavoriteButton($li, item.name, item.favorite, restaurantList);
 
     $li?.addEventListener("click", (event) => {
       const target = event.target;

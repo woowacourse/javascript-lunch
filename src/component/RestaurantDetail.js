@@ -57,7 +57,7 @@ function RestaurantDetail(
     )
   );
   const favoriteParentEl = $el.querySelector(".restaurant__detail__top");
-  new FavoriteButton(favoriteParentEl, name, favorite, restaurantList);
+  FavoriteButton(favoriteParentEl, name, favorite, restaurantList);
 
   return $el;
 }
