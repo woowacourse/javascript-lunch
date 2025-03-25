@@ -26,7 +26,6 @@ class RestaurantList {
     this.#renderingItems = this.#items;
 
     this.sortByName();
-    this.renderTab();
   }
 
   setStorage() {
@@ -37,6 +36,10 @@ class RestaurantList {
     this.#category = category;
 
     this.render();
+  }
+
+  toggleTotalTab() {
+    this.#totalTab = !this.#totalTab;
   }
 
   render() {
@@ -65,31 +68,6 @@ class RestaurantList {
         );
         Modal.open(`restaurantModal_${item.name}`);
       });
-    });
-  }
-
-  renderTab() {
-    const $el = toElement(`
-      <div class="tab--button-container"/>`);
-    append($el, TabButton("totalTab"), TabButton("favoriteTab"));
-    $("body").prepend($el);
-
-    const $leftButton = document.getElementById("button_모든 음식점");
-    const $rightButton = document.getElementById("button_자주 가는 음식점");
-
-    $leftButton?.classList.add("focus");
-
-    $rightButton?.addEventListener("click", () => {
-      $leftButton?.classList.remove("focus");
-      $rightButton?.classList.add("focus");
-      this.#totalTab = false;
-      this.render();
-    });
-    $leftButton?.addEventListener("click", () => {
-      $leftButton?.classList.add("focus");
-      $rightButton?.classList.remove("focus");
-      this.#totalTab = true;
-      this.render();
     });
   }
 

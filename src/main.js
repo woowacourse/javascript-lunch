@@ -6,6 +6,7 @@ import { $ } from "./utils/querySelectors.js";
 import Select from "./component/Select.js";
 import { CATEGORY_DROPDOWN } from "./constants/constants.js";
 import RestaurantList from "./domain/RestaurantList.js";
+import Tab from "./component/Tab.js";
 
 const restaurantList = new RestaurantList();
 
@@ -48,6 +49,8 @@ $("section").append(
     restaurantList
   )
 );
+
+Tab(restaurantList);
 
 $("main").append(
   new Modal("addLunchModal", AddLunchModalForm(restaurantList, "addLunchModal"))
