@@ -1,4 +1,4 @@
-import Store from "../components/Store.js";
+// import Store from "../components/Store.js";
 import IMG_SRC from "../constants/imgSrc.js";
 import storage from "../utils/storage.ts";
 import validate from "../utils/validate.ts";

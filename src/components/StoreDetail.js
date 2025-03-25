@@ -1,7 +1,5 @@
 import IMG_SRC from "../constants/imgSrc.js";
-import modalRenderer from "../render/modalRenderer.js";
 import storeRenderer from "../render/storeRenderer.js";
-import createElement from "../utils/createElement.js";
 
 // 식당 상세 정보
 export const StoreDetail = (

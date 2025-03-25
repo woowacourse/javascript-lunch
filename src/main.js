@@ -1,6 +1,4 @@
-import StoreList from "./class/StoreList.ts";
 import Modal from "./components/Modal.js";
-import Select from "./components/Select.js";
 import initRenderer from "./render/initRenderer.js";
 import storeRenderer from "./render/storeRenderer.js";
 import modalRenderer from "./render/modalRenderer.js";

@@ -1,6 +1,5 @@
 import Button from "../components/Button.js";
 import OptionInput from "../components/OptionInput.js";
-import { StoreDetail } from "../components/StoreDetail.js";
 import TextArea from "../components/TextArea.js";
 import TextInput from "../components/TextInput.js";
 import helpText from "../constants/helpText.js";
@@ -49,14 +48,12 @@ const modalRenderer = {
     modalRenderer.addFormCheck();
 
     document.querySelector("#cancel-button").addEventListener("click", () => {
-      console.log("cancel");
       document.querySelector(".modal-form").reset();
       modalRenderer.closeModal(".modal-add-store");
     });
 
     document.querySelector(".modal-form").addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("submit clicked");
       storeRenderer.updateStore(storeList, e);
     });
   },
@@ -133,38 +130,6 @@ const modalRenderer = {
   },
 
   // **식당 상세 정보**
-  setStoreInfoModal: (store, storeList) => {
-    const modal = document.querySelector(".modal-store-detail");
-    const modalContainer = modal.querySelector(".modal-container");
-    modalContainer.setAttribute("id", store.id);
-    StoreDetail(store, storeList);
-    modalContainer.appendChild(
-      modalRenderer.addButtons([
-        {
-          name: "삭제하기",
-          type: "button",
-          class: ["button--secondary"],
-          id: "delete-button",
-        },
-        {
-          name: "닫기",
-          type: "button",
-          class: ["button--primary"],
-          id: "close-button",
-        },
-      ])
-    );
-
-    document
-      .querySelector("#close-button")
-      .addEventListener("click", () =>
-        modalRenderer.closeModal(".modal-store-detail")
-      );
-
-    document.querySelector("#delete-button").addEventListener("click", () => {
-      storeRenderer.deleteStore(storeList);
-    });
-  },
 };
 
 export default modalRenderer;
