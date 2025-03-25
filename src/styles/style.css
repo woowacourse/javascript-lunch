@@ -34,6 +34,27 @@
 
 /* 음식점 목록 *****************************************/
 
+/* 음식점 탭 */
+.restaurant-favorite-tab > #app-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+  margin-top: 24px;
+}
+
+.tab {
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1.5px solid var(--grey-200);
+  width: 50%;
+  text-align: center;
+}
+
+.tab-active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;

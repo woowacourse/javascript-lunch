@@ -3,6 +3,7 @@ import Filter from './components/Filter.js';
 import Component from './core/Component.js';
 import { defaultRestaurantList } from './data/defaultRestaurantList.ts';
 import Modal from './components/Modal.js';
+import Tab from './components/Tab.js';
 
 class Application extends Component {
   setup() {
@@ -11,12 +12,14 @@ class Application extends Component {
       restaurantList: storedRestaurants ? JSON.parse(storedRestaurants) : defaultRestaurantList,
       category: '전체',
       sort: '이름순',
+      activeTab: '모든 음식점',
     });
   }
 
   template() {
     return `
         <div id="app-header"></div>
+        <section class="restaurant-favorite-tab"></section>
         <section class="restaurant-filter-container"></section>
         <section class="restaurant-list-container"></section>
     `;
@@ -39,6 +42,10 @@ class Application extends Component {
 
   filterCategory(category) {
     this.setState({ ...this.state, category });
+  }
+
+  filterFavorite(activeTab) {
+    this.setState({ ...this.state, activeTab });
   }
 
   sortList(list) {
@@ -72,6 +79,7 @@ class Application extends Component {
       restaurantList: this.state.restaurantList,
       category: this.state.category,
       sort: this.state.sort,
+      activeTab: this.state.activeTab,
       deleteRestaurant: this.deleteRestaurant.bind(this),
       addFavorite: this.addFavorite.bind(this),
       removeFavorite: this.removeFavorite.bind(this),
@@ -100,6 +108,14 @@ class Application extends Component {
       this.element,
     );
     $restaurantFilterContainer.appendChild(listSorter.element);
+
+    const $restaurantFavoriteTab = this.element.querySelector('.restaurant-favorite-tab');
+    const tab = new Tab({
+      activeTab: this.state.activeTab,
+      filterFavorite: this.filterFavorite.bind(this),
+    });
+
+    $restaurantFavoriteTab.appendChild(tab.element);
 
     const inputModal = new InputModal(
       {

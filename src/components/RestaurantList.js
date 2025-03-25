@@ -14,6 +14,11 @@ class RestaurantList extends Component {
     const restaurantList = this.props.restaurantList
       .map((restaurant) => new Restaurant({ ...restaurant, deleteRestaurant: this.props.deleteRestaurant }))
       .filter((restaurant) => this.props.category === '전체' || restaurant.props.category === this.props.category)
+      .filter((restaurant) => {
+        if (this.props.activeTab === '모든 음식점') return true;
+        if (this.props.activeTab === '자주 가는 음식점') return restaurant.props.favorite;
+        return true;
+      })
       .sort((a, b) => {
         if (this.props.sort === '이름순') return a.props.name.localeCompare(b.props.name);
         if (this.props.sort === '거리순') return a.props.distance - b.props.distance;
