@@ -8,6 +8,7 @@ import MOCK_ITEM from "../mockItem.js";
 import append from "../utils/append.js";
 import { $ } from "../utils/querySelectors.js";
 import toElement from "../utils/toElement.js";
+import storage from "../storage/storage.js";
 
 class RestaurantList {
   #items: Restaurant[];
@@ -16,23 +17,20 @@ class RestaurantList {
   #renderingItems: Restaurant[];
 
   constructor() {
-    if (!localStorage.getItem("restaurantList")) {
-      localStorage.setItem(
-        "restaurantList",
-        JSON.stringify(MOCK_ITEM.restaurantList)
-      );
+    if (!storage.getItem("restaurantList")) {
+      storage.setItem("restaurantList", MOCK_ITEM.restaurantList);
     }
     this.#totalTab = true;
     this.#category = "선택해 주세요";
-    this.#items = JSON.parse(localStorage.getItem("restaurantList") || "[]");
+    this.#items = storage.getItem("restaurantList") || "[]";
     this.#renderingItems = this.#items;
 
     this.sortByName();
     this.renderTab();
   }
 
-  setLocalStorage() {
-    localStorage.setItem("restaurantList", JSON.stringify(this.#items));
+  setStorage() {
+    storage.setItem("restaurantList", this.#items);
   }
 
   setCategoryTab(category: Category) {
@@ -96,14 +94,14 @@ class RestaurantList {
   }
 
   resetFilter() {
-    this.#items = JSON.parse(localStorage.getItem("restaurantList") || "[]");
+    this.#items = storage.getItem("restaurantList") || "[]";
     this.#category = "선택해 주세요";
     this.render();
   }
 
   add(newRestaurant: Restaurant) {
     this.#items.push(newRestaurant);
-    this.setLocalStorage();
+    this.setStorage();
     this.render();
   }
 
@@ -137,7 +135,7 @@ class RestaurantList {
     this.#items = this.#items.filter(
       (restaurant: Restaurant) => restaurant.name !== targetName
     );
-    this.setLocalStorage();
+    this.setStorage();
     this.render();
   }
 
@@ -147,7 +145,7 @@ class RestaurantList {
         ? { ...restaurant, favorite: !restaurant.favorite }
         : restaurant
     );
-    this.setLocalStorage();
+    this.setStorage();
     this.render();
   }
 }
