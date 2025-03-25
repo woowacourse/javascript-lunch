@@ -1,5 +1,6 @@
 import toElement from "../utils/toElement.js";
 import MOCK_ITEM from "../mockItem.js";
+import RestaurantContainer from "./RestaurantContainer.js";
 
 function Select({ name, id, className, dropdownList }, restaurantList) {
   const $el = toElement(
@@ -20,18 +21,23 @@ function Select({ name, id, className, dropdownList }, restaurantList) {
     if (id === "sorting-filter") {
       if (value === "name") {
         restaurantList.sortByName();
+        RestaurantContainer(restaurantList);
       }
       if (value === "distance") {
         restaurantList.sortByDistance();
+        RestaurantContainer(restaurantList);
       }
     }
 
     if (id === "category-filter") {
       if (event.target.value === "") {
-        return restaurantList.resetFilter();
+        restaurantList.resetFilter();
+        RestaurantContainer(restaurantList);
+        return;
       }
 
       restaurantList.setCategoryTab(event.target.value);
+      RestaurantContainer(restaurantList);
     }
   });
 

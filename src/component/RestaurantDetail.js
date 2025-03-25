@@ -7,6 +7,7 @@ import RestaurantList from "../domain/RestaurantList.js";
 import { CATEGORY_ICON } from "../constants/constants.js";
 import FavoriteButton from "./FavoriteButton.js";
 import { $ } from "../utils/querySelectors.js";
+import RestaurantContainer from "./RestaurantContainer.js";
 
 function RestaurantDetail(
   { category, name, distance, description, link, favorite },
@@ -42,7 +43,9 @@ function RestaurantDetail(
         title: "삭제하기",
         onClick: () => {
           if (window.confirm(`${name}을(를) 삭제하시겠습니까?`)) {
-            restaurantList.remove(name, `restaurantModal_${name}`);
+            restaurantList.remove(name);
+            RestaurantContainer(restaurantList);
+            Modal.close(`restaurantModal_${name}`);
           }
         },
       }),

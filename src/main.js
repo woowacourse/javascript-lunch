@@ -7,8 +7,11 @@ import Select from "./component/Select.js";
 import { CATEGORY_DROPDOWN } from "./constants/constants.js";
 import RestaurantList from "./domain/RestaurantList.js";
 import Tab from "./component/Tab.js";
+import RestaurantContainer from "./component/RestaurantContainer.js";
 
 const restaurantList = new RestaurantList();
+
+Tab(restaurantList);
 
 $("body").prepend(
   Header(
@@ -50,7 +53,7 @@ $("section").append(
   )
 );
 
-Tab(restaurantList);
+RestaurantContainer(restaurantList);
 
 $("main").append(
   new Modal("addLunchModal", AddLunchModalForm(restaurantList, "addLunchModal"))

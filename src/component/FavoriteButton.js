@@ -1,6 +1,7 @@
 import toElement from "../utils/toElement.js";
 import { FAVORITE_ICON } from "../constants/constants.js";
 import append from "../utils/append.js";
+import RestaurantContainer from "./RestaurantContainer.js";
 
 class FavoriteButton {
   #el;
@@ -25,6 +26,7 @@ class FavoriteButton {
     this.#favorite = !this.#favorite;
     this.#el.querySelector("img").src = FAVORITE_ICON[this.#favorite];
     restaurantList.changeFavoriteState(name);
+    RestaurantContainer(restaurantList);
   }
 }
 

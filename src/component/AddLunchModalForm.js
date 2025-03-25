@@ -8,6 +8,7 @@ import TextButton from "./TextButton.js";
 import toElement from "../utils/toElement.js";
 import append from "../utils/append.js";
 import { CATEGORY_DROPDOWN } from "../constants/constants.js";
+import RestaurantContainer from "./RestaurantContainer.js";
 
 export function requiredClassName(required) {
   if (required) "form-item--required";
@@ -99,6 +100,7 @@ function AddLunchModalForm(restaurantList, modalId) {
 
       event.target.reset();
       Modal.close(modalId);
+      RestaurantContainer(restaurantList);
     } catch (e) {
       alert(e.message);
     }
