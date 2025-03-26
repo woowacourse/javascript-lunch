@@ -1,29 +1,44 @@
-import Component from "../core/Component.js";
+import Component from '../core/Component.js';
+import Modal from './common/Modal.js';
 
 class Restaurant extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, parent) {
+    super(props, parent, 'li', 'restaurant');
   }
 
   template() {
-    return `  <li class="restaurant">
-    <div class="restaurant__category">
-      <img
-        src="./public/images/${this.props.imgUrl}"
-        alt=${this.props.category}
-        class="category-icon"
-      />
+    const baseURL = window.location.origin.includes('github.io') ? '/javascript-lunch' : '../../public';
+
+    return ` 
+  <div class="restaurant__category">
+    <img
+      src="${baseURL}/images/${this.props.imgUrl}"
+      alt="${this.props.category}"
+      class="category-icon"
+    />
+  </div>
+  <div class="restaurant__info">
+    <div class="restaurant__info--header">
+      <div>
+        <h3 class="restausrant__name text-subtitle">${this.props.name}</h3>
+        <span class="restaurant__distance text-body">
+          캠퍼스로부터 ${this.props.distance}분 내
+        </span>
+      </div>
+      <img class="restaurant__favorite" src="${baseURL}/images/favorite-icon-${
+      this.props.favorite ? 'filled' : 'lined'
+    }.png" alt="favorite" />
     </div>
-    <div class="restaurant__info">
-      <h3 class="restaurant__name text-subtitle">${this.props.name}</h3>
-      <span class="restaurant__distance text-body"
-        >${this.props.distance}</span
-      >
+    <div>
       <p class="restaurant__description text-body">
         ${this.props.description}
       </p>
     </div>
-  </li>`;
+`;
+  }
+
+  onRender() {
+    this.element.dataset.id = this.props.id;
   }
 }
 
