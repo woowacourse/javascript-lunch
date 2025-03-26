@@ -1,6 +1,6 @@
-import Button from './Button.js';
+import Button from './common/Button.js';
 import Component from '../core/Component.js';
-import Modal from './Modal.js';
+import Modal from './common/Modal.js';
 import { FOOD_CATEGORY } from '../constants/constants.js';
 import { inputBoxList } from '../config/InputBoxList.js';
 

@@ -1,6 +1,6 @@
 import Component from '../core/Component';
-import Modal from './Modal';
-import Button from './Button.js';
+import Modal from './common/Modal.js';
+import Button from './common/Button.js';
 
 class DetailModal extends Component {
   onRender() {

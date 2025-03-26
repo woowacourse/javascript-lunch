@@ -1,5 +1,5 @@
 import Component from '../core/Component.js';
-import Modal from './Modal.js';
+import Modal from './common/Modal.js';
 
 class Restaurant extends Component {
   constructor(props, parent) {

@@ -1,4 +1,4 @@
-import InputBox from '../components/InputBox.js';
+import InputBox from '../components/common/InputBox.js';
 import Select from '../components/Select.js';
 
 export const inputBoxList = [
