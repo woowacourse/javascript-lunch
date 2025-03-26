@@ -11,15 +11,16 @@ const program = {
 
   loadData() {
     const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
-    this.filteredItems = [...RESTAURANT_ITEMS, ...storedData];
 
-    this.filteredItems = [...RESTAURANT_ITEMS, ...storedData].map((item) => {
+    this.filteredItems = RESTAURANT_ITEMS.map((item) => {
       const storedRestaurant = storedData.find((stored) => stored.id === item.id);
-      if (storedRestaurant) {
-        item.favorite = storedRestaurant.favorite;
-      }
-      return item;
+      return storedRestaurant ? { ...item, favorite: storedRestaurant.favorite } : item;
     });
+
+    const newRestaurants = storedData.filter(
+      (stored) => !RESTAURANT_ITEMS.some((item) => item.id === stored.id)
+    );
+    this.filteredItems.push(...newRestaurants);
   },
 
   initUI() {
@@ -81,11 +82,17 @@ const program = {
   },
 
   handleTabClick(tab) {
+    const $container = document.querySelector('.restaurant-list-container');
+
+    const oldList = $container.querySelector('.restaurant-list');
+    if (oldList) oldList.remove();
+
+    this.loadData();
+
     if (tab === 'favorite') {
       this.filteredItems = this.filteredItems.filter((item) => item.favorite);
-    } else {
-      this.loadData();
     }
+
     this.updateRestaurantList();
   },
 
