@@ -7,10 +7,12 @@ class Restaurant extends Component {
   }
 
   template() {
+    const baseURL = window.location.origin.includes('github.io') ? '/javascript-lunch' : '';
+
     return ` 
       <div class="restaurant__category">
         <img
-          src="./public/images/${this.props.imgUrl}"
+          src=".${baseURL}/public/images/${this.props.imgUrl}"
           alt=${this.props.category}
           class="category-icon"
         />
