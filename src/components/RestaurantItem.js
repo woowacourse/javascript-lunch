@@ -79,6 +79,12 @@ function updateFavoriteRestaurants() {
   const favoriteRestaurants = getFavoriteRestaurants();
 
   const $favoriteTabContent = document.querySelector('.favorite-tab-content');
+
+  if (!$favoriteTabContent) {
+    console.error('요소를 찾을 수 없습니다.');
+    return;
+  }
+
   $favoriteTabContent.innerHTML = '';
 
   favoriteRestaurants.forEach((data) => {
