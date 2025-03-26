@@ -127,6 +127,8 @@ body {
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
+
+  cursor: pointer;
 }
 
 .restaurant__category {
@@ -295,4 +297,63 @@ input[name="link"] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+/* 음식점 상세 모달 *****************************************/
+.restaurant__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.restaurant__detail__description {
+  padding-top: 8px;
+}
+
+.restaurant__detail__link {
+  padding-top: 8px;
+}
+
+.restaurant__detail__top {
+  display: flex;
+  justify-self: space-between;
+  align-items: center;
+}
+
+/* 탭 바 *****************************************/
+.tab--button-container {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10px 0 0 0;
+}
+
+.tab--button.focus {
+  width: 47%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-bottom: var(--primary-color) solid 2px;
+
+  color: var(--primary-color);
+}
+
+.tab--button:not(.focus) {
+  width: 47%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-bottom: var(--grey-200) solid 2px;
+
+  color: var(--grey-300);
 }

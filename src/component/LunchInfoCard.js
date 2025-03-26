@@ -1,10 +1,10 @@
-import toElement from "../utils/toElement.js";
+import { CATEGORY_ICON } from "../constants/constants.js";
 
-function LunchInfoCard({ src, name, label, distance, description }) {
+function LunchInfoCard({ category, name, distance, description, favorite }) {
   return `
-        <li class="restaurant">
+        <li class="restaurant" id="restaurant_${name}">
           <div class="restaurant__category">
-              <img src=${src} alt=${label} />
+              <img src=${CATEGORY_ICON[category]} alt=${category} />
           </div>
           <div class="restaurant__info">
               <h3 class="restaurant__name text-subtitle">${name}</h3>
@@ -12,7 +12,7 @@ function LunchInfoCard({ src, name, label, distance, description }) {
               <p class="restaurant__description text-body">${description}</p>
           </div>
         </li>
-`;
+  `;
 }
 
 export default LunchInfoCard;

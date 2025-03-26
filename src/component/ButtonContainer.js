@@ -3,14 +3,15 @@ import Modal from "./Modal.js";
 import append from "../utils/append.js";
 import toElement from "../utils/toElement.js";
 
-function ButtonContainer(buttonList) {
-  const $buttonContainer = toElement(`<div class="button-container" />`);
+function ButtonContainer(left, right) {
+  const $el = toElement(`<div class="button-container" />`);
 
-  buttonList.forEach((button) => {
-    append($buttonContainer, button);
-  });
+  left.classList.add("button--secondary");
+  right.classList.add("button--primary");
 
-  return $buttonContainer;
+  append($el, left, right);
+
+  return $el;
 }
 
 export default ButtonContainer;

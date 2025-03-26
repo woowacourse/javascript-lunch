@@ -1,9 +1,8 @@
-import { addRequired } from "./AddLunchModalForm.js";
+import { requiredClassName } from "./AddLunchModalForm.js";
 import toElement from "../utils/toElement.js";
 
 function SelectForm({ id, label, dropdownList, required }) {
-  const $selectForm = toElement(
-    ` <div class="form-item">
+  return ` <div class="form-item" ${requiredClassName(required)}">
             <label for="${id} text-caption">${label}</label>
               <select name=${id} id=${id} ${required ? "required" : ""} >
               ${dropdownList
@@ -14,11 +13,7 @@ function SelectForm({ id, label, dropdownList, required }) {
                 .join("\n")}
               </select>
         </div>
-  `
-  );
-  addRequired($selectForm, required);
-
-  return $selectForm;
+  `;
 }
 
 export default SelectForm;
