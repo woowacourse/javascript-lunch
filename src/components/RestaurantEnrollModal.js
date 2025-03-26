@@ -2,7 +2,7 @@ import {
   CATEGORY_IMAGES,
   CATEGORY_OPTIONS,
   DISTANCE_OPTIONS,
-} from '../../public/restaurantData.js';
+} from '../../public/restaurantData.ts';
 import createElement from '../utils/createElement.js';
 import createButton from './Button.js';
 import createInputBox from './InputBox.js';
@@ -100,7 +100,7 @@ function createRestaurantEnrollModal(onEnroll) {
         return;
       }
 
-      restaurantInput.categoryImgSrc = `./category-${
+      restaurantInput.categoryImgSrc = `./images/category-${
         CATEGORY_IMAGES[restaurantInput.category]
       }.png`;
 

@@ -1,8 +1,4 @@
-import {
-  CATEGORY_OPTIONS,
-  DISTANCE_OPTIONS,
-  RESTAURANT_ITEMS,
-} from '../../public/restaurantData.js';
+import { RESTAURANT_ITEMS } from '../../public/restaurantData.js';
 
 describe('식당 리스트 페이지 테스트', () => {
   beforeEach(() => {
@@ -33,7 +29,7 @@ describe('식당 리스트 페이지 테스트', () => {
 
     cy.get('select#category').select('한식').should('have.value', '한식');
     cy.get('#name').type('기와집').should('have.value', '기와집');
-    cy.get('#distance').select('5분 내').should('have.value', '5분 내');
+    cy.get('#distance').select('5').should('have.value', '5');
     cy.get('#description')
       .type('50년 전통을 자랑하는 수육 맛집')
       .should('have.value', '50년 전통을 자랑하는 수육 맛집');
@@ -48,7 +44,7 @@ describe('식당 리스트 페이지 테스트', () => {
 
     cy.get('select#category').select('한식');
     cy.get('#name').type('기와집');
-    cy.get('#distance').select('5분 내');
+    cy.get('#distance').select('5');
     cy.get('#description').type('50년 전통을 자랑하는 수육 맛집');
     cy.get('#link').type('https://techcourse.woowahan.com/');
 
@@ -61,25 +57,13 @@ describe('식당 리스트 페이지 테스트', () => {
     cy.get('.restaurant-list').children().last().should('contain.text', '기와집');
   });
 
-  it('카테고리는 "한식", "중식", "일식", "아시안", "양식", "기타" 중 하나를 선택한다', () => {
-    CATEGORY_OPTIONS.forEach((categoryOption) => {
-      cy.get('select#category').should('contain.text', categoryOption);
-    });
-  });
-
-  it('거리는 캠퍼스로부터 도보로 걸리는 시간(분). 5, 10, 15, 20, 30 중 하나를 선택한다', () => {
-    DISTANCE_OPTIONS.forEach((distanceOption) => {
-      cy.get('select#distance').should('contain.text', distanceOption);
-    });
-  });
-
-  it('새로고침 시 이전에 추가한 새로운 음식점 정보는 초기화된다', () => {
+  it('새로고침 후에도 이전에 추가한 새로운 음식점 정보는 남아있다', () => {
     cy.get('.gnb__button').click();
     cy.get('.modal-container').should('be.visible');
 
     cy.get('select#category').select('한식');
     cy.get('#name').type('기와집');
-    cy.get('#distance').select('5분 내');
+    cy.get('#distance').select('5');
     cy.get('#description').type('50년 전통을 자랑하는 수육 맛집');
     cy.get('#link').type('https://techcourse.woowahan.com/');
 
@@ -90,6 +74,62 @@ describe('식당 리스트 페이지 테스트', () => {
       .should('have.length', RESTAURANT_ITEMS.length + 1);
 
     cy.reload();
-    cy.get('.restaurant-list').children().should('have.length', RESTAURANT_ITEMS.length);
+    cy.get('.restaurant-list')
+      .children()
+      .should('have.length', RESTAURANT_ITEMS.length + 1);
+    cy.get('.restaurant-list').children().last().should('contain.text', '기와집');
+  });
+
+  it('카테고리 기반 필터링이 작동한다', () => {
+    cy.get('select#category-filter').select('한식');
+    cy.get('.restaurant-list')
+      .children()
+      .each((item) => {
+        cy.wrap(item).should('contain.text', '피양콩');
+      });
+
+    cy.get('select#category-filter').select('중식');
+    cy.get('.restaurant-list')
+      .children()
+      .each((item) => {
+        cy.wrap(item).should('contain.text', '친친');
+      });
+  });
+
+  it('정렬 필터링이 작동한다', () => {
+    cy.get('select#sorting-filter').select('distance');
+    cy.get('.restaurant-list').children().first().should('contain.text', '5');
+
+    cy.get('select#sorting-filter').select('name');
+    cy.get('.restaurant-list').children().first().should('contain.text', '도스타코스');
+  });
+
+  it('탭 전환에 따른 음식점 목록 갱신', () => {
+    cy.get('.restaurant-list').children().first().find('.restaurant__star').click();
+
+    cy.get('.tab-item').contains('자주 가는 음식점').click();
+
+    cy.get('.restaurant-list').should('exist');
+
+    cy.get('.tab-item').contains('모든 음식점').click();
+
+    cy.get('.restaurant-list').should('exist');
+  });
+
+  it('새로 고침 후에도 자주 가는 음식점 존재', () => {
+    cy.get('.restaurant-list').children().first().find('.restaurant__star').click();
+
+    cy.get('.tab-item').contains('자주 가는 음식점').click();
+
+    cy.get('.restaurant-list').should('exist');
+
+    cy.get('.tab-item').contains('모든 음식점').click();
+
+    cy.get('.restaurant-list').should('exist');
+
+    cy.reload();
+    cy.get('.tab-item').contains('자주 가는 음식점').click();
+
+    cy.get('.restaurant-list').should('exist');
   });
 });

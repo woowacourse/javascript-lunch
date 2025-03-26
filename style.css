@@ -87,6 +87,33 @@ body {
 
 /* 음식점 목록 *****************************************/
 
+/* 탭바 */
+.restaurant-tab-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  padding: 0 16px;
+  margin: 20px 0;
+}
+
+.tab-item {
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+  color: var(--grey-300);
+  border-bottom: 2px solid var(--grey-200);
+  cursor: pointer;
+}
+
+.tab-item-selected {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
 /* 카테고리/정렬 필터 */
 .restaurant-filter-container {
   display: flex;
@@ -123,7 +150,7 @@ body {
 .restaurant {
   display: flex;
   align-items: flex-start;
-
+  cursor: pointer;
   padding: 16px 8px;
 
   border-bottom: 1px solid #e9eaed;
@@ -153,10 +180,37 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+}
+
+.restaurant__title {
+  width: 90%;
+}
+
+.restaurant__star {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  background-size: 100% 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.restaurant__star.favorite {
+  background-color: transparent;
+}
+
+.restaurant__column {
+  flex-direction: column;
 }
 
 .restaurant__name {
   margin: 0;
+}
+
+.restaurant__detail__description {
+  padding: 20px 0;
 }
 
 .restaurant__distance {
@@ -295,4 +349,9 @@ input[name='link'] {
   background: var(--primary-color);
 
   color: var(--grey-100);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
 }

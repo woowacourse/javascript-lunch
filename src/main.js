@@ -1,18 +1,52 @@
-import { createRestaurantList, updateRestaurantList } from './components/RestaurantList.js';
+import { createRestaurantList } from './components/RestaurantList.js';
 import createSectionContainer from './components/SectionContainer.js';
-import { RESTAURANT_ITEMS } from '../public/restaurantData.js';
+import { RESTAURANT_ITEMS } from '../public/restaurantData.ts';
 import { createRestaurantEnrollModal } from './components/RestaurantEnrollModal.js';
+import createFilterBox from './components/Filters.js';
+import createTabBar from './components/Tabbar.js';
 
 const program = {
   enrollRestaurantModal: null,
+  filteredItems: [],
+
+  loadData() {
+    const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
+
+    if (storedData.length > 0) {
+      this.filteredItems = storedData;
+    } else {
+      this.filteredItems = RESTAURANT_ITEMS.map((item) => {
+        const storedRestaurant = storedData.find((stored) => stored.id === item.id);
+        return storedRestaurant ? { ...item, favorite: storedRestaurant.favorite } : item;
+      });
+
+      const newRestaurants = storedData.filter(
+        (stored) => !RESTAURANT_ITEMS.some((item) => item.id === stored.id)
+      );
+      this.filteredItems.push(...newRestaurants);
+    }
+  },
 
   initUI() {
+    this.loadData();
+
     const $main = document.getElementsByTagName('main')[0];
 
     const $filterContainer = createSectionContainer('restaurant-list-container');
-    $filterContainer.appendChild(createRestaurantList(RESTAURANT_ITEMS));
 
-    const $enrollRestaurantModal = createRestaurantEnrollModal(updateRestaurantList);
+    const $filterBox = createFilterBox({
+      onCategoryChange: this.handleCategoryFilter.bind(this),
+      onSortChange: this.handleSortFilter.bind(this),
+    });
+
+    $filterContainer.appendChild($filterBox);
+
+    const $tabBar = createTabBar(this.handleTabClick.bind(this));
+    $filterContainer.appendChild($tabBar);
+
+    $filterContainer.appendChild(createRestaurantList(this.filteredItems));
+
+    const $enrollRestaurantModal = createRestaurantEnrollModal(this.addRestaurant.bind(this));
     this.enrollRestaurantModal = $enrollRestaurantModal;
 
     $main.append($filterContainer, $enrollRestaurantModal.getElement());
@@ -31,7 +65,72 @@ const program = {
       this.enrollRestaurantModal.toggle();
     });
   },
+
+  handleCategoryFilter(selectedCategory) {
+    this.filteredItems =
+      selectedCategory === '전체'
+        ? [...RESTAURANT_ITEMS]
+        : RESTAURANT_ITEMS.filter((item) => item.category === selectedCategory);
+
+    this.updateRestaurantList();
+  },
+
+  handleSortFilter(selectedSort) {
+    if (selectedSort === 'name') {
+      this.filteredItems.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (selectedSort === 'distance') {
+      this.filteredItems.sort((a, b) => Number(a.distance) - Number(b.distance));
+    }
+
+    this.updateRestaurantList();
+  },
+
+  handleTabClick(tab) {
+    const $container = document.querySelector('.restaurant-list-container');
+
+    const oldList = $container.querySelector('.restaurant-list');
+    if (oldList) oldList.remove();
+
+    this.loadData();
+
+    if (tab === 'favorite') {
+      this.filteredItems = this.filteredItems.filter((item) => item.favorite);
+    }
+
+    this.updateRestaurantList();
+  },
+
+  addRestaurant(newRestaurant) {
+    const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
+
+    storedData.push(newRestaurant);
+    localStorage.setItem('addedRestaurants', JSON.stringify(storedData));
+
+    this.filteredItems.push(newRestaurant);
+    this.updateRestaurantList();
+  },
+
+  deleteRestaurant(id) {
+    const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
+    const updatedStoredData = storedData.filter((restaurant) => restaurant.id !== id);
+
+    localStorage.setItem('addedRestaurants', JSON.stringify(updatedStoredData));
+
+    this.filteredItems = updatedStoredData;
+    this.updateRestaurantList();
+  },
+
+  updateRestaurantList() {
+    const $filteredList = createRestaurantList(this.filteredItems);
+    const $container = document.querySelector('.restaurant-list-container');
+
+    const oldList = $container.querySelector('.restaurant-list');
+    if (oldList) oldList.remove();
+    $container.appendChild($filteredList);
+  },
 };
 
 program.initUI();
 program.initEvent();
+
+export default program;
