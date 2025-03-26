@@ -6,11 +6,11 @@ import { inputBoxList } from '../config/InputBoxList.js';
 
 class InputModal extends Component {
   getModalInput(modalForm) {
-    const baseURL = window.location.origin.includes('github.io') ? '/javascript-lunch' : '../../public';
+    const baseURL = window.location.origin.includes('github.io') ? '' : '../../public/images/';
     const formData = new FormData(modalForm);
     const modalInput = {
       id: Date.now(),
-      imgUrl: `${baseURL}/images/category-${FOOD_CATEGORY[formData.get(INPUT_FIELDS.CATEGORY)]}.png`,
+      imgUrl: `${baseURL}category-${FOOD_CATEGORY[formData.get(INPUT_FIELDS.CATEGORY)]}.png`,
       category: formData.get(INPUT_FIELDS.CATEGORY),
       name: formData.get(INPUT_FIELDS.NAME),
       distance: formData.get(INPUT_FIELDS.DISTANCE),
