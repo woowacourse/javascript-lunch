@@ -10,17 +10,17 @@
   <body>
     <div id="app">
       <!-- GNB -->
-      <header class="gnb">
-        <h1 class="gnb__title text-title">점심 뭐 먹지</h1>
-        <button type="button" class="gnb__button" aria-label="음식점 추가">
-          <img src="./public/add-button.png" alt="음식점 추가" />
-        </button>
-      </header>
-
+      <header class="header gnb"></header>
       <main>
+        <!-- 상점 리스트 메뉴바 -->
+        <section class="restaurant-menuBar-container"></section>
+        <!-- 카테고리/정렬 필터 -->
+        <section class="restaurant-filter-container"></section>
+        <!-- 식당 리스트 -->
         <section class="restaurant-list-container">
           <ul class="restaurant-list"></ul>
         </section>
+        <!-- 식당 상세정보 모달창 -->
       </main>
       <script type="module" src="./src/main.js"></script>
     </div>

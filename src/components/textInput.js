@@ -1,8 +1,9 @@
 import { title } from "../constants/inputTitle.js";
+import createElement from "../utils/createElement.js";
 
 const TextInput = (name, isRequired, helpText) => {
-  const formItem = document.createElement("div");
-  formItem.classList.add("form-item");
+  const formItem = createElement({ tag: "div", classList: ["form-item"] });
+
   if (isRequired) formItem.classList.add("form-item--required");
 
   formItem.innerHTML = `
@@ -11,8 +12,10 @@ const TextInput = (name, isRequired, helpText) => {
   `;
 
   if (helpText) {
-    const span = document.createElement("span");
-    span.classList.add("help-text", "text-caption");
+    const span = createElement({
+      tag: "span",
+      classList: ["help-text", "text-caption"],
+    });
     span.innerText = helpText;
     formItem.appendChild(span);
   }

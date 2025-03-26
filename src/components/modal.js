@@ -1,16 +1,28 @@
-const Modal = () => {
-  const modal = document.createElement("div");
-  const modalBackdrop = document.createElement("div");
-  const modalContainer = document.createElement("div");
+import modalRenderer from "../render/modalRenderer.js";
+import createElement from "../utils/createElement.js";
 
-  modal.classList.add("modal");
-  modalBackdrop.classList.add("modal-backdrop");
-  modalContainer.classList.add("modal-container");
+const Modal = (storeList, classList) => {
+  const modal = createElement({
+    tag: "div",
+    classList: ["modal", ...classList],
+  });
+  const modalBackdrop = createElement({
+    tag: "div",
+    classList: ["modal-backdrop"],
+  });
+  const modalContainer = createElement({
+    tag: "div",
+    classList: ["modal-container"],
+  });
 
   modal.appendChild(modalBackdrop);
   modal.appendChild(modalContainer);
 
-  return modal;
+  document.querySelector("main").appendChild(modal);
+
+  document
+    .querySelector(".modal-backdrop")
+    .addEventListener("click", () => modalRenderer.closeModal());
 };
 
 export default Modal;

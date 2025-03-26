@@ -1,30 +1,13 @@
-const Button = (category) => {
-  const button = document.createElement("button");
-  button.setAttribute("type", buttonCategory[category].type);
-  button.setAttribute("id", buttonCategory[category].id);
-  button.classList.add(
-    buttonCategory[category].class,
-    "text-caption",
-    "button"
-  );
-  button.textContent = buttonCategory[category].name;
+import createElement from "../utils/createElement";
 
-  return button;
-};
-
-const buttonCategory = {
-  cancel: {
-    name: "취소하기",
-    type: "button",
-    class: "button--secondary",
-    id: "cancel-button",
-  },
-  add: {
-    name: "추가하기",
-    type: "submit",
-    class: "button--primary",
-    id: "add-button",
-  },
+const Button = (props) => {
+  return createElement({
+    tag: "button",
+    type: props.type,
+    id: props.id,
+    classList: [...props.class, "text-caption", "button"],
+    textContent: props.name,
+  });
 };
 
 export default Button;
