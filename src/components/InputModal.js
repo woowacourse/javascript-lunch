@@ -5,6 +5,20 @@ import { FOOD_CATEGORY } from '../constants/constants.js';
 import { inputBoxList } from '../config/InputBoxList.js';
 
 class InputModal extends Component {
+  getModalInput(modalForm) {
+    const formData = new FormData(modalForm);
+    const modalInput = {
+      id: Date.now(),
+      imgUrl: `../../public/images/category-${FOOD_CATEGORY[formData.get('category')]}.png`,
+      category: formData.get('category'),
+      name: formData.get('name'),
+      distance: formData.get('distance'),
+      description: formData.get('description'),
+      link: formData.get('link'),
+    };
+    return modalInput;
+  }
+
   onRender() {
     const cancelButton = new Button({
       type: 'button',
@@ -33,26 +47,10 @@ class InputModal extends Component {
     this.element.appendChild(modal.element);
 
     const $modalForm = this.element.querySelector('.modal-form');
-
     $modalForm.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      const $categoryInput = this.element.querySelector('#category');
-      const $name = this.element.querySelector('#name');
-      const $distance = this.element.querySelector('#distance');
-      const $description = this.element.querySelector('#description');
-      const $link = this.element.querySelector('#link');
-
-      const modalInput = {
-        id: Date.now(),
-        imgUrl: `../../public/images/category-${FOOD_CATEGORY[$categoryInput.value]}.png`,
-        category: $categoryInput.value,
-        name: $name.value,
-        distance: $distance.value,
-        description: $description.value,
-        link: $link.value,
-      };
-
+      const modalInput = this.getModalInput($modalForm);
       this.props.addRestaurant(modalInput);
     });
   }
