@@ -9,21 +9,33 @@ class RestaurantList extends Component {
     `;
   }
 
+  getRestaurantList() {
+    return this.props.restaurantList
+      .map((restaurant) => new Restaurant({ ...restaurant, deleteRestaurant: this.props.deleteRestaurant }))
+      .filter((restaurant) => this.filterByCategory(restaurant))
+      .filter((restaurant) => this.filterByActiveTab(restaurant))
+      .sort((a, b) => this.sortRestaurant(a, b));
+  }
+
+  filterByCategory(restaurant) {
+    return this.props.category === '전체' || restaurant.props.category === this.props.category;
+  }
+
+  filterByActiveTab(restaurant) {
+    if (this.props.activeTab === '모든 음식점') return true;
+    if (this.props.activeTab === '자주 가는 음식점') return restaurant.props.favorite;
+    return true;
+  }
+
+  sortRestaurant(a, b) {
+    if (this.props.sort === '이름순') return a.props.name.localeCompare(b.props.name);
+    if (this.props.sort === '거리순') return a.props.distance - b.props.distance;
+    return 0;
+  }
+
   onRender() {
     const $restaurantList = this.element.querySelector('.restaurant-list');
-    const restaurantList = this.props.restaurantList
-      .map((restaurant) => new Restaurant({ ...restaurant, deleteRestaurant: this.props.deleteRestaurant }))
-      .filter((restaurant) => this.props.category === '전체' || restaurant.props.category === this.props.category)
-      .filter((restaurant) => {
-        if (this.props.activeTab === '모든 음식점') return true;
-        if (this.props.activeTab === '자주 가는 음식점') return restaurant.props.favorite;
-        return true;
-      })
-      .sort((a, b) => {
-        if (this.props.sort === '이름순') return a.props.name.localeCompare(b.props.name);
-        if (this.props.sort === '거리순') return a.props.distance - b.props.distance;
-        return 0;
-      });
+    const restaurantList = this.getRestaurantList();
 
     restaurantList.forEach((restaurant) => {
       this.element.appendChild(restaurant.element);
