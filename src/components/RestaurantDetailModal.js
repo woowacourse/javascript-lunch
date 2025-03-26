@@ -2,6 +2,7 @@ import createElement from '../utils/createElement.js';
 import Modal from './Modal.js';
 import createRestaurantItem from './RestaurantItem.js';
 import createButton from './Button.js';
+import program from '../main.js';
 
 class RestaurantDetailModal {
   #detailModal;
@@ -10,7 +11,7 @@ class RestaurantDetailModal {
     this.#detailModal = new Modal();
   }
 
-  updateModalContent({ data, onDelete }) {
+  updateModalContent({ data }) {
     const $restaurantItem = createRestaurantItem(data);
     $restaurantItem.classList.add('restaurant__column');
 
@@ -19,8 +20,8 @@ class RestaurantDetailModal {
       className: 'button--secondary',
       textContent: '삭제하기',
       buttonType: 'button',
-      onClick: (event) => {
-        onDelete(event, data.id);
+      onClick: () => {
+        program.deleteRestaurant(data.id);
         this.#detailModal.toggle();
       },
     });

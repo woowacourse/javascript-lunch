@@ -12,15 +12,19 @@ const program = {
   loadData() {
     const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
 
-    this.filteredItems = RESTAURANT_ITEMS.map((item) => {
-      const storedRestaurant = storedData.find((stored) => stored.id === item.id);
-      return storedRestaurant ? { ...item, favorite: storedRestaurant.favorite } : item;
-    });
+    if (storedData.length > 0) {
+      this.filteredItems = storedData;
+    } else {
+      this.filteredItems = RESTAURANT_ITEMS.map((item) => {
+        const storedRestaurant = storedData.find((stored) => stored.id === item.id);
+        return storedRestaurant ? { ...item, favorite: storedRestaurant.favorite } : item;
+      });
 
-    const newRestaurants = storedData.filter(
-      (stored) => !RESTAURANT_ITEMS.some((item) => item.id === stored.id)
-    );
-    this.filteredItems.push(...newRestaurants);
+      const newRestaurants = storedData.filter(
+        (stored) => !RESTAURANT_ITEMS.some((item) => item.id === stored.id)
+      );
+      this.filteredItems.push(...newRestaurants);
+    }
   },
 
   initUI() {
@@ -106,6 +110,16 @@ const program = {
     this.updateRestaurantList();
   },
 
+  deleteRestaurant(id) {
+    const storedData = JSON.parse(localStorage.getItem('addedRestaurants')) || [];
+    const updatedStoredData = storedData.filter((restaurant) => restaurant.id !== id);
+
+    localStorage.setItem('addedRestaurants', JSON.stringify(updatedStoredData));
+
+    this.filteredItems = updatedStoredData;
+    this.updateRestaurantList();
+  },
+
   updateRestaurantList() {
     const $filteredList = createRestaurantList(this.filteredItems);
     const $container = document.querySelector('.restaurant-list-container');
@@ -118,3 +132,5 @@ const program = {
 
 program.initUI();
 program.initEvent();
+
+export default program;
