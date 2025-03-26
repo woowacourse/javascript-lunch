@@ -35,26 +35,10 @@ class DetailModal extends Component {
     const $cancelButton = this.element.querySelector('#modal-cancel');
     const $backdrop = this.element.querySelector('.modal-backdrop');
 
-    if ($deleteButton) {
-      $deleteButton.addEventListener('click', () => {
-        if (this.props.onDelete) {
-          this.props.onDelete();
-        }
-        $modal.classList.add('hidden');
-      });
-    }
-
-    if ($cancelButton) {
-      $cancelButton.addEventListener('click', () => {
-        $modal.classList.add('hidden');
-      });
-    }
-
-    if ($backdrop) {
-      $backdrop.addEventListener('click', () => {
-        $modal.classList.add('hidden');
-      });
-    }
+    $deleteButton.addEventListener('click', () => {
+      this.props.onDelete();
+      $modal.classList.add('hidden');
+    });
 
     const $modalFavorite = this.element.querySelector('.restaurant__favorite');
     if ($modalFavorite) {
