@@ -1,7 +1,7 @@
 import Button from './common/Button.js';
 import Component from '../core/Component.js';
 import Modal from './common/Modal.js';
-import { FOOD_CATEGORY } from '../constants/constants.js';
+import { BUTTON_TEXT, FOOD_CATEGORY, INPUT_FIELDS } from '../constants/constants.js';
 import { inputBoxList } from '../config/InputBoxList.js';
 
 class InputModal extends Component {
@@ -9,12 +9,12 @@ class InputModal extends Component {
     const formData = new FormData(modalForm);
     const modalInput = {
       id: Date.now(),
-      imgUrl: `../../public/images/category-${FOOD_CATEGORY[formData.get('category')]}.png`,
-      category: formData.get('category'),
-      name: formData.get('name'),
-      distance: formData.get('distance'),
-      description: formData.get('description'),
-      link: formData.get('link'),
+      imgUrl: `../../public/images/category-${FOOD_CATEGORY[formData.get(INPUT_FIELDS.CATEGORY)]}.png`,
+      category: formData.get(INPUT_FIELDS.CATEGORY),
+      name: formData.get(INPUT_FIELDS.NAME),
+      distance: formData.get(INPUT_FIELDS.DISTANCE),
+      description: formData.get(INPUT_FIELDS.DESCRIPTION),
+      link: formData.get(INPUT_FIELDS.LINK),
     };
     return modalInput;
   }
@@ -24,24 +24,25 @@ class InputModal extends Component {
       type: 'button',
       class: 'button--secondary',
       id: 'modal-cancel',
-      message: '취소하기',
+      message: BUTTON_TEXT.CANCLE,
     });
     const addButtom = new Button({
       type: 'submit',
       class: 'button--primary',
       id: 'modal-add',
-      message: '추가하기',
+      message: BUTTON_TEXT.ADD,
     });
     const modal = new Modal({
       content: `
-      <h2 class="modal-title text-title">새로운 음식점</h2>
-       <form class="modal-form">
-         ${inputBoxList.map((input) => input.template()).join('')}
-         <div class="button-container">
-           ${cancelButton.template()}
-           ${addButtom.template()}
-         </div>
-       </form>`,
+        <h2 class="modal-title text-title">새로운 음식점</h2>
+        <form class="modal-form">
+          ${inputBoxList.map((input) => input.template()).join('')}
+          <div class="button-container">
+            ${cancelButton.template()}
+            ${addButtom.template()}
+          </div>
+        </form>
+      `,
     });
 
     this.element.appendChild(modal.element);
