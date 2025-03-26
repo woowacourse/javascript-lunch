@@ -4,3 +4,6 @@ export { default as InputBox } from './common/InputBox.js';
 export { default as InputModal } from './InputModal.js';
 export { default as Restaurant } from './Restaurant.js';
 export { default as RestaurantList } from './RestaurantList.js';
+export { default as Filter } from './common/Filter';
+export { default as Modal } from './common/Modal.js';
+export { default as Tab } from './Tab';

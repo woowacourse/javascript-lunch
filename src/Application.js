@@ -1,9 +1,6 @@
-import { Header, Restaurant, InputModal, RestaurantList } from './components/index.js';
-import Filter from './components/common/Filter.js';
 import Component from './core/Component.js';
+import { Header, Restaurant, InputModal, RestaurantList, Filter, Modal, Tab } from './components/index.js';
 import { defaultRestaurantList } from './data/defaultRestaurantList.ts';
-import Modal from './components/common/Modal.js';
-import Tab from './components/Tab.js';
 
 class Application extends Component {
   setup() {
