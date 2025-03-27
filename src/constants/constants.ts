@@ -22,3 +22,14 @@ export const VALIDATE_SETTINGS = {
   nameMaxLength: 20,
   descriptionMaxLength: 500,
 };
+
+export const CATEGORY_OPTIONS: string[] = [
+  "한식",
+  "중식",
+  "일식",
+  "양식",
+  "아시안",
+  "기타",
+];
+
+export const DISTANCE_OPTIONS: string[] = ["5", "10", "15", "20", "30"];

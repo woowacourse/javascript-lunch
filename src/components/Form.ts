@@ -1,16 +1,28 @@
+import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/constants.ts";
+
 const createForm = () => {
+  const getCategoryOptions = () => {
+    return `<option value="">선택해 주세요</option>
+              ${CATEGORY_OPTIONS.map(
+                (option) => `<option value="${option}">${option}</option>`
+              ).join("")}
+            `;
+  };
+
+  const getDistanceOptions = () => {
+    return `<option value="">선택해 주세요</option>
+              ${DISTANCE_OPTIONS.map(
+                (option) => `<option value="${option}">${option}분 내</option>`
+              ).join("")}
+            `;
+  };
+
   const html = `
   <form>
       <div class="form-item form-item--required">
         <label for="category" class="text-caption">카테고리</label>
         <select name="category" id="category" required>
-          <option value="">선택해 주세요</option>
-          <option value="한식">한식</option>
-          <option value="중식">중식</option>
-          <option value="일식">일식</option>
-          <option value="양식">양식</option>
-          <option value="아시안">아시안</option>
-          <option value="기타">기타</option>
+         ${getCategoryOptions()}
         </select>
       </div>
   
@@ -22,12 +34,7 @@ const createForm = () => {
       <div class="form-item form-item--required">
         <label for="distance" class="text-caption">거리(도보 이동 시간)</label>
         <select name="distance" id="distance" required>
-          <option value="">선택해 주세요</option>
-          <option value="5">5분 내</option>
-          <option value="10">10분 내</option>
-          <option value="15">15분 내</option>
-          <option value="20">20분 내</option>
-          <option value="30">30분 내</option>
+         ${getDistanceOptions()}
         </select>
       </div>
   
