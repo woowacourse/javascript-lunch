@@ -1,7 +1,6 @@
 import createHeader from "./components/Header.ts";
 import createTab from "./components/Tab.ts";
-import renderRestaurantList from "./components/RestaurantList.ts";
-import createRestaurantItem from "./components/RestaurantItem.ts";
+import RestaurantList from "./components/RestaurantList.ts";
 import Modal from "./components/Modal.ts";
 import { createForm } from "./components/Form.ts";
 import validateRestaurant from "./validateRestaurant.js";
@@ -27,6 +26,21 @@ const state: State = {
   restaurants: [],
 };
 
+const getRestaurantList = (): Element => {
+  const el = document.querySelector(".restaurant-list");
+  if (!el) throw new Error("음식점 목록을 찾을 수 없습니다.");
+  return el;
+};
+
+const updateRestaurantList = (restaurants: Restaurant[]) => {
+  const restaurantList = getRestaurantList();
+  RestaurantList({
+    restaurants,
+    setRestaurant: setStateRestaurant,
+    el: restaurantList,
+  });
+};
+
 const setStateRestaurant = (restaurants: Restaurant[]) => {
   state.restaurants = restaurants;
 };
@@ -39,45 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const categoryFilter = body?.querySelector("#category-filter");
   const sortingFilter = body?.querySelector("#sorting-filter");
-  const restaurantList = document.querySelector(".restaurant-list");
-
-  categoryFilter?.addEventListener("change", (e) => {
-    const target = e.target as HTMLSelectElement;
-    const value = target.value as Category;
-
-    state.category = value;
-
-    if (!restaurantList) {
-      throw new Error("음식점 목록을 찾을 수 없습니다.");
-    }
-
-    const filterRestaurants = restaurantManager.getFilterAndSortList(
-      state.restaurants,
-      value,
-      state.sortType
-    );
-
-    renderRestaurantList(filterRestaurants, setStateRestaurant, restaurantList);
-  });
-
-  sortingFilter?.addEventListener("change", (e) => {
-    const target = e.target as HTMLSelectElement;
-    const value = target.value as SortType;
-
-    if (!restaurantList) {
-      throw new Error("음식점 목록을 찾을 수 없습니다.");
-    }
-
-    state.sortType = value;
-
-    const filterRestaurants = restaurantManager.getFilterAndSortList(
-      state.restaurants,
-      state.category,
-      value
-    );
-
-    renderRestaurantList(filterRestaurants, setStateRestaurant, restaurantList);
-  });
 
   const tab = createTab({
     title: "모든 음식점",
@@ -94,15 +69,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   mainTab?.classList.add("active");
 
+  categoryFilter?.addEventListener("change", (e) => {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value as Category;
+
+    state.category = value;
+
+    const filterRestaurants = restaurantManager.getFilterAndSortList(
+      state.restaurants,
+      value,
+      state.sortType
+    );
+
+    updateRestaurantList(filterRestaurants);
+  });
+
+  sortingFilter?.addEventListener("change", (e) => {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value as SortType;
+
+    state.sortType = value;
+
+    const filterRestaurants = restaurantManager.getFilterAndSortList(
+      state.restaurants,
+      state.category,
+      value
+    );
+
+    updateRestaurantList(filterRestaurants);
+  });
+
   mainTab?.addEventListener("click", () => {
     mainTab.classList.add("active");
     subTab?.classList.remove("active");
 
-    if (!restaurantList) {
-      throw new Error("음식점 목록을 찾을 수 없습니다.");
-    }
-
-    renderRestaurantList(state.restaurants, setStateRestaurant, restaurantList);
+    updateRestaurantList(state.restaurants);
 
     restaurantFilterContainer?.classList.remove("hidden");
   });
@@ -110,15 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
   subTab?.addEventListener("click", () => {
     subTab.classList.add("active");
     mainTab?.classList.remove("active");
-    const restaurants: Restaurant[] = restaurantManager.getFavoriteList(
+    const favoriteRestaurants: Restaurant[] = restaurantManager.getFavoriteList(
       state.restaurants
     );
 
-    if (!restaurantList) {
-      throw new Error("음식점 목록을 찾을 수 없습니다.");
-    }
-
-    renderRestaurantList(restaurants, setStateRestaurant, restaurantList);
+    updateRestaurantList(favoriteRestaurants);
 
     restaurantFilterContainer?.classList.add("hidden");
   });
@@ -175,15 +172,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const restaurantItem = createRestaurantItem(newRestaurant);
-    restaurantList?.appendChild(restaurantItem);
-
+    const updatedRestaurants = [...state.restaurants, newRestaurant];
     restaurantManager.add(newRestaurant);
+
+    setStateRestaurant(updatedRestaurants);
+    updateRestaurantList(updatedRestaurants);
 
     formReset();
   };
 
   const formContent = createForm();
+
   const formReset = () => {
     const addRestaurantForm = document.querySelector<HTMLFormElement>(
       "#restaurant-add-dialog form"
@@ -216,7 +215,5 @@ document.addEventListener("DOMContentLoaded", () => {
     addRestaurantModal.showModal();
   });
 
-  if (restaurantList) {
-    renderRestaurantList(state.restaurants, setStateRestaurant, restaurantList);
-  }
+  updateRestaurantList(state.restaurants);
 });
