@@ -20,53 +20,56 @@ const Modal = ({ id, title, content, options }: ModalProps) => {
   modal.classList.add("modal");
   modal.id = id;
 
-  const handleClickClose = () => {
-    options?.close.onClick();
-    cleanUp();
-    modal.close();
-  };
-
-  const handleSubmitClick = () => {
-    submitButton?.addEventListener("click", () => {
-      options?.submit.onClick();
-      cleanUp();
-      modal.close();
-    });
-  };
-
-  const handleClickBackDrop = (event: MouseEvent) => {
-    const target = event.target as Element;
-    if (!target.closest(".modal-container")) {
-      modal.close();
-      cleanUp();
-      options?.close.onClick();
-    }
-  };
-
   const cleanUp = () => {
     closeButton?.removeEventListener("click", handleClickClose);
     submitButton?.removeEventListener("click", handleSubmitClick);
     modal.removeEventListener("click", handleClickBackDrop);
   };
 
+  const handleClickClose = () => {
+    options?.close.onClick();
+    cleanUp();
+    modal.close();
+  };
+
+  const handleSubmitClick = (event: Event) => {
+    event.preventDefault();
+    options?.submit.onClick();
+    cleanUp();
+    modal.close();
+  };
+
+  const handleClickBackDrop = (event: MouseEvent) => {
+    const target = event.target as Element;
+    if (!target.closest(".modal-container")) {
+      options?.close.onClick();
+      cleanUp();
+      modal.close();
+    }
+  };
+
   modal.innerHTML = `
-      <div class="modal-container">
-        ${title ? `<h2 class="modal-title text-title">${title}</h2>` : ""}
-        <div class="modal-content">
-          ${content}
-        </div>
-        ${
-          options
-            ? `<div class="modal-footer">
-          <div class="button-container">
-            <button type="button" id="modal-close-btn" class="button button--secondary text-caption">${options.close.label}</button>
-            <button type="button" id="modal-submit-btn" class="button button--primary text-caption">${options.submit.label}</button>
-          </div>
-        </div>`
-            : ""
-        }
+    <div class="modal-container">
+      ${title ? `<h2 class="modal-title text-title">${title}</h2>` : ""}
+      <div class="modal-content">
+        ${content}
       </div>
-    `;
+      ${
+        options
+          ? `<div class="modal-footer">
+              <div class="button-container">
+                <button type="button" id="modal-close-btn" class="button button--secondary text-caption">
+                  ${options.close.label}
+                </button>
+                <button type="button" id="modal-submit-btn" class="button button--primary text-caption">
+                  ${options.submit.label}
+                </button>
+              </div>
+            </div>`
+          : ""
+      }
+    </div>
+  `;
 
   const closeButton = modal.querySelector("#modal-close-btn");
   const submitButton = modal.querySelector("#modal-submit-btn");

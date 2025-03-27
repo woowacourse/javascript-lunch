@@ -1,5 +1,5 @@
 import RestaurantItem from "./RestaurantItem.ts";
-import { showRestaurantDetailModal } from "./RestaurantDetailModal.ts";
+import RestaurantDetailModal from "./RestaurantDetailModal.ts";
 import { Restaurant } from "../types/restaurant.ts";
 import { restaurantManager } from "../restaurantManager.ts";
 
@@ -48,16 +48,16 @@ const RestaurantList = ({
     ) as FavoriteIconElement | null;
     if (item && item._favoriteIcon) {
       const favoriteIcon = item._favoriteIcon;
-
       const isFavorite = updatedRestaurants.find(
         (restaurant) => restaurant.id === id
       )?.isFavorite;
-
       favoriteIcon.src = isFavorite
         ? "images/favorite-icon-filled.png"
         : "images/favorite-icon-lined.png";
       favoriteIcon.dataset.favorite = String(isFavorite);
     }
+
+    render(updatedRestaurants);
   };
 
   const handleDelete = (id: string) => {
@@ -76,7 +76,7 @@ const RestaurantList = ({
     );
 
     if (targetRestaurant) {
-      showRestaurantDetailModal(targetRestaurant, handleDelete, handleFavorite);
+      RestaurantDetailModal(targetRestaurant, handleDelete, handleFavorite);
     }
   };
 

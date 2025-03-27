@@ -12,21 +12,18 @@ const getInitialLoadRestaurantData = () => {
     return [];
   }
 
-  const localStorageRestaurantData = localStorageUtils.get("restaurants") || [];
+  const localData = localStorageUtils.get("restaurants");
 
-  if (localStorageRestaurantData.length === 0) {
+  if (localData && localData.length > 0) {
+    return localData;
+  } else {
     const initialRestaurantsData = restaurantsData.map((restaurant) => {
       const id = getUniqueRestaurantId();
-      return {
-        ...restaurant,
-        id,
-        isFavorite: false,
-      };
+      return { ...restaurant, id, isFavorite: false };
     });
     localStorageUtils.set("restaurants", initialRestaurantsData);
+    return initialRestaurantsData;
   }
-
-  return localStorageRestaurantData;
 };
 
 const getFavoriteRestaurants = (restaurants: Restaurant[]) => {
@@ -55,8 +52,6 @@ const getFilterAndSortRestaurants = (
 
 const addRestaurant = (restaurant: Restaurant) => {
   const localStorageRestaurantData = localStorageUtils.get("restaurants") || [];
-
-  localStorageRestaurantData.push(restaurant);
 
   localStorageUtils.set("restaurants", [
     ...localStorageRestaurantData,
