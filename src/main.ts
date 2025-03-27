@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addRestaurantForm?.reset();
   };
 
-  const addRestaurantModal = Modal.create({
+  const addRestaurantModal = Modal({
     id: "restaurant-add-dialog",
     title: "새로운 음식점",
     content: formContent,
@@ -208,6 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
   });
+
+  body?.append(addRestaurantModal);
 
   const addRestaurantModalButton = header?.querySelector(".gnb__button");
   addRestaurantModalButton?.addEventListener("click", () => {

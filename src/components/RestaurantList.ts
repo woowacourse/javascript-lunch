@@ -98,7 +98,7 @@ const showRestaurantDetail = (
   </div>
 `;
 
-  const detailModal = Modal.create({
+  const detailModal = Modal({
     id: "restaurant-detail-dialog",
     content: restaurantDetailContent,
     options: {
