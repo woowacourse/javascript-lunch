@@ -7,6 +7,10 @@ type RestaurantItemProps = {
   onShowDetail: (id: string) => void;
 };
 
+interface FavoriteIconElement extends HTMLElement {
+  _favoriteIcon?: HTMLImageElement;
+}
+
 const RestaurantItem = ({
   restaurantItem,
   onFavorite,
@@ -28,24 +32,29 @@ const RestaurantItem = ({
     ? "images/favorite-icon-filled.png"
     : "images/favorite-icon-lined.png";
 
-  li.innerHTML = `<div class="restaurant__category">
-<img src="${mappedImage}" alt="${category}" class="category-icon" />
-</div>
-<div class="restaurant__info">
-<div class="restaurant__header">
-    <div class="restaurant__title">  
-    <h3 class="restaurant__name text-subtitle">${name}</h3>
-<span class="restaurant__distance text-body">캠퍼스로부터 ${distance}분 내</span>
-</div>
-<img src="${favoriteIconSrc}" alt="즐겨찾기" class="favorite-icon" data-id="${id}" data-favorite="${isFavorite}" />
-</div>
-${
-  description
-    ? `<p class="restaurant__description text-body">${description}</p>`
-    : ""
-}
-</div>
-  `;
+  li.innerHTML = `
+    <div class="restaurant__category">
+      <img src="${mappedImage}" alt="${category}" class="category-icon" />
+    </div>
+    <div class="restaurant__info">
+      <div class="restaurant__header">
+        <div class="restaurant__title">  
+          <h3 class="restaurant__name text-subtitle">${name}</h3>
+            <span class="restaurant__distance text-body">캠퍼스로부터 ${distance}분 내</span>
+        </div>
+        <img src="${favoriteIconSrc}" alt="즐겨찾기" class="favorite-icon" data-id="${id}" data-favorite="${isFavorite}" />
+      </div>
+      ${
+        description
+          ? `<p class="restaurant__description text-body">${description}</p>`
+          : ""
+      }
+      </div>
+    `;
+
+  (li as FavoriteIconElement)._favoriteIcon = li.querySelector(
+    ".favorite-icon"
+  ) as HTMLImageElement;
 
   li.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;

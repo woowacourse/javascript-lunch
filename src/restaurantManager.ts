@@ -58,7 +58,10 @@ const addRestaurant = (restaurant: Restaurant) => {
 
   localStorageRestaurantData.push(restaurant);
 
-  localStorageUtils.set("restaurants", localStorageRestaurantData);
+  localStorageUtils.set("restaurants", [
+    ...localStorageRestaurantData,
+    restaurant,
+  ]);
 };
 
 const deleteRestaurant = (id: string) => {

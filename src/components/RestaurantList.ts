@@ -14,47 +14,13 @@ const RestaurantList = ({
   setRestaurant,
   el,
 }: RestaurantListProps) => {
-  let localRestaurants: Restaurant[] = restaurants;
-
-  const handleFavorite = (id?: string) => {
-    const updatedRestaurants = localRestaurants.map((restaurant) =>
-      restaurant.id === id
-        ? { ...restaurant, isFavorite: !restaurant.isFavorite }
-        : restaurant
-    );
-    restaurantManager.toggleFavorite(id);
-    setRestaurant(updatedRestaurants);
-    localRestaurants = updatedRestaurants;
-    render(localRestaurants);
-  };
-
-  const handleDelete = (id: string) => {
-    const updatedRestaurants = localRestaurants.filter(
-      (restaurant) => restaurant.id !== id
-    );
-    restaurantManager.delete(id);
-    setRestaurant(updatedRestaurants);
-    localRestaurants = updatedRestaurants;
-    render(localRestaurants);
-  };
-
-  const handleShowDetail = (id: string) => {
-    const targetRestaurant = localRestaurants.find(
-      (restaurant) => restaurant.id === id
-    );
-
-    if (targetRestaurant) {
-      showRestaurantDetailModal(targetRestaurant, handleDelete, handleFavorite);
-    }
-  };
-
-  const render = (restaurants: Restaurant[]) => {
+  const render = (updatedRestaurants: Restaurant[]) => {
     if (!el) return;
     el.innerHTML = "";
 
     const fragment = document.createDocumentFragment();
 
-    restaurants.forEach((restaurant: Restaurant) => {
+    updatedRestaurants.forEach((restaurant: Restaurant) => {
       const restaurantItem = RestaurantItem({
         restaurantItem: restaurant,
         onFavorite: handleFavorite,
@@ -67,7 +33,54 @@ const RestaurantList = ({
     el.appendChild(fragment);
   };
 
-  render(localRestaurants);
+  const handleFavorite = (id?: string) => {
+    const updatedRestaurants = restaurants.map((restaurant) =>
+      restaurant.id === id
+        ? { ...restaurant, isFavorite: !restaurant.isFavorite }
+        : restaurant
+    );
+
+    restaurantManager.toggleFavorite(id);
+    setRestaurant(updatedRestaurants);
+
+    const item = el?.querySelector(
+      `[data-id="${id}"]`
+    ) as FavoriteIconElement | null;
+    if (item && item._favoriteIcon) {
+      const favoriteIcon = item._favoriteIcon;
+
+      const isFavorite = updatedRestaurants.find(
+        (restaurant) => restaurant.id === id
+      )?.isFavorite;
+
+      favoriteIcon.src = isFavorite
+        ? "images/favorite-icon-filled.png"
+        : "images/favorite-icon-lined.png";
+      favoriteIcon.dataset.favorite = String(isFavorite);
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    const updatedRestaurants = restaurants.filter(
+      (restaurant) => restaurant.id !== id
+    );
+
+    restaurantManager.delete(id);
+    setRestaurant(updatedRestaurants);
+    render(updatedRestaurants);
+  };
+
+  const handleShowDetail = (id: string) => {
+    const targetRestaurant = restaurants.find(
+      (restaurant) => restaurant.id === id
+    );
+
+    if (targetRestaurant) {
+      showRestaurantDetailModal(targetRestaurant, handleDelete, handleFavorite);
+    }
+  };
+
+  render(restaurants);
 };
 
 export default RestaurantList;
