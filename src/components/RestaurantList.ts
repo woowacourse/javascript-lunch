@@ -1,13 +1,19 @@
-import createRestaurantItem from "./RestaurantItem.ts";
+import RestaurantItem from "./RestaurantItem.ts";
 import { showRestaurantDetailModal } from "./RestaurantDetailModal.ts";
 import { Restaurant } from "../types/restaurant.ts";
 import { restaurantManager } from "../restaurantManager.ts";
 
-const renderRestaurantList = (
-  restaurants: Restaurant[],
-  setRestaurant: (restaurants: Restaurant[]) => void,
-  el?: Element
-) => {
+type RestaurantListProps = {
+  restaurants: Restaurant[];
+  setRestaurant: (restaurants: Restaurant[]) => void;
+  el?: Element;
+};
+
+const RestaurantList = ({
+  restaurants,
+  setRestaurant,
+  el,
+}: RestaurantListProps) => {
   let localRestaurants: Restaurant[] = restaurants;
 
   const handleFavorite = (id?: string) => {
@@ -32,6 +38,16 @@ const renderRestaurantList = (
     render(localRestaurants);
   };
 
+  const handleShowDetail = (id: string) => {
+    const targetRestaurant = localRestaurants.find(
+      (restaurant) => restaurant.id === id
+    );
+
+    if (targetRestaurant) {
+      showRestaurantDetailModal(targetRestaurant, handleDelete, handleFavorite);
+    }
+  };
+
   const render = (restaurants: Restaurant[]) => {
     if (!el) return;
     el.innerHTML = "";
@@ -39,41 +55,19 @@ const renderRestaurantList = (
     const fragment = document.createDocumentFragment();
 
     restaurants.forEach((restaurant: Restaurant) => {
-      const restaurantItem = createRestaurantItem(restaurant);
+      const restaurantItem = RestaurantItem({
+        restaurantItem: restaurant,
+        onFavorite: handleFavorite,
+        onShowDetail: handleShowDetail,
+      });
 
-      if (!restaurant.id) return;
-      restaurantItem.setAttribute("data-id", restaurant.id);
       fragment.appendChild(restaurantItem);
     });
 
     el.appendChild(fragment);
-
-    el.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      const restaurantItem = target.closest("[data-id]") as HTMLElement;
-      if (!restaurantItem) return;
-
-      const restaurantId = restaurantItem.getAttribute("data-id");
-      if (!restaurantId) return;
-
-      if (
-        target instanceof HTMLImageElement &&
-        target.classList.contains("favorite-icon")
-      ) {
-        handleFavorite(restaurantId);
-        return;
-      }
-
-      const restaurant = restaurants.find(
-        (restaurant) => restaurant.id === restaurantId
-      );
-      if (restaurant) {
-        showRestaurantDetailModal(restaurant, handleDelete, handleFavorite);
-      }
-    });
   };
 
   render(localRestaurants);
 };
 
-export default renderRestaurantList;
+export default RestaurantList;

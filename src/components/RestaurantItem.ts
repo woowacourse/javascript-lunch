@@ -1,14 +1,20 @@
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.ts";
 import { Restaurant } from "../types/restaurant.ts";
 
-const createRestaurantItem = ({
-  id,
-  category,
-  name,
-  distance,
-  description,
-  isFavorite,
-}: Restaurant) => {
+type RestaurantItemProps = {
+  restaurantItem: Restaurant;
+  onFavorite: (id: string) => void;
+  onShowDetail: (id: string) => void;
+};
+
+const RestaurantItem = ({
+  restaurantItem,
+  onFavorite,
+  onShowDetail,
+}: RestaurantItemProps) => {
+  const { id, category, name, distance, description, isFavorite } =
+    restaurantItem;
+
   if (!id) {
     throw new Error("id가 없습니다.");
   }
@@ -41,7 +47,17 @@ ${
 </div>
   `;
 
+  li.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains("favorite-icon")) {
+      onFavorite(id);
+      return;
+    }
+
+    onShowDetail(id);
+  });
+
   return li;
 };
 
-export default createRestaurantItem;
+export default RestaurantItem;
