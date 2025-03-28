@@ -1,18 +1,48 @@
 export function formatDistance(distanceMap) {
+  const categoryNames = {
+    5: "5",
+    10: "10",
+    15: "15",
+    20: "20",
+    30: "30",
+  };
+
   return distanceMap.map((distance) => `${distance}분 내`);
 }
 
 export function formatCategory(categoryMap) {
   const categoryNames = {
-    ko: "한식",
-    ch: "중식",
-    ja: "일식",
-    we: "양식",
-    as: "아시안",
+    korea: "한식",
+    china: "중식",
+    japan: "일식",
+    western: "양식",
+    asian: "아시안",
     etc: "기타",
   };
 
-  return categoryMap.map((category) => categoryNames[category] || "알 수 없음");
+  return categoryMap.map((category) => categoryNames[category]);
+}
+
+export function formatFilter(categoryMap) {
+  const categoryNames = {
+    all: "전체",
+    korea: "한식",
+    china: "중식",
+    japan: "일식",
+    western: "양식",
+    asian: "아시안",
+    etc: "기타",
+  };
+
+  return categoryMap.map((category) => categoryNames[category]);
+}
+
+export function formatSort(sortMap) {
+  const sortNames = {
+    name: "이름순",
+    distance: "거리순",
+  };
+  return sortMap.map((sort) => sortNames[sort]);
 }
 
 export function convertObjectToArray(object) {

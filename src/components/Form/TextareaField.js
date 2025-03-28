@@ -1,4 +1,7 @@
-import { TEXTAREA } from "../constants/common.js";
+const TEXTAREA = {
+  COLS: 30,
+  ROWS: 10,
+};
 
 function TextareaField({ name, required = false }) {
   const textareaElement = document.createElement("textarea");
