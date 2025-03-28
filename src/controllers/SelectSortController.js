@@ -1,7 +1,7 @@
 import SelectField from "../components/Form/SelectField.js";
 import List from "../components/List.js";
 import { SELECT_CATEGORY, SELECT_FILTER, SELECT_SORT } from "../contants.js";
-import RestaurantList from "../domain/RestaurantList.js";
+import RestaurantList from "../domain/RestaurantList.ts";
 import { formatCategory, formatFilter, formatSort } from "../utils/format.js";
 import { getRestaurantStorage } from "../utils/store.js";
 

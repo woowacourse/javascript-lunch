@@ -4,7 +4,7 @@ import ListItem from "../components/ListItem.js";
 import Modal from "../components/Modal.js";
 import Title from "../components/Title.js";
 import { MODAL_BUTTONS_PROPERTY } from "../contants.js";
-import RestaurantList from "../domain/RestaurantList.js";
+import RestaurantList from "../domain/RestaurantList.ts";
 import { convertObjectToArray } from "../utils/format.js";
 import EventHandler from "./EventHandler.js";
 import ListController from "./ListController.js";

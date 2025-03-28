@@ -1,6 +1,6 @@
 import List from "../components/List.js";
 import { getRestaurantStorage } from "../utils/store.js";
-import RestaurantList from "../domain/RestaurantList.js";
+import RestaurantList from "../domain/RestaurantList.ts";
 import SelectSortController from "./SelectSortController.js";
 
 function ListController(app, listContainerElement, type = "all") {

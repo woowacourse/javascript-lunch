@@ -2,13 +2,13 @@ import { RESTAURANT_MODAL_PROPERTY } from "../contants.js";
 import EventHandler from "../controllers/EventHandler.js";
 import ListController from "../controllers/ListController.js";
 import ModalController from "../controllers/ModalController.js";
-import RestaurantList from "../domain/RestaurantList.js";
+import RestaurantList from "../domain/RestaurantList.ts";
 import { getRestaurantStorage } from "../utils/store.js";
 import Form from "./Form/Form.js";
 import ListItem from "./ListItem.js";
 
 export function toggleFavorite(event, restaurantList, restaurantId) {
-  restaurantList.updateRestaurant(restaurantId);
+  restaurantList.updateFavorite(restaurantId);
   const favoriteIcon = event.target.closest("img.favorites-icon");
   const restaurantFavoriteIconElement = document.querySelector(
     `.restaurant-list-container [data-id="${restaurantId}"] img.favorites-icon`,
