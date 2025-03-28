@@ -1,14 +1,14 @@
 export function formatDistance(distanceMap) {
   const categoryNames = {
     none: "선택해주세요.",
-    5: "5분 내",
-    10: "10분 내",
-    15: "15분 내",
-    20: "20분 내",
-    30: "30분 내",
+    5: "5",
+    10: "10",
+    15: "15",
+    20: "20",
+    30: "30",
   };
 
-  return distanceMap.map((distance) => categoryNames[distance]);
+  return distanceMap.map((distance) => `${categoryNames[distance]}분 내`);
 }
 
 export function formatCategory(categoryMap) {
