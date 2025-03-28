@@ -14,11 +14,11 @@ export function formatDistance(distanceMap) {
 export function formatCategory(categoryMap) {
   const categoryNames = {
     none: "선택해주세요.",
-    ko: "한식",
-    ch: "중식",
-    ja: "일식",
-    we: "양식",
-    as: "아시안",
+    korea: "한식",
+    china: "중식",
+    japan: "일식",
+    western: "양식",
+    asian: "아시안",
     etc: "기타",
   };
 
@@ -28,11 +28,11 @@ export function formatCategory(categoryMap) {
 export function formatFilter(categoryMap) {
   const categoryNames = {
     all: "전체",
-    ko: "한식",
-    ch: "중식",
-    ja: "일식",
-    we: "양식",
-    as: "아시안",
+    korea: "한식",
+    china: "중식",
+    japan: "일식",
+    western: "양식",
+    asian: "아시안",
     etc: "기타",
   };
 
