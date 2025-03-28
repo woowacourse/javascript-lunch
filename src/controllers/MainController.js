@@ -60,7 +60,7 @@ export const INPUT_ITEMS = [
 export function createFormItems(inputItems) {
   const formItems = inputItems.map((item) => {
     if (item.tag === "select") {
-      const component = SelectField(item);
+      const component = SelectField(item, true);
       return FormItemField({ item, component });
     }
     if (item.tag === "input") {

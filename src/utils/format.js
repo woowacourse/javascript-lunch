@@ -1,6 +1,5 @@
 export function formatDistance(distanceMap) {
   const categoryNames = {
-    none: "선택해주세요.",
     5: "5",
     10: "10",
     15: "15",
@@ -8,12 +7,11 @@ export function formatDistance(distanceMap) {
     30: "30",
   };
 
-  return distanceMap.map((distance) => `${categoryNames[distance]}분 내`);
+  return distanceMap.map((distance) => `${distance}분 내`);
 }
 
 export function formatCategory(categoryMap) {
   const categoryNames = {
-    none: "선택해주세요.",
     korea: "한식",
     china: "중식",
     japan: "일식",

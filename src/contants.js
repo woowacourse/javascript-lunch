@@ -58,9 +58,9 @@ export const LIST_ITEM_CONTENTS = [
   },
 ];
 
-export const SELECT_CATEGORY = ["none", "korea", "china", "japan", "western", "asian", "etc"];
+export const SELECT_CATEGORY = ["korea", "china", "japan", "western", "asian", "etc"];
 export const SELECT_FILTER = ["all", "korea", "china", "japan", "western", "asian", "etc"];
-export const SELECT_DISTANCE = ["none", 5, 10, 15, 20, 30];
+export const SELECT_DISTANCE = [5, 10, 15, 20, 30];
 export const SELECT_SORT = ["name", "distance"];
 
 export const MODAL_BUTTONS_PROPERTY = [
