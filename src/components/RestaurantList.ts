@@ -1,26 +1,40 @@
 import RestaurantItem from "./RestaurantItem.ts";
 import RestaurantDetailModal from "./RestaurantDetailModal.ts";
-import { Restaurant } from "../types/restaurant.ts";
+import { Category, Restaurant, SortType } from "../types/restaurant.ts";
 import { restaurantManager } from "../restaurantManager.ts";
 
 type RestaurantListProps = {
   restaurants: Restaurant[];
+  filter: {
+    tab: string;
+    category: Category;
+    sortType: SortType;
+  };
   setRestaurant: (restaurants: Restaurant[]) => void;
-  el?: Element;
+  el: Element;
 };
 
 const RestaurantList = ({
   restaurants,
   setRestaurant,
   el,
+  filter,
 }: RestaurantListProps) => {
-  const render = (updatedRestaurants: Restaurant[]) => {
-    if (!el) return;
+  const render = () => {
     el.innerHTML = "";
+
+    const displayRestaurants =
+      filter.tab === "자주 가는 음식점"
+        ? restaurantManager.getFavoriteList(restaurants)
+        : restaurantManager.getFilterAndSortList(
+            restaurants,
+            filter.category,
+            filter.sortType
+          );
 
     const fragment = document.createDocumentFragment();
 
-    updatedRestaurants.forEach((restaurant: Restaurant) => {
+    displayRestaurants.forEach((restaurant: Restaurant) => {
       const restaurantItem = RestaurantItem({
         restaurantItem: restaurant,
         onFavorite: handleFavorite,
@@ -33,31 +47,25 @@ const RestaurantList = ({
     el.appendChild(fragment);
   };
 
-  const handleFavorite = (id?: string) => {
-    const updatedRestaurants = restaurants.map((restaurant) =>
-      restaurant.id === id
-        ? { ...restaurant, isFavorite: !restaurant.isFavorite }
-        : restaurant
+  const handleFavorite = (id: string, isFavorite: boolean) => {
+    const targetRestaurant = restaurants.find(
+      (restaurant) => restaurant.id === id
     );
 
-    restaurantManager.toggleFavorite(id);
+    if (!targetRestaurant) return;
+
+    const updatedRestaurants = restaurants.map((restaurant) => {
+      if (restaurant.id === id) {
+        return {
+          ...restaurant,
+          isFavorite,
+        };
+      }
+      return restaurant;
+    });
+
+    restaurantManager.toggleFavorite(id, isFavorite);
     setRestaurant(updatedRestaurants);
-
-    const item = el?.querySelector(
-      `[data-id="${id}"]`
-    ) as FavoriteIconElement | null;
-    if (item && item._favoriteIcon) {
-      const favoriteIcon = item._favoriteIcon;
-      const isFavorite = updatedRestaurants.find(
-        (restaurant) => restaurant.id === id
-      )?.isFavorite;
-      favoriteIcon.src = isFavorite
-        ? "images/favorite-icon-filled.png"
-        : "images/favorite-icon-lined.png";
-      favoriteIcon.dataset.favorite = String(isFavorite);
-    }
-
-    render(updatedRestaurants);
   };
 
   const handleDelete = (id: string) => {
@@ -67,7 +75,6 @@ const RestaurantList = ({
 
     restaurantManager.delete(id);
     setRestaurant(updatedRestaurants);
-    render(updatedRestaurants);
   };
 
   const handleShowDetail = (id: string) => {
@@ -75,12 +82,12 @@ const RestaurantList = ({
       (restaurant) => restaurant.id === id
     );
 
-    if (targetRestaurant) {
-      RestaurantDetailModal(targetRestaurant, handleDelete, handleFavorite);
-    }
+    if (!targetRestaurant) return;
+
+    RestaurantDetailModal(targetRestaurant, handleDelete, handleFavorite);
   };
 
-  render(restaurants);
+  render();
 };
 
 export default RestaurantList;

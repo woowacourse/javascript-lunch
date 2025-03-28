@@ -3,13 +3,9 @@ import { Restaurant } from "../types/restaurant.ts";
 
 type RestaurantItemProps = {
   restaurantItem: Restaurant;
-  onFavorite: (id: string) => void;
+  onFavorite: (id: string, isFavorite: boolean) => void;
   onShowDetail: (id: string) => void;
 };
-
-interface FavoriteIconElement extends HTMLElement {
-  _favoriteIcon?: HTMLImageElement;
-}
 
 const RestaurantItem = ({
   restaurantItem,
@@ -52,17 +48,16 @@ const RestaurantItem = ({
       </div>
     `;
 
-  (li as FavoriteIconElement)._favoriteIcon = li.querySelector(
-    ".favorite-icon"
-  ) as HTMLImageElement;
+  const favoriteIcon = li.querySelector(".favorite-icon");
+  if (favoriteIcon instanceof HTMLImageElement) {
+    favoriteIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const toggledIsFavorite = !isFavorite;
+      onFavorite(id, toggledIsFavorite);
+    });
+  }
 
-  li.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains("favorite-icon")) {
-      onFavorite(id);
-      return;
-    }
-
+  li.addEventListener("click", () => {
     onShowDetail(id);
   });
 

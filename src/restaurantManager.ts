@@ -69,11 +69,7 @@ const deleteRestaurant = (id: string) => {
   localStorageUtils.set("restaurants", filteredRestaurantData);
 };
 
-const toggleFavoriteRestaurant = (id?: string) => {
-  if (!id) {
-    return;
-  }
-
+const toggleFavoriteRestaurant = (id: string, isFavorite: boolean) => {
   const localStorageRestaurantData = localStorageUtils.get("restaurants") || [];
 
   const toggledRestaurantData = localStorageRestaurantData.map(
@@ -81,7 +77,7 @@ const toggleFavoriteRestaurant = (id?: string) => {
       if (restaurant.id === id) {
         return {
           ...restaurant,
-          isFavorite: !restaurant.isFavorite,
+          isFavorite,
         };
       }
       return restaurant;

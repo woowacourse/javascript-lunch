@@ -33,12 +33,25 @@ const getRestaurantList = (): Element => {
 };
 
 const updateRestaurantList = (restaurants: Restaurant[]) => {
-  const restaurantList = getRestaurantList();
-  RestaurantList({
-    restaurants,
-    setRestaurant: setStateRestaurant,
-    el: restaurantList,
-  });
+  setStateRestaurant(restaurants);
+
+  const filter = {
+    tab: state.tab,
+    category: state.category,
+    sortType: state.sortType,
+  };
+
+  try {
+    const el = getRestaurantList();
+    RestaurantList({
+      restaurants,
+      filter,
+      setRestaurant: updateRestaurantList,
+      el,
+    });
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const setStateRestaurant = (restaurants: Restaurant[]) => {
@@ -71,37 +84,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   categoryFilter?.addEventListener("change", (e) => {
     const target = e.target as HTMLSelectElement;
-    const value = target.value as Category;
+    state.category = target.value as Category;
 
-    state.category = value;
-
-    const filterRestaurants = restaurantManager.getFilterAndSortList(
-      state.restaurants,
-      value,
-      state.sortType
-    );
-
-    updateRestaurantList(filterRestaurants);
+    updateRestaurantList(state.restaurants);
   });
 
   sortingFilter?.addEventListener("change", (e) => {
     const target = e.target as HTMLSelectElement;
-    const value = target.value as SortType;
+    state.sortType = target.value as SortType;
 
-    state.sortType = value;
-
-    const filterRestaurants = restaurantManager.getFilterAndSortList(
-      state.restaurants,
-      state.category,
-      value
-    );
-
-    updateRestaurantList(filterRestaurants);
+    updateRestaurantList(state.restaurants);
   });
 
   mainTab?.addEventListener("click", () => {
     mainTab.classList.add("active");
     subTab?.classList.remove("active");
+
+    state.tab = "모든 음식점";
 
     updateRestaurantList(state.restaurants);
 
@@ -111,11 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
   subTab?.addEventListener("click", () => {
     subTab.classList.add("active");
     mainTab?.classList.remove("active");
-    const favoriteRestaurants: Restaurant[] = restaurantManager.getFavoriteList(
-      state.restaurants
-    );
 
-    updateRestaurantList(favoriteRestaurants);
+    state.tab = "자주 가는 음식점";
+
+    updateRestaurantList(state.restaurants);
 
     restaurantFilterContainer?.classList.add("hidden");
   });
@@ -173,9 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const updatedRestaurants = [...state.restaurants, newRestaurant];
-    restaurantManager.add(newRestaurant);
 
-    setStateRestaurant(updatedRestaurants);
+    restaurantManager.add(newRestaurant);
     updateRestaurantList(updatedRestaurants);
 
     formReset();
