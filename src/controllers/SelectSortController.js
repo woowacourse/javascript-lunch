@@ -1,16 +1,16 @@
 import SelectField from "../components/Form/SelectField.js";
 import List from "../components/List.js";
 import { SELECT_CATEGORY, SELECT_FILTER, SELECT_SORT } from "../contants.js";
+import RestaurantRepository from "../data/RestaurantStorage.js";
 import RestaurantList from "../domain/RestaurantList.ts";
 import { formatCategory, formatFilter, formatSort } from "../utils/format.js";
-import { getRestaurantStorage } from "../utils/store.js";
 
 function SelectSortController(app, listContainerElement) {
   let currentFilter = "전체";
   let currentSort = "";
 
   function updateList() {
-    const storedRestaurants = getRestaurantStorage("restaurant");
+    const storedRestaurants = RestaurantRepository.getAll();
     const restaurantList = new RestaurantList(storedRestaurants);
 
     let filteredRestaurants = restaurantList.restaurants.filter((restaurant) => {

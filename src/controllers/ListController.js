@@ -1,10 +1,10 @@
 import List from "../components/List.js";
-import { getRestaurantStorage } from "../utils/store.js";
 import RestaurantList from "../domain/RestaurantList.ts";
 import SelectSortController from "./SelectSortController.js";
+import RestaurantRepository from "../data/RestaurantStorage.js";
 
 function ListController(app, listContainerElement, type = "all") {
-  const storedRestaurants = getRestaurantStorage("restaurant");
+  const storedRestaurants = RestaurantRepository.getAll();
   const restaurantList = new RestaurantList(storedRestaurants);
   let listElement;
 

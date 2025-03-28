@@ -2,8 +2,8 @@ import { RESTAURANT_MODAL_PROPERTY } from "../contants.js";
 import EventHandler from "../controllers/EventHandler.js";
 import ListController from "../controllers/ListController.js";
 import ModalController from "../controllers/ModalController.js";
+import RestaurantRepository from "../data/RestaurantStorage.js";
 import RestaurantList from "../domain/RestaurantList.ts";
-import { getRestaurantStorage } from "../utils/store.js";
 import Form from "./Form/Form.js";
 import ListItem from "./ListItem.js";
 
@@ -42,7 +42,7 @@ function openModal(restaurantList, restaurantId) {
     children: { formElement },
     submit: (event) => {
       const restaurantElement = document.querySelector(".restaurant");
-      const storedRestaurants = getRestaurantStorage("restaurant");
+      const storedRestaurants = RestaurantRepository.getAll();
       const restaurantList = new RestaurantList(storedRestaurants);
       restaurantList.deleteRestaurant(restaurantElement.dataset.id);
     },
