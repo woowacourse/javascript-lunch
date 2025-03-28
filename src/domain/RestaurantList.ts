@@ -21,7 +21,7 @@ class RestaurantList {
     });
     this.#restaurants.push(newRestaurant);
     const newRestaurantData: RestaurantInformation[] = this.#restaurants.map((restaurant) => restaurant.information);
-    setRestaurantStorage(newRestaurantData);
+    setRestaurantStorage('restaurant',newRestaurantData);
     return newRestaurant;
   }
 
@@ -30,7 +30,7 @@ class RestaurantList {
     if (targetIndex !== -1) {
       this.#restaurants.splice(targetIndex, 1);
       const newRestaurantData: RestaurantInformation[] = this.#restaurants.map((restaurant) => restaurant.information);
-      setRestaurantStorage(newRestaurantData);
+      setRestaurantStorage("restaurant", newRestaurantData);
     }
   }
 
@@ -39,7 +39,7 @@ class RestaurantList {
     if (targetRestaurant) {
       targetRestaurant.updateFavorite();
       const newRestaurantData: RestaurantInformation[] = this.#restaurants.map((restaurant) => restaurant.information);
-      setRestaurantStorage(newRestaurantData);
+      setRestaurantStorage("restaurant", newRestaurantData);
     }
   }
 

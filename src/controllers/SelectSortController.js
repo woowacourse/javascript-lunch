@@ -10,7 +10,7 @@ function SelectSortController(app, listContainerElement) {
   let currentSort = "";
 
   function updateList() {
-    const storedRestaurants = getRestaurantStorage();
+    const storedRestaurants = getRestaurantStorage("restaurant");
     const restaurantList = new RestaurantList(storedRestaurants);
 
     let filteredRestaurants = restaurantList.restaurants.filter((restaurant) => {

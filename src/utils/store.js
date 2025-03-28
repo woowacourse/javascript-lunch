@@ -1,12 +1,11 @@
 import { LIST_ITEM_CONTENTS } from "../contants.js";
 
-export function getRestaurantStorage() {
-  if (!localStorage.getItem("restaurant")) {
-    localStorage.setItem("restaurant", JSON.stringify(LIST_ITEM_CONTENTS));
+export function getRestaurantStorage(key) {
+  if (localStorage.getItem(key)) {
+    return JSON.parse(localStorage.getItem(key));
   }
-  return JSON.parse(localStorage.getItem("restaurant"));
 }
 
-export function setRestaurantStorage(restaurantInformation) {
-  localStorage.setItem("restaurant", JSON.stringify(restaurantInformation));
+export function setRestaurantStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
 }

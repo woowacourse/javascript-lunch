@@ -2,8 +2,9 @@ import FormItemField from "../components/Form/FormItemField.js";
 import InputField from "../components/Form/InputField.js";
 import SelectField from "../components/Form/SelectField.js";
 import TextareaField from "../components/Form/TextareaField.js";
-import { SELECT_CATEGORY, SELECT_DISTANCE } from "../contants.js";
+import { LIST_ITEM_CONTENTS, SELECT_CATEGORY, SELECT_DISTANCE } from "../contants.js";
 import { formatCategory, formatDistance } from "../utils/format.js";
+import { getRestaurantStorage, setRestaurantStorage } from "../utils/store.js";
 import HeaderController from "./HeaderController.js";
 import ListController from "./ListController.js";
 import SelectSortController from "./SelectSortController.js";
@@ -78,6 +79,9 @@ function MainController() {
   const app = document.getElementById("app");
   const listContainerElement = document.createElement("section");
   listContainerElement.classList.add("restaurant-list-container");
+  if (!getRestaurantStorage("restaurant")) {
+    setRestaurantStorage("restaurant", LIST_ITEM_CONTENTS);
+  }
 
   HeaderController(app, listContainerElement);
   TabController(app);

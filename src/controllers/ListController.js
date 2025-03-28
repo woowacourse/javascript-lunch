@@ -4,7 +4,7 @@ import RestaurantList from "../domain/RestaurantList.ts";
 import SelectSortController from "./SelectSortController.js";
 
 function ListController(app, listContainerElement, type = "all") {
-  const storedRestaurants = getRestaurantStorage();
+  const storedRestaurants = getRestaurantStorage("restaurant");
   const restaurantList = new RestaurantList(storedRestaurants);
   let listElement;
 

@@ -42,7 +42,7 @@ function openModal(restaurantList, restaurantId) {
     children: { formElement },
     submit: (event) => {
       const restaurantElement = document.querySelector(".restaurant");
-      const storedRestaurants = getRestaurantStorage();
+      const storedRestaurants = getRestaurantStorage("restaurant");
       const restaurantList = new RestaurantList(storedRestaurants);
       restaurantList.deleteRestaurant(restaurantElement.dataset.id);
     },
