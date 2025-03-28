@@ -16,7 +16,7 @@ class RestaurantList {
     return newRestaurant;
   }
 
-  get resaurants() {
+  get restaurants() {
     return [...this.#restaurants];
   }
 }
