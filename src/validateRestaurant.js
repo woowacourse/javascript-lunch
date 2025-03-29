@@ -13,6 +13,14 @@ const validateRestaurant = (newRestaurant, restaurantNames) => {
     return ERROR_MESSAGE.duplicateRestaurantName;
   }
 
+  if (newRestaurant.category === "") {
+    return ERROR_MESSAGE.emptyCategory;
+  }
+
+  if (newRestaurant.distance === "") {
+    return ERROR_MESSAGE.emptyDistance;
+  }
+
   if (
     newRestaurant.description.length > VALIDATE_SETTINGS.descriptionMaxLength
   ) {
