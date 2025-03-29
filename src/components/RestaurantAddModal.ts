@@ -5,6 +5,8 @@ import { Restaurant, Category, Distance } from "../types/restaurant.ts";
 import { restaurantManager } from "../restaurantManager.ts";
 import { $ } from "../utils/dom.ts";
 
+const MODAL_ID = "restaurant-add-dialog";
+
 type RestaurantAddModalProps = {
   restaurants: Restaurant[];
   onAddRestaurant: (updatedRestaurants: Restaurant[]) => void;
@@ -14,6 +16,11 @@ const RestaurantAddModal = ({
   restaurants,
   onAddRestaurant,
 }: RestaurantAddModalProps) => {
+  const $existingModal = $(`#${MODAL_ID}`);
+  if ($existingModal) {
+    $existingModal.remove();
+  }
+
   const resetForm = ($form: HTMLFormElement | null) => {
     if (!$form) {
       return;
@@ -78,7 +85,7 @@ const RestaurantAddModal = ({
   };
 
   const $modal = Modal({
-    id: "restaurant-add-dialog",
+    id: MODAL_ID,
     title: "새로운 음식점",
     content: RestaurantForm(),
     options: {

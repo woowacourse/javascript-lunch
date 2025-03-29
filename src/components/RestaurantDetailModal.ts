@@ -3,6 +3,8 @@ import { Restaurant } from "../types/restaurant.ts";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.ts";
 import { $ } from "../utils/dom.ts";
 
+const MODAL_ID = "restaurant-detail-dialog";
+
 const RestaurantDetailModal = (
   restaurant: Restaurant,
   onDelete: (id: string) => void,
@@ -10,7 +12,7 @@ const RestaurantDetailModal = (
 ) => {
   if (!restaurant.id) return;
 
-  const $existingModal = $("#restaurant-detail-dialog");
+  const $existingModal = $(`#${MODAL_ID}`);
   if ($existingModal) {
     $existingModal.remove();
   }
@@ -56,7 +58,7 @@ const RestaurantDetailModal = (
   const restaurantDetailContent = createDetailContent(restaurant);
 
   const $detailModal = Modal({
-    id: "restaurant-detail-dialog",
+    id: MODAL_ID,
     content: restaurantDetailContent,
     options: {
       close: {
