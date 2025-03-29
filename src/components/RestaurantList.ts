@@ -21,8 +21,6 @@ const RestaurantList = ({
   filter,
 }: RestaurantListProps) => {
   const render = () => {
-    el.innerHTML = "";
-
     const displayRestaurants =
       filter.tab === "자주 가는 음식점"
         ? restaurantManager.getFavoriteList(restaurants)
@@ -44,7 +42,7 @@ const RestaurantList = ({
       fragment.appendChild(restaurantItem);
     });
 
-    el.appendChild(fragment);
+    el.replaceChildren(fragment);
   };
 
   const handleFavorite = (id: string, isFavorite: boolean) => {
