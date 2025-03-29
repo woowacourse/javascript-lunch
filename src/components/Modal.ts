@@ -1,3 +1,5 @@
+import { createElement } from "../utils/dom.ts";
+
 type ModalProps = {
   el?: HTMLElement;
   id: string;
@@ -16,27 +18,28 @@ type ModalProps = {
 };
 
 const Modal = ({ id, title, content, options }: ModalProps) => {
-  const modal = document.createElement("dialog");
-  modal.classList.add("modal");
-  modal.id = id;
+  const $modal = createElement("dialog", {
+    class: ["modal"],
+    id: id,
+  });
 
   const cleanUp = () => {
     closeButton?.removeEventListener("click", handleClickClose);
     submitButton?.removeEventListener("click", handleSubmitClick);
-    modal.removeEventListener("click", handleClickBackDrop);
+    $modal.removeEventListener("click", handleClickBackDrop);
   };
 
   const handleClickClose = () => {
     options?.close.onClick();
     cleanUp();
-    modal.close();
+    $modal.close();
   };
 
   const handleSubmitClick = (event: Event) => {
     event.preventDefault();
     options?.submit.onClick();
     cleanUp();
-    modal.close();
+    $modal.close();
   };
 
   const handleClickBackDrop = (event: MouseEvent) => {
@@ -44,11 +47,11 @@ const Modal = ({ id, title, content, options }: ModalProps) => {
     if (!target.closest(".modal-container")) {
       options?.close.onClick();
       cleanUp();
-      modal.close();
+      $modal.close();
     }
   };
 
-  modal.innerHTML = `
+  $modal.innerHTML = `
     <div class="modal-container">
       ${title ? `<h2 class="modal-title text-title">${title}</h2>` : ""}
       <div class="modal-content">
@@ -71,14 +74,14 @@ const Modal = ({ id, title, content, options }: ModalProps) => {
     </div>
   `;
 
-  const closeButton = modal.querySelector("#modal-close-btn");
-  const submitButton = modal.querySelector("#modal-submit-btn");
+  const closeButton = $modal.querySelector("#modal-close-btn");
+  const submitButton = $modal.querySelector("#modal-submit-btn");
 
   closeButton?.addEventListener("click", handleClickClose);
   submitButton?.addEventListener("click", handleSubmitClick);
-  modal.addEventListener("click", handleClickBackDrop);
+  $modal.addEventListener("click", handleClickBackDrop);
 
-  return modal;
+  return $modal;
 };
 
 export default Modal;

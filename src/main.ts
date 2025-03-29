@@ -11,6 +11,7 @@ import {
   SortType,
 } from "./types/restaurant.ts";
 import { restaurantManager } from "./restaurantManager.ts";
+import { $ } from "./utils/dom.ts";
 
 type State = {
   tab: "모든 음식점" | "자주 가는 음식점";
@@ -26,10 +27,12 @@ const state: State = {
   restaurants: [],
 };
 
-const getRestaurantList = (): Element => {
-  const el = document.querySelector(".restaurant-list");
-  if (!el) throw new Error("음식점 목록을 찾을 수 없습니다.");
-  return el;
+const getRestaurantList = () => {
+  const $el = $(".restaurant-list");
+  if (!$el) {
+    throw new Error("음식점 목록을 찾을 수 없습니다.");
+  }
+  return $el;
 };
 
 const updateRestaurantList = (restaurants: Restaurant[]) => {
@@ -61,35 +64,33 @@ const setStateRestaurant = (restaurants: Restaurant[]) => {
 document.addEventListener("DOMContentLoaded", () => {
   state.restaurants = restaurantManager.getInitialData();
 
-  const body = document.querySelector("body");
-  const header = createHeader({ title: "점심 뭐 먹지" });
+  const $body = $("body");
+  const $header = createHeader({ title: "점심 뭐 먹지" });
 
-  const categoryFilter = body?.querySelector("#category-filter");
-  const sortingFilter = body?.querySelector("#sorting-filter");
+  const $categoryFilter = $("#category-filter");
+  const $sortingFilter = $("#sorting-filter");
 
   const tab = createTab({
     title: "모든 음식점",
     subTitle: "자주 가는 음식점",
   });
 
-  header?.after(tab);
+  $header?.after(tab);
 
   const mainTab = tab.querySelector(".tab__title");
   const subTab = tab.querySelector(".tab__subTitle");
-  const restaurantFilterContainer = document.querySelector(
-    ".restaurant-filter-container"
-  );
+  const restaurantFilterContainer = $(".restaurant-filter-container");
 
   mainTab?.classList.add("active");
 
-  categoryFilter?.addEventListener("change", (e) => {
+  $categoryFilter?.addEventListener("change", (e) => {
     const target = e.target as HTMLSelectElement;
     state.category = target.value as Category;
 
     updateRestaurantList(state.restaurants);
   });
 
-  sortingFilter?.addEventListener("change", (e) => {
+  $sortingFilter?.addEventListener("change", (e) => {
     const target = e.target as HTMLSelectElement;
     state.sortType = target.value as SortType;
 
@@ -119,9 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const handleFormSubmit = () => {
-    const addRestaurantDialogElement = document.getElementById(
-      "restaurant-add-dialog"
-    );
+    const addRestaurantDialogElement = $("#restaurant-add-dialog");
 
     if (!addRestaurantDialogElement) {
       throw new Error("다이얼로그 요소를 찾을 수 없습니다.");
@@ -181,9 +180,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const formContent = RestaurantForm();
 
   const formReset = () => {
-    const addRestaurantForm = document.querySelector<HTMLFormElement>(
+    const addRestaurantForm = $(
       "#restaurant-add-dialog form"
-    );
+    ) as HTMLFormElement;
     addRestaurantForm?.reset();
   };
 
@@ -205,9 +204,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  body?.append(addRestaurantModal);
+  $body?.append(addRestaurantModal);
 
-  const addRestaurantModalButton = header?.querySelector(".gnb__button");
+  const addRestaurantModalButton = $header?.querySelector(".gnb__button");
   addRestaurantModalButton?.addEventListener("click", () => {
     addRestaurantModal.showModal();
   });

@@ -1,0 +1,37 @@
+type Attributes = Record<
+  string,
+  string | string[] | number | boolean | Function
+>;
+
+type ElementAttributes = {
+  class?: string[];
+  textContent?: string;
+} & Attributes;
+
+export const $ = (selector: string) => document.querySelector(selector);
+
+export const createElement = <T extends keyof HTMLElementTagNameMap>(
+  tagName: T,
+  attributes: ElementAttributes = {}
+) => {
+  const $el = document.createElement(tagName);
+
+  attributes.class?.length && $el.classList.add(...attributes.class);
+  delete attributes.class;
+
+  attributes.textContent && ($el.textContent = attributes.textContent);
+
+  Object.entries(attributes).forEach(([key, value]) => {
+    if (key.startsWith("on") && typeof value === "function") {
+      const eventName = key.slice(2).toLowerCase();
+      $el.addEventListener(eventName, value as EventListener);
+      return;
+    }
+
+    if (value != null) {
+      $el.setAttribute(key, String(value));
+    }
+  });
+
+  return $el;
+};

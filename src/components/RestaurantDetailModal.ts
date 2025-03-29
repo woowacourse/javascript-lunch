@@ -1,6 +1,7 @@
 import Modal from "./Modal.ts";
 import { Restaurant } from "../types/restaurant.ts";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.ts";
+import { $ } from "../utils/dom.ts";
 
 export const RestaurantDetailModal = (
   restaurant: Restaurant,
@@ -9,9 +10,9 @@ export const RestaurantDetailModal = (
 ) => {
   if (!restaurant.id) return;
 
-  const existingModal = document.getElementById("restaurant-detail-dialog");
-  if (existingModal) {
-    existingModal.remove();
+  const $existingModal = $("#restaurant-detail-dialog");
+  if ($existingModal) {
+    $existingModal.remove();
   }
 
   const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[restaurant.category];

@@ -1,5 +1,6 @@
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.ts";
 import { Restaurant } from "../types/restaurant.ts";
+import { createElement } from "../utils/dom.ts";
 
 type RestaurantItemProps = {
   restaurantItem: Restaurant;
@@ -18,9 +19,11 @@ const RestaurantItem = ({
   if (!id) {
     throw new Error("id가 없습니다.");
   }
-  const li = document.createElement("li");
-  li.classList.add("restaurant");
-  li.id = id;
+
+  const $li = createElement("li", {
+    class: ["restaurant"],
+    id: id,
+  });
 
   const mappedImage = IMAGE_SRC_BY_RESTAURANTS_CATEGORY[category];
 
@@ -28,7 +31,7 @@ const RestaurantItem = ({
     ? "images/favorite-icon-filled.png"
     : "images/favorite-icon-lined.png";
 
-  li.innerHTML = `
+  $li.innerHTML = `
     <div class="restaurant__category">
       <img src="${mappedImage}" alt="${category}" class="category-icon" />
     </div>
@@ -48,7 +51,7 @@ const RestaurantItem = ({
       </div>
     `;
 
-  const favoriteIcon = li.querySelector(".favorite-icon");
+  const favoriteIcon = $li.querySelector(".favorite-icon");
   if (favoriteIcon instanceof HTMLImageElement) {
     favoriteIcon.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -57,11 +60,11 @@ const RestaurantItem = ({
     });
   }
 
-  li.addEventListener("click", () => {
+  $li.addEventListener("click", () => {
     onShowDetail(id);
   });
 
-  return li;
+  return $li;
 };
 
 export default RestaurantItem;
