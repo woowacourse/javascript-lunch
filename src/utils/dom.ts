@@ -20,6 +20,10 @@ export const createElement = <T extends keyof HTMLElementTagNameMap>(
   delete attributes.class;
 
   attributes.textContent && ($el.textContent = attributes.textContent);
+  delete attributes.textContent;
+
+  attributes.innerHTML && ($el.innerHTML = String(attributes.innerHTML));
+  delete attributes.innerHTML;
 
   Object.entries(attributes).forEach(([key, value]) => {
     if (key.startsWith("on") && typeof value === "function") {
