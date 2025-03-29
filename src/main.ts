@@ -1,15 +1,8 @@
 import createHeader from "./components/Header.ts";
 import createTab from "./components/Tab.ts";
 import RestaurantList from "./components/RestaurantList.ts";
-import RestaurantForm from "./components/RestaurantForm.ts";
-import Modal from "./components/Modal.ts";
-import validateRestaurant from "./validateRestaurant.js";
-import {
-  Category,
-  Distance,
-  Restaurant,
-  SortType,
-} from "./types/restaurant.ts";
+import RestaurantAddModal from "./components/RestaurantAddModal.ts";
+import { Category, Restaurant, SortType } from "./types/restaurant.ts";
 import { restaurantManager } from "./restaurantManager.ts";
 import { $ } from "./utils/dom.ts";
 
@@ -64,7 +57,6 @@ const setStateRestaurant = (restaurants: Restaurant[]) => {
 document.addEventListener("DOMContentLoaded", () => {
   state.restaurants = restaurantManager.getInitialData();
 
-  const $body = $("body");
   const $header = createHeader({ title: "점심 뭐 먹지" });
 
   const $categoryFilter = $("#category-filter");
@@ -119,96 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
     restaurantFilterContainer?.classList.add("hidden");
   });
 
-  const handleFormSubmit = () => {
-    const addRestaurantDialogElement = $("#restaurant-add-dialog");
+  const addRestaurantModalButton = $(".gnb__button");
 
-    if (!addRestaurantDialogElement) {
-      throw new Error("다이얼로그 요소를 찾을 수 없습니다.");
-    }
-
-    const nameInput =
-      addRestaurantDialogElement.querySelector<HTMLInputElement>("#name");
-    const descriptionInput =
-      addRestaurantDialogElement.querySelector<HTMLTextAreaElement>(
-        "#description"
-      );
-    const categoryInput =
-      addRestaurantDialogElement.querySelector<HTMLSelectElement>("#category");
-    const distanceInput =
-      addRestaurantDialogElement.querySelector<HTMLSelectElement>("#distance");
-    const linkInput =
-      addRestaurantDialogElement.querySelector<HTMLInputElement>("#link");
-
-    const restaurantsNameList = state.restaurants.map(
-      (restaurant: Restaurant) => restaurant.name
-    );
-
-    if (
-      !nameInput ||
-      !descriptionInput ||
-      !categoryInput ||
-      !distanceInput ||
-      !linkInput
-    ) {
-      throw new Error("필요한 입력 요소 중 하나 이상을 찾을 수 없습니다.");
-    }
-
-    const newRestaurant = {
-      id: restaurantManager.getUniqueId(),
-      category: categoryInput.value as Category,
-      name: nameInput.value,
-      distance: Number(distanceInput.value) as Distance,
-      description: descriptionInput.value,
-      link: linkInput.value,
-      isFavorite: false,
-    };
-
-    const errorMessage = validateRestaurant(newRestaurant, restaurantsNameList);
-    if (errorMessage) {
-      alert(errorMessage);
-      return;
-    }
-
-    const updatedRestaurants = [...state.restaurants, newRestaurant];
-
-    restaurantManager.add(newRestaurant);
-    updateRestaurantList(updatedRestaurants);
-
-    formReset();
-  };
-
-  const formContent = RestaurantForm();
-
-  const formReset = () => {
-    const addRestaurantForm = $(
-      "#restaurant-add-dialog form"
-    ) as HTMLFormElement;
-    addRestaurantForm?.reset();
-  };
-
-  const addRestaurantModal = Modal({
-    id: "restaurant-add-dialog",
-    title: "새로운 음식점",
-    content: formContent,
-    options: {
-      close: {
-        label: "취소하기",
-        onClick: () => {
-          formReset();
-        },
-      },
-      submit: {
-        label: "추가하기",
-        onClick: handleFormSubmit,
-      },
-    },
-  });
-
-  $body?.append(addRestaurantModal);
-
-  const addRestaurantModalButton = $header?.querySelector(".gnb__button");
   addRestaurantModalButton?.addEventListener("click", () => {
-    addRestaurantModal.showModal();
+    RestaurantAddModal({
+      restaurants: state.restaurants,
+      onAddRestaurant: updateRestaurantList,
+    });
   });
 
   updateRestaurantList(state.restaurants);

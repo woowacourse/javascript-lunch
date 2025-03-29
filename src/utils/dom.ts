@@ -8,7 +8,8 @@ type ElementAttributes = {
   textContent?: string;
 } & Attributes;
 
-export const $ = (selector: string) => document.querySelector(selector);
+export const $ = <T extends HTMLElement = HTMLElement>(selector: string) =>
+  document.querySelector<T>(selector);
 
 export const createElement = <T extends keyof HTMLElementTagNameMap>(
   tagName: T,

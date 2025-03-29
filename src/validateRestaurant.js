@@ -17,7 +17,7 @@ const validateRestaurant = (newRestaurant, restaurantNames) => {
     return ERROR_MESSAGE.emptyCategory;
   }
 
-  if (newRestaurant.distance === "") {
+  if (newRestaurant.distance === 0) {
     return ERROR_MESSAGE.emptyDistance;
   }
 

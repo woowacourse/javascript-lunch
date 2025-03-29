@@ -3,7 +3,7 @@ import { Restaurant } from "../types/restaurant.ts";
 import { IMAGE_SRC_BY_RESTAURANTS_CATEGORY } from "../constants/constants.ts";
 import { $ } from "../utils/dom.ts";
 
-export const RestaurantDetailModal = (
+const RestaurantDetailModal = (
   restaurant: Restaurant,
   onDelete: (id: string) => void,
   onFavorite: (id: string, isFavorite: boolean) => void
@@ -45,7 +45,7 @@ export const RestaurantDetailModal = (
         ${
           currentRestaurant.link
             ? `<p class="detail-modal-link">
-                <a href="${currentRestaurant.link}"target="_blank">${currentRestaurant.link}</a>
+                <a href="${currentRestaurant.link}" target="_blank">${currentRestaurant.link}</a>
               </p>`
             : ""
         }
@@ -55,46 +55,51 @@ export const RestaurantDetailModal = (
 
   const restaurantDetailContent = createDetailContent(restaurant);
 
-  const detailModal = Modal({
+  const $detailModal = Modal({
     id: "restaurant-detail-dialog",
     content: restaurantDetailContent,
     options: {
       close: {
         label: "닫기",
-        onClick: () => detailModal.close(),
+        onClick: () => $detailModal.close(),
       },
       submit: {
         label: "삭제하기",
         onClick: () => {
-          onDelete(restaurant.id as string);
+          if (!restaurant.id) return;
+          onDelete(restaurant.id);
+          $detailModal.close();
         },
       },
     },
   });
 
-  const body = document.body;
-  if (!body) return;
+  const setupFavoriteIcon = () => {
+    const modalFavoriteIcon = $detailModal.querySelector(".favorite-icon");
+    if (modalFavoriteIcon instanceof HTMLImageElement) {
+      modalFavoriteIcon.addEventListener("click", (e: Event) => {
+        e.stopPropagation();
 
-  body.append(detailModal);
-  detailModal.showModal();
+        if (!restaurant.id) return;
 
-  const modalFavoriteIcon = detailModal.querySelector(".favorite-icon");
-  if (modalFavoriteIcon instanceof HTMLImageElement) {
-    modalFavoriteIcon.addEventListener("click", (e: Event) => {
-      e.stopPropagation();
+        const isFavorite = modalFavoriteIcon.dataset.favorite === "true";
+        const toggledIsFavorite = !isFavorite;
 
-      if (!restaurant.id) return;
+        modalFavoriteIcon.src = toggledIsFavorite
+          ? "images/favorite-icon-filled.png"
+          : "images/favorite-icon-lined.png";
+        modalFavoriteIcon.dataset.favorite = String(toggledIsFavorite);
 
-      const isFavorite = modalFavoriteIcon.dataset.favorite === "true";
-      const toggledIsFavorite = !isFavorite;
+        onFavorite(restaurant.id, toggledIsFavorite);
+      });
+    }
+  };
 
-      modalFavoriteIcon.src = toggledIsFavorite
-        ? "images/favorite-icon-filled.png"
-        : "images/favorite-icon-lined.png";
-      modalFavoriteIcon.dataset.favorite = String(toggledIsFavorite);
-
-      onFavorite(restaurant.id, toggledIsFavorite);
-    });
+  const body = $("body");
+  if (body) {
+    body.append($detailModal);
+    setupFavoriteIcon();
+    $detailModal.showModal();
   }
 };
 

@@ -23,30 +23,20 @@ const Modal = ({ id, title, content, options }: ModalProps) => {
     id: id,
   });
 
-  const cleanUp = () => {
-    closeButton?.removeEventListener("click", handleClickClose);
-    submitButton?.removeEventListener("click", handleSubmitClick);
-    $modal.removeEventListener("click", handleClickBackDrop);
-  };
-
   const handleClickClose = () => {
     options?.close.onClick();
-    cleanUp();
     $modal.close();
   };
 
   const handleSubmitClick = (event: Event) => {
     event.preventDefault();
     options?.submit.onClick();
-    cleanUp();
-    $modal.close();
   };
 
   const handleClickBackDrop = (event: MouseEvent) => {
     const target = event.target as Element;
     if (!target.closest(".modal-container")) {
       options?.close.onClick();
-      cleanUp();
       $modal.close();
     }
   };
