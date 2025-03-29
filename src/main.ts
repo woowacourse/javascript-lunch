@@ -1,8 +1,8 @@
 import createHeader from "./components/Header.ts";
 import createTab from "./components/Tab.ts";
 import RestaurantList from "./components/RestaurantList.ts";
+import RestaurantForm from "./components/RestaurantForm.ts";
 import Modal from "./components/Modal.ts";
-import { createForm } from "./components/Form.ts";
 import validateRestaurant from "./validateRestaurant.js";
 import {
   Category,
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formReset();
   };
 
-  const formContent = createForm();
+  const formContent = RestaurantForm();
 
   const formReset = () => {
     const addRestaurantForm = document.querySelector<HTMLFormElement>(

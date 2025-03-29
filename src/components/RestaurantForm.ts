@@ -1,6 +1,6 @@
 import { CATEGORY_OPTIONS, DISTANCE_OPTIONS } from "../constants/constants.ts";
 
-const createForm = () => {
+const RestaurantForm = () => {
   const getCategoryOptions = () => {
     return `<option value="">선택해 주세요</option>
               ${CATEGORY_OPTIONS.map(
@@ -55,4 +55,4 @@ const createForm = () => {
   return html;
 };
 
-export { createForm };
+export default RestaurantForm;
