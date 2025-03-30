@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, VALIDATE_SETTINGS } from "./constants/constants.js";
+import { ERROR_MESSAGE, VALIDATE_SETTINGS } from "./constants/constants.ts";
 
 const validateRestaurant = (newRestaurant, restaurantNames) => {
   if (newRestaurant.name.length < VALIDATE_SETTINGS.nameMinLength) {
@@ -17,11 +17,13 @@ const validateRestaurant = (newRestaurant, restaurantNames) => {
     return ERROR_MESSAGE.emptyCategory;
   }
 
-  if (newRestaurant.distance === "") {
+  if (newRestaurant.distance === 0) {
     return ERROR_MESSAGE.emptyDistance;
   }
 
-  if (newRestaurant.description.length > VALIDATE_SETTINGS.descriptionMaxLength) {
+  if (
+    newRestaurant.description.length > VALIDATE_SETTINGS.descriptionMaxLength
+  ) {
     return ERROR_MESSAGE.descriptionMaxLength;
   }
 
@@ -29,4 +31,3 @@ const validateRestaurant = (newRestaurant, restaurantNames) => {
 };
 
 export default validateRestaurant;
-
